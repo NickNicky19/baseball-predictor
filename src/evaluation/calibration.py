@@ -43,6 +43,7 @@ class CalibrationConfig:
     bias_shrinkage: float = 0.40
     min_samples_per_category: int = 25
     min_pa_for_rate_calibration: int = 200
+    coefficient_shrinkage: float = 0.30  # shrinkage for HR/hit-type/Statcast scale fits
 
     @classmethod
     def from_config(cls, config: dict[str, Any]) -> CalibrationConfig:
@@ -53,6 +54,7 @@ class CalibrationConfig:
             bias_shrinkage=float(calibration.get("bias_shrinkage", 0.40)),
             min_samples_per_category=int(calibration.get("min_samples_per_category", 25)),
             min_pa_for_rate_calibration=int(calibration.get("min_pa_for_rate_calibration", 200)),
+            coefficient_shrinkage=float(calibration.get("coefficient_shrinkage", 0.30)),
         )
 
 
@@ -173,6 +175,83 @@ class CalibrationEngine:
             }
         )
 
+    def calibrate_hr_coefficients(
+        self,
+        backtest_report: BacktestReport,
+    ) -> PASimulatorConfig:
+        """
+        Adjust HR logit weights from home_runs and hrr backtest bias.
+
+        Positive mean_error → model over-predicts → reduce hr_hitter_power/hr_quality.
+        """
+        cfg = self.pa_config
+        shrink = self.settings.coefficient_shrinkage
+        delta = 0.0
+
+        for category, weight in (("home_runs", 1.0), ("hrr", 0.55)):
+            metrics = backtest_report.metrics_by_category.get(category)  # type: ignore[arg-type]
+            if not metrics or metrics.n_samples < self.settings.min_samples_per_category:
+                continue
+            delta += (-metrics.mean_error) * weight * shrink
+
+        return PASimulatorConfig(
+            **{
+                **asdict(cfg),
+                "hr_hitter_power": cfg.hr_hitter_power + delta * 0.12,
+                "hr_quality": cfg.hr_quality + delta * 0.08,
+                "hr_park": cfg.hr_park + delta * 0.05,
+            }
+        )
+
+    def calibrate_hit_type_weights(
+        self,
+        backtest_report: BacktestReport,
+    ) -> PASimulatorConfig:
+        """Tune BIP hit-type split weights from hits category bias."""
+        cfg = self.pa_config
+        metrics = backtest_report.metrics_by_category.get("hits")
+        if not metrics or metrics.n_samples < self.settings.min_samples_per_category:
+            return cfg
+
+        shrink = self.settings.coefficient_shrinkage
+        correction = -metrics.mean_error * shrink
+
+        return PASimulatorConfig(
+            **{
+                **asdict(cfg),
+                "single_base_weight": max(cfg.single_weight_floor, cfg.single_base_weight + correction * 0.04),
+                "double_power_bonus": cfg.double_power_bonus + correction * 0.03,
+                "single_power_penalty": cfg.single_power_penalty - correction * 0.02,
+            }
+        )
+
+    def calibrate_statcast_scales(
+        self,
+        backtest_report: BacktestReport,
+    ) -> PASimulatorConfig:
+        """Scale Statcast feature weights from HR/HRR error jointly."""
+        cfg = self.pa_config
+        shrink = self.settings.coefficient_shrinkage
+        hr_metrics = backtest_report.metrics_by_category.get("home_runs")
+        hrr_metrics = backtest_report.metrics_by_category.get("hrr")
+        if not hr_metrics and not hrr_metrics:
+            return cfg
+
+        delta = 0.0
+        if hr_metrics and hr_metrics.n_samples >= self.settings.min_samples_per_category:
+            delta += -hr_metrics.mean_error * shrink
+        if hrr_metrics and hrr_metrics.n_samples >= self.settings.min_samples_per_category:
+            delta += -hrr_metrics.mean_error * shrink * 0.5
+
+        return PASimulatorConfig(
+            **{
+                **asdict(cfg),
+                "barrel_scale": max(0.5, cfg.barrel_scale + delta * 0.15),
+                "xwoba_scale": max(0.5, cfg.xwoba_scale + delta * 0.10),
+                "hard_hit_scale": max(0.5, cfg.hard_hit_scale + delta * 0.08),
+            }
+        )
+
     def calibrate_category_biases(
         self,
         backtest_report: BacktestReport,
@@ -208,9 +287,13 @@ class CalibrationEngine:
         if league_observations is not None and not league_observations.empty:
             league = self.calibrate_league_baselines(league_observations)
 
-        pa_config = self.pa_config
         if predicted_pa_rates and observed_pa_rates:
-            pa_config = self.calibrate_pa_intercepts(predicted_pa_rates, observed_pa_rates)
+            self.pa_config = self.calibrate_pa_intercepts(predicted_pa_rates, observed_pa_rates)
+
+        self.pa_config = self.calibrate_hr_coefficients(backtest_report)
+        self.pa_config = self.calibrate_hit_type_weights(backtest_report)
+        self.pa_config = self.calibrate_statcast_scales(backtest_report)
+        pa_config = self.pa_config
 
         biases = self.calibrate_category_biases(backtest_report)
         sample_sizes = {

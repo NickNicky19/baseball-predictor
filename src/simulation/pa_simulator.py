@@ -10,10 +10,15 @@ from __future__ import annotations
 
 import math
 import random
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from typing import TYPE_CHECKING, Optional
 
-from src.models.dataclasses import LeagueBaselines, PAOutcome, StatcastProfile
+from src.models.dataclasses import (
+    LeagueBaselines,
+    PAOutcome,
+    StatcastDistributionProfile,
+    StatcastProfile,
+)
 
 if TYPE_CHECKING:
     from src.simulation.base_state import BaseState
@@ -91,8 +96,47 @@ class PASimulatorConfig:
 
     @classmethod
     def from_league(cls, league: LeagueBaselines, **overrides: float) -> PASimulatorConfig:
-        """Build config with optional overrides while keeping default coefficient structure."""
-        return cls(**overrides)
+        """
+        Build config with intercepts and scales derived from league baselines.
+
+        Intercepts are inverse-logit targets at league-average latent skill (z=0).
+        Scales normalize typical rate deviations using league anchor magnitudes.
+        """
+        k_rate = max(0.05, min(0.45, league.k_pct / 100.0))
+        bb_rate = max(0.02, min(0.18, league.bb_pct / 100.0))
+        bip_rate = max(0.35, 1.0 - k_rate - bb_rate)
+        pa_per_ip = 4.2
+        hr_per_pa = max(0.002, (league.hr_per_9 / 9.0) / pa_per_ip)
+        hr_on_bip = max(0.003, min(0.14, hr_per_pa / bip_rate))
+
+        contact_anchor = max(0.01, league.contact_rate)
+        barrel_anchor = max(0.01, league.barrel_rate)
+        xwoba_anchor = max(0.01, abs(league.xwoba))
+        xslg_anchor = max(0.01, abs(league.xslg))
+
+        derived = cls(
+            k_intercept=_logit(k_rate),
+            bb_intercept=_logit(bb_rate),
+            hr_intercept=_logit(hr_on_bip),
+            contact_scale=1.0 / max(contact_anchor * 0.08, 0.01),
+            power_scale=1.0 / max(barrel_anchor, 0.01),
+            speed_scale=1.0 / max(barrel_anchor * 0.6, 0.01),
+            pitcher_k_scale=max(league.k_pct, 1.0),
+            pitcher_bb_scale=max(league.bb_pct, 1.0),
+            xwoba_scale=1.0 / max(xwoba_anchor * 0.08, 0.01),
+            xslg_scale=1.0 / max(xslg_anchor * 0.08, 0.01),
+            barrel_scale=1.0 / max(barrel_anchor, 0.01),
+            hard_hit_scale=1.0 / max(league.hard_hit_rate * 0.08, 0.01),
+            k_min=max(0.05, k_rate * 0.55),
+            k_max=min(0.50, k_rate * 1.85),
+            bb_min=max(0.02, bb_rate * 0.55),
+            bb_max=min(0.20, bb_rate * 1.85),
+            hr_min=max(0.002, hr_on_bip * 0.45),
+            hr_max=min(0.14, hr_on_bip * 2.20),
+        )
+        if overrides:
+            return cls(**{**asdict(derived), **overrides})
+        return derived
 
 
 class HybridPASimulator:
@@ -134,8 +178,6 @@ class HybridPASimulator:
         overrides are supplied. pitcher_hr_per_9 is reserved for future
         pitcher-HR skill integration in the HR logit.
         """
-        _ = pitcher_hr_per_9  # wired in Phase 3 game simulator
-
         pitcher_k = pitcher_k_pct if pitcher_k_pct is not None else self.league.k_pct
         pitcher_bb = pitcher_bb_pct if pitcher_bb_pct is not None else self.league.bb_pct
 
@@ -162,7 +204,12 @@ class HybridPASimulator:
         if roll < k_prob + bb_prob:
             return PAOutcome("walk", "Walk")
 
-        hr_prob = self._calculate_hr_prob(latent, park_hr_factor)
+        hr_prob = self._calculate_hr_prob(
+            latent,
+            park_hr_factor,
+            statcast=statcast,
+            pitcher_hr_per_9=pitcher_hr_per_9,
+        )
         if self.rng.random() < hr_prob:
             return PAOutcome("home_run", "Home Run")
 
@@ -192,7 +239,11 @@ class HybridPASimulator:
             statcast=statcast,
         )
         k_prob, bb_prob = self._calculate_k_bb_probs(latent)
-        hr_prob = self._calculate_hr_prob(latent, park_hr_factor)
+        hr_prob = self._calculate_hr_prob(
+            latent,
+            park_hr_factor,
+            statcast=statcast,
+        )
         return {
             "k_prob": k_prob,
             "bb_prob": bb_prob,
@@ -276,7 +327,13 @@ class HybridPASimulator:
         bb_prob = self._clamp(self._sigmoid(bb_logit), cfg.bb_min, cfg.bb_max)
         return k_prob, bb_prob
 
-    def _calculate_hr_prob(self, latent: dict[str, float], park_hr_factor: float) -> float:
+    def _calculate_hr_prob(
+        self,
+        latent: dict[str, float],
+        park_hr_factor: float,
+        statcast: Optional[StatcastProfile] = None,
+        pitcher_hr_per_9: Optional[float] = None,
+    ) -> float:
         cfg = self.config
         hr_logit = (
             cfg.hr_intercept
@@ -287,6 +344,19 @@ class HybridPASimulator:
             + cfg.hr_handedness * latent["handedness"]
             + cfg.hr_quality * latent["H_quality"]
         )
+
+        if pitcher_hr_per_9 is not None:
+            pitcher_hr_skill = (pitcher_hr_per_9 - self.league.hr_per_9) / max(self.league.hr_per_9, 0.5)
+            hr_logit -= cfg.hr_pitcher_miss * pitcher_hr_skill
+
+        dist = statcast.distribution if statcast and statcast.distribution else None
+        if dist and dist.sample_bip > 0:
+            quality = dist.quality_score()
+            hr_logit += cfg.hr_quality * quality * 2.0
+            ev_boost = max(0.0, (dist.exit_velocity_mean - 88.0) / 12.0)
+            la_penalty = abs(dist.launch_angle_mean - 20.0) / 30.0
+            hr_logit += cfg.hr_hitter_power * (ev_boost - la_penalty * 0.35)
+
         return self._clamp(self._sigmoid(hr_logit), cfg.hr_min, cfg.hr_max)
 
     def _sample_hit_type(self, latent: dict[str, float]) -> PAOutcome:
@@ -343,6 +413,11 @@ class HybridPASimulator:
     @staticmethod
     def _clamp(x: float, lo: float, hi: float) -> float:
         return max(lo, min(hi, x))
+
+
+def _logit(p: float) -> float:
+    p = max(0.001, min(0.999, p))
+    return math.log(p / (1.0 - p))
 
 
 # Backward compatibility alias

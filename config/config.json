@@ -29,7 +29,24 @@
     "platoon_ip_target": 25,
     "recent_form_exponent": 0.35
   },
+  "simulation_slot_pa": {
+    "1": 1.117,
+    "2": 1.085,
+    "3": 1.068,
+    "4": 1.029,
+    "5": 1.0,
+    "6": 0.964,
+    "7": 0.947,
+    "8": 0.932,
+    "9": 0.951,
+    "shrinkage": 0.4,
+    "use_empirical_prior": true
+  },
   "park_factors": {
+    "estimation_mode": "static",
+    "estimation_shrinkage": 0.35,
+    "min_games": 8,
+    "blend_with_static": 0.5,
     "Coors Field": {
       "hits": 1.12,
       "hr": 1.25,
@@ -98,6 +115,7 @@
       "unknown": 1.25
     },
     "use_slot_pa_factors": true,
+    "use_simulation_slot_pa": true,
     "min_order_length_confirmed": 9,
     "min_order_length_projected": 7
   },
@@ -220,8 +238,15 @@
     "league_shrinkage": 0.35,
     "pa_intercept_shrinkage": 0.25,
     "bias_shrinkage": 0.40,
+    "coefficient_shrinkage": 0.30,
     "min_samples_per_category": 25,
     "min_pa_for_rate_calibration": 200
+  },
+  "validation": {
+    "walk_forward_folds": 5,
+    "test_window_days": 7,
+    "min_fold_samples": 20,
+    "champion_improvement_threshold": 0.02
   },
   "pitcher_regression": {
     "season_k9_blend": 0.75,

@@ -38,6 +38,9 @@ The model can learn from historical prediction–outcome pairs via `OutcomeRetra
 | **Backtesting & calibration** | `BacktestEngine` and `CalibrationEngine` for structured evaluation and parameter fitting |
 | **Retrain runner** | `run_retrain.py` + `RetrainRunner` for fitting and saving corrections from historical pairs |
 | **Lineup intelligence** | Confirmed vs projected lineup toggle with stats-driven PA/confidence/simulation adjustments |
+| **Statistical purification** | League-derived PA coefficients, dynamic park/slot PA estimation, expanded calibration |
+| **Context enrichment** | Weather, umpire, injury clients; Statcast launch-angle/exit-velo distributions |
+| **Validation infrastructure** | Walk-forward validation, champion/challenger testing, calibration tracking, ROI simulation |
 | **Production CLI** | `run_daily.py` with console/CSV/JSON output, corrections toggle, projected lineups flag |
 | **Injectable dependencies** | All major components accept mocks for offline testing and backtests |
 

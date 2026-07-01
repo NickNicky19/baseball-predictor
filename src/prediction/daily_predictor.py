@@ -13,10 +13,16 @@ from datetime import date
 from pathlib import Path
 from typing import Any, Optional
 
-from src.data.mlb_api import MLBStatsAPI, PitchingStatsSnapshot
+import pandas as pd
+
+from src.data.injury_client import InjuryClient
+from src.data.mlb_api import MLBStatsAPI
 from src.data.odds import CompositeOddsProvider
-from src.learning.outcome_recorder import OutcomeRecorder
 from src.data.savant import SavantClient
+from src.data.umpire_client import UmpireClient
+from src.data.weather_client import WeatherClient
+from src.evaluation.park_factor_estimator import ParkFactorEstimator, ParkFactorSettings
+from src.learning.outcome_recorder import OutcomeRecorder
 from src.features.feature_store import FeatureStore
 from src.features.lineup_intelligence import LineupIntelligence
 from src.features.statcast_features import StatcastFeatureEngine
@@ -65,6 +71,9 @@ class DailyPredictor:
         feature_store: Optional[FeatureStore] = None,
         league_baselines: Optional[LeagueBaselines] = None,
         correction_manager: Optional[CorrectionManager] = None,
+        weather_client: Optional[WeatherClient] = None,
+        umpire_client: Optional[UmpireClient] = None,
+        injury_client: Optional[InjuryClient] = None,
     ):
         self.config = config or self._load_config(config_path)
         self.config_path = config_path
@@ -91,6 +100,11 @@ class DailyPredictor:
         self.correction_manager = correction_manager or CorrectionManager.from_config(
             self.config,
         )
+        self.weather_client = weather_client or WeatherClient()
+        self.umpire_client = umpire_client or UmpireClient()
+        self.injury_client = injury_client or InjuryClient()
+        self._park_estimator = ParkFactorEstimator(ParkFactorSettings.from_config(self.config))
+        self._estimated_park_factors: dict[str, ParkFactors] = {}
 
     def predict(
         self,
@@ -234,20 +248,35 @@ class DailyPredictor:
 
         bundles: list[PlayerFeatureBundle] = []
         for hitter in hitters:
+            if not self.injury_client.is_available(hitter.player.mlb_id):
+                logger.debug("Skipping injured/inactive player %s", hitter.player.name)
+                continue
+
             statcast = profiles[hitter.player.mlb_id]
             pitcher_statcast = self._resolve_opposing_pitcher_statcast(hitter)
+            weather = self.weather_client.get_weather_for_game(
+                hitter.game.game_pk,
+                hitter.game.venue,
+                game_date,
+            )
+            umpire = self.umpire_client.get_umpire_for_game(hitter.game.game_pk)
+            injury = self.injury_client.get_injury_status(hitter.player.mlb_id)
+            weather_hr = self.weather_client.hr_factor_from_weather(weather)
+
             base_bundle = PlayerFeatureBundle(
                 hitter=hitter,
                 statcast=statcast,
                 park=self._park_factors(hitter.game.venue),
-                weather=WeatherContext(
-                    venue=hitter.game.venue,
-                    game_date=game_date,
-                ),
+                weather=weather,
                 matchup=self._matchup_context(hitter),
+                umpire=umpire,
+                injury=injury,
                 pitcher_statcast=pitcher_statcast,
                 expected_pa=self.league.pa_per_game,
-                metadata={"lineup_status": hitter.game.lineup_status},
+                metadata={
+                    "lineup_status": hitter.game.lineup_status,
+                    "weather_hr_factor": weather_hr,
+                },
             )
             bundles.append(self.lineup_intelligence.apply_to_bundle(base_bundle))
         return bundles
@@ -445,11 +474,39 @@ class DailyPredictor:
             recent_form_multiplier=1.0,
         )
 
+    def load_estimated_park_factors(self, pairs_path: str | Path) -> None:
+        """
+        Fit dynamic park factors from a historical pairs CSV.
+
+        Requires columns: ``venue``, ``category``, ``actual_value``.
+        Respects ``park_factors.estimation_shrinkage``, ``min_games``, and
+        ``blend_with_static`` from config.
+        """
+        path = Path(pairs_path)
+        if not path.exists():
+            logger.warning("Pairs file not found for park estimation: %s", path)
+            return
+        pairs = pd.read_csv(path)
+        static = self.config.get("park_factors", {})
+        static_venues = {k: v for k, v in static.items() if isinstance(v, dict)}
+        estimated = self._park_estimator.estimate_from_pairs(pairs)
+        self._estimated_park_factors = self._park_estimator.blend_with_static(
+            estimated,
+            static_venues,
+        )
+        logger.info("Loaded %d estimated park factor venues", len(self._estimated_park_factors))
+
     def _park_factors(self, venue: str) -> ParkFactors:
+        if self._estimated_park_factors:
+            venue_lower = venue.lower()
+            for name, factors in self._estimated_park_factors.items():
+                if name.lower() in venue_lower:
+                    return factors
+
         park_config = self.config.get("park_factors", {})
         venue_lower = venue.lower()
         for park_name, factors in park_config.items():
-            if park_name.lower() in venue_lower:
+            if isinstance(factors, dict) and park_name.lower() in venue_lower:
                 return ParkFactors(
                     venue=venue,
                     hits_factor=float(factors.get("hits", 1.0)),

@@ -103,8 +103,8 @@ def _predictor(api: LineupModeMLBAPI) -> DailyPredictor:
         prop_engine=engine,
         config={
             "season": 2026,
-            "lineup_intelligence": {},
-            "lineup_slot_runs_rbi": {str(i): {"runs": 1.0, "rbi": 1.0} for i in range(1, 10)},
+            "lineup_intelligence": {"use_simulation_slot_pa": True},
+            "simulation_slot_pa": {str(i): 1.0 for i in range(1, 10)},
         },
     )
 

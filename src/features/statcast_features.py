@@ -14,6 +14,7 @@ from typing import Optional
 import pandas as pd
 
 from src.data.savant import SavantClient
+from src.data.statcast_distributions import StatcastDistributionBuilder
 from src.models.dataclasses import (
     HitterGameContext,
     LeagueBaselines,
@@ -48,9 +49,12 @@ class StatcastFeatureEngine:
     def build_profiles_from_statcast_df(
         self, statcast_df: pd.DataFrame
     ) -> dict[int, StatcastProfile]:
-        """Aggregate a Statcast DataFrame into player profiles."""
+        """Aggregate a Statcast DataFrame into player profiles with distributions."""
         raw = self.savant.build_hitter_profiles_from_statcast(statcast_df)
-        return {pid: self.enrich_profile(p) for pid, p in raw.items()}
+        dist_builder = StatcastDistributionBuilder()
+        distributions = dist_builder.build_from_statcast_df(statcast_df)
+        merged = dist_builder.attach_to_profiles(raw, distributions)
+        return {pid: self.enrich_profile(p) for pid, p in merged.items()}
 
     def build_profiles_for_date(
         self,

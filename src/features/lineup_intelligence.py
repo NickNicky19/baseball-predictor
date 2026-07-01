@@ -208,19 +208,21 @@ class LineupIntelligence:
         return base * min(1.0, order_length / max(self.settings.min_order_length_confirmed, 1))
 
     def _slot_pa_factor(self, lineup_slot: int) -> float:
-        """Derive PA opportunity from config lineup_slot_runs_rbi run weights."""
-        slot_cfg = self.config.get("lineup_slot_runs_rbi", {})
-        runs_by_slot: list[float] = []
-        for slot in range(1, 10):
-            entry = slot_cfg.get(str(slot), {})
-            runs_by_slot.append(float(entry.get("runs", 1.0)))
-        if not runs_by_slot:
-            return 1.0
-        avg_runs = sum(runs_by_slot) / len(runs_by_slot)
-        if avg_runs <= 0:
-            return 1.0
-        idx = max(1, min(9, lineup_slot)) - 1
-        return runs_by_slot[idx] / avg_runs
+        """
+        Derive PA opportunity from simulation_slot_pa (preferred) or empirical prior.
+
+        lineup_slot_runs_rbi is deprecated — simulation drives runs/RBI via BaseState.
+        """
+        from src.evaluation.slot_pa_estimator import SlotPAEstimator
+
+        slot_cfg = self.config.get("simulation_slot_pa", {})
+        use_sim = self.config.get("lineup_intelligence", {}).get("use_simulation_slot_pa", True)
+        if use_sim and slot_cfg:
+            raw = slot_cfg.get(str(lineup_slot))
+            if isinstance(raw, (int, float)):
+                return float(raw)
+
+        return SlotPAEstimator.from_config(self.config).slot_pa_factor(lineup_slot)
 
     @staticmethod
     def _infer_order_length(status: LineupStatus) -> int:

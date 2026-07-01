@@ -87,6 +87,10 @@ flowchart LR
 | `FileOddsProvider` | `data/odds/file_provider.py` | Date-aware CSV/JSON loading |
 | `OddsAPIProvider` | `data/odds/odds_api_provider.py` | The Odds API live player props |
 | `CompositeOddsProvider` | `data/odds/composite.py` | Merges sources (`OddsLoader` alias) |
+| `WeatherClient` | `data/weather_client.py` | Game-day weather from MLB feed |
+| `UmpireClient` | `data/umpire_client.py` | Home-plate umpire and K/run biases |
+| `InjuryClient` | `data/injury_client.py` | Active/IL roster status |
+| `StatcastDistributionBuilder` | `data/statcast_distributions.py` | Launch angle / exit velo distributions |
 
 ### Features
 
@@ -122,6 +126,12 @@ flowchart LR
 | `BacktestEngine` | `backtest_engine.py` | Match projections to outcomes; per-category MAE/RMSE |
 | `CalibrationEngine` | `calibration.py` | Fit league baselines, PA intercepts, category biases |
 | `PipelineValidator` | `pipeline_validator.py` | End-to-end validation on historical dates or pairs CSV |
+| `ParkFactorEstimator` | `park_factor_estimator.py` | Empirical venue HR/hit/run factors from pairs |
+| `SlotPAEstimator` | `slot_pa_estimator.py` | Batting-order PA multipliers (replaces lineup_slot_runs_rbi) |
+| `WalkForwardValidator` | `walk_forward_validator.py` | Rolling walk-forward backtests |
+| `ChampionChallengerTester` | `champion_challenger.py` | Promote changes only when validated |
+| `CalibrationTracker` | `calibration_tracker.py` | Brier score and reliability bins |
+| `ROISimulator` | `roi_simulator.py` | Flat-stake +EV ROI with vig |
 
 ### Learning
 

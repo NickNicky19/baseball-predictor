@@ -43,7 +43,7 @@ def test_confirmed_has_higher_certainty_than_projected():
     intel = LineupIntelligence.from_config(
         {
             "lineup_intelligence": {},
-            "lineup_slot_runs_rbi": {"1": {"runs": 1.12, "rbi": 0.85}},
+            "simulation_slot_pa": {"1": 1.117},
         },
         league_baselines=LeagueBaselines(pa_per_game=4.05),
     )
@@ -59,10 +59,9 @@ def test_apply_to_bundle_adjusts_expected_pa_and_metadata():
         {
             "lineup_intelligence": {
                 "expected_pa_scale": {"confirmed": 1.0, "projected": 0.94, "unknown": 0.88},
+                "use_simulation_slot_pa": True,
             },
-            "lineup_slot_runs_rbi": {
-                str(i): {"runs": 1.0, "rbi": 1.0} for i in range(1, 10)
-            },
+            "simulation_slot_pa": {str(i): 1.0 for i in range(1, 10)},
         },
         league_baselines=LeagueBaselines(pa_per_game=4.0),
     )
@@ -76,11 +75,8 @@ def test_apply_to_bundle_adjusts_expected_pa_and_metadata():
 def test_leadoff_slot_gets_higher_expected_pa_than_nine_hole():
     intel = LineupIntelligence.from_config(
         {
-            "lineup_intelligence": {"use_slot_pa_factors": True},
-            "lineup_slot_runs_rbi": {
-                "1": {"runs": 1.12, "rbi": 0.85},
-                "9": {"runs": 0.95, "rbi": 0.82},
-            },
+            "lineup_intelligence": {"use_slot_pa_factors": True, "use_simulation_slot_pa": True},
+            "simulation_slot_pa": {"1": 1.12, "9": 0.95},
         },
         league_baselines=LeagueBaselines(pa_per_game=4.0),
     )

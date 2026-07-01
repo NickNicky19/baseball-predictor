@@ -118,6 +118,36 @@ class PitcherGameContext:
 
 
 @dataclass
+class StatcastDistributionProfile:
+    """
+    Batted-ball distribution features for non-linear HR/hit modeling.
+
+    Built from pitch-level Statcast; used by HybridPASimulator for quality-based
+    power adjustments beyond scalar rate averages.
+    """
+
+    launch_angle_mean: float = 12.0
+    launch_angle_std: float = 18.0
+    exit_velocity_mean: float = 88.0
+    exit_velocity_std: float = 10.0
+    max_exit_velocity: float = 105.0
+    sweet_spot_rate: float = 0.34
+    barrel_rate: float = 0.085
+    hard_hit_rate: float = 0.39
+    sample_bip: int = 0
+
+    def quality_score(self) -> float:
+        """Composite batted-ball quality in [0, ~1] from distribution features."""
+        if self.sample_bip <= 0:
+            return 0.0
+        ev_signal = max(0.0, (self.exit_velocity_mean - 85.0) / 20.0)
+        sweet = min(1.0, self.sweet_spot_rate / 0.40)
+        barrel = min(1.0, self.barrel_rate / 0.15)
+        hard = min(1.0, self.hard_hit_rate / 0.50)
+        return round(0.35 * barrel + 0.30 * sweet + 0.20 * hard + 0.15 * ev_signal, 4)
+
+
+@dataclass
 class StatcastProfile:
     """Per-player advanced metrics; rates are fractions (0–1) unless noted."""
 
@@ -139,6 +169,7 @@ class StatcastProfile:
     zone_rate: Optional[float] = None
     k_rate: Optional[float] = None
     bb_rate: Optional[float] = None
+    distribution: Optional[StatcastDistributionProfile] = None
 
     def has_advanced_data(self) -> bool:
         return self.sample_pa > 0 and self.xwoba is not None
