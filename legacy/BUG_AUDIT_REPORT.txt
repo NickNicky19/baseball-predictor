@@ -1,0 +1,465 @@
+================================================================================
+BASEBALL PREDICTOR — FULL BUG & BROKEN-WIRING AUDIT REPORT
+================================================================================
+
+Project:  C:\Projects\baseball_predictor
+Scope:    Entire codebase — data layer, features, models, simulation, GUI, CLI, tests
+Purpose:  Everything that crashes, returns wrong results, or is written but not
+          wired as intended. Audit only — no fixes applied in this document.
+
+Generated: 2026-07-01
+
+================================================================================
+SUMMARY COUNTS
+================================================================================
+
+  Severity                    Count
+  --------------------------  -----
+  P0 Critical (crash)         9
+  P1 High (wrong/silent)      24
+  P2 Medium (unwired)         10
+  P3 Low (stubs/duplicates)   15+ files
+
+Answer: This is NOT just the 5 items from an earlier quick snapshot. The full
+audit finds 9 crash-level bugs, 24 logic/data bugs, 10 complete-but-unwired
+modules, and 15+ stub/duplicate files.
+
+
+================================================================================
+SEVERITY LEGEND
+================================================================================
+
+  P0 Critical  — Runtime crash or guaranteed wrong output on a documented path
+  P1 High      — Feature appears to work but produces incorrect/meaningless results
+  P2 Medium    — Code exists and is complete but never connected to the live path
+  P3 Low       — Stubs, duplicates, test failures, wasted work
+
+
+================================================================================
+WHAT IS WORKING (BASELINE)
+================================================================================
+
+These paths run successfully today:
+
+  - GUI launcher: main.py loads root gui.py via importlib
+  - Hitter predictions (HRR / fantasy): src/models/predictor.py
+      -> Savant -> recency -> basic MC -> score
+  - Pitcher K rankings: rank_pitchers()
+      Verified output example: Shane Drohan K=7.6, score=15.7
+  - Basic Monte Carlo: src/models/simulation/simulation.py
+      Produces hits_mean, hr_mean, p_hrr_ge_2, etc.
+  - MLB API client: src/data/mlb_client.py — schedule, lineups, stats
+  - Savant CSV engine: src/data/savant_engine.py
+  - Hitter feature pipeline (fetch path): src/features/hitters/pipeline.py
+      MLB + Statcast -> parquet + JSON cache
+  - Backtest button: run_backtest_and_save() -> src/models/backtester.py
+      Writes weights to config
+  - On-disk evidence:
+      data/daily_predictions.csv
+      predictions_2026-06-30.txt
+      Category CSVs (hits, hrr, hr, pitchers)
+      Cache parquet for 2026-06-30 / 2026-07-01
+
+
+================================================================================
+P0 — CRITICAL (WILL CRASH)
+================================================================================
+
+------------------------------------------------------------------------------
+1. run_daily.py --refresh — wrong attribute
+------------------------------------------------------------------------------
+  File:   run_daily.py, line 44
+  Bug:    predictor.client.clear_day_cache()
+          DailyPredictor has self.mlb, not self.client
+  Error:  AttributeError when --refresh is used
+
+------------------------------------------------------------------------------
+2. run_daily.py --value-only — missing method
+------------------------------------------------------------------------------
+  File:   run_daily.py, line 53
+  Bug:    Calls predictor.rank_value_plays()
+          Method does not exist on DailyPredictor
+  Error:  AttributeError when --value-only is used
+
+------------------------------------------------------------------------------
+3. gui.py Export TXT with pitcher category
+------------------------------------------------------------------------------
+  File:   gui.py, lines 352-355
+  Bug:    export_to_txt() assumes every result has .player and .projections
+  When:   Category pitcher_ks -> current_results holds PitcherPrediction
+  Error:  AttributeError: 'PitcherPrediction' object has no attribute 'player'
+  Note:   export_to_csv() correctly branches; TXT export does not
+
+------------------------------------------------------------------------------
+4. gui.py sidebar Savant detail panel — wrong field names
+------------------------------------------------------------------------------
+  File:   gui.py, lines 273-274
+  Bug:    Uses prediction.savant.xslg and prediction.savant.barrel_pct
+  Actual: SavantProfile (src/data/savant_engine.py) has barrel_rate,
+          hard_hit_percent — no xslg or barrel_pct
+  Error:  AttributeError when selecting a hitter row with Savant data loaded
+
+------------------------------------------------------------------------------
+5. cli/main.py --gui — missing module
+------------------------------------------------------------------------------
+  File:   cli/main.py, line 102
+  Bug:    from gui.main_window import main
+          gui/main_window.py does not exist
+  Error:  ModuleNotFoundError (use "python main.py" instead)
+
+------------------------------------------------------------------------------
+6. cli/main.py hits/hr categories — KeyError
+------------------------------------------------------------------------------
+  File:   cli/main.py, line 56
+  Bug:    pred.projections[proj_key] for hits or home_runs
+          Keys not in projections dict
+  Error:  KeyError for --category hits or --category hr
+
+------------------------------------------------------------------------------
+7. cli/main.py MC columns — wrong attribute
+------------------------------------------------------------------------------
+  File:   cli/main.py, lines 47-48
+  Bug:    pred.simulation.mean_hrr
+          SimulationResult uses hrr_mean
+          pred.simulation is always None today
+  Would crash if simulation were ever attached without alias
+
+------------------------------------------------------------------------------
+8. latent_pitcher.py — broken import
+------------------------------------------------------------------------------
+  File:   src/models/simulation/latent_pitcher.py, line 8
+  Bug:    from ...pa_simulator import PASimulator
+          Only HybridPASimulatorV2 exists
+  Error:  ImportError if module is imported
+
+------------------------------------------------------------------------------
+9. tests/test_simulation.py — broken imports
+------------------------------------------------------------------------------
+  File:   tests/test_simulation.py, line 1
+  Bug:    Imports simulate_hitter_day
+          Not exported from simulation/__init__.py
+  Also:   test_legacy_simulate_hitter_day expects mean_hrr alias
+          Does not exist on SimulationResult
+
+
+================================================================================
+P1 — HIGH (WRONG RESULTS / SILENT FAILURES)
+================================================================================
+
+------------------------------------------------------------------------------
+10. Hits and HR categories always sort at zero
+------------------------------------------------------------------------------
+  Files:  predictor.py:317-318, gui.py:222
+  Bug:    rank_hitters() sorts on "hits" / "home_runs"
+          Projections only contain "hrr" and "fantasy"
+  Effect: All hitters tie at 0 -> meaningless ranking order
+          GUI metric column falls back to showing HRR while labeled hits/hr
+
+------------------------------------------------------------------------------
+11. SimulationResult hits/hr never copied to projections
+------------------------------------------------------------------------------
+  File:   predictor.py:287-290
+  Bug:    Basic MC returns hits_mean, hr_mean on SimulationResult
+          _run_basic_simulation only writes hrr and fantasy to projections
+  Effect: proj_hits in run_daily.py:71 and CSV exports are always 0
+          Confirmed in data/daily_predictions.csv
+
+------------------------------------------------------------------------------
+12. Advanced simulation — pitcher K% passed at wrong scale
+------------------------------------------------------------------------------
+  File:   predictor.py:183-184
+  Bug:    pitcher_k_pct = k_per_9 * 100 / 9  -> ~97% for 8.8 K/9
+  Expected by PA sim: K% ~ 22 (percentage scale)
+  Effect: When "Use Advanced Simulation" is checked, strikeout rates are
+          massively inflated -> HRR/fantasy projections wrong
+
+------------------------------------------------------------------------------
+13. bb_per_9 attribute does not exist on pitching stats
+------------------------------------------------------------------------------
+  File:   predictor.py:184
+  Bug:    getattr(p_recent, "bb_per_9", 8.0)
+          PitchingStats has walks, not bb_per_9
+  Effect: Walk rate for event sim always defaults to 8.0 for every pitcher
+
+------------------------------------------------------------------------------
+14. Hitter feature store -> predictor join is broken
+------------------------------------------------------------------------------
+  Files:  pipeline.py:80, predictor.py:196-204
+  Bug:    Merge on player_id creates player_name_x / player_name_y
+          Predictor looks for player_name only
+  Effect: advanced_features almost never matches
+          Score boosts from xwOBA/barrel/hard_hit in _calculate_score are dead
+
+------------------------------------------------------------------------------
+15. Cache never expires on read
+------------------------------------------------------------------------------
+  Files:  cache_manager.py, pipeline.py:37-43, predictor.py:162
+  Bug:    expired() exists but is never called before load_json
+  Effect: Stale hitter features served indefinitely after first cache write
+
+------------------------------------------------------------------------------
+16. Pipeline cache hit skips parquet write
+------------------------------------------------------------------------------
+  File:   pipeline.py:41-43
+  Bug:    On JSON cache hit, returns True without ensuring parquet exists
+  Effect: feature_store.load_features() can fail even when cache says success
+
+------------------------------------------------------------------------------
+17. Statcast merge can attach wrong player metrics
+------------------------------------------------------------------------------
+  Evidence: Cache features_2026-06-30.json shows mismatched names
+            (e.g. Jacob Gonzalez merged with wrong Statcast row)
+  Cause:    Merge on player_id only without name validation
+  Effect:   Wrong xwOBA/barrel applied when IDs collide across contexts
+
+------------------------------------------------------------------------------
+18. Lineup parser includes non-hitters
+------------------------------------------------------------------------------
+  File:   src/features/hitters/sources/lineup_parser.py
+  Bug:    Game feed boxscore can include pitchers/bench without position filter
+  Effect: Pitchers appear in hitter feature cache and prediction pool
+
+------------------------------------------------------------------------------
+19. Batting order not normalized
+------------------------------------------------------------------------------
+  File:   lineup_parser returns raw MLB values (800, 700)
+  Effect: _estimate_pa() and lineup slot multipliers use wrong slots
+          PA and run/RBI multipliers off
+
+------------------------------------------------------------------------------
+20. Weather fetched for hitters but not applied to projections
+------------------------------------------------------------------------------
+  File:   predictor.py:177, 240
+  Bug:    Weather stored on HitterPrediction but never multiplies projections
+  Effect: Weather shown in sidebar only; no projection impact for hitters
+
+------------------------------------------------------------------------------
+21. BvP fetched but matchup adjustment never applied
+------------------------------------------------------------------------------
+  Files:  predictor.py:176, 123-147
+  Bug:    _get_matchup_adjustment() defined but never called
+          BvP stored but unused in score/sim
+  Also:   Uses hitter.bat_hand but PlayerInfo field is bats
+          Platoon branch never fires even if called
+
+------------------------------------------------------------------------------
+22. Backtest blend weights saved but never used
+------------------------------------------------------------------------------
+  Files:  config/config.json (blend_daily/blend_savant), backtester.py
+  Bug:    Backtest writes tuned weights; predict_hitters() never reads them
+  Effect: Running backtest has no effect on daily predictions
+
+------------------------------------------------------------------------------
+23. Value / odds edge never computed
+------------------------------------------------------------------------------
+  Files:  predictor.py:23, 45, value.py
+  Bug:    calc_value_edge imported; odds_value always None
+          OddsParser initialized but never queried in prediction loop
+  Effect: Edge columns in run_daily.py and gui/widgets/player_tree.py always empty
+
+------------------------------------------------------------------------------
+24. simulation field never attached to predictions
+------------------------------------------------------------------------------
+  File:   predictor.py:232-244
+  Bug:    HitterPrediction.simulation always None despite MC running
+  Effect: mc_p_ge2 in run_daily always blank
+          Rich GUI widgets show "-" for MC columns
+
+------------------------------------------------------------------------------
+25. Event sim does not pass Statcast features to PA simulator
+------------------------------------------------------------------------------
+  File:   predictor.py:247-259
+  Bug:    Only passes hitter_quality=xwoba
+          HybridPASimulatorV2 supports xslg, barrel_rate, hard_hit_rate
+          but they are never fed
+  Effect: Advanced sim ignores most Statcast signal
+
+------------------------------------------------------------------------------
+26. Event sim fantasy scoring mismatch
+------------------------------------------------------------------------------
+  File:   event_simulator.py — HR=7 hardcoded
+  Config: config.json fantasy HR=10
+  Effect: Fantasy projections differ between basic and advanced sim paths
+
+------------------------------------------------------------------------------
+27. Confidence volatility bonus never applies
+------------------------------------------------------------------------------
+  File:   predictor.py:311-312
+  Bug:    Reads simulation_data.get("volatility")
+          Sim runners never set volatility
+  Effect: Dead code path in confidence calc
+
+------------------------------------------------------------------------------
+28. scoring.py HRR formula wrong (if ever wired)
+------------------------------------------------------------------------------
+  File:   src/features/scoring.py:206
+  Bug:    hrr = proj_hr + proj_runs + proj_rbi — missing hits
+  Status: Orphaned today, but incorrect if integrated later
+
+------------------------------------------------------------------------------
+29. base_state.py walk baserunning logic
+------------------------------------------------------------------------------
+  File:   src/models/simulation/base_state.py
+  Bug:    advance_walk() bases-loaded run assignment appears incorrect
+  Effect: Advanced sim run totals may be wrong in walk-heavy scenarios
+
+------------------------------------------------------------------------------
+30. pybaseball not in requirements.txt
+------------------------------------------------------------------------------
+  Files:  requirements.txt, savant.py
+  Effect: Statcast pipeline silently skips on fresh installs
+          Features filled with hardcoded defaults in pipeline
+
+------------------------------------------------------------------------------
+31. Odds PDF path mismatch
+------------------------------------------------------------------------------
+  Defaults: OddsParser default data/odds.pdf
+            Config data/odds/odds.pdf
+  Effect:   Odds lookup fails unless file happens to be at default path
+
+------------------------------------------------------------------------------
+32. GUI wastes work on pitcher category
+------------------------------------------------------------------------------
+  File:   gui.py:186-191
+  Bug:    Always runs hitter pipeline + predict_hitters() before pitcher_ks branch
+  Effect: Slow unnecessary API/feature work (not a crash, but wrong flow)
+
+------------------------------------------------------------------------------
+33. rank_hitters sorts by projection, not composite score
+------------------------------------------------------------------------------
+  File:   predictor.py:318
+  Effect: GUI "score" column and sort order disagree
+          User sees score but list is ranked by raw projection
+
+
+================================================================================
+P2 — MEDIUM (COMPLETE CODE, NOT WIRED)
+================================================================================
+
+  Item                          Location                              Status
+  ----------------------------  ------------------------------------  ------------------
+  calc_value_edge / odds        value.py                              Built, never called
+  project_hitter()              features/scoring.py                   Bypassed by predictor
+  build_pitcher_matchup()       features/matchup.py                   Orphaned scoring only
+  LineupPredictionModel         data/lineup_prediction_model.py       Zero imports
+  use_projected flag            mlb_client.py                         Accepted, never used
+  LineupAwareFeatureLayer       lineup_aware_feature_layer.py         Never called
+  LatentPitcherSimulator        latent_pitcher.py                     Import broken; unused
+  Rich GUI widgets              gui/widgets/player_tree.py            Not used by main GUI
+                                gui/views/detail_panel.py
+  gui package import            gui/__init__.py                       Fails; main.py works around
+  Alternate CLI                 cli/main.py vs main.py                Only root main.py reliable
+
+
+================================================================================
+P3 — LOW (STUBS, DUPLICATES, DEAD FILES)
+================================================================================
+
+EMPTY STUB FILES (0 bytes or no logic)
+--------------------------------------
+  src/features/pitchers/pipeline.py
+  src/features/pitchers/feature_store.py
+  src/features/pitchers/sources/savant.py.py          (typo filename)
+  src/features/pitchers/sources/mlb_api_old.py
+  src/features/common/utils.py
+  src/features/common/__init__.py.py
+  src/features/hitters/sources/lineup.py
+  gui/__gui__.py
+  src/models/__init__.py — HitterProjectionRecord placeholder with empty __post_init__
+
+DUPLICATE / CONFLICTING MLB DATA PATHS
+--------------------------------------
+  Production:
+    src/data/mlb_client.py          (used by predictor)
+    src/features/hitters/sources/mlb_api.py  (used by pipeline)
+
+  Dead/debug:
+    src/data/mlb_api.py — prints on import, uses pybaseball incorrectly, nothing imports it
+
+  Risk: Predictor and pipeline can return different hitter sets for the same date
+
+MISSING INTEGRATIONS (NOT BUGS — SIMPLY NOT BUILT YET)
+------------------------------------------------------
+  - Umpires
+  - Injuries / IL status
+  - Live odds API (only PDF parser exists)
+  - Wind direction, game-time hourly weather
+  - Bullpen beyond probable starter
+
+OTHER LOW-PRIORITY ITEMS
+------------------------
+  - No predictor self-test block (predictor.py has no if __name__ == "__main__")
+  - Pipeline fill defaults contradict "real data only" comment in savant.py
+    (pipeline.py fills xwOBA 0.310, barrel 8.0, etc. when missing)
+
+
+================================================================================
+ARCHITECTURE — WHAT CONNECTS VS WHAT DOESN'T
+================================================================================
+
+WORKING PATH:
+  main.py -> gui.py -> DailyPredictor
+    -> mlb_client (lineups, stats)
+    -> savant_engine (CSV profiles)
+    -> HitterDaySimulator (basic MC)
+    -> rank_pitchers() for pitcher tab
+
+BROKEN OR UNWIRED (written but not in live path):
+  DailyPredictor -> calc_value_edge          (never called)
+  DailyPredictor -> _get_matchup_adjustment  (never called)
+  DailyPredictor -> HitterPrediction.simulation  (never set)
+  HitterFeaturePipeline -> Predictor         (name column mismatch)
+  features/scoring.py -> Predictor           (orphaned)
+  latent_pitcher.py -> rank_pitchers()       (import fails; unused)
+
+
+================================================================================
+RECOMMENDED FIX ORDER (WHEN YOU RESUME IMPLEMENTATION)
+================================================================================
+
+Stabilize without adding new features — this order minimizes breakage:
+
+  1. P0 crashes
+     run_daily, gui export/detail, cli, tests, latent_pitcher import
+
+  2. P1 projection keys
+     hits/hr from SimulationResult
+
+  3. P1 advanced sim scale bugs
+     pitcher K%, bb_per_9
+
+  4. P1 feature pipeline
+     player_name coalesce, hitter filter, batting order normalize
+
+  5. P2 wiring
+     simulation + odds_value on predictions, cache TTL
+
+  6. P3 cleanup
+     Delete or merge dead paths (src/data/mlb_api.py, empty stubs)
+
+
+================================================================================
+SUGGESTED TODO CHECKLIST
+================================================================================
+
+  [ ] P0 crashes — run_daily (client, rank_value_plays), gui export_to_txt +
+      Savant attrs, cli/main.py, latent_pitcher import, test_simulation imports
+
+  [ ] P1 projections — hits/hr projection keys, SimulationResult -> projections
+      mapping, rank_hitters sort alignment
+
+  [ ] P1 advanced sim — pitcher K% scale, bb_per_9 attribute, event sim
+      Statcast passthrough, fantasy scoring parity
+
+  [ ] P1 feature pipeline — feature merge (player_name), cache expiry, parquet on
+      cache hit, hitter filter, batting order normalize
+
+  [ ] P2 wiring — calc_value_edge, simulation field, backtest blend weights,
+      BvP/weather into projections
+
+  [ ] P3 cleanup — consolidate duplicate MLB paths; remove or implement stubs
+
+
+================================================================================
+END OF REPORT
+================================================================================

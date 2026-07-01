@@ -1,0 +1,244 @@
+{
+  "season": 2026,
+  "league_avg": {
+    "era": 4.2,
+    "whip": 1.28,
+    "hits_per_9": 8.5,
+    "hr_per_9": 1.1,
+    "k_per_9": 8.8,
+    "avg": 0.248,
+    "obp": 0.32,
+    "slg": 0.41
+  },
+  "weights": {
+    "season": 0.35,
+    "recent": 0.65
+  },
+  "recency": {
+    "min_recent_pa": 20,
+    "target_pa": 80,
+    "max_boost": 0.12,
+    "max_penalty": 0.1
+  },
+  "pitcher_matchup": {
+    "season_weight": 0.3,
+    "recent_weight": 0.35,
+    "platoon_weight": 0.25,
+    "league_weight": 0.1,
+    "recent_ip_target": 20,
+    "platoon_ip_target": 25,
+    "recent_form_exponent": 0.35
+  },
+  "park_factors": {
+    "Coors Field": {
+      "hits": 1.12,
+      "hr": 1.25,
+      "runs": 1.18
+    },
+    "Fenway Park": {
+      "hits": 1.05,
+      "hr": 1.08,
+      "runs": 1.06
+    },
+    "Yankee Stadium": {
+      "hits": 0.98,
+      "hr": 1.15,
+      "runs": 1.08
+    },
+    "Oracle Park": {
+      "hits": 0.92,
+      "hr": 0.78,
+      "runs": 0.88
+    },
+    "Petco Park": {
+      "hits": 0.94,
+      "hr": 0.82,
+      "runs": 0.9
+    },
+    "Globe Life Field": {
+      "hits": 1.04,
+      "hr": 1.06,
+      "runs": 1.03
+    },
+    "Great American Ball Park": {
+      "hits": 1.06,
+      "hr": 1.12,
+      "runs": 1.08
+    },
+    "Citizens Bank Park": {
+      "hits": 1.03,
+      "hr": 1.1,
+      "runs": 1.05
+    }
+  },
+  "lineup_intelligence": {
+    "certainty_scores": {
+      "confirmed": 1.0,
+      "projected": 0.78,
+      "unknown": 0.62
+    },
+    "confidence_scale": {
+      "confirmed": 1.0,
+      "projected": 0.88,
+      "unknown": 0.75
+    },
+    "expected_pa_scale": {
+      "confirmed": 1.0,
+      "projected": 0.94,
+      "unknown": 0.88
+    },
+    "simulation_n_sims_scale": {
+      "confirmed": 1.0,
+      "projected": 0.9,
+      "unknown": 0.82
+    },
+    "variance_inflation": {
+      "confirmed": 1.0,
+      "projected": 1.12,
+      "unknown": 1.25
+    },
+    "use_slot_pa_factors": true,
+    "min_order_length_confirmed": 9,
+    "min_order_length_projected": 7
+  },
+  "lineup_slot_runs_rbi": {
+    "1": {
+      "runs": 1.12,
+      "rbi": 0.85
+    },
+    "2": {
+      "runs": 1.08,
+      "rbi": 0.9
+    },
+    "3": {
+      "runs": 1.05,
+      "rbi": 1.1
+    },
+    "4": {
+      "runs": 1.0,
+      "rbi": 1.18
+    },
+    "5": {
+      "runs": 0.98,
+      "rbi": 1.12
+    },
+    "6": {
+      "runs": 0.95,
+      "rbi": 1.0
+    },
+    "7": {
+      "runs": 0.92,
+      "rbi": 0.92
+    },
+    "8": {
+      "runs": 0.9,
+      "rbi": 0.88
+    },
+    "9": {
+      "runs": 0.95,
+      "rbi": 0.82
+    }
+  },
+  "savant": {
+    "csv_path": "data/savant/stats.csv",
+    "odds_pdf": "data/odds/odds.pdf",
+    "blend_daily": 0.3,
+    "blend_savant": 0.7,
+    "backtest": {
+      "hits_mae": 0.064,
+      "hrr_mae": 0.266,
+      "fantasy_mae": 0.379,
+      "sample_size": 153,
+      "value_play_count": 27,
+      "value_play_hit_rate": 88.9,
+      "avg_edge_on_value_plays": 0.576
+    }
+  },
+  "odds": {
+    "enabled": false,
+    "sources": ["file"],
+    "prefer_source": "api",
+    "min_edge_pct": 4.0,
+    "require_any_source": false,
+    "file": {
+      "csv_path": "data/odds/lines.csv",
+      "json_path": "",
+      "date_pattern": "data/odds/lines_{date}.csv",
+      "require_file": false
+    },
+    "odds_api": {
+      "enabled": false,
+      "api_key_env": "ODDS_API_KEY",
+      "api_key": "",
+      "sport_key": "baseball_mlb",
+      "regions": "us",
+      "bookmaker": "draftkings",
+      "markets": ["batter_hits", "batter_home_runs", "pitcher_strikeouts"],
+      "market_category_map": {
+        "batter_hits": "hits",
+        "batter_home_runs": "home_runs",
+        "pitcher_strikeouts": "strikeouts"
+      },
+      "timeout_seconds": 25
+    }
+  },
+  "outcome_recording": {
+    "enabled": false,
+    "pairs_csv_path": "data/learning/prediction_outcomes.csv",
+    "predictions_dir": "data/learning/predictions",
+    "archive_on_predict": true,
+    "require_final_games": true
+  },
+  "edge": {
+    "strong_edge_pct": 8.0,
+    "lean_edge_pct": 4.0,
+    "min_confidence": 0.45,
+    "default_spreads": {
+      "hits": 0.9,
+      "hrr": 1.6,
+      "home_runs": 0.45,
+      "fantasy": 4.0,
+      "strikeouts": 1.8
+    }
+  },
+  "learning": {
+    "apply_corrections": false,
+    "correction_state_path": "data/learning/bias_corrections.json",
+    "apply_model_parameters": true,
+    "apply_projection_offsets": true
+  },
+  "retraining": {
+    "pairs_csv_path": "data/learning/prediction_outcomes.csv",
+    "output_state_path": "data/learning/bias_corrections.json",
+    "min_pairs": 25,
+    "lookback_days": 30,
+    "save_retrain_result": true,
+    "retrain_result_path": "data/learning/latest_retrain_result.json",
+    "auto_enable_corrections": false
+  },
+  "calibration": {
+    "league_shrinkage": 0.35,
+    "pa_intercept_shrinkage": 0.25,
+    "bias_shrinkage": 0.40,
+    "min_samples_per_category": 25,
+    "min_pa_for_rate_calibration": 200
+  },
+  "pitcher_regression": {
+    "season_k9_blend": 0.75,
+    "league_k9_blend": 0.25
+  },
+  "simulation": {
+    "n_sims": 8000
+  },
+  "fantasy_scoring": {
+    "single": 3,
+    "double": 5,
+    "triple": 8,
+    "home_run": 10,
+    "rbi": 2,
+    "run": 2,
+    "walk": 2,
+    "hit_by_pitch": 2,
+    "stolen_base": 5
+  }
+}

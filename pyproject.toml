@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "baseball-predictor"
+version = "0.2.0"
+description = "Daily MLB hitter/pitcher predictor with Savant metrics and Monte Carlo HRR simulation"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "requests>=2.31.0",
+    "rich>=13.7.0",
+    "pandas>=2.1.0",
+    "numpy>=1.26.0",
+    "scipy>=1.11.0",
+    "pdfplumber>=0.11.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
