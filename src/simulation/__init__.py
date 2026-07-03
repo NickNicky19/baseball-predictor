@@ -9,6 +9,7 @@ from src.simulation.pa_simulator import (
     HybridPASimulatorV2,
     PASimulatorConfig,
 )
+from src.simulation.probability_engine import PerGameExpectations, ProbabilityEngine
 
 __all__ = [
     "BaseState",
@@ -20,4 +21,6 @@ __all__ = [
     "MonteCarloEngine",
     "PAOutcome",
     "PASimulatorConfig",
+    "PerGameExpectations",
+    "ProbabilityEngine",
 ]

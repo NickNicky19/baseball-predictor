@@ -238,6 +238,79 @@ class MatchupContext:
     bvp_pa: int = 0
     bvp_ops_factor: float = 1.0
     recent_form_multiplier: float = 1.0
+    platoon_ops_z: float = 0.0
+    platoon_slg_z: float = 0.0
+    bvp_hr_factor: float = 1.0
+    pitcher_archetype_similarity: float = 0.0
+    handedness_split_ops: float = 0.0
+
+
+@dataclass
+class FeatureVector:
+    """
+    Rich engineered feature set for modeling and future explainability.
+
+    Values are league-centered z-scores, ratios, and interaction terms.
+    Groups map feature names to semantic categories for contribution breakdowns.
+    """
+
+    values: dict[str, float] = field(default_factory=dict)
+    groups: dict[str, list[str]] = field(default_factory=dict)
+
+    def count(self) -> int:
+        return len(self.values)
+
+    def group_values(self, group: str) -> dict[str, float]:
+        keys = self.groups.get(group, [])
+        return {k: self.values[k] for k in keys if k in self.values}
+
+
+@dataclass
+class OutcomeProbabilities:
+    """Explicit per-PA outcome probabilities (sum ≈ 1.0)."""
+
+    strikeout: float
+    walk: float
+    home_run: float
+    single: float
+    double: float
+    triple: float
+    out_on_bip: float
+
+    def total(self) -> float:
+        return (
+            self.strikeout
+            + self.walk
+            + self.home_run
+            + self.single
+            + self.double
+            + self.triple
+            + self.out_on_bip
+        )
+
+    def is_valid(self, tolerance: float = 0.02) -> bool:
+        return abs(self.total() - 1.0) <= tolerance
+
+    @property
+    def hit_prob(self) -> float:
+        return self.single + self.double + self.triple + self.home_run
+
+    @property
+    def hrr_prob(self) -> float:
+        return self.hit_prob + self.walk
+
+    def to_dict(self) -> dict[str, float]:
+        return {
+            "strikeout": self.strikeout,
+            "walk": self.walk,
+            "home_run": self.home_run,
+            "single": self.single,
+            "double": self.double,
+            "triple": self.triple,
+            "out_on_bip": self.out_on_bip,
+            "hit_prob": self.hit_prob,
+            "hrr_prob": self.hrr_prob,
+        }
 
 
 @dataclass
@@ -253,6 +326,7 @@ class PlayerFeatureBundle:
     injury: Optional[InjuryStatus] = None
     pitcher_statcast: Optional[PitcherStatcastProfile] = None
     expected_pa: float = 4.05
+    features: Optional[FeatureVector] = None
     metadata: dict[str, Any] = field(default_factory=dict)
 
 
@@ -340,6 +414,7 @@ class PropProjection:
     projected_value: float
     confidence: float
     simulation: Optional[MonteCarloResult] = None
+    outcome_probs: Optional[OutcomeProbabilities] = None
     team: str = ""
     opponent: str = ""
     opposing_pitcher: str = ""

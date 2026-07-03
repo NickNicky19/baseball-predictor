@@ -58,6 +58,17 @@ class MockMLBAPI:
     def get_pitchers_for_date(self, game_date: str) -> list[PitcherGameContext]:
         return []
 
+    def get_hitting_stats(self, player_id: int):
+        season = HittingStatsSnapshot(obp=0.34, slg=0.44, pa=400, home_runs=18)
+        recent = HittingStatsSnapshot(obp=0.35, slg=0.45, pa=60, home_runs=3)
+        return season, recent
+
+    def get_platoon_splits(self, player_id: int):
+        return None, None
+
+    def get_bvp_stats(self, hitter_id: int, pitcher_id: int):
+        return None
+
     def get_pitching_stats(self, player_id: int):
         season = PitchingStatsSnapshot(
             innings_pitched=50.0,

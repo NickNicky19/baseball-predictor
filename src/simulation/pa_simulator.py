@@ -1,9 +1,10 @@
 """
-Hybrid Plate Appearance Simulator (Final Form Foundation).
+Hybrid Plate Appearance Simulator (Final Form).
 
-Logit-based PA outcome model with calibratable coefficients. Latent skills are
-centered on LeagueBaselines so the learning layer can update both baselines and
-weights from backtests without editing method bodies.
+Logit-based hierarchical PA model with calibratable coefficients.
+Designed for high precision on HR/HRR, consistency between sampling
+and explicit probability estimation, and future integration with a full
+probability engine.
 """
 
 from __future__ import annotations
@@ -13,12 +14,7 @@ import random
 from dataclasses import asdict, dataclass
 from typing import TYPE_CHECKING, Optional
 
-from src.models.dataclasses import (
-    LeagueBaselines,
-    PAOutcome,
-    StatcastDistributionProfile,
-    StatcastProfile,
-)
+from src.models.dataclasses import LeagueBaselines, PAOutcome, StatcastProfile
 
 if TYPE_CHECKING:
     from src.simulation.base_state import BaseState
@@ -26,27 +22,22 @@ if TYPE_CHECKING:
 
 @dataclass
 class PASimulatorConfig:
-    """
-    Configurable coefficients for the hybrid PA simulator.
+    """Configurable coefficients for the hybrid PA simulator."""
 
-    All logit weights and latent scaling factors live here so the evaluation
-    and learning layers can recalibrate them over time.
-    """
-
-    # --- K rate logit ---
+    # K rate logit
     k_intercept: float = 0.16
     k_pitcher_miss: float = 1.10
     k_hitter_contact: float = -1.05
     k_form: float = 0.30
     k_quality: float = 0.14
 
-    # --- BB rate logit ---
+    # BB rate logit
     bb_intercept: float = -2.30
     bb_pitcher_control: float = 0.90
     bb_hitter_contact: float = -0.50
     bb_handedness: float = 0.20
 
-    # --- HR rate logit ---
+    # HR rate logit
     hr_intercept: float = -3.28
     hr_hitter_power: float = 1.30
     hr_pitcher_miss: float = 0.20
@@ -55,29 +46,33 @@ class PASimulatorConfig:
     hr_handedness: float = 0.15
     hr_quality: float = 0.16
 
-    # --- Latent skill scaling (z-score denominators) ---
+    # Latent skill scaling
     contact_scale: float = 2.0
     power_scale: float = 2.7
     speed_scale: float = 1.5
     pitcher_k_scale: float = 9.5
     pitcher_bb_scale: float = 7.5
 
-    # --- Statcast feature scaling ---
+    # Statcast feature scaling
     xwoba_scale: float = 3.2
     xslg_scale: float = 2.0
     barrel_scale: float = 1.6
     hard_hit_scale: float = 1.3
 
-    # --- Context scaling ---
+    # Context
     form_log_min: float = 0.75
     form_log_max: float = 1.30
     handedness_scale: float = 0.85
     park_hr_log_floor: float = 0.72
 
-    # --- Hit type distribution ---
+    # BIP outcome weights
+    bip_out_base_weight: float = 2.09
     single_base_weight: float = 0.60
     double_base_weight: float = 0.225
     triple_base_weight: float = 0.028
+    out_weight_floor: float = 0.50
+    out_contact_bonus: float = 0.15
+    out_power_bonus: float = 0.08
     single_power_penalty: float = 0.55
     single_contact_bonus: float = 0.26
     double_power_bonus: float = 0.50
@@ -86,7 +81,15 @@ class PASimulatorConfig:
     double_weight_floor: float = 0.135
     triple_weight_floor: float = 0.008
 
-    # --- Probability clamps (league-feasible per-PA ranges) ---
+    # Context scaling on BIP
+    bvp_hr_weight: float = 0.26
+    bvp_hit_weight: float = 0.21
+    park_hits_weight: float = 0.35
+    context_hit_scale_max: float = 1.12
+    context_hit_scale_min: float = 0.88
+    hit_prob_cap: float = 0.36
+
+    # Probability clamps
     k_min: float = 0.085
     k_max: float = 0.47
     bb_min: float = 0.03
@@ -96,12 +99,7 @@ class PASimulatorConfig:
 
     @classmethod
     def from_league(cls, league: LeagueBaselines, **overrides: float) -> PASimulatorConfig:
-        """
-        Build config with intercepts and scales derived from league baselines.
-
-        Intercepts are inverse-logit targets at league-average latent skill (z=0).
-        Scales normalize typical rate deviations using league anchor magnitudes.
-        """
+        """Build config with intercepts and scales derived from league baselines."""
         k_rate = max(0.05, min(0.45, league.k_pct / 100.0))
         bb_rate = max(0.02, min(0.18, league.bb_pct / 100.0))
         bip_rate = max(0.35, 1.0 - k_rate - bb_rate)
@@ -114,10 +112,26 @@ class PASimulatorConfig:
         xwoba_anchor = max(0.01, abs(league.xwoba))
         xslg_anchor = max(0.01, abs(league.xslg))
 
+        hit_rate_pa = league.hits_per_game / max(league.pa_per_game, 1.0)
+        non_hr_hit_rate = max(0.01, hit_rate_pa - hr_per_pa)
+        non_hr_bip_rate = bip_rate * (1.0 - hr_on_bip)
+        babip = max(0.22, min(0.36, non_hr_hit_rate / max(non_hr_bip_rate, 0.01)))
+
+        hit_base_sum = cls.single_base_weight + cls.double_base_weight + cls.triple_base_weight
+        bip_out_weight = hit_base_sum * (1.0 - babip) / babip
+        hit_scale_span = max(0.36 - babip, babip - 0.22) / max(babip, 0.01)
+
         derived = cls(
             k_intercept=_logit(k_rate),
             bb_intercept=_logit(bb_rate),
             hr_intercept=_logit(hr_on_bip),
+            bip_out_base_weight=bip_out_weight,
+            bvp_hr_weight=1.30 * 0.20,
+            bvp_hit_weight=0.26 * 0.80,
+            park_hits_weight=1.0 / max(hit_base_sum, 0.01),
+            context_hit_scale_max=1.0 + hit_scale_span * 0.35,
+            context_hit_scale_min=1.0 - hit_scale_span * 0.35,
+            hit_prob_cap=min(0.38, hit_rate_pa * 1.65),
             contact_scale=1.0 / max(contact_anchor * 0.08, 0.01),
             power_scale=1.0 / max(barrel_anchor, 0.01),
             speed_scale=1.0 / max(barrel_anchor * 0.6, 0.01),
@@ -141,10 +155,11 @@ class PASimulatorConfig:
 
 class HybridPASimulator:
     """
-    Hybrid Plate Appearance Simulator.
+    Hybrid Plate Appearance Simulator (Final Form).
 
-    Hierarchical outcome model: K / BB -> BIP -> HR vs hit type.
-    Designed to be calibratable, backtestable, and driven by LeagueBaselines.
+    Hierarchical model: K/BB → BIP → HR vs non-HR.
+    Designed for high precision on HR/HRR, consistency between sampling
+    and explicit probability estimation, and future probability engine work.
     """
 
     def __init__(
@@ -166,18 +181,14 @@ class HybridPASimulator:
         hitter_power: Optional[float] = None,
         hitter_speed: Optional[float] = None,
         park_hr_factor: float = 1.0,
+        park_hits_factor: float = 1.0,
         handedness_advantage: float = 0.0,
         recent_form_mult: float = 1.0,
+        bvp_ops_factor: float = 1.0,
+        bvp_hr_factor: float = 1.0,
         statcast: Optional[StatcastProfile] = None,
     ) -> PAOutcome:
-        """
-        Simulate one plate appearance.
-
-        Pitcher rates default to league averages. Hitter skill defaults are
-        derived from league contact_rate and barrel_rate unless Statcast
-        overrides are supplied. pitcher_hr_per_9 is reserved for future
-        pitcher-HR skill integration in the HR logit.
-        """
+        """Simulate one plate appearance (sampling path)."""
         pitcher_k = pitcher_k_pct if pitcher_k_pct is not None else self.league.k_pct
         pitcher_bb = pitcher_bb_pct if pitcher_bb_pct is not None else self.league.bb_pct
 
@@ -209,25 +220,37 @@ class HybridPASimulator:
             park_hr_factor,
             statcast=statcast,
             pitcher_hr_per_9=pitcher_hr_per_9,
+            bvp_hr_factor=bvp_hr_factor,
         )
         if self.rng.random() < hr_prob:
             return PAOutcome("home_run", "Home Run")
 
-        return self._sample_hit_type(latent)
+        return self._sample_hit_type(
+            latent,
+            park_hits_factor=park_hits_factor,
+            bvp_ops_factor=bvp_ops_factor,
+        )
 
-    def expected_rates(
+    def expected_outcome_probabilities(
         self,
         pitcher_k_pct: Optional[float] = None,
         pitcher_bb_pct: Optional[float] = None,
+        pitcher_hr_per_9: Optional[float] = None,
         park_hr_factor: float = 1.0,
+        park_hits_factor: float = 1.0,
         handedness_advantage: float = 0.0,
         recent_form_mult: float = 1.0,
+        bvp_ops_factor: float = 1.0,
+        bvp_hr_factor: float = 1.0,
         statcast: Optional[StatcastProfile] = None,
         hitter_contact: Optional[float] = None,
         hitter_power: Optional[float] = None,
         hitter_speed: Optional[float] = None,
     ) -> dict[str, float]:
-        """Return model-implied PA probabilities for calibration and backtests."""
+        """
+        Return explicit per-PA outcome probabilities.
+        This is the foundation for the probability engine.
+        """
         latent = self._build_latent_profile(
             hitter_contact=hitter_contact or self.league.contact_rate,
             hitter_power=hitter_power or self.league.barrel_rate,
@@ -238,17 +261,88 @@ class HybridPASimulator:
             handedness_advantage=handedness_advantage,
             statcast=statcast,
         )
+
         k_prob, bb_prob = self._calculate_k_bb_probs(latent)
+        bip_prob = max(0.0, 1.0 - k_prob - bb_prob)
+
         hr_prob = self._calculate_hr_prob(
             latent,
             park_hr_factor,
             statcast=statcast,
+            pitcher_hr_per_9=pitcher_hr_per_9,
+            bvp_hr_factor=bvp_hr_factor,
         )
+        hr_prob = min(hr_prob, bip_prob)
+        non_hr_bip = max(0.0, bip_prob - hr_prob)
+
+        out_w, single_w, double_w, triple_w = self._hit_type_weights(
+            latent,
+            park_hits_factor=park_hits_factor,
+            bvp_ops_factor=bvp_ops_factor,
+        )
+
+        total = out_w + single_w + double_w + triple_w
+        if total <= 0:
+            return {
+                "strikeout": k_prob,
+                "walk": bb_prob,
+                "home_run": hr_prob,
+                "single": 0.0,
+                "double": 0.0,
+                "triple": 0.0,
+                "out_on_bip": non_hr_bip,
+            }
+
+        result = {
+            "strikeout": k_prob,
+            "walk": bb_prob,
+            "home_run": hr_prob,
+            "single": non_hr_bip * (single_w / total),
+            "double": non_hr_bip * (double_w / total),
+            "triple": non_hr_bip * (triple_w / total),
+            "out_on_bip": non_hr_bip * (out_w / total),
+        }
+        return self._apply_hit_prob_cap(result)
+
+    def expected_rates(
+        self,
+        pitcher_k_pct: Optional[float] = None,
+        pitcher_bb_pct: Optional[float] = None,
+        park_hr_factor: float = 1.0,
+        park_hits_factor: float = 1.0,
+        handedness_advantage: float = 0.0,
+        recent_form_mult: float = 1.0,
+        bvp_ops_factor: float = 1.0,
+        bvp_hr_factor: float = 1.0,
+        statcast: Optional[StatcastProfile] = None,
+        hitter_contact: Optional[float] = None,
+        hitter_power: Optional[float] = None,
+        hitter_speed: Optional[float] = None,
+        pitcher_hr_per_9: Optional[float] = None,
+    ) -> dict[str, float]:
+        """Return model-implied PA probabilities for calibration and backtests."""
+        probs = self.expected_outcome_probabilities(
+            pitcher_k_pct=pitcher_k_pct,
+            pitcher_bb_pct=pitcher_bb_pct,
+            pitcher_hr_per_9=pitcher_hr_per_9,
+            park_hr_factor=park_hr_factor,
+            park_hits_factor=park_hits_factor,
+            handedness_advantage=handedness_advantage,
+            recent_form_mult=recent_form_mult,
+            bvp_ops_factor=bvp_ops_factor,
+            bvp_hr_factor=bvp_hr_factor,
+            statcast=statcast,
+            hitter_contact=hitter_contact,
+            hitter_power=hitter_power,
+            hitter_speed=hitter_speed,
+        )
+        bip_prob = max(0.0, 1.0 - probs["strikeout"] - probs["walk"])
+        hr_on_bip = probs["home_run"] / bip_prob if bip_prob > 0 else 0.0
         return {
-            "k_prob": k_prob,
-            "bb_prob": bb_prob,
-            "bip_prob": max(0.0, 1.0 - k_prob - bb_prob),
-            "hr_prob_on_bip": hr_prob,
+            "k_prob": probs["strikeout"],
+            "bb_prob": probs["walk"],
+            "bip_prob": bip_prob,
+            "hr_prob_on_bip": hr_on_bip,
         }
 
     def _build_latent_profile(
@@ -284,7 +378,11 @@ class HybridPASimulator:
 
         xwoba = statcast.xwoba if statcast and statcast.xwoba is not None else lg.xwoba
         xslg = statcast.xslg if statcast and statcast.xslg is not None else lg.xslg
-        barrel = statcast.barrel_rate if statcast and statcast.barrel_rate is not None else lg.barrel_rate
+        barrel = (
+            statcast.barrel_rate
+            if statcast and statcast.barrel_rate is not None
+            else lg.barrel_rate
+        )
         hard_hit = (
             statcast.hard_hit_rate
             if statcast and statcast.hard_hit_rate is not None
@@ -293,7 +391,10 @@ class HybridPASimulator:
 
         xwoba_boost = (xwoba - lg.xwoba) * cfg.xwoba_scale
         power_boost = (xslg - lg.xslg) * cfg.xslg_scale
-        barrel_boost = barrel * cfg.barrel_scale
+
+        # Fixed: Centered and no longer double-counted with hitter_power
+        barrel_boost = (barrel - lg.barrel_rate) * cfg.barrel_scale
+
         hard_hit_boost = (hard_hit - lg.hard_hit_rate) * cfg.hard_hit_scale
 
         return {
@@ -333,6 +434,7 @@ class HybridPASimulator:
         park_hr_factor: float,
         statcast: Optional[StatcastProfile] = None,
         pitcher_hr_per_9: Optional[float] = None,
+        bvp_hr_factor: float = 1.0,
     ) -> float:
         cfg = self.config
         hr_logit = (
@@ -345,46 +447,127 @@ class HybridPASimulator:
             + cfg.hr_quality * latent["H_quality"]
         )
 
+        if bvp_hr_factor != 1.0:
+            hr_logit += cfg.bvp_hr_weight * math.log(
+                max(0.6, min(1.5, bvp_hr_factor))
+            )
+
         if pitcher_hr_per_9 is not None:
-            pitcher_hr_skill = (pitcher_hr_per_9 - self.league.hr_per_9) / max(self.league.hr_per_9, 0.5)
+            pitcher_hr_skill = (pitcher_hr_per_9 - self.league.hr_per_9) / max(
+                self.league.hr_per_9, 0.5
+            )
             hr_logit -= cfg.hr_pitcher_miss * pitcher_hr_skill
 
         dist = statcast.distribution if statcast and statcast.distribution else None
         if dist and dist.sample_bip > 0:
             quality = dist.quality_score()
-            hr_logit += cfg.hr_quality * quality * 2.0
+
+            # Reduced multiplier to limit over-boosting from correlated terms
+            hr_logit += cfg.hr_quality * quality * 1.3
+
             ev_boost = max(0.0, (dist.exit_velocity_mean - 88.0) / 12.0)
             la_penalty = abs(dist.launch_angle_mean - 20.0) / 30.0
-            hr_logit += cfg.hr_hitter_power * (ev_boost - la_penalty * 0.35)
+
+            hr_logit += cfg.hr_hitter_power * (ev_boost - la_penalty * 0.28)
 
         return self._clamp(self._sigmoid(hr_logit), cfg.hr_min, cfg.hr_max)
 
-    def _sample_hit_type(self, latent: dict[str, float]) -> PAOutcome:
+    def _hit_type_weights(
+        self,
+        latent: dict[str, float],
+        park_hits_factor: float = 1.0,
+        bvp_ops_factor: float = 1.0,
+    ) -> tuple[float, float, float, float]:
         cfg = self.config
         power = latent["H_power"]
         speed = latent["H_speed"]
         contact = latent["H_contact"]
 
+        hit_scale = self._context_hit_scale(park_hits_factor, bvp_ops_factor)
+
+        # More balanced weighting — reduced extreme power sensitivity on singles/doubles
         single_w = max(
             cfg.single_weight_floor,
             cfg.single_base_weight
-            - power * cfg.single_power_penalty
+            - power * (cfg.single_power_penalty * 0.45)
             + contact * cfg.single_contact_bonus,
-        )
-        double_w = max(cfg.double_weight_floor, cfg.double_base_weight + power * cfg.double_power_bonus)
-        triple_w = max(cfg.triple_weight_floor, cfg.triple_base_weight + speed * cfg.triple_speed_bonus)
+        ) * hit_scale
 
-        total = single_w + double_w + triple_w
+        double_w = (
+            max(
+                cfg.double_weight_floor,
+                cfg.double_base_weight + power * (cfg.double_power_bonus * 0.75),
+            )
+            * hit_scale
+        )
+
+        triple_w = (
+            max(cfg.triple_weight_floor, cfg.triple_base_weight + speed * cfg.triple_speed_bonus)
+            * hit_scale
+        )
+
+        out_w = max(
+            cfg.out_weight_floor,
+            cfg.bip_out_base_weight
+            - contact * cfg.out_contact_bonus
+            - power * cfg.out_power_bonus,
+        ) / hit_scale
+
+        return out_w, single_w, double_w, triple_w
+
+    def _apply_hit_prob_cap(self, probs: dict[str, float]) -> dict[str, float]:
+        """Redistribute excess hit probability to BIP outs — prevents skill-stacking overshoot."""
+        cfg = self.config
+        hit_total = (
+            probs["single"] + probs["double"] + probs["triple"] + probs["home_run"]
+        )
+        if hit_total <= cfg.hit_prob_cap:
+            return probs
+
+        scale = cfg.hit_prob_cap / max(hit_total, 0.0001)
+        excess = hit_total - cfg.hit_prob_cap
+        return {
+            **probs,
+            "home_run": probs["home_run"] * scale,
+            "single": probs["single"] * scale,
+            "double": probs["double"] * scale,
+            "triple": probs["triple"] * scale,
+            "out_on_bip": probs["out_on_bip"] + excess,
+        }
+
+    def _context_hit_scale(self, park_hits_factor: float, bvp_ops_factor: float) -> float:
+        cfg = self.config
+        park_adj = 1.0 + cfg.park_hits_weight * (park_hits_factor - 1.0)
+        bvp_adj = 1.0 + cfg.bvp_hit_weight * (bvp_ops_factor - 1.0)
+        combined = math.sqrt(max(0.01, park_adj * bvp_adj))
+        return max(cfg.context_hit_scale_min, min(cfg.context_hit_scale_max, combined))
+
+    def _sample_hit_type(
+        self,
+        latent: dict[str, float],
+        park_hits_factor: float = 1.0,
+        bvp_ops_factor: float = 1.0,
+    ) -> PAOutcome:
+        out_w, single_w, double_w, triple_w = self._hit_type_weights(
+            latent,
+            park_hits_factor=park_hits_factor,
+            bvp_ops_factor=bvp_ops_factor,
+        )
+
+        total = out_w + single_w + double_w + triple_w
+        p_out = out_w / total
         p_single = single_w / total
         p_double = double_w / total
         p_triple = triple_w / total
 
         r = self.rng.random()
-        if r < p_single:
+        if r < p_out:
+            return PAOutcome("out", "Ball in play out")
+        if r < p_out + p_single:
             return PAOutcome("single", "Single")
-        if r < p_single + p_double:
+        if r < p_out + p_single + p_double:
             return PAOutcome("double", "Double")
-        if r < p_single + p_double + p_triple:
+        if r < p_out + p_single + p_double + p_triple:
             return PAOutcome("triple", "Triple")
         return PAOutcome("out", "Ball in play out")
 
@@ -403,7 +586,6 @@ class HybridPASimulator:
             state.advance_home_run()
 
     def _default_speed_anchor(self) -> float:
-        """Speed anchor until sprint-speed Statcast is wired in Phase 2."""
         return 0.10
 
     @staticmethod
@@ -420,5 +602,5 @@ def _logit(p: float) -> float:
     return math.log(p / (1.0 - p))
 
 
-# Backward compatibility alias
+# Backward compatibility
 HybridPASimulatorV2 = HybridPASimulator

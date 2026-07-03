@@ -219,6 +219,7 @@ class CalibrationEngine:
         return PASimulatorConfig(
             **{
                 **asdict(cfg),
+                "bip_out_base_weight": max(cfg.out_weight_floor, cfg.bip_out_base_weight - correction * 0.06),
                 "single_base_weight": max(cfg.single_weight_floor, cfg.single_base_weight + correction * 0.04),
                 "double_power_bonus": cfg.double_power_bonus + correction * 0.03,
                 "single_power_penalty": cfg.single_power_penalty - correction * 0.02,

@@ -23,6 +23,7 @@ from src.data.umpire_client import UmpireClient
 from src.data.weather_client import WeatherClient
 from src.evaluation.park_factor_estimator import ParkFactorEstimator, ParkFactorSettings
 from src.learning.outcome_recorder import OutcomeRecorder
+from src.features.feature_factory import FeatureFactory
 from src.features.feature_store import FeatureStore
 from src.features.lineup_intelligence import LineupIntelligence
 from src.features.statcast_features import StatcastFeatureEngine
@@ -74,6 +75,7 @@ class DailyPredictor:
         weather_client: Optional[WeatherClient] = None,
         umpire_client: Optional[UmpireClient] = None,
         injury_client: Optional[InjuryClient] = None,
+        feature_factory: Optional[FeatureFactory] = None,
     ):
         self.config = config or self._load_config(config_path)
         self.config_path = config_path
@@ -105,6 +107,19 @@ class DailyPredictor:
         self.injury_client = injury_client or InjuryClient()
         self._park_estimator = ParkFactorEstimator(ParkFactorSettings.from_config(self.config))
         self._estimated_park_factors: dict[str, ParkFactors] = {}
+        self.feature_factory = feature_factory or FeatureFactory(
+            config=self.config,
+            league_baselines=self.league,
+            mlb_api=self.mlb_api,
+            statcast_engine=self.statcast_engine,
+            lineup_intelligence=self.lineup_intelligence,
+            weather_client=self.weather_client,
+            umpire_client=self.umpire_client,
+            injury_client=self.injury_client,
+            savant_client=self._savant_client,
+            park_estimator=self._park_estimator,
+            estimated_park_factors=self._estimated_park_factors,
+        )
 
     def predict(
         self,
@@ -216,70 +231,26 @@ class DailyPredictor:
         use_projected_lineups: bool = False,
     ) -> list[PlayerFeatureBundle]:
         """Assemble PlayerFeatureBundle rows for hitters on a date."""
-        try:
-            hitters = self.mlb_api.get_hitters_for_date(
-                game_date,
-                include_projected=use_projected_lineups,
-            )
-        except DataFetchError:
-            raise
-        except Exception as exc:
-            raise DataFetchError(
-                f"Failed to fetch hitters for {game_date}",
-                hint="Verify date format (YYYY-MM-DD) and network connectivity",
-            ) from exc
-
-        if not hitters:
-            label = "confirmed or projected" if use_projected_lineups else "confirmed"
-            logger.warning("No %s hitters for %s", label, game_date)
-            return []
-
         savant_csv = self._savant_csv_path()
         if savant_csv is None:
             logger.info(
                 "No Savant CSV at configured path; using league baselines for Statcast fallbacks"
             )
 
-        profiles = self.statcast_engine.build_profiles_for_hitters(
-            hitters,
-            game_date=game_date,
-            savant_csv_path=savant_csv,
-        )
-
-        bundles: list[PlayerFeatureBundle] = []
-        for hitter in hitters:
-            if not self.injury_client.is_available(hitter.player.mlb_id):
-                logger.debug("Skipping injured/inactive player %s", hitter.player.name)
-                continue
-
-            statcast = profiles[hitter.player.mlb_id]
-            pitcher_statcast = self._resolve_opposing_pitcher_statcast(hitter)
-            weather = self.weather_client.get_weather_for_game(
-                hitter.game.game_pk,
-                hitter.game.venue,
+        self.feature_factory.set_estimated_park_factors(self._estimated_park_factors)
+        try:
+            return self.feature_factory.build_bundles(
                 game_date,
+                use_projected_lineups=use_projected_lineups,
+                savant_csv_path=savant_csv,
             )
-            umpire = self.umpire_client.get_umpire_for_game(hitter.game.game_pk)
-            injury = self.injury_client.get_injury_status(hitter.player.mlb_id)
-            weather_hr = self.weather_client.hr_factor_from_weather(weather)
-
-            base_bundle = PlayerFeatureBundle(
-                hitter=hitter,
-                statcast=statcast,
-                park=self._park_factors(hitter.game.venue),
-                weather=weather,
-                matchup=self._matchup_context(hitter),
-                umpire=umpire,
-                injury=injury,
-                pitcher_statcast=pitcher_statcast,
-                expected_pa=self.league.pa_per_game,
-                metadata={
-                    "lineup_status": hitter.game.lineup_status,
-                    "weather_hr_factor": weather_hr,
-                },
-            )
-            bundles.append(self.lineup_intelligence.apply_to_bundle(base_bundle))
-        return bundles
+        except DataFetchError:
+            raise
+        except Exception as exc:
+            raise DataFetchError(
+                f"Failed to build feature bundles for {game_date}",
+                hint="Verify date format (YYYY-MM-DD) and network connectivity",
+            ) from exc
 
     def enable_corrections(self, load_state: bool = True) -> None:
         """Explicitly enable learned corrections for subsequent predict() calls."""
@@ -379,6 +350,7 @@ class DailyPredictor:
         self.statcast_engine.savant.league = league
         self._savant_client.league = league
         self.lineup_intelligence.league = league
+        self.feature_factory.sync_league(league)
 
     def rank_hitter_projections(
         self,
@@ -494,6 +466,7 @@ class DailyPredictor:
             estimated,
             static_venues,
         )
+        self.feature_factory.set_estimated_park_factors(self._estimated_park_factors)
         logger.info("Loaded %d estimated park factor venues", len(self._estimated_park_factors))
 
     def _park_factors(self, venue: str) -> ParkFactors:

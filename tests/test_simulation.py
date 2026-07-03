@@ -41,3 +41,26 @@ def test_monte_carlo_hrr_distribution():
     assert result.n_sims == 500
     assert result.mean > 0
     assert result.p10 <= result.mean <= result.p90
+
+
+def test_league_average_hits_per_game_realistic():
+    """BIP hit-type sampling must include outs or hits inflate to ~3 per game."""
+    league = LeagueBaselines()
+    sim = HybridPASimulator(league_baselines=league, random_seed=99)
+    n_sims = 8000
+    pa_per_game = int(round(league.pa_per_game))
+
+    total_hits = 0
+    for _ in range(n_sims):
+        game_hits = 0
+        for _ in range(pa_per_game):
+            outcome = sim.simulate(
+                pitcher_k_pct=league.k_pct,
+                pitcher_bb_pct=league.bb_pct,
+            )
+            if outcome.outcome in {"single", "double", "triple", "home_run"}:
+                game_hits += 1
+        total_hits += game_hits
+
+    mean_hits = total_hits / n_sims
+    assert 0.7 <= mean_hits <= 1.6, f"mean hits/game {mean_hits:.3f} outside realistic range"

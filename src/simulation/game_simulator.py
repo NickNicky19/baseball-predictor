@@ -23,10 +23,13 @@ class GameSimulatorInput:
     pitcher_k_pct: float
     pitcher_bb_pct: float
     park_hr_factor: float = 1.0
+    park_hits_factor: float = 1.0
     weather_hr_factor: float = 1.0
     umpire_k_bias: float = 0.0
     handedness_advantage: float = 0.0
     recent_form_mult: float = 1.0
+    bvp_ops_factor: float = 1.0
+    bvp_hr_factor: float = 1.0
     statcast: Optional[StatcastProfile] = None
     pitcher_hr_per_9: Optional[float] = None
 
@@ -73,8 +76,11 @@ class GameSimulator:
                 pitcher_bb_pct=inputs.pitcher_bb_pct,
                 pitcher_hr_per_9=inputs.pitcher_hr_per_9,
                 park_hr_factor=combined_hr_factor,
+                park_hits_factor=inputs.park_hits_factor,
                 handedness_advantage=inputs.handedness_advantage,
                 recent_form_mult=inputs.recent_form_mult,
+                bvp_ops_factor=inputs.bvp_ops_factor,
+                bvp_hr_factor=inputs.bvp_hr_factor,
                 statcast=inputs.statcast,
             )
             self.pa_simulator.apply_to_state(state, outcome)

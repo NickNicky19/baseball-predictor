@@ -16,6 +16,7 @@ from typing import Any, Optional, Union
 import pandas as pd
 
 from src.models.dataclasses import (
+    FeatureVector,
     GameContext,
     HitterGameContext,
     InjuryStatus,
@@ -124,6 +125,7 @@ def bundle_from_dict(data: dict[str, Any]) -> PlayerFeatureBundle:
         injury=_injury_from_dict(data.get("injury")),
         pitcher_statcast=_pitcher_statcast_from_dict(data.get("pitcher_statcast")),
         expected_pa=float(data.get("expected_pa", 4.05)),
+        features=_feature_vector_from_dict(data.get("features")),
         metadata=dict(data.get("metadata", {})),
     )
 
@@ -187,6 +189,15 @@ def _pitcher_statcast_from_dict(
     data: Optional[dict[str, Any]],
 ) -> Optional[PitcherStatcastProfile]:
     return PitcherStatcastProfile(**data) if data else None
+
+
+def _feature_vector_from_dict(data: Optional[dict[str, Any]]) -> Optional[FeatureVector]:
+    if not data:
+        return None
+    return FeatureVector(
+        values={k: float(v) for k, v in data.get("values", {}).items()},
+        groups={k: list(v) for k, v in data.get("groups", {}).items()},
+    )
 
 
 def _to_plain(obj: Any) -> Any:

@@ -193,6 +193,7 @@ class LineupIntelligence:
             injury=bundle.injury,
             pitcher_statcast=bundle.pitcher_statcast,
             expected_pa=adjustment.expected_pa,
+            features=bundle.features,
             metadata=metadata,
         )
 

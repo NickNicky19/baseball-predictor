@@ -27,7 +27,9 @@
     "league_weight": 0.1,
     "recent_ip_target": 20,
     "platoon_ip_target": 25,
-    "recent_form_exponent": 0.35
+    "recent_form_exponent": 0.35,
+    "min_bvp_pa": 8,
+    "min_platoon_pa": 15
   },
   "simulation_slot_pa": {
     "1": 1.117,
@@ -201,7 +203,7 @@
     }
   },
   "outcome_recording": {
-    "enabled": false,
+    "enabled": true,
     "pairs_csv_path": "data/learning/prediction_outcomes.csv",
     "predictions_dir": "data/learning/predictions",
     "archive_on_predict": true,
@@ -242,11 +244,17 @@
     "min_samples_per_category": 25,
     "min_pa_for_rate_calibration": 200
   },
+  "feature_factory": {
+    "interaction_order": 2,
+    "max_interaction_features": 120,
+    "include_distribution_percentiles": true
+  },
   "validation": {
     "walk_forward_folds": 5,
     "test_window_days": 7,
     "min_fold_samples": 20,
-    "champion_improvement_threshold": 0.02
+    "champion_improvement_threshold": 0.02,
+    "overshoot_margin": 1.75
   },
   "pitcher_regression": {
     "season_k9_blend": 0.75,

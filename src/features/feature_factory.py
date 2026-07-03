@@ -1,0 +1,281 @@
+"""
+Feature factory — orchestrates rich feature bundle assembly for daily slates.
+
+Extracts and centralizes bundle construction from DailyPredictor so the
+feature layer is modular, backtestable, and extensible.
+"""
+
+from __future__ import annotations
+
+from pathlib import Path
+from typing import Any, Optional, Protocol
+
+from src.data.injury_client import InjuryClient
+from src.data.mlb_api import MLBStatsAPI
+from src.data.savant import SavantClient
+from src.data.umpire_client import UmpireClient
+from src.data.weather_client import WeatherClient
+from src.evaluation.park_factor_estimator import ParkFactorEstimator, ParkFactorSettings
+from src.features.feature_vector import FeatureVectorBuilder
+from src.features.lineup_intelligence import LineupIntelligence
+from src.features.matchup_intelligence import MatchupIntelligence
+from src.features.statcast_features import StatcastFeatureEngine
+from src.models.dataclasses import (
+    HitterGameContext,
+    LeagueBaselines,
+    ParkFactors,
+    PitcherStatcastProfile,
+    PlayerFeatureBundle,
+)
+from src.utils.logging import get_logger
+
+logger = get_logger(__name__)
+
+
+class HitterProvider(Protocol):
+    def get_hitters_for_date(
+        self, game_date: str, include_projected: bool = False
+    ) -> list[HitterGameContext]:
+        ...
+
+    def get_pitching_stats(self, player_id: int):
+        ...
+
+
+class FeatureFactory:
+    """
+    Assembles PlayerFeatureBundle rows with rich features and matchup context.
+
+    Pipeline: Statcast → context clients → matchup intelligence → feature vector
+    → lineup intelligence adjustments.
+    """
+
+    def __init__(
+        self,
+        config: Optional[dict[str, Any]] = None,
+        league_baselines: Optional[LeagueBaselines] = None,
+        mlb_api: Optional[HitterProvider] = None,
+        statcast_engine: Optional[StatcastFeatureEngine] = None,
+        lineup_intelligence: Optional[LineupIntelligence] = None,
+        matchup_intelligence: Optional[MatchupIntelligence] = None,
+        feature_vector_builder: Optional[FeatureVectorBuilder] = None,
+        weather_client: Optional[WeatherClient] = None,
+        umpire_client: Optional[UmpireClient] = None,
+        injury_client: Optional[InjuryClient] = None,
+        savant_client: Optional[SavantClient] = None,
+        park_estimator: Optional[ParkFactorEstimator] = None,
+        estimated_park_factors: Optional[dict[str, ParkFactors]] = None,
+    ):
+        self.config = config or {}
+        self.league = league_baselines or LeagueBaselines.from_config(self.config)
+        self.mlb_api = mlb_api
+        self.statcast_engine = statcast_engine or StatcastFeatureEngine(
+            league_baselines=self.league,
+        )
+        self.lineup_intelligence = lineup_intelligence or LineupIntelligence.from_config(
+            self.config, league_baselines=self.league
+        )
+        self.matchup_intelligence = matchup_intelligence
+        self.feature_vector_builder = feature_vector_builder or FeatureVectorBuilder(
+            league_baselines=self.league,
+            config=self.config,
+        )
+        self.weather_client = weather_client or WeatherClient()
+        self.umpire_client = umpire_client or UmpireClient()
+        self.injury_client = injury_client or InjuryClient()
+        self.savant_client = savant_client or SavantClient(league_baselines=self.league)
+        self._park_estimator = park_estimator or ParkFactorEstimator(
+            ParkFactorSettings.from_config(self.config)
+        )
+        self._estimated_park_factors = estimated_park_factors or {}
+
+        if self.matchup_intelligence is None and isinstance(self.mlb_api, MLBStatsAPI):
+            self.matchup_intelligence = MatchupIntelligence.from_config(
+                self.config,
+                league_baselines=self.league,
+                data_provider=self.mlb_api,
+            )
+        elif self.matchup_intelligence is None:
+            self.matchup_intelligence = MatchupIntelligence.from_config(
+                self.config,
+                league_baselines=self.league,
+            )
+
+    @classmethod
+    def from_config(
+        cls,
+        config: dict[str, Any],
+        league_baselines: Optional[LeagueBaselines] = None,
+        mlb_api: Optional[HitterProvider] = None,
+    ) -> FeatureFactory:
+        return cls(config=config, league_baselines=league_baselines, mlb_api=mlb_api)
+
+    def build_bundles(
+        self,
+        game_date: str,
+        hitters: Optional[list[HitterGameContext]] = None,
+        use_projected_lineups: bool = False,
+        savant_csv_path: Optional[str] = None,
+    ) -> list[PlayerFeatureBundle]:
+        """Build enriched feature bundles for all active hitters on a slate."""
+        if hitters is None:
+            if self.mlb_api is None:
+                raise ValueError("mlb_api required when hitters are not provided")
+            hitters = self.mlb_api.get_hitters_for_date(
+                game_date,
+                include_projected=use_projected_lineups,
+            )
+
+        if not hitters:
+            return []
+
+        profiles = self.statcast_engine.build_profiles_for_hitters(
+            hitters,
+            game_date=game_date,
+            savant_csv_path=savant_csv_path,
+        )
+
+        bundles: list[PlayerFeatureBundle] = []
+        for hitter in hitters:
+            if not self.injury_client.is_available(hitter.player.mlb_id):
+                logger.debug("Skipping injured/inactive player %s", hitter.player.name)
+                continue
+
+            statcast = profiles[hitter.player.mlb_id]
+            pitcher_statcast = self._resolve_opposing_pitcher_statcast(hitter)
+            weather = self.weather_client.get_weather_for_game(
+                hitter.game.game_pk,
+                hitter.game.venue,
+                game_date,
+            )
+            umpire = self.umpire_client.get_umpire_for_game(hitter.game.game_pk)
+            injury = self.injury_client.get_injury_status(hitter.player.mlb_id)
+            weather_hr = self.weather_client.hr_factor_from_weather(weather)
+
+            base_bundle = PlayerFeatureBundle(
+                hitter=hitter,
+                statcast=statcast,
+                park=self._park_factors(hitter.game.venue),
+                weather=weather,
+                matchup=self.matchup_intelligence.build_matchup_context(
+                    hitter,
+                    pitcher_statcast=pitcher_statcast,
+                    hitter_statcast=statcast,
+                ),
+                umpire=umpire,
+                injury=injury,
+                pitcher_statcast=pitcher_statcast,
+                expected_pa=self.league.pa_per_game,
+                metadata={
+                    "lineup_status": hitter.game.lineup_status,
+                    "weather_hr_factor": weather_hr,
+                },
+            )
+
+            enriched = self.matchup_intelligence.apply_to_bundle(base_bundle)
+            season_hitting, recent_hitting = self._hitting_stats(hitter.player.mlb_id)
+            features = self.feature_vector_builder.build(
+                enriched,
+                season_hitting=season_hitting,
+                recent_hitting=recent_hitting,
+            )
+            enriched = PlayerFeatureBundle(
+                hitter=enriched.hitter,
+                statcast=enriched.statcast,
+                park=enriched.park,
+                weather=enriched.weather,
+                matchup=enriched.matchup,
+                umpire=enriched.umpire,
+                injury=enriched.injury,
+                pitcher_statcast=enriched.pitcher_statcast,
+                expected_pa=enriched.expected_pa,
+                features=features,
+                metadata={
+                    **enriched.metadata,
+                    "feature_count": features.count(),
+                },
+            )
+            bundles.append(self.lineup_intelligence.apply_to_bundle(enriched))
+
+        logger.info("Built %d feature bundles for %s", len(bundles), game_date)
+        return bundles
+
+    def set_estimated_park_factors(self, factors: dict[str, ParkFactors]) -> None:
+        self._estimated_park_factors = factors
+
+    def sync_league(self, league: LeagueBaselines) -> None:
+        """Keep sub-engines aligned when league baselines are corrected."""
+        self.league = league
+        self.statcast_engine.league = league
+        self.statcast_engine.savant.league = league
+        self.savant_client.league = league
+        self.lineup_intelligence.league = league
+        self.matchup_intelligence.league = league
+        self.feature_vector_builder.league = league
+
+    def _resolve_opposing_pitcher_statcast(
+        self, hitter: HitterGameContext
+    ) -> Optional[PitcherStatcastProfile]:
+        pitcher_id = hitter.opposing_pitcher_id
+        if not pitcher_id or self.mlb_api is None:
+            return None
+
+        try:
+            season, recent = self.mlb_api.get_pitching_stats(pitcher_id)
+        except Exception:
+            logger.debug(
+                "Could not fetch stats for opposing pitcher %s",
+                hitter.opposing_pitcher_name,
+            )
+            return None
+
+        k_pct = recent.k_pct or season.k_pct or self.league.k_pct
+        bb_pct = recent.bb_pct or season.bb_pct or self.league.bb_pct
+        hr_per_9 = recent.hr_per_9 or season.hr_per_9 or self.league.hr_per_9
+
+        return self.savant_client.build_pitcher_profile_from_rates(
+            player_id=pitcher_id,
+            player_name=hitter.opposing_pitcher_name,
+            k_pct=k_pct,
+            bb_pct=bb_pct,
+            hr_per_9=hr_per_9,
+            sample_pa=int(recent.innings_pitched * 4.2),
+        )
+
+    def _hitting_stats(self, player_id: int):
+        if self.mlb_api is None:
+            return None, None
+        try:
+            return self.mlb_api.get_hitting_stats(player_id)
+        except Exception:
+            return None, None
+
+    def _park_factors(self, venue: str) -> ParkFactors:
+        if self._estimated_park_factors:
+            venue_lower = venue.lower()
+            for name, factors in self._estimated_park_factors.items():
+                if name.lower() in venue_lower:
+                    return factors
+
+        park_config = self.config.get("park_factors", {})
+        venue_lower = venue.lower()
+        for park_name, factors in park_config.items():
+            if isinstance(factors, dict) and park_name.lower() in venue_lower:
+                return ParkFactors(
+                    venue=venue,
+                    hits_factor=float(factors.get("hits", 1.0)),
+                    hr_factor=float(factors.get("hr", 1.0)),
+                    runs_factor=float(factors.get("runs", 1.0)),
+                )
+        return ParkFactors(venue=venue)
+
+    def resolve_savant_csv_path(self, config_path: Optional[Path] = None) -> Optional[str]:
+        savant_cfg = self.config.get("savant", {})
+        csv_path = savant_cfg.get("csv_path")
+        if not csv_path:
+            return None
+        path = Path(csv_path)
+        if not path.is_absolute():
+            root = config_path or Path(__file__).resolve().parents[2]
+            path = root / csv_path
+        return str(path) if path.exists() else None
