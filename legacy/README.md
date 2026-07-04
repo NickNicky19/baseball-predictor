@@ -1,29 +1,34 @@
-# Legacy Code (Removed During Cleanup)
+# Legacy / Archived Reference
 
-The following pre-architecture files were removed in the final cleanup pass.
-The active codebase now lives under the layered structure documented in `ARCHITECTURE.md`.
+This folder contains **deprecated code documentation and historical artifacts only**.
+Nothing here is imported by the active production pipeline.
 
-## Removed modules
+## Contents
 
-| Path | Replaced by |
+| Path | Description |
 |------|-------------|
+| `BUG_AUDIT_REPORT.txt` | Pre-rebuild audit from the original monolithic codebase |
+| `README.md` | This file — migration notes |
+
+## Removed modules (recover from git history)
+
+| Old path | Replaced by |
+|----------|-------------|
 | `src/models/predictor.py` | `src/prediction/daily_predictor.py` |
 | `src/models/backtester.py` | `src/evaluation/backtest_engine.py` + `calibration.py` |
 | `src/models/value.py` | `src/prediction/edge_calculator.py` |
 | `src/models/simulation/` | `src/simulation/` |
 | `src/data/mlb_client.py` | `src/data/mlb_api.py` |
 | `src/savant_engine.py` | `src/data/savant.py` |
-| `src/features/hitters/` | `src/features/statcast_features.py` + `feature_store.py` |
-| `src/features/pitchers/` | (not yet implemented — Phase 6+) |
-| `src/features/scoring.py`, `matchup.py`, `recency.py` | Simulation + PropEngine |
-| `gui/` package | Root `gui.py` (minimal, new architecture) |
+| `src/features/hitters/` | `src/features/legacy_statcast_features.py` + `feature_store.py` |
+| `src/features/pitchers/` | (planned — pitcher feature pipeline) |
+| `src/features/scoring.py`, `matchup.py`, `recency.py` | `matchup_intelligence.py`, `PropEngine` |
+| `gui/` package | Root `gui.py` |
 | `cli/main.py` | `run_daily.py` |
-| `src/data/bvp_client.py`, `weather_client.py`, `odds_parser.py` | Planned for future data layer |
 
-Recover removed files from git history if needed.
+## Statcast naming note
 
-## Historical artifacts
+- **Production profiles:** `src/features/legacy_statcast_features.py` (`StatcastFeatureEngine`)
+- **ML feature layer:** `src/features/ml/statcast_features.py` (`StatcastFeatureEngineer`)
 
-| Path | Description |
-|------|-------------|
-| `legacy/BUG_AUDIT_REPORT.txt` | Pre-rebuild audit from the original monolithic codebase (archived for reference) |
+See [STRUCTURE.md](../STRUCTURE.md) for the current layout.

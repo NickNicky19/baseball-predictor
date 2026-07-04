@@ -1,5 +1,7 @@
 import sys
-sys.path.insert(0, '.')
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from src.prediction.daily_predictor import DailyPredictor
 from src.prediction.prop_engine import PropEngine

@@ -26,7 +26,7 @@ from src.learning.outcome_recorder import OutcomeRecorder
 from src.features.feature_factory import FeatureFactory
 from src.features.feature_store import FeatureStore
 from src.features.lineup_intelligence import LineupIntelligence
-from src.features.statcast_features import StatcastFeatureEngine
+from src.features.legacy_statcast_features import StatcastFeatureEngine
 from src.models.dataclasses import (
     DailyPrediction,
     EdgeResult,

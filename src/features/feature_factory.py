@@ -19,7 +19,7 @@ from src.evaluation.park_factor_estimator import ParkFactorEstimator, ParkFactor
 from src.features.feature_vector import FeatureVectorBuilder
 from src.features.lineup_intelligence import LineupIntelligence
 from src.features.matchup_intelligence import MatchupIntelligence
-from src.features.statcast_features import StatcastFeatureEngine
+from src.features.legacy_statcast_features import StatcastFeatureEngine
 from src.models.dataclasses import (
     HitterGameContext,
     LeagueBaselines,

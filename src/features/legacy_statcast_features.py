@@ -1,9 +1,9 @@
 """
-Statcast feature engineering for hitters.
+Legacy Statcast profile builder for hitters (production path).
 
-Transforms raw Statcast/Savant inputs into StatcastProfile objects and
-enriches them with league-centered context. Keeps logic isolated from the
-data ingestion and prediction layers for backtestability.
+Builds ``StatcastProfile`` objects from Savant/Statcast data for DailyPredictor
+and FeatureFactory. The modular ML feature layer lives in ``src/features/ml/``;
+see ``RichFeatureEnricher`` for additive rich features on top of profiles.
 """
 
 from __future__ import annotations

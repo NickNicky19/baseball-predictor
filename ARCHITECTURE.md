@@ -2,7 +2,8 @@
 
 Layered MLB daily prediction system optimized for accuracy, modularity, backtestability, and self-improvement. Each layer has a single responsibility and communicates through shared domain types in `src/models/dataclasses.py`.
 
-> **Quick start:** See [README.md](README.md) for installation, CLI/GUI usage, and a project overview.
+> **Quick start:** See [README.md](README.md) for installation, CLI/GUI usage, and a project overview.  
+> **Folder layout:** See [STRUCTURE.md](STRUCTURE.md) for production vs scripts vs legacy organization.
 
 ## Layer Overview
 
@@ -96,7 +97,10 @@ flowchart LR
 
 | Class | File | Purpose |
 |-------|------|---------|
-| `StatcastFeatureEngine` | `statcast_features.py` | Batch profile building for a hitter slate |
+| `StatcastFeatureEngine` | `legacy_statcast_features.py` | Batch `StatcastProfile` building (production path) |
+| `StatcastFeatureEngineer` | `ml/statcast_features.py` | Modular ML feature layer (future integration) |
+| `RichFeatureEnricher` | `rich_feature_enricher.py` | Bridge to `src/features/ml/` pipeline |
+| `FeatureFactory` | `feature_factory.py` | Daily bundle orchestration |
 | `LineupIntelligence` | `lineup_intelligence.py` | Lineup certainty scoring; PA/confidence/sim adjustments |
 | `FeatureStore` | `feature_store.py` | Persist bundles as JSON/Parquet for backtests |
 

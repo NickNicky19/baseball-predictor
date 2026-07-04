@@ -10,7 +10,7 @@ from src.features.lineup_intelligence import (
     LineupIntelligenceSettings,
 )
 from src.features.matchup_intelligence import MatchupIntelligence, MatchupIntelligenceSettings
-from src.features.statcast_features import StatcastFeatureEngine
+from src.features.legacy_statcast_features import StatcastFeatureEngine
 
 __all__ = [
     "FeatureFactory",

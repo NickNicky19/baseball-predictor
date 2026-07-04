@@ -19,7 +19,7 @@ Data → Features → Simulation → Prediction → Evaluation → Learning
 - **Evaluation** — backtesting and calibration metrics
 - **Learning** — outcome retraining and optional bias corrections at prediction time
 
-For full architecture details — class responsibilities, data flow diagrams, configuration reference, and extension patterns — see **[ARCHITECTURE.md](ARCHITECTURE.md)**.
+For full architecture details — class responsibilities, data flow diagrams, configuration reference, and extension patterns — see **[ARCHITECTURE.md](ARCHITECTURE.md)**. For folder layout, see **[STRUCTURE.md](STRUCTURE.md)**.
 
 ### Self-Improvement
 
@@ -124,6 +124,7 @@ See [ARCHITECTURE.md — Self-Improvement](ARCHITECTURE.md#self-improvement--cor
 ```
 baseball_predictor/
 ├── ARCHITECTURE.md          # Detailed architecture reference
+├── STRUCTURE.md             # High-level folder layout
 ├── config/config.json       # League baselines, park factors, simulation, learning settings
 ├── run_daily.py             # Production CLI entry point
 ├── run_retrain.py           # Retrain corrections from historical pairs
@@ -131,12 +132,14 @@ baseball_predictor/
 ├── run_validate.py          # End-to-end pipeline validation
 ├── main.py                  # GUI launcher
 ├── gui.py                   # Minimal Tkinter UI
+├── scripts/                 # Dev/diagnostic tools (diagnose_*, validate_current_model)
 ├── data/                    # Runtime data (gitignored; see data/.gitkeep)
-├── legacy/README.md         # Migration map for removed pre-rebuild code
+├── legacy/                  # Archived audit + migration notes (not imported at runtime)
 ├── src/
 │   ├── models/              # Shared dataclasses (LeagueBaselines, PropProjection, …)
 │   ├── data/                # MLBStatsAPI, SavantClient, odds/ providers
-│   ├── features/            # StatcastFeatureEngine, LineupIntelligence, FeatureStore
+│   ├── features/            # FeatureFactory, legacy_statcast_features, rich_feature_enricher
+│   │   └── ml/              # New modular feature layer (future integration)
 │   ├── simulation/          # HybridPASimulator, GameSimulator, MonteCarloEngine
 │   ├── prediction/          # DailyPredictor, PropEngine, CorrectionManager
 │   ├── evaluation/          # BacktestEngine, CalibrationEngine, PipelineValidator
@@ -172,4 +175,6 @@ Set `odds.enabled: true` in config, or pass `--with-edges --odds-file path.csv` 
 ## Documentation
 
 - **[ARCHITECTURE.md](ARCHITECTURE.md)** — layers, classes, correction system, configuration, extension guide
+- **[STRUCTURE.md](STRUCTURE.md)** — folder layout, production vs dev scripts, feature layer split
+- **[scripts/README.md](scripts/README.md)** — diagnostic and validation scripts
 - **[legacy/README.md](legacy/README.md)** — removed modules and their replacements
