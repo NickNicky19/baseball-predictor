@@ -45,50 +45,44 @@
     "use_empirical_prior": true
   },
   "park_factors": {
+    "_comment": "Static approximate multi-year factors (hits/hr/runs vs league=1.0). These are fallback priors only — ParkFactorEstimator blends empirical venue factors over them as pairs data accumulates (see estimation_* settings). All 30 venues covered so no park silently defaults to neutral.",
     "estimation_mode": "static",
     "estimation_shrinkage": 0.35,
     "min_games": 8,
     "blend_with_static": 0.5,
-    "Coors Field": {
-      "hits": 1.12,
-      "hr": 1.25,
-      "runs": 1.18
-    },
-    "Fenway Park": {
-      "hits": 1.05,
-      "hr": 1.08,
-      "runs": 1.06
-    },
-    "Yankee Stadium": {
-      "hits": 0.98,
-      "hr": 1.15,
-      "runs": 1.08
-    },
-    "Oracle Park": {
-      "hits": 0.92,
-      "hr": 0.78,
-      "runs": 0.88
-    },
-    "Petco Park": {
-      "hits": 0.94,
-      "hr": 0.82,
-      "runs": 0.9
-    },
-    "Globe Life Field": {
-      "hits": 1.04,
-      "hr": 1.06,
-      "runs": 1.03
-    },
-    "Great American Ball Park": {
-      "hits": 1.06,
-      "hr": 1.12,
-      "runs": 1.08
-    },
-    "Citizens Bank Park": {
-      "hits": 1.03,
-      "hr": 1.1,
-      "runs": 1.05
-    }
+    "Coors Field": { "hits": 1.12, "hr": 1.25, "runs": 1.18 },
+    "Fenway Park": { "hits": 1.05, "hr": 1.02, "runs": 1.06 },
+    "Yankee Stadium": { "hits": 0.98, "hr": 1.15, "runs": 1.08 },
+    "Oracle Park": { "hits": 0.95, "hr": 0.82, "runs": 0.9 },
+    "Petco Park": { "hits": 0.96, "hr": 0.9, "runs": 0.93 },
+    "Globe Life Field": { "hits": 0.99, "hr": 1.0, "runs": 0.98 },
+    "Great American Ball Park": { "hits": 1.03, "hr": 1.18, "runs": 1.08 },
+    "Citizens Bank Park": { "hits": 1.0, "hr": 1.12, "runs": 1.04 },
+    "Dodger Stadium": { "hits": 0.97, "hr": 1.08, "runs": 0.99 },
+    "Wrigley Field": { "hits": 1.0, "hr": 0.98, "runs": 1.0 },
+    "Truist Park": { "hits": 1.0, "hr": 1.04, "runs": 1.01 },
+    "Camden Yards": { "hits": 0.98, "hr": 0.95, "runs": 0.97 },
+    "T-Mobile Park": { "hits": 0.93, "hr": 0.94, "runs": 0.9 },
+    "Daikin Park": { "hits": 0.99, "hr": 1.06, "runs": 1.01 },
+    "Minute Maid Park": { "hits": 0.99, "hr": 1.06, "runs": 1.01 },
+    "Kauffman Stadium": { "hits": 1.03, "hr": 0.88, "runs": 0.99 },
+    "Target Field": { "hits": 0.99, "hr": 0.97, "runs": 0.98 },
+    "Rate Field": { "hits": 1.0, "hr": 1.1, "runs": 1.03 },
+    "Guaranteed Rate Field": { "hits": 1.0, "hr": 1.1, "runs": 1.03 },
+    "Progressive Field": { "hits": 1.0, "hr": 0.95, "runs": 0.99 },
+    "Comerica Park": { "hits": 0.99, "hr": 0.92, "runs": 0.96 },
+    "Rogers Centre": { "hits": 1.0, "hr": 1.05, "runs": 1.01 },
+    "Angel Stadium": { "hits": 0.98, "hr": 1.02, "runs": 0.98 },
+    "Chase Field": { "hits": 1.03, "hr": 1.0, "runs": 1.03 },
+    "American Family Field": { "hits": 0.99, "hr": 1.08, "runs": 1.02 },
+    "Busch Stadium": { "hits": 0.98, "hr": 0.9, "runs": 0.95 },
+    "PNC Park": { "hits": 1.0, "hr": 0.88, "runs": 0.96 },
+    "loanDepot park": { "hits": 0.98, "hr": 0.92, "runs": 0.94 },
+    "Citi Field": { "hits": 0.97, "hr": 0.98, "runs": 0.95 },
+    "Nationals Park": { "hits": 1.0, "hr": 1.02, "runs": 1.0 },
+    "Tropicana Field": { "hits": 0.97, "hr": 0.95, "runs": 0.95 },
+    "George M. Steinbrenner Field": { "hits": 1.0, "hr": 1.1, "runs": 1.04 },
+    "Sutter Health Park": { "hits": 1.02, "hr": 1.02, "runs": 1.02 }
   },
   "lineup_intelligence": {
     "certainty_scores": {
@@ -121,57 +115,20 @@
     "min_order_length_confirmed": 9,
     "min_order_length_projected": 7
   },
-  "lineup_slot_runs_rbi": {
-    "1": {
-      "runs": 1.12,
-      "rbi": 0.85
-    },
-    "2": {
-      "runs": 1.08,
-      "rbi": 0.9
-    },
-    "3": {
-      "runs": 1.05,
-      "rbi": 1.1
-    },
-    "4": {
-      "runs": 1.0,
-      "rbi": 1.18
-    },
-    "5": {
-      "runs": 0.98,
-      "rbi": 1.12
-    },
-    "6": {
-      "runs": 0.95,
-      "rbi": 1.0
-    },
-    "7": {
-      "runs": 0.92,
-      "rbi": 0.92
-    },
-    "8": {
-      "runs": 0.9,
-      "rbi": 0.88
-    },
-    "9": {
-      "runs": 0.95,
-      "rbi": 0.82
-    }
-  },
   "savant": {
     "csv_path": "data/savant/stats.csv",
     "odds_pdf": "data/odds/odds.pdf",
     "blend_daily": 0.3,
-    "blend_savant": 0.7,
-    "backtest": {
-      "hits_mae": 0.064,
-      "hrr_mae": 0.266,
-      "fantasy_mae": 0.379,
-      "sample_size": 153,
-      "value_play_count": 27,
-      "value_play_hit_rate": 88.9,
-      "avg_edge_on_value_plays": 0.576
+    "blend_savant": 0.7
+  },
+  "base_running": {
+    "_comment": "League empirical base-state distribution + P(batter scores | base reached). Used by GameSimulator for realistic runs/RBI. Re-fit these from pairs data via the calibration layer as it matures.",
+    "p_score_from_base": {
+      "walk": 0.27,
+      "single": 0.28,
+      "double": 0.4,
+      "triple": 0.56,
+      "home_run": 1.0
     }
   },
   "odds": {

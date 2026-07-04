@@ -4,6 +4,16 @@ Prop projection engine (Final Form).
 Converts PlayerFeatureBundle inputs into PropProjection outputs using a
 consistent Probability Engine + Monte Carlo approach with strong output
 safeguards. Designed for high precision on HR/HRR and future explainability.
+
+FIX in this revision — pitcher K%/BB% unit scale:
+project_pitcher_strikeouts() previously computed
+    pitcher_k_pct = (k9 / 9.0) * 4.2 * 100.0
+which MULTIPLIES by PA-per-inning instead of dividing — producing K% values
+of 280–550% that pinned every pitcher at the simulator's k_max clamp, so
+every starter projected the identical strikeout total regardless of skill
+(verified: 5.0 K/9 and 13.0 K/9 both projected 9.62 K).
+Correct conversion: K% = K per PA = (K/9 innings) / (PA/9 innings)
+                       = (k9 / 9.0) / PA_PER_INNING * 100.
 """
 
 from __future__ import annotations
@@ -23,6 +33,14 @@ from src.simulation.game_simulator import GameSimulator, GameSimulatorInput
 from src.simulation.monte_carlo import FantasyScoring, MonteCarloEngine
 from src.simulation.pa_simulator import HybridPASimulator, PASimulatorConfig
 from src.simulation.probability_engine import ProbabilityEngine
+
+# Average plate appearances per inning (≈ team PA per game / 9).
+PA_PER_INNING = 4.2
+
+
+def rate_per_9_to_pct(rate_per_9: float) -> float:
+    """Convert a per-9-innings rate (K/9, BB/9) to a per-PA percentage."""
+    return (rate_per_9 / 9.0) / PA_PER_INNING * 100.0
 
 
 class PropEngine:
@@ -97,6 +115,7 @@ class PropEngine:
                 league_baselines=self.league,
             ),
             league_baselines=self.league,
+            config=self.config,
         )
         return MonteCarloEngine(
             game_simulator=game_simulator,
@@ -112,7 +131,6 @@ class PropEngine:
         """Return one PropProjection per requested category for a hitter."""
         cats = categories or self.HITTER_CATEGORIES
 
-        # === NEW: Extract rich features from the ml/ layer ===
         rich_features = bundle.metadata.get("rich_features", {})
 
         sim_input = self._bundle_to_sim_input(bundle, rich_features=rich_features)
@@ -187,14 +205,16 @@ class PropEngine:
 
         regressed_k9 = (season_blend * blended_k9) + (league_blend * league_k9)
 
-        pitcher_k_pct = (regressed_k9 / 9.0) * 4.2 * 100.0
-        pitcher_bb_pct = (
-            recent_stats.bb_per_9 or season_stats.bb_per_9 or self.league.bb_pct
-        )
-        pitcher_bb_pct = (pitcher_bb_pct / 9.0) * 4.2 * 100.0
+        # FIX: per-9 rate -> per-PA percentage (divide by PA/inning, don't multiply).
+        pitcher_k_pct = rate_per_9_to_pct(regressed_k9)
+        bb_per_9 = recent_stats.bb_per_9 or season_stats.bb_per_9
+        if bb_per_9 is not None:
+            pitcher_bb_pct = rate_per_9_to_pct(bb_per_9)
+        else:
+            pitcher_bb_pct = self.league.bb_pct
 
         expected_ip = pitcher.expected_innings
-        batters_faced = expected_ip * 4.2
+        batters_faced = expected_ip * PA_PER_INNING
 
         pa_sim = HybridPASimulator(
             config=self.pa_config,
@@ -220,11 +240,11 @@ class PropEngine:
         )
 
     def _bundle_to_sim_input(
-        self, 
-        bundle: PlayerFeatureBundle, 
-        rich_features: Optional[dict] = None
+        self,
+        bundle: PlayerFeatureBundle,
+        rich_features: Optional[dict] = None,
     ) -> GameSimulatorInput:
-        """Build simulation input, now including rich features when available."""
+        """Build simulation input, including rich features when available."""
         pitcher_k = self.league.k_pct
         pitcher_bb = self.league.bb_pct
 
@@ -256,7 +276,7 @@ class PropEngine:
             bvp_hr_factor=bundle.matchup.bvp_hr_factor,
             statcast=bundle.statcast,
             pitcher_hr_per_9=pitcher_hr_per_9,
-            rich_features=rich_features,           # ← NEW
+            rich_features=rich_features,
         )
 
     def _hitter_confidence(self, bundle: PlayerFeatureBundle, mc_result) -> float:

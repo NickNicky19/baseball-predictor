@@ -2,6 +2,16 @@
 Monte Carlo aggregation over repeated game simulations.
 
 Produces MonteCarloResult distributions for hitter prop categories.
+
+FIXES (this revision):
+1. Reproducibility: the old loop constructed a fresh GameSimulator per
+   iteration with a per-game seed — but all sampling randomness lives in the
+   shared pa_simulator's RNG, which was never reseeded. random_seed therefore
+   had no effect on outcomes. The engine now seeds the game simulator (game +
+   PA RNGs) once per run, derived from its own seed, making runs with the
+   same seed byte-identical.
+2. Performance: no more N object constructions per run (8000 GameSimulator
+   allocations per player-category eliminated).
 """
 
 from __future__ import annotations
@@ -86,19 +96,17 @@ class MonteCarloEngine:
         store_samples: bool = False,
     ) -> MonteCarloResult:
         """Simulate n_sims games and aggregate for the requested prop category."""
+        # FIX: seed the shared simulator ONCE per run from the engine RNG so
+        # the entire run is reproducible under the engine's random_seed.
+        run_seed = self.rng.randint(0, 2**31 - 1)
+        self.game_simulator.seed(run_seed)
+
         samples: list[float] = []
         game_results: list[GameSimulationResult] = []
 
-        for i in range(n_sims):
-            game_seed = self.rng.randint(0, 2**31 - 1)
-            sim = GameSimulator(
-                pa_simulator=self.game_simulator.pa_simulator,
-                league_baselines=self.league,
-                random_seed=game_seed,
-            )
-            result = sim.simulate_game(inputs)
-            value = self._category_value(result, category)
-            samples.append(value)
+        for _ in range(n_sims):
+            result = self.game_simulator.simulate_game(inputs)
+            samples.append(self._category_value(result, category))
             if store_samples:
                 game_results.append(result)
 

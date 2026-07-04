@@ -1,8 +1,12 @@
 """
 Feature factory — orchestrates rich feature bundle assembly for daily slates.
 
-Includes integration with the new modular feature layer (src/features/ml/)
-via RichFeatureEnricher for richer Statcast + contextual + rolling features.
+FIX (this revision): RichFeatureEnricher.enrich() previously received only
+{"game_date": ...}, so the ml/ feature layer emitted None/default for nearly
+every field. The enrichment call now passes the real weather, park, matchup,
+umpire, and lineup context that this factory already computes, plus optional
+leakage-safe rolling stats from a PointInTimeStats provider when one is
+injected.
 """
 
 from __future__ import annotations
@@ -43,12 +47,16 @@ class HitterProvider(Protocol):
         ...
 
 
+class RollingStatsProvider(Protocol):
+    """Anything that can produce leakage-safe rolling features (see PointInTimeStats)."""
+
+    def rolling_features(self, player_id: int, as_of_date: str) -> dict[str, Any]:
+        ...
+
+
 class FeatureFactory:
     """
     Assembles PlayerFeatureBundle rows with rich features and matchup context.
-
-    Now also enriches bundles with high-quality features from the new
-    modular feature layer (src/features/ml/).
     """
 
     def __init__(
@@ -66,6 +74,7 @@ class FeatureFactory:
         savant_client: Optional[SavantClient] = None,
         park_estimator: Optional[ParkFactorEstimator] = None,
         estimated_park_factors: Optional[dict[str, ParkFactors]] = None,
+        rolling_stats_provider: Optional[RollingStatsProvider] = None,
     ):
         self.config = config or {}
         self.league = league_baselines or LeagueBaselines.from_config(self.config)
@@ -90,8 +99,9 @@ class FeatureFactory:
         )
         self._estimated_park_factors = estimated_park_factors or {}
 
-        # === Rich Feature Enricher Integration ===
+        # Rich feature layer + optional leakage-safe rolling stats source.
         self.rich_feature_enricher = RichFeatureEnricher()
+        self.rolling_stats_provider = rolling_stats_provider
 
         if self.matchup_intelligence is None and isinstance(self.mlb_api, MLBStatsAPI):
             self.matchup_intelligence = MatchupIntelligence.from_config(
@@ -155,11 +165,12 @@ class FeatureFactory:
             umpire = self.umpire_client.get_umpire_for_game(hitter.game.game_pk)
             injury = self.injury_client.get_injury_status(hitter.player.mlb_id)
             weather_hr = self.weather_client.hr_factor_from_weather(weather)
+            park = self._park_factors(hitter.game.venue)
 
             base_bundle = PlayerFeatureBundle(
                 hitter=hitter,
                 statcast=statcast,
-                park=self._park_factors(hitter.game.venue),
+                park=park,
                 weather=weather,
                 matchup=self.matchup_intelligence.build_matchup_context(
                     hitter,
@@ -184,10 +195,51 @@ class FeatureFactory:
                 recent_hitting=recent_hitting,
             )
 
-            # === NEW: Enrich with rich features from the ml/ layer ===
+            # === FIX: feed the enricher the REAL context this factory just
+            # computed, instead of only {"game_date": ...}. Matchup fields
+            # come from the post-matchup-intelligence bundle.
+            context_data: dict[str, Any] = {
+                "game_date": game_date,
+                # Park
+                "park_hits_factor": park.hits_factor,
+                "park_hr_factor": park.hr_factor,
+                "park_runs_factor": park.runs_factor,
+                # Weather
+                "weather_temp": weather.temperature_f,
+                "weather_wind_speed": weather.wind_mph,
+                "weather_wind_direction": weather.wind_direction_deg,
+                "weather_humidity": weather.precip_probability,
+                "weather_is_dome": weather.is_dome,
+                "weather_hr_factor": weather_hr,
+                # Umpire / venue side
+                "umpire_k_bias": umpire.k_bias if umpire else None,
+                "is_home": getattr(hitter.game, "is_home", None),
+                # Matchup / form
+                "platoon_advantage": enriched.matchup.platoon_advantage,
+                "bvp_ops_factor": enriched.matchup.bvp_ops_factor,
+                "bvp_hr_factor": enriched.matchup.bvp_hr_factor,
+                "recent_form_mult": enriched.matchup.recent_form_multiplier,
+                # Lineup
+                "lineup_slot": hitter.lineup_slot,
+            }
+
+            rolling: Optional[dict[str, Any]] = None
+            if self.rolling_stats_provider is not None:
+                try:
+                    rolling = self.rolling_stats_provider.rolling_features(
+                        hitter.player.mlb_id, game_date
+                    )
+                except Exception as exc:
+                    logger.debug(
+                        "Rolling features unavailable for %s: %s",
+                        hitter.player.name,
+                        exc,
+                    )
+
             rich_features = self.rich_feature_enricher.enrich(
-                data={"game_date": game_date},
-                profile=statcast
+                data=context_data,
+                profile=statcast,
+                rolling=rolling,
             )
 
             enriched = PlayerFeatureBundle(

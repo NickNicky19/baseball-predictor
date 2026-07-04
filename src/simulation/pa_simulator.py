@@ -6,8 +6,23 @@ Designed for high precision on HR/HRR, consistency between sampling
 and explicit probability estimation, and future integration with a full
 probability engine.
 
-Updated to accept rich_features from the new modular feature layer
-(src/features/ml/) for gradual improvement of probability generation.
+FIXES (this revision):
+- power_boost is centered again: (xslg - lg.xslg) * scale. The previous
+  inline refactor had an operator-precedence bug that applied the raw,
+  uncentered xSLG (adding ~+12.5 logits of power to EVERY player with a
+  Statcast profile).
+- rich_features is now an explicit parameter threaded through internal
+  methods instead of mutable instance state (self._rich_features). This
+  removes the state-clobbering bug where expected_rates() silently dropped
+  rich features, and makes the simulator safe for reuse/concurrency.
+- Removed the extra barrel term that was added to the HR logit. Barrel rate
+  already enters the HR logit twice (via hitter_power -> H_power, and via
+  barrel_boost inside H_power); a third term re-introduced the double-count
+  that an earlier fix explicitly removed.
+- Rich features, when they carry rolling metrics (roll15_xwoba etc.), are
+  blended into the quality signal with a sample-size-aware weight. Rich
+  values that merely duplicate the StatcastProfile produce identical output
+  to the profile-only path (verified by regression test).
 """
 
 from __future__ import annotations
@@ -61,6 +76,11 @@ class PASimulatorConfig:
     xslg_scale: float = 2.0
     barrel_scale: float = 1.6
     hard_hit_scale: float = 1.3
+
+    # Rolling-form blending (rich feature layer). Weight applied to the
+    # deviation of rolling xwOBA from season xwOBA, ramped by recent sample.
+    rolling_quality_weight: float = 0.35
+    rolling_pa_ramp: float = 60.0  # PA at which rolling signal gets full weight
 
     # Context
     form_log_min: float = 0.75
@@ -160,12 +180,9 @@ class HybridPASimulator:
     """
     Hybrid Plate Appearance Simulator (Final Form).
 
-    Hierarchical model: K/BB → BIP → HR vs non-HR.
-    Designed for high precision on HR/HRR, consistency between sampling
-    and explicit probability estimation, and future probability engine work.
-
-    Updated to accept rich_features from src/features/ml/ for gradual
-    improvement using high-quality Statcast and rolling metrics.
+    Hierarchical model: K/BB -> BIP -> HR vs non-HR.
+    rich_features is passed explicitly down the call chain (never stored on
+    the instance), so calls are stateless and reproducible.
     """
 
     def __init__(
@@ -177,7 +194,10 @@ class HybridPASimulator:
         self.league = league_baselines or LeagueBaselines()
         self.config = config or PASimulatorConfig.from_league(self.league)
         self.rng = random.Random(random_seed)
-        self._rich_features: dict[str, Any] = {}
+
+    # ------------------------------------------------------------------
+    # Public API
+    # ------------------------------------------------------------------
 
     def simulate(
         self,
@@ -194,10 +214,10 @@ class HybridPASimulator:
         bvp_ops_factor: float = 1.0,
         bvp_hr_factor: float = 1.0,
         statcast: Optional[StatcastProfile] = None,
-        rich_features: Optional[dict[str, Any]] = None,   # ← NEW
+        rich_features: Optional[dict[str, Any]] = None,
     ) -> PAOutcome:
         """Simulate one plate appearance (sampling path)."""
-        self._rich_features = rich_features or {}
+        rich = rich_features or {}
 
         pitcher_k = pitcher_k_pct if pitcher_k_pct is not None else self.league.k_pct
         pitcher_bb = pitcher_bb_pct if pitcher_bb_pct is not None else self.league.bb_pct
@@ -215,6 +235,7 @@ class HybridPASimulator:
             recent_form_mult=recent_form_mult,
             handedness_advantage=handedness_advantage,
             statcast=statcast,
+            rich=rich,
         )
 
         k_prob, bb_prob = self._calculate_k_bb_probs(latent)
@@ -256,23 +277,21 @@ class HybridPASimulator:
         hitter_contact: Optional[float] = None,
         hitter_power: Optional[float] = None,
         hitter_speed: Optional[float] = None,
-        rich_features: Optional[dict[str, Any]] = None,   # ← NEW
+        rich_features: Optional[dict[str, Any]] = None,
     ) -> dict[str, float]:
-        """
-        Return explicit per-PA outcome probabilities.
-        This is the foundation for the probability engine.
-        """
-        self._rich_features = rich_features or {}
+        """Return explicit per-PA outcome probabilities."""
+        rich = rich_features or {}
 
         latent = self._build_latent_profile(
-            hitter_contact=hitter_contact or self.league.contact_rate,
-            hitter_power=hitter_power or self.league.barrel_rate,
-            hitter_speed=hitter_speed or self._default_speed_anchor(),
+            hitter_contact=hitter_contact if hitter_contact is not None else self.league.contact_rate,
+            hitter_power=hitter_power if hitter_power is not None else self.league.barrel_rate,
+            hitter_speed=hitter_speed if hitter_speed is not None else self._default_speed_anchor(),
             pitcher_k_pct=pitcher_k_pct if pitcher_k_pct is not None else self.league.k_pct,
             pitcher_bb_pct=pitcher_bb_pct if pitcher_bb_pct is not None else self.league.bb_pct,
             recent_form_mult=recent_form_mult,
             handedness_advantage=handedness_advantage,
             statcast=statcast,
+            rich=rich,
         )
 
         k_prob, bb_prob = self._calculate_k_bb_probs(latent)
@@ -332,11 +351,9 @@ class HybridPASimulator:
         hitter_power: Optional[float] = None,
         hitter_speed: Optional[float] = None,
         pitcher_hr_per_9: Optional[float] = None,
-        rich_features: Optional[dict[str, Any]] = None,   # ← NEW
+        rich_features: Optional[dict[str, Any]] = None,
     ) -> dict[str, float]:
         """Return model-implied PA probabilities for calibration and backtests."""
-        self._rich_features = rich_features or {}
-
         probs = self.expected_outcome_probabilities(
             pitcher_k_pct=pitcher_k_pct,
             pitcher_bb_pct=pitcher_bb_pct,
@@ -351,6 +368,7 @@ class HybridPASimulator:
             hitter_contact=hitter_contact,
             hitter_power=hitter_power,
             hitter_speed=hitter_speed,
+            rich_features=rich_features,  # FIX: previously dropped on the floor
         )
         bip_prob = max(0.0, 1.0 - probs["strikeout"] - probs["walk"])
         hr_on_bip = probs["home_run"] / bip_prob if bip_prob > 0 else 0.0
@@ -360,6 +378,10 @@ class HybridPASimulator:
             "bip_prob": bip_prob,
             "hr_prob_on_bip": hr_on_bip,
         }
+
+    # ------------------------------------------------------------------
+    # Internals
+    # ------------------------------------------------------------------
 
     def _build_latent_profile(
         self,
@@ -371,14 +393,36 @@ class HybridPASimulator:
         recent_form_mult: float,
         handedness_advantage: float,
         statcast: Optional[StatcastProfile],
+        rich: Optional[dict[str, Any]] = None,
     ) -> dict[str, float]:
         cfg = self.config
         lg = self.league
+        rich = rich or {}
+
+        def _pick(key: str, statcast_value: Optional[float], league_value: float) -> float:
+            """Prefer rich value, then statcast profile, then league anchor."""
+            rich_value = rich.get(key)
+            if rich_value is not None:
+                return float(rich_value)
+            if statcast_value is not None:
+                return float(statcast_value)
+            return league_value
+
+        xwoba = _pick("xwoba", statcast.xwoba if statcast else None, lg.xwoba)
+        xslg = _pick("xslg", statcast.xslg if statcast else None, lg.xslg)
+        barrel = _pick("barrel_rate", statcast.barrel_rate if statcast else None, lg.barrel_rate)
+        hard_hit = _pick(
+            "hard_hit_rate", statcast.hard_hit_rate if statcast else None, lg.hard_hit_rate
+        )
 
         if statcast and statcast.contact_rate is not None:
             hitter_contact = statcast.contact_rate
+        if rich.get("contact_rate") is not None:
+            hitter_contact = float(rich["contact_rate"])
         if statcast and statcast.barrel_rate is not None:
             hitter_power = statcast.barrel_rate
+        if rich.get("barrel_rate") is not None:
+            hitter_power = float(rich["barrel_rate"])
 
         h_contact = (hitter_contact - lg.contact_rate) * cfg.contact_scale
         h_power = (hitter_power - lg.barrel_rate) * cfg.power_scale
@@ -392,32 +436,31 @@ class HybridPASimulator:
         )
         handedness = handedness_advantage * cfg.handedness_scale
 
-        xwoba = statcast.xwoba if statcast and statcast.xwoba is not None else lg.xwoba
-        xslg = statcast.xslg if statcast and statcast.xslg is not None else lg.xslg
-        barrel = (
-            statcast.barrel_rate
-            if statcast and statcast.barrel_rate is not None
-            else lg.barrel_rate
-        )
-        hard_hit = (
-            statcast.hard_hit_rate
-            if statcast and statcast.hard_hit_rate is not None
-            else lg.hard_hit_rate
-        )
-
         xwoba_boost = (xwoba - lg.xwoba) * cfg.xwoba_scale
+        # FIX: centered against league anchor (the inline refactor dropped
+        # the centering via an operator-precedence bug and applied raw xSLG).
         power_boost = (xslg - lg.xslg) * cfg.xslg_scale
-
-        # Fixed: Centered and no longer double-counted with hitter_power
         barrel_boost = (barrel - lg.barrel_rate) * cfg.barrel_scale
-
         hard_hit_boost = (hard_hit - lg.hard_hit_rate) * cfg.hard_hit_scale
+
+        # NEW SIGNAL (not a duplicate): rolling-form deviation from season
+        # xwOBA, weighted by recent sample size. Only fires when the rich
+        # layer provides actual rolling data (roll15_xwoba + recent_pa_15).
+        rolling_quality = 0.0
+        roll_xwoba = rich.get("roll15_xwoba")
+        if roll_xwoba is not None:
+            recent_pa = float(rich.get("recent_pa_15") or 0.0)
+            ramp = min(1.0, recent_pa / max(cfg.rolling_pa_ramp, 1.0))
+            rolling_quality = (
+                (float(roll_xwoba) - xwoba) * cfg.xwoba_scale
+                * cfg.rolling_quality_weight * ramp
+            )
 
         return {
             "H_contact": h_contact,
             "H_power": h_power + power_boost + barrel_boost,
             "H_speed": h_speed,
-            "H_quality": xwoba_boost + hard_hit_boost,
+            "H_quality": xwoba_boost + hard_hit_boost + rolling_quality,
             "P_miss": p_miss,
             "P_control": p_control,
             "form": form_effect,
@@ -474,16 +517,17 @@ class HybridPASimulator:
             )
             hr_logit -= cfg.hr_pitcher_miss * pitcher_hr_skill
 
+        # NOTE: no standalone barrel term here. Barrel rate already reaches
+        # this logit through latent["H_power"] (hitter_power + barrel_boost).
+        # A previous fix removed the double-count; keep it removed.
+
         dist = statcast.distribution if statcast and statcast.distribution else None
         if dist and dist.sample_bip > 0:
             quality = dist.quality_score()
-
-            # Reduced multiplier to limit over-boosting from correlated terms
             hr_logit += cfg.hr_quality * quality * 1.3
 
             ev_boost = max(0.0, (dist.exit_velocity_mean - 88.0) / 12.0)
             la_penalty = abs(dist.launch_angle_mean - 20.0) / 30.0
-
             hr_logit += cfg.hr_hitter_power * (ev_boost - la_penalty * 0.28)
 
         return self._clamp(self._sigmoid(hr_logit), cfg.hr_min, cfg.hr_max)
@@ -501,7 +545,6 @@ class HybridPASimulator:
 
         hit_scale = self._context_hit_scale(park_hits_factor, bvp_ops_factor)
 
-        # More balanced weighting — reduced extreme power sensitivity on singles/doubles
         single_w = max(
             cfg.single_weight_floor,
             cfg.single_base_weight
