@@ -1,8 +1,8 @@
 """
 Feature factory — orchestrates rich feature bundle assembly for daily slates.
 
-Extracts and centralizes bundle construction from DailyPredictor so the
-feature layer is modular, backtestable, and extensible.
+Includes integration with the new modular feature layer (src/features/ml/)
+via RichFeatureEnricher for richer Statcast + contextual + rolling features.
 """
 
 from __future__ import annotations
@@ -20,6 +20,7 @@ from src.features.feature_vector import FeatureVectorBuilder
 from src.features.lineup_intelligence import LineupIntelligence
 from src.features.matchup_intelligence import MatchupIntelligence
 from src.features.legacy_statcast_features import StatcastFeatureEngine
+from src.features.rich_feature_enricher import RichFeatureEnricher
 from src.models.dataclasses import (
     HitterGameContext,
     LeagueBaselines,
@@ -46,8 +47,8 @@ class FeatureFactory:
     """
     Assembles PlayerFeatureBundle rows with rich features and matchup context.
 
-    Pipeline: Statcast → context clients → matchup intelligence → feature vector
-    → lineup intelligence adjustments.
+    Now also enriches bundles with high-quality features from the new
+    modular feature layer (src/features/ml/).
     """
 
     def __init__(
@@ -88,6 +89,9 @@ class FeatureFactory:
             ParkFactorSettings.from_config(self.config)
         )
         self._estimated_park_factors = estimated_park_factors or {}
+
+        # === Rich Feature Enricher Integration ===
+        self.rich_feature_enricher = RichFeatureEnricher()
 
         if self.matchup_intelligence is None and isinstance(self.mlb_api, MLBStatsAPI):
             self.matchup_intelligence = MatchupIntelligence.from_config(
@@ -179,6 +183,13 @@ class FeatureFactory:
                 season_hitting=season_hitting,
                 recent_hitting=recent_hitting,
             )
+
+            # === NEW: Enrich with rich features from the ml/ layer ===
+            rich_features = self.rich_feature_enricher.enrich(
+                data={"game_date": game_date},
+                profile=statcast
+            )
+
             enriched = PlayerFeatureBundle(
                 hitter=enriched.hitter,
                 statcast=enriched.statcast,
@@ -193,6 +204,7 @@ class FeatureFactory:
                 metadata={
                     **enriched.metadata,
                     "feature_count": features.count(),
+                    "rich_features": rich_features,
                 },
             )
             bundles.append(self.lineup_intelligence.apply_to_bundle(enriched))
@@ -201,6 +213,7 @@ class FeatureFactory:
         return bundles
 
     def set_estimated_park_factors(self, factors: dict[str, ParkFactors]) -> None:
+        """Set externally estimated park factors (used during validation/backtesting)."""
         self._estimated_park_factors = factors
 
     def sync_league(self, league: LeagueBaselines) -> None:

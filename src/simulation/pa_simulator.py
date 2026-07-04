@@ -5,6 +5,9 @@ Logit-based hierarchical PA model with calibratable coefficients.
 Designed for high precision on HR/HRR, consistency between sampling
 and explicit probability estimation, and future integration with a full
 probability engine.
+
+Updated to accept rich_features from the new modular feature layer
+(src/features/ml/) for gradual improvement of probability generation.
 """
 
 from __future__ import annotations
@@ -12,7 +15,7 @@ from __future__ import annotations
 import math
 import random
 from dataclasses import asdict, dataclass
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Optional, Any
 
 from src.models.dataclasses import LeagueBaselines, PAOutcome, StatcastProfile
 
@@ -160,6 +163,9 @@ class HybridPASimulator:
     Hierarchical model: K/BB → BIP → HR vs non-HR.
     Designed for high precision on HR/HRR, consistency between sampling
     and explicit probability estimation, and future probability engine work.
+
+    Updated to accept rich_features from src/features/ml/ for gradual
+    improvement using high-quality Statcast and rolling metrics.
     """
 
     def __init__(
@@ -171,6 +177,7 @@ class HybridPASimulator:
         self.league = league_baselines or LeagueBaselines()
         self.config = config or PASimulatorConfig.from_league(self.league)
         self.rng = random.Random(random_seed)
+        self._rich_features: dict[str, Any] = {}
 
     def simulate(
         self,
@@ -187,8 +194,11 @@ class HybridPASimulator:
         bvp_ops_factor: float = 1.0,
         bvp_hr_factor: float = 1.0,
         statcast: Optional[StatcastProfile] = None,
+        rich_features: Optional[dict[str, Any]] = None,   # ← NEW
     ) -> PAOutcome:
         """Simulate one plate appearance (sampling path)."""
+        self._rich_features = rich_features or {}
+
         pitcher_k = pitcher_k_pct if pitcher_k_pct is not None else self.league.k_pct
         pitcher_bb = pitcher_bb_pct if pitcher_bb_pct is not None else self.league.bb_pct
 
@@ -246,11 +256,14 @@ class HybridPASimulator:
         hitter_contact: Optional[float] = None,
         hitter_power: Optional[float] = None,
         hitter_speed: Optional[float] = None,
+        rich_features: Optional[dict[str, Any]] = None,   # ← NEW
     ) -> dict[str, float]:
         """
         Return explicit per-PA outcome probabilities.
         This is the foundation for the probability engine.
         """
+        self._rich_features = rich_features or {}
+
         latent = self._build_latent_profile(
             hitter_contact=hitter_contact or self.league.contact_rate,
             hitter_power=hitter_power or self.league.barrel_rate,
@@ -319,8 +332,11 @@ class HybridPASimulator:
         hitter_power: Optional[float] = None,
         hitter_speed: Optional[float] = None,
         pitcher_hr_per_9: Optional[float] = None,
+        rich_features: Optional[dict[str, Any]] = None,   # ← NEW
     ) -> dict[str, float]:
         """Return model-implied PA probabilities for calibration and backtests."""
+        self._rich_features = rich_features or {}
+
         probs = self.expected_outcome_probabilities(
             pitcher_k_pct=pitcher_k_pct,
             pitcher_bb_pct=pitcher_bb_pct,

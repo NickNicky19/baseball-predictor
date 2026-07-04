@@ -1,18 +1,12 @@
-"""
-Single-game hitter simulation using the PA simulator.
-
-One game = a sampled number of plate appearances against a pitcher profile.
-"""
-
 from __future__ import annotations
 
 import random
 from dataclasses import dataclass
-from typing import Optional
+from typing import Optional, Any
 
-from src.models.dataclasses import GameSimulationResult, LeagueBaselines, StatcastProfile
+from src.models.dataclasses import StatcastProfile, GameSimulationResult
+from src.simulation.pa_simulator import HybridPASimulator
 from src.simulation.base_state import BaseState
-from src.simulation.pa_simulator import HybridPASimulator, PASimulatorConfig
 
 
 @dataclass(frozen=True)
@@ -32,68 +26,87 @@ class GameSimulatorInput:
     bvp_hr_factor: float = 1.0
     statcast: Optional[StatcastProfile] = None
     pitcher_hr_per_9: Optional[float] = None
+    rich_features: Optional[dict[str, Any]] = None
 
 
 class GameSimulator:
     """
-    Simulates a single game for one hitter by chaining plate appearances.
-
-    PA count is sampled from a Poisson distribution centered on expected_pa.
+    Simulates a hitter's performance in a game using plate appearance simulation.
     """
 
     def __init__(
         self,
         pa_simulator: Optional[HybridPASimulator] = None,
-        league_baselines: Optional[LeagueBaselines] = None,
-        pa_config: Optional[PASimulatorConfig] = None,
+        league_baselines=None,
         random_seed: Optional[int] = None,
     ):
-        self.league = league_baselines or LeagueBaselines()
-        self.pa_simulator = pa_simulator or HybridPASimulator(
-            config=pa_config or PASimulatorConfig.from_league(self.league),
-            league_baselines=self.league,
-            random_seed=random_seed,
-        )
-        self.rng = random.Random(random_seed)
+        self.pa_simulator = pa_simulator
+        self.league = league_baselines
+        self.rng = random.Random(random_seed) if random_seed is not None else random.Random()
 
-    def simulate_game(
-        self,
-        inputs: GameSimulatorInput,
-        plate_appearances: Optional[int] = None,
-    ) -> GameSimulationResult:
-        """Run one simulated game and return counting stats."""
-        pa_count = plate_appearances
-        if pa_count is None:
-            pa_count = max(1, int(self.rng.gauss(inputs.expected_pa, 0.65)))
+    def simulate_game(self, sim_input: GameSimulatorInput) -> GameSimulationResult:
+        """
+        Simulate one full game for a hitter and return aggregated results.
+        """
+        hits = 0
+        singles = 0
+        doubles = 0
+        triples = 0
+        home_runs = 0
+        walks = 0
+        strikeouts = 0
+        runs = 0
+        rbi = 0
 
-        effective_k = inputs.pitcher_k_pct + inputs.umpire_k_bias
-        combined_hr_factor = inputs.park_hr_factor * inputs.weather_hr_factor
-
-        state = BaseState()
-        for _ in range(pa_count):
+        for _ in range(int(sim_input.expected_pa)):
             outcome = self.pa_simulator.simulate(
-                pitcher_k_pct=effective_k,
-                pitcher_bb_pct=inputs.pitcher_bb_pct,
-                pitcher_hr_per_9=inputs.pitcher_hr_per_9,
-                park_hr_factor=combined_hr_factor,
-                park_hits_factor=inputs.park_hits_factor,
-                handedness_advantage=inputs.handedness_advantage,
-                recent_form_mult=inputs.recent_form_mult,
-                bvp_ops_factor=inputs.bvp_ops_factor,
-                bvp_hr_factor=inputs.bvp_hr_factor,
-                statcast=inputs.statcast,
+                pitcher_k_pct=sim_input.pitcher_k_pct,
+                pitcher_bb_pct=sim_input.pitcher_bb_pct,
+                park_hr_factor=sim_input.park_hr_factor,
+                park_hits_factor=sim_input.park_hits_factor,
+                handedness_advantage=sim_input.handedness_advantage,
+                recent_form_mult=sim_input.recent_form_mult,
+                bvp_ops_factor=sim_input.bvp_ops_factor,
+                bvp_hr_factor=sim_input.bvp_hr_factor,
+                statcast=sim_input.statcast,
+                pitcher_hr_per_9=sim_input.pitcher_hr_per_9,
+                rich_features=sim_input.rich_features,
             )
-            self.pa_simulator.apply_to_state(state, outcome)
+
+            if outcome.outcome == "home_run":
+                home_runs += 1
+                hits += 1
+                runs += 1
+                rbi += 1
+            elif outcome.outcome == "triple":
+                triples += 1
+                hits += 1
+                runs += 1
+                rbi += 1
+            elif outcome.outcome == "double":
+                doubles += 1
+                hits += 1
+                runs += 1
+                rbi += 1
+            elif outcome.outcome == "single":
+                singles += 1
+                hits += 1
+                runs += 1
+                rbi += 1
+            elif outcome.outcome == "walk":
+                walks += 1
+            elif outcome.outcome == "out" and outcome.is_strikeout:
+                strikeouts += 1
 
         return GameSimulationResult(
-            plate_appearances=pa_count,
-            hits=state.hits,
-            singles=state.singles,
-            doubles=state.doubles,
-            triples=state.triples,
-            home_runs=state.home_runs,
-            runs=state.runs,
-            rbi=state.rbi,
-            walks=state.walks,
-            strikeouts=state.strikeouts,
+            plate_appearances=int(sim_input.expected_pa),
+            hits=hits,
+            singles=singles,
+            doubles=doubles,
+            triples=triples,
+            home_runs=home_runs,
+            runs=runs,
+            rbi=rbi,
+            walks=walks,
+            strikeouts=strikeouts,
         )

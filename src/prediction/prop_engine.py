@@ -111,10 +111,14 @@ class PropEngine:
     ) -> list[PropProjection]:
         """Return one PropProjection per requested category for a hitter."""
         cats = categories or self.HITTER_CATEGORIES
-        sim_input = self._bundle_to_sim_input(bundle)
+
+        # === NEW: Extract rich features from the ml/ layer ===
+        rich_features = bundle.metadata.get("rich_features", {})
+
+        sim_input = self._bundle_to_sim_input(bundle, rich_features=rich_features)
         projections: list[PropProjection] = []
 
-        outcome_probs = self.probability_engine.from_bundle(bundle)
+        outcome_probs = self.probability_engine.from_bundle(bundle, rich_features=rich_features)
 
         n_sims_scale = float(bundle.metadata.get("lineup_simulation_n_sims_scale", 1.0))
         effective_n_sims = max(500, int(self.n_sims * n_sims_scale))
@@ -215,7 +219,12 @@ class PropEngine:
             simulation=None,
         )
 
-    def _bundle_to_sim_input(self, bundle: PlayerFeatureBundle) -> GameSimulatorInput:
+    def _bundle_to_sim_input(
+        self, 
+        bundle: PlayerFeatureBundle, 
+        rich_features: Optional[dict] = None
+    ) -> GameSimulatorInput:
+        """Build simulation input, now including rich features when available."""
         pitcher_k = self.league.k_pct
         pitcher_bb = self.league.bb_pct
 
@@ -247,6 +256,7 @@ class PropEngine:
             bvp_hr_factor=bundle.matchup.bvp_hr_factor,
             statcast=bundle.statcast,
             pitcher_hr_per_9=pitcher_hr_per_9,
+            rich_features=rich_features,           # ← NEW
         )
 
     def _hitter_confidence(self, bundle: PlayerFeatureBundle, mc_result) -> float:

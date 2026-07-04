@@ -329,6 +329,15 @@ class PlayerFeatureBundle:
     features: Optional[FeatureVector] = None
     metadata: dict[str, Any] = field(default_factory=dict)
 
+    # === NEW: Rich features from src/features/ml/ ===
+    rich_features: Optional[dict[str, Any]] = None
+
+    def __post_init__(self):
+        # Backward compatible: if rich_features not passed directly,
+        # try to pull it from metadata (supports current integration)
+        if self.rich_features is None:
+            self.rich_features = self.metadata.get("rich_features")
+
 
 # ---------------------------------------------------------------------------
 # Simulation inputs & outputs
