@@ -224,3 +224,4 @@ class GameSimulator:
         weights = [max(0.0, dist[s]) for s in states]
         total = sum(weights) or 1.0
         return states, [w / total for w in weights]
+

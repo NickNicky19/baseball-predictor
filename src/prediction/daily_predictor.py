@@ -171,6 +171,20 @@ class DailyPredictor:
                 game_date,
                 use_projected_lineups=use_projected_lineups,
             )
+
+            # The statcast engine re-derives league contact-conditional
+            # baselines (xwoba/xslg on batted balls) from the live pull while
+            # building profiles. Propagate any update to the prop engine so the
+            # simulator centers profiles against the same baseline the profiles
+            # were measured on. No-op when calibration didn't change anything.
+            calibrated_league = self.statcast_engine.league
+            if (
+                calibrated_league.xslg_on_contact != self.league.xslg_on_contact
+                or calibrated_league.xwoba_on_contact != self.league.xwoba_on_contact
+            ):
+                self.league = calibrated_league
+                self.prop_engine.configure_simulation(league_baselines=calibrated_league)
+
             if persist_features and bundles:
                 self.feature_store.save(bundles, game_date)
 

@@ -83,3 +83,4 @@ class RichFeatureEnricher:
             input_data.update(rolling)
 
         return self.pipeline.compute(input_data)
+

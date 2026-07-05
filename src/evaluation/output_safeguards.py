@@ -85,6 +85,20 @@ class OutputSafeguards:
         self.limits = limits or SafeguardLimits.from_league(
             self.league, config=self.config
         )
+        validation = self.config.get("validation", {})
+        self._overshoot_margin = float(validation.get("overshoot_margin", 1.75))
+
+    def _league_runs_per_pa(self) -> float:
+        """
+        League runs-scored per PA for a single batter, scaled by the overshoot
+        margin. Uses configured league runs/game when present, else the stable
+        empirical ~0.47 runs/game at league PA. Multiplied by margin so the
+        HRR ceiling admits legitimate elite hitters without flagging them.
+        """
+        league_dict = self.config.get("league_avg", {})
+        runs_per_game = float(league_dict.get("runs_per_game", 0.47))
+        base_rate = runs_per_game / max(self.league.pa_per_game, 1.0)
+        return base_rate * self._overshoot_margin
 
     def check_outcome_probabilities(self, probs: OutcomeProbabilities) -> SafeguardReport:
         violations: list[str] = []
@@ -148,7 +162,15 @@ class OutputSafeguards:
                     f"HR projection {value:.3f} below min {lim.min_hr_per_game:.3f}"
                 )
         elif category == "hrr" and expected_pa > 0:
-            max_hrr = lim.max_hits_per_game + expected_pa * 0.35
+            # HRR = hits + runs + RBI. The old cap (max_hits + expected_pa*0.35)
+            # assumed runs/RBI were tethered to hits (+1 each per hit), which
+            # is no longer how the simulator works. Derive the ceiling from the
+            # league HRR rate per PA (hits + runs + RBI per PA) instead.
+            hit_rate = self.limits.max_hits_per_game / max(expected_pa, 1.0)
+            # League runs + RBI each ~0.47/game at ~4.05 PA -> ~0.116/PA each.
+            runs_rbi_rate = 2.0 * (self._league_runs_per_pa())
+            hrr_rate = (self.limits.max_hits_per_game / max(expected_pa, 1.0)) + runs_rbi_rate
+            max_hrr = hrr_rate * expected_pa
             if value > max_hrr:
                 violations.append(f"HRR projection {value:.3f} exceeds max {max_hrr:.3f}")
 

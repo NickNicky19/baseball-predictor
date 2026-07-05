@@ -8,7 +8,10 @@
     "k_per_9": 8.8,
     "avg": 0.248,
     "obp": 0.32,
-    "slg": 0.41
+    "slg": 0.41,
+    "runs_per_game": 0.47,
+    "xwoba_on_contact": 0.37,
+    "xslg_on_contact": 0.62
   },
   "weights": {
     "season": 0.35,
@@ -45,44 +48,176 @@
     "use_empirical_prior": true
   },
   "park_factors": {
-    "_comment": "Static approximate multi-year factors (hits/hr/runs vs league=1.0). These are fallback priors only — ParkFactorEstimator blends empirical venue factors over them as pairs data accumulates (see estimation_* settings). All 30 venues covered so no park silently defaults to neutral.",
+    "_comment": "Static approximate multi-year factors (hits/hr/runs vs league=1.0). These are fallback priors only \u2014 ParkFactorEstimator blends empirical venue factors over them as pairs data accumulates (see estimation_* settings). All 30 venues covered so no park silently defaults to neutral.",
     "estimation_mode": "static",
     "estimation_shrinkage": 0.35,
     "min_games": 8,
     "blend_with_static": 0.5,
-    "Coors Field": { "hits": 1.12, "hr": 1.25, "runs": 1.18 },
-    "Fenway Park": { "hits": 1.05, "hr": 1.02, "runs": 1.06 },
-    "Yankee Stadium": { "hits": 0.98, "hr": 1.15, "runs": 1.08 },
-    "Oracle Park": { "hits": 0.95, "hr": 0.82, "runs": 0.9 },
-    "Petco Park": { "hits": 0.96, "hr": 0.9, "runs": 0.93 },
-    "Globe Life Field": { "hits": 0.99, "hr": 1.0, "runs": 0.98 },
-    "Great American Ball Park": { "hits": 1.03, "hr": 1.18, "runs": 1.08 },
-    "Citizens Bank Park": { "hits": 1.0, "hr": 1.12, "runs": 1.04 },
-    "Dodger Stadium": { "hits": 0.97, "hr": 1.08, "runs": 0.99 },
-    "Wrigley Field": { "hits": 1.0, "hr": 0.98, "runs": 1.0 },
-    "Truist Park": { "hits": 1.0, "hr": 1.04, "runs": 1.01 },
-    "Camden Yards": { "hits": 0.98, "hr": 0.95, "runs": 0.97 },
-    "T-Mobile Park": { "hits": 0.93, "hr": 0.94, "runs": 0.9 },
-    "Daikin Park": { "hits": 0.99, "hr": 1.06, "runs": 1.01 },
-    "Minute Maid Park": { "hits": 0.99, "hr": 1.06, "runs": 1.01 },
-    "Kauffman Stadium": { "hits": 1.03, "hr": 0.88, "runs": 0.99 },
-    "Target Field": { "hits": 0.99, "hr": 0.97, "runs": 0.98 },
-    "Rate Field": { "hits": 1.0, "hr": 1.1, "runs": 1.03 },
-    "Guaranteed Rate Field": { "hits": 1.0, "hr": 1.1, "runs": 1.03 },
-    "Progressive Field": { "hits": 1.0, "hr": 0.95, "runs": 0.99 },
-    "Comerica Park": { "hits": 0.99, "hr": 0.92, "runs": 0.96 },
-    "Rogers Centre": { "hits": 1.0, "hr": 1.05, "runs": 1.01 },
-    "Angel Stadium": { "hits": 0.98, "hr": 1.02, "runs": 0.98 },
-    "Chase Field": { "hits": 1.03, "hr": 1.0, "runs": 1.03 },
-    "American Family Field": { "hits": 0.99, "hr": 1.08, "runs": 1.02 },
-    "Busch Stadium": { "hits": 0.98, "hr": 0.9, "runs": 0.95 },
-    "PNC Park": { "hits": 1.0, "hr": 0.88, "runs": 0.96 },
-    "loanDepot park": { "hits": 0.98, "hr": 0.92, "runs": 0.94 },
-    "Citi Field": { "hits": 0.97, "hr": 0.98, "runs": 0.95 },
-    "Nationals Park": { "hits": 1.0, "hr": 1.02, "runs": 1.0 },
-    "Tropicana Field": { "hits": 0.97, "hr": 0.95, "runs": 0.95 },
-    "George M. Steinbrenner Field": { "hits": 1.0, "hr": 1.1, "runs": 1.04 },
-    "Sutter Health Park": { "hits": 1.02, "hr": 1.02, "runs": 1.02 }
+    "Coors Field": {
+      "hits": 1.12,
+      "hr": 1.25,
+      "runs": 1.18
+    },
+    "Fenway Park": {
+      "hits": 1.05,
+      "hr": 1.02,
+      "runs": 1.06
+    },
+    "Yankee Stadium": {
+      "hits": 0.98,
+      "hr": 1.15,
+      "runs": 1.08
+    },
+    "Oracle Park": {
+      "hits": 0.95,
+      "hr": 0.82,
+      "runs": 0.9
+    },
+    "Petco Park": {
+      "hits": 0.96,
+      "hr": 0.9,
+      "runs": 0.93
+    },
+    "Globe Life Field": {
+      "hits": 0.99,
+      "hr": 1.0,
+      "runs": 0.98
+    },
+    "Great American Ball Park": {
+      "hits": 1.03,
+      "hr": 1.18,
+      "runs": 1.08
+    },
+    "Citizens Bank Park": {
+      "hits": 1.0,
+      "hr": 1.12,
+      "runs": 1.04
+    },
+    "Dodger Stadium": {
+      "hits": 0.97,
+      "hr": 1.08,
+      "runs": 0.99
+    },
+    "Wrigley Field": {
+      "hits": 1.0,
+      "hr": 0.98,
+      "runs": 1.0
+    },
+    "Truist Park": {
+      "hits": 1.0,
+      "hr": 1.04,
+      "runs": 1.01
+    },
+    "Camden Yards": {
+      "hits": 0.98,
+      "hr": 0.95,
+      "runs": 0.97
+    },
+    "T-Mobile Park": {
+      "hits": 0.93,
+      "hr": 0.94,
+      "runs": 0.9
+    },
+    "Daikin Park": {
+      "hits": 0.99,
+      "hr": 1.06,
+      "runs": 1.01
+    },
+    "Minute Maid Park": {
+      "hits": 0.99,
+      "hr": 1.06,
+      "runs": 1.01
+    },
+    "Kauffman Stadium": {
+      "hits": 1.03,
+      "hr": 0.88,
+      "runs": 0.99
+    },
+    "Target Field": {
+      "hits": 0.99,
+      "hr": 0.97,
+      "runs": 0.98
+    },
+    "Rate Field": {
+      "hits": 1.0,
+      "hr": 1.1,
+      "runs": 1.03
+    },
+    "Guaranteed Rate Field": {
+      "hits": 1.0,
+      "hr": 1.1,
+      "runs": 1.03
+    },
+    "Progressive Field": {
+      "hits": 1.0,
+      "hr": 0.95,
+      "runs": 0.99
+    },
+    "Comerica Park": {
+      "hits": 0.99,
+      "hr": 0.92,
+      "runs": 0.96
+    },
+    "Rogers Centre": {
+      "hits": 1.0,
+      "hr": 1.05,
+      "runs": 1.01
+    },
+    "Angel Stadium": {
+      "hits": 0.98,
+      "hr": 1.02,
+      "runs": 0.98
+    },
+    "Chase Field": {
+      "hits": 1.03,
+      "hr": 1.0,
+      "runs": 1.03
+    },
+    "American Family Field": {
+      "hits": 0.99,
+      "hr": 1.08,
+      "runs": 1.02
+    },
+    "Busch Stadium": {
+      "hits": 0.98,
+      "hr": 0.9,
+      "runs": 0.95
+    },
+    "PNC Park": {
+      "hits": 1.0,
+      "hr": 0.88,
+      "runs": 0.96
+    },
+    "loanDepot park": {
+      "hits": 0.98,
+      "hr": 0.92,
+      "runs": 0.94
+    },
+    "Citi Field": {
+      "hits": 0.97,
+      "hr": 0.98,
+      "runs": 0.95
+    },
+    "Nationals Park": {
+      "hits": 1.0,
+      "hr": 1.02,
+      "runs": 1.0
+    },
+    "Tropicana Field": {
+      "hits": 0.97,
+      "hr": 0.95,
+      "runs": 0.95
+    },
+    "George M. Steinbrenner Field": {
+      "hits": 1.0,
+      "hr": 1.1,
+      "runs": 1.04
+    },
+    "Sutter Health Park": {
+      "hits": 1.02,
+      "hr": 1.02,
+      "runs": 1.02
+    }
   },
   "lineup_intelligence": {
     "certainty_scores": {
@@ -133,7 +268,9 @@
   },
   "odds": {
     "enabled": false,
-    "sources": ["file"],
+    "sources": [
+      "file"
+    ],
     "prefer_source": "api",
     "min_edge_pct": 4.0,
     "require_any_source": false,
@@ -150,7 +287,11 @@
       "sport_key": "baseball_mlb",
       "regions": "us",
       "bookmaker": "draftkings",
-      "markets": ["batter_hits", "batter_home_runs", "pitcher_strikeouts"],
+      "markets": [
+        "batter_hits",
+        "batter_home_runs",
+        "pitcher_strikeouts"
+      ],
       "market_category_map": {
         "batter_hits": "hits",
         "batter_home_runs": "home_runs",
@@ -196,8 +337,8 @@
   "calibration": {
     "league_shrinkage": 0.35,
     "pa_intercept_shrinkage": 0.25,
-    "bias_shrinkage": 0.40,
-    "coefficient_shrinkage": 0.30,
+    "bias_shrinkage": 0.4,
+    "coefficient_shrinkage": 0.3,
     "min_samples_per_category": 25,
     "min_pa_for_rate_calibration": 200
   },

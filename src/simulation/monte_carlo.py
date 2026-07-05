@@ -149,3 +149,4 @@ class MonteCarloEngine:
             + result.runs * fs.run
             + result.walks * fs.walk
         )
+

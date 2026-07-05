@@ -50,11 +50,51 @@ class StatcastFeatureEngine:
         self, statcast_df: pd.DataFrame
     ) -> dict[int, StatcastProfile]:
         """Aggregate a Statcast DataFrame into player profiles with distributions."""
+        # Self-calibrate the league contact-conditional baselines from the same
+        # pull that builds the profiles. StatcastProfile.xwoba/xslg are averaged
+        # over batted balls, so the simulator must center them against the
+        # league's batted-ball average — not the season-level xwoba/xslg. This
+        # derives that baseline from data instead of a hand-picked constant.
+        self._calibrate_contact_baselines(statcast_df)
+
         raw = self.savant.build_hitter_profiles_from_statcast(statcast_df)
         dist_builder = StatcastDistributionBuilder()
         distributions = dist_builder.build_from_statcast_df(statcast_df)
         merged = dist_builder.attach_to_profiles(raw, distributions)
         return {pid: self.enrich_profile(p) for pid, p in merged.items()}
+
+    def _calibrate_contact_baselines(self, statcast_df: pd.DataFrame) -> None:
+        """Derive league contact-conditional xwOBA/xSLG from the Statcast pull
+        and update self.league in place (immutably via replace).
+
+        Falls back to the existing league values if the columns are missing or
+        empty, so this never degrades behavior when data is sparse.
+        """
+        col_woba = "estimated_woba_using_speedangle"
+        col_slg = "estimated_slg_using_speedangle"
+        if col_woba not in statcast_df.columns or col_slg not in statcast_df.columns:
+            return
+
+        woba = pd.to_numeric(statcast_df[col_woba], errors="coerce").dropna()
+        slg = pd.to_numeric(statcast_df[col_slg], errors="coerce").dropna()
+        # Require a meaningful sample before overriding the configured baseline.
+        if len(woba) < 500 or len(slg) < 500:
+            return
+
+        new_league = replace(
+            self.league,
+            xwoba_on_contact=float(woba.mean()),
+            xslg_on_contact=float(slg.mean()),
+        )
+        self.league = new_league
+        self.savant.league = new_league
+        logger.info(
+            "Calibrated contact baselines from %d batted balls: "
+            "xwoba_on_contact=%.3f xslg_on_contact=%.3f",
+            len(slg),
+            new_league.xwoba_on_contact,
+            new_league.xslg_on_contact,
+        )
 
     def build_profiles_for_date(
         self,

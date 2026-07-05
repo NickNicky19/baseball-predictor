@@ -408,8 +408,15 @@ class HybridPASimulator:
                 return float(statcast_value)
             return league_value
 
-        xwoba = _pick("xwoba", statcast.xwoba if statcast else None, lg.xwoba)
-        xslg = _pick("xslg", statcast.xslg if statcast else None, lg.xslg)
+        # StatcastProfile.xwoba/xslg are contact-conditional (averaged over
+        # batted-ball events), so they must be centered against the
+        # contact-conditional league baselines. Falling back to those same
+        # baselines keeps a no-profile hitter perfectly neutral. Centering
+        # contact-conditional xSLG (~0.62 league) against season xSLG (0.41)
+        # was adding a phantom ~+0.20*scale power boost to EVERY profiled
+        # hitter — the root cause of the leaguewide HRR overshoot.
+        xwoba = _pick("xwoba", statcast.xwoba if statcast else None, lg.xwoba_on_contact)
+        xslg = _pick("xslg", statcast.xslg if statcast else None, lg.xslg_on_contact)
         barrel = _pick("barrel_rate", statcast.barrel_rate if statcast else None, lg.barrel_rate)
         hard_hit = _pick(
             "hard_hit_rate", statcast.hard_hit_rate if statcast else None, lg.hard_hit_rate
@@ -436,10 +443,9 @@ class HybridPASimulator:
         )
         handedness = handedness_advantage * cfg.handedness_scale
 
-        xwoba_boost = (xwoba - lg.xwoba) * cfg.xwoba_scale
-        # FIX: centered against league anchor (the inline refactor dropped
-        # the centering via an operator-precedence bug and applied raw xSLG).
-        power_boost = (xslg - lg.xslg) * cfg.xslg_scale
+        # Center against contact-conditional baselines (see _pick note above).
+        xwoba_boost = (xwoba - lg.xwoba_on_contact) * cfg.xwoba_scale
+        power_boost = (xslg - lg.xslg_on_contact) * cfg.xslg_scale
         barrel_boost = (barrel - lg.barrel_rate) * cfg.barrel_scale
         hard_hit_boost = (hard_hit - lg.hard_hit_rate) * cfg.hard_hit_scale
 
@@ -663,3 +669,4 @@ def _logit(p: float) -> float:
 
 # Backward compatibility
 HybridPASimulatorV2 = HybridPASimulator
+

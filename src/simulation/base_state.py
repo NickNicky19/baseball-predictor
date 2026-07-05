@@ -137,3 +137,4 @@ class BaseState:
     def _score_runs(self, count: int, rbi_credit: int) -> None:
         self.runs += count
         self.rbi += rbi_credit
+

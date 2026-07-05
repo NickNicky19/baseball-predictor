@@ -1,8 +1,25 @@
-"""Tests for the simulation layer (Phase 1+ architecture)."""
+"""Tests for the simulation layer (Phase 1+ architecture).
+
+Regression coverage is organized around the bugs that actually reached
+production, so each is impossible to reintroduce silently:
+
+- Base-state advancement (phantom-runner single, runner-on-third walk).
+- CONTACT-CONDITIONAL NEUTRALITY: a hitter whose Statcast profile equals the
+  league contact-conditional baselines must project league-average output.
+  This is the guard that would have caught the leaguewide HRR overshoot —
+  centering contact-conditional xSLG (~0.62) against season xSLG (0.41) gave
+  every profiled hitter a phantom power boost.
+- Elite/weak discrimination and HRR realism bands.
+"""
 
 from src.models.dataclasses import LeagueBaselines, StatcastProfile
 from src.simulation import BaseState, HybridPASimulator, MonteCarloEngine
 from src.simulation.game_simulator import GameSimulator, GameSimulatorInput
+
+
+# ---------------------------------------------------------------------------
+# Base state
+# ---------------------------------------------------------------------------
 
 
 def test_base_state_walk_bases_loaded():
@@ -12,17 +29,97 @@ def test_base_state_walk_bases_loaded():
     assert state.walks == 1
 
 
+def test_base_state_single_no_phantom_runner():
+    """Single with a runner on 2nd only: [0,1,0] -> [1,0,1], nobody scores."""
+    state = BaseState(bases=[0, 1, 0])
+    state.advance_single()
+    assert state.bases == [1, 0, 1]
+    assert state.runs == 0
+
+
+def test_base_state_walk_runner_on_third_holds():
+    """Walk with 1st and 3rd occupied: batter/1st advance, runner on 3rd holds."""
+    state = BaseState(bases=[1, 0, 1])
+    state.advance_walk()
+    assert state.bases == [1, 1, 1]
+    assert state.runs == 0
+
+
+# ---------------------------------------------------------------------------
+# PA simulator
+# ---------------------------------------------------------------------------
+
+
 def test_hybrid_pa_simulator_returns_outcome():
     sim = HybridPASimulator(random_seed=42)
     outcome = sim.simulate(pitcher_k_pct=22.5, pitcher_bb_pct=8.5)
     assert outcome.outcome in {"out", "walk", "single", "double", "triple", "home_run"}
 
 
+def _contact_baseline_profile(league: LeagueBaselines) -> StatcastProfile:
+    """A profile whose values equal the league CONTACT-CONDITIONAL baselines.
+
+    StatcastProfile.xwoba/xslg are averaged over batted-ball events, so a truly
+    league-average hitter has xslg ~= league.xslg_on_contact (~0.62), NOT the
+    season xslg (~0.41). Such a hitter must be neutral.
+    """
+    return StatcastProfile(
+        player_id=1,
+        player_name="League Avg (on contact)",
+        sample_pa=300,
+        xwoba=league.xwoba_on_contact,
+        xslg=league.xslg_on_contact,
+        barrel_rate=league.barrel_rate,
+        hard_hit_rate=league.hard_hit_rate,
+        contact_rate=league.contact_rate,
+    )
+
+
+def test_contact_conditional_profile_is_neutral():
+    """A league-average-on-contact profile must produce ~the same per-PA
+    probabilities as no profile at all. Guards the centering-mismatch bug."""
+    league = LeagueBaselines()
+    sim = HybridPASimulator(league_baselines=league, random_seed=1)
+    with_profile = sim.expected_outcome_probabilities(statcast=_contact_baseline_profile(league))
+    without = sim.expected_outcome_probabilities()
+    for key in with_profile:
+        assert abs(with_profile[key] - without[key]) < 0.015, (
+            f"{key}: {with_profile[key]:.4f} (profile) vs {without[key]:.4f} (none) "
+            f"-- league-average-on-contact hitter is not neutral"
+        )
+
+
+def test_elite_hitter_beats_weak_hitter():
+    """Model must discriminate on power and contact."""
+    league = LeagueBaselines()
+    sim = HybridPASimulator(league_baselines=league, random_seed=1)
+    elite = StatcastProfile(
+        player_id=2, player_name="Elite", sample_pa=300,
+        xwoba=0.430, xslg=0.780, barrel_rate=0.18, hard_hit_rate=0.55, contact_rate=0.80,
+    )
+    weak = StatcastProfile(
+        player_id=3, player_name="Weak", sample_pa=300,
+        xwoba=0.330, xslg=0.540, barrel_rate=0.05, hard_hit_rate=0.33, contact_rate=0.70,
+    )
+    p_elite = sim.expected_outcome_probabilities(statcast=elite)
+    p_weak = sim.expected_outcome_probabilities(statcast=weak)
+
+    def hit_total(p):
+        return p["single"] + p["double"] + p["triple"] + p["home_run"]
+
+    assert p_elite["home_run"] > p_weak["home_run"]
+    assert hit_total(p_elite) > hit_total(p_weak)
+
+
+# ---------------------------------------------------------------------------
+# Game simulator / Monte Carlo
+# ---------------------------------------------------------------------------
+
+
 def test_game_simulator_produces_stats():
     engine = GameSimulator(random_seed=1)
     result = engine.simulate_game(
-        GameSimulatorInput(expected_pa=4.0, pitcher_k_pct=22.0, pitcher_bb_pct=8.0),
-        plate_appearances=4,
+        GameSimulatorInput(expected_pa=4.0, pitcher_k_pct=22.0, pitcher_bb_pct=8.0)
     )
     assert result.plate_appearances == 4
     assert result.hrr >= 0
@@ -41,6 +138,24 @@ def test_monte_carlo_hrr_distribution():
     assert result.n_sims == 500
     assert result.mean > 0
     assert result.p10 <= result.mean <= result.p90
+
+
+def test_league_average_on_contact_hrr_realistic():
+    """End-to-end HRR for a league-average-on-contact hitter must land in a
+    realistic band, NOT the ~3.3 the centering bug produced."""
+    league = LeagueBaselines()
+    mc = MonteCarloEngine(league_baselines=league, random_seed=7)
+    inputs = GameSimulatorInput(
+        expected_pa=league.pa_per_game,
+        pitcher_k_pct=league.k_pct,
+        pitcher_bb_pct=league.bb_pct,
+        statcast=_contact_baseline_profile(league),
+    )
+    result = mc.run(inputs, category="hrr", n_sims=4000)
+    assert 1.2 <= result.mean <= 2.2, (
+        f"league-average-on-contact HRR {result.mean:.3f} outside realistic band "
+        f"(centering bug produced ~3.3)"
+    )
 
 
 def test_league_average_hits_per_game_realistic():
@@ -64,3 +179,4 @@ def test_league_average_hits_per_game_realistic():
 
     mean_hits = total_hits / n_sims
     assert 0.7 <= mean_hits <= 1.6, f"mean hits/game {mean_hits:.3f} outside realistic range"
+

@@ -262,6 +262,18 @@ class PropEngine:
         if bundle.umpire:
             umpire_k_bias = bundle.umpire.k_bias
 
+        # Clamp game-level multipliers to realistic ranges. Small-sample BvP
+        # and streaky recent-form values can arrive far from 1.0 and stack
+        # multiplicatively, inflating HRR well past any real expectation.
+        # (The PA simulator already clamps its own latent inputs; these bound
+        # the game-level knobs the simulator trusts as pre-vetted.)
+        def _clamp(x: float, lo: float, hi: float) -> float:
+            return max(lo, min(hi, x))
+
+        bvp_ops = _clamp(bundle.matchup.bvp_ops_factor, 0.80, 1.25)
+        bvp_hr = _clamp(bundle.matchup.bvp_hr_factor, 0.70, 1.40)
+        form_mult = _clamp(bundle.matchup.recent_form_multiplier, 0.85, 1.18)
+
         return GameSimulatorInput(
             expected_pa=bundle.expected_pa,
             pitcher_k_pct=pitcher_k,
@@ -271,9 +283,9 @@ class PropEngine:
             weather_hr_factor=weather_hr,
             umpire_k_bias=umpire_k_bias,
             handedness_advantage=bundle.matchup.platoon_advantage,
-            recent_form_mult=bundle.matchup.recent_form_multiplier,
-            bvp_ops_factor=bundle.matchup.bvp_ops_factor,
-            bvp_hr_factor=bundle.matchup.bvp_hr_factor,
+            recent_form_mult=form_mult,
+            bvp_ops_factor=bvp_ops,
+            bvp_hr_factor=bvp_hr,
             statcast=bundle.statcast,
             pitcher_hr_per_9=pitcher_hr_per_9,
             rich_features=rich_features,
@@ -303,3 +315,4 @@ class PropEngine:
     def _league_k9(self) -> float:
         league = self.config.get("league_avg", {})
         return float(league.get("k_per_9", 8.8))
+
