@@ -42,6 +42,10 @@ class SafeguardLimits:
         cfg = pa_config or PASimulatorConfig.from_league(league)
         hit_rate = league.hits_per_game / max(league.pa_per_game, 1.0)
         hr_rate_pa = (league.hr_per_9 / 9.0) / 4.2
+        # cfg.hr_min/hr_max clamp P(HR | ball in play); per-PA bounds must be
+        # scaled by the league BIP rate to match the (now consistent) per-PA
+        # probabilities the engine reports.
+        bip_rate = max(0.35, 1.0 - league.k_pct / 100.0 - league.bb_pct / 100.0)
         validation = (config or {}).get("validation", {})
         overshoot_margin = float(validation.get("overshoot_margin", 1.75))
 
@@ -49,11 +53,11 @@ class SafeguardLimits:
             min_hits_per_game=league.hits_per_game * 0.55,
             max_hits_per_game=league.pa_per_game * min(0.50, hit_rate * overshoot_margin),
             min_hr_per_game=hr_rate_pa * league.pa_per_game * 0.35,
-            max_hr_per_game=league.pa_per_game * cfg.hr_max * overshoot_margin,
+            max_hr_per_game=league.pa_per_game * cfg.hr_max * bip_rate * overshoot_margin,
             min_hit_prob_pa=hit_rate * 0.55,
             max_hit_prob_pa=min(0.42, hit_rate * overshoot_margin),
-            min_hr_prob_pa=cfg.hr_min * 0.80,
-            max_hr_prob_pa=cfg.hr_max * overshoot_margin,
+            min_hr_prob_pa=cfg.hr_min * bip_rate * 0.80,
+            max_hr_prob_pa=cfg.hr_max * bip_rate * overshoot_margin,
         )
 
 

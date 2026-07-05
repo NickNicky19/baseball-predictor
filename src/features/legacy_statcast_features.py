@@ -72,6 +72,7 @@ class StatcastFeatureEngine:
         """
         col_woba = "estimated_woba_using_speedangle"
         col_slg = "estimated_slg_using_speedangle"
+        col_ba = "estimated_ba_using_speedangle"
         if col_woba not in statcast_df.columns or col_slg not in statcast_df.columns:
             return
 
@@ -81,19 +82,25 @@ class StatcastFeatureEngine:
         if len(woba) < 500 or len(slg) < 500:
             return
 
-        new_league = replace(
-            self.league,
-            xwoba_on_contact=float(woba.mean()),
-            xslg_on_contact=float(slg.mean()),
-        )
+        updates = {
+            "xwoba_on_contact": float(woba.mean()),
+            "xslg_on_contact": float(slg.mean()),
+        }
+        if col_ba in statcast_df.columns:
+            ba = pd.to_numeric(statcast_df[col_ba], errors="coerce").dropna()
+            if len(ba) >= 500:
+                updates["xba_on_contact"] = float(ba.mean())
+
+        new_league = replace(self.league, **updates)
         self.league = new_league
         self.savant.league = new_league
         logger.info(
             "Calibrated contact baselines from %d batted balls: "
-            "xwoba_on_contact=%.3f xslg_on_contact=%.3f",
+            "xwoba_on_contact=%.3f xslg_on_contact=%.3f xba_on_contact=%.3f",
             len(slg),
             new_league.xwoba_on_contact,
             new_league.xslg_on_contact,
+            new_league.xba_on_contact,
         )
 
     def build_profiles_for_date(

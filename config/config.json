@@ -11,7 +11,8 @@
     "slg": 0.41,
     "runs_per_game": 0.47,
     "xwoba_on_contact": 0.37,
-    "xslg_on_contact": 0.62
+    "xslg_on_contact": 0.62,
+    "xba_on_contact": 0.32
   },
   "weights": {
     "season": 0.35,

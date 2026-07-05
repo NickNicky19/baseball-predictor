@@ -207,22 +207,29 @@ class CalibrationEngine:
         self,
         backtest_report: BacktestReport,
     ) -> PASimulatorConfig:
-        """Tune BIP hit-type split weights from hits category bias."""
+        """Tune the hit model from hits-category bias.
+
+        Under the xBA-driven hit model there is one lever: hit_rate_scale, a
+        multiplier on the target hit-on-contact rate. (The legacy per-weight
+        adjustments are inert in the new model; tuning one calibrated knob
+        replaces four interacting ones.)
+        """
         cfg = self.pa_config
         metrics = backtest_report.metrics_by_category.get("hits")
         if not metrics or metrics.n_samples < self.settings.min_samples_per_category:
             return cfg
 
         shrink = self.settings.coefficient_shrinkage
+        # mean_error is (projected - actual): positive means over-projection,
+        # so scale hits down; negative means under-projection, scale up.
         correction = -metrics.mean_error * shrink
+        new_scale = cfg.hit_rate_scale * (1.0 + correction * 0.10)
+        new_scale = max(0.80, min(1.20, new_scale))
 
         return PASimulatorConfig(
             **{
                 **asdict(cfg),
-                "bip_out_base_weight": max(cfg.out_weight_floor, cfg.bip_out_base_weight - correction * 0.06),
-                "single_base_weight": max(cfg.single_weight_floor, cfg.single_base_weight + correction * 0.04),
-                "double_power_bonus": cfg.double_power_bonus + correction * 0.03,
-                "single_power_penalty": cfg.single_power_penalty - correction * 0.02,
+                "hit_rate_scale": new_scale,
             }
         )
 

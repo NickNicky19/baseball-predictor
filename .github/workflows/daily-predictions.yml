@@ -1,0 +1,80 @@
+name: Daily Predictions
+
+# Generates and archives predictions for today's slate, then commits the
+# archived predictions + any updated calibration state back to the repo.
+#
+# Schedule: runs at 15:00 UTC (11:00 AM US Eastern during DST / 10:00 AM EST).
+# That's late enough that lineups are firming up but before most first pitches.
+# If you want confirmed lineups only, push this later (e.g. 22:00 UTC) and add
+# --projected-lineups is NOT needed since default already uses confirmed.
+#
+# You can also trigger it by hand from the Actions tab (workflow_dispatch),
+# optionally passing a specific date.
+
+on:
+  schedule:
+    - cron: "0 15 * * *"   # 15:00 UTC daily
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Slate date (YYYY-MM-DD). Leave blank for today (US Eastern)."
+        required: false
+        default: ""
+
+# Allow the job to push commits back to the repo.
+permissions:
+  contents: write
+
+# Prevent two runs from racing to commit at once.
+concurrency:
+  group: daily-predictions
+  cancel-in-progress: false
+
+jobs:
+  predict:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Resolve slate date (US Eastern)
+        id: date
+        run: |
+          if [ -n "${{ github.event.inputs.date }}" ]; then
+            echo "slate=${{ github.event.inputs.date }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "slate=$(TZ=America/New_York date +%F)" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Generate predictions
+        run: |
+          mkdir -p data/predictions
+          python run_daily.py \
+            --date "${{ steps.date.outputs.slate }}" \
+            --format all \
+            --output "data/predictions/preds_${{ steps.date.outputs.slate }}.csv"
+
+      - name: Commit results
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Only the data the run produces. Corrections stay OFF during
+          # collection, so bias_corrections.json is intentionally not touched.
+          git add data/predictions data/learning/predictions || true
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Predictions for ${{ steps.date.outputs.slate }} [skip ci]"
+            git push
+          fi

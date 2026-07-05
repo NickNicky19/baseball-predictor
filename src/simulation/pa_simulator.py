@@ -1,28 +1,32 @@
 """
-Hybrid Plate Appearance Simulator (Final Form).
+Hybrid Plate Appearance Simulator (xBA-driven hit model).
 
-Logit-based hierarchical PA model with calibratable coefficients.
-Designed for high precision on HR/HRR, consistency between sampling
-and explicit probability estimation, and future integration with a full
-probability engine.
+Logit-based hierarchical PA model: K/BB logits -> HR-on-BIP logit -> hit
+outcome on remaining balls in play.
 
-FIXES (this revision):
-- power_boost is centered again: (xslg - lg.xslg) * scale. The previous
-  inline refactor had an operator-precedence bug that applied the raw,
-  uncentered xSLG (adding ~+12.5 logits of power to EVERY player with a
-  Statcast profile).
-- rich_features is now an explicit parameter threaded through internal
-  methods instead of mutable instance state (self._rich_features). This
-  removes the state-clobbering bug where expected_rates() silently dropped
-  rich features, and makes the simulator safe for reuse/concurrency.
-- Removed the extra barrel term that was added to the HR logit. Barrel rate
-  already enters the HR logit twice (via hitter_power -> H_power, and via
-  barrel_boost inside H_power); a third term re-introduced the double-count
-  that an earlier fix explicitly removed.
-- Rich features, when they carry rolling metrics (roll15_xwoba etc.), are
-  blended into the quality signal with a sample-size-aware weight. Rich
-  values that merely duplicate the StatcastProfile produce identical output
-  to the profile-only path (verified by regression test).
+STRUCTURAL CHANGE (xBA hit model):
+- P(hit | ball in play) is now set DIRECTLY from the player's measured xBA
+  (Statcast estimated_ba_using_speedangle averaged over batted balls), shrunk
+  toward the league contact-conditional baseline by sample size. The previous
+  latent-weight arithmetic (contact/power coupled into single/double/out
+  weights) is gone: it triple-counted contact, let sluggers gut their own out
+  rate, and saturated everyone at the hit cap. Constructing the hit rate from
+  a measured quantity deletes five coupling coefficients instead of tuning
+  them, per the project principle of minimizing hand-picked numbers.
+- H_power / H_speed now shape only the MIX of extra-base hits among hits,
+  never the total hit rate. Total hits come from xBA; power raises doubles
+  share and HR (via its own logit); speed raises triples share.
+- CONSISTENCY FIX: _calculate_hr_prob returns P(HR | BIP) by construction
+  (its intercept is logit(hr_on_bip)). The sampling path always used it that
+  way, but expected_outcome_probabilities() previously reported it as an
+  absolute per-PA probability — overstating HR by ~1/bip (~45%) relative to
+  what the Monte Carlo actually simulates. Both paths now share one
+  computation and agree by construction (regression-tested).
+- The hits self-calibration lever is now a single knob (hit_rate_scale)
+  instead of four interacting weight fields.
+
+League anchor (must always hold): a no-profile league-average hitter produces
+hit/PA = bip_rate * xba_on_contact ~= 0.21 and per-PA HR ~= (hr_per_9/9)/4.2.
 """
 
 from __future__ import annotations
@@ -47,7 +51,7 @@ class PASimulatorConfig:
     k_pitcher_miss: float = 1.10
     k_hitter_contact: float = -1.05
     k_form: float = 0.30
-    k_quality: float = 0.14
+    k_quality: float = 0.08
 
     # BB rate logit
     bb_intercept: float = -2.30
@@ -55,9 +59,9 @@ class PASimulatorConfig:
     bb_hitter_contact: float = -0.50
     bb_handedness: float = 0.20
 
-    # HR rate logit
+    # HR rate logit (probability is conditional on ball in play)
     hr_intercept: float = -3.28
-    hr_hitter_power: float = 1.30
+    hr_hitter_power: float = 0.60
     hr_pitcher_miss: float = 0.20
     hr_park: float = 0.80
     hr_form: float = 0.28
@@ -65,7 +69,7 @@ class PASimulatorConfig:
     hr_quality: float = 0.16
 
     # Latent skill scaling
-    contact_scale: float = 2.0
+    contact_scale: float = 8.0
     power_scale: float = 2.7
     speed_scale: float = 1.5
     pitcher_k_scale: float = 9.5
@@ -77,10 +81,30 @@ class PASimulatorConfig:
     barrel_scale: float = 1.6
     hard_hit_scale: float = 1.3
 
-    # Rolling-form blending (rich feature layer). Weight applied to the
-    # deviation of rolling xwOBA from season xwOBA, ramped by recent sample.
+    # Rolling-form blending (rich feature layer)
     rolling_quality_weight: float = 0.35
-    rolling_pa_ramp: float = 60.0  # PA at which rolling signal gets full weight
+    rolling_pa_ramp: float = 60.0
+
+    # === xBA-driven hit model ===
+    # Empirical-Bayes shrinkage: weight on the player's own xBA is
+    # sample_pa / (sample_pa + xba_shrinkage_pa). One principled parameter
+    # instead of a fixed blend fraction.
+    xba_shrinkage_pa: float = 120.0
+    # Bounds on the (context-scaled) target hit-on-contact rate.
+    hit_on_contact_min: float = 0.18
+    hit_on_contact_max: float = 0.45
+    # Self-calibration lever for the hits category (learning layer tunes THIS,
+    # replacing the four interacting weight fields it used to touch).
+    hit_rate_scale: float = 1.0
+
+    # XBH mix among non-HR hits: league base shares (measured league values,
+    # ~74% singles / 23.5% doubles / 2.5% triples of non-HR hits) tilted by
+    # power (doubles) and speed (triples). These shape the mix ONLY — total
+    # hit rate is fixed by xBA regardless of these values.
+    xbh_double_share: float = 0.235
+    xbh_triple_share: float = 0.025
+    xbh_power_tilt: float = 0.12
+    xbh_speed_tilt: float = 0.10
 
     # Context
     form_log_min: float = 0.75
@@ -88,21 +112,25 @@ class PASimulatorConfig:
     handedness_scale: float = 0.85
     park_hr_log_floor: float = 0.72
 
-    # BIP outcome weights
+    # --- LEGACY fields (inert under the xBA hit model) -------------------
+    # Retained so PASimulatorConfig(**asdict(cfg)) round-trips and stored
+    # calibration state / overrides referencing them cannot crash. They no
+    # longer influence output.
     bip_out_base_weight: float = 2.09
     single_base_weight: float = 0.60
     double_base_weight: float = 0.225
     triple_base_weight: float = 0.028
     out_weight_floor: float = 0.50
-    out_contact_bonus: float = 0.15
-    out_power_bonus: float = 0.08
+    out_contact_bonus: float = 0.03
+    out_power_bonus: float = 0.03
     single_power_penalty: float = 0.55
-    single_contact_bonus: float = 0.26
-    double_power_bonus: float = 0.50
+    single_contact_bonus: float = 0.05
+    double_power_bonus: float = 0.20
     triple_speed_bonus: float = 0.14
     single_weight_floor: float = 0.38
     double_weight_floor: float = 0.135
     triple_weight_floor: float = 0.008
+    # ---------------------------------------------------------------------
 
     # Context scaling on BIP
     bvp_hr_weight: float = 0.26
@@ -110,6 +138,8 @@ class PASimulatorConfig:
     park_hits_weight: float = 0.35
     context_hit_scale_max: float = 1.12
     context_hit_scale_min: float = 0.88
+    # Safety net only; under the xBA model the bounded target hit rate keeps
+    # hit/PA below this by construction, so the cap should never fire.
     hit_prob_cap: float = 0.36
 
     # Probability clamps
@@ -136,34 +166,32 @@ class PASimulatorConfig:
         xslg_anchor = max(0.01, abs(league.xslg))
 
         hit_rate_pa = league.hits_per_game / max(league.pa_per_game, 1.0)
-        non_hr_hit_rate = max(0.01, hit_rate_pa - hr_per_pa)
-        non_hr_bip_rate = bip_rate * (1.0 - hr_on_bip)
-        babip = max(0.22, min(0.36, non_hr_hit_rate / max(non_hr_bip_rate, 0.01)))
-
-        hit_base_sum = cls.single_base_weight + cls.double_base_weight + cls.triple_base_weight
-        bip_out_weight = hit_base_sum * (1.0 - babip) / babip
-        hit_scale_span = max(0.36 - babip, babip - 0.22) / max(babip, 0.01)
 
         derived = cls(
             k_intercept=_logit(k_rate),
             bb_intercept=_logit(bb_rate),
             hr_intercept=_logit(hr_on_bip),
-            bip_out_base_weight=bip_out_weight,
             bvp_hr_weight=1.30 * 0.20,
             bvp_hit_weight=0.26 * 0.80,
-            park_hits_weight=1.0 / max(hit_base_sum, 0.01),
-            context_hit_scale_max=1.0 + hit_scale_span * 0.35,
-            context_hit_scale_min=1.0 - hit_scale_span * 0.35,
             hit_prob_cap=min(0.38, hit_rate_pa * 1.65),
-            contact_scale=1.0 / max(contact_anchor * 0.08, 0.01),
-            power_scale=1.0 / max(barrel_anchor, 0.01),
+            # contact_scale drives the K/BB logits only under the xBA model.
+            contact_scale=1.0 / max(contact_anchor * 0.16, 0.01),
+            # power drives HR and the XBH mix; it no longer touches hit rate,
+            # so its scale can stay expressive without saturation risk.
+            power_scale=1.0 / max(barrel_anchor * 4.0, 0.01),
             speed_scale=1.0 / max(barrel_anchor * 0.6, 0.01),
             pitcher_k_scale=max(league.k_pct, 1.0),
             pitcher_bb_scale=max(league.bb_pct, 1.0),
-            xwoba_scale=1.0 / max(xwoba_anchor * 0.08, 0.01),
-            xslg_scale=1.0 / max(xslg_anchor * 0.08, 0.01),
-            barrel_scale=1.0 / max(barrel_anchor, 0.01),
-            hard_hit_scale=1.0 / max(league.hard_hit_rate * 0.08, 0.01),
+            # Feature scales map the realistic cross-player spread of each
+            # metric to a latent of roughly +/-1, so the logit coefficients
+            # (hr_hitter_power, k_quality, ...) act at their designed
+            # magnitude. The previous 0.08 divisors produced latents of 8-9
+            # for elite hitters, pinning their K at k_max and HR at hr_max
+            # (Judge simulated at 41.6% K vs his real ~27%).
+            xwoba_scale=1.0 / max(xwoba_anchor * 0.40, 0.01),
+            xslg_scale=1.0 / max(xslg_anchor * 0.60, 0.01),
+            barrel_scale=1.0 / max(barrel_anchor * 3.5, 0.01),
+            hard_hit_scale=1.0 / max(league.hard_hit_rate * 0.50, 0.01),
             k_min=max(0.05, k_rate * 0.55),
             k_max=min(0.50, k_rate * 1.85),
             bb_min=max(0.02, bb_rate * 0.55),
@@ -178,11 +206,11 @@ class PASimulatorConfig:
 
 class HybridPASimulator:
     """
-    Hybrid Plate Appearance Simulator (Final Form).
+    Hybrid PA simulator with an xBA-driven hit model.
 
-    Hierarchical model: K/BB -> BIP -> HR vs non-HR.
-    rich_features is passed explicitly down the call chain (never stored on
-    the instance), so calls are stateless and reproducible.
+    The sampling path (simulate) and the explicit path
+    (expected_outcome_probabilities) share the same probability computation
+    and agree by construction.
     """
 
     def __init__(
@@ -216,51 +244,38 @@ class HybridPASimulator:
         statcast: Optional[StatcastProfile] = None,
         rich_features: Optional[dict[str, Any]] = None,
     ) -> PAOutcome:
-        """Simulate one plate appearance (sampling path)."""
-        rich = rich_features or {}
-
-        pitcher_k = pitcher_k_pct if pitcher_k_pct is not None else self.league.k_pct
-        pitcher_bb = pitcher_bb_pct if pitcher_bb_pct is not None else self.league.bb_pct
-
-        contact = hitter_contact if hitter_contact is not None else self.league.contact_rate
-        power = hitter_power if hitter_power is not None else self.league.barrel_rate
-        speed = hitter_speed if hitter_speed is not None else self._default_speed_anchor()
-
-        latent = self._build_latent_profile(
-            hitter_contact=contact,
-            hitter_power=power,
-            hitter_speed=speed,
-            pitcher_k_pct=pitcher_k,
-            pitcher_bb_pct=pitcher_bb,
-            recent_form_mult=recent_form_mult,
-            handedness_advantage=handedness_advantage,
-            statcast=statcast,
-            rich=rich,
-        )
-
-        k_prob, bb_prob = self._calculate_k_bb_probs(latent)
-        roll = self.rng.random()
-
-        if roll < k_prob:
-            return PAOutcome("out", "Strikeout")
-        if roll < k_prob + bb_prob:
-            return PAOutcome("walk", "Walk")
-
-        hr_prob = self._calculate_hr_prob(
-            latent,
-            park_hr_factor,
-            statcast=statcast,
+        """Simulate one plate appearance by sampling the shared distribution."""
+        probs = self.expected_outcome_probabilities(
+            pitcher_k_pct=pitcher_k_pct,
+            pitcher_bb_pct=pitcher_bb_pct,
             pitcher_hr_per_9=pitcher_hr_per_9,
-            bvp_hr_factor=bvp_hr_factor,
-        )
-        if self.rng.random() < hr_prob:
-            return PAOutcome("home_run", "Home Run")
-
-        return self._sample_hit_type(
-            latent,
+            park_hr_factor=park_hr_factor,
             park_hits_factor=park_hits_factor,
+            handedness_advantage=handedness_advantage,
+            recent_form_mult=recent_form_mult,
             bvp_ops_factor=bvp_ops_factor,
+            bvp_hr_factor=bvp_hr_factor,
+            statcast=statcast,
+            hitter_contact=hitter_contact,
+            hitter_power=hitter_power,
+            hitter_speed=hitter_speed,
+            rich_features=rich_features,
         )
+
+        r = self.rng.random()
+        cumulative = 0.0
+        for outcome_key, description, kind in (
+            ("strikeout", "Strikeout", "out"),
+            ("walk", "Walk", "walk"),
+            ("home_run", "Home Run", "home_run"),
+            ("single", "Single", "single"),
+            ("double", "Double", "double"),
+            ("triple", "Triple", "triple"),
+        ):
+            cumulative += probs[outcome_key]
+            if r < cumulative:
+                return PAOutcome(kind, description)
+        return PAOutcome("out", "Ball in play out")
 
     def expected_outcome_probabilities(
         self,
@@ -279,7 +294,7 @@ class HybridPASimulator:
         hitter_speed: Optional[float] = None,
         rich_features: Optional[dict[str, Any]] = None,
     ) -> dict[str, float]:
-        """Return explicit per-PA outcome probabilities."""
+        """Return explicit per-PA outcome probabilities (sums to 1)."""
         rich = rich_features or {}
 
         latent = self._build_latent_profile(
@@ -297,42 +312,35 @@ class HybridPASimulator:
         k_prob, bb_prob = self._calculate_k_bb_probs(latent)
         bip_prob = max(0.0, 1.0 - k_prob - bb_prob)
 
-        hr_prob = self._calculate_hr_prob(
+        # P(HR | BIP): the logit's intercept is logit(hr_on_bip), so this is
+        # conditional on ball in play by construction.
+        hr_on_bip = self._calculate_hr_prob(
             latent,
             park_hr_factor,
             statcast=statcast,
             pitcher_hr_per_9=pitcher_hr_per_9,
             bvp_hr_factor=bvp_hr_factor,
         )
-        hr_prob = min(hr_prob, bip_prob)
+        # CONSISTENCY FIX: report per-PA HR as bip * P(HR|BIP) — matching what
+        # sampling produces — instead of reporting the conditional as absolute.
+        hr_prob = bip_prob * hr_on_bip
         non_hr_bip = max(0.0, bip_prob - hr_prob)
 
-        out_w, single_w, double_w, triple_w = self._hit_type_weights(
+        p_out, p_single, p_double, p_triple = self._bip_outcome_distribution(
             latent,
+            hr_on_bip=hr_on_bip,
             park_hits_factor=park_hits_factor,
             bvp_ops_factor=bvp_ops_factor,
         )
-
-        total = out_w + single_w + double_w + triple_w
-        if total <= 0:
-            return {
-                "strikeout": k_prob,
-                "walk": bb_prob,
-                "home_run": hr_prob,
-                "single": 0.0,
-                "double": 0.0,
-                "triple": 0.0,
-                "out_on_bip": non_hr_bip,
-            }
 
         result = {
             "strikeout": k_prob,
             "walk": bb_prob,
             "home_run": hr_prob,
-            "single": non_hr_bip * (single_w / total),
-            "double": non_hr_bip * (double_w / total),
-            "triple": non_hr_bip * (triple_w / total),
-            "out_on_bip": non_hr_bip * (out_w / total),
+            "single": non_hr_bip * p_single,
+            "double": non_hr_bip * p_double,
+            "triple": non_hr_bip * p_triple,
+            "out_on_bip": non_hr_bip * p_out,
         }
         return self._apply_hit_prob_cap(result)
 
@@ -368,7 +376,7 @@ class HybridPASimulator:
             hitter_contact=hitter_contact,
             hitter_power=hitter_power,
             hitter_speed=hitter_speed,
-            rich_features=rich_features,  # FIX: previously dropped on the floor
+            rich_features=rich_features,
         )
         bip_prob = max(0.0, 1.0 - probs["strikeout"] - probs["walk"])
         hr_on_bip = probs["home_run"] / bip_prob if bip_prob > 0 else 0.0
@@ -408,15 +416,11 @@ class HybridPASimulator:
                 return float(statcast_value)
             return league_value
 
-        # StatcastProfile.xwoba/xslg are contact-conditional (averaged over
-        # batted-ball events), so they must be centered against the
-        # contact-conditional league baselines. Falling back to those same
-        # baselines keeps a no-profile hitter perfectly neutral. Centering
-        # contact-conditional xSLG (~0.62 league) against season xSLG (0.41)
-        # was adding a phantom ~+0.20*scale power boost to EVERY profiled
-        # hitter — the root cause of the leaguewide HRR overshoot.
+        # Contact-conditional Statcast values center against the
+        # contact-conditional league baselines (they are batted-ball averages).
         xwoba = _pick("xwoba", statcast.xwoba if statcast else None, lg.xwoba_on_contact)
         xslg = _pick("xslg", statcast.xslg if statcast else None, lg.xslg_on_contact)
+        xba = _pick("xba", statcast.xba if statcast else None, lg.xba_on_contact)
         barrel = _pick("barrel_rate", statcast.barrel_rate if statcast else None, lg.barrel_rate)
         hard_hit = _pick(
             "hard_hit_rate", statcast.hard_hit_rate if statcast else None, lg.hard_hit_rate
@@ -443,15 +447,11 @@ class HybridPASimulator:
         )
         handedness = handedness_advantage * cfg.handedness_scale
 
-        # Center against contact-conditional baselines (see _pick note above).
         xwoba_boost = (xwoba - lg.xwoba_on_contact) * cfg.xwoba_scale
         power_boost = (xslg - lg.xslg_on_contact) * cfg.xslg_scale
         barrel_boost = (barrel - lg.barrel_rate) * cfg.barrel_scale
         hard_hit_boost = (hard_hit - lg.hard_hit_rate) * cfg.hard_hit_scale
 
-        # NEW SIGNAL (not a duplicate): rolling-form deviation from season
-        # xwOBA, weighted by recent sample size. Only fires when the rich
-        # layer provides actual rolling data (roll15_xwoba + recent_pa_15).
         rolling_quality = 0.0
         roll_xwoba = rich.get("roll15_xwoba")
         if roll_xwoba is not None:
@@ -462,6 +462,12 @@ class HybridPASimulator:
                 * cfg.rolling_quality_weight * ramp
             )
 
+        # Sample-size-aware shrinkage of the player's xBA toward the league
+        # contact-conditional baseline (empirical-Bayes weight).
+        sample_pa = float(statcast.sample_pa) if statcast and statcast.sample_pa else 0.0
+        weight = sample_pa / (sample_pa + max(cfg.xba_shrinkage_pa, 1.0))
+        xba_shrunk = weight * xba + (1.0 - weight) * lg.xba_on_contact
+
         return {
             "H_contact": h_contact,
             "H_power": h_power + power_boost + barrel_boost,
@@ -471,6 +477,7 @@ class HybridPASimulator:
             "P_control": p_control,
             "form": form_effect,
             "handedness": handedness,
+            "xba_contact": xba_shrunk,
         }
 
     def _calculate_k_bb_probs(self, latent: dict[str, float]) -> tuple[float, float]:
@@ -501,6 +508,7 @@ class HybridPASimulator:
         pitcher_hr_per_9: Optional[float] = None,
         bvp_hr_factor: float = 1.0,
     ) -> float:
+        """P(home run | ball in play)."""
         cfg = self.config
         hr_logit = (
             cfg.hr_intercept
@@ -523,10 +531,6 @@ class HybridPASimulator:
             )
             hr_logit -= cfg.hr_pitcher_miss * pitcher_hr_skill
 
-        # NOTE: no standalone barrel term here. Barrel rate already reaches
-        # this logit through latent["H_power"] (hitter_power + barrel_boost).
-        # A previous fix removed the double-count; keep it removed.
-
         dist = statcast.distribution if statcast and statcast.distribution else None
         if dist and dist.sample_bip > 0:
             quality = dist.quality_score()
@@ -538,50 +542,58 @@ class HybridPASimulator:
 
         return self._clamp(self._sigmoid(hr_logit), cfg.hr_min, cfg.hr_max)
 
-    def _hit_type_weights(
+    def _bip_outcome_distribution(
         self,
         latent: dict[str, float],
+        hr_on_bip: float,
         park_hits_factor: float = 1.0,
         bvp_ops_factor: float = 1.0,
     ) -> tuple[float, float, float, float]:
+        """
+        (p_out, p_single, p_double, p_triple) conditional on a non-HR ball in
+        play.
+
+        The total hit rate on contact is the player's shrunk xBA, scaled by
+        park/BvP context and the calibration lever, then bounded. Because xBA
+        counts HR as hits, the non-HR hit rate is backed out of it. Power and
+        speed shape only the mix among hits.
+        """
         cfg = self.config
-        power = latent["H_power"]
-        speed = latent["H_speed"]
-        contact = latent["H_contact"]
 
         hit_scale = self._context_hit_scale(park_hits_factor, bvp_ops_factor)
-
-        single_w = max(
-            cfg.single_weight_floor,
-            cfg.single_base_weight
-            - power * (cfg.single_power_penalty * 0.45)
-            + contact * cfg.single_contact_bonus,
-        ) * hit_scale
-
-        double_w = (
-            max(
-                cfg.double_weight_floor,
-                cfg.double_base_weight + power * (cfg.double_power_bonus * 0.75),
-            )
-            * hit_scale
+        target_hit_on_contact = self._clamp(
+            latent["xba_contact"] * hit_scale * cfg.hit_rate_scale,
+            cfg.hit_on_contact_min,
+            cfg.hit_on_contact_max,
         )
 
-        triple_w = (
-            max(cfg.triple_weight_floor, cfg.triple_base_weight + speed * cfg.triple_speed_bonus)
-            * hit_scale
+        # xBA includes home runs; back out the non-HR hit rate.
+        denom = max(1e-6, 1.0 - hr_on_bip)
+        p_hit_non_hr = self._clamp(
+            (target_hit_on_contact - hr_on_bip) / denom, 0.05, 0.45
         )
 
-        out_w = max(
-            cfg.out_weight_floor,
-            cfg.bip_out_base_weight
-            - contact * cfg.out_contact_bonus
-            - power * cfg.out_power_bonus,
-        ) / hit_scale
+        # XBH mix among non-HR hits: power tilts doubles, speed tilts triples.
+        double_share = cfg.xbh_double_share * (
+            1.0 + self._clamp(latent["H_power"] * cfg.xbh_power_tilt, -0.5, 0.8)
+        )
+        triple_share = cfg.xbh_triple_share * (
+            1.0 + self._clamp(latent["H_speed"] * cfg.xbh_speed_tilt, -0.5, 1.0)
+        )
+        double_share = min(double_share, 0.45)
+        triple_share = min(triple_share, 0.08)
+        single_share = max(0.30, 1.0 - double_share - triple_share)
+        share_total = single_share + double_share + triple_share
 
-        return out_w, single_w, double_w, triple_w
+        p_single = p_hit_non_hr * single_share / share_total
+        p_double = p_hit_non_hr * double_share / share_total
+        p_triple = p_hit_non_hr * triple_share / share_total
+        p_out = max(0.0, 1.0 - p_hit_non_hr)
+
+        return p_out, p_single, p_double, p_triple
 
     def _apply_hit_prob_cap(self, probs: dict[str, float]) -> dict[str, float]:
-        """Redistribute excess hit probability to BIP outs — prevents skill-stacking overshoot."""
+        """Safety net; the bounded xBA target keeps totals below the cap."""
         cfg = self.config
         hit_total = (
             probs["single"] + probs["double"] + probs["triple"] + probs["home_run"]
@@ -606,35 +618,6 @@ class HybridPASimulator:
         bvp_adj = 1.0 + cfg.bvp_hit_weight * (bvp_ops_factor - 1.0)
         combined = math.sqrt(max(0.01, park_adj * bvp_adj))
         return max(cfg.context_hit_scale_min, min(cfg.context_hit_scale_max, combined))
-
-    def _sample_hit_type(
-        self,
-        latent: dict[str, float],
-        park_hits_factor: float = 1.0,
-        bvp_ops_factor: float = 1.0,
-    ) -> PAOutcome:
-        out_w, single_w, double_w, triple_w = self._hit_type_weights(
-            latent,
-            park_hits_factor=park_hits_factor,
-            bvp_ops_factor=bvp_ops_factor,
-        )
-
-        total = out_w + single_w + double_w + triple_w
-        p_out = out_w / total
-        p_single = single_w / total
-        p_double = double_w / total
-        p_triple = triple_w / total
-
-        r = self.rng.random()
-        if r < p_out:
-            return PAOutcome("out", "Ball in play out")
-        if r < p_out + p_single:
-            return PAOutcome("single", "Single")
-        if r < p_out + p_single + p_double:
-            return PAOutcome("double", "Double")
-        if r < p_out + p_single + p_double + p_triple:
-            return PAOutcome("triple", "Triple")
-        return PAOutcome("out", "Ball in play out")
 
     def apply_to_state(self, state: BaseState, outcome: PAOutcome) -> None:
         if outcome.outcome == "out":

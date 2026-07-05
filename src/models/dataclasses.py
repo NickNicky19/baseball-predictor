@@ -38,6 +38,9 @@ class LeagueBaselines:
     # center them against THESE, not the season values.
     xwoba_on_contact: float = 0.370
     xslg_on_contact: float = 0.620
+    # League average of estimated_ba_using_speedangle over batted balls.
+    # Primary driver of the hit model; self-calibrated from each Statcast pull.
+    xba_on_contact: float = 0.320
     barrel_rate: float = 0.085
     hard_hit_rate: float = 0.390
     sweet_spot_rate: float = 0.340
@@ -62,6 +65,7 @@ class LeagueBaselines:
             xslg=float(league.get("xslg", 0.410)),
             xwoba_on_contact=float(league.get("xwoba_on_contact", 0.370)),
             xslg_on_contact=float(league.get("xslg_on_contact", 0.620)),
+            xba_on_contact=float(league.get("xba_on_contact", 0.320)),
             barrel_rate=float(league.get("barrel_rate", 0.085)),
             hard_hit_rate=float(league.get("hard_hit_rate", 0.390)),
             sweet_spot_rate=float(league.get("sweet_spot_rate", 0.340)),

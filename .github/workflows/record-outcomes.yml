@@ -1,0 +1,70 @@
+name: Record Outcomes
+
+# Grades YESTERDAY's predictions against final box scores and appends
+# prediction->outcome pairs to data/learning/prediction_outcomes.csv.
+# This is the step that actually builds your learning dataset.
+#
+# Schedule: 14:00 UTC (10:00 AM US Eastern DST) — after all prior-day games,
+# including West Coast extra-inning ones, are final and box scores are posted.
+# Runs one hour BEFORE the prediction job so the day's collection is closed
+# out before new predictions are made.
+
+on:
+  schedule:
+    - cron: "0 14 * * *"   # 14:00 UTC daily
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Date to grade (YYYY-MM-DD). Blank = yesterday (US Eastern)."
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: record-outcomes
+  cancel-in-progress: false
+
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Resolve grading date (US Eastern, yesterday)
+        id: date
+        run: |
+          if [ -n "${{ github.event.inputs.date }}" ]; then
+            echo "grade=${{ github.event.inputs.date }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "grade=$(TZ=America/New_York date -d 'yesterday' +%F)" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Record outcomes
+        run: |
+          python run_record_outcomes.py --date "${{ steps.date.outputs.grade }}" --verbose
+
+      - name: Commit pairs
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/learning/prediction_outcomes.csv data/learning/predictions || true
+          if git diff --cached --quiet; then
+            echo "No new pairs to commit (no archived predictions for that date, or already graded)."
+          else
+            git commit -m "Outcomes for ${{ steps.date.outputs.grade }} [skip ci]"
+            git push
+          fi
