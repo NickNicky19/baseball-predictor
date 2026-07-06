@@ -27,6 +27,11 @@ class EdgeThresholds:
     strong_edge_pct: float = 8.0
     lean_edge_pct: float = 4.0
     min_confidence: float = 0.45
+    # Fractional-Kelly staking. kelly_fraction=0.25 means quarter-Kelly — the
+    # standard defensive choice given high single-game prop variance. kelly_cap
+    # hard-limits any single stake as a fraction of bankroll regardless of edge.
+    kelly_fraction: float = 0.25
+    kelly_cap: float = 0.05
     default_spreads: dict[str, float] = field(
         default_factory=lambda: {
             "hits": 0.9,
@@ -45,6 +50,8 @@ class EdgeThresholds:
             strong_edge_pct=float(edge.get("strong_edge_pct", 8.0)),
             lean_edge_pct=float(edge.get("lean_edge_pct", 4.0)),
             min_confidence=float(edge.get("min_confidence", 0.45)),
+            kelly_fraction=float(edge.get("kelly_fraction", 0.25)),
+            kelly_cap=float(edge.get("kelly_cap", 0.05)),
             default_spreads={
                 "hits": float(spreads.get("hits", 0.9)),
                 "hrr": float(spreads.get("hrr", 1.6)),
@@ -75,30 +82,118 @@ class EdgeCalculator:
         projection: PropProjection,
         odds_line: OddsLine,
     ) -> EdgeResult:
-        """Compare a single projection to a market line."""
-        model_prob_over = self._model_prob_over(projection, odds_line.line)
-        implied_prob_over = self._american_to_implied_prob(odds_line.over_odds_american)
-        edge_pct = (model_prob_over - implied_prob_over) * 100.0
+        """Compare a projection to a market line, de-vigged, with Kelly stake.
 
-        recommendation = self._classify_edge(edge_pct, projection.confidence)
+        The book's two-sided prices imply probabilities that sum to >100% —
+        the excess is the vig (its margin). Comparing the model against the raw
+        one-sided implied prob systematically distorts edge. We remove the vig
+        by normalizing both sides to sum to 1, then compute edge on BOTH the
+        over and the under and keep whichever side the model favors.
+        """
+        model_prob_over = self._model_prob_over(projection, odds_line.line)
+        model_prob_under = 1.0 - model_prob_over
+
+        raw_over = self._american_to_implied_prob(odds_line.over_odds_american)
+        raw_under = self._american_to_implied_prob(odds_line.under_odds_american)
+        overround = raw_over + raw_under
+        vig_pct = max(0.0, (overround - 1.0) * 100.0)
+
+        # No-vig (fair) probabilities.
+        if overround > 0:
+            fair_over = raw_over / overround
+            fair_under = raw_under / overround
+        else:
+            fair_over = raw_over
+            fair_under = raw_under
+
+        edge_over = model_prob_over - fair_over
+        edge_under = model_prob_under - fair_under
+
+        # Keep the side the model actually favors (larger positive edge).
+        if edge_over >= edge_under:
+            edge_side = "over"
+            edge_val = edge_over
+            model_side = model_prob_over
+            fair_side = fair_over
+            payout_odds = odds_line.over_odds_american
+        else:
+            edge_side = "under"
+            edge_val = edge_under
+            model_side = model_prob_under
+            fair_side = fair_under
+            payout_odds = odds_line.under_odds_american
+
+        edge_pct = edge_val * 100.0
+        # edge_pct on the OVER (signed) is retained for backward compatibility
+        # and for the over/under recommendation classifier.
+        signed_over_edge_pct = edge_over * 100.0
+
+        recommendation = self._classify_edge(signed_over_edge_pct, projection.confidence)
+
+        kelly = self._fractional_kelly(model_side, payout_odds)
+        # Only stake the favored side when the model actually has positive edge
+        # and clears the confidence floor; otherwise stake is zero.
+        if edge_val <= 0 or projection.confidence < self.thresholds.min_confidence:
+            kelly = 0.0
+
         notes: list[str] = []
         if projection.simulation:
-            notes.append(f"MC sims: {projection.simulation.n_sims}")
+            exact = projection.simulation.p_ge_threshold.get(odds_line.line) if projection.simulation.p_ge_threshold else None
+            if exact is not None:
+                notes.append(f"MC tail prob (n={projection.simulation.n_sims})")
+            else:
+                notes.append(f"MC normal-approx (line {odds_line.line} not a sim threshold)")
         else:
             notes.append("Rate-based projection (no MC distribution)")
+        if vig_pct > 0:
+            notes.append(f"vig {vig_pct:.1f}% removed")
 
         return EdgeResult(
             player_name=projection.player_name,
             category=projection.category,
             line=odds_line.line,
             projected_value=projection.projected_value,
-            implied_prob_over=round(implied_prob_over, 4),
+            implied_prob_over=round(raw_over, 4),
             model_prob_over=round(model_prob_over, 4),
-            edge_pct=round(edge_pct, 2),
+            edge_pct=round(signed_over_edge_pct, 2),
             recommendation=recommendation,
             confidence=projection.confidence,
+            fair_prob_over=round(fair_over, 4),
+            vig_pct=round(vig_pct, 2),
+            edge_side=edge_side,
+            model_prob_side=round(model_side, 4),
+            fair_prob_side=round(fair_side, 4),
+            payout_odds_american=payout_odds,
+            kelly_fraction=round(kelly, 4),
             notes=notes,
         )
+
+    def _fractional_kelly(self, model_prob: float, american_odds: int) -> float:
+        """Fractional-Kelly stake as a bankroll fraction, capped.
+
+        Full Kelly f* = (b*p - q) / b, where b = net decimal payout, p = win
+        prob, q = 1 - p. We apply kelly_fraction (default quarter-Kelly) and a
+        hard cap, and never return negative (that's just 'no bet').
+        """
+        b = self._american_to_decimal_payout(american_odds)
+        if b <= 0:
+            return 0.0
+        p = max(0.0, min(1.0, model_prob))
+        q = 1.0 - p
+        full_kelly = (b * p - q) / b
+        if full_kelly <= 0:
+            return 0.0
+        staked = full_kelly * self.thresholds.kelly_fraction
+        return min(staked, self.thresholds.kelly_cap)
+
+    @staticmethod
+    def _american_to_decimal_payout(american_odds: int) -> float:
+        """Net payout multiple b (profit per unit staked)."""
+        if american_odds > 0:
+            return american_odds / 100.0
+        if american_odds < 0:
+            return 100.0 / abs(american_odds)
+        return 0.0
 
     def find_value_plays(
         self,
@@ -106,8 +201,15 @@ class EdgeCalculator:
         odds_lines: list[OddsLine],
         category: Optional[PropCategory] = None,
         min_edge_pct: Optional[float] = None,
+        sort_by: str = "kelly",
     ) -> list[EdgeResult]:
-        """Match projections to odds and return plays above the edge threshold."""
+        """Match projections to odds and return plays above the edge threshold.
+
+        sort_by: "kelly" (default) ranks by fractional-Kelly stake — the
+        value-correct ordering (edge adjusted for odds and confidence).
+        "edge" ranks by raw model-vs-market gap. Both columns are present on
+        every result regardless of sort, so the GUI can re-sort freely.
+        """
         min_edge = min_edge_pct if min_edge_pct is not None else self.thresholds.lean_edge_pct
         odds_index = {
             (line.player_name.lower(), line.category): line for line in odds_lines
@@ -125,10 +227,19 @@ class EdgeCalculator:
                 continue
 
             edge = self.compute_edge(proj, odds)
-            if abs(edge.edge_pct) >= min_edge and edge.recommendation != EdgeRecommendation.PASS:
+            # Use the FAVORED-SIDE edge magnitude for the threshold gate.
+            favored_edge_pct = abs(edge.model_prob_side - edge.fair_prob_side) * 100.0
+            if favored_edge_pct >= min_edge and edge.recommendation != EdgeRecommendation.PASS:
                 value_plays.append(edge)
 
-        return sorted(value_plays, key=lambda e: abs(e.edge_pct), reverse=True)
+        if sort_by == "edge":
+            return sorted(value_plays, key=lambda e: abs(e.edge_pct), reverse=True)
+        # Default: value-correct ranking by fractional Kelly, edge as tiebreak.
+        return sorted(
+            value_plays,
+            key=lambda e: (e.kelly_fraction, abs(e.edge_pct)),
+            reverse=True,
+        )
 
     def _model_prob_over(self, projection: PropProjection, line: float) -> float:
         if projection.simulation and projection.simulation.p_ge_threshold:

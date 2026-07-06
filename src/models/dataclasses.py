@@ -465,6 +465,15 @@ class EdgeResult:
     edge_pct: float
     recommendation: EdgeRecommendation
     confidence: float
+    # De-vig + staking (added for the value engine). Defaulted so any existing
+    # construction/deserialization keeps working.
+    fair_prob_over: float = 0.0        # book's no-vig implied prob for the over
+    vig_pct: float = 0.0               # book's margin on this market
+    edge_side: str = ""                # "over" or "under" — the side with +edge
+    model_prob_side: float = 0.0       # model prob on the edge side
+    fair_prob_side: float = 0.0        # no-vig implied prob on the edge side
+    payout_odds_american: int = 0      # odds you'd actually bet at (the edge side)
+    kelly_fraction: float = 0.0        # fractional-Kelly stake (bankroll fraction)
     notes: list[str] = field(default_factory=list)
 
 
@@ -524,4 +533,3 @@ def _edge_to_dict(edge: EdgeResult) -> dict[str, Any]:
         "confidence": edge.confidence,
         "notes": edge.notes,
     }
-

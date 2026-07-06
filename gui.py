@@ -88,12 +88,66 @@ class BaseballPredictorGUI:
             "confidence": 80,
         }
         for col in columns:
-            label = col.replace("_", " ").upper()
-            self.tree.heading(col, text=label)
+            label = col.replace("_", "  ").upper()
+            # Click-to-sort: header click re-sorts the current rows by that
+            # column. Purely presentational — never re-runs or changes any
+            # prediction. Numeric columns sort numerically, text alphabetically.
+            self.tree.heading(col, text=label, command=lambda c=col: self._sort_by(c))
             self.tree.column(col, width=col_widths[col], anchor="center")
+
+        # Sort state for the toggle-direction behavior.
+        self._sort_col: str | None = None
+        self._sort_desc: bool = False
+        self._numeric_cols = {"rank", "projected", "confidence"}
 
         self.status_var = tk.StringVar(value="Ready")
         ttk.Label(self.root, textvariable=self.status_var, relief="sunken").pack(fill="x", side="bottom")
+
+    def _sort_by(self, col: str) -> None:
+        """Re-sort the currently displayed rows by a column.
+
+        Read-only: operates on self._current_rows only; never re-runs the
+        model or alters any projection. Clicking the same column toggles
+        ascending/descending. Confidence sort is available but remember it is
+        an UNVALIDATED model self-estimate until calibration data confirms it.
+        """
+        if not self._current_rows:
+            return
+        # Toggle direction if same column clicked again.
+        if self._sort_col == col:
+            self._sort_desc = not self._sort_desc
+        else:
+            self._sort_col = col
+            # Numeric columns default to descending (biggest first); text ascending.
+            self._sort_desc = col in self._numeric_cols
+
+        def key(row: dict):
+            v = row.get(col, "")
+            if col in self._numeric_cols:
+                try:
+                    return float(v)
+                except (TypeError, ValueError):
+                    return float("-inf")
+            return str(v).lower()
+
+        self._current_rows.sort(key=key, reverse=self._sort_desc)
+
+        # Re-number the rank column to reflect the new order, then repaint.
+        self.tree.delete(*self.tree.get_children())
+        for i, row in enumerate(self._current_rows, 1):
+            if "rank" in row and col != "rank":
+                row["rank"] = i
+            self.tree.insert("", "end", values=tuple(row.values()))
+
+        # Arrow indicator on the active header.
+        arrow = " v" if self._sort_desc else " ^"
+        for c in self.tree["columns"]:
+            base = c.replace("_", "  ").upper()
+            self.tree.heading(c, text=base + (arrow if c == col else ""))
+        self.status_var.set(
+            f"Sorted by {col} ({'desc' if self._sort_desc else 'asc'})"
+            + ("  — note: confidence is an unvalidated estimate" if col == "confidence" else "")
+        )
 
     def run_predictions(self) -> None:
         target_date = self.date_var.get()

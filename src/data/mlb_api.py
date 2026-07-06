@@ -347,6 +347,8 @@ class MLBStatsAPI:
 
         games = self.get_schedule(game_date, include_lineups=include_projected)
         hitters: list[HitterGameContext] = []
+        teams_total = 0
+        teams_skipped = 0
 
         for game in games:
             game_pk = int(game["gamePk"])
@@ -374,11 +376,35 @@ class MLBStatsAPI:
                     order = projected
                     lineup_status = "projected"
                 else:
+                    teams_total += 1
+                    teams_skipped += 1
+                    # No lineup available for this team. This is almost always
+                    # the MLB API simply not having posted (or projected) a
+                    # lineup yet, not a code fault — projected lineups in
+                    # particular are frequently absent until ~1-2h pre-game.
+                    # Log it so a thin slate is explained rather than mysterious.
+                    team_side = away_name if side == "away" else home_name
+                    if include_projected:
+                        logger.info(
+                            "No confirmed or projected lineup for %s (game %s); "
+                            "skipped. MLB has not posted one yet.",
+                            team_side,
+                            game_pk,
+                        )
+                    else:
+                        logger.info(
+                            "No confirmed lineup for %s (game %s); skipped. "
+                            "Re-run closer to game time, or use "
+                            "--include-projected-lineups for earlier (noisier) coverage.",
+                            team_side,
+                            game_pk,
+                        )
                     continue
 
                 opp_side = "home" if side == "away" else "away"
                 opp_probable = game["teams"][opp_side].get("probablePitcher") or {}
 
+                teams_total += 1
                 hitters.extend(
                     self._hitters_from_order(
                         order=order,
@@ -394,12 +420,23 @@ class MLBStatsAPI:
                 )
 
         self._hitters_cache.set(cache_key, hitters)
-        logger.info(
-            "Loaded %d hitters for %s (include_projected=%s)",
-            len(hitters),
-            game_date,
-            include_projected,
-        )
+        if teams_skipped:
+            logger.info(
+                "Loaded %d hitters for %s (include_projected=%s) — "
+                "%d of %d teams had no lineup available and were skipped.",
+                len(hitters),
+                game_date,
+                include_projected,
+                teams_skipped,
+                teams_total,
+            )
+        else:
+            logger.info(
+                "Loaded %d hitters for %s (include_projected=%s)",
+                len(hitters),
+                game_date,
+                include_projected,
+            )
         return hitters
 
     def _hitters_from_order(
