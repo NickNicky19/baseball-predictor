@@ -54,20 +54,16 @@ jobs:
             --format all \
             --output "data/predictions/preds_${{ steps.date.outputs.slate }}.csv"
 
-            - name: Commit results
+      - name: Commit results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          
+
           # Commit both the CSV predictions and the JSON archive files
           git add data/predictions/ data/daily_predictions.json predictions_*.json || true
-          
+
           if git diff --cached --quiet; then
             echo "No changes to commit."
-          else
-            git commit -m "Predictions for ${{ steps.date.outputs.slate }} [skip ci]"
-            git push
-          fi
           else
             git commit -m "Predictions for ${{ steps.date.outputs.slate }} [skip ci]"
             git push
