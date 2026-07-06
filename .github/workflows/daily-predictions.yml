@@ -2,11 +2,11 @@ name: Daily Predictions
 
 on:
   schedule:
-    - cron: "0 20 * * *"
+    - cron: "0 20 * * *"   # 20:00 UTC = 4:00 PM Eastern (good time for confirmed lineups)
   workflow_dispatch:
     inputs:
       date:
-        description: "Slate date (YYYY-MM-DD)"
+        description: "Slate date (YYYY-MM-DD). Leave blank to use today's date."
         required: false
         default: ""
 
@@ -59,11 +59,15 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Commit both the CSV predictions and the JSON archive files
-          git add data/predictions/ data/daily_predictions.json predictions_*.json || true
+          # Commit the prediction CSV and the daily archive JSON
+          git add data/predictions/ data/daily_predictions.json || true
 
           if git diff --cached --quiet; then
             echo "No changes to commit."
+          else
+            git commit -m "Predictions for ${{ steps.date.outputs.slate }} [skip ci]"
+            git push
+          fi
           else
             git commit -m "Predictions for ${{ steps.date.outputs.slate }} [skip ci]"
             git push
