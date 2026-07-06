@@ -1,31 +1,18 @@
 name: Daily Predictions
 
-# Generates and archives predictions for today's slate, then commits the
-# archived predictions + any updated calibration state back to the repo.
-#
-# Schedule: runs at 15:00 UTC (11:00 AM US Eastern during DST / 10:00 AM EST).
-# That's late enough that lineups are firming up but before most first pitches.
-# If you want confirmed lineups only, push this later (e.g. 22:00 UTC) and add
-# --projected-lineups is NOT needed since default already uses confirmed.
-#
-# You can also trigger it by hand from the Actions tab (workflow_dispatch),
-# optionally passing a specific date.
-
 on:
   schedule:
-    - cron: "0 15 * * *"   # 15:00 UTC daily
+    - cron: "0 15 * * *"
   workflow_dispatch:
     inputs:
       date:
-        description: "Slate date (YYYY-MM-DD). Leave blank for today (US Eastern)."
+        description: "Slate date (YYYY-MM-DD)"
         required: false
         default: ""
 
-# Allow the job to push commits back to the repo.
 permissions:
   contents: write
 
-# Prevent two runs from racing to commit at once.
 concurrency:
   group: daily-predictions
   cancel-in-progress: false
@@ -35,10 +22,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: "pip"
@@ -58,6 +45,8 @@ jobs:
           fi
 
       - name: Generate predictions
+        env:
+          PYTHONPATH: .
         run: |
           mkdir -p data/predictions
           python run_daily.py \
@@ -69,8 +58,6 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          # Only the data the run produces. Corrections stay OFF during
-          # collection, so bias_corrections.json is intentionally not touched.
           git add data/predictions data/learning/predictions || true
           if git diff --cached --quiet; then
             echo "No changes to commit."
