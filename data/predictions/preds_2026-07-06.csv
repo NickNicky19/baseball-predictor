@@ -1,0 +1,19 @@
+date,player,team,opponent,opposing_pitcher,lineup_status,category,projected,confidence,mc_mean,mc_p10,mc_p90
+2026-07-06,Trea Turner,Philadelphia Phillies,Kansas City Royals,Noah Cameron,confirmed,hrr,1.806,0.42,1.806,0.0,4.0
+2026-07-06,Kyle Schwarber,Philadelphia Phillies,Kansas City Royals,Noah Cameron,confirmed,hrr,1.776,0.42,1.776,0.0,4.0
+2026-07-06,Bryce Harper,Philadelphia Phillies,Kansas City Royals,Noah Cameron,confirmed,hrr,1.747,0.42,1.747,0.0,4.0
+2026-07-06,Alec Bohm,Philadelphia Phillies,Kansas City Royals,Noah Cameron,confirmed,hrr,1.721,0.42,1.721,0.0,4.0
+2026-07-06,Lane Thomas,Kansas City Royals,Philadelphia Phillies,Cristopher Sánchez,confirmed,hrr,1.719,0.42,1.719,0.0,4.0
+2026-07-06,Bobby Witt Jr.,Kansas City Royals,Philadelphia Phillies,Cristopher Sánchez,confirmed,hrr,1.673,0.42,1.673,0.0,4.0
+2026-07-06,Brandon Marsh,Philadelphia Phillies,Kansas City Royals,Noah Cameron,confirmed,hrr,1.64,0.42,1.64,0.0,4.0
+2026-07-06,Salvador Perez,Kansas City Royals,Philadelphia Phillies,Cristopher Sánchez,confirmed,hrr,1.63,0.42,1.63,0.0,4.0
+2026-07-06,Jac Caglianone,Kansas City Royals,Philadelphia Phillies,Cristopher Sánchez,confirmed,hrr,1.613,0.42,1.613,0.0,4.0
+2026-07-06,Edmundo Sosa,Philadelphia Phillies,Kansas City Royals,Noah Cameron,confirmed,hrr,1.558,0.42,1.558,0.0,4.0
+2026-07-06,Nick Loftin,Kansas City Royals,Philadelphia Phillies,Cristopher Sánchez,confirmed,hrr,1.554,0.42,1.554,0.0,4.0
+2026-07-06,Derek Hill,Philadelphia Phillies,Kansas City Royals,Noah Cameron,confirmed,hrr,1.538,0.42,1.538,0.0,4.0
+2026-07-06,Bryson Stott,Philadelphia Phillies,Kansas City Royals,Noah Cameron,confirmed,hrr,1.535,0.42,1.535,0.0,4.0
+2026-07-06,J.T. Realmuto,Philadelphia Phillies,Kansas City Royals,Noah Cameron,confirmed,hrr,1.53,0.42,1.53,0.0,4.0
+2026-07-06,Josh Rojas,Kansas City Royals,Philadelphia Phillies,Cristopher Sánchez,confirmed,hrr,1.487,0.42,1.487,0.0,4.0
+2026-07-06,Starling Marte,Kansas City Royals,Philadelphia Phillies,Cristopher Sánchez,confirmed,hrr,1.471,0.42,1.471,0.0,4.0
+2026-07-06,Tyler Tolbert,Kansas City Royals,Philadelphia Phillies,Cristopher Sánchez,confirmed,hrr,1.464,0.42,1.464,0.0,4.0
+2026-07-06,Luke Maile,Kansas City Royals,Philadelphia Phillies,Cristopher Sánchez,confirmed,hrr,1.44,0.42,1.44,0.0,4.0
