@@ -1,17 +1,8 @@
 name: Record Outcomes
 
-# Grades YESTERDAY's predictions against final box scores and appends
-# prediction->outcome pairs to data/learning/prediction_outcomes.csv.
-# This is the step that actually builds your learning dataset.
-#
-# Schedule: 14:00 UTC (10:00 AM US Eastern DST) — after all prior-day games,
-# including West Coast extra-inning ones, are final and box scores are posted.
-# Runs one hour BEFORE the prediction job so the day's collection is closed
-# out before new predictions are made.
-
 on:
   schedule:
-    - cron: "0 14 * * *"   # 14:00 UTC daily
+    - cron: "0 14 * * *"   # 14:00 UTC = 10:00 AM Eastern
   workflow_dispatch:
     inputs:
       date:
@@ -31,10 +22,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: "pip"
@@ -54,12 +45,14 @@ jobs:
           fi
 
       - name: Record outcomes
+        env:
+          PYTHONPATH: .
         run: |
           python run_record_outcomes.py --date "${{ steps.date.outputs.grade }}" --verbose
 
       - name: Commit pairs
         run: |
-          git config user.name  "github-actions[bot]"
+          git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/learning/prediction_outcomes.csv data/learning/predictions || true
           if git diff --cached --quiet; then
