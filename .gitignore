@@ -71,9 +71,28 @@ venv.bak/
 Thumbs.db
 
 # Project-specific
-data/
-!data/.gitkeep
-!data/**/.gitkeep
+# Ignore bulky/transient data at the repo root, but KEEP the learning
+# artifacts the self-improvement loop and CI automation must persist
+# (prediction archive, graded pairs, reports).
+#
+# gitignore rule: to un-ignore a nested path you must re-include EVERY
+# parent directory first, before the child, and not use a trailing-slash
+# ignore on a parent you want to descend into. Order matters.
+/data/*
+!/data/.gitkeep
+# Re-include the learning + predictions subtrees the automation writes.
+!/data/learning/
+/data/learning/*
+!/data/learning/prediction_outcomes.csv
+!/data/learning/predictions/
+!/data/learning/predictions/*
+!/data/predictions/
+!/data/predictions/*
+# Bulky caches / secrets that live under those trees stay OUT.
+/data/learning/bias_corrections.json
+# reports/ is written by the weekly validation workflow.
+!/reports/
+!/reports/*
 cache/
 *.log
 config/local*.json
