@@ -44,7 +44,19 @@ jobs:
             echo "grade=$(TZ=America/New_York date -d 'yesterday' +%F)" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Check for predictions file
+        id: check_preds
+        run: |
+          DATE="${{ steps.date.outputs.grade }}"
+          echo "Checking for data/predictions/preds_${DATE}.csv"
+          if [ -f "data/predictions/preds_${DATE}.csv" ]; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "found=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Record outcomes
+        if: steps.check_preds.outputs.found == 'true'
         env:
           PYTHONPATH: .
         run: |
@@ -54,9 +66,14 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/learning/prediction_outcomes.csv data/learning/predictions || true
+          # Add predicted input and outcome files (adjust patterns as needed)
+          git add data/predictions/prediction_outcomes.csv data/predictions/prediction_outcomes_* data/predictions/preds_* || true
           if git diff --cached --quiet; then
-            echo "No new pairs to commit (no archived predictions for that date, or already graded)."
+            if [ "${{ steps.check_preds.outputs.found }}" = "false" ]; then
+              echo "No preds file for ${{ steps.date.outputs.grade }} — nothing to commit."
+            else
+              echo "No new prediction outcomes to commit (already present)."
+            fi
           else
             git commit -m "Outcomes for ${{ steps.date.outputs.grade }} [skip ci]"
             git push
