@@ -1,19 +1,26 @@
 date,player,team,opponent,opposing_pitcher,lineup_status,category,projected,confidence,mc_mean,mc_p10,mc_p90
-2026-07-07,Christian Yelich,Milwaukee Brewers,St. Louis Cardinals,Matt Svanson,confirmed,hrr,1.705,0.42,1.705,0.0,4.0
-2026-07-07,Jackson Chourio,Milwaukee Brewers,St. Louis Cardinals,Matt Svanson,confirmed,hrr,1.666,0.42,1.666,0.0,4.0
-2026-07-07,Brice Turang,Milwaukee Brewers,St. Louis Cardinals,Matt Svanson,confirmed,hrr,1.631,0.42,1.631,0.0,4.0
-2026-07-07,William Contreras,Milwaukee Brewers,St. Louis Cardinals,Matt Svanson,confirmed,hrr,1.566,0.42,1.566,0.0,4.0
-2026-07-07,Jake Bauers,Milwaukee Brewers,St. Louis Cardinals,Matt Svanson,confirmed,hrr,1.543,0.42,1.543,0.0,4.0
-2026-07-07,JJ Wetherholt,St. Louis Cardinals,Milwaukee Brewers,Jacob Misiorowski,confirmed,hrr,1.515,0.42,1.515,0.0,4.0
-2026-07-07,Garrett Mitchell,Milwaukee Brewers,St. Louis Cardinals,Matt Svanson,confirmed,hrr,1.509,0.42,1.509,0.0,4.0
-2026-07-07,Iván Herrera,St. Louis Cardinals,Milwaukee Brewers,Jacob Misiorowski,confirmed,hrr,1.486,0.42,1.486,0.0,4.0
-2026-07-07,Sal Frelick,Milwaukee Brewers,St. Louis Cardinals,Matt Svanson,confirmed,hrr,1.463,0.42,1.463,0.0,4.0
-2026-07-07,Joey Ortiz,Milwaukee Brewers,St. Louis Cardinals,Matt Svanson,confirmed,hrr,1.443,0.42,1.443,0.0,4.0
-2026-07-07,Alec Burleson,St. Louis Cardinals,Milwaukee Brewers,Jacob Misiorowski,confirmed,hrr,1.442,0.42,1.442,0.0,4.0
-2026-07-07,Cooper Pratt,Milwaukee Brewers,St. Louis Cardinals,Matt Svanson,confirmed,hrr,1.413,0.46,1.413,0.0,3.0
-2026-07-07,Jordan Walker,St. Louis Cardinals,Milwaukee Brewers,Jacob Misiorowski,confirmed,hrr,1.411,0.42,1.411,0.0,4.0
-2026-07-07,Lars Nootbaar,St. Louis Cardinals,Milwaukee Brewers,Jacob Misiorowski,confirmed,hrr,1.349,0.46,1.349,0.0,3.0
-2026-07-07,Jimmy Crooks,St. Louis Cardinals,Milwaukee Brewers,Jacob Misiorowski,confirmed,hrr,1.286,0.46,1.286,0.0,3.0
-2026-07-07,Nathan Church,St. Louis Cardinals,Milwaukee Brewers,Jacob Misiorowski,confirmed,hrr,1.28,0.46,1.28,0.0,3.0
-2026-07-07,José Fermín,St. Louis Cardinals,Milwaukee Brewers,Jacob Misiorowski,confirmed,hrr,1.271,0.46,1.271,0.0,3.0
-2026-07-07,Bryan Torres,St. Louis Cardinals,Milwaukee Brewers,Jacob Misiorowski,confirmed,hrr,1.269,0.46,1.269,0.0,3.0
+2026-07-07,Willi Castro,Colorado Rockies,Los Angeles Dodgers,Justin Wrobleski,confirmed,hrr,1.958,0.42,1.958,0.0,4.0
+2026-07-07,A.J. Ewing,New York Mets,Kansas City Royals,Seth Lugo,confirmed,hrr,1.896,0.42,1.896,0.0,4.0
+2026-07-07,Hunter Goodman,Colorado Rockies,Los Angeles Dodgers,Justin Wrobleski,confirmed,hrr,1.887,0.42,1.887,0.0,4.0
+2026-07-07,Trea Turner,Philadelphia Phillies,Cincinnati Reds,Andrew Abbott,confirmed,hrr,1.873,0.42,1.873,0.0,4.0
+2026-07-07,Kyle Karros,Colorado Rockies,Los Angeles Dodgers,Justin Wrobleski,confirmed,hrr,1.862,0.42,1.862,0.0,4.0
+2026-07-07,Pete Crow-Armstrong,Chicago Cubs,Baltimore Orioles,Shane Baz,confirmed,hrr,1.824,0.42,1.824,0.0,4.0
+2026-07-07,Kevin McGonigle,Detroit Tigers,Athletics,J.T. Ginn,confirmed,hrr,1.817,0.42,1.817,0.0,4.0
+2026-07-07,Bryce Harper,Philadelphia Phillies,Cincinnati Reds,Andrew Abbott,confirmed,hrr,1.815,0.42,1.815,0.0,4.0
+2026-07-07,Juan Soto,New York Mets,Kansas City Royals,Seth Lugo,confirmed,hrr,1.805,0.42,1.805,0.0,4.0
+2026-07-07,Miguel Vargas,Chicago White Sox,Boston Red Sox,Payton Tolle,confirmed,hrr,1.804,0.42,1.804,0.0,4.0
+2026-07-07,Liam Hicks,Miami Marlins,Seattle Mariners,Bryan Woo,confirmed,hrr,1.798,0.42,1.798,0.0,4.0
+2026-07-07,Kyle Schwarber,Philadelphia Phillies,Cincinnati Reds,Andrew Abbott,confirmed,hrr,1.792,0.42,1.792,0.0,4.0
+2026-07-07,Elly De La Cruz,Cincinnati Reds,Philadelphia Phillies,Zack Wheeler,confirmed,hrr,1.783,0.42,1.783,0.0,4.0
+2026-07-07,Michael Busch,Chicago Cubs,Baltimore Orioles,Shane Baz,confirmed,hrr,1.782,0.42,1.782,0.0,4.0
+2026-07-07,Yandy Díaz,Tampa Bay Rays,New York Yankees,Will Warren,confirmed,hrr,1.782,0.42,1.782,0.0,4.0
+2026-07-07,Anthony Seigler,Boston Red Sox,Chicago White Sox,Noah Schultz,confirmed,hrr,1.776,0.42,1.776,0.0,4.0
+2026-07-07,Sal Stewart,Cincinnati Reds,Philadelphia Phillies,Zack Wheeler,confirmed,hrr,1.773,0.42,1.773,0.0,4.0
+2026-07-07,Cole Carrigg,Colorado Rockies,Los Angeles Dodgers,Justin Wrobleski,confirmed,hrr,1.766,0.42,1.766,0.0,4.0
+2026-07-07,Bo Bichette,New York Mets,Kansas City Royals,Seth Lugo,confirmed,hrr,1.759,0.42,1.759,0.0,4.0
+2026-07-07,JJ Bleday,Cincinnati Reds,Philadelphia Phillies,Zack Wheeler,confirmed,hrr,1.756,0.42,1.756,0.0,4.0
+2026-07-07,J.P. Crawford,Seattle Mariners,Miami Marlins,Max Meyer,confirmed,hrr,1.754,0.42,1.754,0.0,4.0
+2026-07-07,Austin Martin,Minnesota Twins,Cleveland Guardians,Joey Cantillo,confirmed,hrr,1.748,0.42,1.748,0.0,4.0
+2026-07-07,Christian Yelich,Milwaukee Brewers,St. Louis Cardinals,Matt Svanson,confirmed,hrr,1.747,0.42,1.747,0.0,4.0
+2026-07-07,Alex Bregman,Chicago Cubs,Baltimore Orioles,Shane Baz,confirmed,hrr,1.746,0.42,1.746,0.0,4.0
+2026-07-07,Riley Greene,Detroit Tigers,Athletics,J.T. Ginn,confirmed,hrr,1.744,0.42,1.744,0.0,4.0
