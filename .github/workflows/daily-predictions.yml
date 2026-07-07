@@ -68,7 +68,3 @@ jobs:
             git commit -m "Predictions for ${{ steps.date.outputs.slate }} [skip ci]"
             git push
           fi
-          else
-            git commit -m "Predictions for ${{ steps.date.outputs.slate }} [skip ci]"
-            git push
-          fi
