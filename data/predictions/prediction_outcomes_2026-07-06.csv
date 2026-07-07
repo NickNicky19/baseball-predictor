@@ -1,0 +1,26 @@
+date,player,team,opponent,opposing_pitcher,lineup_status,category,projected,confidence,mc_mean,mc_p10,mc_p90,outcome_computed
+2026-07-06,Jose Altuve,Houston Astros,Washington Nationals,Miles Mikolas,confirmed,hrr,1.97,0.42,1.97,0.0,4.0,False
+2026-07-06,Yordan Alvarez,Houston Astros,Washington Nationals,Miles Mikolas,confirmed,hrr,1.929,0.42,1.929,0.0,4.0,False
+2026-07-06,Isaac Paredes,Houston Astros,Washington Nationals,Miles Mikolas,confirmed,hrr,1.891,0.42,1.891,0.0,4.0,False
+2026-07-06,James Wood,Washington Nationals,Houston Astros,Mike Burrows,confirmed,hrr,1.847,0.42,1.847,0.0,4.0,False
+2026-07-06,Christian Yelich,Milwaukee Brewers,St. Louis Cardinals,Dustin May,confirmed,hrr,1.847,0.42,1.847,0.0,4.0,False
+2026-07-06,Willi Castro,Colorado Rockies,Los Angeles Dodgers,Eric Lauer,confirmed,hrr,1.844,0.42,1.844,0.0,4.0,False
+2026-07-06,Rafael Marchán,Philadelphia Phillies,Kansas City Royals,Noah Cameron,confirmed,hrr,1.818,0.42,1.818,0.0,4.0,False
+2026-07-06,Luis García Jr.,Washington Nationals,Houston Astros,Mike Burrows,confirmed,hrr,1.817,0.42,1.817,0.0,4.0,False
+2026-07-06,Christian Walker,Houston Astros,Washington Nationals,Miles Mikolas,confirmed,hrr,1.811,0.42,1.811,0.0,4.0,False
+2026-07-06,A.J. Ewing,New York Mets,Atlanta Braves,Reynaldo López,confirmed,hrr,1.811,0.42,1.811,0.0,4.0,False
+2026-07-06,Kyle Karros,Colorado Rockies,Los Angeles Dodgers,Eric Lauer,confirmed,hrr,1.777,0.42,1.777,0.0,4.0,False
+2026-07-06,Jackson Chourio,Milwaukee Brewers,St. Louis Cardinals,Dustin May,confirmed,hrr,1.768,0.42,1.768,0.0,4.0,False
+2026-07-06,Michael Harris II,Atlanta Braves,New York Mets,Freddy Peralta,confirmed,hrr,1.763,0.42,1.763,0.0,4.0,False
+2026-07-06,LaMonte Wade Jr.,Houston Astros,Washington Nationals,Miles Mikolas,confirmed,hrr,1.753,0.42,1.753,0.0,4.0,False
+2026-07-06,Trent Grisham,New York Yankees,Tampa Bay Rays,Griffin Jax,confirmed,hrr,1.752,0.42,1.752,0.0,4.0,False
+2026-07-06,Juan Soto,New York Mets,Atlanta Braves,Reynaldo López,confirmed,hrr,1.749,0.42,1.749,0.0,4.0,False
+2026-07-06,Brice Turang,Milwaukee Brewers,St. Louis Cardinals,Dustin May,confirmed,hrr,1.748,0.42,1.748,0.0,4.0,False
+2026-07-06,Hunter Goodman,Colorado Rockies,Los Angeles Dodgers,Eric Lauer,confirmed,hrr,1.747,0.42,1.747,0.0,4.0,False
+2026-07-06,Kameron Misner,Kansas City Royals,Philadelphia Phillies,Cristopher Sánchez,confirmed,hrr,1.735,0.42,1.735,0.0,4.0,False
+2026-07-06,Curtis Mead,Washington Nationals,Houston Astros,Mike Burrows,confirmed,hrr,1.732,0.42,1.732,0.0,4.0,False
+2026-07-06,Justin Crawford,Philadelphia Phillies,Kansas City Royals,Noah Cameron,confirmed,hrr,1.73,0.42,1.73,0.0,4.0,False
+2026-07-06,Garrett Stubbs,Philadelphia Phillies,Kansas City Royals,Noah Cameron,confirmed,hrr,1.73,0.42,1.73,0.0,4.0,False
+2026-07-06,JJ Wetherholt,St. Louis Cardinals,Milwaukee Brewers,Shane Drohan,confirmed,hrr,1.726,0.42,1.726,0.0,4.0,False
+2026-07-06,Ozzie Albies,Atlanta Braves,New York Mets,Freddy Peralta,confirmed,hrr,1.724,0.42,1.724,0.0,4.0,False
+2026-07-06,Bo Bichette,New York Mets,Atlanta Braves,Reynaldo López,confirmed,hrr,1.713,0.42,1.713,0.0,4.0,False
