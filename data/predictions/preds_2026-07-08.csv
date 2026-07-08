@@ -1,26 +1,26 @@
 date,player,team,opponent,opposing_pitcher,lineup_status,category,projected,confidence,mc_mean,mc_p10,mc_p90
-2026-07-08,Christian Yelich,Milwaukee Brewers,St. Louis Cardinals,Michael McGreevy,confirmed,hrr,1.974,0.42,1.974,0.0,4.0
-2026-07-08,Miguel Vargas,Chicago White Sox,Boston Red Sox,Jake Bennett,confirmed,hrr,1.949,0.42,1.949,0.0,4.0
-2026-07-08,Jackson Chourio,Milwaukee Brewers,St. Louis Cardinals,Michael McGreevy,confirmed,hrr,1.882,0.42,1.882,0.0,4.0
-2026-07-08,Liam Hicks,Miami Marlins,Seattle Mariners,George Kirby,confirmed,hrr,1.879,0.42,1.879,0.0,4.0
-2026-07-08,Zack Gelof,Athletics,Detroit Tigers,Troy Melton,confirmed,hrr,1.875,0.42,1.875,0.0,4.0
-2026-07-08,Jake Bauers,Milwaukee Brewers,St. Louis Cardinals,Michael McGreevy,confirmed,hrr,1.868,0.42,1.868,0.0,4.0
-2026-07-08,Gunnar Henderson,Baltimore Orioles,Chicago Cubs,Colin Rea,confirmed,hrr,1.862,0.42,1.862,0.0,4.0
-2026-07-08,J.P. Crawford,Seattle Mariners,Miami Marlins,Tyler Phillips,confirmed,hrr,1.856,0.42,1.856,0.0,4.0
-2026-07-08,Trevor Larnach,Minnesota Twins,Cleveland Guardians,Slade Cecconi,confirmed,hrr,1.855,0.42,1.855,0.0,4.0
-2026-07-08,Anthony Seigler,Boston Red Sox,Chicago White Sox,Davis Martin,confirmed,hrr,1.843,0.42,1.843,0.0,4.0
+2026-07-08,Miguel Vargas,Chicago White Sox,Boston Red Sox,Jake Bennett,confirmed,hrr,1.955,0.42,1.955,0.0,4.0
+2026-07-08,Christian Yelich,Milwaukee Brewers,St. Louis Cardinals,Michael McGreevy,confirmed,hrr,1.917,0.42,1.917,0.0,4.0
+2026-07-08,Gunnar Henderson,Baltimore Orioles,Chicago Cubs,Colin Rea,confirmed,hrr,1.884,0.42,1.884,0.0,4.0
+2026-07-08,Zack Gelof,Athletics,Detroit Tigers,Troy Melton,confirmed,hrr,1.883,0.42,1.883,0.0,4.0
+2026-07-08,Liam Hicks,Miami Marlins,Seattle Mariners,George Kirby,confirmed,hrr,1.869,0.42,1.869,0.0,4.0
+2026-07-08,Jake Bauers,Milwaukee Brewers,St. Louis Cardinals,Michael McGreevy,confirmed,hrr,1.855,0.42,1.855,0.0,4.0
+2026-07-08,Anthony Seigler,Boston Red Sox,Chicago White Sox,Davis Martin,confirmed,hrr,1.852,0.42,1.852,0.0,4.0
+2026-07-08,Brooks Lee,Minnesota Twins,Cleveland Guardians,Slade Cecconi,confirmed,hrr,1.851,0.42,1.851,0.0,4.0
+2026-07-08,Ernie Clement,Toronto Blue Jays,San Francisco Giants,Logan Webb,confirmed,hrr,1.849,0.42,1.849,0.0,4.0
+2026-07-08,Trevor Larnach,Minnesota Twins,Cleveland Guardians,Slade Cecconi,confirmed,hrr,1.849,0.42,1.849,0.0,4.0
+2026-07-08,Jackson Chourio,Milwaukee Brewers,St. Louis Cardinals,Michael McGreevy,confirmed,hrr,1.844,0.42,1.844,0.0,4.0
+2026-07-08,Randal Grichuk,Chicago White Sox,Boston Red Sox,Jake Bennett,confirmed,hrr,1.843,0.42,1.843,0.0,4.0
+2026-07-08,Nick Kurtz,Athletics,Detroit Tigers,Troy Melton,confirmed,hrr,1.842,0.42,1.842,0.0,4.0
 2026-07-08,Colson Montgomery,Chicago White Sox,Boston Red Sox,Jake Bennett,confirmed,hrr,1.839,0.42,1.839,0.0,4.0
-2026-07-08,Brooks Lee,Minnesota Twins,Cleveland Guardians,Slade Cecconi,confirmed,hrr,1.825,0.42,1.825,0.0,4.0
-2026-07-08,Randal Grichuk,Chicago White Sox,Boston Red Sox,Jake Bennett,confirmed,hrr,1.819,0.42,1.819,0.0,4.0
-2026-07-08,Ernie Clement,Toronto Blue Jays,San Francisco Giants,Logan Webb,confirmed,hrr,1.815,0.42,1.815,0.0,4.0
-2026-07-08,Matt Vierling,Detroit Tigers,Athletics,Jeffrey Springs,confirmed,hrr,1.811,0.42,1.811,0.0,4.0
-2026-07-08,Taylor Ward,Baltimore Orioles,Chicago Cubs,Colin Rea,confirmed,hrr,1.802,0.42,1.802,0.0,4.0
-2026-07-08,Nick Kurtz,Athletics,Detroit Tigers,Troy Melton,confirmed,hrr,1.801,0.42,1.801,0.0,4.0
-2026-07-08,Dominic Canzone,Seattle Mariners,Miami Marlins,Tyler Phillips,confirmed,hrr,1.8,0.42,1.8,0.0,4.0
-2026-07-08,Adley Rutschman,Baltimore Orioles,Chicago Cubs,Colin Rea,confirmed,hrr,1.798,0.42,1.798,0.0,4.0
-2026-07-08,Jose Altuve,Houston Astros,Washington Nationals,Foster Griffin,confirmed,hrr,1.797,0.42,1.797,0.0,4.0
-2026-07-08,Elly De La Cruz,Cincinnati Reds,Philadelphia Phillies,Alan Rangel,confirmed,hrr,1.796,0.42,1.796,0.0,4.0
-2026-07-08,Nathan Lukes,Toronto Blue Jays,San Francisco Giants,Logan Webb,confirmed,hrr,1.795,0.42,1.795,0.0,4.0
-2026-07-08,Shea Langeliers,Athletics,Detroit Tigers,Troy Melton,confirmed,hrr,1.788,0.42,1.788,0.0,4.0
-2026-07-08,Xavier Edwards,Miami Marlins,Seattle Mariners,George Kirby,confirmed,hrr,1.788,0.42,1.788,0.0,4.0
-2026-07-08,Kody Clemens,Minnesota Twins,Cleveland Guardians,Slade Cecconi,confirmed,hrr,1.788,0.42,1.788,0.0,4.0
+2026-07-08,Ketel Marte,Arizona Diamondbacks,San Diego Padres,Michael King,confirmed,hrr,1.824,0.42,1.824,0.0,4.0
+2026-07-08,J.P. Crawford,Seattle Mariners,Miami Marlins,Tyler Phillips,confirmed,hrr,1.823,0.42,1.823,0.0,4.0
+2026-07-08,Nathan Lukes,Toronto Blue Jays,San Francisco Giants,Logan Webb,confirmed,hrr,1.815,0.42,1.815,0.0,4.0
+2026-07-08,Shea Langeliers,Athletics,Detroit Tigers,Troy Melton,confirmed,hrr,1.814,0.42,1.814,0.0,4.0
+2026-07-08,Matt Vierling,Detroit Tigers,Athletics,Jeffrey Springs,confirmed,hrr,1.812,0.42,1.812,0.0,4.0
+2026-07-08,Ceddanne Rafaela,Boston Red Sox,Chicago White Sox,Davis Martin,confirmed,hrr,1.811,0.42,1.811,0.0,4.0
+2026-07-08,Adley Rutschman,Baltimore Orioles,Chicago Cubs,Colin Rea,confirmed,hrr,1.808,0.42,1.808,0.0,4.0
+2026-07-08,James Wood,Washington Nationals,Houston Astros,Spencer Arrighetti,confirmed,hrr,1.803,0.42,1.803,0.0,4.0
+2026-07-08,Elly De La Cruz,Cincinnati Reds,Philadelphia Phillies,Alan Rangel,confirmed,hrr,1.801,0.42,1.801,0.0,4.0
+2026-07-08,Otto Lopez,Miami Marlins,Seattle Mariners,George Kirby,confirmed,hrr,1.794,0.42,1.794,0.0,4.0
+2026-07-08,Yandy Díaz,Tampa Bay Rays,New York Yankees,Gerrit Cole,confirmed,hrr,1.794,0.42,1.794,0.0,4.0
