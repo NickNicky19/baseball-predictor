@@ -71,6 +71,12 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         help="Output file path (format inferred from extension: .csv or .json)",
     )
     parser.add_argument(
+        "--no-category-suffix",
+        action="store_true",
+        help="Don't append the category to the output filename "
+        "(default appends it so hr/hrr/hits/strikeouts don't overwrite each other)",
+    )
+    parser.add_argument(
         "--format",
         choices=FORMAT_CHOICES,
         default="console",
@@ -327,6 +333,15 @@ def resolve_output_paths(args: argparse.Namespace) -> tuple[str | None, str | No
     if not args.output:
         return None, None
     path = Path(args.output)
+    # Insert the category into the filename so running multiple categories
+    # (hr, hrr, hits, strikeouts) each writes its OWN file instead of
+    # overwriting the previous one. e.g. predictions.csv + --category hr
+    # -> predictions_hr.csv. Disable with --no-category-suffix.
+    if not getattr(args, "no_category_suffix", False):
+        stem = path.stem
+        suffix_tag = f"_{args.category}"
+        if not stem.endswith(suffix_tag):
+            path = path.with_name(f"{stem}{suffix_tag}{path.suffix}")
     if path.suffix.lower() == ".json":
         return None, str(path)
     if path.suffix.lower() == ".csv":
