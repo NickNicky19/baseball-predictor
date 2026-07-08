@@ -29,7 +29,25 @@ PAIR_COLUMNS = [
     "predicted_value",
     "actual_value",
     "confidence",
+    # --- Additive detail columns (collection-safe: record-keeping only). ---
+    # Hitter rows fill the batting fields; pitcher rows fill ip/bb/hr-allowed.
+    # Raw components let any category actual be re-derived later and let the
+    # calibration/IP work separate "rate was wrong" from "opportunity was
+    # short" (e.g. K over-projection vs short outing).
+    "actual_pa",
+    "actual_hits",
+    "actual_home_runs",
+    "actual_runs",
+    "actual_rbi",
+    "actual_walks",
+    "actual_strikeouts",
+    "actual_ip",
+    "actual_bb_allowed",
+    "actual_hr_allowed",
 ]
+
+# The original schema, kept for one-time migration of pre-existing CSVs.
+LEGACY_PAIR_COLUMNS = PAIR_COLUMNS[:7]
 
 
 @dataclass
@@ -178,18 +196,52 @@ class OutcomeRecorder:
             if key in existing:
                 skipped += 1
                 continue
-            rows.append(
-                {
-                    "player_id": projection.player_id,
-                    "player_name": projection.player_name,
-                    "game_date": projection.game_date,
-                    "category": projection.category,
-                    "predicted_value": projection.projected_value,
-                    "actual_value": round(actual, 3),
-                    "confidence": projection.confidence,
-                }
-            )
+            row = {
+                "player_id": projection.player_id,
+                "player_name": projection.player_name,
+                "game_date": projection.game_date,
+                "category": projection.category,
+                "predicted_value": projection.projected_value,
+                "actual_value": round(actual, 3),
+                "confidence": projection.confidence,
+            }
+            row.update(self._actual_detail_fields(projection, hitting, pitching))
+            rows.append(row)
         return rows, skipped
+
+    @staticmethod
+    def _actual_detail_fields(
+        projection: PropProjection,
+        hitting: dict[int, HittingStatsSnapshot],
+        pitching: dict[int, PitchingStatsSnapshot],
+    ) -> dict[str, Any]:
+        """
+        Raw boxscore components for the row's player (additive columns).
+
+        Purely record-keeping: values come from the same snapshots already
+        fetched for actual_value. Fields that don't apply stay blank.
+        """
+        detail: dict[str, Any] = {col: "" for col in PAIR_COLUMNS[7:]}
+
+        if projection.category == "strikeouts":
+            stats = pitching.get(projection.player_id)
+            if stats is not None:
+                detail["actual_ip"] = round(float(stats.innings_pitched), 2)
+                detail["actual_strikeouts"] = int(stats.strikeouts)
+                detail["actual_bb_allowed"] = int(stats.walks)
+                detail["actual_hr_allowed"] = int(stats.home_runs)
+            return detail
+
+        stats = hitting.get(projection.player_id)
+        if stats is not None:
+            detail["actual_pa"] = int(stats.pa)
+            detail["actual_hits"] = int(stats.hits)
+            detail["actual_home_runs"] = int(stats.home_runs)
+            detail["actual_runs"] = int(stats.runs)
+            detail["actual_rbi"] = int(stats.rbi)
+            detail["actual_walks"] = int(stats.walks)
+            detail["actual_strikeouts"] = int(stats.strikeouts)
+        return detail
 
     def _actual_for_projection(
         self,
@@ -214,16 +266,59 @@ class OutcomeRecorder:
             return 0
         path = self._pairs_path()
         path.parent.mkdir(parents=True, exist_ok=True)
+        self._migrate_legacy_schema(path)
         write_header = not path.exists() or path.stat().st_size == 0
 
         with path.open("a", newline="", encoding="utf-8") as handle:
-            writer = csv.DictWriter(handle, fieldnames=PAIR_COLUMNS)
+            writer = csv.DictWriter(handle, fieldnames=PAIR_COLUMNS, restval="")
             if write_header:
                 writer.writeheader()
             writer.writerows(rows)
 
         logger.info("Appended %d pairs to %s", len(rows), path)
         return len(rows)
+
+    @staticmethod
+    def _migrate_legacy_schema(path: Path) -> None:
+        """
+        One-time upgrade of a legacy 7-column pairs CSV to the current schema.
+
+        Existing rows are preserved verbatim with blanks in the new detail
+        columns. No-op when the file is absent, empty, or already current.
+        Appending new-schema rows to a legacy-header file would silently
+        misalign columns, so this must run before any append.
+        """
+        if not path.exists() or path.stat().st_size == 0:
+            return
+        with path.open(newline="", encoding="utf-8") as handle:
+            reader = csv.reader(handle)
+            try:
+                header = next(reader)
+            except StopIteration:
+                return
+            if header == PAIR_COLUMNS:
+                return
+            if header != LEGACY_PAIR_COLUMNS:
+                logger.warning(
+                    "Pairs CSV %s has unrecognized header; leaving untouched", path
+                )
+                return
+        # Re-read rows as dicts against the legacy header.
+        with path.open(newline="", encoding="utf-8") as handle:
+            dict_reader = csv.DictReader(handle)
+            legacy_rows = list(dict_reader)
+
+        tmp_path = path.with_suffix(".migrating.tmp")
+        with tmp_path.open("w", newline="", encoding="utf-8") as handle:
+            writer = csv.DictWriter(handle, fieldnames=PAIR_COLUMNS, restval="")
+            writer.writeheader()
+            writer.writerows(legacy_rows)
+        tmp_path.replace(path)
+        logger.info(
+            "Migrated pairs CSV %s from legacy schema (%d rows preserved)",
+            path,
+            len(legacy_rows),
+        )
 
     def _pairs_path(self) -> Path:
         path = Path(self.settings.pairs_csv_path)
