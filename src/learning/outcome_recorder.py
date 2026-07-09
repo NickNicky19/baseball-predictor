@@ -279,11 +279,16 @@ class OutcomeRecorder:
         return compute_actual_value(stats, category, self.fantasy_scoring)
 
     def _append_pairs(self, rows: list[dict[str, Any]]) -> int:
-        if not rows:
-            return 0
         path = self._pairs_path()
         path.parent.mkdir(parents=True, exist_ok=True)
+        # Migrate an existing legacy file to the current schema regardless of
+        # whether we have new rows to append. A slate whose pairs are all
+        # duplicates (already-graded date) must still upgrade a 7/17-col file
+        # to include model_version — the migration is a property of the file,
+        # not of today's append.
         self._migrate_legacy_schema(path)
+        if not rows:
+            return 0
         write_header = not path.exists() or path.stat().st_size == 0
 
         with path.open("a", newline="", encoding="utf-8") as handle:
