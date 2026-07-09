@@ -1,0 +1,2156 @@
+{
+  "game_date": "2026-07-09",
+  "hitter_projections": [
+    {
+      "player_id": 671739,
+      "player_name": "Michael Harris II",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 1.052,
+      "confidence": 0.5,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.05225,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.699,
+          "2.0": 0.284625
+        }
+      }
+    },
+    {
+      "player_id": 671739,
+      "player_name": "Michael Harris II",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.865,
+      "confidence": 0.42,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.865375,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.5055,
+          "3.0": 0.303125
+        }
+      }
+    },
+    {
+      "player_id": 671739,
+      "player_name": "Michael Harris II",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.077,
+      "confidence": 0.58,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.076625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.075
+        }
+      }
+    },
+    {
+      "player_id": 645277,
+      "player_name": "Ozzie Albies",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 1.037,
+      "confidence": 0.5,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.037,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.69175,
+          "2.0": 0.276125
+        }
+      }
+    },
+    {
+      "player_id": 645277,
+      "player_name": "Ozzie Albies",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.833,
+      "confidence": 0.42,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.833125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.497875,
+          "3.0": 0.296125
+        }
+      }
+    },
+    {
+      "player_id": 645277,
+      "player_name": "Ozzie Albies",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.071,
+      "confidence": 0.58,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.070625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.0685
+        }
+      }
+    },
+    {
+      "player_id": 621566,
+      "player_name": "Matt Olson",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 1.013,
+      "confidence": 0.5,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.013375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.68175,
+          "2.0": 0.267125
+        }
+      }
+    },
+    {
+      "player_id": 621566,
+      "player_name": "Matt Olson",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.803,
+      "confidence": 0.42,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.80325,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.494375,
+          "3.0": 0.28475
+        }
+      }
+    },
+    {
+      "player_id": 621566,
+      "player_name": "Matt Olson",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.076,
+      "confidence": 0.58,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.0765,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.07425
+        }
+      }
+    },
+    {
+      "player_id": 686948,
+      "player_name": "Drake Baldwin",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 1.002,
+      "confidence": 0.5,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.001625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.672625,
+          "2.0": 0.265375
+        }
+      }
+    },
+    {
+      "player_id": 686948,
+      "player_name": "Drake Baldwin",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.751,
+      "confidence": 0.42,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.751375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.47875,
+          "3.0": 0.2745
+        }
+      }
+    },
+    {
+      "player_id": 686948,
+      "player_name": "Drake Baldwin",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.065,
+      "confidence": 0.58,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.065125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.06275
+        }
+      }
+    },
+    {
+      "player_id": 643289,
+      "player_name": "Mauricio Dub\u00f3n",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 0.946,
+      "confidence": 0.5,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.945875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.66275,
+          "2.0": 0.236
+        }
+      }
+    },
+    {
+      "player_id": 643289,
+      "player_name": "Mauricio Dub\u00f3n",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.674,
+      "confidence": 0.42,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.673875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.46,
+          "3.0": 0.258125
+        }
+      }
+    },
+    {
+      "player_id": 643289,
+      "player_name": "Mauricio Dub\u00f3n",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.061,
+      "confidence": 0.58,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.061,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.059625
+        }
+      }
+    },
+    {
+      "player_id": 642086,
+      "player_name": "Dominic Smith",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 0.921,
+      "confidence": 0.5,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.921375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.643375,
+          "2.0": 0.230625
+        }
+      }
+    },
+    {
+      "player_id": 642086,
+      "player_name": "Dominic Smith",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.623,
+      "confidence": 0.42,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.6225,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.449125,
+          "3.0": 0.246625
+        }
+      }
+    },
+    {
+      "player_id": 642086,
+      "player_name": "Dominic Smith",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.059,
+      "confidence": 0.58,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.05925,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.056875
+        }
+      }
+    },
+    {
+      "player_id": 663586,
+      "player_name": "Austin Riley",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 0.9,
+      "confidence": 0.5,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.900125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.637375,
+          "2.0": 0.2205
+        }
+      }
+    },
+    {
+      "player_id": 663586,
+      "player_name": "Austin Riley",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.563,
+      "confidence": 0.42,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.563,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.43175,
+          "3.0": 0.239125
+        }
+      }
+    },
+    {
+      "player_id": 663586,
+      "player_name": "Austin Riley",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.06,
+      "confidence": 0.58,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.060375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.059875
+        }
+      }
+    },
+    {
+      "player_id": 573262,
+      "player_name": "Mike Yastrzemski",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 0.897,
+      "confidence": 0.5,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.89675,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.636375,
+          "2.0": 0.222125
+        }
+      }
+    },
+    {
+      "player_id": 573262,
+      "player_name": "Mike Yastrzemski",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.547,
+      "confidence": 0.42,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.546875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.42325,
+          "3.0": 0.23275
+        }
+      }
+    },
+    {
+      "player_id": 573262,
+      "player_name": "Mike Yastrzemski",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.054,
+      "confidence": 0.58,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.053875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.053125
+        }
+      }
+    },
+    {
+      "player_id": 805347,
+      "player_name": "Jim Jarvis",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 0.915,
+      "confidence": 0.5,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.9155,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.64775,
+          "2.0": 0.22675
+        }
+      }
+    },
+    {
+      "player_id": 805347,
+      "player_name": "Jim Jarvis",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.612,
+      "confidence": 0.42,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.61175,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.44625,
+          "3.0": 0.246625
+        }
+      }
+    },
+    {
+      "player_id": 805347,
+      "player_name": "Jim Jarvis",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.063,
+      "confidence": 0.58,
+      "team": "Atlanta Braves",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Mitch Keller",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.063,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.0615
+        }
+      }
+    },
+    {
+      "player_id": 657041,
+      "player_name": "Lane Thomas",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 0.989,
+      "confidence": 0.5,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.989125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.666125,
+          "2.0": 0.259125
+        }
+      }
+    },
+    {
+      "player_id": 657041,
+      "player_name": "Lane Thomas",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.767,
+      "confidence": 0.42,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.76725,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.475625,
+          "3.0": 0.278
+        }
+      }
+    },
+    {
+      "player_id": 657041,
+      "player_name": "Lane Thomas",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.072,
+      "confidence": 0.58,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.07175,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.069875
+        }
+      }
+    },
+    {
+      "player_id": 677951,
+      "player_name": "Bobby Witt Jr.",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 0.95,
+      "confidence": 0.5,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.95,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.652,
+          "2.0": 0.243125
+        }
+      }
+    },
+    {
+      "player_id": 677951,
+      "player_name": "Bobby Witt Jr.",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.709,
+      "confidence": 0.42,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.708875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.469125,
+          "3.0": 0.271
+        }
+      }
+    },
+    {
+      "player_id": 677951,
+      "player_name": "Bobby Witt Jr.",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.078,
+      "confidence": 0.58,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.077625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.076125
+        }
+      }
+    },
+    {
+      "player_id": 521692,
+      "player_name": "Salvador Perez",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 0.958,
+      "confidence": 0.5,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.958125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.657375,
+          "2.0": 0.244125
+        }
+      }
+    },
+    {
+      "player_id": 521692,
+      "player_name": "Salvador Perez",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.701,
+      "confidence": 0.42,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.700625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4695,
+          "3.0": 0.26425
+        }
+      }
+    },
+    {
+      "player_id": 521692,
+      "player_name": "Salvador Perez",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.066,
+      "confidence": 0.58,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.065625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.064125
+        }
+      }
+    },
+    {
+      "player_id": 516782,
+      "player_name": "Starling Marte",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 0.934,
+      "confidence": 0.5,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.934,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.659125,
+          "2.0": 0.229375
+        }
+      }
+    },
+    {
+      "player_id": 516782,
+      "player_name": "Starling Marte",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.582,
+      "confidence": 0.42,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.582375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.43825,
+          "3.0": 0.2435
+        }
+      }
+    },
+    {
+      "player_id": 516782,
+      "player_name": "Starling Marte",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.066,
+      "confidence": 0.58,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.065625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.06425
+        }
+      }
+    },
+    {
+      "player_id": 679845,
+      "player_name": "Nick Loftin",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 0.878,
+      "confidence": 0.5,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.877875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.625625,
+          "2.0": 0.2125
+        }
+      }
+    },
+    {
+      "player_id": 679845,
+      "player_name": "Nick Loftin",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.564,
+      "confidence": 0.42,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.564375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.429875,
+          "3.0": 0.240375
+        }
+      }
+    },
+    {
+      "player_id": 679845,
+      "player_name": "Nick Loftin",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.06,
+      "confidence": 0.58,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.059875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.0585
+        }
+      }
+    },
+    {
+      "player_id": 695506,
+      "player_name": "Jac Caglianone",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 0.853,
+      "confidence": 0.5,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.8525,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.619,
+          "2.0": 0.198875
+        }
+      }
+    },
+    {
+      "player_id": 695506,
+      "player_name": "Jac Caglianone",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.517,
+      "confidence": 0.42,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.51725,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.418375,
+          "3.0": 0.227125
+        }
+      }
+    },
+    {
+      "player_id": 695506,
+      "player_name": "Jac Caglianone",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.068,
+      "confidence": 0.58,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.067875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.06525
+        }
+      }
+    },
+    {
+      "player_id": 686555,
+      "player_name": "Isaac Collins",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 0.825,
+      "confidence": 0.5,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.825375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.60325,
+          "2.0": 0.19
+        }
+      }
+    },
+    {
+      "player_id": 686555,
+      "player_name": "Isaac Collins",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.499,
+      "confidence": 0.42,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.499,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.411625,
+          "3.0": 0.226875
+        }
+      }
+    },
+    {
+      "player_id": 686555,
+      "player_name": "Isaac Collins",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.062,
+      "confidence": 0.58,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.06175,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.060625
+        }
+      }
+    },
+    {
+      "player_id": 686475,
+      "player_name": "Tyler Tolbert",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 0.817,
+      "confidence": 0.5,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.817125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.593,
+          "2.0": 0.191
+        }
+      }
+    },
+    {
+      "player_id": 686475,
+      "player_name": "Tyler Tolbert",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.461,
+      "confidence": 0.42,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.461125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.407125,
+          "3.0": 0.210125
+        }
+      }
+    },
+    {
+      "player_id": 686475,
+      "player_name": "Tyler Tolbert",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.065,
+      "confidence": 0.58,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.0645,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.06325
+        }
+      }
+    },
+    {
+      "player_id": 571912,
+      "player_name": "Luke Maile",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 0.85,
+      "confidence": 0.5,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.8495,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.61125,
+          "2.0": 0.202875
+        }
+      }
+    },
+    {
+      "player_id": 571912,
+      "player_name": "Luke Maile",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.496,
+      "confidence": 0.42,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.496375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.41075,
+          "3.0": 0.222125
+        }
+      }
+    },
+    {
+      "player_id": 571912,
+      "player_name": "Luke Maile",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.065,
+      "confidence": 0.58,
+      "team": "Kansas City Royals",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Sean Manaea",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.065125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.06275
+        }
+      }
+    },
+    {
+      "player_id": 650490,
+      "player_name": "Yandy D\u00edaz",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 0.999,
+      "confidence": 0.5,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.9985,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.674625,
+          "2.0": 0.261875
+        }
+      }
+    },
+    {
+      "player_id": 650490,
+      "player_name": "Yandy D\u00edaz",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.781,
+      "confidence": 0.42,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.781125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.477125,
+          "3.0": 0.279625
+        }
+      }
+    },
+    {
+      "player_id": 650490,
+      "player_name": "Yandy D\u00edaz",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.081,
+      "confidence": 0.58,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.08075,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.07775
+        }
+      }
+    },
+    {
+      "player_id": 666018,
+      "player_name": "Jonathan Aranda",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 0.978,
+      "confidence": 0.5,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.977625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.662125,
+          "2.0": 0.254625
+        }
+      }
+    },
+    {
+      "player_id": 666018,
+      "player_name": "Jonathan Aranda",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.737,
+      "confidence": 0.42,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.737125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.466,
+          "3.0": 0.272375
+        }
+      }
+    },
+    {
+      "player_id": 666018,
+      "player_name": "Jonathan Aranda",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.078,
+      "confidence": 0.58,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.07775,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.075375
+        }
+      }
+    },
+    {
+      "player_id": 691406,
+      "player_name": "Junior Caminero",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 0.942,
+      "confidence": 0.5,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.9415,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.652,
+          "2.0": 0.23525
+        }
+      }
+    },
+    {
+      "player_id": 691406,
+      "player_name": "Junior Caminero",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.714,
+      "confidence": 0.42,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.714,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.464875,
+          "3.0": 0.264
+        }
+      }
+    },
+    {
+      "player_id": 691406,
+      "player_name": "Junior Caminero",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.071,
+      "confidence": 0.58,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.071125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.0695
+        }
+      }
+    },
+    {
+      "player_id": 683748,
+      "player_name": "Victor Mesa Jr.",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 0.917,
+      "confidence": 0.5,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.9175,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.636375,
+          "2.0": 0.232625
+        }
+      }
+    },
+    {
+      "player_id": 683748,
+      "player_name": "Victor Mesa Jr.",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.624,
+      "confidence": 0.42,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.623625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.45225,
+          "3.0": 0.24875
+        }
+      }
+    },
+    {
+      "player_id": 683748,
+      "player_name": "Victor Mesa Jr.",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.061,
+      "confidence": 0.58,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.060625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.0595
+        }
+      }
+    },
+    {
+      "player_id": 668723,
+      "player_name": "Ryan Vilade",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 0.911,
+      "confidence": 0.5,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.91125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6435,
+          "2.0": 0.225125
+        }
+      }
+    },
+    {
+      "player_id": 668723,
+      "player_name": "Ryan Vilade",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.588,
+      "confidence": 0.42,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.588375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.437875,
+          "3.0": 0.244625
+        }
+      }
+    },
+    {
+      "player_id": 668723,
+      "player_name": "Ryan Vilade",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.072,
+      "confidence": 0.58,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.072,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.07075
+        }
+      }
+    },
+    {
+      "player_id": 802415,
+      "player_name": "Chandler Simpson",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 0.869,
+      "confidence": 0.5,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.869,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.623375,
+          "2.0": 0.207375
+        }
+      }
+    },
+    {
+      "player_id": 802415,
+      "player_name": "Chandler Simpson",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.524,
+      "confidence": 0.42,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.524375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.41725,
+          "3.0": 0.2315
+        }
+      }
+    },
+    {
+      "player_id": 802415,
+      "player_name": "Chandler Simpson",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.066,
+      "confidence": 0.58,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.0655,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.063875
+        }
+      }
+    },
+    {
+      "player_id": 810938,
+      "player_name": "Ben Williamson",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 0.863,
+      "confidence": 0.5,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.862625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.618375,
+          "2.0": 0.207375
+        }
+      }
+    },
+    {
+      "player_id": 810938,
+      "player_name": "Ben Williamson",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.498,
+      "confidence": 0.42,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.498,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.41525,
+          "3.0": 0.217625
+        }
+      }
+    },
+    {
+      "player_id": 810938,
+      "player_name": "Ben Williamson",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.059,
+      "confidence": 0.58,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.059125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.056375
+        }
+      }
+    },
+    {
+      "player_id": 670764,
+      "player_name": "Taylor Walls",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 0.828,
+      "confidence": 0.5,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.828375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.60275,
+          "2.0": 0.191
+        }
+      }
+    },
+    {
+      "player_id": 670764,
+      "player_name": "Taylor Walls",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.503,
+      "confidence": 0.42,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.50275,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.410125,
+          "3.0": 0.225
+        }
+      }
+    },
+    {
+      "player_id": 670764,
+      "player_name": "Taylor Walls",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.057,
+      "confidence": 0.58,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.0565,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.055375
+        }
+      }
+    },
+    {
+      "player_id": 663743,
+      "player_name": "Nick Fortes",
+      "category": "hits",
+      "game_date": "2026-07-09",
+      "projected_value": 0.857,
+      "confidence": 0.5,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.857375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.62325,
+          "2.0": 0.197375
+        }
+      }
+    },
+    {
+      "player_id": 663743,
+      "player_name": "Nick Fortes",
+      "category": "hrr",
+      "game_date": "2026-07-09",
+      "projected_value": 1.511,
+      "confidence": 0.42,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.511,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.412625,
+          "3.0": 0.228125
+        }
+      }
+    },
+    {
+      "player_id": 663743,
+      "player_name": "Nick Fortes",
+      "category": "home_runs",
+      "game_date": "2026-07-09",
+      "projected_value": 0.061,
+      "confidence": 0.58,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.060625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.06
+        }
+      }
+    }
+  ],
+  "pitcher_projections": [
+    {
+      "player_id": 693821,
+      "player_name": "Bryce Elder",
+      "category": "strikeouts",
+      "game_date": "2026-07-09",
+      "projected_value": 5.14,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": null
+    },
+    {
+      "player_id": 656605,
+      "player_name": "Mitch Keller",
+      "category": "strikeouts",
+      "game_date": "2026-07-09",
+      "projected_value": 4.62,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": null
+    },
+    {
+      "player_id": 608379,
+      "player_name": "Michael Wacha",
+      "category": "strikeouts",
+      "game_date": "2026-07-09",
+      "projected_value": 5.41,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": null
+    },
+    {
+      "player_id": 640455,
+      "player_name": "Sean Manaea",
+      "category": "strikeouts",
+      "game_date": "2026-07-09",
+      "projected_value": 7.41,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": null
+    },
+    {
+      "player_id": 656876,
+      "player_name": "Drew Rasmussen",
+      "category": "strikeouts",
+      "game_date": "2026-07-09",
+      "projected_value": 5.59,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": null
+    },
+    {
+      "player_id": 656849,
+      "player_name": "David Peterson",
+      "category": "strikeouts",
+      "game_date": "2026-07-09",
+      "projected_value": 3.51,
+      "confidence": 0.6,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": null
+    },
+    {
+      "player_id": 669432,
+      "player_name": "Trevor Rogers",
+      "category": "strikeouts",
+      "game_date": "2026-07-09",
+      "projected_value": 4.48,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": null
+    },
+    {
+      "player_id": 668909,
+      "player_name": "Gavin Williams",
+      "category": "strikeouts",
+      "game_date": "2026-07-09",
+      "projected_value": 6.46,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": null
+    },
+    {
+      "player_id": 641927,
+      "player_name": "Bailey Ober",
+      "category": "strikeouts",
+      "game_date": "2026-07-09",
+      "projected_value": 4.39,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": null
+    },
+    {
+      "player_id": 663776,
+      "player_name": "Patrick Sandoval",
+      "category": "strikeouts",
+      "game_date": "2026-07-09",
+      "projected_value": 5.35,
+      "confidence": 0.5,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": null
+    },
+    {
+      "player_id": 641743,
+      "player_name": "Anthony Kay",
+      "category": "strikeouts",
+      "game_date": "2026-07-09",
+      "projected_value": 4.48,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": null
+    },
+    {
+      "player_id": 678022,
+      "player_name": "Jack Perkins",
+      "category": "strikeouts",
+      "game_date": "2026-07-09",
+      "projected_value": 8.88,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": null
+    },
+    {
+      "player_id": 664285,
+      "player_name": "Framber Valdez",
+      "category": "strikeouts",
+      "game_date": "2026-07-09",
+      "projected_value": 4.74,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": null
+    },
+    {
+      "player_id": 682243,
+      "player_name": "Bryce Miller",
+      "category": "strikeouts",
+      "game_date": "2026-07-09",
+      "projected_value": 7.21,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": null
+    },
+    {
+      "player_id": 676083,
+      "player_name": "Janson Junk",
+      "category": "strikeouts",
+      "game_date": "2026-07-09",
+      "projected_value": 4.47,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": null
+    },
+    {
+      "player_id": 666200,
+      "player_name": "Jes\u00fas Luzardo",
+      "category": "strikeouts",
+      "game_date": "2026-07-09",
+      "projected_value": 6.46,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": null
+    },
+    {
+      "player_id": 663903,
+      "player_name": "Brady Singer",
+      "category": "strikeouts",
+      "game_date": "2026-07-09",
+      "projected_value": 4.32,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": null
+    },
+    {
+      "player_id": 701656,
+      "player_name": "Logan Henderson",
+      "category": "strikeouts",
+      "game_date": "2026-07-09",
+      "projected_value": 5.53,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": null
+    },
+    {
+      "player_id": 669467,
+      "player_name": "Andre Pallante",
+      "category": "strikeouts",
+      "game_date": "2026-07-09",
+      "projected_value": 4.62,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": null
+    },
+    {
+      "player_id": 672282,
+      "player_name": "Reid Detmers",
+      "category": "strikeouts",
+      "game_date": "2026-07-09",
+      "projected_value": 6.19,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": null
+    },
+    {
+      "player_id": 543135,
+      "player_name": "Nathan Eovaldi",
+      "category": "strikeouts",
+      "game_date": "2026-07-09",
+      "projected_value": 6.31,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": null
+    },
+    {
+      "player_id": 518876,
+      "player_name": "Merrill Kelly",
+      "category": "strikeouts",
+      "game_date": "2026-07-09",
+      "projected_value": 4.3,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": null
+    },
+    {
+      "player_id": 656288,
+      "player_name": "Griffin Canning",
+      "category": "strikeouts",
+      "game_date": "2026-07-09",
+      "projected_value": 5.56,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": null
+    },
+    {
+      "player_id": 663372,
+      "player_name": "Ryan Feltner",
+      "category": "strikeouts",
+      "game_date": "2026-07-09",
+      "projected_value": 4.07,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": null
+    }
+  ],
+  "value_plays": []
+}
