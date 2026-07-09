@@ -1,0 +1,64 @@
+{
+  "season": 2024,
+  "builder_schema": "a3.1",
+  "dates": {
+    "2024-03-15": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2024-03-16": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2024-03-17": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2024-03-18": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2024-03-19": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2024-03-20": {
+      "status": "done",
+      "games": 1,
+      "hitter_rows": 18,
+      "pitcher_rows": 2
+    },
+    "2024-06-15": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    }
+  },
+  "resolution": {
+    "park_default": 1,
+    "weather_resolved": 16,
+    "umpire_resolved": 16,
+    "lineup_confirmed_team": 32,
+    "opp_sp_probable": 32,
+    "hitting_as_of_empty": 21,
+    "opp_sp_as_of_empty": 18,
+    "hitter_actual_resolved": 288,
+    "pitching_as_of_empty": 2,
+    "pitcher_actual_resolved": 32,
+    "park_resolved": 15,
+    "hitting_as_of_resolved": 267,
+    "opp_sp_as_of_resolved": 270,
+    "pitching_as_of_resolved": 30
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "season": 2025,
+  "builder_schema": "a3.1",
+  "dates": {
+    "2025-03-15": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2025-03-16": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2025-03-17": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    }
+  },
+  "resolution": {}
+}
