@@ -44,23 +44,25 @@ jobs:
             echo "slate=$(TZ=America/New_York date +%F)" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Generate predictions
+      # ONE call generates EVERY graded category (hits, hrr, home_runs +
+      # pitcher strikeouts), exactly like the GUI's "Run all categories".
+      # run_slate.py triggers the automatic rich JSON archive at
+      # data/learning/predictions/predictions_<date>.json (with per-row
+      # simulation blocks). Do NOT swap this back to run_daily.py: that CLI
+      # is single-category (default hrr) and drops the simulation data.
+      - name: Generate predictions (all categories)
         env:
           PYTHONPATH: .
         run: |
-          mkdir -p data/predictions
-          python run_daily.py \
-            --date "${{ steps.date.outputs.slate }}" \
-            --format all \
-            --output "data/predictions/preds_${{ steps.date.outputs.slate }}.csv"
+          python run_slate.py --date "${{ steps.date.outputs.slate }}"
 
       - name: Commit results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Commit the prediction CSV and the daily archive JSON
-          git add data/predictions/ data/daily_predictions.json || true
+          # The rich per-date archive the outcome recorder later grades.
+          git add data/learning/predictions/ || true
 
           if git diff --cached --quiet; then
             echo "No changes to commit."

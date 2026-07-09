@@ -1,5 +1,14 @@
 name: Record Outcomes
 
+# Grades YESTERDAY's predictions against final box scores and appends
+# prediction->outcome pairs to data/learning/prediction_outcomes.csv via
+# OutcomeRecorder — the real pairs file with actual_value + detail columns
+# + model_version. This is the step that builds the learning dataset.
+#
+# Runs at 14:00 UTC (10:00 AM Eastern), after all prior-day games including
+# West Coast extra-inning ones are final, and 6 hours BEFORE the 20:00 UTC
+# prediction job so the day's collection is closed out first.
+
 on:
   schedule:
     - cron: "0 14 * * *"   # 14:00 UTC = 10:00 AM Eastern
@@ -44,19 +53,23 @@ jobs:
             echo "grade=$(TZ=America/New_York date -d 'yesterday' +%F)" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Check for predictions file
-        id: check_preds
+      # The archive the daily job commits is what gets graded. If it's
+      # missing (no slate, or the predict job failed), skip gracefully.
+      - name: Check for prediction archive
+        id: check_archive
         run: |
           DATE="${{ steps.date.outputs.grade }}"
-          echo "Checking for data/predictions/preds_${DATE}.csv"
-          if [ -f "data/predictions/preds_${DATE}.csv" ]; then
+          FILE="data/learning/predictions/predictions_${DATE}.json"
+          echo "Checking for ${FILE}"
+          if [ -f "${FILE}" ]; then
             echo "found=true" >> "$GITHUB_OUTPUT"
           else
             echo "found=false" >> "$GITHUB_OUTPUT"
+            echo "No archive for ${DATE} — nothing to grade."
           fi
 
       - name: Record outcomes
-        if: steps.check_preds.outputs.found == 'true'
+        if: steps.check_archive.outputs.found == 'true'
         env:
           PYTHONPATH: .
         run: |
@@ -66,13 +79,14 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          # Add predicted input and outcome files (adjust patterns as needed)
-          git add data/predictions/prediction_outcomes.csv data/predictions/prediction_outcomes_* data/predictions/preds_* || true
+          # The real learning dataset. Do NOT point this at data/predictions/ —
+          # that was the regression that recorded outcome_computed=False rows.
+          git add data/learning/prediction_outcomes.csv || true
           if git diff --cached --quiet; then
-            if [ "${{ steps.check_preds.outputs.found }}" = "false" ]; then
-              echo "No preds file for ${{ steps.date.outputs.grade }} — nothing to commit."
+            if [ "${{ steps.check_archive.outputs.found }}" = "false" ]; then
+              echo "No archive for ${{ steps.date.outputs.grade }} — nothing to commit."
             else
-              echo "No new prediction outcomes to commit (already present)."
+              echo "No new pairs to commit (already graded, or games not final)."
             fi
           else
             git commit -m "Outcomes for ${{ steps.date.outputs.grade }} [skip ci]"

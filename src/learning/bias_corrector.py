@@ -188,7 +188,16 @@ class BiasCorrector:
         return path
 
     def load(self, path: str | Path) -> BiasCorrectionState:
-        data = json.loads(Path(path).read_text(encoding="utf-8"))
+        # utf-8-sig transparently strips a UTF-8/UTF-16 BOM if an editor wrote
+        # one (a stray 0xff/0xfe prefix would otherwise crash a plain utf-8
+        # read). Falls back to latin-1 only to surface a clean JSON error
+        # rather than an opaque decode error on a truly corrupt file.
+        raw = Path(path)
+        try:
+            text = raw.read_text(encoding="utf-8-sig")
+        except UnicodeDecodeError:
+            text = raw.read_text(encoding="latin-1")
+        data = json.loads(text)
         self.state = BiasCorrectionState.from_dict(data)
         return self.state
 

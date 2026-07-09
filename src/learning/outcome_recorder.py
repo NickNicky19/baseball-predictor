@@ -18,6 +18,7 @@ from src.models.dataclasses import DailyPrediction, PropCategory, PropProjection
 from src.simulation.monte_carlo import FantasyScoring
 from src.utils.errors import DataFetchError, RetrainError
 from src.utils.logging import get_logger
+from src.utils.model_version import model_version
 
 logger = get_logger(__name__)
 
@@ -29,6 +30,9 @@ PAIR_COLUMNS = [
     "predicted_value",
     "actual_value",
     "confidence",
+    # Provenance (discipline #5): config hash of the model that produced this
+    # row, so calibration never mixes versions. Additive; blank on legacy rows.
+    "model_version",
     # --- Additive detail columns (collection-safe: record-keeping only). ---
     # Hitter rows fill the batting fields; pitcher rows fill ip/bb/hr-allowed.
     # Raw components let any category actual be re-derived later and let the
@@ -46,8 +50,18 @@ PAIR_COLUMNS = [
     "actual_hr_allowed",
 ]
 
-# The original schema, kept for one-time migration of pre-existing CSVs.
-LEGACY_PAIR_COLUMNS = PAIR_COLUMNS[:7]
+# The original 7-column schema, kept for one-time migration of pre-existing
+# CSVs. Pinned explicitly (not a slice of PAIR_COLUMNS) so that inserting new
+# additive columns above can never silently shift what "legacy" means.
+LEGACY_PAIR_COLUMNS = [
+    "player_id",
+    "player_name",
+    "game_date",
+    "category",
+    "predicted_value",
+    "actual_value",
+    "confidence",
+]
 
 
 @dataclass
@@ -117,6 +131,8 @@ class OutcomeRecorder:
         self.config = config or {}
         self.settings = settings or OutcomeRecordingSettings.from_config(self.config)
         self.project_root = project_root or Path(__file__).resolve().parents[2]
+        # Provenance tag for every pair recorded this session (discipline #5).
+        self._model_version = model_version(self.config)
         season = int(self.config.get("season", 2026))
         self.mlb_api = mlb_api or MLBStatsAPI(season=season)
         self.archive = archive or PredictionArchive.from_config(self.config, self.project_root)
@@ -204,6 +220,7 @@ class OutcomeRecorder:
                 "predicted_value": projection.projected_value,
                 "actual_value": round(actual, 3),
                 "confidence": projection.confidence,
+                "model_version": self._model_version,
             }
             row.update(self._actual_detail_fields(projection, hitting, pitching))
             rows.append(row)
@@ -298,7 +315,14 @@ class OutcomeRecorder:
                 return
             if header == PAIR_COLUMNS:
                 return
-            if header != LEGACY_PAIR_COLUMNS:
+            # Accept any earlier schema whose columns are all known current
+            # columns (original 7-col, or the 17-col detail schema before
+            # model_version was inserted). Rows are re-read by name via
+            # DictReader below and rewritten with DictWriter(restval=""), so
+            # column ORDER in the old file doesn't matter and any missing
+            # columns (e.g. model_version on old rows) are backfilled blank.
+            # Only a header containing an unknown column is left untouched.
+            if not set(header).issubset(set(PAIR_COLUMNS)):
                 logger.warning(
                     "Pairs CSV %s has unrecognized header; leaving untouched", path
                 )

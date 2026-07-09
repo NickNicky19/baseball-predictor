@@ -1,0 +1,6217 @@
+{
+  "game_date": "2026-07-05",
+  "hitter_projections": [
+    {
+      "player_id": 596019,
+      "player_name": "Francisco Lindor",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.44,
+      "confidence": 0.567,
+      "team": "New York Mets",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Mart\u00edn P\u00e9rez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.44025,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.59275,
+          "3.0": 0.41325
+        }
+      }
+    },
+    {
+      "player_id": 665742,
+      "player_name": "Juan Soto",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.011,
+      "confidence": 0.7,
+      "team": "New York Mets",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Mart\u00edn P\u00e9rez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.01125,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.512875,
+          "3.0": 0.331625
+        }
+      }
+    },
+    {
+      "player_id": 666182,
+      "player_name": "Bo Bichette",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.824,
+      "confidence": 0.74,
+      "team": "New York Mets",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Mart\u00edn P\u00e9rez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.823875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.485625,
+          "3.0": 0.28875
+        }
+      }
+    },
+    {
+      "player_id": 676724,
+      "player_name": "Jared Young",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.955,
+      "confidence": 0.7,
+      "team": "New York Mets",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Mart\u00edn P\u00e9rez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.95525,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.49825,
+          "3.0": 0.32175
+        }
+      }
+    },
+    {
+      "player_id": 701807,
+      "player_name": "Carson Benge",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.761,
+      "confidence": 0.74,
+      "team": "New York Mets",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Mart\u00edn P\u00e9rez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.761375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4695,
+          "3.0": 0.27525
+        }
+      }
+    },
+    {
+      "player_id": 621438,
+      "player_name": "Tyrone Taylor",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.969,
+      "confidence": 0.517,
+      "team": "New York Mets",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Mart\u00edn P\u00e9rez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.969375,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.5055,
+          "3.0": 0.3235
+        }
+      }
+    },
+    {
+      "player_id": 805999,
+      "player_name": "A.J. Ewing",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.071,
+      "confidence": 0.7,
+      "team": "New York Mets",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Mart\u00edn P\u00e9rez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.070625,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.537,
+          "3.0": 0.344375
+        }
+      }
+    },
+    {
+      "player_id": 620443,
+      "player_name": "Luis Torrens",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.712,
+      "confidence": 0.74,
+      "team": "New York Mets",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Mart\u00edn P\u00e9rez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.712,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.456625,
+          "3.0": 0.2715
+        }
+      }
+    },
+    {
+      "player_id": 683146,
+      "player_name": "Brett Baty",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.621,
+      "confidence": 0.74,
+      "team": "New York Mets",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Mart\u00edn P\u00e9rez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.6205,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.44775,
+          "3.0": 0.24475
+        }
+      }
+    },
+    {
+      "player_id": 686948,
+      "player_name": "Drake Baldwin",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.411,
+      "confidence": 0.717,
+      "team": "Atlanta Braves",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.4115,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.3785,
+          "3.0": 0.20925
+        }
+      }
+    },
+    {
+      "player_id": 645277,
+      "player_name": "Ozzie Albies",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.679,
+      "confidence": 0.74,
+      "team": "Atlanta Braves",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.6795,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.450875,
+          "3.0": 0.264125
+        }
+      }
+    },
+    {
+      "player_id": 621566,
+      "player_name": "Matt Olson",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.759,
+      "confidence": 0.74,
+      "team": "Atlanta Braves",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.758625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.454375,
+          "3.0": 0.284
+        }
+      }
+    },
+    {
+      "player_id": 671739,
+      "player_name": "Michael Harris II",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.687,
+      "confidence": 0.74,
+      "team": "Atlanta Braves",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.687375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.433125,
+          "3.0": 0.27375
+        }
+      }
+    },
+    {
+      "player_id": 643289,
+      "player_name": "Mauricio Dub\u00f3n",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.574,
+      "confidence": 0.74,
+      "team": "Atlanta Braves",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.57375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.423125,
+          "3.0": 0.24125
+        }
+      }
+    },
+    {
+      "player_id": 642086,
+      "player_name": "Dominic Smith",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.686,
+      "confidence": 0.74,
+      "team": "Atlanta Braves",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.685625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.44725,
+          "3.0": 0.270625
+        }
+      }
+    },
+    {
+      "player_id": 663586,
+      "player_name": "Austin Riley",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.504,
+      "confidence": 0.74,
+      "team": "Atlanta Braves",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.5045,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.401,
+          "3.0": 0.228875
+        }
+      }
+    },
+    {
+      "player_id": 642201,
+      "player_name": "Eli White",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.642,
+      "confidence": 0.67,
+      "team": "Atlanta Braves",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.641625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.44025,
+          "3.0": 0.25625
+        }
+      }
+    },
+    {
+      "player_id": 622761,
+      "player_name": "Jorge Mateo",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.918,
+      "confidence": 0.66,
+      "team": "Atlanta Braves",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.91775,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.4815,
+          "3.0": 0.318875
+        }
+      }
+    },
+    {
+      "player_id": 804606,
+      "player_name": "Konnor Griffin",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.989,
+      "confidence": 0.677,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Cade Cavalli",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.988875,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.5075,
+          "3.0": 0.32975
+        }
+      }
+    },
+    {
+      "player_id": 664040,
+      "player_name": "Brandon Lowe",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.783,
+      "confidence": 0.74,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Cade Cavalli",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.782625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.46575,
+          "3.0": 0.28125
+        }
+      }
+    },
+    {
+      "player_id": 668804,
+      "player_name": "Bryan Reynolds",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.75,
+      "confidence": 0.74,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Cade Cavalli",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.749625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.454625,
+          "3.0": 0.278875
+        }
+      }
+    },
+    {
+      "player_id": 695257,
+      "player_name": "Billy Cook",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.166,
+      "confidence": 0.563,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Cade Cavalli",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.166375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.31775,
+          "3.0": 0.153375
+        }
+      }
+    },
+    {
+      "player_id": 656811,
+      "player_name": "Ryan O'Hearn",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.603,
+      "confidence": 0.74,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Cade Cavalli",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.603,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.427875,
+          "3.0": 0.24825
+        }
+      }
+    },
+    {
+      "player_id": 693304,
+      "player_name": "Nick Gonzales",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.508,
+      "confidence": 0.74,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Cade Cavalli",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.508,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.411625,
+          "3.0": 0.222625
+        }
+      }
+    },
+    {
+      "player_id": 680779,
+      "player_name": "Henry Davis",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.885,
+      "confidence": 0.657,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Cade Cavalli",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.885375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.48575,
+          "3.0": 0.310125
+        }
+      }
+    },
+    {
+      "player_id": 669707,
+      "player_name": "Jared Triolo",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.733,
+      "confidence": 0.74,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Cade Cavalli",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.733125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.45725,
+          "3.0": 0.270875
+        }
+      }
+    },
+    {
+      "player_id": 663968,
+      "player_name": "Jake Mangum",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.858,
+      "confidence": 0.74,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Cade Cavalli",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.858375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4905,
+          "3.0": 0.2945
+        }
+      }
+    },
+    {
+      "player_id": 695578,
+      "player_name": "James Wood",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.098,
+      "confidence": 0.7,
+      "team": "Washington Nationals",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Bubba Chandler",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.09825,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.501375,
+          "3.0": 0.345625
+        }
+      }
+    },
+    {
+      "player_id": 671277,
+      "player_name": "Luis Garc\u00eda Jr.",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.819,
+      "confidence": 0.74,
+      "team": "Washington Nationals",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Bubba Chandler",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.8185,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4765,
+          "3.0": 0.286875
+        }
+      }
+    },
+    {
+      "player_id": 678554,
+      "player_name": "Curtis Mead",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.293,
+      "confidence": 0.7,
+      "team": "Washington Nationals",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Bubba Chandler",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.293,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.559,
+          "3.0": 0.385875
+        }
+      }
+    },
+    {
+      "player_id": 682928,
+      "player_name": "CJ Abrams",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.714,
+      "confidence": 0.74,
+      "team": "Washington Nationals",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Bubba Chandler",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.7135,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.456875,
+          "3.0": 0.26325
+        }
+      }
+    },
+    {
+      "player_id": 695734,
+      "player_name": "Daylen Lile",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.642,
+      "confidence": 0.74,
+      "team": "Washington Nationals",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Bubba Chandler",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.641625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.450625,
+          "3.0": 0.25575
+        }
+      }
+    },
+    {
+      "player_id": 686611,
+      "player_name": "Dylan Crews",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.96,
+      "confidence": 0.7,
+      "team": "Washington Nationals",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Bubba Chandler",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.96,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.51,
+          "3.0": 0.326625
+        }
+      }
+    },
+    {
+      "player_id": 677588,
+      "player_name": "Jos\u00e9 Tena",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.537,
+      "confidence": 0.73,
+      "team": "Washington Nationals",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Bubba Chandler",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.537,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.406625,
+          "3.0": 0.231375
+        }
+      }
+    },
+    {
+      "player_id": 665953,
+      "player_name": "Andr\u00e9s Chaparro",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.621,
+      "confidence": 0.647,
+      "team": "Washington Nationals",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Bubba Chandler",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.620625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.424875,
+          "3.0": 0.252625
+        }
+      }
+    },
+    {
+      "player_id": 686452,
+      "player_name": "Drew Millas",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.732,
+      "confidence": 0.677,
+      "team": "Washington Nationals",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Bubba Chandler",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.732375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.47025,
+          "3.0": 0.2685
+        }
+      }
+    },
+    {
+      "player_id": 683002,
+      "player_name": "Gunnar Henderson",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.928,
+      "confidence": 0.74,
+      "team": "Baltimore Orioles",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Nick Lodolo",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.928375,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.50925,
+          "3.0": 0.314125
+        }
+      }
+    },
+    {
+      "player_id": 668939,
+      "player_name": "Adley Rutschman",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.209,
+      "confidence": 0.7,
+      "team": "Baltimore Orioles",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Nick Lodolo",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.2095,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.5575,
+          "3.0": 0.375875
+        }
+      }
+    },
+    {
+      "player_id": 621493,
+      "player_name": "Taylor Ward",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.801,
+      "confidence": 0.74,
+      "team": "Baltimore Orioles",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Nick Lodolo",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.80075,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.485,
+          "3.0": 0.287
+        }
+      }
+    },
+    {
+      "player_id": 624413,
+      "player_name": "Pete Alonso",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.832,
+      "confidence": 0.74,
+      "team": "Baltimore Orioles",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Nick Lodolo",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.83225,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.477,
+          "3.0": 0.294125
+        }
+      }
+    },
+    {
+      "player_id": 694212,
+      "player_name": "Samuel Basallo",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.166,
+      "confidence": 0.7,
+      "team": "Baltimore Orioles",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Nick Lodolo",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.166,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.5325,
+          "3.0": 0.365
+        }
+      }
+    },
+    {
+      "player_id": 687637,
+      "player_name": "Dylan Beavers",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.78,
+      "confidence": 0.54,
+      "team": "Baltimore Orioles",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Nick Lodolo",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.7795,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.480875,
+          "3.0": 0.2895
+        }
+      }
+    },
+    {
+      "player_id": 665750,
+      "player_name": "Leody Taveras",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.634,
+      "confidence": 0.74,
+      "team": "Baltimore Orioles",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Nick Lodolo",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.634375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.445125,
+          "3.0": 0.24775
+        }
+      }
+    },
+    {
+      "player_id": 702616,
+      "player_name": "Jackson Holliday",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.804,
+      "confidence": 0.74,
+      "team": "Baltimore Orioles",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Nick Lodolo",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.8045,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.466,
+          "3.0": 0.296125
+        }
+      }
+    },
+    {
+      "player_id": 677942,
+      "player_name": "Blaze Alexander",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.253,
+      "confidence": 0.7,
+      "team": "Baltimore Orioles",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Nick Lodolo",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.253375,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.555875,
+          "3.0": 0.384375
+        }
+      }
+    },
+    {
+      "player_id": 682829,
+      "player_name": "Elly De La Cruz",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.917,
+      "confidence": 0.7,
+      "team": "Cincinnati Reds",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Kyle Bradish",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.91725,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.488375,
+          "3.0": 0.3145
+        }
+      }
+    },
+    {
+      "player_id": 701398,
+      "player_name": "Sal Stewart",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.923,
+      "confidence": 0.7,
+      "team": "Cincinnati Reds",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Kyle Bradish",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.9235,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.492,
+          "3.0": 0.315875
+        }
+      }
+    },
+    {
+      "player_id": 668709,
+      "player_name": "JJ Bleday",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.188,
+      "confidence": 0.7,
+      "team": "Cincinnati Reds",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Kyle Bradish",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.188375,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.543,
+          "3.0": 0.365
+        }
+      }
+    },
+    {
+      "player_id": 553993,
+      "player_name": "Eugenio Su\u00e1rez",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.555,
+      "confidence": 0.74,
+      "team": "Cincinnati Reds",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Kyle Bradish",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.55475,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.410875,
+          "3.0": 0.237
+        }
+      }
+    },
+    {
+      "player_id": 668715,
+      "player_name": "Spencer Steer",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.68,
+      "confidence": 0.74,
+      "team": "Cincinnati Reds",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Kyle Bradish",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.679875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.44175,
+          "3.0": 0.270875
+        }
+      }
+    },
+    {
+      "player_id": 663886,
+      "player_name": "Tyler Stephenson",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.172,
+      "confidence": 0.7,
+      "team": "Cincinnati Reds",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Kyle Bradish",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.171625,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.54025,
+          "3.0": 0.36725
+        }
+      }
+    },
+    {
+      "player_id": 682622,
+      "player_name": "Noelvi Marte",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.973,
+      "confidence": 0.7,
+      "team": "Cincinnati Reds",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Kyle Bradish",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.973375,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.50425,
+          "3.0": 0.332625
+        }
+      }
+    },
+    {
+      "player_id": 670770,
+      "player_name": "TJ Friedl",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.71,
+      "confidence": 0.59,
+      "team": "Cincinnati Reds",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Kyle Bradish",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.70975,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.453625,
+          "3.0": 0.26775
+        }
+      }
+    },
+    {
+      "player_id": 695490,
+      "player_name": "Edwin Arroyo",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.844,
+      "confidence": 0.74,
+      "team": "Cincinnati Reds",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Kyle Bradish",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.844,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4885,
+          "3.0": 0.29425
+        }
+      }
+    },
+    {
+      "player_id": 668885,
+      "player_name": "Austin Martin",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.919,
+      "confidence": 0.74,
+      "team": "Minnesota Twins",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Ryan Weathers",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.919,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.506375,
+          "3.0": 0.31425
+        }
+      }
+    },
+    {
+      "player_id": 693459,
+      "player_name": "Kyler Fedko",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.383,
+      "confidence": 0.573,
+      "team": "Minnesota Twins",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Ryan Weathers",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.38275,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.382375,
+          "3.0": 0.199125
+        }
+      }
+    },
+    {
+      "player_id": 665019,
+      "player_name": "Kody Clemens",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.774,
+      "confidence": 0.74,
+      "team": "Minnesota Twins",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Ryan Weathers",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.77375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.46275,
+          "3.0": 0.27725
+        }
+      }
+    },
+    {
+      "player_id": 605137,
+      "player_name": "Josh Bell",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.659,
+      "confidence": 0.74,
+      "team": "Minnesota Twins",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Ryan Weathers",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.65925,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.445875,
+          "3.0": 0.258125
+        }
+      }
+    },
+    {
+      "player_id": 668904,
+      "player_name": "Royce Lewis",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.859,
+      "confidence": 0.7,
+      "team": "Minnesota Twins",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Ryan Weathers",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.8585,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.477125,
+          "3.0": 0.3045
+        }
+      }
+    },
+    {
+      "player_id": 605170,
+      "player_name": "Victor Caratini",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.955,
+      "confidence": 0.7,
+      "team": "Minnesota Twins",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Ryan Weathers",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.955125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.49575,
+          "3.0": 0.320875
+        }
+      }
+    },
+    {
+      "player_id": 686797,
+      "player_name": "Brooks Lee",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.511,
+      "confidence": 0.74,
+      "team": "Minnesota Twins",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Ryan Weathers",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.511,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.412125,
+          "3.0": 0.22825
+        }
+      }
+    },
+    {
+      "player_id": 668952,
+      "player_name": "Ryan Kreidler",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.662,
+      "confidence": 0.74,
+      "team": "Minnesota Twins",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Ryan Weathers",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.662,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4455,
+          "3.0": 0.26025
+        }
+      }
+    },
+    {
+      "player_id": 807712,
+      "player_name": "Luke Keaschall",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.467,
+      "confidence": 0.74,
+      "team": "Minnesota Twins",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Ryan Weathers",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.46725,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.409625,
+          "3.0": 0.2165
+        }
+      }
+    },
+    {
+      "player_id": 663757,
+      "player_name": "Trent Grisham",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.848,
+      "confidence": 0.736,
+      "team": "New York Yankees",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Joe Ryan",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.847625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.100000000000364,
+        "p_ge_threshold": {
+          "2.0": 0.47725,
+          "3.0": 0.304875
+        }
+      }
+    },
+    {
+      "player_id": 700250,
+      "player_name": "Ben Rice",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.842,
+      "confidence": 0.7,
+      "team": "New York Yankees",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Joe Ryan",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.841875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.463125,
+          "3.0": 0.298375
+        }
+      }
+    },
+    {
+      "player_id": 691176,
+      "player_name": "Jasson Dom\u00ednguez",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.036,
+      "confidence": 0.7,
+      "team": "New York Yankees",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Joe Ryan",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.036,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.525375,
+          "3.0": 0.339
+        }
+      }
+    },
+    {
+      "player_id": 641355,
+      "player_name": "Cody Bellinger",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.67,
+      "confidence": 0.74,
+      "team": "New York Yankees",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Joe Ryan",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.669875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.447375,
+          "3.0": 0.260625
+        }
+      }
+    },
+    {
+      "player_id": 683011,
+      "player_name": "Anthony Volpe",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.815,
+      "confidence": 0.74,
+      "team": "New York Yankees",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Joe Ryan",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.81475,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.47475,
+          "3.0": 0.29425
+        }
+      }
+    },
+    {
+      "player_id": 642708,
+      "player_name": "Amed Rosario",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.891,
+      "confidence": 0.667,
+      "team": "New York Yankees",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Joe Ryan",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.8915,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.479875,
+          "3.0": 0.310625
+        }
+      }
+    },
+    {
+      "player_id": 680474,
+      "player_name": "Max Schuemann",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.987,
+      "confidence": 0.56,
+      "team": "New York Yankees",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Joe Ryan",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.987375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.487,
+          "3.0": 0.335125
+        }
+      }
+    },
+    {
+      "player_id": 669224,
+      "player_name": "Austin Wells",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.315,
+      "confidence": 0.697,
+      "team": "New York Yankees",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Joe Ryan",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.315125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.355625,
+          "3.0": 0.199625
+        }
+      }
+    },
+    {
+      "player_id": 676609,
+      "player_name": "Jos\u00e9 Caballero",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.728,
+      "confidence": 0.74,
+      "team": "New York Yankees",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Joe Ryan",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.7275,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.458625,
+          "3.0": 0.275875
+        }
+      }
+    },
+    {
+      "player_id": 803011,
+      "player_name": "Sam Antonacci",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.238,
+      "confidence": 0.7,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Tanner Bibee",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.237875,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.57175,
+          "3.0": 0.378875
+        }
+      }
+    },
+    {
+      "player_id": 678246,
+      "player_name": "Miguel Vargas",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.931,
+      "confidence": 0.7,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Tanner Bibee",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.931375,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.502125,
+          "3.0": 0.316625
+        }
+      }
+    },
+    {
+      "player_id": 691019,
+      "player_name": "Kyle Teel",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.75,
+      "confidence": 0.627,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Tanner Bibee",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.749625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4585,
+          "3.0": 0.277375
+        }
+      }
+    },
+    {
+      "player_id": 643217,
+      "player_name": "Andrew Benintendi",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.172,
+      "confidence": 0.7,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Tanner Bibee",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.171625,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.55,
+          "3.0": 0.364
+        }
+      }
+    },
+    {
+      "player_id": 695657,
+      "player_name": "Colson Montgomery",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.766,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Tanner Bibee",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.765625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4655,
+          "3.0": 0.283625
+        }
+      }
+    },
+    {
+      "player_id": 695731,
+      "player_name": "Braden Montgomery",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.802,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Tanner Bibee",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.802375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.480125,
+          "3.0": 0.2905
+        }
+      }
+    },
+    {
+      "player_id": 805367,
+      "player_name": "Chase Meidroth",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.589,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Tanner Bibee",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.588875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.439,
+          "3.0": 0.240125
+        }
+      }
+    },
+    {
+      "player_id": 671976,
+      "player_name": "Tristan Peters",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.893,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Tanner Bibee",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.892625,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.506625,
+          "3.0": 0.311125
+        }
+      }
+    },
+    {
+      "player_id": 682668,
+      "player_name": "Luisangel Acu\u00f1a",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.842,
+      "confidence": 0.67,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Tanner Bibee",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.841875,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.50325,
+          "3.0": 0.294
+        }
+      }
+    },
+    {
+      "player_id": 683953,
+      "player_name": "Travis Bazzana",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.909,
+      "confidence": 0.7,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Chris Murphy",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.90925,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.488,
+          "3.0": 0.309875
+        }
+      }
+    },
+    {
+      "player_id": 696135,
+      "player_name": "Kahlil Watson",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.708,
+      "confidence": 0.67,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Chris Murphy",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.707625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.446875,
+          "3.0": 0.2675
+        }
+      }
+    },
+    {
+      "player_id": 800050,
+      "player_name": "Chase DeLauter",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.678,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Chris Murphy",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.677875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.457375,
+          "3.0": 0.258125
+        }
+      }
+    },
+    {
+      "player_id": 656555,
+      "player_name": "Rhys Hoskins",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.111,
+      "confidence": 0.78,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Chris Murphy",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.110875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.293625,
+          "3.0": 0.1465
+        }
+      }
+    },
+    {
+      "player_id": 672356,
+      "player_name": "Gabriel Arias",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.285,
+      "confidence": 0.68,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Chris Murphy",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.285,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.335,
+          "3.0": 0.180125
+        }
+      }
+    },
+    {
+      "player_id": 694876,
+      "player_name": "Cooper Ingle",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.032,
+      "confidence": 0.597,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Chris Murphy",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.031875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.279,
+          "3.0": 0.1245
+        }
+      }
+    },
+    {
+      "player_id": 682177,
+      "player_name": "Daniel Schneemann",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.3,
+      "confidence": 0.78,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Chris Murphy",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.299875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.35175,
+          "3.0": 0.1845
+        }
+      }
+    },
+    {
+      "player_id": 677587,
+      "player_name": "Brayan Rocchio",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.487,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Chris Murphy",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.48725,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.409875,
+          "3.0": 0.21725
+        }
+      }
+    },
+    {
+      "player_id": 595978,
+      "player_name": "Austin Hedges",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.867,
+      "confidence": 0.713,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Chris Murphy",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.867125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.486125,
+          "3.0": 0.303375
+        }
+      }
+    },
+    {
+      "player_id": 802139,
+      "player_name": "JJ Wetherholt",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.023,
+      "confidence": 0.7,
+      "team": "St. Louis Cardinals",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Javier Assad",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.023,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.536625,
+          "3.0": 0.33225
+        }
+      }
+    },
+    {
+      "player_id": 671056,
+      "player_name": "Iv\u00e1n Herrera",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.944,
+      "confidence": 0.74,
+      "team": "St. Louis Cardinals",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Javier Assad",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.94375,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.518625,
+          "3.0": 0.31725
+        }
+      }
+    },
+    {
+      "player_id": 676475,
+      "player_name": "Alec Burleson",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.912,
+      "confidence": 0.74,
+      "team": "St. Louis Cardinals",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Javier Assad",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.91175,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.50575,
+          "3.0": 0.30925
+        }
+      }
+    },
+    {
+      "player_id": 691023,
+      "player_name": "Jordan Walker",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.895,
+      "confidence": 0.74,
+      "team": "St. Louis Cardinals",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Javier Assad",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.894875,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.500125,
+          "3.0": 0.306375
+        }
+      }
+    },
+    {
+      "player_id": 663457,
+      "player_name": "Lars Nootbaar",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.212,
+      "confidence": 0.7,
+      "team": "St. Louis Cardinals",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Javier Assad",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.2125,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.560125,
+          "3.0": 0.37125
+        }
+      }
+    },
+    {
+      "player_id": 691026,
+      "player_name": "Masyn Winn",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.677,
+      "confidence": 0.74,
+      "team": "St. Louis Cardinals",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Javier Assad",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.676875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.46275,
+          "3.0": 0.25625
+        }
+      }
+    },
+    {
+      "player_id": 701675,
+      "player_name": "Nathan Church",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.754,
+      "confidence": 0.733,
+      "team": "St. Louis Cardinals",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Javier Assad",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.754,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.479625,
+          "3.0": 0.27775
+        }
+      }
+    },
+    {
+      "player_id": 665877,
+      "player_name": "Jos\u00e9 Ferm\u00edn",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.778,
+      "confidence": 0.74,
+      "team": "St. Louis Cardinals",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Javier Assad",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.778375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.47725,
+          "3.0": 0.283625
+        }
+      }
+    },
+    {
+      "player_id": 676369,
+      "player_name": "Nelson Vel\u00e1zquez",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.303,
+      "confidence": 0.617,
+      "team": "St. Louis Cardinals",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Javier Assad",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.30325,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.555625,
+          "3.0": 0.394
+        }
+      }
+    },
+    {
+      "player_id": 691718,
+      "player_name": "Pete Crow-Armstrong",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.899,
+      "confidence": 0.74,
+      "team": "Chicago Cubs",
+      "opponent": "St. Louis Cardinals",
+      "opposing_pitcher": "Matthew Liberatore",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.89925,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.49575,
+          "3.0": 0.3025
+        }
+      }
+    },
+    {
+      "player_id": 608324,
+      "player_name": "Alex Bregman",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.771,
+      "confidence": 0.74,
+      "team": "Chicago Cubs",
+      "opponent": "St. Louis Cardinals",
+      "opposing_pitcher": "Matthew Liberatore",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.771375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.481,
+          "3.0": 0.278875
+        }
+      }
+    },
+    {
+      "player_id": 673548,
+      "player_name": "Seiya Suzuki",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.752,
+      "confidence": 0.74,
+      "team": "Chicago Cubs",
+      "opponent": "St. Louis Cardinals",
+      "opposing_pitcher": "Matthew Liberatore",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.7515,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.471375,
+          "3.0": 0.2795
+        }
+      }
+    },
+    {
+      "player_id": 608348,
+      "player_name": "Carson Kelly",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.881,
+      "confidence": 0.74,
+      "team": "Chicago Cubs",
+      "opponent": "St. Louis Cardinals",
+      "opposing_pitcher": "Matthew Liberatore",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.880625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4985,
+          "3.0": 0.2975
+        }
+      }
+    },
+    {
+      "player_id": 683737,
+      "player_name": "Michael Busch",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.667,
+      "confidence": 0.74,
+      "team": "Chicago Cubs",
+      "opponent": "St. Louis Cardinals",
+      "opposing_pitcher": "Matthew Liberatore",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.66675,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.454125,
+          "3.0": 0.256625
+        }
+      }
+    },
+    {
+      "player_id": 663538,
+      "player_name": "Nico Hoerner",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.014,
+      "confidence": 0.7,
+      "team": "Chicago Cubs",
+      "opponent": "St. Louis Cardinals",
+      "opposing_pitcher": "Matthew Liberatore",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.01425,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.492375,
+          "3.0": 0.34675
+        }
+      }
+    },
+    {
+      "player_id": 664023,
+      "player_name": "Ian Happ",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.597,
+      "confidence": 0.74,
+      "team": "Chicago Cubs",
+      "opponent": "St. Louis Cardinals",
+      "opposing_pitcher": "Matthew Liberatore",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.5975,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4235,
+          "3.0": 0.2405
+        }
+      }
+    },
+    {
+      "player_id": 621020,
+      "player_name": "Dansby Swanson",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.498,
+      "confidence": 0.74,
+      "team": "Chicago Cubs",
+      "opponent": "St. Louis Cardinals",
+      "opposing_pitcher": "Matthew Liberatore",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.497625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.41275,
+          "3.0": 0.21975
+        }
+      }
+    },
+    {
+      "player_id": 699393,
+      "player_name": "Pedro Ram\u00edrez",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.849,
+      "confidence": 0.687,
+      "team": "Chicago Cubs",
+      "opponent": "St. Louis Cardinals",
+      "opposing_pitcher": "Matthew Liberatore",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.848875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4945,
+          "3.0": 0.299125
+        }
+      }
+    },
+    {
+      "player_id": 607208,
+      "player_name": "Trea Turner",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.793,
+      "confidence": 0.74,
+      "team": "Philadelphia Phillies",
+      "opponent": "Kansas City Royals",
+      "opposing_pitcher": "Luinder Avila",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.793125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4815,
+          "3.0": 0.2775
+        }
+      }
+    },
+    {
+      "player_id": 656941,
+      "player_name": "Kyle Schwarber",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.892,
+      "confidence": 0.7,
+      "team": "Philadelphia Phillies",
+      "opponent": "Kansas City Royals",
+      "opposing_pitcher": "Luinder Avila",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.892125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.47625,
+          "3.0": 0.3055
+        }
+      }
+    },
+    {
+      "player_id": 547180,
+      "player_name": "Bryce Harper",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.785,
+      "confidence": 0.74,
+      "team": "Philadelphia Phillies",
+      "opponent": "Kansas City Royals",
+      "opposing_pitcher": "Luinder Avila",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.785125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.46025,
+          "3.0": 0.286
+        }
+      }
+    },
+    {
+      "player_id": 669016,
+      "player_name": "Brandon Marsh",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.657,
+      "confidence": 0.74,
+      "team": "Philadelphia Phillies",
+      "opponent": "Kansas City Royals",
+      "opposing_pitcher": "Luinder Avila",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.65725,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.446,
+          "3.0": 0.256125
+        }
+      }
+    },
+    {
+      "player_id": 664761,
+      "player_name": "Alec Bohm",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.592,
+      "confidence": 0.74,
+      "team": "Philadelphia Phillies",
+      "opponent": "Kansas City Royals",
+      "opposing_pitcher": "Luinder Avila",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.592375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4345,
+          "3.0": 0.23625
+        }
+      }
+    },
+    {
+      "player_id": 681082,
+      "player_name": "Bryson Stott",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.563,
+      "confidence": 0.74,
+      "team": "Philadelphia Phillies",
+      "opponent": "Kansas City Royals",
+      "opposing_pitcher": "Luinder Avila",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.563375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.423125,
+          "3.0": 0.236
+        }
+      }
+    },
+    {
+      "player_id": 687282,
+      "player_name": "Gabriel Rincones Jr.",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.437,
+      "confidence": 0.657,
+      "team": "Philadelphia Phillies",
+      "opponent": "Kansas City Royals",
+      "opposing_pitcher": "Luinder Avila",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.437125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.396375,
+          "3.0": 0.209625
+        }
+      }
+    },
+    {
+      "player_id": 702222,
+      "player_name": "Justin Crawford",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.809,
+      "confidence": 0.74,
+      "team": "Philadelphia Phillies",
+      "opponent": "Kansas City Royals",
+      "opposing_pitcher": "Luinder Avila",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.809375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.494625,
+          "3.0": 0.28325
+        }
+      }
+    },
+    {
+      "player_id": 596117,
+      "player_name": "Garrett Stubbs",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.552,
+      "confidence": 0.42,
+      "team": "Philadelphia Phillies",
+      "opponent": "Kansas City Royals",
+      "opposing_pitcher": "Luinder Avila",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.551875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.42025,
+          "3.0": 0.236875
+        }
+      }
+    },
+    {
+      "player_id": 695600,
+      "player_name": "Carter Jensen",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.828,
+      "confidence": 0.74,
+      "team": "Kansas City Royals",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.82775,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.489125,
+          "3.0": 0.294125
+        }
+      }
+    },
+    {
+      "player_id": 677951,
+      "player_name": "Bobby Witt Jr.",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.748,
+      "confidence": 0.74,
+      "team": "Kansas City Royals",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.748125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.46325,
+          "3.0": 0.274
+        }
+      }
+    },
+    {
+      "player_id": 695506,
+      "player_name": "Jac Caglianone",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.829,
+      "confidence": 0.74,
+      "team": "Kansas City Royals",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.82925,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.47125,
+          "3.0": 0.292875
+        }
+      }
+    },
+    {
+      "player_id": 657041,
+      "player_name": "Lane Thomas",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.068,
+      "confidence": 0.7,
+      "team": "Kansas City Royals",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.068,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.549875,
+          "3.0": 0.34575
+        }
+      }
+    },
+    {
+      "player_id": 679845,
+      "player_name": "Nick Loftin",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.832,
+      "confidence": 0.74,
+      "team": "Kansas City Royals",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.831875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.49825,
+          "3.0": 0.295125
+        }
+      }
+    },
+    {
+      "player_id": 521692,
+      "player_name": "Salvador Perez",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.526,
+      "confidence": 0.74,
+      "team": "Kansas City Royals",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.52625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.42225,
+          "3.0": 0.227625
+        }
+      }
+    },
+    {
+      "player_id": 668942,
+      "player_name": "Josh Rojas",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.67,
+      "confidence": 0.543,
+      "team": "Kansas City Royals",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.66975,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.45825,
+          "3.0": 0.26075
+        }
+      }
+    },
+    {
+      "player_id": 670224,
+      "player_name": "Kameron Misner",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.393,
+      "confidence": 0.62,
+      "team": "Kansas City Royals",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.39275,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.376625,
+          "3.0": 0.202125
+        }
+      }
+    },
+    {
+      "player_id": 686555,
+      "player_name": "Isaac Collins",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.507,
+      "confidence": 0.74,
+      "team": "Kansas City Royals",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.507,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.415375,
+          "3.0": 0.2245
+        }
+      }
+    },
+    {
+      "player_id": 650490,
+      "player_name": "Yandy D\u00edaz",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.866,
+      "confidence": 0.74,
+      "team": "Tampa Bay Rays",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Peter Lambert",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.865875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.49175,
+          "3.0": 0.296375
+        }
+      }
+    },
+    {
+      "player_id": 666018,
+      "player_name": "Jonathan Aranda",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.844,
+      "confidence": 0.74,
+      "team": "Tampa Bay Rays",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Peter Lambert",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.844,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.48375,
+          "3.0": 0.29075
+        }
+      }
+    },
+    {
+      "player_id": 691406,
+      "player_name": "Junior Caminero",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.822,
+      "confidence": 0.74,
+      "team": "Tampa Bay Rays",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Peter Lambert",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.82225,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.47,
+          "3.0": 0.29325
+        }
+      }
+    },
+    {
+      "player_id": 668723,
+      "player_name": "Ryan Vilade",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.188,
+      "confidence": 0.7,
+      "team": "Tampa Bay Rays",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Peter Lambert",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.188125,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.555625,
+          "3.0": 0.364625
+        }
+      }
+    },
+    {
+      "player_id": 802415,
+      "player_name": "Chandler Simpson",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.654,
+      "confidence": 0.74,
+      "team": "Tampa Bay Rays",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Peter Lambert",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.653625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.45875,
+          "3.0": 0.25225
+        }
+      }
+    },
+    {
+      "player_id": 810938,
+      "player_name": "Ben Williamson",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.844,
+      "confidence": 0.74,
+      "team": "Tampa Bay Rays",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Peter Lambert",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.84425,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.495,
+          "3.0": 0.299625
+        }
+      }
+    },
+    {
+      "player_id": 683748,
+      "player_name": "Victor Mesa Jr.",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.784,
+      "confidence": 0.74,
+      "team": "Tampa Bay Rays",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Peter Lambert",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.784125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.471125,
+          "3.0": 0.288875
+        }
+      }
+    },
+    {
+      "player_id": 676356,
+      "player_name": "Jonny DeLuca",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.887,
+      "confidence": 0.587,
+      "team": "Tampa Bay Rays",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Peter Lambert",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.886875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.487125,
+          "3.0": 0.30525
+        }
+      }
+    },
+    {
+      "player_id": 663743,
+      "player_name": "Nick Fortes",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.605,
+      "confidence": 0.74,
+      "team": "Tampa Bay Rays",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Peter Lambert",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.605375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.433625,
+          "3.0": 0.248625
+        }
+      }
+    },
+    {
+      "player_id": 514888,
+      "player_name": "Jose Altuve",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.869,
+      "confidence": 0.74,
+      "team": "Houston Astros",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Mason Englert",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.8695,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.506125,
+          "3.0": 0.302375
+        }
+      }
+    },
+    {
+      "player_id": 670541,
+      "player_name": "Yordan Alvarez",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.99,
+      "confidence": 0.7,
+      "team": "Houston Astros",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Mason Englert",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.990125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.4935,
+          "3.0": 0.33125
+        }
+      }
+    },
+    {
+      "player_id": 670623,
+      "player_name": "Isaac Paredes",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.794,
+      "confidence": 0.74,
+      "team": "Houston Astros",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Mason Englert",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.794375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.486375,
+          "3.0": 0.284
+        }
+      }
+    },
+    {
+      "player_id": 572233,
+      "player_name": "Christian Walker",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.724,
+      "confidence": 0.74,
+      "team": "Houston Astros",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Mason Englert",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.724,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.46375,
+          "3.0": 0.274375
+        }
+      }
+    },
+    {
+      "player_id": 694728,
+      "player_name": "Brice Matthews",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.878,
+      "confidence": 0.74,
+      "team": "Houston Astros",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Mason Englert",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.878125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.49225,
+          "3.0": 0.305375
+        }
+      }
+    },
+    {
+      "player_id": 701358,
+      "player_name": "Cam Smith",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.702,
+      "confidence": 0.74,
+      "team": "Houston Astros",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Mason Englert",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.702,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.45775,
+          "3.0": 0.270875
+        }
+      }
+    },
+    {
+      "player_id": 701305,
+      "player_name": "Zach Dezenzo",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.187,
+      "confidence": 0.58,
+      "team": "Houston Astros",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Mason Englert",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.187375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.31775,
+          "3.0": 0.163375
+        }
+      }
+    },
+    {
+      "player_id": 669397,
+      "player_name": "Nick Allen",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.527,
+      "confidence": 0.653,
+      "team": "Houston Astros",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Mason Englert",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.527,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.423625,
+          "3.0": 0.229875
+        }
+      }
+    },
+    {
+      "player_id": 543877,
+      "player_name": "Christian V\u00e1zquez",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.531,
+      "confidence": 0.74,
+      "team": "Houston Astros",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Mason Englert",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.53125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.429,
+          "3.0": 0.230375
+        }
+      }
+    },
+    {
+      "player_id": 805808,
+      "player_name": "Kevin McGonigle",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.882,
+      "confidence": 0.74,
+      "team": "Detroit Tigers",
+      "opponent": "Texas Rangers",
+      "opposing_pitcher": "Kumar Rocker",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.881625,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.5015,
+          "3.0": 0.30775
+        }
+      }
+    },
+    {
+      "player_id": 693307,
+      "player_name": "Dillon Dingler",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.902,
+      "confidence": 0.7,
+      "team": "Detroit Tigers",
+      "opponent": "Texas Rangers",
+      "opposing_pitcher": "Kumar Rocker",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.902,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.48725,
+          "3.0": 0.309875
+        }
+      }
+    },
+    {
+      "player_id": 663837,
+      "player_name": "Matt Vierling",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.97,
+      "confidence": 0.7,
+      "team": "Detroit Tigers",
+      "opponent": "Texas Rangers",
+      "opposing_pitcher": "Kumar Rocker",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.97,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.516875,
+          "3.0": 0.327
+        }
+      }
+    },
+    {
+      "player_id": 682985,
+      "player_name": "Riley Greene",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.8,
+      "confidence": 0.74,
+      "team": "Detroit Tigers",
+      "opponent": "Texas Rangers",
+      "opposing_pitcher": "Kumar Rocker",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.799625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.469375,
+          "3.0": 0.28725
+        }
+      }
+    },
+    {
+      "player_id": 679529,
+      "player_name": "Spencer Torkelson",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.756,
+      "confidence": 0.74,
+      "team": "Detroit Tigers",
+      "opponent": "Texas Rangers",
+      "opposing_pitcher": "Kumar Rocker",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.7555,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.462,
+          "3.0": 0.280375
+        }
+      }
+    },
+    {
+      "player_id": 701678,
+      "player_name": "Hao-Yu Lee",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.718,
+      "confidence": 0.74,
+      "team": "Detroit Tigers",
+      "opponent": "Texas Rangers",
+      "opposing_pitcher": "Kumar Rocker",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.7185,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.458875,
+          "3.0": 0.269125
+        }
+      }
+    },
+    {
+      "player_id": 656716,
+      "player_name": "Zach McKinstry",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.666,
+      "confidence": 0.74,
+      "team": "Detroit Tigers",
+      "opponent": "Texas Rangers",
+      "opposing_pitcher": "Kumar Rocker",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.666375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.458625,
+          "3.0": 0.26
+        }
+      }
+    },
+    {
+      "player_id": 668670,
+      "player_name": "Jake Rogers",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.321,
+      "confidence": 0.65,
+      "team": "Detroit Tigers",
+      "opponent": "Texas Rangers",
+      "opposing_pitcher": "Kumar Rocker",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.321,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.3615,
+          "3.0": 0.190125
+        }
+      }
+    },
+    {
+      "player_id": 681546,
+      "player_name": "James Outman",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.132,
+      "confidence": 0.747,
+      "team": "Detroit Tigers",
+      "opponent": "Texas Rangers",
+      "opposing_pitcher": "Kumar Rocker",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.131625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.3005,
+          "3.0": 0.15375
+        }
+      }
+    },
+    {
+      "player_id": 592626,
+      "player_name": "Joc Pederson",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.931,
+      "confidence": 0.7,
+      "team": "Texas Rangers",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Casey Mize",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.931375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.49525,
+          "3.0": 0.313875
+        }
+      }
+    },
+    {
+      "player_id": 669394,
+      "player_name": "Jake Burger",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.8,
+      "confidence": 0.74,
+      "team": "Texas Rangers",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Casey Mize",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.8,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.476875,
+          "3.0": 0.291
+        }
+      }
+    },
+    {
+      "player_id": 607043,
+      "player_name": "Brandon Nimmo",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.865,
+      "confidence": 0.74,
+      "team": "Texas Rangers",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Casey Mize",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.86525,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.483,
+          "3.0": 0.30525
+        }
+      }
+    },
+    {
+      "player_id": 677649,
+      "player_name": "Ezequiel Duran",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.736,
+      "confidence": 0.74,
+      "team": "Texas Rangers",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Casey Mize",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.73625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.461875,
+          "3.0": 0.2705
+        }
+      }
+    },
+    {
+      "player_id": 694497,
+      "player_name": "Evan Carter",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.601,
+      "confidence": 0.72,
+      "team": "Texas Rangers",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Casey Mize",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.6015,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.41975,
+          "3.0": 0.24975
+        }
+      }
+    },
+    {
+      "player_id": 553869,
+      "player_name": "Elias D\u00edaz",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.99,
+      "confidence": 0.627,
+      "team": "Texas Rangers",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Casey Mize",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.9905,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.520625,
+          "3.0": 0.32825
+        }
+      }
+    },
+    {
+      "player_id": 669701,
+      "player_name": "Josh Smith",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.739,
+      "confidence": 0.547,
+      "team": "Texas Rangers",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Casey Mize",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.739125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4635,
+          "3.0": 0.274375
+        }
+      }
+    },
+    {
+      "player_id": 696030,
+      "player_name": "Alejandro Osuna",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.737,
+      "confidence": 0.74,
+      "team": "Texas Rangers",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Casey Mize",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.737,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4755,
+          "3.0": 0.271
+        }
+      }
+    },
+    {
+      "player_id": 670032,
+      "player_name": "Nicky Lopez",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.761,
+      "confidence": 0.74,
+      "team": "Texas Rangers",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Casey Mize",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.761,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.47675,
+          "3.0": 0.28075
+        }
+      }
+    },
+    {
+      "player_id": 650333,
+      "player_name": "Luis Arraez",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.147,
+      "confidence": 0.7,
+      "team": "San Francisco Giants",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.1465,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.530875,
+          "3.0": 0.3585
+        }
+      }
+    },
+    {
+      "player_id": 669477,
+      "player_name": "Casey Schmitt",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.88,
+      "confidence": 0.74,
+      "team": "San Francisco Giants",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.879625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.491125,
+          "3.0": 0.304375
+        }
+      }
+    },
+    {
+      "player_id": 671218,
+      "player_name": "Heliot Ramos",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.686,
+      "confidence": 0.53,
+      "team": "San Francisco Giants",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.686,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "2.0": 0.618125,
+          "3.0": 0.463
+        }
+      }
+    },
+    {
+      "player_id": 646240,
+      "player_name": "Rafael Devers",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.743,
+      "confidence": 0.74,
+      "team": "San Francisco Giants",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.743,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.46225,
+          "3.0": 0.276125
+        }
+      }
+    },
+    {
+      "player_id": 813841,
+      "player_name": "Jonah Cox",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.579,
+      "confidence": 0.587,
+      "team": "San Francisco Giants",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.579125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.395375,
+          "3.0": 0.2525
+        }
+      }
+    },
+    {
+      "player_id": 642715,
+      "player_name": "Willy Adames",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.605,
+      "confidence": 0.74,
+      "team": "San Francisco Giants",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.605375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.434625,
+          "3.0": 0.240125
+        }
+      }
+    },
+    {
+      "player_id": 805811,
+      "player_name": "Bryce Eldridge",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.236,
+      "confidence": 0.7,
+      "team": "San Francisco Giants",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.2355,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.539125,
+          "3.0": 0.382375
+        }
+      }
+    },
+    {
+      "player_id": 687551,
+      "player_name": "Drew Gilbert",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.871,
+      "confidence": 0.74,
+      "team": "San Francisco Giants",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.870875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.49525,
+          "3.0": 0.303875
+        }
+      }
+    },
+    {
+      "player_id": 701852,
+      "player_name": "Drew Cavanaugh",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.045,
+      "confidence": 0.51,
+      "team": "San Francisco Giants",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.044875,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.52875,
+          "3.0": 0.342
+        }
+      }
+    },
+    {
+      "player_id": 664983,
+      "player_name": "Jake McCarthy",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.326,
+      "confidence": 0.7,
+      "team": "Colorado Rockies",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Tyler Mahle",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.32625,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.5765,
+          "3.0": 0.396125
+        }
+      }
+    },
+    {
+      "player_id": 694249,
+      "player_name": "Cole Carrigg",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.298,
+      "confidence": 0.7,
+      "team": "Colorado Rockies",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Tyler Mahle",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.29825,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.5645,
+          "3.0": 0.3895
+        }
+      }
+    },
+    {
+      "player_id": 696100,
+      "player_name": "Hunter Goodman",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.896,
+      "confidence": 0.7,
+      "team": "Colorado Rockies",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Tyler Mahle",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.896,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.488,
+          "3.0": 0.308875
+        }
+      }
+    },
+    {
+      "player_id": 681198,
+      "player_name": "TJ Rumfield",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.758,
+      "confidence": 0.74,
+      "team": "Colorado Rockies",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Tyler Mahle",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.75775,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.472125,
+          "3.0": 0.282
+        }
+      }
+    },
+    {
+      "player_id": 671289,
+      "player_name": "Tyler Freeman",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.829,
+      "confidence": 0.74,
+      "team": "Colorado Rockies",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Tyler Mahle",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.8295,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4865,
+          "3.0": 0.2955
+        }
+      }
+    },
+    {
+      "player_id": 691720,
+      "player_name": "Kyle Karros",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.599,
+      "confidence": 0.74,
+      "team": "Colorado Rockies",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Tyler Mahle",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.59925,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.429375,
+          "3.0": 0.244375
+        }
+      }
+    },
+    {
+      "player_id": 666397,
+      "player_name": "Edouard Julien",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.136,
+      "confidence": 0.7,
+      "team": "Colorado Rockies",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Tyler Mahle",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.13625,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.552875,
+          "3.0": 0.364
+        }
+      }
+    },
+    {
+      "player_id": 664954,
+      "player_name": "Brett Sullivan",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.886,
+      "confidence": 0.6,
+      "team": "Colorado Rockies",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Tyler Mahle",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.88625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.491125,
+          "3.0": 0.310125
+        }
+      }
+    },
+    {
+      "player_id": 650489,
+      "player_name": "Willi Castro",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.599,
+      "confidence": 0.74,
+      "team": "Colorado Rockies",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Tyler Mahle",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.5985,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.433,
+          "3.0": 0.24475
+        }
+      }
+    },
+    {
+      "player_id": 668930,
+      "player_name": "Brice Turang",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.976,
+      "confidence": 0.7,
+      "team": "Milwaukee Brewers",
+      "opponent": "Arizona Diamondbacks",
+      "opposing_pitcher": "Eduardo Rodriguez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.9755,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.50925,
+          "3.0": 0.3235
+        }
+      }
+    },
+    {
+      "player_id": 694192,
+      "player_name": "Jackson Chourio",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.436,
+      "confidence": 0.7,
+      "team": "Milwaukee Brewers",
+      "opponent": "Arizona Diamondbacks",
+      "opposing_pitcher": "Eduardo Rodriguez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.43575,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.594375,
+          "3.0": 0.416
+        }
+      }
+    },
+    {
+      "player_id": 592885,
+      "player_name": "Christian Yelich",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.909,
+      "confidence": 0.736,
+      "team": "Milwaukee Brewers",
+      "opponent": "Arizona Diamondbacks",
+      "opposing_pitcher": "Eduardo Rodriguez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.909,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.100000000000364,
+        "p_ge_threshold": {
+          "2.0": 0.495625,
+          "3.0": 0.31025
+        }
+      }
+    },
+    {
+      "player_id": 686217,
+      "player_name": "Sal Frelick",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.809,
+      "confidence": 0.74,
+      "team": "Milwaukee Brewers",
+      "opponent": "Arizona Diamondbacks",
+      "opposing_pitcher": "Eduardo Rodriguez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.80925,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.49725,
+          "3.0": 0.288
+        }
+      }
+    },
+    {
+      "player_id": 641343,
+      "player_name": "Jake Bauers",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.849,
+      "confidence": 0.74,
+      "team": "Milwaukee Brewers",
+      "opponent": "Arizona Diamondbacks",
+      "opposing_pitcher": "Eduardo Rodriguez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.849,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.481875,
+          "3.0": 0.301125
+        }
+      }
+    },
+    {
+      "player_id": 669003,
+      "player_name": "Garrett Mitchell",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.338,
+      "confidence": 0.7,
+      "team": "Milwaukee Brewers",
+      "opponent": "Arizona Diamondbacks",
+      "opposing_pitcher": "Eduardo Rodriguez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.3385,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.562125,
+          "3.0": 0.399
+        }
+      }
+    },
+    {
+      "player_id": 596142,
+      "player_name": "Gary S\u00e1nchez",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.154,
+      "confidence": 0.63,
+      "team": "Milwaukee Brewers",
+      "opponent": "Arizona Diamondbacks",
+      "opposing_pitcher": "Eduardo Rodriguez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.15425,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.535125,
+          "3.0": 0.3665
+        }
+      }
+    },
+    {
+      "player_id": 666152,
+      "player_name": "David Hamilton",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.75,
+      "confidence": 0.74,
+      "team": "Milwaukee Brewers",
+      "opponent": "Arizona Diamondbacks",
+      "opposing_pitcher": "Eduardo Rodriguez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.750125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.471875,
+          "3.0": 0.2795
+        }
+      }
+    },
+    {
+      "player_id": 687401,
+      "player_name": "Joey Ortiz",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.875,
+      "confidence": 0.74,
+      "team": "Milwaukee Brewers",
+      "opponent": "Arizona Diamondbacks",
+      "opposing_pitcher": "Eduardo Rodriguez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.875375,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.500625,
+          "3.0": 0.301375
+        }
+      }
+    },
+    {
+      "player_id": 606466,
+      "player_name": "Ketel Marte",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.818,
+      "confidence": 0.74,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Milwaukee Brewers",
+      "opposing_pitcher": "Brandon Sproat",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.81775,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4795,
+          "3.0": 0.286625
+        }
+      }
+    },
+    {
+      "player_id": 672695,
+      "player_name": "Geraldo Perdomo",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.703,
+      "confidence": 0.74,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Milwaukee Brewers",
+      "opposing_pitcher": "Brandon Sproat",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.702625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.466375,
+          "3.0": 0.262125
+        }
+      }
+    },
+    {
+      "player_id": 682998,
+      "player_name": "Corbin Carroll",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.731,
+      "confidence": 0.74,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Milwaukee Brewers",
+      "opposing_pitcher": "Brandon Sproat",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.731,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.45675,
+          "3.0": 0.275875
+        }
+      }
+    },
+    {
+      "player_id": 672515,
+      "player_name": "Gabriel Moreno",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.227,
+      "confidence": 0.7,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Milwaukee Brewers",
+      "opposing_pitcher": "Brandon Sproat",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.22725,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.55925,
+          "3.0": 0.376
+        }
+      }
+    },
+    {
+      "player_id": 596146,
+      "player_name": "Max Kepler",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.008,
+      "confidence": 0.51,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Milwaukee Brewers",
+      "opposing_pitcher": "Brandon Sproat",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.008,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.505125,
+          "3.0": 0.33175
+        }
+      }
+    },
+    {
+      "player_id": 545121,
+      "player_name": "Ildemaro Vargas",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.522,
+      "confidence": 0.74,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Milwaukee Brewers",
+      "opposing_pitcher": "Brandon Sproat",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.521625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.414875,
+          "3.0": 0.225625
+        }
+      }
+    },
+    {
+      "player_id": 694374,
+      "player_name": "Tim Tawa",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.042,
+      "confidence": 0.577,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Milwaukee Brewers",
+      "opposing_pitcher": "Brandon Sproat",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.042125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.27875,
+          "3.0": 0.1255
+        }
+      }
+    },
+    {
+      "player_id": 656976,
+      "player_name": "Pavin Smith",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.589,
+      "confidence": 0.72,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Milwaukee Brewers",
+      "opposing_pitcher": "Brandon Sproat",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.588625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.434875,
+          "3.0": 0.2475
+        }
+      }
+    },
+    {
+      "player_id": 694371,
+      "player_name": "Tommy Troy",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.815,
+      "confidence": 0.74,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Milwaukee Brewers",
+      "opposing_pitcher": "Brandon Sproat",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.81525,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.48525,
+          "3.0": 0.287875
+        }
+      }
+    },
+    {
+      "player_id": 672640,
+      "player_name": "Otto Lopez",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.888,
+      "confidence": 0.74,
+      "team": "Miami Marlins",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Gage Jump",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.887875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.497375,
+          "3.0": 0.30625
+        }
+      }
+    },
+    {
+      "player_id": 681715,
+      "player_name": "Heriberto Hern\u00e1ndez",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.31,
+      "confidence": 0.7,
+      "team": "Miami Marlins",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Gage Jump",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.309625,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.56175,
+          "3.0": 0.392375
+        }
+      }
+    },
+    {
+      "player_id": 689414,
+      "player_name": "Liam Hicks",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.792,
+      "confidence": 0.74,
+      "team": "Miami Marlins",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Gage Jump",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.791875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.478875,
+          "3.0": 0.283875
+        }
+      }
+    },
+    {
+      "player_id": 669364,
+      "player_name": "Xavier Edwards",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.718,
+      "confidence": 0.74,
+      "team": "Miami Marlins",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Gage Jump",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.717625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.46475,
+          "3.0": 0.26575
+        }
+      }
+    },
+    {
+      "player_id": 691594,
+      "player_name": "Javier Sanoja",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.936,
+      "confidence": 0.74,
+      "team": "Miami Marlins",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Gage Jump",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.936,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.514125,
+          "3.0": 0.312625
+        }
+      }
+    },
+    {
+      "player_id": 665923,
+      "player_name": "Esteury Ruiz",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.646,
+      "confidence": 0.713,
+      "team": "Miami Marlins",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Gage Jump",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.645875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.433125,
+          "3.0": 0.258625
+        }
+      }
+    },
+    {
+      "player_id": 677870,
+      "player_name": "Leo Jim\u00e9nez",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.642,
+      "confidence": 0.683,
+      "team": "Miami Marlins",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Gage Jump",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.64225,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.44625,
+          "3.0": 0.2565
+        }
+      }
+    },
+    {
+      "player_id": 665052,
+      "player_name": "Griffin Conine",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.28,
+      "confidence": 0.643,
+      "team": "Miami Marlins",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Gage Jump",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.279625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.338125,
+          "3.0": 0.188875
+        }
+      }
+    },
+    {
+      "player_id": 691788,
+      "player_name": "Joe Mack",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.108,
+      "confidence": 0.7,
+      "team": "Miami Marlins",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Gage Jump",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.108,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.528875,
+          "3.0": 0.3545
+        }
+      }
+    },
+    {
+      "player_id": 703607,
+      "player_name": "Henry Bolte",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.936,
+      "confidence": 0.7,
+      "team": "Athletics",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Eury P\u00e9rez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.936,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.495625,
+          "3.0": 0.31925
+        }
+      }
+    },
+    {
+      "player_id": 701762,
+      "player_name": "Nick Kurtz",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.807,
+      "confidence": 0.74,
+      "team": "Athletics",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Eury P\u00e9rez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.807375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.461375,
+          "3.0": 0.294875
+        }
+      }
+    },
+    {
+      "player_id": 680869,
+      "player_name": "Zack Gelof",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.886,
+      "confidence": 0.74,
+      "team": "Athletics",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Eury P\u00e9rez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.886375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.495875,
+          "3.0": 0.304375
+        }
+      }
+    },
+    {
+      "player_id": 671732,
+      "player_name": "Lawrence Butler",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.904,
+      "confidence": 0.7,
+      "team": "Athletics",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Eury P\u00e9rez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.903625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.498375,
+          "3.0": 0.3085
+        }
+      }
+    },
+    {
+      "player_id": 811965,
+      "player_name": "Joshua Kuroda-Grauer",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.037,
+      "confidence": 0.513,
+      "team": "Athletics",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Eury P\u00e9rez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.037125,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.529875,
+          "3.0": 0.34
+        }
+      }
+    },
+    {
+      "player_id": 666126,
+      "player_name": "Carlos Cortes",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.722,
+      "confidence": 0.74,
+      "team": "Athletics",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Eury P\u00e9rez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.721875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.46125,
+          "3.0": 0.274375
+        }
+      }
+    },
+    {
+      "player_id": 691777,
+      "player_name": "Max Muncy",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.546,
+      "confidence": 0.7,
+      "team": "Athletics",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Eury P\u00e9rez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.545875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.41275,
+          "3.0": 0.236
+        }
+      }
+    },
+    {
+      "player_id": 687515,
+      "player_name": "Colby Thomas",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.341,
+      "confidence": 0.723,
+      "team": "Athletics",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Eury P\u00e9rez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.340625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.359625,
+          "3.0": 0.198
+        }
+      }
+    },
+    {
+      "player_id": 661531,
+      "player_name": "Brian Serven",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.502,
+      "confidence": 0.42,
+      "team": "Athletics",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Eury P\u00e9rez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.50175,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.408875,
+          "3.0": 0.22525
+        }
+      }
+    },
+    {
+      "player_id": 664770,
+      "player_name": "Nathan Lukes",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.224,
+      "confidence": 0.7,
+      "team": "Toronto Blue Jays",
+      "opponent": "Seattle Mariners",
+      "opposing_pitcher": "Emerson Hancock",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.223875,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.560375,
+          "3.0": 0.374
+        }
+      }
+    },
+    {
+      "player_id": 665489,
+      "player_name": "Vladimir Guerrero Jr.",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.777,
+      "confidence": 0.74,
+      "team": "Toronto Blue Jays",
+      "opponent": "Seattle Mariners",
+      "opposing_pitcher": "Emerson Hancock",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.77675,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.477375,
+          "3.0": 0.282875
+        }
+      }
+    },
+    {
+      "player_id": 672960,
+      "player_name": "Kazuma Okamoto",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.894,
+      "confidence": 0.7,
+      "team": "Toronto Blue Jays",
+      "opponent": "Seattle Mariners",
+      "opposing_pitcher": "Emerson Hancock",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.894375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.48575,
+          "3.0": 0.31
+        }
+      }
+    },
+    {
+      "player_id": 672386,
+      "player_name": "Alejandro Kirk",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.807,
+      "confidence": 0.673,
+      "team": "Toronto Blue Jays",
+      "opponent": "Seattle Mariners",
+      "opposing_pitcher": "Emerson Hancock",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.80675,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.487375,
+          "3.0": 0.289125
+        }
+      }
+    },
+    {
+      "player_id": 662139,
+      "player_name": "Daulton Varsho",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.657,
+      "confidence": 0.74,
+      "team": "Toronto Blue Jays",
+      "opponent": "Seattle Mariners",
+      "opposing_pitcher": "Emerson Hancock",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.6575,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.450875,
+          "3.0": 0.254875
+        }
+      }
+    },
+    {
+      "player_id": 676391,
+      "player_name": "Ernie Clement",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.573,
+      "confidence": 0.74,
+      "team": "Toronto Blue Jays",
+      "opponent": "Seattle Mariners",
+      "opposing_pitcher": "Emerson Hancock",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.57325,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.441875,
+          "3.0": 0.236375
+        }
+      }
+    },
+    {
+      "player_id": 678218,
+      "player_name": "Brandon Valenzuela",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.751,
+      "confidence": 0.74,
+      "team": "Toronto Blue Jays",
+      "opponent": "Seattle Mariners",
+      "opposing_pitcher": "Emerson Hancock",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.750875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.458125,
+          "3.0": 0.27675
+        }
+      }
+    },
+    {
+      "player_id": 649966,
+      "player_name": "Luis Ur\u00edas",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.8,
+      "confidence": 0.553,
+      "team": "Toronto Blue Jays",
+      "opponent": "Seattle Mariners",
+      "opposing_pitcher": "Emerson Hancock",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.799875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.47975,
+          "3.0": 0.291625
+        }
+      }
+    },
+    {
+      "player_id": 664702,
+      "player_name": "Myles Straw",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.717,
+      "confidence": 0.707,
+      "team": "Toronto Blue Jays",
+      "opponent": "Seattle Mariners",
+      "opposing_pitcher": "Emerson Hancock",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.717375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4775,
+          "3.0": 0.269
+        }
+      }
+    },
+    {
+      "player_id": 641487,
+      "player_name": "J.P. Crawford",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.799,
+      "confidence": 0.74,
+      "team": "Seattle Mariners",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Trey Yesavage",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.799,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.482125,
+          "3.0": 0.28625
+        }
+      }
+    },
+    {
+      "player_id": 668227,
+      "player_name": "Randy Arozarena",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.796,
+      "confidence": 0.74,
+      "team": "Seattle Mariners",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Trey Yesavage",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.796375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.472375,
+          "3.0": 0.286375
+        }
+      }
+    },
+    {
+      "player_id": 663728,
+      "player_name": "Cal Raleigh",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.334,
+      "confidence": 0.76,
+      "team": "Seattle Mariners",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Trey Yesavage",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.334125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.35625,
+          "3.0": 0.19375
+        }
+      }
+    },
+    {
+      "player_id": 647304,
+      "player_name": "Josh Naylor",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.676,
+      "confidence": 0.74,
+      "team": "Seattle Mariners",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Trey Yesavage",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.676,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.455875,
+          "3.0": 0.2605
+        }
+      }
+    },
+    {
+      "player_id": 670042,
+      "player_name": "Luke Raley",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.634,
+      "confidence": 0.74,
+      "team": "Seattle Mariners",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Trey Yesavage",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.634,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.42725,
+          "3.0": 0.257125
+        }
+      }
+    },
+    {
+      "player_id": 702284,
+      "player_name": "Cole Young",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.595,
+      "confidence": 0.74,
+      "team": "Seattle Mariners",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Trey Yesavage",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.595,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.435625,
+          "3.0": 0.24125
+        }
+      }
+    },
+    {
+      "player_id": 641598,
+      "player_name": "Mitch Garver",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.857,
+      "confidence": 0.643,
+      "team": "Seattle Mariners",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Trey Yesavage",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.8565,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.100000000000364,
+        "p_ge_threshold": {
+          "2.0": 0.477,
+          "3.0": 0.30575
+        }
+      }
+    },
+    {
+      "player_id": 806068,
+      "player_name": "Colt Emerson",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.327,
+      "confidence": 0.78,
+      "team": "Seattle Mariners",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Trey Yesavage",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.327125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.36025,
+          "3.0": 0.192875
+        }
+      }
+    },
+    {
+      "player_id": 645302,
+      "player_name": "Victor Robles",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.705,
+      "confidence": 0.727,
+      "team": "Seattle Mariners",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Trey Yesavage",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.705,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.461,
+          "3.0": 0.266375
+        }
+      }
+    },
+    {
+      "player_id": 665487,
+      "player_name": "Fernando Tatis Jr.",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.784,
+      "confidence": 0.74,
+      "team": "San Diego Padres",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Emmet Sheehan",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.784,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.46525,
+          "3.0": 0.285125
+        }
+      }
+    },
+    {
+      "player_id": 609280,
+      "player_name": "Miguel Andujar",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.065,
+      "confidence": 0.7,
+      "team": "San Diego Padres",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Emmet Sheehan",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.06475,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.545,
+          "3.0": 0.34125
+        }
+      }
+    },
+    {
+      "player_id": 592518,
+      "player_name": "Manny Machado",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.661,
+      "confidence": 0.74,
+      "team": "San Diego Padres",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Emmet Sheehan",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.661125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.44525,
+          "3.0": 0.256625
+        }
+      }
+    },
+    {
+      "player_id": 687749,
+      "player_name": "Jase Bowen",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.174,
+      "confidence": 0.65,
+      "team": "San Diego Padres",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Emmet Sheehan",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.173875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.312,
+          "3.0": 0.1585
+        }
+      }
+    },
+    {
+      "player_id": 664034,
+      "player_name": "Ty France",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.47,
+      "confidence": 0.74,
+      "team": "San Diego Padres",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Emmet Sheehan",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.47025,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.386375,
+          "3.0": 0.225
+        }
+      }
+    },
+    {
+      "player_id": 701538,
+      "player_name": "Jackson Merrill",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.539,
+      "confidence": 0.74,
+      "team": "San Diego Padres",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Emmet Sheehan",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.539125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4145,
+          "3.0": 0.233875
+        }
+      }
+    },
+    {
+      "player_id": 593428,
+      "player_name": "Xander Bogaerts",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.494,
+      "confidence": 0.74,
+      "team": "San Diego Padres",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Emmet Sheehan",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.494375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.40725,
+          "3.0": 0.22425
+        }
+      }
+    },
+    {
+      "player_id": 823550,
+      "player_name": "Sung-Mun Song",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.526,
+      "confidence": 0.663,
+      "team": "San Diego Padres",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Emmet Sheehan",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.5255,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.42025,
+          "3.0": 0.22725
+        }
+      }
+    },
+    {
+      "player_id": 669134,
+      "player_name": "Luis Campusano",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.516,
+      "confidence": 0.42,
+      "team": "San Diego Padres",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Emmet Sheehan",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.5155,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.41125,
+          "3.0": 0.23475
+        }
+      }
+    },
+    {
+      "player_id": 660271,
+      "player_name": "Shohei Ohtani",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.939,
+      "confidence": 0.7,
+      "team": "Los Angeles Dodgers",
+      "opponent": "San Diego Padres",
+      "opposing_pitcher": "JP Sears",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.939,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.49125,
+          "3.0": 0.312375
+        }
+      }
+    },
+    {
+      "player_id": 681624,
+      "player_name": "Andy Pages",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.761,
+      "confidence": 0.74,
+      "team": "Los Angeles Dodgers",
+      "opponent": "San Diego Padres",
+      "opposing_pitcher": "JP Sears",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.76125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.474375,
+          "3.0": 0.281125
+        }
+      }
+    },
+    {
+      "player_id": 518692,
+      "player_name": "Freddie Freeman",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.734,
+      "confidence": 0.74,
+      "team": "Los Angeles Dodgers",
+      "opponent": "San Diego Padres",
+      "opposing_pitcher": "JP Sears",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.733875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.46175,
+          "3.0": 0.2725
+        }
+      }
+    },
+    {
+      "player_id": 605141,
+      "player_name": "Mookie Betts",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.001,
+      "confidence": 0.7,
+      "team": "Los Angeles Dodgers",
+      "opponent": "San Diego Padres",
+      "opposing_pitcher": "JP Sears",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.00125,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.522125,
+          "3.0": 0.328375
+        }
+      }
+    },
+    {
+      "player_id": 606192,
+      "player_name": "Teoscar Hern\u00e1ndez",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.583,
+      "confidence": 0.633,
+      "team": "Los Angeles Dodgers",
+      "opponent": "San Diego Padres",
+      "opposing_pitcher": "JP Sears",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.582625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.417625,
+          "3.0": 0.2465
+        }
+      }
+    },
+    {
+      "player_id": 571970,
+      "player_name": "Max Muncy",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.625,
+      "confidence": 0.74,
+      "team": "Los Angeles Dodgers",
+      "opponent": "San Diego Padres",
+      "opposing_pitcher": "JP Sears",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.624875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.431,
+          "3.0": 0.253375
+        }
+      }
+    },
+    {
+      "player_id": 663656,
+      "player_name": "Kyle Tucker",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.524,
+      "confidence": 0.74,
+      "team": "Los Angeles Dodgers",
+      "opponent": "San Diego Padres",
+      "opposing_pitcher": "JP Sears",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.52375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.417875,
+          "3.0": 0.228625
+        }
+      }
+    },
+    {
+      "player_id": 690976,
+      "player_name": "Alex Freeland",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.444,
+      "confidence": 0.74,
+      "team": "Los Angeles Dodgers",
+      "opponent": "San Diego Padres",
+      "opposing_pitcher": "JP Sears",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.4435,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.392625,
+          "3.0": 0.210625
+        }
+      }
+    },
+    {
+      "player_id": 687221,
+      "player_name": "Dalton Rushing",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.881,
+      "confidence": 0.74,
+      "team": "Los Angeles Dodgers",
+      "opponent": "San Diego Padres",
+      "opposing_pitcher": "JP Sears",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.881125,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.502,
+          "3.0": 0.30275
+        }
+      }
+    },
+    {
+      "player_id": 678011,
+      "player_name": "Anthony Seigler",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.122,
+      "confidence": 0.63,
+      "team": "Boston Red Sox",
+      "opponent": "Los Angeles Angels",
+      "opposing_pitcher": "Ryan Johnson",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.121875,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.554625,
+          "3.0": 0.353875
+        }
+      }
+    },
+    {
+      "player_id": 678882,
+      "player_name": "Ceddanne Rafaela",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.763,
+      "confidence": 0.74,
+      "team": "Boston Red Sox",
+      "opponent": "Los Angeles Angels",
+      "opposing_pitcher": "Ryan Johnson",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.762875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.48325,
+          "3.0": 0.278125
+        }
+      }
+    },
+    {
+      "player_id": 677800,
+      "player_name": "Wilyer Abreu",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.788,
+      "confidence": 0.74,
+      "team": "Boston Red Sox",
+      "opponent": "Los Angeles Angels",
+      "opposing_pitcher": "Ryan Johnson",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.7875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4855,
+          "3.0": 0.284375
+        }
+      }
+    },
+    {
+      "player_id": 575929,
+      "player_name": "Willson Contreras",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.748,
+      "confidence": 0.74,
+      "team": "Boston Red Sox",
+      "opponent": "Los Angeles Angels",
+      "opposing_pitcher": "Ryan Johnson",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.74775,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.46725,
+          "3.0": 0.278
+        }
+      }
+    },
+    {
+      "player_id": 807799,
+      "player_name": "Masataka Yoshida",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.923,
+      "confidence": 0.74,
+      "team": "Boston Red Sox",
+      "opponent": "Los Angeles Angels",
+      "opposing_pitcher": "Ryan Johnson",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.923375,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.511125,
+          "3.0": 0.31125
+        }
+      }
+    },
+    {
+      "player_id": 702332,
+      "player_name": "Caleb Durbin",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.572,
+      "confidence": 0.74,
+      "team": "Boston Red Sox",
+      "opponent": "Los Angeles Angels",
+      "opposing_pitcher": "Ryan Johnson",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.572125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.431625,
+          "3.0": 0.23625
+        }
+      }
+    },
+    {
+      "player_id": 680776,
+      "player_name": "Jarren Duran",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.579,
+      "confidence": 0.74,
+      "team": "Boston Red Sox",
+      "opponent": "Los Angeles Angels",
+      "opposing_pitcher": "Ryan Johnson",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.578875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.436125,
+          "3.0": 0.238125
+        }
+      }
+    },
+    {
+      "player_id": 665966,
+      "player_name": "Carlos Narv\u00e1ez",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.125,
+      "confidence": 0.717,
+      "team": "Boston Red Sox",
+      "opponent": "Los Angeles Angels",
+      "opposing_pitcher": "Ryan Johnson",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.12525,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.308375,
+          "3.0": 0.148
+        }
+      }
+    },
+    {
+      "player_id": 691907,
+      "player_name": "Tsung-Che Cheng",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.853,
+      "confidence": 0.547,
+      "team": "Boston Red Sox",
+      "opponent": "Los Angeles Angels",
+      "opposing_pitcher": "Ryan Johnson",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.853375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.48825,
+          "3.0": 0.29825
+        }
+      }
+    },
+    {
+      "player_id": 687263,
+      "player_name": "Zach Neto",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.862,
+      "confidence": 0.74,
+      "team": "Los Angeles Angels",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Ranger Suarez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.861875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4845,
+          "3.0": 0.30025
+        }
+      }
+    },
+    {
+      "player_id": 694203,
+      "player_name": "Denzer Guzman",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.207,
+      "confidence": 0.7,
+      "team": "Los Angeles Angels",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Ranger Suarez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.207375,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.556125,
+          "3.0": 0.36925
+        }
+      }
+    },
+    {
+      "player_id": 687093,
+      "player_name": "Vaughn Grissom",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.033,
+      "confidence": 0.7,
+      "team": "Los Angeles Angels",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Ranger Suarez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.03325,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.52,
+          "3.0": 0.336125
+        }
+      }
+    },
+    {
+      "player_id": 624585,
+      "player_name": "Jorge Soler",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.756,
+      "confidence": 0.74,
+      "team": "Los Angeles Angels",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Ranger Suarez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.756375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.462,
+          "3.0": 0.277875
+        }
+      }
+    },
+    {
+      "player_id": 622268,
+      "player_name": "Donovan Walton",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.104,
+      "confidence": 0.7,
+      "team": "Los Angeles Angels",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Ranger Suarez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.10375,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.53225,
+          "3.0": 0.343625
+        }
+      }
+    },
+    {
+      "player_id": 666176,
+      "player_name": "Jo Adell",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.569,
+      "confidence": 0.74,
+      "team": "Los Angeles Angels",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Ranger Suarez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.5695,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.422,
+          "3.0": 0.24
+        }
+      }
+    },
+    {
+      "player_id": 685133,
+      "player_name": "Wade Meckler",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.931,
+      "confidence": 0.7,
+      "team": "Los Angeles Angels",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Ranger Suarez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.930625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.49625,
+          "3.0": 0.31875
+        }
+      }
+    },
+    {
+      "player_id": 681351,
+      "player_name": "Logan O'Hoppe",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 1.721,
+      "confidence": 0.74,
+      "team": "Los Angeles Angels",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Ranger Suarez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.72125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.45275,
+          "3.0": 0.271
+        }
+      }
+    },
+    {
+      "player_id": 666139,
+      "player_name": "Josh Lowe",
+      "category": "hrr",
+      "game_date": "2026-07-05",
+      "projected_value": 2.182,
+      "confidence": 0.557,
+      "team": "Los Angeles Angels",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Ranger Suarez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.182375,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.530875,
+          "3.0": 0.37525
+        }
+      }
+    }
+  ],
+  "pitcher_projections": [],
+  "value_plays": []
+}

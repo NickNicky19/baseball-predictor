@@ -127,11 +127,25 @@ class CorrectionManager:
         return True
 
     def load_state_if_exists(self) -> bool:
-        """Load state file only when it exists (non-fatal)."""
+        """Load state file only when it exists (non-fatal).
+
+        A missing OR unreadable/corrupt state file both mean the same thing to
+        the pipeline: proceed without corrections. A malformed file must never
+        crash a prediction run, so decode/JSON errors are swallowed with a
+        warning rather than propagated.
+        """
         resolved = self._resolve_path(self.settings.state_path)
-        if resolved.exists():
+        if not resolved.exists():
+            return False
+        try:
             return self.load_state(resolved)
-        return False
+        except (ValueError, OSError) as exc:  # JSONDecodeError is a ValueError
+            logger.warning(
+                "Correction state at %s is unreadable (%s); running without corrections",
+                resolved,
+                exc,
+            )
+            return False
 
     def save_state(self, path: Optional[str | Path] = None) -> Path:
         """Persist current correction state."""

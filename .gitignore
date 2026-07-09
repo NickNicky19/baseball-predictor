@@ -88,6 +88,11 @@ Thumbs.db
 !/data/learning/predictions/*
 !/data/predictions/
 !/data/predictions/*
+# A3 training set: track only the small manifests; shards, assembled
+# sets, and the regenerable HTTP cache stay OUT.
+!/data/training/
+/data/training/*
+!/data/training/manifest_*.json
 # Bulky caches / secrets that live under those trees stay OUT.
 /data/learning/bias_corrections.json
 # reports/ is written by the weekly validation workflow.
@@ -96,6 +101,17 @@ Thumbs.db
 cache/
 *.log
 config/local*.json
-predictions_*.csv
-predictions_*.txt
-predictions_*.json
+# Stray ad-hoc exports at the repo ROOT only (anchored). Unanchored
+# versions of these matched data/learning/predictions/predictions_*.json
+# and silently overrode the re-includes above — archives were never
+# committable, so CI could never grade them.
+/predictions_*.csv
+/predictions_*.txt
+/predictions_*.json
+
+# A3 training-set builder: HTTP cache is bulk/regenerable; training shards
+# and assembled sets are large. Keep the manifests (small provenance).
+/data/cache/
+/data/training/*/
+/data/training/training_*.csv.gz
+!/data/training/manifest_*.json
