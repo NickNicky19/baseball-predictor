@@ -24,7 +24,6 @@ from src.models.dataclasses import (
 )
 from src.utils.cache import TTLCache
 from src.utils.logging import get_logger
-from src.prediction.role_innings import RoleAwareInningsEstimator
 
 logger = get_logger(__name__)
 
@@ -115,9 +114,15 @@ class MLBStatsAPI:
         self._hitters_cache = TTLCache[list[HitterGameContext]](cache_ttl_seconds)
         self._pitchers_cache = TTLCache[list[PitcherGameContext]](cache_ttl_seconds)
         self._player_cache = TTLCache[dict[str, Any]](cache_ttl_seconds)
-        # B4: role-aware expected_innings. With no config (or role_innings
-        # absent / disabled) this estimator reproduces the pre-B4 heuristic
-        # exactly, so the live path is unchanged until config.json enables it.
+        # B4: role-aware expected_innings. Imported lazily (NOT at module top
+        # level) to break a circular import: mlb_api -> src.prediction package
+        # __init__ -> correction_manager -> src.learning package __init__ ->
+        # outcome_recorder -> mlb_api. By the time an MLBStatsAPI is
+        # constructed, all modules are fully loaded, so the cycle never forms.
+        # With no config (or role_innings absent / disabled) this estimator
+        # reproduces the pre-B4 heuristic exactly, so the live path is unchanged
+        # until config.json enables it.
+        from src.prediction.role_innings import RoleAwareInningsEstimator
         self._innings_estimator = RoleAwareInningsEstimator(config or {})
 
     def get_schedule(
@@ -772,4 +777,7 @@ def _estimate_expected_ip(recent: PitchingStatsSnapshot) -> float:
     legacy branch so there is exactly ONE definition of the legacy numbers
     (guards against the two-copies-drift class of bug).
     """
+    # Lazy import (see MLBStatsAPI.__init__) to avoid the circular import at
+    # module load; this function runs well after all modules are initialized.
+    from src.prediction.role_innings import RoleAwareInningsEstimator
     return RoleAwareInningsEstimator._legacy_expected_ip(recent)
