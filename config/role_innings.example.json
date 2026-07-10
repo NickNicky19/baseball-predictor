@@ -1,0 +1,17 @@
+{
+  "_comment": "B4 role-aware expected_innings. Paste this block into config/config.json as a TOP-LEVEL key so it enters the model_version hash. Keep enabled=false during collection; flipping it to true is the gated live-model change and forks model_version by construction.",
+  "role_innings": {
+    "enabled": false,
+
+    "starter_min_ratio": 0.80,
+    "opener_max_ratio": 0.20,
+    "min_games_for_role": 3,
+
+    "starter_ip_floor": 4.0,
+    "starter_ip_ceil": 7.0,
+
+    "bulk_innings": 3.5,
+    "opener_innings": 1.5,
+    "default_innings": 5.5
+  }
+}

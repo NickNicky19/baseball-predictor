@@ -24,6 +24,7 @@ from src.models.dataclasses import (
 )
 from src.utils.cache import TTLCache
 from src.utils.logging import get_logger
+from src.prediction.role_innings import RoleAwareInningsEstimator
 
 logger = get_logger(__name__)
 
@@ -62,6 +63,11 @@ class PitchingStatsSnapshot:
     bb_per_9: float = 0.0
     hr_per_9: float = 0.0
     games_started: int = 0
+    # Total appearances (gamesPlayed). Used by B4's role-aware innings estimator
+    # to compute a true start_ratio = games_started / games. Kept UNFLOORED
+    # (unlike games_started) so a reliever/opener with zero starts is visible as
+    # such instead of being masked by a phantom start. Defaults to 0 = unknown.
+    games: int = 0
 
     @property
     def k_pct(self) -> float:
@@ -99,6 +105,7 @@ class MLBStatsAPI:
         season: int = 2026,
         timeout: int = 20,
         cache_ttl_seconds: int = 900,
+        config: Optional[dict[str, Any]] = None,
     ):
         self.season = season
         self.timeout = timeout
@@ -108,6 +115,10 @@ class MLBStatsAPI:
         self._hitters_cache = TTLCache[list[HitterGameContext]](cache_ttl_seconds)
         self._pitchers_cache = TTLCache[list[PitcherGameContext]](cache_ttl_seconds)
         self._player_cache = TTLCache[dict[str, Any]](cache_ttl_seconds)
+        # B4: role-aware expected_innings. With no config (or role_innings
+        # absent / disabled) this estimator reproduces the pre-B4 heuristic
+        # exactly, so the live path is unchanged until config.json enables it.
+        self._innings_estimator = RoleAwareInningsEstimator(config or {})
 
     def get_schedule(
         self,
@@ -511,7 +522,9 @@ class MLBStatsAPI:
                 pitcher_id = int(probable["id"])
                 identity = self.get_player_identity(pitcher_id, team=team_name)
                 _, recent = self.get_pitching_stats(pitcher_id)
-                expected_ip = _estimate_expected_ip(recent)
+                # B4: role-aware when enabled in config; otherwise byte-identical
+                # to the legacy _estimate_expected_ip heuristic.
+                expected_ip = self._innings_estimator.estimate(recent)
 
                 game_ctx = GameContext(
                     game_pk=game_pk,
@@ -745,12 +758,18 @@ def _parse_pitching(stat: dict[str, Any]) -> PitchingStatsSnapshot:
         bb_per_9=bb9,
         hr_per_9=hr9,
         games_started=max(_safe_int(stat.get("gamesStarted")), 1),
+        # UNFLOORED on purpose: the true appearance count is what lets B4
+        # separate an opener/reliever from a starter. gamesPlayed is already in
+        # this same stat block (the hitter parser reads it), so no new API call.
+        games=_safe_int(stat.get("gamesPlayed")),
     )
 
 
 def _estimate_expected_ip(recent: PitchingStatsSnapshot) -> float:
-    """Estimate starter IP from recent games started."""
-    if recent.games_started > 0 and recent.innings_pitched > 0:
-        avg_ip = recent.innings_pitched / recent.games_started
-        return round(max(4.0, min(7.5, avg_ip)), 1)
-    return 5.5
+    """
+    Pre-B4 starter-IP heuristic. RETAINED as the disabled-path reference and
+    for any caller that estimates without a config. Delegates to the estimator's
+    legacy branch so there is exactly ONE definition of the legacy numbers
+    (guards against the two-copies-drift class of bug).
+    """
+    return RoleAwareInningsEstimator._legacy_expected_ip(recent)

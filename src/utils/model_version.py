@@ -41,6 +41,9 @@ MODEL_CONFIG_KEYS: tuple[str, ...] = (
     "simulation",
     "feature_factory",
     "fantasy_scoring",
+    # B4: role-aware expected_innings shapes the pitcher K point estimate, so
+    # its block must be in the allowlist for enabling it to fork model_version.
+    "role_innings",
 )
 
 

@@ -82,7 +82,10 @@ class DailyPredictor:
         self.league = league_baselines or LeagueBaselines.from_config(self.config)
         season = int(self.config.get("season", self.league.season))
 
-        self.mlb_api = mlb_api or MLBStatsAPI(season=season)
+        # config is passed so B4's role-aware innings estimator can read the
+        # role_innings block. Inert unless role_innings.enabled=true in config
+        # (which is itself the gated live-model flip -- forks model_version).
+        self.mlb_api = mlb_api or MLBStatsAPI(season=season, config=self.config)
         self.statcast_engine = statcast_engine or StatcastFeatureEngine(
             league_baselines=self.league,
         )
