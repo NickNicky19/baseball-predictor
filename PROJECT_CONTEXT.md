@@ -1,21 +1,59 @@
-PROJECT_CONTEXT.md — v7 (master roadmap) — paste into any new chat
+PROJECT_CONTEXT.md — v8 (master roadmap) — paste into any new chat
 
 Keep this file in the repo. Start a FRESH chat per task, upload this (plus the
 repo/zip if code work is needed), and say which roadmap item to work on.
 Update "Current status" and check off roadmap items as they complete.
 
 ===============================================================================
-CURRENT STATUS (2026-07-10) — B4 OFFLINE BUILD DONE (GATE OPEN); B3 CLOSED;
-GATE #4(b) FULLY CLOSED (HITTERS + K)
+CURRENT STATUS (2026-07-10) — A6 DONE; B4 OFFLINE BUILD DONE (GATE OPEN);
+B3 CLOSED; GATE #4(b) FULLY CLOSED (HITTERS + K). TWO BUGS FOUND THIS SESSION,
+BOTH NOW FIXED: B4 circular import FIXED; model_version blank on all pairs
+FIXED + backfilled (off-by-one slice in _actual_detail_fields — see BUG 2).
 
 Phase A machinery COMPLETE; the real 2023-2025 data run is DONE; B1 (model
 pick), B2 (calibration), and B3 (distributional pitcher K) are ALL CLOSED;
 gate #4(b) passes for hitters AND strikeouts — gate #4(b) is FULLY CLOSED.
-Next front is B4 (role-aware expected_innings), which fixes the simulator's
-short-outing K bias. B4 IS a live-model change (forks model_version) and
-must be gated like the doc says — do not slip it in casually.
+A6 (read-only analysis tooling) is now DONE too. Next front is B4 (role-aware
+expected_innings), which fixes the simulator's short-outing K bias. B4 IS a
+live-model change (forks model_version) and must be gated like the doc says —
+do not slip it in casually.
 
-Since v6, one thing closed:
+Since v7, closed / found:
+
+A6 DONE (2026-07-10, own chat). K-error-vs-actual_ip analysis tooling built,
+offline-validated (50/50 in scripts/check_a6_offline.py), and RUN on real
+pairs. Read-only/additive: reads the outcome pairs CSV, reports K-error
+bucketed by actual_ip, and (given a --roster with real innings_pitched) does
+an OLD-vs-NEW before/after by importing the REAL RoleAwareInningsEstimator to
+recompute what predicted_k WOULD be under a candidate role_innings config.
+The rescale is EXACT (prop_engine's k_prob does not depend on
+expected_innings, so predicted = k_prob * expected_innings * PA_PER_INNING and
+the candidate/legacy ratio cancels k_prob). Files: run_analyze_k_error.py,
+scripts/check_a6_offline.py, scripts/diagnose_k_pairs.py (read-only drop
+attribution). Committed + pushed. See the [A6] key-decision entry and the A6
+roadmap checkbox. IMPORTANT: A6 on the CURRENT real pairs is NOT yet
+decision-useful — the K sample is 2 dates / ~56 gradeable rows with ~4 rows in
+the short-outing zone; the bias SHAPE matches B4's premise but MAGNITUDES are
+not fittable. Two bugs (below) block accumulating clean forward K data.
+
+BUG 1 (FIXED this session): B4's offline build shipped a CIRCULAR IMPORT.
+mlb_api.py had a TOP-LEVEL from src.prediction.role_innings import RoleAwareInningsEstimator (added by B4). That closed the loop mlb_api ->
+src.prediction/init -> correction_manager -> src.learning/init ->
+outcome_recorder -> mlb_api, so import src.data.mlb_api FAILED with
+ImportError on a partially-initialized module. B4's harness passed 24/24
+while this was broken because check_b4_offline.py imports role_innings
+DIRECTLY, never through the mlb_api package graph. FIXED by making the import
+LAZY (inside MLBStatsAPI.init and inside the module-tail
+_estimate_expected_ip helper) — no behaviour change, does NOT fork
+model_version (imports aren't in the config hash), collection-safe. Verified:
+import src.data.mlb_api clean, OutcomeRecorder imports through the package
+graph clean, and a correctly-constructed recorder stamps 'dab23f4fbac8'.
+Committed + pushed (separate commit from A6). This corrects the v7 claim that
+B4 was "offline-validated (24/24) ... inert" — an import that raises on
+import mlb_api is the OPPOSITE of inert; the 24/24 was real but did not
+exercise the broken path.
+
+BUG 2 (FIXED 2026-07-10). Root cause: off-by-one in _actual_detail_fields. model_version is PAIR_COLUMNS[7]; the blank detail dict was built from PAIR_COLUMNS[7:], including model_version, so row.update(detail) overwrote the just-set stamp with "" on every row — all 2758 blanks, from day one. Fixed by anchoring the slice to index("actual_pa") (index 8). Both handoff hypotheses disproven: migration preserves existing stamps; load_config(None) and explicit --config both yield dab23f4fbac8 (config passing was never the problem). Backfill of 2758 rows valid (freeze). Added write-path guard (raises on blank stamp — it caught this) + no-config constructor warning. Test test_outcome_recorder_appends_pairs now guards the stamp survives .update(). C1/B4 model_version filtering now live.
 
 B4 (role-aware expected_innings) is BUILT and OFFLINE-VALIDATED (24/24 in
 scripts/check_b4_offline.py), but its GATE IS OPEN — it is not promoted and
@@ -24,6 +62,9 @@ the live model is unchanged. The live model_version is STILL dab23f4fbac8
 is inert while no role_innings block exists in config.json). B4 is the first
 live-model change since the freeze; it does NOT go live until it forks the
 hash at the gate and clears gate #4 (walk-forward + calibration + shadow).
+NOTE: the circular-import fix above already edited mlb_api.py post-B4-offline,
+so mlb_api.py carries a change when the gate chat opens — it's pure import
+mechanics, no behaviour change, does not fork the hash. Do not be surprised.
 
 B2 CLOSED (2026-07-09/10). CatBoost point predictions -> calibrated P(over)
 per category. DESIGN VERDICT: the count model IS the calibrator. lambda =
@@ -107,12 +148,29 @@ LIVE production model until C2's gate. All B2 / gate-4b / B3 work was
 ADDITIVE (no live model change), consistent with the collection freeze.
 
 NEXT ACTIONS:
-(main line) B4 GATE — own chat. Offline build is DONE + committed. At the
-gate: fit role->innings constants vs K-error/actual_ip (A6), add enabled
-role_innings block to config.json (forks model_version), run
-run_gate_reconstruct.py + block-bootstrap verdict that role-aware K
-calibrates equal-or-better than the frozen sim. Then shadow (C2). Do NOT
-run casually during collection.
+(DONE this session) RECORDER PROVENANCE FIX — BUG 2 fixed + backfilled. Root
+cause was an off-by-one slice in _actual_detail_fields (see BUG 2 entry), NOT
+the migration or the entrypoint config passing (both handoff hypotheses were
+disproven). All 2758 rows backfilled to dab23f4fbac8; forward path verified
+(0 blank rows, single version in the CSV; real-config entrypoint run clean).
+C1/B4 model_version filtering is now LIVE (was inert). Committed separately.
+(main line, do FIRST now — enough forward K data permitting) B4 GATE — own
+chat. Offline build is DONE + committed; the circular-import fix is also in
+(mlb_api.py lazy import). At the gate: fit role->innings constants vs
+K-error/actual_ip using A6 (run_analyze_k_error.py --roster with real
+innings_pitched), add enabled role_innings block to config.json (forks
+model_version), run run_gate_reconstruct.py + block-bootstrap verdict that
+role-aware K calibrates equal-or-better than the frozen sim. Then shadow
+(C2). Do NOT run casually during collection. WHEN B4 IS FIXED/COMMITTED: add
+an import src.data.mlb_api smoke check to check_b4_offline.py — that one
+line would have caught the circular import the direct-import harness missed.
+(daily habit, unchanged) run_slate.py + A5 line logger daily — forward pairs
+
+
+closing lines are non-reconstructable. NOTE: forward K pairs recorded
+BEFORE the provenance fix will be version-blank; prefer to land the fix
+before relying on newly-collected K pairs for the B4 gate.
+
 
 ===============================================================================
 What this project is
@@ -140,7 +198,9 @@ gbm_dataset[B1], gbm_trainer[B1], gbm_benchmark[B1], gbm_calibrator[B2]).
 run_*.py entry points (ALL live at repo root — see gotchas):
 run_slate.py               A1  all-category predict (CI + manual)
 run_reconstruct_date.py    A2  one historical date -> resolution report;
-+ reconstruct_objects() (B1/gate seam)
+
+
+reconstruct_objects() (B1/gate seam)
 run_build_training_set.py  A3  2023-2025 training-set builder (resumable)
 run_audit_player.py        A3  as-of snapshot vs raw game log
 run_build_statcast_features.py  A4  join rolling Statcast onto A3 rows
@@ -156,6 +216,11 @@ run_gate_reconstruct.py    gate  sim-side P(over) emit from reconstruction
 (additive/leakage-safe; hitters only until B3)
 run_log_lines.py           A5  read-only daily prop-line logger
 probe_odds_apis.py         A5  one-off feasibility probe (disposable)
+run_analyze_k_error.py     A6  read-only K-error-vs-actual_ip analysis
+(actual_ip buckets; role before/after via the real RoleAwareInningsEstimator)
+scripts/check_a6_offline.py     A6  offline harness (50/50)
+scripts/diagnose_k_pairs.py     A6  read-only pairs-CSV drop attribution
+
 
 ===============================================================================
 How the model works (one paragraph) — UNCHANGED, still frozen
@@ -267,22 +332,72 @@ the versioning layer and decouples hash from config state, worse than the
 problem it solves.
 
 [B4] Role is detected from a MEASURED signal, not a hand-picked guess. Added
-an UNFLOORED `games` (total appearances) field to PitchingStatsSnapshot,
+an UNFLOORED games (total appearances) field to PitchingStatsSnapshot,
 populated from the same gamesPlayed the hitter parser already reads (no new
 API call). start_ratio = games_started / games. The pre-B4 heuristic floored
 games_started to >=1, which MANUFACTURED a phantom start for pure relievers/
 openers and reported starter-length outings — a direct source of the
 short-outing K over-projection. games_started stays floored (no existing
-read changes); `games` is the new honest denominator. Thin samples
+read changes); games is the new honest denominator. Thin samples
 (games < min_games_for_role) are FLAGGED role="unknown" and fall back to the
 starter path, not assigned an invented role.
+
+[A6] The role-aware before/after imports the REAL RoleAwareInningsEstimator
+(from src.prediction.role_innings), NOT a reimplementation — role labels and
+expected_innings can never drift from what B4 ships. For each pitcher row it
+reproduces the LEGACY expected_innings (RoleAwareInningsEstimator.
+_legacy_expected_ip, byte-identical to the pre-B4 heuristic) and the CANDIDATE
+role-aware value, then rescales predicted_value by candidate/legacy. This
+rescale is EXACT, not approximate: k_prob in prop_engine does NOT depend on
+expected_innings (only the batters_faced multiplier does), so predicted =
+k_prob * expected_innings * PA_PER_INNING and the ratio cancels k_prob. A6 is
+descriptive evidence only — it NEVER edits config.json; the gated config edit
+happens once, at the gate, by a person. --roster needs real innings_pitched
+(the estimator requires ip>0 to assign any role but "unknown"; without it,
+rows fall back to default_innings on both sides -> ratio ~1.0, no change,
+which is correct-not-a-bug). A6 reads SEASON-level role signal for the
+descriptive fit; the actual B4 gate reconstruction must use point-in-time
+snapshots like everywhere else.
+
+[BUG1] (FIXED 2026-07-10) B4's mlb_api.py top-level import of
+RoleAwareInningsEstimator created a circular import (mlb_api -> prediction
+pkg -> correction_manager -> learning pkg -> outcome_recorder -> mlb_api) that
+made import src.data.mlb_api raise. Fix = LAZY import inside
+MLBStatsAPI.init and the _estimate_expected_ip helper. No behaviour
+change, does not fork model_version (imports aren't hashed). Lesson baked into
+the gotchas: an offline harness that imports a module DIRECTLY can pass while
+that module is broken THROUGH the package graph — always add a plain
+import <the_real_module> check.
+
+[BUG2] (FIXED 2026-07-10) model_version was blank on ALL 2758 pairs. Root
+cause: an OFF-BY-ONE SLICE in outcome_recorder._actual_detail_fields, NOT the
+migration and NOT the entrypoint. model_version is PAIR_COLUMNS[7]; the blank
+detail dict was built from PAIR_COLUMNS[7:], which INCLUDES model_version, so
+row.update(detail) in _build_pair_rows overwrote the just-set stamp with "" on
+every row — from day one, all categories. Fixed by anchoring the slice to
+PAIR_COLUMNS.index("actual_pa") (index 8) so it never includes the stamp and
+can't regress on column reorder. The v7/v8 "cause localized by elimination"
+claim was WRONG — both stated mechanisms were disproven: (a) the migration
+PRESERVES existing stamps (reproduced), and (b) config passing was fine —
+load_config(None) and explicit --config both yield dab23f4fbac8. Backfill of
+the 2758 rows to dab23f4fbac8 done and valid (collection freeze). Added a
+write-path guard (raises RetrainError on any blank stamp — it is what surfaced
+this bug) + a no-config constructor warning. test_outcome_recorder_appends_pairs
+now guards that the stamp survives .update(). LESSON: don't trust a
+"localized by elimination" handoff that never ran the failing path — the guard
+that actually executed the write path found it in one test.
 
 ===============================================================================
 Provenance / versioning (three stamps — filter by these, never mix)
 
 model_version : config hash on every prediction->outcome pair (A1). Current
-= dab23f4fbac8. Pre-2026-07-09 CI pairs are hrr-only + version-blank —
-EXCLUDE them in calibration/C1.
+= dab23f4fbac8. *** UPDATE (2026-07-10): BUG 2 (all pairs version-blank) is
+FIXED — was an off-by-one slice that blanked the stamp on write; see the
+[BUG2] entry. All 2758 rows backfilled to dab23f4fbac8 and the forward path
+verified (0 blank rows, single version in the CSV). Filtering on model_version
+for calibration/C1/B4 is now live and correct. Historical note: pre-2026-07-09
+CI pairs were ALSO hrr-only; that part still holds independent of the version
+fix.
 builder_schema="a3.1" : stamped on every A3 training row.
 roller_schema="a4.1"  : stamped on every A4-enriched row (hitters only).
 B1's loader asserts builder_schema on both frames and roller_schema on the
@@ -318,7 +433,9 @@ MASTER ROADMAP
 
 Phase A — collection-safe / additive
 [x] A1 DONE. All-category automation (run_slate.py) + real outcome recording
-+ model_version tag, live in CI.
+
+
+model_version tag, live in CI.
 [x] A2 DONE. run_reconstruct_date.py + reconstruct_objects() (B1/gate seam).
 [x] A3 DONE. Resumable 2023-2025 builder; real run complete.
 [x] A4 DONE. Rolling Statcast enrichment; real 2023-2025 enrich complete.
@@ -326,8 +443,19 @@ Phase A — collection-safe / additive
 offline-tested. LEFT: start daily logging habit + one live --dry-run check
 that HR/K populate on DK; rotate API key; gitignore data/lines/. See A5
 STATUS section. Blocks nothing.
-[ ] A6. Analysis tooling (read-only): calibration plots, K-error vs actual_ip
-split, confidence-vs-accuracy.
+[x] A6 DONE (2026-07-10, own chat). K-error-vs-actual_ip analysis tooling,
+read-only/additive, offline-validated (50/50) + run on real pairs. Files:
+run_analyze_k_error.py (actual_ip bucketing + real-estimator role before/
+after), scripts/check_a6_offline.py, scripts/diagnose_k_pairs.py (drop
+attribution). See [A6] key decision. Committed + pushed. Surfaced BUG 1 (B4
+circular import, FIXED) and BUG 2 (model_version blank on all pairs, since
+FIXED — off-by-one slice, see [BUG2]). Calibration plots / confidence-vs-accuracy were the nominal A6 scope
+too; the K-error split was the priority for B4 and is what shipped — the
+other two views can be added later if wanted, they're not on the critical
+path. NOTE: on the CURRENT real pairs A6 is not yet decision-useful (2 K
+dates, ~4 short-outing rows); it needs more forward K pairs. Those pairs are
+now model_version-filterable (BUG 2 fixed), so forward K collection is clean.
+
 
 Phase B — offline; zero live-model contact
 [x] B1 DONE. CatBoost per-category models beat the simulator on matched
@@ -438,7 +566,6 @@ distribution lands in the SAME p_ge_threshold shape the gate harness reads.
 
 SCOPE / DISCIPLINE (decide explicitly):
 
-
 If B3 ONLY adds a distribution and leaves the shipped point value
 unchanged, it is ADDITIVE and safe during collection.
 If B3 changes the K point value, it is a LIVE-MODEL change -> forks
@@ -447,10 +574,9 @@ Default recommendation: additive first (attach distribution around the
 existing point estimate), measure, and only later consider changing the
 point value under B4's role-aware expected_innings.
 
-
 VALIDATION: once simulation != None for pitchers, re-run
-python run_calibration_gate.py compare 
---gbm data/models/gbm/calibration/gbm_deployed_probs.csv 
+python run_calibration_gate.py compare
+--gbm data/models/gbm/calibration/gbm_deployed_probs.csv
 --sim data/models/gbm/calibration/sim_probs.csv
 after regenerating sim_probs.csv with a reconstruction that now includes K
 rows (run_gate_reconstruct.py currently emits hitters only; add K once the
@@ -466,7 +592,6 @@ dict[float,float]).
 DATA COLLECTION NOTES (honest guidance — read before spinning up big runs)
 
 Two tempting-but-premature ideas came up; both are "no, not yet," with reasons:
-
 
 "Run run_gate_reconstruct.py with --n-dates 100+ for a season-long gate."
 NOT worth it right now. The gate already PASSED with a clear, significant
@@ -507,10 +632,6 @@ day is lost). Those accrue the data that genuinely can't be reconstructed
 later. Historical 2026 game/Statcast rows CAN be pulled later; closing
 lines and forward prediction pairs CANNOT.
 
-
-
-
-
 Bottom line on data: prioritize the data that is (a) decision-changing and
 (b) non-reconstructable. Right now that is forward pairs + closing lines
 (daily habit), not more gate reconstruction and not a speculative 2026 bulk
@@ -550,7 +671,6 @@ New files (repo root): probe_odds_apis.py (disposable probe), run_log_lines.py.
 
 LEFT TO DO (habit, not code):
 
-
 First live game-day run: --dry-run, confirm batter_home_runs and
 pitcher_strikeouts populate on DK (probe only printed hits; books post
 HR/K closer to first pitch). Then a real write; spot-check the CSV.
@@ -558,7 +678,6 @@ gitignore data/lines/; stage scripts with an EXPLICIT file list.
 ROTATE the ODDS_API_KEY (it was pasted in chat during setup).
 START DAILY LOGGING when ready — running it daily starts the CLV clock;
 the logger merely existing does not. Every un-logged day is lost.
-
 
 NOTE FOR C4: CLV grades CLOSING lines only. Filter to clv_eligible=1.
 
@@ -581,13 +700,33 @@ than a fake win for either side. Trust the discipline, not headline numbers.
 ===============================================================================
 Known issues / weaknesses (confirm with data, then fix)
 
+model_version BLANK ON ALL PAIRS (BUG 2, FOUND + FIXED 2026-07-10). Was: all
+2758 pairs version-blank, every category, incl. recent rows. Root cause: an
+off-by-one slice in outcome_recorder._actual_detail_fields (PAIR_COLUMNS[7:]
+included model_version and blanked it via row.update) — NOT the migration and
+NOT the entrypoint config passing (both handoff hypotheses disproven). FIXED
+by anchoring the slice to index("actual_pa"); 2758 rows backfilled to
+dab23f4fbac8; forward path verified clean. C1/B4 model_version filtering now
+LIVE. Full detail in the [BUG2] key-decision entry. No longer a blocker.
+
+B4 circular import (BUG 1) — FIXED 2026-07-10 (mlb_api.py lazy import). Kept
+here as a pointer only: if anything re-hoists that import to module top level,
+import src.data.mlb_api will break again. See [BUG1] key decision + the new
+gotcha about direct-import-vs-package-graph harness blind spots.
+
 Short-outing K over-projection in the SIMULATOR. B4 fix is BUILT + offline-
 validated (24/24) but UNGATED — not live yet; the bias is still present in
-the live model until B4 clears its gate. B1 corroborates. B3's Poisson/NB
-wrap INHERITS this bias by design (mean pinned to the existing, biased point
-estimate) — expected and correct for an additive wrap; B4 is where this
-actually gets fixed. The B4 role->innings CONSTANTS are unvalidated
-placeholders pending the K-error-vs-actual_ip fit at the gate.
+the live model until B4 clears its gate. B1 corroborates, and A6 now
+CORROBORATES ON REAL PAIRS: K-error is strongly negative (over-projected) at
+low actual_ip and fades to ~0 around 5-6 IP, exactly B4's premise — BUT the
+short-outing buckets are n=2-7 (2 dates), so the SHAPE is confirmed while the
+MAGNITUDE is not yet fittable. B3's Poisson/NB wrap INHERITS this bias by
+design (mean pinned to the existing, biased point estimate) — expected and
+correct for an additive wrap; B4 is where this actually gets fixed. The B4
+role->innings CONSTANTS are unvalidated placeholders pending the
+K-error-vs-actual_ip fit at the gate — the A6 tooling (run_analyze_k_error.py
+--roster) is what does that fit, once there's enough version-stamped forward
+K data.
 Confidence flat tiers (~0.62/0.72), unvalidated. GBM projections carry
 confidence=0.0 on purpose; B2 owns calibrated confidence.
 HR props: rare event, heavy juice; neither model wins HR (MAE ~+0.008;
@@ -642,14 +781,13 @@ DATA IS GITIGNORED: data/training/<season>/ shards, training_.csv.gz,
 data/cache/, data/models/gbm/.cbm, data/models/gbm/calibration/, and
 (add) data/lines/ are ignored; only manifest_.json is tracked. Calibrator
 
-
 gate artifacts are all regenerable from the pairs CSV + reconstruction.
 pycache/, .pyc, catboost_info/ are gitignored (a tracked .pyc caused
 phantom "modified" noise and tripped a rebase). RECURRED 2026-07-10 on
-src/prediction/__pycache__/*.pyc — those .pyc files were tracked BEFORE the
+src/prediction/pycache/.pyc — those .pyc files were tracked BEFORE the
 gitignore rule existed, and gitignore only stops NEW files from being
 tracked, it does NOT retroactively untrack existing ones. Fixed with
-git rm -r --cached src/prediction/__pycache__ (removes from tracking,
+git rm -r --cached src/prediction/pycache (removes from tracking,
 keeps the file on disk). If a rebase ever complains about an unstaged .pyc
 again, this is almost certainly why — check for other already-tracked
 bytecode with git ls-files | Select-String ".pyc" before assuming it's
@@ -677,11 +815,34 @@ PowerShell env: $env:PYTHONPATH="." per session (bash syntax fails).
 Config is config/config.json. --config OPTIONAL for the 4 gated cats.
 Python 3.14 + catboost 1.2.10 works (cp314 wheel).
 run.py entry points live at REPO ROOT (they import run_reconstruct_date /
-src.* as top-level modules). Library code (gbm_calibrator) lives in
+src. as top-level modules). Library code (gbm_calibrator) lives in
 src/learning/; the runners use a try/except import shim so they work whether
 co-located or split.
 Smoke-test discipline pays: 1-date/1-fold smoke runs before every big run
 caught real issues cheaply. Offline harness -> smoke -> full run -> commit.
+
+OFFLINE HARNESS IMPORT-PATH BLIND SPOT (learned 2026-07-10, B4 circular
+import). A check_*_offline.py that imports the thing under test DIRECTLY
+(e.g. from src.prediction.role_innings import ...) can pass 24/24 while the
+module is BROKEN when imported THROUGH the real package graph (e.g.
+import src.data.mlb_api, which pulls the prediction+learning package
+init chains). B4's harness did exactly this and missed a top-level
+circular import that made import src.data.mlb_api raise. RULE: every offline
+harness for a module that lives inside a package should also do a plain
+import <the_actual_production_module> (the one real callers import), not
+just import the class in isolation. One line; would have caught it.
+
+VERIFY PROVENANCE STAMPS LAND, don't assume. model_version() returning the
+right hash in isolation does NOT mean pairs get stamped — the stamp can be
+lost at the WRITE path. The ACTUAL BUG 2 cause was an off-by-one column slice
+in _actual_detail_fields that included model_version in a blank dict and
+row.update()'d over the stamp (fixed; see [BUG2]). Other plausible write-path
+losses to watch for: a schema migration with DictWriter(restval="") that
+rewrites rows without re-stamping, or a recorder built without config. A
+write-path guard now raises on any blank stamp, so a silent recurrence is not
+possible — but still spot-check the CSV periodically:
+python -c "import pandas as pd; d=pd.read_csv('data/learning/ prediction_outcomes.csv',dtype=str,keep_default_na=False); print(d.groupby(['category',d['model_version'].replace('','<blank>')]). size())". Any <blank> = the stamp isn't landing. scripts/
+diagnose_k_pairs.py does a fuller read-only drop-attribution + version audit.
 
 MODEL_VERSION IS AN ALLOWLIST, NOT THE WHOLE CONFIG. model_version()
 hashes only MODEL_CONFIG_KEYS (src/utils/model_version.py). A new
@@ -693,7 +854,6 @@ SAME change, keep the block TOP-LEVEL (the allowlist reads config[k] at top
 level; nested = invisible), and remember the block forks the hash the moment
 it exists, enabled or not. B4's offline harness check 2a guards the allowlist
 entry; nothing guards top-level placement except this note.
-
 
 ===============================================================================
 How to work cost-efficiently with Claude
@@ -707,22 +867,8 @@ Validate offline harness FIRST, then real smoke test (1 date / 1 fold),
 then the full run, then commit. Commit each roadmap item separately.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
---------------------------------------------------------------------------------------
 -----------------------IGNORE----FOR ME----WHEN TO START USING LIVE----
---------------------------------------------------------------------------------------
+
 Good question to ask now, before you're tempted by an early model. The clear answer from your own roadmap: not until Phase C, and specifically not until C4 shows positive CLV. Let me explain why each earlier stopping point is a trap.
 Not after Phase B. B gives you a trained, calibrated model that beats your simulator on held-out data. That feels like "done," but remember the core truth: beating your simulator ≠ beating the market. A B-stage model has never once been tested against real closing lines. Turning it live here means betting real money on a model whose market edge is completely unmeasured. This is the most dangerous moment precisely because the model looks impressive.
 The actual sequence to "live," gated by your own discipline #4:
@@ -739,4 +885,3 @@ There's a real distinction between "live" meanings. Running the model in shadow 
 And a gut-check on expectations, since your context file is right about this: it's entirely possible C4 shows your model doesn't beat closing lines, even with a great GBM. That's not failure — that's the system working. The evaluation discipline exists so you find that out through logged CLV, not through a drained bankroll. If C4 is flat, the answer is "keep it in shadow, hunt softer markets, don't bet," not "go live anyway because the model looked good in B."
 Also — and this is separate from model-goes-live — A5 matters for timing. You need to start logging closing lines now-ish, because every day without stored closing lines is market data you can never recover for CLV measurement later. So even though betting waits for C4, the line-logging infrastructure (A5) should go in early. That's why it's in Phase A, not Phase C.
 Short version: shadow-live as early as C2, real-money-live only after C4 proves positive CLV. Never at Phase B, no matter how good the model looks.
-

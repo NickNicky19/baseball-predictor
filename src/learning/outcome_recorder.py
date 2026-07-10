@@ -18,7 +18,7 @@ from src.models.dataclasses import DailyPrediction, PropCategory, PropProjection
 from src.simulation.monte_carlo import FantasyScoring
 from src.utils.errors import DataFetchError, RetrainError
 from src.utils.logging import get_logger
-from src.utils.model_version import model_version
+from src.utils.model_version import MODEL_CONFIG_KEYS, model_version
 
 logger = get_logger(__name__)
 
@@ -133,6 +133,19 @@ class OutcomeRecorder:
         self.project_root = project_root or Path(__file__).resolve().parents[2]
         # Provenance tag for every pair recorded this session (discipline #5).
         self._model_version = model_version(self.config)
+        # A recorder built without the model config still produces a *non-empty*
+        # hash (model_version({}) is deterministic), but that hash is the hash of
+        # nothing — it does NOT identify the live model and silently poisons
+        # provenance. Recording is meaningless without the real config, so warn
+        # loudly rather than emit mis-tagged pairs. (This is BUG 2's "recent
+        # blanks"/mis-stamp path: the entrypoint/CI must pass the real config.)
+        if not any(k in self.config for k in MODEL_CONFIG_KEYS):
+            logger.warning(
+                "OutcomeRecorder built without model config blocks; pairs will be "
+                "tagged model_version=%s (hash of an empty config), which does NOT "
+                "identify the live model. Pass the real config into from_config().",
+                self._model_version,
+            )
         season = int(self.config.get("season", 2026))
         self.mlb_api = mlb_api or MLBStatsAPI(season=season)
         self.archive = archive or PredictionArchive.from_config(self.config, self.project_root)
@@ -238,7 +251,15 @@ class OutcomeRecorder:
         Purely record-keeping: values come from the same snapshots already
         fetched for actual_value. Fields that don't apply stay blank.
         """
-        detail: dict[str, Any] = {col: "" for col in PAIR_COLUMNS[7:]}
+        # Detail columns are the actual_* boxscore fields, which start at index
+        # 8 — AFTER model_version (index 7). Slicing from 7 here would include
+        # "model_version" in this blank dict and clobber the stamp that
+        # _build_pair_rows sets via row.update(...). That off-by-one was the
+        # actual cause of BUG 2: every row's model_version was set correctly and
+        # then blanked one line later. Anchor to the first actual_* column by
+        # name so inserting/reordering columns can never re-introduce this.
+        _detail_start = PAIR_COLUMNS.index("actual_pa")
+        detail: dict[str, Any] = {col: "" for col in PAIR_COLUMNS[_detail_start:]}
 
         if projection.category == "strikeouts":
             stats = pitching.get(projection.player_id)
@@ -289,6 +310,17 @@ class OutcomeRecorder:
         self._migrate_legacy_schema(path)
         if not rows:
             return 0
+        # Guard the write path: every fresh pair MUST carry a provenance stamp.
+        # This is the exact failure that produced BUG 2 (blank model_version on
+        # every row) — catch it at the source instead of discovering it later
+        # in the CSV. restval="" would otherwise fill a missing key silently.
+        missing = [r for r in rows if not r.get("model_version")]
+        if missing:
+            raise RetrainError(
+                f"{len(missing)} pair row(s) have a blank model_version; refusing "
+                "to write unstamped provenance. This is BUG 2 recurring — verify "
+                "the recorder was constructed with the real model config."
+            )
         write_header = not path.exists() or path.stat().st_size == 0
 
         with path.open("a", newline="", encoding="utf-8") as handle:
