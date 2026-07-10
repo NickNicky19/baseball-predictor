@@ -73,7 +73,15 @@ jobs:
         env:
           PYTHONPATH: .
         run: |
-          python run_record_outcomes.py --date "${{ steps.date.outputs.grade }}" --verbose
+          # Pass the real model config EXPLICITLY. Without --config the recorder
+          # falls back to whatever load_config(None) resolves; if that ever
+          # yields an empty/partial config the pairs get stamped with the
+          # wrong (or a default {}) model_version instead of the live hash.
+          # Every recorded pair's provenance depends on this file being loaded.
+          python run_record_outcomes.py \
+            --date "${{ steps.date.outputs.grade }}" \
+            --config config/config.json \
+            --verbose
 
       - name: Commit pairs
         run: |
