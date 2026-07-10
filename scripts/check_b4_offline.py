@@ -90,6 +90,41 @@ GRID = [
 
 
 # ---------------------------------------------------------------------------
+# GROUP 0 — PACKAGE-GRAPH IMPORT SMOKE (standing note from BUG 1).
+#
+# This harness imports role_innings DIRECTLY, which passed 24/24 while a
+# top-level import in mlb_api.py had the whole package graph broken
+# (mlb_api -> prediction pkg -> correction_manager -> learning pkg ->
+# outcome_recorder -> mlb_api). So: also import the ACTUAL production module
+# the way real callers do. If anyone ever re-hoists the RoleAwareInningsEstimator
+# import back to mlb_api module top level, 0a fails loudly right here.
+# ---------------------------------------------------------------------------
+import importlib
+
+try:
+    _mlb_mod = importlib.import_module("src.data.mlb_api")
+    check("0a plain `import src.data.mlb_api` through the package graph", True)
+except Exception as exc:  # noqa: BLE001 — any import-time failure is the bug
+    _mlb_mod = None
+    check("0a plain `import src.data.mlb_api` through the package graph", False,
+          f"{type(exc).__name__}: {exc} — circular import regression? see [BUG1]")
+
+if _mlb_mod is not None:
+    # Exercise the LAZY import site the BUG-1 fix touched: the module-tail
+    # _estimate_expected_ip helper must still delegate to the one legacy
+    # definition (guards the two-copies-drift class of bug end to end).
+    try:
+        _deleg_ok = all(
+            _mlb_mod._estimate_expected_ip(s) == _legacy_reference(s) for s in GRID
+        )
+        check("0b mlb_api._estimate_expected_ip delegates to the legacy branch",
+              _deleg_ok)
+    except Exception as exc:  # noqa: BLE001
+        check("0b mlb_api._estimate_expected_ip delegates to the legacy branch",
+              False, repr(exc))
+
+
+# ---------------------------------------------------------------------------
 # GROUP 1 — COLLECTION SAFETY: disabled == legacy, byte for byte.
 # ---------------------------------------------------------------------------
 est_disabled = RoleAwareInningsEstimator(BASE_CONFIG)  # no role_innings block
