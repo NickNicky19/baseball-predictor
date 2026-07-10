@@ -1,22 +1,42 @@
-PROJECT_CONTEXT.md — v8 (master roadmap) — paste into any new chat
+PROJECT_CONTEXT.md — v9 (master roadmap) — paste into any new chat
 
 Keep this file in the repo. Start a FRESH chat per task, upload this (plus the
 repo/zip if code work is needed), and say which roadmap item to work on.
 Update "Current status" and check off roadmap items as they complete.
 
 ===============================================================================
-CURRENT STATUS (2026-07-10) — A6 DONE; B4 OFFLINE BUILD DONE (GATE OPEN);
-B3 CLOSED; GATE #4(b) FULLY CLOSED (HITTERS + K). TWO BUGS FOUND THIS SESSION,
-BOTH NOW FIXED: B4 circular import FIXED; model_version blank on all pairs
-FIXED + backfilled (off-by-one slice in _actual_detail_fields — see BUG 2).
+CURRENT STATUS (2026-07-10, later same day) — C1 DONE; B4 GATE KIT BUILT +
+COMMITTED (GATE STILL OPEN, DO-NOT-GATE-YET on current K sample); A5 CODE
+COMMITTED (daily habit still left). A6 DONE; B3 CLOSED; GATE #4(b) FULLY
+CLOSED (HITTERS + K), all from earlier in the day. Live model_version
+UNCHANGED = dab23f4fbac8.
 
 Phase A machinery COMPLETE; the real 2023-2025 data run is DONE; B1 (model
 pick), B2 (calibration), and B3 (distributional pitcher K) are ALL CLOSED;
 gate #4(b) passes for hitters AND strikeouts — gate #4(b) is FULLY CLOSED.
-A6 (read-only analysis tooling) is now DONE too. Next front is B4 (role-aware
-expected_innings), which fixes the simulator's short-outing K bias. B4 IS a
-live-model change (forks model_version) and must be gated like the doc says —
-do not slip it in casually.
+A6 (read-only analysis tooling) is DONE. C1 (calibration_report on forward
+pairs) is DONE — see the C1 entry below; it corroborates B4's premise
+(strikeouts over-project) without contradicting any earlier gate result.
+
+B4's GATE KIT (roster builder, constants fitter, sim-vs-sim verdict tool,
+plus the standing-note package-graph smoke check) is BUILT, OFFLINE-VALIDATED,
+and COMMITTED (commit 0bbfa21) — but the GATE ITSELF DID NOT RUN. Run on real
+data, the fitter reported DO-NOT-GATE-YET: opener n=3, bulk n=6, both under
+the min-n=15 guard. config.json is UNCHANGED; the live model is still the
+frozen simulator at dab23f4fbac8. THE ONLY LEVER ON THIS is daily forward
+collection (run_slate.py) — there is no same-day shortcut; do not re-run
+run_slate.py multiple times in one day (collides on
+predictions_<date>.json, see gotchas). Re-check the fitter periodically
+(weekly is reasonable) until DO-NOT-GATE-YET clears, then proceed through
+B4_GATE_RUNBOOK.md (A6 before/after -> config.b4.json -> smoke -> full run +
+verdict -> promotion flip -> commit).
+
+A5's line logger and odds probe were built + offline-tested earlier but sat
+UNCOMMITTED until today (commit ed3d0bc) — same near-miss pattern as B1's
+git recovery incident. Code is now safe; the daily-logging HABIT still has
+not started. Every un-logged day is lost — closing lines are
+non-reconstructable, independent of B4's timeline, and should start now
+rather than wait on B4.
 
 Since v7, closed / found:
 
@@ -148,28 +168,81 @@ LIVE production model until C2's gate. All B2 / gate-4b / B3 work was
 ADDITIVE (no live model change), consistent with the collection freeze.
 
 NEXT ACTIONS:
-(DONE this session) RECORDER PROVENANCE FIX — BUG 2 fixed + backfilled. Root
-cause was an off-by-one slice in _actual_detail_fields (see BUG 2 entry), NOT
-the migration or the entrypoint config passing (both handoff hypotheses were
-disproven). All 2758 rows backfilled to dab23f4fbac8; forward path verified
-(0 blank rows, single version in the CSV; real-config entrypoint run clean).
-C1/B4 model_version filtering is now LIVE (was inert). Committed separately.
-(main line, do FIRST now — enough forward K data permitting) B4 GATE — own
-chat. Offline build is DONE + committed; the circular-import fix is also in
-(mlb_api.py lazy import). At the gate: fit role->innings constants vs
-K-error/actual_ip using A6 (run_analyze_k_error.py --roster with real
-innings_pitched), add enabled role_innings block to config.json (forks
-model_version), run run_gate_reconstruct.py + block-bootstrap verdict that
-role-aware K calibrates equal-or-better than the frozen sim. Then shadow
-(C2). Do NOT run casually during collection. WHEN B4 IS FIXED/COMMITTED: add
-an import src.data.mlb_api smoke check to check_b4_offline.py — that one
-line would have caught the circular import the direct-import harness missed.
+(DONE earlier this session) RECORDER PROVENANCE FIX — BUG 2 fixed +
+backfilled. Root cause was an off-by-one slice in _actual_detail_fields (see
+BUG 2 entry), NOT the migration or the entrypoint config passing (both
+handoff hypotheses were disproven). All 2758 rows backfilled to
+dab23f4fbac8; forward path verified (0 blank rows, single version in the
+CSV; real-config entrypoint run clean). C1/B4 model_version filtering is now
+LIVE (was inert). Committed separately.
+
+(DONE this session) C1 — calibration_report on 2758 forward pairs
+(2026-07-05 -> 07-09, all model_version=dab23f4fbac8, zero blanks -> the
+anticipated pre-07-09 hrr-only/version-blank filter was moot, nothing to
+exclude). Run via:
+  python -c "from src.evaluation.calibration_report import CalibrationAnalyzer; print(CalibrationAnalyzer().analyze('data/learning/prediction_outcomes.csv').render())"
+Results: hits +0.104 bias / MAE 0.680 (well-centered); home_runs -0.005 /
+0.217 (well-centered, B2 mean_scale=0.907 holding); hrr -0.001 / 1.535
+(well-centered); strikeouts +0.480 bias / MAE 2.415 / proj 5.46 vs actual
+4.98 on n=88 -> OVER-projecting, the short-outing K bias B4 targets (the
+report's own "well-centered" label on strikeouts is a |bias| < 0.35*MAE
+artifact inflated by K's huge MAE — read the +0.48, not the label).
+Confidence INFORMATIVE (0.80-0.90 bucket MAE 0.412 vs ~1.4 elsewhere) but not
+monotonic across bands -> defensible to sort by, NOT yet to size by.
+
+(DONE this session, GATE STILL OPEN) B4 GATE KIT — own chat. Standing-note
+package-graph smoke check added to check_b4_offline.py (26/26; check 0a
+plain `import src.data.mlb_api` through the real graph — the line that would
+have caught BUG 1 — plus 0b delegation check). Three new tools, each behind
+scripts/check_b4_gate_tools_offline.py (24/24): build_pitcher_roster.py
+(season pitching lines via the project's own _parse_pitching parser),
+fit_role_innings.py (fits opener_innings/bulk_innings from real actual_ip
+per role, min-n=15 guard with a DO-NOT-GATE-YET flag, ordering guards,
+validates through the real RoleAwareInningsEstimator, previews the
+model_version fork), run_b4_gate_verdict.py at repo root (frozen-vs-
+candidate sim block bootstrap over dates, B=4000, Murphy skill, hitter
+negative-control check, exits 2 if K probs are identical between runs — the
+reconstruction-plumbing tell).
+RAN ON REAL DATA: roster builder -> 88/88 pitchers, 0 fetch failures, 0
+games=0. Fitter filtered to model_version=dab23f4fbac8 -> 56 usable K rows
+(32 dropped, missing predicted_value/actual_strikeouts/actual_ip>0) ->
+opener n=3, bulk n=6, BOTH under min-n=15 -> DO-NOT-GATE-YET, placeholders
+kept unchanged (opener 1.5 / bulk 3.5); the fork preview
+dab23f4fbac8 -> 6a71e023582c is the PLACEHOLDER hash (nothing was actually
+fitted, so do not read this as a fitted result).
+GATE NOT RUN. config.json UNCHANGED. Live model_version UNCHANGED =
+dab23f4fbac8. Sequencing decision for when the gate does run: build
+config/config.b4.json (real config + fitted block) and pass it to
+run_gate_reconstruct.py via --config, rather than editing config.json before
+the verdict — avoids running the live daily slate B4-enabled pre-verdict.
+Flip config.json only at promotion (Step 7 of B4_GATE_RUNBOOK.md), so the
+model_version fork coincides with go-live.
+NEXT: keep run_slate.py daily (the only lever on opener/bulk n — no same-day
+shortcut; same-day reruns collide on predictions_<date>.json per the
+existing gotcha, so running it twice today does not add data). Re-check
+fit_role_innings.py periodically (weekly is reasonable) until
+DO-NOT-GATE-YET clears; then A6 before/after -> config.b4.json -> smoke ->
+full run + verdict -> promotion flip -> commit, per B4_GATE_RUNBOOK.md.
+Committed as commit 0bbfa21: scripts/check_b4_offline.py (modified),
+scripts/build_pitcher_roster.py, scripts/fit_role_innings.py,
+scripts/check_b4_gate_tools_offline.py, run_b4_gate_verdict.py.
+
+(DONE this session, HABIT STILL LEFT) A5 CODE COMMITTED — commit ed3d0bc.
+run_log_lines.py + probe_odds_apis.py were built and offline-tested earlier
+but sat untracked until today (same near-miss pattern as B1's git recovery
+incident — see gotchas). LEFT (habit, not code): first live --dry-run
+confirming batter_home_runs/pitcher_strikeouts populate on DK; then a real
+write + spot-check; ROTATE ODDS_API_KEY (it was pasted in chat during
+setup); START DAILY LOGGING — every un-logged day is lost, non-
+reconstructable, and this does not depend on B4's timeline at all.
+
+(main line, resumes once forward K data permits) B4 GATE completion — own
+chat. Do NOT run casually during collection; do NOT force the gate on
+placeholder constants.
 (daily habit, unchanged) run_slate.py + A5 line logger daily — forward pairs
-
-
-closing lines are non-reconstructable. NOTE: forward K pairs recorded
-BEFORE the provenance fix will be version-blank; prefer to land the fix
-before relying on newly-collected K pairs for the B4 gate.
+and closing lines are non-reconstructable. NOTE: forward K pairs recorded
+BEFORE the provenance fix will be version-blank; prefer to filter on
+model_version=dab23f4fbac8 rather than relying on date alone.
 
 
 ===============================================================================
@@ -439,10 +512,13 @@ model_version tag, live in CI.
 [x] A2 DONE. run_reconstruct_date.py + reconstruct_objects() (B1/gate seam).
 [x] A3 DONE. Resumable 2023-2025 builder; real run complete.
 [x] A4 DONE. Rolling Statcast enrichment; real 2023-2025 enrich complete.
-[~] A5 CODE DONE (own chat). Odds confirmed + read-only line logger built and
-offline-tested. LEFT: start daily logging habit + one live --dry-run check
-that HR/K populate on DK; rotate API key; gitignore data/lines/. See A5
-STATUS section. Blocks nothing.
+[~] A5 CODE DONE + COMMITTED (2026-07-10, commit ed3d0bc). Odds confirmed +
+read-only line logger built, offline-tested, and (as of today) actually
+tracked in git — it sat untracked since the original build, same near-miss
+pattern as B1's git recovery incident. data/lines/ was already gitignored;
+no gitignore change was needed. LEFT: start daily logging habit + one live
+--dry-run check that HR/K populate on DK; rotate API key (it was pasted in
+chat during setup). See A5 STATUS section. Blocks nothing.
 [x] A6 DONE (2026-07-10, own chat). K-error-vs-actual_ip analysis tooling,
 read-only/additive, offline-validated (50/50) + run on real pairs. Files:
 run_analyze_k_error.py (actual_ip bucketing + real-estimator role before/
@@ -499,29 +575,66 @@ scripts/check_b3_offline.py (13/13 offline), run_gate_reconstruct.py
 deliberately NOT modeled here — that's B4's role-aware expected_innings,
 a gated live-model change, not this additive wrap.
 
-[~] B4 OFFLINE BUILD DONE (2026-07-10); GATE OPEN. Role-aware
+[~] B4 OFFLINE BUILD DONE (2026-07-10); GATE KIT BUILT + COMMITTED
+(2026-07-10, later same day, commit 0bbfa21); GATE STILL OPEN. Role-aware
 expected_innings. Fixes short-outing K over-projection in the SIMULATOR (B1
-evidence; the GBM already sidesteps it). LIVE-MODEL CHANGE -> forks
-model_version (two-part: allowlist entry [shipped] + config block [at gate];
-see [B4] key decisions). Built + offline-validated only; NOT promoted, live
-model unchanged. Files: src/prediction/role_innings.py (new,
-RoleAwareInningsEstimator), scripts/check_b4_offline.py (new, 24/24),
+evidence, C1 evidence; the GBM already sidesteps it). LIVE-MODEL CHANGE ->
+forks model_version (two-part: allowlist entry [shipped] + config block [at
+gate]; see [B4] key decisions). Built + offline-validated only; NOT
+promoted, live model unchanged. Files: src/prediction/role_innings.py (new,
+RoleAwareInningsEstimator), scripts/check_b4_offline.py (24/24, now
+including the standing-note package-graph smoke check — see below),
 config/role_innings.example.json (new, reference — enabled:false shape),
 src/data/mlb_api.py (games field + estimator wiring + _estimate_expected_ip
 delegates), src/prediction/daily_predictor.py (one line: passes config to
 MLBStatsAPI, inert while disabled), src/utils/model_version.py
-(role_innings added to MODEL_CONFIG_KEYS). Commit <fill in>.
-LEFT (its own chat, at the gate): fit the placeholder role->innings numbers
-(opener 1.5 / bulk 3.5 / ratio cuts 0.20,0.80 / clamp 4.0-7.0 are
-STRUCTURALLY sound but UNVALIDATED) against the simulator's K error vs
-actual_ip (A6 tooling); add enabled:true role_innings block to config.json
-(forks the hash here); run_gate_reconstruct.py -> block-bootstrap-over-dates
-that role-aware K calibrates equal-or-better than the frozen sim without
-breaking normal starters.
+(role_innings added to MODEL_CONFIG_KEYS).
+GATE KIT (2026-07-10, own chat, commit 0bbfa21): standing-note package-graph
+smoke check added to check_b4_offline.py (now 26/26 — check 0a plain
+`import src.data.mlb_api` through the real package graph, the line that
+would have caught BUG 1; 0b delegation check). Three new tools, each behind
+scripts/check_b4_gate_tools_offline.py (24/24): scripts/build_pitcher_roster.py
+(builds A6's --roster CSV from real season pitching lines),
+scripts/fit_role_innings.py (fits opener_innings/bulk_innings from real
+actual_ip per role; min-n=15 guard with a DO-NOT-GATE-YET flag; ordering
+guards; validates through the real RoleAwareInningsEstimator; previews the
+model_version fork; keeps ratio cuts/clamp/min_games/default structural, not
+fitted), run_b4_gate_verdict.py at repo root (frozen-vs-candidate sim block
+bootstrap over dates, B=4000, Murphy skill, hitter negative-control check,
+exits 2 rather than emitting a verdict if K probabilities are identical
+between the two runs — the reconstruction-plumbing tell). Runbook:
+B4_GATE_RUNBOOK.md (not yet committed as of this session — save to repo
+root if you want it version-controlled).
+RAN ON REAL DATA (not yet a gate result): roster builder -> 88/88 pitchers,
+0 fetch failures, 0 games=0. Fitter filtered to model_version=dab23f4fbac8
+-> 56 usable K rows (32 dropped, missing predicted_value/
+actual_strikeouts/actual_ip>0) -> opener n=3, bulk n=6, BOTH under
+min-n=15 -> DO-NOT-GATE-YET, placeholders kept unchanged (opener 1.5 /
+bulk 3.5); fork preview dab23f4fbac8 -> 6a71e023582c is the PLACEHOLDER
+hash, not a fitted result.
+LEFT (its own chat, at the gate, once forward K data clears min-n=15 for
+both opener and bulk): fit the real role->innings numbers via
+fit_role_innings.py; A6 before/after acceptance; build config/config.b4.json
+(NOT config.json directly — avoids running the daily slate B4-enabled
+pre-verdict); run_gate_reconstruct.py --config config/config.b4.json ->
+run_b4_gate_verdict.py block-bootstrap-over-dates that role-aware K
+calibrates equal-or-better than the frozen sim without breaking normal
+starters, with hitters as negative controls; only then flip config.json at
+promotion, so the model_version fork coincides with go-live. Full sequence
+in B4_GATE_RUNBOOK.md. The ONLY thing that advances this is calendar time on
+real forward-collected K pairs (run_slate.py daily) — no reconstruction
+shortcut; the project's own data-collection philosophy (see DATA COLLECTION
+NOTES below) says this explicitly for K thinness.
 
 Phase C — post-collection, evidence-based live changes (gated by #4)
-[ ] C1. calibration_report on forward-collected pairs. FILTER OUT
-pre-2026-07-09 hrr-only/version-blank CI pairs.
+[x] C1 DONE (2026-07-10). calibration_report run on 2758 forward pairs
+(2026-07-05 -> 07-09). The anticipated pre-07-09 hrr-only/version-blank
+filter turned out to be MOOT for this data — all rows already post-fix and
+stamped dab23f4fbac8, nothing to exclude. Results: hits/home_runs/hrr
+well-centered; strikeouts +0.480 bias (over-projecting, n=88) — corroborates
+B4's short-outing premise without contradicting any earlier gate. Confidence
+informative (0.80-0.90 bucket) but not monotonic — sort-worthy, not yet
+size-worthy. See NEXT ACTIONS above for the run command and full numbers.
 [ ] C2. Promote CatBoost through the gate (walk-forward: done; calibration:
 hitters done, K pending B3; shadow >=1 week: here). Enable corrections.
 [ ] C3. Wire live odds -> edge engine (needs B2's calibrated P(over) + A5's
@@ -714,19 +827,26 @@ here as a pointer only: if anything re-hoists that import to module top level,
 import src.data.mlb_api will break again. See [BUG1] key decision + the new
 gotcha about direct-import-vs-package-graph harness blind spots.
 
-Short-outing K over-projection in the SIMULATOR. B4 fix is BUILT + offline-
-validated (24/24) but UNGATED — not live yet; the bias is still present in
-the live model until B4 clears its gate. B1 corroborates, and A6 now
-CORROBORATES ON REAL PAIRS: K-error is strongly negative (over-projected) at
-low actual_ip and fades to ~0 around 5-6 IP, exactly B4's premise — BUT the
-short-outing buckets are n=2-7 (2 dates), so the SHAPE is confirmed while the
-MAGNITUDE is not yet fittable. B3's Poisson/NB wrap INHERITS this bias by
+Short-outing K over-projection in the SIMULATOR. B4 fix's GATE KIT is BUILT,
+offline-validated, and committed (26/26 + 24/24) but the GATE ITSELF DID NOT
+RUN — not live yet; the bias is still present in the live model until B4
+clears its gate. Three independent signals now corroborate the same bias:
+B1, A6 (K-error strongly negative at low actual_ip, fading to ~0 around 5-6
+IP — the SHAPE is confirmed, but short-outing buckets were n=2-7 / 2 dates,
+so magnitude wasn't fittable), and now C1 (calibration_report on 2758
+forward pairs: strikeouts +0.480 bias, proj 5.46 vs actual 4.98, n=88 —
+same direction, still thin). B3's Poisson/NB wrap INHERITS this bias by
 design (mean pinned to the existing, biased point estimate) — expected and
-correct for an additive wrap; B4 is where this actually gets fixed. The B4
-role->innings CONSTANTS are unvalidated placeholders pending the
-K-error-vs-actual_ip fit at the gate — the A6 tooling (run_analyze_k_error.py
---roster) is what does that fit, once there's enough version-stamped forward
-K data.
+correct for an additive wrap; B4 is where this actually gets fixed.
+RAN THE FIT ON REAL DATA (2026-07-10, gate-kit session): fit_role_innings.py
+filtered to model_version=dab23f4fbac8 -> 56 usable rows -> opener n=3,
+bulk n=6, both under min-n=15 -> DO-NOT-GATE-YET, correctly refused to fork
+the hash on unfittable magnitudes. The B4 role->innings CONSTANTS remain
+unvalidated placeholders (opener 1.5 / bulk 3.5 / cuts 0.20,0.80 / clamp
+4.0-7.0). NEXT: keep collecting forward K pairs via run_slate.py (the only
+lever — no reconstruction shortcut, see DATA COLLECTION NOTES); re-run
+fit_role_innings.py periodically; once both roles clear min-n=15, proceed
+per B4_GATE_RUNBOOK.md.
 Confidence flat tiers (~0.62/0.72), unvalidated. GBM projections carry
 confidence=0.0 on purpose; B2 owns calibrated confidence.
 HR props: rare event, heavy juice; neither model wins HR (MAE ~+0.008;
@@ -748,6 +868,12 @@ fixed-epsilon trap taught, in a new spot.
 DOUBLE CI RUN: 2026-07-09 shows TWO CI prediction commits (14:10 and 21:19
 UTC) for the same date. Understand why (duplicate cron? manual dispatch?)
 before it becomes a pattern.
+STRAY PARTIAL EXPORT (found 2026-07-10, C1 session): prediction_outcomes2.csv
+(135 rows, missing model_version and all actual_* detail columns) surfaced
+as an upload during C1 work. Not present in git status as of that session,
+so likely an ad-hoc local export rather than a repo file — verify before
+acting, and delete/move it out of data/ if a copy exists, to avoid a future
+"which CSV is authoritative" mistake.
 
 ===============================================================================
 Operational gotchas (learned the hard way — save yourself the pain)
