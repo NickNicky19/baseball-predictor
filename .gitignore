@@ -119,3 +119,4 @@ config/local*.json
 __pycache__/
 *.pyc
 catboost_info/
+data/lines/
