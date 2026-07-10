@@ -1,0 +1,1253 @@
+{
+  "season": 2023,
+  "builder_schema": "a3.1",
+  "dates": {
+    "2023-03-15": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2023-03-16": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2023-03-17": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2023-03-18": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2023-03-19": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2023-03-20": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2023-03-21": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2023-03-22": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2023-03-23": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2023-03-24": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2023-03-25": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2023-03-26": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2023-03-27": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2023-03-28": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2023-03-29": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2023-03-30": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-03-31": {
+      "status": "done",
+      "games": 5,
+      "hitter_rows": 90,
+      "pitcher_rows": 10
+    },
+    "2023-04-01": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-04-02": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-04-03": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-04-04": {
+      "status": "done",
+      "games": 14,
+      "hitter_rows": 252,
+      "pitcher_rows": 28
+    },
+    "2023-04-05": {
+      "status": "done",
+      "games": 13,
+      "hitter_rows": 234,
+      "pitcher_rows": 26
+    },
+    "2023-04-06": {
+      "status": "done",
+      "games": 10,
+      "hitter_rows": 180,
+      "pitcher_rows": 20
+    },
+    "2023-04-07": {
+      "status": "done",
+      "games": 14,
+      "hitter_rows": 252,
+      "pitcher_rows": 28
+    },
+    "2023-04-08": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-04-09": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-04-10": {
+      "status": "done",
+      "games": 14,
+      "hitter_rows": 252,
+      "pitcher_rows": 28
+    },
+    "2023-04-11": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-04-12": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-04-13": {
+      "status": "done",
+      "games": 7,
+      "hitter_rows": 126,
+      "pitcher_rows": 14
+    },
+    "2023-04-14": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-04-15": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-04-16": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-04-17": {
+      "status": "done",
+      "games": 13,
+      "hitter_rows": 234,
+      "pitcher_rows": 26
+    },
+    "2023-04-18": {
+      "status": "done",
+      "games": 17,
+      "hitter_rows": 306,
+      "pitcher_rows": 34
+    },
+    "2023-04-19": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-04-20": {
+      "status": "done",
+      "games": 7,
+      "hitter_rows": 126,
+      "pitcher_rows": 14
+    },
+    "2023-04-21": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-04-22": {
+      "status": "done",
+      "games": 16,
+      "hitter_rows": 288,
+      "pitcher_rows": 32
+    },
+    "2023-04-23": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-04-24": {
+      "status": "done",
+      "games": 11,
+      "hitter_rows": 198,
+      "pitcher_rows": 22
+    },
+    "2023-04-25": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-04-26": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-04-27": {
+      "status": "done",
+      "games": 11,
+      "hitter_rows": 198,
+      "pitcher_rows": 22
+    },
+    "2023-04-28": {
+      "status": "done",
+      "games": 14,
+      "hitter_rows": 252,
+      "pitcher_rows": 28
+    },
+    "2023-04-29": {
+      "status": "done",
+      "games": 17,
+      "hitter_rows": 306,
+      "pitcher_rows": 34
+    },
+    "2023-04-30": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-05-01": {
+      "status": "done",
+      "games": 8,
+      "hitter_rows": 144,
+      "pitcher_rows": 16
+    },
+    "2023-05-02": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-05-03": {
+      "status": "done",
+      "games": 16,
+      "hitter_rows": 288,
+      "pitcher_rows": 32
+    },
+    "2023-05-04": {
+      "status": "done",
+      "games": 10,
+      "hitter_rows": 180,
+      "pitcher_rows": 20
+    },
+    "2023-05-05": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-05-06": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-05-07": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-05-08": {
+      "status": "done",
+      "games": 11,
+      "hitter_rows": 198,
+      "pitcher_rows": 22
+    },
+    "2023-05-09": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-05-10": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-05-11": {
+      "status": "done",
+      "games": 6,
+      "hitter_rows": 108,
+      "pitcher_rows": 12
+    },
+    "2023-05-12": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-05-13": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-05-14": {
+      "status": "done",
+      "games": 16,
+      "hitter_rows": 288,
+      "pitcher_rows": 32
+    },
+    "2023-05-15": {
+      "status": "done",
+      "games": 12,
+      "hitter_rows": 216,
+      "pitcher_rows": 24
+    },
+    "2023-05-16": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-05-17": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-05-18": {
+      "status": "done",
+      "games": 6,
+      "hitter_rows": 108,
+      "pitcher_rows": 12
+    },
+    "2023-05-19": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-05-20": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-05-21": {
+      "status": "done",
+      "games": 16,
+      "hitter_rows": 288,
+      "pitcher_rows": 32
+    },
+    "2023-05-22": {
+      "status": "done",
+      "games": 12,
+      "hitter_rows": 216,
+      "pitcher_rows": 24
+    },
+    "2023-05-23": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-05-24": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-05-25": {
+      "status": "done",
+      "games": 10,
+      "hitter_rows": 180,
+      "pitcher_rows": 20
+    },
+    "2023-05-26": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-05-27": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-05-28": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-05-29": {
+      "status": "done",
+      "games": 11,
+      "hitter_rows": 198,
+      "pitcher_rows": 22
+    },
+    "2023-05-30": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-05-31": {
+      "status": "done",
+      "games": 14,
+      "hitter_rows": 252,
+      "pitcher_rows": 28
+    },
+    "2023-06-01": {
+      "status": "done",
+      "games": 7,
+      "hitter_rows": 126,
+      "pitcher_rows": 14
+    },
+    "2023-06-02": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-06-03": {
+      "status": "done",
+      "games": 16,
+      "hitter_rows": 288,
+      "pitcher_rows": 32
+    },
+    "2023-06-04": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-06-05": {
+      "status": "done",
+      "games": 8,
+      "hitter_rows": 144,
+      "pitcher_rows": 16
+    },
+    "2023-06-06": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-06-07": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-06-08": {
+      "status": "done",
+      "games": 12,
+      "hitter_rows": 216,
+      "pitcher_rows": 24
+    },
+    "2023-06-09": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-06-10": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-06-11": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-06-12": {
+      "status": "done",
+      "games": 8,
+      "hitter_rows": 144,
+      "pitcher_rows": 16
+    },
+    "2023-06-13": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-06-14": {
+      "status": "done",
+      "games": 16,
+      "hitter_rows": 288,
+      "pitcher_rows": 32
+    },
+    "2023-06-15": {
+      "status": "done",
+      "games": 10,
+      "hitter_rows": 180,
+      "pitcher_rows": 20
+    },
+    "2023-06-16": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-06-17": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-06-18": {
+      "status": "done",
+      "games": 16,
+      "hitter_rows": 288,
+      "pitcher_rows": 32
+    },
+    "2023-06-19": {
+      "status": "done",
+      "games": 10,
+      "hitter_rows": 180,
+      "pitcher_rows": 20
+    },
+    "2023-06-20": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-06-21": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-06-22": {
+      "status": "done",
+      "games": 8,
+      "hitter_rows": 144,
+      "pitcher_rows": 16
+    },
+    "2023-06-23": {
+      "status": "done",
+      "games": 14,
+      "hitter_rows": 252,
+      "pitcher_rows": 28
+    },
+    "2023-06-24": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-06-25": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-06-26": {
+      "status": "done",
+      "games": 6,
+      "hitter_rows": 108,
+      "pitcher_rows": 12
+    },
+    "2023-06-27": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-06-28": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-06-29": {
+      "status": "done",
+      "games": 12,
+      "hitter_rows": 216,
+      "pitcher_rows": 24
+    },
+    "2023-06-30": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-07-01": {
+      "status": "done",
+      "games": 16,
+      "hitter_rows": 288,
+      "pitcher_rows": 32
+    },
+    "2023-07-02": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-07-03": {
+      "status": "done",
+      "games": 10,
+      "hitter_rows": 180,
+      "pitcher_rows": 20
+    },
+    "2023-07-04": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-07-05": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-07-06": {
+      "status": "done",
+      "games": 13,
+      "hitter_rows": 234,
+      "pitcher_rows": 26
+    },
+    "2023-07-07": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-07-08": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-07-09": {
+      "status": "done",
+      "games": 14,
+      "hitter_rows": 252,
+      "pitcher_rows": 28
+    },
+    "2023-07-10": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2023-07-11": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2023-07-12": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2023-07-13": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2023-07-14": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-07-15": {
+      "status": "done",
+      "games": 18,
+      "hitter_rows": 324,
+      "pitcher_rows": 36
+    },
+    "2023-07-16": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-07-17": {
+      "status": "done",
+      "games": 10,
+      "hitter_rows": 180,
+      "pitcher_rows": 20
+    },
+    "2023-07-18": {
+      "status": "done",
+      "games": 16,
+      "hitter_rows": 288,
+      "pitcher_rows": 32
+    },
+    "2023-07-19": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-07-20": {
+      "status": "done",
+      "games": 10,
+      "hitter_rows": 180,
+      "pitcher_rows": 20
+    },
+    "2023-07-21": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-07-22": {
+      "status": "done",
+      "games": 16,
+      "hitter_rows": 288,
+      "pitcher_rows": 32
+    },
+    "2023-07-23": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-07-24": {
+      "status": "done",
+      "games": 10,
+      "hitter_rows": 180,
+      "pitcher_rows": 20
+    },
+    "2023-07-25": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-07-26": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-07-27": {
+      "status": "done",
+      "games": 5,
+      "hitter_rows": 90,
+      "pitcher_rows": 10
+    },
+    "2023-07-28": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-07-29": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-07-30": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-07-31": {
+      "status": "done",
+      "games": 10,
+      "hitter_rows": 180,
+      "pitcher_rows": 20
+    },
+    "2023-08-01": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-08-02": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-08-03": {
+      "status": "done",
+      "games": 11,
+      "hitter_rows": 198,
+      "pitcher_rows": 22
+    },
+    "2023-08-04": {
+      "status": "done",
+      "games": 14,
+      "hitter_rows": 252,
+      "pitcher_rows": 28
+    },
+    "2023-08-05": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-08-06": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-08-07": {
+      "status": "done",
+      "games": 12,
+      "hitter_rows": 216,
+      "pitcher_rows": 24
+    },
+    "2023-08-08": {
+      "status": "done",
+      "games": 16,
+      "hitter_rows": 288,
+      "pitcher_rows": 32
+    },
+    "2023-08-09": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-08-10": {
+      "status": "done",
+      "games": 8,
+      "hitter_rows": 144,
+      "pitcher_rows": 16
+    },
+    "2023-08-11": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-08-12": {
+      "status": "done",
+      "games": 16,
+      "hitter_rows": 288,
+      "pitcher_rows": 32
+    },
+    "2023-08-13": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-08-14": {
+      "status": "done",
+      "games": 9,
+      "hitter_rows": 162,
+      "pitcher_rows": 18
+    },
+    "2023-08-15": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-08-16": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-08-17": {
+      "status": "done",
+      "games": 6,
+      "hitter_rows": 108,
+      "pitcher_rows": 12
+    },
+    "2023-08-18": {
+      "status": "done",
+      "games": 16,
+      "hitter_rows": 288,
+      "pitcher_rows": 32
+    },
+    "2023-08-19": {
+      "status": "done",
+      "games": 18,
+      "hitter_rows": 324,
+      "pitcher_rows": 36
+    },
+    "2023-08-20": {
+      "status": "done",
+      "games": 12,
+      "hitter_rows": 216,
+      "pitcher_rows": 24
+    },
+    "2023-08-21": {
+      "status": "done",
+      "games": 10,
+      "hitter_rows": 180,
+      "pitcher_rows": 20
+    },
+    "2023-08-22": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-08-23": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-08-24": {
+      "status": "done",
+      "games": 10,
+      "hitter_rows": 180,
+      "pitcher_rows": 20
+    },
+    "2023-08-25": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-08-26": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-08-27": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-08-28": {
+      "status": "done",
+      "games": 14,
+      "hitter_rows": 252,
+      "pitcher_rows": 28
+    },
+    "2023-08-29": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-08-30": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-08-31": {
+      "status": "done",
+      "games": 4,
+      "hitter_rows": 72,
+      "pitcher_rows": 8
+    },
+    "2023-09-01": {
+      "status": "done",
+      "games": 16,
+      "hitter_rows": 288,
+      "pitcher_rows": 32
+    },
+    "2023-09-02": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-09-03": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-09-04": {
+      "status": "done",
+      "games": 11,
+      "hitter_rows": 198,
+      "pitcher_rows": 22
+    },
+    "2023-09-05": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-09-06": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-09-07": {
+      "status": "done",
+      "games": 6,
+      "hitter_rows": 108,
+      "pitcher_rows": 12
+    },
+    "2023-09-08": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-09-09": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-09-10": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-09-11": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-09-12": {
+      "status": "done",
+      "games": 17,
+      "hitter_rows": 306,
+      "pitcher_rows": 34
+    },
+    "2023-09-13": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-09-14": {
+      "status": "done",
+      "games": 10,
+      "hitter_rows": 180,
+      "pitcher_rows": 20
+    },
+    "2023-09-15": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-09-16": {
+      "status": "done",
+      "games": 16,
+      "hitter_rows": 288,
+      "pitcher_rows": 32
+    },
+    "2023-09-17": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-09-18": {
+      "status": "done",
+      "games": 11,
+      "hitter_rows": 198,
+      "pitcher_rows": 22
+    },
+    "2023-09-19": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-09-20": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-09-21": {
+      "status": "done",
+      "games": 9,
+      "hitter_rows": 162,
+      "pitcher_rows": 18
+    },
+    "2023-09-22": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-09-23": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-09-24": {
+      "status": "done",
+      "games": 16,
+      "hitter_rows": 288,
+      "pitcher_rows": 32
+    },
+    "2023-09-25": {
+      "status": "done",
+      "games": 5,
+      "hitter_rows": 90,
+      "pitcher_rows": 10
+    },
+    "2023-09-26": {
+      "status": "done",
+      "games": 16,
+      "hitter_rows": 288,
+      "pitcher_rows": 32
+    },
+    "2023-09-27": {
+      "status": "done",
+      "games": 16,
+      "hitter_rows": 288,
+      "pitcher_rows": 32
+    },
+    "2023-09-28": {
+      "status": "done",
+      "games": 12,
+      "hitter_rows": 216,
+      "pitcher_rows": 24
+    },
+    "2023-09-29": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-09-30": {
+      "status": "done",
+      "games": 16,
+      "hitter_rows": 288,
+      "pitcher_rows": 32
+    },
+    "2023-10-01": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2023-10-02": {
+      "status": "done",
+      "games": 1,
+      "hitter_rows": 18,
+      "pitcher_rows": 2
+    },
+    "2023-10-03": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2023-10-04": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2023-10-05": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    }
+  },
+  "resolution": {
+    "park_resolved": 2390,
+    "weather_resolved": 2476,
+    "umpire_resolved": 2476,
+    "lineup_confirmed_team": 4952,
+    "opp_sp_probable": 4944,
+    "hitting_as_of_empty": 713,
+    "opp_sp_as_of_empty": 2223,
+    "hitter_actual_resolved": 44568,
+    "pitching_as_of_empty": 251,
+    "pitcher_actual_resolved": 4952,
+    "park_default": 86,
+    "hitting_as_of_resolved": 43855,
+    "pitching_as_of_resolved": 4701,
+    "opp_sp_as_of_resolved": 42345,
+    "opp_sp_actual_starter": 8
+  }
+}
