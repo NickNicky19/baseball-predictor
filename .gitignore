@@ -115,3 +115,7 @@ config/local*.json
 /data/training/*/
 /data/training/training_*.csv.gz
 !/data/training/manifest_*.json
+
+__pycache__/
+*.pyc
+catboost_info/
