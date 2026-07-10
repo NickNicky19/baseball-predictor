@@ -54,6 +54,7 @@ from src.learning.retrain_runner import RetrainRunner
 from src.models.dataclasses import (
     InjuryStatus,
     LeagueBaselines,
+    PropProjection,
     WeatherContext,
 )
 from src.prediction.prop_engine import PropEngine
@@ -413,6 +414,98 @@ def reconstruct(
             "baseline Phase-B models must beat."
         ),
     }
+
+
+# ---------------------------------------------------------------------------
+# B1 benchmark seam — return the raw simulator projections + outcomes
+# ---------------------------------------------------------------------------
+
+
+def reconstruct_objects(
+    game_date: str,
+    config: dict[str, Any],
+) -> tuple[list[PropProjection], list[OutcomeRecord]]:
+    """Return (simulator_projections, outcome_records) for one historical date.
+
+    B1's benchmark (src/learning/gbm_benchmark.py) scores the GBM against the
+    simulator on IDENTICAL OutcomeRecords. reconstruct() above builds both the
+    projections and the outcomes internally but returns only a report dict;
+    this sibling reuses the SAME leakage-safe construction (AsOfMLBAPI +
+    PointInTimeStats + FeatureFactory + PropEngine) and hands back the objects.
+
+    Additive (collection discipline #1): does not modify reconstruct(), does
+    not touch the live model, applies no corrections. Season is taken from the
+    TARGET date's year so a 2024 date uses 2024 schedules/logs regardless of
+    config["season"].
+    """
+    season = date.fromisoformat(game_date).year
+    reslog = ResolutionLog()
+    pit = PointInTimeStats(mlb_api=MLBStatsAPI(season=season), season=season)
+    api = AsOfMLBAPI(as_of_date=game_date, pit=pit, reslog=reslog, season=season)
+
+    league = LeagueBaselines.from_config(config)
+    fantasy = FantasyScoring.from_config(config)
+    factory = FeatureFactory(
+        config=config,
+        league_baselines=league,
+        mlb_api=api,
+        weather_client=InstrumentedWeatherClient(reslog),
+        umpire_client=InstrumentedUmpireClient(reslog),
+        injury_client=HistoricalInjuryClient(reslog),
+        rolling_stats_provider=pit,
+    )
+    prop_engine = PropEngine(league_baselines=league, config=config)
+
+    bundles = factory.build_bundles(
+        game_date, use_projected_lineups=False, savant_csv_path=None
+    )
+    projections: list[PropProjection] = []
+    outcomes: list[OutcomeRecord] = []
+    if not bundles:
+        return projections, outcomes
+
+    actual_hitting, actual_pitching = api.get_actuals_for_date(game_date)
+
+    # Hitters: same categories the simulator baseline is defined over.
+    for b in bundles:
+        projections.extend(
+            prop_engine.project_hitter(b, categories=HITTER_CATEGORIES)
+        )
+        pid = b.hitter.player.mlb_id
+        stats = actual_hitting.get(pid)
+        if stats is None:
+            continue
+        for cat in HITTER_CATEGORIES:
+            outcomes.append(
+                OutcomeRecord(
+                    player_id=pid,
+                    player_name=b.hitter.player.name,
+                    game_date=game_date,
+                    category=cat,
+                    actual_value=compute_actual_value(stats, cat, fantasy),
+                )
+            )
+
+    # Pitcher strikeouts: as-of stats feed both K rate and expected IP.
+    for pctx in api.get_pitchers_for_date(game_date):
+        pid = pctx.player.mlb_id
+        season_s, recent_s = api.get_pitching_stats(pid)
+        projections.append(
+            prop_engine.project_pitcher_strikeouts(pctx, season_s, recent_s)
+        )
+        p_stats = actual_pitching.get(pid)
+        if p_stats is not None:
+            outcomes.append(
+                OutcomeRecord(
+                    player_id=pid,
+                    player_name=pctx.player.name,
+                    game_date=game_date,
+                    category="strikeouts",
+                    actual_value=float(p_stats.strikeouts),
+                )
+            )
+
+    return projections, outcomes
 
 
 # ---------------------------------------------------------------------------
