@@ -14,15 +14,31 @@ every starter projected the identical strikeout total regardless of skill
 (verified: 5.0 K/9 and 13.0 K/9 both projected 9.62 K).
 Correct conversion: K% = K per PA = (K/9 innings) / (PA/9 innings)
                        = (k9 / 9.0) / PA_PER_INNING * 100.
+
+B3 (distributional pitcher K) — ADDITIVE:
+project_pitcher_strikeouts() now attaches a MonteCarloResult around the
+EXISTING point estimate instead of shipping simulation=None. The point value
+the live model ships (projected_value) is UNCHANGED — the distribution's mean
+is pinned to it by identity, so this is collection-safe and does NOT fork
+model_version. Under the model's own logic each of the (fixed) batters_faced
+is an i.i.d. Bernoulli(k_prob) draw, i.e. K ~ Binomial(n, p); we ship the
+Poisson/NB survival with mean = projected_k as the analytic distribution and
+expose a dispersion knob (pitcher_k_dispersion, default 0.0 = Poisson limit).
+Genuine batters-faced variance (short-outing bias) is B4's role-aware
+expected_innings — a GATED live-model change — not this wrap. The fitted
+dispersion of the simulator's own K residuals is a B4 MOTIVATOR, not a knob to
+turn here; keep the shipped default at the Poisson limit.
 """
 
 from __future__ import annotations
 
+import math
 from typing import Any, Optional
 
 from src.data.mlb_api import PitchingStatsSnapshot
 from src.models.dataclasses import (
     LeagueBaselines,
+    MonteCarloResult,
     PitcherGameContext,
     PlayerFeatureBundle,
     PropCategory,
@@ -37,10 +53,106 @@ from src.simulation.probability_engine import ProbabilityEngine
 # Average plate appearances per inning (≈ team PA per game / 9).
 PA_PER_INNING = 4.2
 
+# Strikeout prop lines the gate scores against (B3 KICKOFF: 4.5 / 5.5 / 6.5).
+# Half-integer by construction so P(K >= line) is unambiguous (no push).
+K_GATE_LINES: tuple[float, ...] = (4.5, 5.5, 6.5)
+
 
 def rate_per_9_to_pct(rate_per_9: float) -> float:
     """Convert a per-9-innings rate (K/9, BB/9) to a per-PA percentage."""
     return (rate_per_9 / 9.0) / PA_PER_INNING * 100.0
+
+
+# ---------------------------------------------------------------------------
+# Analytic count survival (pure-Python; no scipy dependency).
+#
+# The simulator treats each of n = batters_faced as an i.i.d. Bernoulli(k_prob)
+# draw with FIXED n, so K ~ Binomial(n, p) under the model's own assumptions.
+# We ship the Poisson limit (a -> 0) by default; a > 0 gives a Negative-
+# Binomial with the SAME mean and Var = mean + a * mean^2, as a config knob
+# for B4 (random batters-faced) without changing the shipped point value.
+# ---------------------------------------------------------------------------
+
+
+def _poisson_pmf(k: int, mu: float) -> float:
+    if mu <= 0.0:
+        return 1.0 if k == 0 else 0.0
+    return math.exp(k * math.log(mu) - mu - math.lgamma(k + 1))
+
+
+def _poisson_cdf(k: int, mu: float) -> float:
+    """P(K <= k) for integer k >= 0."""
+    if k < 0:
+        return 0.0
+    total = 0.0
+    for i in range(0, k + 1):
+        total += _poisson_pmf(i, mu)
+    return min(1.0, total)
+
+
+def _nbinom_pmf(k: int, r: float, p: float) -> float:
+    # P(K = k) = C(k + r - 1, k) * p^r * (1 - p)^k, mean = r (1 - p) / p.
+    if k < 0:
+        return 0.0
+    log_coeff = math.lgamma(k + r) - math.lgamma(r) - math.lgamma(k + 1)
+    return math.exp(log_coeff + r * math.log(p) + k * math.log1p(-p))
+
+
+def _nbinom_cdf(k: int, r: float, p: float) -> float:
+    if k < 0:
+        return 0.0
+    total = 0.0
+    for i in range(0, k + 1):
+        total += _nbinom_pmf(i, r, p)
+    return min(1.0, total)
+
+
+def k_count_distribution(
+    mean_k: float,
+    lines: tuple[float, ...] = K_GATE_LINES,
+    dispersion: float = 0.0,
+) -> tuple[dict[float, float], float, float, float, float]:
+    """
+    Analytic strikeout-count distribution with mean pinned to `mean_k`.
+
+    dispersion (a): Var = mean + a * mean^2. a <= 0 is the Poisson limit
+    (the fixed-batters-faced baseline the live model implies). Returns
+    (p_ge_threshold, median, p10, p90, mean).
+
+    KEY CONVENTION (matches the hitter MonteCarloEngine + gate harness):
+    p_ge_threshold is keyed by the INTEGER count threshold as a float —
+    float(ceil(line)) — NOT by the half-integer betting line. Betting line
+    4.5 -> key 5.0 = P(K >= 5). This is exactly how hitter categories store
+    thresholds ({1.0: ..., 2.0: ...}), so run_gate_reconstruct.py's
+    _p_over_from_projection (which probes p_ge_threshold[float(ceil(L))])
+    works for K with zero harness changes. One convention, one ruler.
+    """
+    mean_k = max(0.0, float(mean_k))
+
+    if dispersion <= 1e-9 or mean_k <= 0.0:
+        cdf = lambda k: _poisson_cdf(k, mean_k)  # noqa: E731
+    else:
+        r = 1.0 / dispersion
+        p = r / (r + mean_k)
+        cdf = lambda k: _nbinom_cdf(k, r, p)  # noqa: E731
+
+    p_ge: dict[float, float] = {}
+    for ln in lines:
+        need = math.ceil(ln)  # P(K >= 4.5) == P(K >= 5) == 1 - P(K <= 4)
+        p_ge[float(need)] = float(max(0.0, min(1.0, 1.0 - cdf(need - 1))))
+
+    def quantile(q: float) -> float:
+        # Smallest integer k with CDF(k) >= q. Bounded search; K counts are small.
+        k = 0
+        cap = int(mean_k * 6) + 50
+        while k < cap and cdf(k) < q:
+            k += 1
+        return float(k)
+
+    median = quantile(0.50)
+    p10 = quantile(0.10)
+    p90 = quantile(0.90)
+    return p_ge, median, p10, p90, mean_k
 
 
 class PropEngine:
@@ -189,6 +301,10 @@ class PropEngine:
     ) -> PropProjection:
         """
         Project pitcher strikeouts using PA-rate simulation.
+
+        B3: attaches an analytic strikeout distribution (simulation != None)
+        whose mean is pinned to the existing point estimate. ADDITIVE — the
+        shipped projected_value is unchanged; model_version does not fork.
         """
         weights = self.config.get("weights", {})
         season_w = float(weights.get("season", 0.35))
@@ -225,9 +341,14 @@ class PropEngine:
             pitcher_bb_pct=pitcher_bb_pct,
             park_hr_factor=1.0,
         )
+        # projected_k uses the (already-clamped) k_prob returned by the PA sim;
+        # the distribution mean is pinned to THIS value, clamp and all, so the
+        # distribution is consistent with the exact point the live model ships.
         projected_k = rates["k_prob"] * batters_faced
 
         confidence = self._pitcher_confidence(recent_stats, season_stats)
+
+        simulation = self._build_k_simulation(projected_k)
 
         return PropProjection(
             player_id=pitcher.player.mlb_id,
@@ -236,7 +357,37 @@ class PropEngine:
             game_date=pitcher.game.game_date,
             projected_value=round(projected_k, 2),
             confidence=confidence,
-            simulation=None,
+            simulation=simulation,
+        )
+
+    def _build_k_simulation(self, projected_k: float) -> MonteCarloResult:
+        """
+        Analytic strikeout distribution pinned to the point estimate.
+
+        n_sims=0 flags this as analytic (not Monte-Carlo sampled). The mean
+        equals projected_k by identity, keeping the wrap additive. dispersion
+        defaults to the Poisson limit; pitcher_k_dispersion in config can widen
+        it (reserved for B4's random batters-faced model — leave at 0.0 during
+        collection).
+
+        p_ge_threshold keys are float(ceil(line)) — {5.0, 6.0, 7.0} for the
+        gate lines 4.5/5.5/6.5 — matching the hitter/gate integer-threshold
+        convention (see k_count_distribution docstring).
+        """
+        dispersion = float(self.config.get("pitcher_k_dispersion", 0.0))
+        p_ge, median, p10, p90, mean_k = k_count_distribution(
+            projected_k,
+            lines=K_GATE_LINES,
+            dispersion=dispersion,
+        )
+        return MonteCarloResult(
+            n_sims=0,
+            category="strikeouts",
+            mean=mean_k,
+            median=median,
+            p10=p10,
+            p90=p90,
+            p_ge_threshold=p_ge,
         )
 
     def _bundle_to_sim_input(
@@ -315,4 +466,3 @@ class PropEngine:
     def _league_k9(self) -> float:
         league = self.config.get("league_avg", {})
         return float(league.get("k_per_9", 8.8))
-

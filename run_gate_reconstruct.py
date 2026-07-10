@@ -6,21 +6,33 @@ scored on, so run_calibration_gate.py compare can inner-join and judge
 
 WHY A RECONSTRUCTION (settled in the B2 chat): the sim cache stores point
 projections only. The simulator's P(over) is MonteCarloResult.p_ge_threshold,
-which only exists on freshly-reconstructed hitter projections. So we replay a
+which only exists on freshly-reconstructed projections. So we replay a
 SAMPLE of the 2024+ walk-forward dates through reconstruct_objects() (the
 leakage-safe A2/B1 seam, additive — no live-model change) and read
 p_ge_threshold off each projection.
 
-SCOPE — HITTERS ONLY (hits, hrr, home_runs). Pitcher strikeouts are EXCLUDED
-on purpose: project_pitcher_strikeouts() returns simulation=None (a bare point
-estimate, no distribution), so the simulator has no honest P(over) for K to
-compare against. Fabricating one would score the GBM against a strawman. The K
-column of the gate waits for B3 (distributional pitcher K); this same harness
-picks it up once PropProjection.simulation is populated for pitchers.
+SCOPE — ALL FOUR GATED CATEGORIES (B3 update). Hitters (hits, hrr,
+home_runs) as before, PLUS pitcher strikeouts now that B3 populates
+PropProjection.simulation with an analytic K distribution (Poisson/NB pinned
+to the live point estimate — additive, no model_version fork). K lines
+4.5/5.5/6.5 per the B3 KICKOFF.
+
+NOTE ON K: the K simulation is ANALYTIC (n_sims=0, per_game_samples=None),
+so only the p_ge_threshold path can serve it — there is no samples fallback.
+Its keys follow the same integer-threshold convention as the hitter Monte
+Carlo (float(ceil(line)): 4.5 -> 5.0), so _p_over_from_projection works
+unchanged. If a K key is missing the row is dropped and flagged, never
+fabricated — same policy as hitters.
+
+DATE SAMPLING is still weighted by HITTER row counts on purpose: with the
+same --seed it reproduces the SAME date sample as the closed hitter-only gate
+run, so one reconstruction pass covers all four categories on a comparable
+sample (and K rows come along for free on those dates).
 
 KEY CONVERSION: betting line L (half-integer) -> over means actual >= ceil(L),
 so sim P(over L) = p_ge_threshold[ceil(L)]. Required integer keys:
-  hits 0.5/1.5 -> {1,2} ; hrr 1.5/2.5 -> {2,3} ; home_runs 0.5 -> {1}.
+  hits 0.5/1.5 -> {1,2} ; hrr 1.5/2.5 -> {2,3} ; home_runs 0.5 -> {1} ;
+  strikeouts 4.5/5.5/6.5 -> {5,6,7}.
 If a required key is absent from p_ge_threshold, we RECOMPUTE it from the
 MonteCarloResult.per_game_samples (independent of whatever thresholds the live
 path happened to request); if samples are also unavailable, the row is dropped
@@ -34,7 +46,7 @@ Usage:
       --n-dates 18 --seed 17 \
       --out data/models/gbm/calibration/sim_probs.csv
 
-  # then close the gate:
+  # then close the gate (now including the K column):
   python run_calibration_gate.py compare \
       --gbm data/models/gbm/calibration/gbm_deployed_probs.csv \
       --sim data/models/gbm/calibration/sim_probs.csv
@@ -54,16 +66,26 @@ import pandas as pd
 from src.learning.retrain_runner import RetrainRunner
 from run_reconstruct_date import reconstruct_objects
 
-# hitter categories the simulator baseline is defined over (K excluded; see docstring)
-STANDARD_LINES = {"hits": [0.5, 1.5], "hrr": [1.5, 2.5], "home_runs": [0.5]}
-GATE_CATEGORIES = tuple(STANDARD_LINES)  # ("hits", "hrr", "home_runs")
+# all four gated categories (B3: strikeouts added now that the simulator
+# ships an analytic K distribution; see module docstring)
+STANDARD_LINES = {
+    "hits": [0.5, 1.5],
+    "hrr": [1.5, 2.5],
+    "home_runs": [0.5],
+    "strikeouts": [4.5, 5.5, 6.5],
+}
+GATE_CATEGORIES = tuple(STANDARD_LINES)
+# hitter subset — used ONLY to weight date sampling, so the same --seed
+# reproduces the same dates as the closed hitter-only gate run
+HITTER_CATEGORIES = ("hits", "hrr", "home_runs")
 
 
 def _p_over_from_projection(proj, line: float) -> Optional[float]:
-    """sim P(actual >= line) for a hitter projection, or None if unavailable.
+    """sim P(actual >= line) for a projection, or None if unavailable.
 
     Primary: MonteCarloResult.p_ge_threshold[ceil(line)].
     Fallback: recompute from per_game_samples (category totals) if present.
+    (K is analytic — no samples — so only the primary path can serve it.)
     """
     sim = getattr(proj, "simulation", None)
     if sim is None:
@@ -94,9 +116,10 @@ def sample_dates(pairs_path: str, n_dates: int, seed: int) -> list[str]:
     df = pd.read_csv(pairs_path)
     df["game_date"] = pd.to_datetime(df["game_date"])
     df = df[df["game_date"] >= "2024-01-01"]
-    # weight sampling toward dates with more hitter rows so we get stable per-
-    # category counts; keep it reproducible.
-    hit = df[df.category.isin(GATE_CATEGORIES)]
+    # weight sampling toward dates with more HITTER rows — deliberately
+    # unchanged by B3 so the same seed reproduces the hitter-run date sample;
+    # K rows are emitted on whatever dates are drawn.
+    hit = df[df.category.isin(HITTER_CATEGORIES)]
     counts = hit.groupby(hit.game_date.dt.strftime("%Y-%m-%d")).size()
     dates = counts.index.to_numpy()
     if len(dates) <= n_dates:
@@ -135,7 +158,7 @@ def main(argv: Optional[list[str]] = None) -> int:
         n_before = len(rows)
         for proj in projections:
             cat = proj.category
-            if cat not in STANDARD_LINES:      # skip strikeouts / fantasy
+            if cat not in STANDARD_LINES:      # skip fantasy (ungated)
                 continue
             for L in STANDARD_LINES[cat]:
                 p = _p_over_from_projection(proj, L)
