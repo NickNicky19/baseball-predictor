@@ -372,5 +372,16 @@
     "walk": 2,
     "hit_by_pitch": 2,
     "stolen_base": 5
+  },
+  "role_innings": {
+    "starter_min_ratio": 0.8,
+    "opener_max_ratio": 0.2,
+    "min_games_for_role": 3,
+    "starter_ip_floor": 4.0,
+    "starter_ip_ceil": 7.0,
+    "bulk_innings": 3.5,
+    "opener_innings": 2.6,
+    "default_innings": 5.5,
+    "enabled": true
   }
 }
