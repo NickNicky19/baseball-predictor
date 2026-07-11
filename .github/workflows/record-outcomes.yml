@@ -1,6 +1,5 @@
 name: Record Outcomes
-
-# Grades YESTERDAY's predictions against final box scores and appends
+# Grades archived predictions against final box scores and appends
 # prediction->outcome pairs to data/learning/prediction_outcomes.csv via
 # OutcomeRecorder — the real pairs file with actual_value + detail columns
 # + model_version. This is the step that builds the learning dataset.
@@ -8,80 +7,97 @@ name: Record Outcomes
 # Runs at 14:00 UTC (10:00 AM Eastern), after all prior-day games including
 # West Coast extra-inning ones are final, and 6 hours BEFORE the 20:00 UTC
 # prediction job so the day's collection is closed out first.
-
+#
+# BACKFILL WINDOW (was: yesterday only)
+# ------------------------------------
+# This job used to grade YESTERDAY and only yesterday, and it skipped
+# "gracefully" when the archive was missing. That made every failure a
+# PERMANENT, SILENT hole in the forward-pairs dataset:
+#
+#   * predict job failed (transient API blip) -> no archive -> this job said
+#     "nothing to grade" and exited clean. Nobody ever went back. That is
+#     exactly what happened to 2026-07-10.
+#   * predict succeeded but its git push failed -> archive never reached the
+#     repo -> same silent hole.
+#   * games not final at 10:00 ET (West Coast extra innings, lagging feed) ->
+#     run_record_outcomes exited 1 -> this workflow went RED -> the pairs were
+#     never recorded and nothing retried them.
+#
+# Now it re-checks the last N days every run, so a failure today HEALS
+# tomorrow with no human action. Safe to run daily because OutcomeRecorder is
+# idempotent by construction: _build_pair_rows loads the existing
+# (player_id, game_date, category) keys and skips any it already has, so an
+# already-graded date appends nothing.
+#
+# This does NOT backfill predictions — only grades archives that already
+# exist. A prediction regenerated days later would see lineups/weather that
+# were not knowable at slate time; injecting reconstructions would contaminate
+# the forward-pairs set, whose entire value is that it is forward.
 on:
   schedule:
     - cron: "0 14 * * *"   # 14:00 UTC = 10:00 AM Eastern
   workflow_dispatch:
     inputs:
       date:
-        description: "Date to grade (YYYY-MM-DD). Blank = yesterday (US Eastern)."
+        description: "Single date to grade (YYYY-MM-DD). Blank = backfill window."
         required: false
         default: ""
-
+      backfill_days:
+        description: "Days to re-check when no date is given (default 7)."
+        required: false
+        default: "7"
 permissions:
   contents: write
-
 concurrency:
   group: record-outcomes
   cancel-in-progress: false
-
 jobs:
   record:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v5
-
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: "pip"
-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Resolve grading date (US Eastern, yesterday)
-        id: date
-        run: |
-          if [ -n "${{ github.event.inputs.date }}" ]; then
-            echo "grade=${{ github.event.inputs.date }}" >> "$GITHUB_OUTPUT"
-          else
-            echo "grade=$(TZ=America/New_York date -d 'yesterday' +%F)" >> "$GITHUB_OUTPUT"
-          fi
-
-      # The archive the daily job commits is what gets graded. If it's
-      # missing (no slate, or the predict job failed), skip gracefully.
-      - name: Check for prediction archive
-        id: check_archive
-        run: |
-          DATE="${{ steps.date.outputs.grade }}"
-          FILE="data/learning/predictions/predictions_${DATE}.json"
-          echo "Checking for ${FILE}"
-          if [ -f "${FILE}" ]; then
-            echo "found=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "found=false" >> "$GITHUB_OUTPUT"
-            echo "No archive for ${DATE} — nothing to grade."
-          fi
-
+      # One date if explicitly dispatched; otherwise the rolling backfill
+      # window. The backfill is idempotent, so re-grading already-recorded
+      # dates is a no-op (it reports duplicates and appends nothing).
+      #
+      # --config is passed EXPLICITLY. Without it the recorder falls back to
+      # whatever load_config(None) resolves; if that ever yields an empty or
+      # partial config the pairs get stamped with the wrong (or a default {})
+      # model_version. Every recorded pair's provenance depends on this file
+      # being loaded. (OutcomeRecorder._append_pairs now REFUSES to write a
+      # row with a blank model_version, so this would fail loudly — but pass
+      # it anyway rather than relying on the guard.)
       - name: Record outcomes
-        if: steps.check_archive.outputs.found == 'true'
         env:
           PYTHONPATH: .
         run: |
-          # Pass the real model config EXPLICITLY. Without --config the recorder
-          # falls back to whatever load_config(None) resolves; if that ever
-          # yields an empty/partial config the pairs get stamped with the
-          # wrong (or a default {}) model_version instead of the live hash.
-          # Every recorded pair's provenance depends on this file being loaded.
-          python run_record_outcomes.py \
-            --date "${{ steps.date.outputs.grade }}" \
-            --config config/config.json \
-            --verbose
+          DATE="${{ github.event.inputs.date }}"
+          DAYS="${{ github.event.inputs.backfill_days }}"
+          DAYS="${DAYS:-7}"
+          if [ -n "${DATE}" ]; then
+            echo "Grading single date ${DATE}"
+            python run_record_outcomes.py \
+              --date "${DATE}" \
+              --config config/config.json \
+              --verbose
+          else
+            echo "Backfilling the last ${DAYS} day(s)"
+            python run_record_outcomes.py \
+              --backfill-days "${DAYS}" \
+              --config config/config.json \
+              --verbose
+          fi
 
       - name: Commit pairs
         run: |
@@ -91,12 +107,8 @@ jobs:
           # that was the regression that recorded outcome_computed=False rows.
           git add data/learning/prediction_outcomes.csv || true
           if git diff --cached --quiet; then
-            if [ "${{ steps.check_archive.outputs.found }}" = "false" ]; then
-              echo "No archive for ${{ steps.date.outputs.grade }} — nothing to commit."
-            else
-              echo "No new pairs to commit (already graded, or games not final)."
-            fi
+            echo "No new pairs to commit (all dates already graded, or games not final)."
           else
-            git commit -m "Outcomes for ${{ steps.date.outputs.grade }} [skip ci]"
+            git commit -m "Outcomes: backfill through $(TZ=America/New_York date +%F) [skip ci]"
             git push
           fi

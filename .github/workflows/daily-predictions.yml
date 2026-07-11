@@ -1,5 +1,4 @@
 name: Daily Predictions
-
 on:
   schedule:
     - cron: "0 20 * * *"   # 20:00 UTC = 4:00 PM Eastern (good time for confirmed lineups)
@@ -9,32 +8,26 @@ on:
         description: "Slate date (YYYY-MM-DD). Leave blank to use today's date."
         required: false
         default: ""
-
 permissions:
   contents: write
-
 concurrency:
   group: daily-predictions
   cancel-in-progress: false
-
 jobs:
   predict:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v5
-
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: "pip"
-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
       - name: Resolve slate date (US Eastern)
         id: date
         run: |
@@ -50,23 +43,54 @@ jobs:
       # data/learning/predictions/predictions_<date>.json (with per-row
       # simulation blocks). Do NOT swap this back to run_daily.py: that CLI
       # is single-category (default hrr) and drops the simulation data.
+      #
+      # The MLB client now retries 429/5xx with exponential backoff at the
+      # transport layer (mlb_api._build_session), so the transient timeout that
+      # killed the 2026-07-10 run no longer kills the job. This step can still
+      # fail if the API is genuinely down — see the commit step below.
       - name: Generate predictions (all categories)
+        id: predict
         env:
           PYTHONPATH: .
         run: |
           python run_slate.py --date "${{ steps.date.outputs.slate }}"
 
+      # if: always() — RUN EVEN IF THE PREDICT STEP FAILED.
+      #
+      # This is the fix for a real, silent data-loss path. `git add
+      # data/learning/predictions/` already sweeps the WHOLE directory, so it
+      # picks up any archive that exists but was never committed — including
+      # one written by a previous run whose push failed. But none of that
+      # helps if the step never RUNS: when run_slate.py exited non-zero the
+      # job aborted, the commit step was skipped, and any archive already
+      # written on the runner was thrown away with the container.
+      #
+      # With always(), a partial or previously-orphaned archive still reaches
+      # the repo, where record-outcomes.yml's backfill window will grade it.
+      # The job's overall status still reflects the predict failure (the step
+      # itself is not masked), so a genuine outage is still visible/emailed.
       - name: Commit results
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
           # The rich per-date archive the outcome recorder later grades.
           git add data/learning/predictions/ || true
-
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
             git commit -m "Predictions for ${{ steps.date.outputs.slate }} [skip ci]"
             git push
           fi
+
+      # Surface a failed prediction run AFTER the archives are safely committed,
+      # so the job goes red (and emails) without costing us the data.
+      - name: Fail the job if prediction failed
+        if: always() && steps.predict.outcome == 'failure'
+        run: |
+          echo "run_slate.py failed for ${{ steps.date.outputs.slate }}."
+          echo "Any archive already written has been committed above; the"
+          echo "record-outcomes backfill window will grade it once games are final."
+          echo "If no archive was written, tomorrow's run will NOT retroactively"
+          echo "create one — this slate is lost. Investigate the failure."
+          exit 1
