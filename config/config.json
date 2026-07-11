@@ -278,7 +278,7 @@
     "file": {
       "csv_path": "data/odds/lines.csv",
       "json_path": "",
-      "date_pattern": "data/odds/lines_{date}.csv",
+      "date_pattern": "lines_%Y-%m-%d.csv",
       "require_file": false
     },
     "odds_api": {
