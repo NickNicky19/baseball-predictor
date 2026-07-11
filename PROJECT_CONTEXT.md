@@ -1,250 +1,398 @@
-PROJECT_CONTEXT.md — v9 (master roadmap) — paste into any new chat
+PROJECT_CONTEXT.md — v10 (master roadmap) — paste into any new chat
 
 Keep this file in the repo. Start a FRESH chat per task, upload this (plus the
 repo/zip if code work is needed), and say which roadmap item to work on.
 Update "Current status" and check off roadmap items as they complete.
 
 ===============================================================================
-CURRENT STATUS (2026-07-10, later same day) — C1 DONE; B4 GATE KIT BUILT +
-COMMITTED (GATE STILL OPEN, DO-NOT-GATE-YET on current K sample); A5 CODE
-COMMITTED (daily habit still left). A6 DONE; B3 CLOSED; GATE #4(b) FULLY
-CLOSED (HITTERS + K), all from earlier in the day. Live model_version
-UNCHANGED = dab23f4fbac8.
+CURRENT STATUS (2026-07-11) — *** B4 IS CLOSED AND LIVE. model_version has
+MOVED for the first time: dab23f4fbac8 -> 43a43880e377. ***
 
-Phase A machinery COMPLETE; the real 2023-2025 data run is DONE; B1 (model
-pick), B2 (calibration), and B3 (distributional pitcher K) are ALL CLOSED;
-gate #4(b) passes for hitters AND strikeouts — gate #4(b) is FULLY CLOSED.
-A6 (read-only analysis tooling) is DONE. C1 (calibration_report on forward
-pairs) is DONE — see the C1 entry below; it corroborates B4's premise
-(strikeouts over-project) without contradicting any earlier gate result.
+B4 (role-aware expected_innings) was found broken, fixed, gated, replicated on
+an independent season, and PROMOTED — all today. Two separate silent-failure
+bugs had to be fixed before the gate could test anything at all; either one
+alone would have produced a gate that "passed" while measuring nothing. Both
+are described below because the FAILURE MODE matters more than the fix.
 
-B4's GATE KIT (roster builder, constants fitter, sim-vs-sim verdict tool,
-plus the standing-note package-graph smoke check) is BUILT, OFFLINE-VALIDATED,
-and COMMITTED (commit 0bbfa21) — but the GATE ITSELF DID NOT RUN. Run on real
-data, the fitter reported DO-NOT-GATE-YET: opener n=3, bulk n=6, both under
-the min-n=15 guard. config.json is UNCHANGED; the live model is still the
-frozen simulator at dab23f4fbac8. THE ONLY LEVER ON THIS is daily forward
-collection (run_slate.py) — there is no same-day shortcut; do not re-run
-run_slate.py multiple times in one day (collides on
-predictions_<date>.json, see gotchas). Re-check the fitter periodically
-(weekly is reasonable) until DO-NOT-GATE-YET clears, then proceed through
-B4_GATE_RUNBOOK.md (A6 before/after -> config.b4.json -> smoke -> full run +
-verdict -> promotion flip -> commit).
+Also closed today: HTTP retry/backoff (the daily Action was dying on transient
+timeouts), a self-healing outcome-grading backfill (three separate paths were
+silently losing whole days of forward pairs), and a full training-set rebuild
+(the A3 training set had the same appearances-as-starts bug baked into
+14,816 rows on disk).
 
-A5's line logger and odds probe were built + offline-tested earlier but sat
-UNCOMMITTED until today (commit ed3d0bc) — same near-miss pattern as B1's
-git recovery incident. Code is now safe; the daily-logging HABIT still has
-not started. Every un-logged day is lost — closing lines are
-non-reconstructable, independent of B4's timeline, and should start now
-rather than wait on B4.
+Six commits, in order:
+  af2f496  B4: point-in-time bug + config threading; passes gate
+  97f5618  HTTP: transport-level retries with exponential backoff
+  f176a2a  PROMOTE B4: role-aware expected_innings LIVE (43a43880e377)
+  7d68d22  Automation: self-healing backfill window for outcome grading
+  a6a1880  Training manifests: rebuilt 2023-2026 with the fixed parser
+  bab52dd  Commit orphaned prediction archives (2026-07-10, 2026-07-11)
 
-Since v7, closed / found:
+THE NEXT REAL PIECE OF WORK IS THE HRR BUG (see OPEN ITEMS #1). It is the
+single biggest accuracy lever left, it is structural (not a tuning problem),
+it also corrupts fantasy, and it is now evidenced from three independent
+directions. Do NOT enable bias corrections until it is fixed — a correction
+layer fitted on top of a broken distribution just hides the bug. AFTER it is
+fixed, add standalone `runs` and `rbi` categories (#1b) so hrr stops being a
+black box — the ONLY reason the previous attempt patched a symptom-cap instead
+of finding this bug is that nobody could see which component was broken.
 
-A6 DONE (2026-07-10, own chat). K-error-vs-actual_ip analysis tooling built,
-offline-validated (50/50 in scripts/check_a6_offline.py), and RUN on real
-pairs. Read-only/additive: reads the outcome pairs CSV, reports K-error
-bucketed by actual_ip, and (given a --roster with real innings_pitched) does
-an OLD-vs-NEW before/after by importing the REAL RoleAwareInningsEstimator to
-recompute what predicted_k WOULD be under a candidate role_innings config.
-The rescale is EXACT (prop_engine's k_prob does not depend on
-expected_innings, so predicted = k_prob * expected_innings * PA_PER_INNING and
-the candidate/legacy ratio cancels k_prob). Files: run_analyze_k_error.py,
-scripts/check_a6_offline.py, scripts/diagnose_k_pairs.py (read-only drop
-attribution). Committed + pushed. See the [A6] key-decision entry and the A6
-roadmap checkbox. IMPORTANT: A6 on the CURRENT real pairs is NOT yet
-decision-useful — the K sample is 2 dates / ~56 gradeable rows with ~4 rows in
-the short-outing zone; the bias SHAPE matches B4's premise but MAGNITUDES are
-not fittable. Two bugs (below) block accumulating clean forward K data.
+-------------------------------------------------------------------------------
+B4 — WHAT WAS ACTUALLY WRONG (both bugs, because the pattern will recur)
 
-BUG 1 (FIXED this session): B4's offline build shipped a CIRCULAR IMPORT.
-mlb_api.py had a TOP-LEVEL from src.prediction.role_innings import RoleAwareInningsEstimator (added by B4). That closed the loop mlb_api ->
-src.prediction/init -> correction_manager -> src.learning/init ->
-outcome_recorder -> mlb_api, so import src.data.mlb_api FAILED with
-ImportError on a partially-initialized module. B4's harness passed 24/24
-while this was broken because check_b4_offline.py imports role_innings
-DIRECTLY, never through the mlb_api package graph. FIXED by making the import
-LAZY (inside MLBStatsAPI.init and inside the module-tail
-_estimate_expected_ip helper) — no behaviour change, does NOT fork
-model_version (imports aren't in the config hash), collection-safe. Verified:
-import src.data.mlb_api clean, OutcomeRecorder imports through the package
-graph clean, and a correctly-constructed recorder stamps 'dab23f4fbac8'.
-Committed + pushed (separate commit from A6). This corrects the v7 claim that
-B4 was "offline-validated (24/24) ... inert" — an import that raises on
-import mlb_api is the OPPOSITE of inert; the 24/24 was real but did not
-exercise the broken path.
+BUG 1 (the one this doc predicted): point_in_time._aggregate_pitching never
+set `games` on the point-in-time PitchingStatsSnapshot, and set
+games_started=len(rows) (total appearances, not real starts). Because
+RoleAwareInningsEstimator returns role="unknown" whenever games <= 0, EVERY
+reconstructed pitcher fell back to default_innings. Fixed by adding a
+per-game games_started field to GameLogRow, populating it from the gameLog
+split's `gamesStarted` key (0/1 per game — the SAME key mlb_api._parse_pitching
+already reads, so it is the schema the live path trusts), and setting
+games=len(rows) + games_started=sum(per-game starts) in the aggregator. BOTH
+UNFLOORED: a reliever's true 0 starts is exactly the opener signal, and
+flooring it would reintroduce the phantom start the whole fix exists to remove.
 
-BUG 2 (FIXED 2026-07-10). Root cause: off-by-one in _actual_detail_fields. model_version is PAIR_COLUMNS[7]; the blank detail dict was built from PAIR_COLUMNS[7:], including model_version, so row.update(detail) overwrote the just-set stamp with "" on every row — all 2758 blanks, from day one. Fixed by anchoring the slice to index("actual_pa") (index 8). Both handoff hypotheses disproven: migration preserves existing stamps; load_config(None) and explicit --config both yield dab23f4fbac8 (config passing was never the problem). Backfill of 2758 rows valid (freeze). Added write-path guard (raises on blank stamp — it caught this) + no-config constructor warning. Test test_outcome_recorder_appends_pairs now guards the stamp survives .update(). C1/B4 model_version filtering now live.
+BUG 2 (NOT predicted, and fatal on its own): reconstruct_objects constructed
+MLBStatsAPI and AsOfMLBAPI with `season=` ONLY, never passing `config`. So
+RoleAwareInningsEstimator was built from {} -> enabled=False -> the legacy
+heuristic, REGARDLESS of what --config pointed at. Fixing BUG 1 alone would
+NOT have unblocked the gate. Four constructor sites, all now pass config=.
+Threading config through is INERT when role_innings is absent/disabled
+(verified byte-identical to legacy across the full snapshot grid), so it was
+safe to ship during collection.
 
-B4 (role-aware expected_innings) is BUILT and OFFLINE-VALIDATED (24/24 in
-scripts/check_b4_offline.py), but its GATE IS OPEN — it is not promoted and
-the live model is unchanged. The live model_version is STILL dab23f4fbac8
-(confirmed against the real config: adding "role_innings" to the allowlist
-is inert while no role_innings block exists in config.json). B4 is the first
-live-model change since the freeze; it does NOT go live until it forks the
-hash at the gate and clears gate #4 (walk-forward + calibration + shadow).
-NOTE: the circular-import fix above already edited mlb_api.py post-B4-offline,
-so mlb_api.py carries a change when the gate chat opens — it's pure import
-mechanics, no behaviour change, does not fork the hash. Do not be surprised.
+LESSON: run_b4_gate_verdict.py's exit-2 "K probabilities are IDENTICAL" guard
+names BOTH causes in its error text. It was right. The doc only chased one.
+When a tool tells you two things can cause a failure, check both.
 
-B2 CLOSED (2026-07-09/10). CatBoost point predictions -> calibrated P(over)
-per category. DESIGN VERDICT: the count model IS the calibrator. lambda =
-mean_scale * predicted_value, per-category family chosen from the
-CONDITIONAL dispersion of the walk-forward pairs (not the marginal, which is
-inflated by the spread of lambda):
-hits       Poisson        (cond var/mean ~0.85-1.0)
-home_runs  Poisson        (cond var/mean ~1.0; rare-event canonical)
-hrr        neg-binomial   (a=0.80; cond var/mean ~2.2, stable across bins)
-strikeouts neg-binomial   (a=0.01; ~Poisson on the 2024 fit)
-Post-hoc isotonic/Platt could NOT beat the raw count model out-of-sample
-(it is already well-calibrated); direct per-line logistic (approach b) was
-uniformly worse. So deployed_stage2=identity for ALL categories.
-HR (betting focus) carries mean_scale=0.907 correcting a ~9% hot point
-estimate (holdout ECE 0.020 -> 0.013, better on Brier AND log-loss). K's
-fitted scale did NOT transfer (thin 2024 fit) so K stays mean_scale=1.0 —
-a guard in the runner made that decision from the holdout, not by hand.
-Holdout ECE all cats < 0.028 (fit on 2024 pairs, tested on 2025 pairs);
-production artifact refit on ALL 2024+ pairs with the validated config.
+-------------------------------------------------------------------------------
+B4 — THE FIT, THE GATE, THE REPLICATION
 
-GATE #4(b) — calibration — FULLY CLOSED (2026-07-10; hitters first, K same
-day right after B3). GBM calibrates equal-or-better than the simulator on
-matched rows (17,137 matched rows [gbm=17,223, sim=18,429], 15 reconstructed
-2024+ dates, seed 17; 1 thin date kept — 2024-03-21 at 80 rows — the block
-bootstrap weights it naturally). Verdict uses a BLOCK BOOTSTRAP OVER DATES
-(B=4000, 95% CI) on the per-row Brier difference — NOT a fixed epsilon (the
-original 1e-4 epsilon wrongly failed the gate on sub-0.001 noise gaps; that
-was itself a "headline vs evidence" trap the discipline caught). Result, all
-four categories:
-hits        0.5  n=3218  GBM  dBrier -0.0172 [-0.0214,-0.0135]  (significant)
-hits        1.5  n=3218  GBM        -0.0047 [-0.0070,-0.0022]  (significant)
-home_runs   0.5  n=3218  TIE        +0.0008 [-0.0002,+0.0016]  (n.s.; Murphy
-skill ~0.003 BOTH models = rare-event noise floor; not a sim win)
-hrr         1.5  n=3218  GBM        -0.0054 [-0.0101,-0.0007]  (significant)
-hrr         2.5  n=3218  TIE        +0.0003 [-0.0021,+0.0032]  (n.s.)
-strikeouts  4.5  n=349   TIE        -0.0081 [-0.0221,+0.0041]  (n.s. — CI
-crosses zero; point favors GBM but is NOT significant, read the CI not the
-point gap — same lesson as the fixed-epsilon trap)
-strikeouts  5.5  n=349   GBM        -0.0174 [-0.0276,-0.0088]  (significant)
-strikeouts  6.5  n=349   GBM        -0.0117 [-0.0193,-0.0045]  (significant)
-Sim significantly better on ZERO lines (of eight) -> PASS. Verdict metric is
-Brier (proper, bounded); log-loss reported as supporting evidence; Murphy
-skill (UNC - Brier) printed per line so noise-floor categories read
-honestly. NOTE: K's Murphy skill (~0.02-0.04) is notably HIGHER than the
-hitter categories (~0.004-0.01) — real resolution above the base rate, not
-another noise floor like HR/hrr-2.5. CAVEAT: K legs rest on n=349 rows / 14
-dates — thin, as flagged below; one leg of evidence, not a reason to lean on
-K before forward pairs accrue.
+Fit (2023, clean temporal holdout — gate runs on 2024-25):
+  opener_innings  1.5 -> 2.6   FITTED from n=281 point-in-time-labelled rows
+  bulk_innings    3.5 -> 3.5   KEPT (see B5 in OPEN ITEMS)
+  everything else structural, unchanged.
 
-B3 CLOSED (2026-07-10). project_pitcher_strikeouts now ships an ANALYTIC K
-distribution (Poisson, or NB via a dispersion knob) instead of
-simulation=None — see the new [B3] key-decision entry below for the design
-reasoning. The gate harness picked it up with zero changes to its lookup
-logic; only STANDARD_LINES gained a strikeouts entry and the date-sampling
-weight was pinned to the hitter subset so --seed 17 reproduces the same 15
-dates as the original hitter-only run. Files: src/prediction/prop_engine.py,
-scripts/check_b3_offline.py (13/13 offline), run_gate_reconstruct.py.
-Commit e670fb6.
+Roles were labelled with the SAME 5-GAME TRAILING POINT-IN-TIME WINDOW the
+gate's estimator actually reads (MLBStatsAPI.get_pitchers_for_date calls
+estimate(recent), and AsOfMLBAPI's `recent` is get_pitching_stats_as_of ->
+last 5 appearances strictly before the date). A season-level roster — which is
+what A6's add_role_and_recompute produces, since it merges on player_id ALONE —
+would have collapsed every pitcher to ONE label for the whole season and fitted
+a different population than the constants get applied to. New tooling:
+  scripts/build_pit_role_rows.py       (point-in-time role + actual_ip rows)
+  scripts/fit_role_innings_pit.py      (reuses the REAL fit_constants; only the
+                                        source of the (role, actual_ip) frame
+                                        differs — one ruler, no reimplementation)
 
-A5 CODE DONE (2026-07-10, own chat). Odds sourcing confirmed on The Odds API
-free tier; read-only line logger built + offline-tested. See A5 STATUS
-section. A5 blocks nothing and stays off the critical path.
+Gate (16 dates, seed 17, B=4000, 17,217 matched rows):
+  PASS — frozen significantly better on ZERO of 3 K lines.
+  All 3 K lines favor B4; Murphy skill roughly DOUBLES on each.
+  Hitter negative controls all TIE.
 
-GIT RECOVERY (2026-07-10). B1's entire codebase had never been committed
-(it existed only on the local box). While cleaning that up, a git reset   --hard deleted the 9 staged-but-uncommitted B1 files from disk; all were
-recovered byte-for-byte from dangling blobs via git fsck + git cat-file,
-verified by hash-match + 18/18 offline harness, then committed. See the new
-operational gotchas at the bottom — this is the most important lesson added
-this session.
+  The hitter drift was verified against a MEASURED NOISE FLOOR, not assumed:
+  a frozen-vs-frozen control run gave hitter drift 0.0055/0.0038/0.0062 —
+  indistinguishable from B4-vs-frozen's 0.0058/0.0038/0.0058. Critically that
+  control also gave K drift of EXACTLY 0.00000 (the K sim is analytic, not
+  Monte Carlo), so the 0.0249 mean / 0.751 max K drift in the B4 run is 100%
+  real signal with a zero noise floor underneath it. Do this control run for
+  any future gate — a single-date smoke has n_dates=1, which makes the block
+  bootstrap degenerate (ci_lo == ci_hi on every row) and "significance"
+  meaningless.
 
-model_version UNCHANGED = dab23f4fbac8. CONFIRMED 2026-07-10 via git grep:
-src/utils/model_version.py:47 shows model_version(config, length=12) -> str
-— a pure function of the config DICT only (no source file, no commit SHA),
-matching this doc's own definition ("config hash"). B3 never touched
-config.json (pitcher_k_dispersion is read via a .get(..., 0.0) fallback,
-not a required key), so the hash's input is unchanged -> the value is
-unchanged by construction, not just by inference. (Also independently true:
-projected_value == round(sim.mean, 2), harness check 10 — the live-path
-OUTPUT didn't move either, belt and suspenders.) The simulator remains the
-LIVE production model until C2's gate. All B2 / gate-4b / B3 work was
-ADDITIVE (no live model change), consistent with the collection freeze.
+Replication (2026, independent season, fitted separately):
+                  2023      2026
+  opener_innings   2.6       2.3     (fitted independently)
+  opener n         281       167
+  bulk start_ratio 0.527     0.527   (agrees to THREE decimals)
+  starter ip       5.416     5.396
+Both seasons land far below the legacy 5.5 default / 4.0 floor for openers.
+The constant is a stable structural fact about bullpen usage, not a 2023
+artifact. Promoted the GATED artifact (2.6), not a refit — the gate is what
+earns promotion, and refitting would ship something the gate never saw.
 
-NEXT ACTIONS:
-(DONE earlier this session) RECORDER PROVENANCE FIX — BUG 2 fixed +
-backfilled. Root cause was an off-by-one slice in _actual_detail_fields (see
-BUG 2 entry), NOT the migration or the entrypoint config passing (both
-handoff hypotheses were disproven). All 2758 rows backfilled to
-dab23f4fbac8; forward path verified (0 blank rows, single version in the
-CSV; real-config entrypoint run clean). C1/B4 model_version filtering is now
-LIVE (was inert). Committed separately.
+-------------------------------------------------------------------------------
+INFRASTRUCTURE CLOSED TODAY
 
-(DONE this session) C1 — calibration_report on 2758 forward pairs
-(2026-07-05 -> 07-09, all model_version=dab23f4fbac8, zero blanks -> the
-anticipated pre-07-09 hrr-only/version-blank filter was moot, nothing to
-exclude). Run via:
-  python -c "from src.evaluation.calibration_report import CalibrationAnalyzer; print(CalibrationAnalyzer().analyze('data/learning/prediction_outcomes.csv').render())"
-Results: hits +0.104 bias / MAE 0.680 (well-centered); home_runs -0.005 /
-0.217 (well-centered, B2 mean_scale=0.907 holding); hrr -0.001 / 1.535
-(well-centered); strikeouts +0.480 bias / MAE 2.415 / proj 5.46 vs actual
-4.98 on n=88 -> OVER-projecting, the short-outing K bias B4 targets (the
-report's own "well-centered" label on strikeouts is a |bias| < 0.35*MAE
-artifact inflated by K's huge MAE — read the +0.48, not the label).
-Confidence INFORMATIVE (0.80-0.90 bucket MAE 0.412 vs ~1.4 elsewhere) but not
-monotonic across bands -> defensible to sort by, NOT yet to size by.
+HTTP RETRIES (97f5618). MLBStatsAPI built a BARE requests.Session() with no
+retry adapter and timeout=20, so _get made exactly ONE attempt and turned any
+blip into a fatal DataFetchError. That is what killed the scheduled
+daily-predictions Action, and a gate smoke test mid-run. Retry logic DID
+already exist — in DiskCachedGetMixin._network_get — but that mixin's own
+docstring forbids it on live slates, so run_slate.py ran UNPROTECTED. The logic
+existed; it was wired to the wrong path. Retries now live at the TRANSPORT
+(mlb_api._build_session): urllib3 Retry over 429/5xx, backoff 0/2/4/8s, 404
+fails fast, GET-only, timeout 30s. The mixin's retry loop was REMOVED in the
+same change — keeping both would MULTIPLY them (3 mixin attempts x N session
+retries = up to 3N requests per URL), hammering the API hardest exactly when a
+429 asks us to back off. One retry layer, at the transport.
+  NOTE: a bare requests.Session is not "no retry config" — its default adapter
+  carries Retry(0), i.e. an EXPLICIT never-retry. That is why the bug was
+  invisible.
 
-(DONE this session, GATE STILL OPEN) B4 GATE KIT — own chat. Standing-note
-package-graph smoke check added to check_b4_offline.py (26/26; check 0a
-plain `import src.data.mlb_api` through the real graph — the line that would
-have caught BUG 1 — plus 0b delegation check). Three new tools, each behind
-scripts/check_b4_gate_tools_offline.py (24/24): build_pitcher_roster.py
-(season pitching lines via the project's own _parse_pitching parser),
-fit_role_innings.py (fits opener_innings/bulk_innings from real actual_ip
-per role, min-n=15 guard with a DO-NOT-GATE-YET flag, ordering guards,
-validates through the real RoleAwareInningsEstimator, previews the
-model_version fork), run_b4_gate_verdict.py at repo root (frozen-vs-
-candidate sim block bootstrap over dates, B=4000, Murphy skill, hitter
-negative-control check, exits 2 if K probs are identical between runs — the
-reconstruction-plumbing tell).
-RAN ON REAL DATA: roster builder -> 88/88 pitchers, 0 fetch failures, 0
-games=0. Fitter filtered to model_version=dab23f4fbac8 -> 56 usable K rows
-(32 dropped, missing predicted_value/actual_strikeouts/actual_ip>0) ->
-opener n=3, bulk n=6, BOTH under min-n=15 -> DO-NOT-GATE-YET, placeholders
-kept unchanged (opener 1.5 / bulk 3.5); the fork preview
-dab23f4fbac8 -> 6a71e023582c is the PLACEHOLDER hash (nothing was actually
-fitted, so do not read this as a fitted result).
-GATE NOT RUN. config.json UNCHANGED. Live model_version UNCHANGED =
-dab23f4fbac8. Sequencing decision for when the gate does run: build
-config/config.b4.json (real config + fitted block) and pass it to
-run_gate_reconstruct.py via --config, rather than editing config.json before
-the verdict — avoids running the live daily slate B4-enabled pre-verdict.
-Flip config.json only at promotion (Step 7 of B4_GATE_RUNBOOK.md), so the
-model_version fork coincides with go-live.
-NEXT: keep run_slate.py daily (the only lever on opener/bulk n — no same-day
-shortcut; same-day reruns collide on predictions_<date>.json per the
-existing gotcha, so running it twice today does not add data). Re-check
-fit_role_innings.py periodically (weekly is reasonable) until
-DO-NOT-GATE-YET clears; then A6 before/after -> config.b4.json -> smoke ->
-full run + verdict -> promotion flip -> commit, per B4_GATE_RUNBOOK.md.
-Committed as commit 0bbfa21: scripts/check_b4_offline.py (modified),
-scripts/build_pitcher_roster.py, scripts/fit_role_innings.py,
-scripts/check_b4_gate_tools_offline.py, run_b4_gate_verdict.py.
+BACKFILL (7d68d22). The record-outcomes job graded YESTERDAY and only
+yesterday, and skipped "gracefully" when the archive was missing. Three
+independent failure modes each lost a day PERMANENTLY and SILENTLY:
+  1. predict failed -> no archive -> next day's record job said "nothing to
+     grade" and exited CLEAN. Nobody went back.
+  2. predict succeeded but its git push failed -> archive never reached repo.
+  3. games not final at 10:00 ET -> the script exited 1 -> workflow RED ->
+     pairs never recorded, nothing retried them.
+run_record_outcomes.py now takes --backfill-days N (default 7 in the workflow).
+Safe because OutcomeRecorder is idempotent BY CONSTRUCTION (_build_pair_rows
+loads existing (player_id, game_date, category) keys and skips them), and
+because "games not final" and "no archive" are SKIPS, not failures — failing on
+those would turn the workflow red every time a West Coast game runs long, and a
+workflow that cries wolf is one nobody reads. First real run RECOVERED 40
+ungraded pairs from 2026-07-07. daily-predictions.yml's commit step now runs
+with if: always(), so an archive written before a crash still reaches the repo
+(the job still fails afterward — a real outage stays visible).
+  NOT backfilled: PREDICTIONS. A slate regenerated days later would see
+  lineups/weather that were not knowable at 4 PM ET, and PredictionArchive does
+  not even round-trip the simulation block. Injecting reconstructions would
+  contaminate the one dataset whose entire value is that it is FORWARD. A lost
+  slate stays lost; a lost GRADE gets healed.
 
-(DONE this session, HABIT STILL LEFT) A5 CODE COMMITTED — commit ed3d0bc.
-run_log_lines.py + probe_odds_apis.py were built and offline-tested earlier
-but sat untracked until today (same near-miss pattern as B1's git recovery
-incident — see gotchas). LEFT (habit, not code): first live --dry-run
-confirming batter_home_runs/pitcher_strikeouts populate on DK; then a real
-write + spot-check; ROTATE ODDS_API_KEY (it was pasted in chat during
-setup); START DAILY LOGGING — every un-logged day is lost, non-
-reconstructable, and this does not depend on B4's timeline at all.
+TRAINING-SET REBUILD (a6a1880). The A3 training set had the SAME
+appearances-as-starts bug baked into its pit_gs / pit_recent_gs /
+pit_recent_ip_per_gs columns — 14,816 rows of it. Verified on Tyler Holton
+(663947, a reliever): pit_gs climbed 17 -> 28 -> 39 -> 41 while he threw 1-2 IP
+per outing. Any future GBM/IP model trained on those columns would have learned
+the conflation as if it were signal. Rebuilt all four seasons with --rebuild
+(the MANIFEST is the resume gate, not the shards — deleting shard dirs does
+nothing).
+  PROOF: Holton max pit_gs, before -> after
+    2023: 17 -> 0     2024: 63 -> 8     2025: 62 -> 5     2026: 1 -> 1
+  Cost: ~5 minutes, misses=0. The http cache stores RAW API JSON, so cached
+  responses + fixed parser = correct output with zero refetches.
 
-(main line, resumes once forward K data permits) B4 GATE completion — own
-chat. Do NOT run casually during collection; do NOT force the gate on
-placeholder constants.
-(daily habit, unchanged) run_slate.py + A5 line logger daily — forward pairs
-and closing lines are non-reconstructable. NOTE: forward K pairs recorded
-BEFORE the provenance fix will be version-blank; prefer to filter on
-model_version=dab23f4fbac8 rather than relying on date alone.
+HARNESS FIXES. check_bug2_offline.py had a broken import (bare
+`from model_version import ...`) and had been silently failing. More important:
+check_reconstruct_offline.py was carrying BUG 2 INSIDE ITSELF — it constructed
+FixtureAPI without config=, so it was testing the pre-B4 legacy path while the
+live model runs B4. Its pitching fixture also never set gamesStarted, so an
+"Ace" (6 IP / 7 K per outing) parsed as 0 starts and classified as an OPENER.
+Both fixed; the harness now also pins games/games_started explicitly so BUG 1
+cannot silently return. 26/26 (was 21/2).
 
+-------------------------------------------------------------------------------
+FULL OFFLINE HARNESS BOARD (2026-07-11, all green except as noted)
 
+  check_reconstruct_offline      26/26   (A2)
+  check_training_builder_offline 29/1    (A3) — see OPEN ITEMS #2
+  check_statcast_roller_offline  19/19   (A4)
+  check_a6_offline               50/50   (A6)
+  check_b3_offline               13/13   (B3)
+  check_gbm_offline              18/18   (B1)
+  check_bug2_offline              9/9
+  check_b4_offline               26/26   (B4)
+  check_pit_pitching_offline     44/44   (B4 point-in-time — NEW)
+  check_pit_role_rows_offline    33/33   (B4 historical fit — NEW)
+  check_http_retry_offline       31/31   (NEW)
+  check_backfill_offline         26/26   (NEW)
+  check_b4_gate_tools_offline    24/24
+  check_shadow_compare_offline   27/27
+  check_calibration_offline      needs run_calibrate_gbm.py first (not a bug)
+
+===============================================================================
+OPEN ITEMS (2026-07-11) — in priority order
+
+#1  HRR IS STRUCTURALLY BROKEN. *** BIGGEST LEVER. NEXT REAL WORK. ***
+
+    src/simulation/game_simulator.py builds a FRESH BaseState on EVERY plate
+    appearance, reads one field off it, and throws it away:
+
+        def _rbi_for_outcome(self, kind):
+            b1, b2, b3 = self._sample_base_state()   # fresh random draw
+            state = BaseState(bases=[b1, b2, b3])    # NEW object every PA
+            state.advance_single()                   # ...
+            return state.rbi                         # read once, DISCARDED
+
+    Three consequences, worst first:
+      (a) runs and RBI come from UNRELATED draws within the same PA.
+          _rbi_for_outcome samples a base state; _run_for_batter IGNORES it
+          entirely and flips an independent coin against p_score_from_base.
+      (b) the batter's own run has no causal link to him being on base. You
+          single, and a coin comes up heads 28% of the time — rather than you
+          standing on first and scoring if the next guys drive you in.
+      (c) base state does not persist across PAs, so nothing correlates within
+          a game. Real games CLUSTER; this model's PAs are independent islands.
+
+    hrr = hits + runs + rbi — three variables that are strongly positively
+    correlated in reality, modeled as (near-)independent. The MEAN survives;
+    the DISTRIBUTION is wrong. For a Brier-scored over/under, the shape IS the
+    product.
+
+    EVIDENCE (three independent directions):
+      1. Code: BaseState is a full state machine (it correctly advances
+         runners, tracks outs, credits RBI) being used as a stateless lookup.
+         state.runs is computed correctly and NEVER READ.
+      2. Validation, 5 consecutive days: hrr MAE 1.516 / 1.527 / 1.527 /
+         1.529 / 1.501 — remarkably CONSISTENT, i.e. systematic, not noise.
+         Meanwhile hrr mean_error is ~0 (-0.026 / -0.048 / +0.060 / +0.260 /
+         -0.014). Point estimate fine, distribution wrong. And median_error
+         (+0.53..+0.81) diverges hugely from mean_error (~0), so the error
+         distribution is SKEWED. Compare the components: hits MAE ~0.66-0.71,
+         home_runs ~0.21-0.24 — both fine. ONLY THE COMPOSITE IS BROKEN.
+      3. Somebody already hit this and patched the SYMPTOM: scripts/
+         diagnose_hrr_breakdown.py computes an "overshoot" CAP
+         (new_cap = hrr_rate * pa * 1.9). A fat upper tail is exactly what
+         independent-sampling-of-correlated-quantities produces. The cap is
+         treating the fever.
+
+    THE FIX: give GameSimulator ONE persistent BaseState per simulated game;
+    advance it stochastically between the batter's own PAs to represent the ~8
+    intervening batters (that is what DEFAULT_BASE_STATE_DIST is actually FOR —
+    a transition target, not a per-PA resample); and read runs AND rbi off the
+    SAME state machine, deleting _run_for_batter's independent coin.
+
+    THIS ALSO FIXES FANTASY. monte_carlo._fantasy_points sums result.rbi and
+    result.runs, so hitter fantasy inherits the identical bug. Two categories,
+    one root cause.
+
+    *** CAVEAT THAT WILL BITE: p_score_from_base (0.27/0.28/0.40/0.56) was
+    almost certainly FITTED AGAINST THE BROKEN SAMPLING — the retrain layer
+    tuned it to make a wrong model produce roughly-right means. Fixing the
+    structure may initially look WORSE until those constants are re-fit. Plan
+    for it: fix structure -> re-fit constants -> gate the COMBINATION. Do not
+    revert a correct change because its first measurement looks bad. ***
+
+    This is a gated change (it moves hitter output -> forks model_version ->
+    needs its own gate, exactly like B4). Also noticed while reading:
+    _fantasy_points OMITS hit_by_pitch and stolen_base — they are in the config
+    and the dataclass but never summed, and the simulator never generates them.
+    PrizePicks scores both (2 pts / 5 pts). Minor, but it is a silent gap.
+
+#1b ADD STANDALONE `runs` AND `rbi` CATEGORIES — *** AFTER #1, NOT INSTEAD ***
+
+    ORDERING IS THE WHOLE POINT. Adding an rbi category does NOT fix hrr. It
+    would create a NEW prop that reads the SAME broken result.rbi — the bug
+    made more visible, not fixed. Doing this BEFORE #1 bakes the correlation
+    bug into two more props.
+
+    But AFTER #1 it is genuinely worth doing, for a reason that has nothing to
+    do with betting those lines: DECOMPOSITION IS DIAGNOSIS.
+
+    Right now hrr is a BLACK BOX. When its MAE is 1.52, you cannot tell which
+    component is responsible — hits, runs, or RBI. That is exactly why the
+    previous attempt reached for a CAP (diagnose_hrr_breakdown.py) instead of
+    finding the real bug: there was no way to see inside the composite. If
+    hits / runs / rbi were each graded separately, component-level error would
+    be visible immediately and this class of bug could not hide again.
+
+    Currently graded: hits, home_runs, hrr, strikeouts. There is no standalone
+    runs or rbi category anywhere — RBI is only ever seen INSIDE the composite.
+
+    HONEST EXPECTATION: RBI is the HARDEST of these to predict, because it
+    depends on things outside the batter's control (whether the guys ahead of
+    him got on base). A standalone RBI line will have worse MAE than hits no
+    matter how good the model gets. That is IRREDUCIBLE, not failure. Know it
+    going in so nobody chases it.
+
+    PrizePicks scores both (Run 2 pts, RBI 2 pts), so they are also real
+    props, not just diagnostics.
+
+    Sequence: fix #1 (the correlation) -> re-fit p_score_from_base -> gate the
+    combination -> THEN add runs/rbi as graded categories.
+
+#2  pit_recent_ip_per_gs IS ILL-DEFINED FOR RELIEVERS. (Phase 2 blocker.)
+
+    Post-fix, recent_gs is REAL starts. A reliever with zero starts in the
+    recent window divides by zero -> the feature falls back to 0.0. That is the
+    fix working (no more phantom starts) but 0.0 is the WRONG SENTINEL: to a
+    GBM it reads as "throws zero innings per start" (an unbelievably terrible
+    starter) rather than "does not start". Those are completely different
+    things and the model cannot tell them apart. It should be NaN/blank —
+    check_gbm_offline.py already has a check literally titled "A4 blank became
+    NaN (not '')", so the codebase already knows this pattern matters.
+    This is why check_training_builder_offline.py is 29/1. Not urgent (no GBM
+    is deployed) but FIX BEFORE TRAINING ON THIS DATA.
+
+#3  B5 — BULK. bulk_innings is still at its 3.5 placeholder, in BOTH seasons,
+    for the same structural reason: the fitted value (~4.35 in 2023, ~4.41 in
+    2026) is ABOVE starter_ip_floor (4.0), so fit_constants clamps it to the
+    floor — which would make a bulk arm project identically to the shortest
+    possible starter, i.e. B4 would fork model_version while doing NOTHING for
+    that bucket.
+
+    The bucket boundaries are wrong, not the data. Diagnosed and confirmed:
+    within bulk, actual_ip rises MONOTONICALLY with start_ratio (3.67 -> 3.88
+    -> 4.60 -> 4.88 across ratio bins), with NO bimodality — so bulk is a
+    genuine role continuum, not contaminated with misclassified starters (an
+    earlier hypothesis, tested and REJECTED). The fix is to lower
+    starter_min_ratio (from 0.80) so high-ratio swing arms classify as
+    STARTERS, where the per-start clamp handles them properly, freeing bulk to
+    be a genuinely short bucket. That is a STRUCTURAL CUT change, which
+    fit_role_innings' own docstring forbids re-fitting from the innings it
+    produces — so it needs its own gated experiment with its own evidence.
+
+#4  NO MARKET DATA -> CANNOT MEASURE EDGE. run_shadow_compare.py works (27/27)
+    but has nothing to eat: data/lines/lines_<date>.csv is not being populated.
+    Calibration against OUTCOMES (run_validate.py) tells you the model is
+    well-behaved. It says NOTHING about whether your probabilities beat the
+    PRICE. Those are different questions and only the second one makes money.
+    The A5 daily logging habit still has not started. Every un-logged day is
+    permanently lost — closing lines are non-reconstructable.
+
+#5  xwoba_scale = 7.81 IS A RED FLAG. bias_corrections.json needs to multiply
+    xwOBA by 7.8x (and hard_hit by 5.1x, barrel by 3.4x) to make the power
+    model work, while hit_rate_scale sits at ~1.0. A healthy calibration
+    multiplier is near 1.0. The correction layer is BRUTE-FORCING a
+    mis-specified power model rather than correcting a small bias. Worth
+    investigating pa_simulator + legacy_statcast_features for a units or
+    double-counting problem.
+
+#6  DO NOT ENABLE BIAS CORRECTIONS YET. The dry-run says it would fit at 0.85
+    confidence on 3,624 pairs (weighted MAE 0.906). Do not. A correction layer
+    fitted on top of a structurally broken hrr distribution would make the
+    model look right ON AVERAGE while staying wrong on DISTRIBUTION — which is
+    exactly what loses money on over/unders. Fix #1, then re-fit.
+
+#7  WEATHER RESOLVES IN AN OFFLINE HARNESS AND NOBODY KNOWS WHY.
+    check_reconstruct_offline.py used to assert weather DEFAULTED (no network);
+    it now comes back {'resolved': 18}. That is arguably better, but the reason
+    was never established. The assertion was changed to "accounted for on all
+    18 bundles (resolved or defaulted)" rather than flipped to match whatever
+    was observed (which would make the check vacuous). Worth a look.
+
+#8  THE ENRICHED STATCAST HITTER SET MAY BE STALE.
+    training_hitters_2023_2025_statcast.csv.gz is built by
+    run_build_statcast_features.py / run_assemble_enriched.py, NOT by the
+    training builder — so today's --rebuild did NOT regenerate it. Hitter rows
+    should not carry the pit_gs bug (it is a pitcher column), but if the
+    enriched set embedded any OPPOSING-PITCHER features derived from pit_gs /
+    pit_recent_gs, it would have inherited the conflation. UNVERIFIED. Check
+    its columns before training on it.
+
+-------------------------------------------------------------------------------
+STANDING NOTES THAT KEEP EARNING THEIR KEEP
+
+  * The cheap check pays for itself. Three times today: the offline harness
+    caught BUG 2 before an overnight run; the frozen-vs-frozen control proved
+    the hitter drift was noise rather than a leak; and `git status --short`
+    caught an UNINTENDED promotion (the role_innings block had been added to
+    the live config.json before the gate was even run — it was never staged,
+    but it would have silently mixed two model_versions in the pairs file).
+
+  * A harness that passes on both the broken AND the fixed code guards
+    NOTHING. Every new harness this session was MUTATION-TESTED: reverted the
+    fix, confirmed the harness fails, confirmed it names the right invariant.
+    check_pit_pitching_offline.py fails 28/36 against the pre-fix code and
+    prints "fixed=5.5 old=5.5" — the exact gate-tests-nothing signature.
+
+  * Stub at the RIGHT layer or you measure nothing. The first retry harness
+    stubbed HTTPAdapter.send() — but send() is WHERE urllib3's retry loop
+    lives (it calls conn.urlopen(retries=...)), so stubbing it BYPASSES the
+    machinery under test. It reported "1 attempt" every time and would have
+    "proven" retries work while measuring nothing. Drive the real Retry state
+    machine (is_retry / increment / get_backoff_time) instead.
+
+  * Fixture arithmetic must be done POST-cutoff. An "opener" fixture with 2
+    starts in 12 games looks like ratio 0.167 (opener) — but the as-of cutoff
+    trims the window to 9 games, making it 2/9 = 0.222 (bulk). Got this wrong
+    once; the boundary is now pinned explicitly in check_pit_pitching_offline.
+
+===============================================================================
 ===============================================================================
 What this project is
 
