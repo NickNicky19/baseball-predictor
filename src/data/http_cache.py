@@ -67,14 +67,26 @@ class DiskCachedGetMixin:
         *args: Any,
         cache_dir: str | Path = "data/cache/http",
         rate_limiter: Optional[RateLimiter] = None,
-        max_retries: int = 3,
+        max_retries: Optional[int] = None,
         **kwargs: Any,
     ):
+        # max_retries is DEPRECATED here and no longer drives anything: retries
+        # moved to the transport session (mlb_api._build_session), so that the
+        # live path gets them too and so the two loops cannot multiply. Pass
+        # max_retries=... to MLBStatsAPI instead. Accepted (and warned about)
+        # rather than removed, so an old call site fails loudly in the log
+        # instead of silently getting behaviour it did not ask for.
+        if max_retries is not None:
+            logger.warning(
+                "DiskCachedGetMixin(max_retries=%s) is deprecated and ignored; "
+                "retries now live in the transport session. Pass max_retries to "
+                "MLBStatsAPI instead.",
+                max_retries,
+            )
         super().__init__(*args, **kwargs)
         self.cache_dir = Path(cache_dir)
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         self.rate_limiter = rate_limiter or RateLimiter()
-        self.max_retries = max(1, int(max_retries))
         self.cache_hits = 0
         self.cache_misses = 0
 
@@ -102,24 +114,27 @@ class DiskCachedGetMixin:
         return data
 
     def _network_get(self, url: str, params: Optional[dict[str, Any]]) -> Any:
-        """Rate-limited fetch with retries. Overridden by offline harnesses."""
-        last_exc: Optional[Exception] = None
-        for attempt in range(self.max_retries):
-            self.rate_limiter.wait()
-            try:
-                return super()._get(url, params)  # type: ignore[misc]
-            except DataFetchError as exc:
-                last_exc = exc
-                backoff = 2.0**attempt
-                logger.warning(
-                    "Fetch failed (attempt %d/%d), retrying in %.0fs: %s",
-                    attempt + 1,
-                    self.max_retries,
-                    backoff,
-                    exc,
-                )
-                time.sleep(backoff)
-        raise last_exc  # type: ignore[misc]
+        """Rate-limited fetch. Overridden by offline harnesses.
+
+        RETRIES MOVED OUT (deliberately). This method used to run its own
+        retry loop (`for attempt in range(self.max_retries)` with a 2**attempt
+        backoff). Retries now live ONE layer down, in the transport session
+        built by mlb_api._build_session -- which is the only layer EVERY caller
+        shares, including the live path (run_slate.py) that this mixin's own
+        docstring forbids from using the cache.
+
+        Keeping both loops would MULTIPLY them: 3 mixin attempts x N session
+        retries = up to 3N requests for one URL, with compounding backoff. That
+        hammers the API hardest exactly when a 429 is telling us to slow down.
+        One retry layer, at the transport. The mixin's job is CACHING; it only
+        ever inherited retry duty because nobody had put it in the session.
+
+        The rate limiter stays here: it is about POLITENESS between distinct
+        requests (a minimum interval), not about recovering a failed one, and
+        it has no equivalent at the transport layer.
+        """
+        self.rate_limiter.wait()
+        return super()._get(url, params)  # type: ignore[misc]
 
     # -- helpers --------------------------------------------------------
 

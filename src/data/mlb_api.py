@@ -12,6 +12,8 @@ from datetime import date
 from typing import Any, Literal, Optional
 
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 from src.utils.errors import DataFetchError
 from src.models.dataclasses import (
@@ -26,6 +28,70 @@ from src.utils.cache import TTLCache
 from src.utils.logging import get_logger
 
 logger = get_logger(__name__)
+
+
+# Status codes worth retrying: 429 = rate limited (the MLB API DOES throttle a
+# heavy caller), 5xx = transient server-side failure. A 404 is NOT retried --
+# a missing game is missing however many times we ask.
+_RETRY_STATUSES = (429, 500, 502, 503, 504)
+
+
+def _build_session(
+    max_retries: int = 4,
+    backoff_factor: float = 1.0,
+    user_agent: str = "baseball-predictor/2.0",
+) -> requests.Session:
+    """A requests.Session with transport-level retries and exponential backoff.
+
+    WHY THIS EXISTS
+    ---------------
+    The pre-fix client built a BARE `requests.Session()` with no retry adapter
+    and a 20s timeout, so `_get` made exactly ONE attempt and turned any blip
+    into a fatal DataFetchError. That is what killed the scheduled
+    daily-predictions GitHub Action ("MLB API request timed out after 20s"),
+    and it is what killed a single-date gate smoke test mid-run.
+
+    Retry logic DID already exist -- in DiskCachedGetMixin._network_get -- but
+    that mixin's own docstring forbids using it for live slates ("never use it
+    for live/today slates, where a cached pre-game feed would mask the final
+    boxscore"). So run_slate.py, the automation entry point, ran on the
+    UNPROTECTED path. The logic existed; it was just wired to the wrong one.
+
+    ONE RETRY LAYER, DELIBERATELY
+    -----------------------------
+    Retries now live HERE, at the transport, which is the only layer every
+    caller shares. DiskCachedGetMixin._network_get's retry loop is removed in
+    the same change -- keeping both would MULTIPLY (3 mixin attempts x N
+    session retries = up to 3N requests), which hammers the API hardest exactly
+    when a 429 is asking us to back off. Retry amplification makes rate limits
+    worse, not better.
+
+    urllib3 sleeps {backoff_factor * (2 ** (attempt-1))} seconds between tries:
+    with backoff_factor=1.0 that is 0s, 2s, 4s, 8s -- ~14s of patience across 4
+    retries, and it honors a Retry-After header if the server sends one.
+    """
+    session = requests.Session()
+    session.headers.update({"User-Agent": user_agent})
+
+    retry = Retry(
+        total=max_retries,
+        connect=max_retries,
+        read=max_retries,
+        status=max_retries,
+        backoff_factor=backoff_factor,
+        status_forcelist=_RETRY_STATUSES,
+        # GET-only API; every call here is idempotent and safe to repeat.
+        allowed_methods=frozenset(["GET"]),
+        # Return the final response instead of raising urllib3's own
+        # MaxRetryError, so _get's existing raise_for_status() -> DataFetchError
+        # path still produces the project's structured error with its hint.
+        raise_on_status=False,
+        respect_retry_after_header=True,
+    )
+    adapter = HTTPAdapter(max_retries=retry)
+    session.mount("https://", adapter)
+    session.mount("http://", adapter)
+    return session
 
 
 @dataclass(frozen=True)
@@ -102,14 +168,17 @@ class MLBStatsAPI:
     def __init__(
         self,
         season: int = 2026,
-        timeout: int = 20,
+        timeout: int = 30,
         cache_ttl_seconds: int = 900,
         config: Optional[dict[str, Any]] = None,
+        max_retries: int = 4,
+        backoff_factor: float = 1.0,
     ):
         self.season = season
         self.timeout = timeout
-        self.session = requests.Session()
-        self.session.headers.update({"User-Agent": "baseball-predictor/2.0"})
+        self.session = _build_session(
+            max_retries=max_retries, backoff_factor=backoff_factor
+        )
         self._schedule_cache = TTLCache[list[dict[str, Any]]](cache_ttl_seconds)
         self._hitters_cache = TTLCache[list[HitterGameContext]](cache_ttl_seconds)
         self._pitchers_cache = TTLCache[list[PitcherGameContext]](cache_ttl_seconds)
