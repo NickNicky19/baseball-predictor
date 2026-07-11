@@ -1234,20 +1234,20 @@
     }
   },
   "resolution": {
-    "park_default": 5,
-    "weather_resolved": 2464,
-    "umpire_resolved": 2464,
-    "lineup_confirmed_team": 4928,
-    "opp_sp_probable": 4919,
-    "hitting_as_of_empty": 704,
-    "opp_sp_as_of_empty": 2178,
-    "hitter_actual_resolved": 44352,
-    "pitching_as_of_empty": 245,
-    "pitcher_actual_resolved": 4928,
-    "hitting_as_of_resolved": 43648,
-    "park_resolved": 2459,
-    "pitching_as_of_resolved": 4683,
-    "opp_sp_as_of_resolved": 42174,
-    "opp_sp_actual_starter": 9
+    "park_default": 10,
+    "weather_resolved": 4928,
+    "umpire_resolved": 4928,
+    "lineup_confirmed_team": 9856,
+    "opp_sp_probable": 9838,
+    "hitting_as_of_empty": 1408,
+    "opp_sp_as_of_empty": 4356,
+    "hitter_actual_resolved": 88704,
+    "pitching_as_of_empty": 490,
+    "pitcher_actual_resolved": 9856,
+    "hitting_as_of_resolved": 87296,
+    "park_resolved": 4918,
+    "pitching_as_of_resolved": 9366,
+    "opp_sp_as_of_resolved": 84348,
+    "opp_sp_actual_starter": 18
   }
 }

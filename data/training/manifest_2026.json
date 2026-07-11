@@ -1,0 +1,1257 @@
+{
+  "season": 2026,
+  "builder_schema": "a3.1",
+  "dates": {
+    "2026-03-15": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-03-16": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-03-17": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-03-18": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-03-19": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-03-20": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-03-21": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-03-22": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-03-23": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-03-24": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-03-25": {
+      "status": "done",
+      "games": 1,
+      "hitter_rows": 18,
+      "pitcher_rows": 2
+    },
+    "2026-03-26": {
+      "status": "done",
+      "games": 11,
+      "hitter_rows": 198,
+      "pitcher_rows": 22
+    },
+    "2026-03-27": {
+      "status": "done",
+      "games": 8,
+      "hitter_rows": 144,
+      "pitcher_rows": 16
+    },
+    "2026-03-28": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-03-29": {
+      "status": "done",
+      "games": 12,
+      "hitter_rows": 216,
+      "pitcher_rows": 24
+    },
+    "2026-03-30": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-03-31": {
+      "status": "done",
+      "games": 14,
+      "hitter_rows": 252,
+      "pitcher_rows": 28
+    },
+    "2026-04-01": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-04-02": {
+      "status": "done",
+      "games": 4,
+      "hitter_rows": 72,
+      "pitcher_rows": 8
+    },
+    "2026-04-03": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-04-04": {
+      "status": "done",
+      "games": 16,
+      "hitter_rows": 288,
+      "pitcher_rows": 32
+    },
+    "2026-04-05": {
+      "status": "done",
+      "games": 16,
+      "hitter_rows": 288,
+      "pitcher_rows": 32
+    },
+    "2026-04-06": {
+      "status": "done",
+      "games": 13,
+      "hitter_rows": 234,
+      "pitcher_rows": 26
+    },
+    "2026-04-07": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-04-08": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-04-09": {
+      "status": "done",
+      "games": 6,
+      "hitter_rows": 108,
+      "pitcher_rows": 12
+    },
+    "2026-04-10": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-04-11": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-04-12": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-04-13": {
+      "status": "done",
+      "games": 10,
+      "hitter_rows": 180,
+      "pitcher_rows": 20
+    },
+    "2026-04-14": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-04-15": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-04-16": {
+      "status": "done",
+      "games": 10,
+      "hitter_rows": 180,
+      "pitcher_rows": 20
+    },
+    "2026-04-17": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-04-18": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-04-19": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-04-20": {
+      "status": "done",
+      "games": 10,
+      "hitter_rows": 180,
+      "pitcher_rows": 20
+    },
+    "2026-04-21": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-04-22": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-04-23": {
+      "status": "done",
+      "games": 9,
+      "hitter_rows": 162,
+      "pitcher_rows": 18
+    },
+    "2026-04-24": {
+      "status": "done",
+      "games": 14,
+      "hitter_rows": 252,
+      "pitcher_rows": 28
+    },
+    "2026-04-25": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-04-26": {
+      "status": "done",
+      "games": 16,
+      "hitter_rows": 288,
+      "pitcher_rows": 32
+    },
+    "2026-04-27": {
+      "status": "done",
+      "games": 8,
+      "hitter_rows": 144,
+      "pitcher_rows": 16
+    },
+    "2026-04-28": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-04-29": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-04-30": {
+      "status": "done",
+      "games": 11,
+      "hitter_rows": 198,
+      "pitcher_rows": 22
+    },
+    "2026-05-01": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-05-02": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-05-03": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-05-04": {
+      "status": "done",
+      "games": 12,
+      "hitter_rows": 216,
+      "pitcher_rows": 24
+    },
+    "2026-05-05": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-05-06": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-05-07": {
+      "status": "done",
+      "games": 10,
+      "hitter_rows": 180,
+      "pitcher_rows": 20
+    },
+    "2026-05-08": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-05-09": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 252,
+      "pitcher_rows": 28
+    },
+    "2026-05-10": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-05-11": {
+      "status": "done",
+      "games": 6,
+      "hitter_rows": 108,
+      "pitcher_rows": 12
+    },
+    "2026-05-12": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-05-13": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-05-14": {
+      "status": "done",
+      "games": 11,
+      "hitter_rows": 198,
+      "pitcher_rows": 22
+    },
+    "2026-05-15": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-05-16": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-05-17": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-05-18": {
+      "status": "done",
+      "games": 14,
+      "hitter_rows": 252,
+      "pitcher_rows": 28
+    },
+    "2026-05-19": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-05-20": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-05-21": {
+      "status": "done",
+      "games": 7,
+      "hitter_rows": 126,
+      "pitcher_rows": 14
+    },
+    "2026-05-22": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-05-23": {
+      "status": "done",
+      "games": 16,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-05-24": {
+      "status": "done",
+      "games": 16,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-05-25": {
+      "status": "done",
+      "games": 13,
+      "hitter_rows": 234,
+      "pitcher_rows": 26
+    },
+    "2026-05-26": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-05-27": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-05-28": {
+      "status": "done",
+      "games": 6,
+      "hitter_rows": 108,
+      "pitcher_rows": 12
+    },
+    "2026-05-29": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-05-30": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-05-31": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-06-01": {
+      "status": "done",
+      "games": 9,
+      "hitter_rows": 162,
+      "pitcher_rows": 18
+    },
+    "2026-06-02": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-06-03": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-06-04": {
+      "status": "done",
+      "games": 9,
+      "hitter_rows": 162,
+      "pitcher_rows": 18
+    },
+    "2026-06-05": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-06-06": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 252,
+      "pitcher_rows": 28
+    },
+    "2026-06-07": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-06-08": {
+      "status": "done",
+      "games": 8,
+      "hitter_rows": 144,
+      "pitcher_rows": 16
+    },
+    "2026-06-09": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-06-10": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-06-11": {
+      "status": "done",
+      "games": 8,
+      "hitter_rows": 126,
+      "pitcher_rows": 14
+    },
+    "2026-06-12": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-06-13": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-06-14": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 252,
+      "pitcher_rows": 28
+    },
+    "2026-06-15": {
+      "status": "done",
+      "games": 10,
+      "hitter_rows": 180,
+      "pitcher_rows": 20
+    },
+    "2026-06-16": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-06-17": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-06-18": {
+      "status": "done",
+      "games": 9,
+      "hitter_rows": 144,
+      "pitcher_rows": 16
+    },
+    "2026-06-19": {
+      "status": "done",
+      "games": 14,
+      "hitter_rows": 252,
+      "pitcher_rows": 28
+    },
+    "2026-06-20": {
+      "status": "done",
+      "games": 14,
+      "hitter_rows": 252,
+      "pitcher_rows": 28
+    },
+    "2026-06-21": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 252,
+      "pitcher_rows": 28
+    },
+    "2026-06-22": {
+      "status": "done",
+      "games": 13,
+      "hitter_rows": 234,
+      "pitcher_rows": 26
+    },
+    "2026-06-23": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-06-24": {
+      "status": "done",
+      "games": 16,
+      "hitter_rows": 288,
+      "pitcher_rows": 32
+    },
+    "2026-06-25": {
+      "status": "done",
+      "games": 9,
+      "hitter_rows": 144,
+      "pitcher_rows": 16
+    },
+    "2026-06-26": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-06-27": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-06-28": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-06-29": {
+      "status": "done",
+      "games": 13,
+      "hitter_rows": 234,
+      "pitcher_rows": 26
+    },
+    "2026-06-30": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-07-01": {
+      "status": "done",
+      "games": 14,
+      "hitter_rows": 252,
+      "pitcher_rows": 28
+    },
+    "2026-07-02": {
+      "status": "done",
+      "games": 9,
+      "hitter_rows": 162,
+      "pitcher_rows": 18
+    },
+    "2026-07-03": {
+      "status": "done",
+      "games": 13,
+      "hitter_rows": 234,
+      "pitcher_rows": 26
+    },
+    "2026-07-04": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-07-05": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-07-06": {
+      "status": "done",
+      "games": 8,
+      "hitter_rows": 144,
+      "pitcher_rows": 16
+    },
+    "2026-07-07": {
+      "status": "done",
+      "games": 16,
+      "hitter_rows": 288,
+      "pitcher_rows": 32
+    },
+    "2026-07-08": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-07-09": {
+      "status": "done",
+      "games": 13,
+      "hitter_rows": 234,
+      "pitcher_rows": 26
+    },
+    "2026-07-10": {
+      "status": "done",
+      "games": 15,
+      "hitter_rows": 270,
+      "pitcher_rows": 30
+    },
+    "2026-07-11": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-07-12": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-07-13": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-07-14": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-07-15": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-07-16": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-07-17": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-07-18": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-07-19": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-07-20": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-07-21": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-07-22": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-07-23": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-07-24": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-07-25": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-07-26": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-07-27": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-07-28": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-07-29": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-07-30": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-07-31": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-01": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-02": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-03": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-04": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-05": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-06": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-07": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-08": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-09": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-10": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-11": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-12": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-13": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-14": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-15": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-16": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-17": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-18": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-19": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-20": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-21": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-22": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-23": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-24": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-25": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-26": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-27": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-28": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-29": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-30": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-08-31": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-01": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-02": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-03": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-04": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-05": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-06": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-07": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-08": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-09": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-10": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-11": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-12": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-13": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-14": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-15": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-16": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-17": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-18": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-19": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-20": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-21": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-22": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-23": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-24": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-25": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-26": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-27": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-28": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-29": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-09-30": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-10-01": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-10-02": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-10-03": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-10-04": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    },
+    "2026-10-05": {
+      "status": "empty",
+      "games": 0,
+      "hitter_rows": 0,
+      "pitcher_rows": 0
+    }
+  },
+  "resolution": {
+    "park_resolved": 2854,
+    "weather_resolved": 2852,
+    "umpire_resolved": 2852,
+    "lineup_confirmed_team": 5704,
+    "opp_sp_probable": 5736,
+    "hitting_as_of_empty": 1142,
+    "opp_sp_as_of_empty": 3780,
+    "hitter_actual_resolved": 51336,
+    "pitching_as_of_empty": 422,
+    "pitcher_actual_resolved": 5704,
+    "hitting_as_of_resolved": 50194,
+    "pitching_as_of_resolved": 5282,
+    "opp_sp_as_of_resolved": 47556,
+    "park_default": 16,
+    "weather_default": 18,
+    "umpire_default": 18,
+    "lineup_missing_team": 36,
+    "starter_missing": 36,
+    "opp_sp_actual_starter": 4
+  }
+}
