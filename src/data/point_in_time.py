@@ -51,6 +51,13 @@ class GameLogRow:
     walks: int = 0
     strikeouts: int = 0
     # Pitching
+    # Per-game start indicator (MLB StatsAPI gameLog splits carry `gamesStarted`
+    # as 0 or 1 for the single game). This is what lets _aggregate_pitching
+    # report a TRUE games_started (sum of real starts) instead of conflating it
+    # with total appearances -- the signal B4's role_innings estimator needs to
+    # tell an opener/reliever apart from a starter. Defaults to 0 (= relief
+    # appearance), which is the honest default for a row that never set it.
+    games_started: int = 0
     innings_pitched: float = 0.0
     k_pitched: int = 0
     bb_pitched: int = 0
@@ -195,6 +202,14 @@ class PointInTimeStats:
                     rows.append(
                         GameLogRow(
                             game_date=game_date,
+                            # 0 or 1 per game. Same key the SEASON parser
+                            # (mlb_api._parse_pitching) already reads off the
+                            # per-split stat block, so this is the schema the
+                            # live path trusts -- not a new/guessed field.
+                            # Clamped to {0,1}: a single game cannot contain
+                            # more than one start, so any other value is bad
+                            # data, not a multi-start game.
+                            games_started=1 if _int(stat.get("gamesStarted")) > 0 else 0,
                             innings_pitched=_ip(stat.get("inningsPitched")),
                             k_pitched=_int(stat.get("strikeOuts")),
                             bb_pitched=_int(stat.get("baseOnBalls")),
@@ -259,7 +274,25 @@ class PointInTimeStats:
             k_per_9=(k * 9.0 / ip) if ip else 0.0,
             bb_per_9=(bb * 9.0 / ip) if ip else 0.0,
             hr_per_9=(hr * 9.0 / ip) if ip else 0.0,
-            games_started=len(rows),
+            # BOTH fields UNFLOORED, deliberately (see [B4 POINT-IN-TIME BUG]).
+            #
+            # games: total APPEARANCES. This field was previously never set, so
+            # it defaulted to 0 -- and RoleAwareInningsEstimator.estimate_detailed
+            # short-circuits to role="unknown" on `games <= 0`. Every reconstructed
+            # pitcher therefore fell back to default_innings and B4 silently
+            # changed NOTHING on the reconstruction path. Setting it is the fix.
+            #
+            # games_started: the SUM OF REAL STARTS, not len(rows). The old
+            # `len(rows)` was total appearances, which made start_ratio ~1.0 for
+            # everyone and labelled every reliever a starter.
+            #
+            # Do NOT floor games_started to >=1 here. mlb_api._parse_pitching
+            # floors it for the SEASON snapshot, but a point-in-time reliever
+            # genuinely has 0 starts, and that 0 is exactly the signal the opener
+            # bucket reads (start_ratio = 0/15 = 0.0 <= opener_max_ratio). Flooring
+            # it would reintroduce the phantom-start bias B4 exists to remove.
+            games=len(rows),
+            games_started=sum(r.games_started for r in rows),
         )
 
 
@@ -284,4 +317,3 @@ def _ip(value: Any) -> float:
 
 def _parse_date(value: str) -> date:
     return datetime.strptime(value[:10], "%Y-%m-%d").date()
-

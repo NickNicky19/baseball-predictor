@@ -440,8 +440,25 @@ def reconstruct_objects(
     """
     season = date.fromisoformat(game_date).year
     reslog = ResolutionLog()
-    pit = PointInTimeStats(mlb_api=MLBStatsAPI(season=season), season=season)
-    api = AsOfMLBAPI(as_of_date=game_date, pit=pit, reslog=reslog, season=season)
+    # config MUST reach both clients. MLBStatsAPI.__init__ builds the
+    # RoleAwareInningsEstimator from config["role_innings"], and
+    # AsOfMLBAPI INHERITS get_pitchers_for_date, which calls
+    # self._innings_estimator.estimate(recent) to set expected_innings. Passing
+    # season only (the pre-B4 code here) left BOTH estimators constructed from
+    # {} -> enabled=False -> every candidate run silently reproduced the frozen
+    # legacy innings, so the B4 gate's candidate side would be IDENTICAL to the
+    # frozen side and the whole gate would test nothing. (run_b4_gate_verdict.py
+    # exits 2 on exactly this: "check that reconstruct_objects passes config
+    # through to MLBStatsAPI".) With no role_innings block, or the block
+    # disabled, RoleAwareInningsEstimator reproduces the legacy heuristic
+    # byte-for-byte -- so threading config through is INERT for the frozen/live
+    # path and only has an effect once a B4-enabled config is passed via --config.
+    pit = PointInTimeStats(
+        mlb_api=MLBStatsAPI(season=season, config=config), season=season
+    )
+    api = AsOfMLBAPI(
+        as_of_date=game_date, pit=pit, reslog=reslog, season=season, config=config
+    )
 
     league = LeagueBaselines.from_config(config)
     fantasy = FantasyScoring.from_config(config)
@@ -551,13 +568,21 @@ def main(argv: Optional[list[str]] = None) -> int:
         # season — a 2024 date needs 2024 schedules and 2024 game logs.
         season = target.year
         reslog = ResolutionLog()
-        pit = PointInTimeStats(mlb_api=MLBStatsAPI(season=season), season=season)
+        # Same config-threading requirement as reconstruct_objects (see the
+        # comment there): without config, the inherited get_pitchers_for_date
+        # estimates expected_innings from a DISABLED RoleAwareInningsEstimator,
+        # so a --config pointing at a B4-enabled config would be silently
+        # ignored here. Inert when role_innings is absent/disabled.
+        pit = PointInTimeStats(
+            mlb_api=MLBStatsAPI(season=season, config=config), season=season
+        )
         api = AsOfMLBAPI(
             as_of_date=args.date,
             pit=pit,
             reslog=reslog,
             allow_leaky_splits=args.allow_leaky_splits,
             season=season,
+            config=config,
         )
 
         report = reconstruct(
