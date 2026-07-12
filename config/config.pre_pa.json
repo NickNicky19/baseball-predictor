@@ -49,7 +49,7 @@
     "use_empirical_prior": true
   },
   "park_factors": {
-    "_comment": "Static approximate multi-year factors (hits/hr/runs vs league=1.0). These are fallback priors only — ParkFactorEstimator blends empirical venue factors over them as pairs data accumulates (see estimation_* settings). All 30 venues covered so no park silently defaults to neutral.",
+    "_comment": "Static approximate multi-year factors (hits/hr/runs vs league=1.0). These are fallback priors only \u2014 ParkFactorEstimator blends empirical venue factors over them as pairs data accumulates (see estimation_* settings). All 30 venues covered so no park silently defaults to neutral.",
     "estimation_mode": "static",
     "estimation_shrinkage": 0.35,
     "min_games": 8,
@@ -258,15 +258,14 @@
     "blend_savant": 0.7
   },
   "base_running": {
-    "_comment": "League base-running params + the FITTED plate-appearance distribution. pa_distribution_path points at the artifact produced by scripts/fit_pa_distribution.py -- an EMPIRICAL P(pa | lineup_slot) fitted from >=16,818 training rows per slot. This is a FIT (rule 2), not a structural placeholder. It replaces _sample_pa_count's floor/floor+1 two-point draw, which produced EXACTLY ZERO games at pa<=2 (10.1% of reality) and ZERO at pa=6 (1.7%). MEASURED to remove +0.0339 of the +0.0890 P(hits>=1) bias on DK-gradeable rows. ABSENT -> the simulator is BYTE-IDENTICAL to pre-fix (verified: 3 seeds x 40k games, incl. under the live config and with lineup_slot set). base_state_mix_rate / run_traffic_boost are NOT set here -- the HRR gate FAILED and they are not promoted; see config.hrr.json.",
+    "_comment": "League empirical base-state distribution + P(batter scores | base reached). Used by GameSimulator for realistic runs/RBI. Re-fit these from pairs data via the calibration layer as it matures.",
     "p_score_from_base": {
       "walk": 0.27,
       "single": 0.28,
       "double": 0.4,
       "triple": 0.56,
       "home_run": 1.0
-    },
-    "pa_distribution_path": "data/learning/pa_distribution.json"
+    }
   },
   "odds": {
     "enabled": false,

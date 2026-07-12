@@ -11,8 +11,8 @@ import csv, sys
 from pathlib import Path
 import tempfile
 
-sys.path.insert(0, ".")
-from model_version import model_version, MODEL_CONFIG_KEYS
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from src.utils.model_version import model_version, MODEL_CONFIG_KEYS
 
 PAIR_COLUMNS = [
     "player_id","player_name","game_date","category","predicted_value",

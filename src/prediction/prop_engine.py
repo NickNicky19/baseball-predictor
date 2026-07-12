@@ -425,8 +425,21 @@ class PropEngine:
         bvp_hr = _clamp(bundle.matchup.bvp_hr_factor, 0.70, 1.40)
         form_mult = _clamp(bundle.matchup.recent_form_multiplier, 0.85, 1.18)
 
+        # ADDITIVE: the fitted per-slot PA distribution needs the lineup slot.
+        # GameSimulatorInput.lineup_slot defaults to None, and GameSimulator
+        # falls back to the legacy floor/floor+1 draw when it is None OR when no
+        # fitted artifact is loaded -- so passing it is INERT until
+        # base_running.pa_distribution_path is set. See game_simulator's module
+        # docstring (DEGENERATE WHEN ABSENT).
+        slot = getattr(bundle.hitter, "lineup_slot", None)
+        try:
+            slot = int(slot) if slot is not None and 1 <= int(slot) <= 9 else None
+        except (TypeError, ValueError):
+            slot = None
+
         return GameSimulatorInput(
             expected_pa=bundle.expected_pa,
+            lineup_slot=slot,
             pitcher_k_pct=pitcher_k,
             pitcher_bb_pct=pitcher_bb,
             park_hr_factor=bundle.park.hr_factor,

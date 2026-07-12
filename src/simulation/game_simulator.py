@@ -50,6 +50,36 @@ candidate config fails to reach this constructor, hrr probabilities will be
 IDENTICAL between frozen and candidate — which the gate reports as FAIL-TO-RUN
 rather than silently mistaking a plumbing failure for a weak result.
 
+PLATE-APPEARANCE DISTRIBUTION (this revision):
+_sample_pa_count emitted ONLY floor(expected_pa) and floor(expected_pa)+1 --
+a TWO-POINT distribution. Measured against the real method (100k draws per
+value): expected_pa=4.3 -> {4: 0.698, 5: 0.302}, P(pa<=3) = EXACTLY 0.0000.
+
+    simulator : {3: 0.070, 4: 0.766, 5: 0.164}
+    reality   : {1: .072, 2: .030, 3: .107, 4: .543, 5: .231, 6: .017, 7: .001}
+                (out_pa, n = 152,683 training rows)
+
+The simulator produced ZERO games at pa<=2 (10.1% of reality) and ZERO at pa=6
+(1.7%). BOTH tails missing. It also over-projects the MEAN: 4.095 vs 3.886.
+Those early-exit games (pulled, blowout, injury) are disproportionately the
+ZERO-HIT games -- which is why P(hits>=1) ran +6.9pp hot on DK-gradeable rows.
+
+The fix draws PA from an EMPIRICAL PER-LINEUP-SLOT distribution FITTED from the
+training set (>=16,818 rows per slot; scripts/fit_pa_distribution.py). Measured
+to remove +0.0339 of the +0.0890 bias -- inside the 0.020-0.040 range predicted
+by an independent synthetic mechanism check.
+
+UNLIKE lambda and gamma, THIS IS A FIT, NOT A PLACEHOLDER (rule 2).
+
+Why REPLACE expected_pa rather than condition on it: lineup_intelligence.py
+computes expected_pa = league.pa_per_game * slot_factor[slot] * status_scale.
+It is a PURE FUNCTION of lineup slot and lineup status -- there is no
+hitter-specific input at all. Within a slot (and reconstructions run
+include_projected=False, so status is always 'confirmed'), expected_pa is a
+CONSTANT. Replacing it therefore discards NOTHING. Read the source before
+measuring: the partial correlation of expected_pa with out_pa controlling for
+slot is zero BY CONSTRUCTION.
+
 STRUCTURAL, NOT FITTED: lambda and gamma are deliberate modelling choices, not
 values fitted from data. They cannot be identified from box-score pairs (which
 carry no runners-on information); identifying them needs Retrosheet/Statcast
@@ -59,8 +89,10 @@ that is training on the test set.
 
 from __future__ import annotations
 
+import json
 import random
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Optional, Any
 
 from src.models.dataclasses import StatcastProfile, GameSimulationResult
@@ -136,6 +168,10 @@ class GameSimulatorInput:
     statcast: Optional[StatcastProfile] = None
     pitcher_hr_per_9: Optional[float] = None
     rich_features: Optional[dict[str, Any]] = None
+    # ADDITIVE. Needed to draw from the FITTED per-slot PA distribution.
+    # Defaults to None -> _sample_pa_count takes the legacy floor/floor+1 path,
+    # byte-identically. An existing caller that does not set it is unaffected.
+    lineup_slot: Optional[int] = None
 
 
 class GameSimulator:
@@ -150,6 +186,7 @@ class GameSimulator:
         p_score_from_base: Optional[dict[str, float]] = None,
         base_state_mix_rate: Optional[float] = None,
         run_traffic_boost: Optional[float] = None,
+        pa_distribution: Optional[dict[int, dict[int, float]]] = None,
         config: Optional[dict[str, Any]] = None,
     ):
         # Config-driven base-running parameters (config/base_running block)
@@ -199,6 +236,21 @@ class GameSimulator:
             self.base_state_mix_rate >= 1.0 and self.run_traffic_boost == 0.0
         )
 
+        # ---- EMPIRICAL PA DISTRIBUTION (fitted; see module docstring) -------
+        # {lineup_slot: {pa: prob}}. Absent -> None -> _sample_pa_count falls
+        # back to the legacy floor/floor+1 draw, BYTE-IDENTICALLY (same single
+        # rng.random() call, same position in the stream). Threading this
+        # through is therefore INERT on the frozen/live path until a config
+        # supplies base_running.pa_distribution_path -- the same
+        # degenerate-when-absent contract as lambda/gamma and B4's role_innings.
+        if pa_distribution is None and config:
+            pa_distribution = self._load_pa_distribution(
+                (config.get("base_running", {}) or {}).get("pa_distribution_path")
+            )
+        self._pa_dist_states, self._pa_dist_weights = self._prepare_pa_dist(
+            pa_distribution
+        )
+
     def seed(self, seed: int) -> None:
         """Reseed both the game-level and PA-level RNGs (reproducibility)."""
         self.rng.seed(seed)
@@ -212,7 +264,9 @@ class GameSimulator:
         effective_park_hr = sim_input.park_hr_factor * sim_input.weather_hr_factor
         effective_pitcher_k = sim_input.pitcher_k_pct + sim_input.umpire_k_bias
 
-        n_pa = self._sample_pa_count(sim_input.expected_pa)
+        n_pa = self._sample_pa_count(
+            sim_input.expected_pa, getattr(sim_input, "lineup_slot", None)
+        )
 
         # ONE persistent BaseState for the whole simulated game. This is what
         # couples hits -> RBI causally across PAs; a fresh state per PA (the old
@@ -305,13 +359,83 @@ class GameSimulator:
     # Internals
     # ------------------------------------------------------------------
 
-    def _sample_pa_count(self, expected_pa: float) -> int:
-        """floor(expected_pa) PAs, plus one with p = fractional part."""
+    def _sample_pa_count(self, expected_pa: float, lineup_slot: Optional[int] = None) -> int:
+        """Plate appearances for one simulated game.
+
+        FITTED PATH (lineup_slot known AND a fitted distribution is loaded):
+        draw from the empirical P(pa | lineup_slot). This is the ONLY path that
+        can produce pa<=2 (10.1% of real games) or pa=6 (1.7%) -- the legacy
+        draw produces EXACTLY ZERO of both, which is what made P(hits>=1) run
+        +6.9pp hot.
+
+        LEGACY PATH (no fitted distribution, or no slot): floor(expected_pa)
+        plus one with p = fractional part. Kept BYTE-IDENTICAL -- one
+        rng.random() call, same stream position -- so that a config without
+        base_running.pa_distribution_path reproduces the pre-fix model exactly.
+        """
+        if self._pa_dist_states and lineup_slot in self._pa_dist_states:
+            return self.rng.choices(
+                self._pa_dist_states[lineup_slot],
+                weights=self._pa_dist_weights[lineup_slot],
+                k=1,
+            )[0]
+
         base = int(expected_pa)
         frac = max(0.0, expected_pa - base)
         if frac > 0 and self.rng.random() < frac:
             return base + 1
         return max(0, base)
+
+    @staticmethod
+    def _load_pa_distribution(path: Optional[str]) -> Optional[dict[int, dict[int, float]]]:
+        """Load the fitted PA distribution artifact, or None.
+
+        A MISSING file returns None (legacy path -- inert). A file that EXISTS
+        but is malformed RAISES: a silently-ignored broken fit would leave the
+        simulator on the legacy path while the config says otherwise, and the
+        gate would read 'no drift' and call it a tie. That is the exact
+        failure mode B4's config-threading bug produced. Fail loudly.
+        """
+        if not path:
+            return None
+        p = Path(path)
+        if not p.exists():
+            return None
+        raw = json.loads(p.read_text(encoding="utf-8-sig"))
+        by_slot = raw.get("by_lineup_slot")
+        if not by_slot:
+            raise ValueError(
+                f"{p} exists but has no 'by_lineup_slot' block. A malformed PA "
+                f"distribution must not silently fall back to the legacy draw -- "
+                f"the simulator would run pre-fix while the config claims "
+                f"otherwise."
+            )
+        out: dict[int, dict[int, float]] = {}
+        for slot, dist in by_slot.items():
+            out[int(slot)] = {int(k): float(v) for k, v in dist.items()}
+        return out
+
+    @staticmethod
+    def _prepare_pa_dist(
+        dist: Optional[dict[int, dict[int, float]]]
+    ) -> tuple[dict[int, list[int]], dict[int, list[float]]]:
+        """Normalise the fitted distribution into rng.choices-ready lists."""
+        if not dist:
+            return {}, {}
+        states: dict[int, list[int]] = {}
+        weights: dict[int, list[float]] = {}
+        for slot, d in dist.items():
+            ks = sorted(d)
+            ws = [max(0.0, float(d[k])) for k in ks]
+            total = sum(ws)
+            if total <= 0:
+                raise ValueError(
+                    f"PA distribution for lineup_slot {slot} has zero total "
+                    f"weight -- refusing to sample from it."
+                )
+            states[int(slot)] = [int(k) for k in ks]
+            weights[int(slot)] = [w / total for w in ws]
+        return states, weights
 
     def _sample_base_state(self) -> tuple[int, int, int]:
         return self.rng.choices(self._base_states, weights=self._base_state_weights, k=1)[0]
