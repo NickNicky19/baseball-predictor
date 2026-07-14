@@ -1,0 +1,1280 @@
+{
+  "game_date": "2026-07-14",
+  "hitter_projections": [
+    {
+      "player_id": 545361,
+      "player_name": "Mike Trout",
+      "category": "hits",
+      "game_date": "2026-07-14",
+      "projected_value": 1.08,
+      "confidence": 0.82,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.080125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.71525,
+          "2.0": 0.28675
+        }
+      }
+    },
+    {
+      "player_id": 545361,
+      "player_name": "Mike Trout",
+      "category": "hrr",
+      "game_date": "2026-07-14",
+      "projected_value": 2.263,
+      "confidence": 0.7,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.263375,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.534875,
+          "3.0": 0.377875
+        }
+      }
+    },
+    {
+      "player_id": 545361,
+      "player_name": "Mike Trout",
+      "category": "home_runs",
+      "game_date": "2026-07-14",
+      "projected_value": 0.268,
+      "confidence": 0.86,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.26825,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.239625
+        }
+      }
+    },
+    {
+      "player_id": 670541,
+      "player_name": "Yordan Alvarez",
+      "category": "hits",
+      "game_date": "2026-07-14",
+      "projected_value": 1.335,
+      "confidence": 0.78,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.3345,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "1.0": 0.799125,
+          "2.0": 0.40375
+        }
+      }
+    },
+    {
+      "player_id": 670541,
+      "player_name": "Yordan Alvarez",
+      "category": "hrr",
+      "game_date": "2026-07-14",
+      "projected_value": 2.802,
+      "confidence": 0.7,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.802375,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "2.0": 0.650125,
+          "3.0": 0.482125
+        }
+      }
+    },
+    {
+      "player_id": 670541,
+      "player_name": "Yordan Alvarez",
+      "category": "home_runs",
+      "game_date": "2026-07-14",
+      "projected_value": 0.345,
+      "confidence": 0.86,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.34475,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.299875
+        }
+      }
+    },
+    {
+      "player_id": 669127,
+      "player_name": "Shea Langeliers",
+      "category": "hits",
+      "game_date": "2026-07-14",
+      "projected_value": 1.083,
+      "confidence": 0.82,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.08325,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.712125,
+          "2.0": 0.294125
+        }
+      }
+    },
+    {
+      "player_id": 669127,
+      "player_name": "Shea Langeliers",
+      "category": "hrr",
+      "game_date": "2026-07-14",
+      "projected_value": 2.215,
+      "confidence": 0.7,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.215,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.53525,
+          "3.0": 0.377375
+        }
+      }
+    },
+    {
+      "player_id": 669127,
+      "player_name": "Shea Langeliers",
+      "category": "home_runs",
+      "game_date": "2026-07-14",
+      "projected_value": 0.223,
+      "confidence": 0.86,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.222875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.206125
+        }
+      }
+    },
+    {
+      "player_id": 691406,
+      "player_name": "Junior Caminero",
+      "category": "hits",
+      "game_date": "2026-07-14",
+      "projected_value": 1.068,
+      "confidence": 0.82,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.06775,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.704,
+          "2.0": 0.291375
+        }
+      }
+    },
+    {
+      "player_id": 691406,
+      "player_name": "Junior Caminero",
+      "category": "hrr",
+      "game_date": "2026-07-14",
+      "projected_value": 2.343,
+      "confidence": 0.7,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.342875,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "2.0": 0.54325,
+          "3.0": 0.396625
+        }
+      }
+    },
+    {
+      "player_id": 691406,
+      "player_name": "Junior Caminero",
+      "category": "home_runs",
+      "game_date": "2026-07-14",
+      "projected_value": 0.296,
+      "confidence": 0.86,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.296375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.263625
+        }
+      }
+    },
+    {
+      "player_id": 677951,
+      "player_name": "Bobby Witt Jr.",
+      "category": "hits",
+      "game_date": "2026-07-14",
+      "projected_value": 1.179,
+      "confidence": 0.82,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.17875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.75125,
+          "2.0": 0.34225
+        }
+      }
+    },
+    {
+      "player_id": 677951,
+      "player_name": "Bobby Witt Jr.",
+      "category": "hrr",
+      "game_date": "2026-07-14",
+      "projected_value": 2.365,
+      "confidence": 0.7,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.365125,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.578,
+          "3.0": 0.397125
+        }
+      }
+    },
+    {
+      "player_id": 677951,
+      "player_name": "Bobby Witt Jr.",
+      "category": "home_runs",
+      "game_date": "2026-07-14",
+      "projected_value": 0.242,
+      "confidence": 0.86,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.24225,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.220875
+        }
+      }
+    },
+    {
+      "player_id": 641355,
+      "player_name": "Cody Bellinger",
+      "category": "hits",
+      "game_date": "2026-07-14",
+      "projected_value": 1.039,
+      "confidence": 0.82,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.039125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.70375,
+          "2.0": 0.275
+        }
+      }
+    },
+    {
+      "player_id": 641355,
+      "player_name": "Cody Bellinger",
+      "category": "hrr",
+      "game_date": "2026-07-14",
+      "projected_value": 1.979,
+      "confidence": 0.7,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.978625,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.5035,
+          "3.0": 0.32
+        }
+      }
+    },
+    {
+      "player_id": 641355,
+      "player_name": "Cody Bellinger",
+      "category": "home_runs",
+      "game_date": "2026-07-14",
+      "projected_value": 0.148,
+      "confidence": 0.86,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.148375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.141125
+        }
+      }
+    },
+    {
+      "player_id": 700250,
+      "player_name": "Ben Rice",
+      "category": "hits",
+      "game_date": "2026-07-14",
+      "projected_value": 0.975,
+      "confidence": 0.82,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.975,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.67225,
+          "2.0": 0.254
+        }
+      }
+    },
+    {
+      "player_id": 700250,
+      "player_name": "Ben Rice",
+      "category": "hrr",
+      "game_date": "2026-07-14",
+      "projected_value": 2.061,
+      "confidence": 0.7,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.060625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.496625,
+          "3.0": 0.345875
+        }
+      }
+    },
+    {
+      "player_id": 700250,
+      "player_name": "Ben Rice",
+      "category": "home_runs",
+      "game_date": "2026-07-14",
+      "projected_value": 0.252,
+      "confidence": 0.86,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.2515,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.226375
+        }
+      }
+    },
+    {
+      "player_id": 682985,
+      "player_name": "Riley Greene",
+      "category": "hits",
+      "game_date": "2026-07-14",
+      "projected_value": 0.887,
+      "confidence": 0.82,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.8875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.63575,
+          "2.0": 0.21625
+        }
+      }
+    },
+    {
+      "player_id": 682985,
+      "player_name": "Riley Greene",
+      "category": "hrr",
+      "game_date": "2026-07-14",
+      "projected_value": 1.933,
+      "confidence": 0.7,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.93325,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.4735,
+          "3.0": 0.329375
+        }
+      }
+    },
+    {
+      "player_id": 682985,
+      "player_name": "Riley Greene",
+      "category": "home_runs",
+      "game_date": "2026-07-14",
+      "projected_value": 0.232,
+      "confidence": 0.86,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.232125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.211875
+        }
+      }
+    },
+    {
+      "player_id": 676391,
+      "player_name": "Ernie Clement",
+      "category": "hits",
+      "game_date": "2026-07-14",
+      "projected_value": 0.976,
+      "confidence": 0.82,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.976375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.671,
+          "2.0": 0.250875
+        }
+      }
+    },
+    {
+      "player_id": 676391,
+      "player_name": "Ernie Clement",
+      "category": "hrr",
+      "game_date": "2026-07-14",
+      "projected_value": 1.78,
+      "confidence": 0.74,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.779625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.46475,
+          "3.0": 0.285375
+        }
+      }
+    },
+    {
+      "player_id": 676391,
+      "player_name": "Ernie Clement",
+      "category": "home_runs",
+      "game_date": "2026-07-14",
+      "projected_value": 0.111,
+      "confidence": 0.86,
+      "team": "American League All-Stars",
+      "opponent": "National League All-Stars",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.110625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.106125
+        }
+      }
+    },
+    {
+      "player_id": 656941,
+      "player_name": "Kyle Schwarber",
+      "category": "hits",
+      "game_date": "2026-07-14",
+      "projected_value": 0.786,
+      "confidence": 0.82,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.786,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.58,
+          "2.0": 0.1715
+        }
+      }
+    },
+    {
+      "player_id": 656941,
+      "player_name": "Kyle Schwarber",
+      "category": "hrr",
+      "game_date": "2026-07-14",
+      "projected_value": 1.808,
+      "confidence": 0.7,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.807875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.446125,
+          "3.0": 0.294125
+        }
+      }
+    },
+    {
+      "player_id": 656941,
+      "player_name": "Kyle Schwarber",
+      "category": "home_runs",
+      "game_date": "2026-07-14",
+      "projected_value": 0.176,
+      "confidence": 0.86,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.17625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.166
+        }
+      }
+    },
+    {
+      "player_id": 665742,
+      "player_name": "Juan Soto",
+      "category": "hits",
+      "game_date": "2026-07-14",
+      "projected_value": 1.221,
+      "confidence": 0.82,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.221125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.757875,
+          "2.0": 0.355125
+        }
+      }
+    },
+    {
+      "player_id": 665742,
+      "player_name": "Juan Soto",
+      "category": "hrr",
+      "game_date": "2026-07-14",
+      "projected_value": 2.689,
+      "confidence": 0.7,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.68925,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "2.0": 0.61375,
+          "3.0": 0.461
+        }
+      }
+    },
+    {
+      "player_id": 665742,
+      "player_name": "Juan Soto",
+      "category": "home_runs",
+      "game_date": "2026-07-14",
+      "projected_value": 0.316,
+      "confidence": 0.86,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.315875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.276125
+        }
+      }
+    },
+    {
+      "player_id": 518692,
+      "player_name": "Freddie Freeman",
+      "category": "hits",
+      "game_date": "2026-07-14",
+      "projected_value": 1.115,
+      "confidence": 0.82,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.114625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.71575,
+          "2.0": 0.313125
+        }
+      }
+    },
+    {
+      "player_id": 518692,
+      "player_name": "Freddie Freeman",
+      "category": "hrr",
+      "game_date": "2026-07-14",
+      "projected_value": 2.417,
+      "confidence": 0.7,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.417375,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "2.0": 0.564875,
+          "3.0": 0.4085
+        }
+      }
+    },
+    {
+      "player_id": 518692,
+      "player_name": "Freddie Freeman",
+      "category": "home_runs",
+      "game_date": "2026-07-14",
+      "projected_value": 0.277,
+      "confidence": 0.86,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.277125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.247875
+        }
+      }
+    },
+    {
+      "player_id": 682928,
+      "player_name": "CJ Abrams",
+      "category": "hits",
+      "game_date": "2026-07-14",
+      "projected_value": 0.726,
+      "confidence": 0.82,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.725625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.551,
+          "2.0": 0.15175
+        }
+      }
+    },
+    {
+      "player_id": 682928,
+      "player_name": "CJ Abrams",
+      "category": "hrr",
+      "game_date": "2026-07-14",
+      "projected_value": 1.578,
+      "confidence": 0.74,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.577875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.3955,
+          "3.0": 0.246625
+        }
+      }
+    },
+    {
+      "player_id": 682928,
+      "player_name": "CJ Abrams",
+      "category": "home_runs",
+      "game_date": "2026-07-14",
+      "projected_value": 0.149,
+      "confidence": 0.86,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.149375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.139375
+        }
+      }
+    },
+    {
+      "player_id": 571970,
+      "player_name": "Max Muncy",
+      "category": "hits",
+      "game_date": "2026-07-14",
+      "projected_value": 0.842,
+      "confidence": 0.82,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.841875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.605,
+          "2.0": 0.203125
+        }
+      }
+    },
+    {
+      "player_id": 571970,
+      "player_name": "Max Muncy",
+      "category": "hrr",
+      "game_date": "2026-07-14",
+      "projected_value": 1.761,
+      "confidence": 0.74,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.761,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.443,
+          "3.0": 0.28475
+        }
+      }
+    },
+    {
+      "player_id": 571970,
+      "player_name": "Max Muncy",
+      "category": "home_runs",
+      "game_date": "2026-07-14",
+      "projected_value": 0.17,
+      "confidence": 0.86,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.17,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.159
+        }
+      }
+    },
+    {
+      "player_id": 645277,
+      "player_name": "Ozzie Albies",
+      "category": "hits",
+      "game_date": "2026-07-14",
+      "projected_value": 0.887,
+      "confidence": 0.82,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.88725,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.638,
+          "2.0": 0.2105
+        }
+      }
+    },
+    {
+      "player_id": 645277,
+      "player_name": "Ozzie Albies",
+      "category": "hrr",
+      "game_date": "2026-07-14",
+      "projected_value": 1.721,
+      "confidence": 0.74,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.721125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.449375,
+          "3.0": 0.27525
+        }
+      }
+    },
+    {
+      "player_id": 645277,
+      "player_name": "Ozzie Albies",
+      "category": "home_runs",
+      "game_date": "2026-07-14",
+      "projected_value": 0.14,
+      "confidence": 0.86,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.14,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.133125
+        }
+      }
+    },
+    {
+      "player_id": 669016,
+      "player_name": "Brandon Marsh",
+      "category": "hits",
+      "game_date": "2026-07-14",
+      "projected_value": 0.594,
+      "confidence": 0.82,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.59375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.475875,
+          "2.0": 0.1055
+        }
+      }
+    },
+    {
+      "player_id": 669016,
+      "player_name": "Brandon Marsh",
+      "category": "hrr",
+      "game_date": "2026-07-14",
+      "projected_value": 1.404,
+      "confidence": 0.74,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.403625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.356,
+          "3.0": 0.220375
+        }
+      }
+    },
+    {
+      "player_id": 669016,
+      "player_name": "Brandon Marsh",
+      "category": "home_runs",
+      "game_date": "2026-07-14",
+      "projected_value": 0.16,
+      "confidence": 0.86,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.159875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.151625
+        }
+      }
+    },
+    {
+      "player_id": 681624,
+      "player_name": "Andy Pages",
+      "category": "hits",
+      "game_date": "2026-07-14",
+      "projected_value": 0.839,
+      "confidence": 0.82,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.8385,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.612375,
+          "2.0": 0.1975
+        }
+      }
+    },
+    {
+      "player_id": 681624,
+      "player_name": "Andy Pages",
+      "category": "hrr",
+      "game_date": "2026-07-14",
+      "projected_value": 1.738,
+      "confidence": 0.74,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.737875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4385,
+          "3.0": 0.284
+        }
+      }
+    },
+    {
+      "player_id": 681624,
+      "player_name": "Andy Pages",
+      "category": "home_runs",
+      "game_date": "2026-07-14",
+      "projected_value": 0.178,
+      "confidence": 0.86,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.17825,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.168125
+        }
+      }
+    },
+    {
+      "player_id": 686948,
+      "player_name": "Drake Baldwin",
+      "category": "hits",
+      "game_date": "2026-07-14",
+      "projected_value": 0.669,
+      "confidence": 0.82,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.669375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.521375,
+          "2.0": 0.13175
+        }
+      }
+    },
+    {
+      "player_id": 686948,
+      "player_name": "Drake Baldwin",
+      "category": "hrr",
+      "game_date": "2026-07-14",
+      "projected_value": 1.411,
+      "confidence": 0.74,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.410875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.3685,
+          "3.0": 0.21575
+        }
+      }
+    },
+    {
+      "player_id": 686948,
+      "player_name": "Drake Baldwin",
+      "category": "home_runs",
+      "game_date": "2026-07-14",
+      "projected_value": 0.122,
+      "confidence": 0.86,
+      "team": "National League All-Stars",
+      "opponent": "American League All-Stars",
+      "opposing_pitcher": "Dylan Cease",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.122125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.116
+        }
+      }
+    }
+  ],
+  "pitcher_projections": [
+    {
+      "player_id": 656302,
+      "player_name": "Dylan Cease",
+      "category": "strikeouts",
+      "game_date": "2026-07-14",
+      "projected_value": 7.88,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": {
+        "n_sims": 0,
+        "mean": 7.879836862203877,
+        "median": 8.0,
+        "p10": 4.0,
+        "p90": 12.0,
+        "p_ge_threshold": {
+          "5.0": 0.8932782045327748,
+          "6.0": 0.7975069408479003,
+          "7.0": 0.6717299518605802
+        }
+      }
+    },
+    {
+      "player_id": 650911,
+      "player_name": "Cristopher S\u00e1nchez",
+      "category": "strikeouts",
+      "game_date": "2026-07-14",
+      "projected_value": 6.89,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.8921261172156,
+        "median": 7.0,
+        "p10": 4.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.8169380663983548,
+          "6.0": 0.6853027286400957,
+          "7.0": 0.5340948370880634
+        }
+      }
+    }
+  ],
+  "value_plays": []
+}
