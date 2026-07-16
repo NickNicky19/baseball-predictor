@@ -1,0 +1,1280 @@
+{
+  "game_date": "2026-07-16",
+  "hitter_projections": [
+    {
+      "player_id": 805999,
+      "player_name": "A.J. Ewing",
+      "category": "hits",
+      "game_date": "2026-07-16",
+      "projected_value": 1.263,
+      "confidence": 0.78,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.262625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "1.0": 0.767875,
+          "2.0": 0.375375
+        }
+      }
+    },
+    {
+      "player_id": 805999,
+      "player_name": "A.J. Ewing",
+      "category": "hrr",
+      "game_date": "2026-07-16",
+      "projected_value": 2.445,
+      "confidence": 0.7,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.44525,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.598,
+          "3.0": 0.413875
+        }
+      }
+    },
+    {
+      "player_id": 805999,
+      "player_name": "A.J. Ewing",
+      "category": "home_runs",
+      "game_date": "2026-07-16",
+      "projected_value": 0.206,
+      "confidence": 0.86,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.20625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.188625
+        }
+      }
+    },
+    {
+      "player_id": 665742,
+      "player_name": "Juan Soto",
+      "category": "hits",
+      "game_date": "2026-07-16",
+      "projected_value": 1.276,
+      "confidence": 0.78,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.2755,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "1.0": 0.778375,
+          "2.0": 0.37975
+        }
+      }
+    },
+    {
+      "player_id": 665742,
+      "player_name": "Juan Soto",
+      "category": "hrr",
+      "game_date": "2026-07-16",
+      "projected_value": 2.694,
+      "confidence": 0.7,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.694125,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "2.0": 0.627,
+          "3.0": 0.45625
+        }
+      }
+    },
+    {
+      "player_id": 665742,
+      "player_name": "Juan Soto",
+      "category": "home_runs",
+      "game_date": "2026-07-16",
+      "projected_value": 0.303,
+      "confidence": 0.86,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.302875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.271625
+        }
+      }
+    },
+    {
+      "player_id": 666182,
+      "player_name": "Bo Bichette",
+      "category": "hits",
+      "game_date": "2026-07-16",
+      "projected_value": 1.243,
+      "confidence": 0.82,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.243375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.767,
+          "2.0": 0.3625
+        }
+      }
+    },
+    {
+      "player_id": 666182,
+      "player_name": "Bo Bichette",
+      "category": "hrr",
+      "game_date": "2026-07-16",
+      "projected_value": 2.332,
+      "confidence": 0.7,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.331875,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.593,
+          "3.0": 0.396
+        }
+      }
+    },
+    {
+      "player_id": 666182,
+      "player_name": "Bo Bichette",
+      "category": "home_runs",
+      "game_date": "2026-07-16",
+      "projected_value": 0.168,
+      "confidence": 0.86,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.167625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.158
+        }
+      }
+    },
+    {
+      "player_id": 596019,
+      "player_name": "Francisco Lindor",
+      "category": "hits",
+      "game_date": "2026-07-16",
+      "projected_value": 1.096,
+      "confidence": 0.79,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.09575,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.719625,
+          "2.0": 0.304375
+        }
+      }
+    },
+    {
+      "player_id": 596019,
+      "player_name": "Francisco Lindor",
+      "category": "hrr",
+      "game_date": "2026-07-16",
+      "projected_value": 2.103,
+      "confidence": 0.67,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.1035,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.535,
+          "3.0": 0.34975
+        }
+      }
+    },
+    {
+      "player_id": 596019,
+      "player_name": "Francisco Lindor",
+      "category": "home_runs",
+      "game_date": "2026-07-16",
+      "projected_value": 0.157,
+      "confidence": 0.83,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.15675,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.147
+        }
+      }
+    },
+    {
+      "player_id": 701807,
+      "player_name": "Carson Benge",
+      "category": "hits",
+      "game_date": "2026-07-16",
+      "projected_value": 1.16,
+      "confidence": 0.82,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.15975,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.742375,
+          "2.0": 0.329625
+        }
+      }
+    },
+    {
+      "player_id": 701807,
+      "player_name": "Carson Benge",
+      "category": "hrr",
+      "game_date": "2026-07-16",
+      "projected_value": 2.227,
+      "confidence": 0.7,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.227125,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.564,
+          "3.0": 0.371875
+        }
+      }
+    },
+    {
+      "player_id": 701807,
+      "player_name": "Carson Benge",
+      "category": "home_runs",
+      "game_date": "2026-07-16",
+      "projected_value": 0.175,
+      "confidence": 0.86,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.17525,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.16275
+        }
+      }
+    },
+    {
+      "player_id": 593871,
+      "player_name": "Jorge Polanco",
+      "category": "hits",
+      "game_date": "2026-07-16",
+      "projected_value": 0.981,
+      "confidence": 0.63,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.98075,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.668875,
+          "2.0": 0.26075
+        }
+      }
+    },
+    {
+      "player_id": 593871,
+      "player_name": "Jorge Polanco",
+      "category": "hrr",
+      "game_date": "2026-07-16",
+      "projected_value": 1.69,
+      "confidence": 0.55,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.690375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.464875,
+          "3.0": 0.263375
+        }
+      }
+    },
+    {
+      "player_id": 593871,
+      "player_name": "Jorge Polanco",
+      "category": "home_runs",
+      "game_date": "2026-07-16",
+      "projected_value": 0.066,
+      "confidence": 0.71,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.06575,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.064375
+        }
+      }
+    },
+    {
+      "player_id": 676724,
+      "player_name": "Jared Young",
+      "category": "hits",
+      "game_date": "2026-07-16",
+      "projected_value": 0.962,
+      "confidence": 0.82,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.962125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.66675,
+          "2.0": 0.244875
+        }
+      }
+    },
+    {
+      "player_id": 676724,
+      "player_name": "Jared Young",
+      "category": "hrr",
+      "game_date": "2026-07-16",
+      "projected_value": 1.802,
+      "confidence": 0.74,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.80175,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.474125,
+          "3.0": 0.288
+        }
+      }
+    },
+    {
+      "player_id": 676724,
+      "player_name": "Jared Young",
+      "category": "home_runs",
+      "game_date": "2026-07-16",
+      "projected_value": 0.139,
+      "confidence": 0.86,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.139,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.13225
+        }
+      }
+    },
+    {
+      "player_id": 683146,
+      "player_name": "Brett Baty",
+      "category": "hits",
+      "game_date": "2026-07-16",
+      "projected_value": 0.958,
+      "confidence": 0.82,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.95775,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.668125,
+          "2.0": 0.239875
+        }
+      }
+    },
+    {
+      "player_id": 683146,
+      "player_name": "Brett Baty",
+      "category": "hrr",
+      "game_date": "2026-07-16",
+      "projected_value": 1.776,
+      "confidence": 0.74,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.776125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.469875,
+          "3.0": 0.28075
+        }
+      }
+    },
+    {
+      "player_id": 683146,
+      "player_name": "Brett Baty",
+      "category": "home_runs",
+      "game_date": "2026-07-16",
+      "projected_value": 0.12,
+      "confidence": 0.86,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.12025,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1145
+        }
+      }
+    },
+    {
+      "player_id": 682626,
+      "player_name": "Francisco Alvarez",
+      "category": "hits",
+      "game_date": "2026-07-16",
+      "projected_value": 0.839,
+      "confidence": 0.82,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.839,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.60325,
+          "2.0": 0.201125
+        }
+      }
+    },
+    {
+      "player_id": 682626,
+      "player_name": "Francisco Alvarez",
+      "category": "hrr",
+      "game_date": "2026-07-16",
+      "projected_value": 1.71,
+      "confidence": 0.74,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.709875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.441625,
+          "3.0": 0.274375
+        }
+      }
+    },
+    {
+      "player_id": 682626,
+      "player_name": "Francisco Alvarez",
+      "category": "home_runs",
+      "game_date": "2026-07-16",
+      "projected_value": 0.158,
+      "confidence": 0.86,
+      "team": "New York Mets",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Aaron Nola",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.157625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.148125
+        }
+      }
+    },
+    {
+      "player_id": 607208,
+      "player_name": "Trea Turner",
+      "category": "hits",
+      "game_date": "2026-07-16",
+      "projected_value": 1.111,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.1115,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.72025,
+          "2.0": 0.310875
+        }
+      }
+    },
+    {
+      "player_id": 607208,
+      "player_name": "Trea Turner",
+      "category": "hrr",
+      "game_date": "2026-07-16",
+      "projected_value": 2.126,
+      "confidence": 0.7,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.125875,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.53875,
+          "3.0": 0.35325
+        }
+      }
+    },
+    {
+      "player_id": 607208,
+      "player_name": "Trea Turner",
+      "category": "home_runs",
+      "game_date": "2026-07-16",
+      "projected_value": 0.147,
+      "confidence": 0.86,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.146625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.14025
+        }
+      }
+    },
+    {
+      "player_id": 656941,
+      "player_name": "Kyle Schwarber",
+      "category": "hits",
+      "game_date": "2026-07-16",
+      "projected_value": 0.758,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.758125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.56775,
+          "2.0": 0.165375
+        }
+      }
+    },
+    {
+      "player_id": 656941,
+      "player_name": "Kyle Schwarber",
+      "category": "hrr",
+      "game_date": "2026-07-16",
+      "projected_value": 1.754,
+      "confidence": 0.7,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.7535,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.4325,
+          "3.0": 0.2795
+        }
+      }
+    },
+    {
+      "player_id": 656941,
+      "player_name": "Kyle Schwarber",
+      "category": "home_runs",
+      "game_date": "2026-07-16",
+      "projected_value": 0.174,
+      "confidence": 0.86,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.173625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.161375
+        }
+      }
+    },
+    {
+      "player_id": 547180,
+      "player_name": "Bryce Harper",
+      "category": "hits",
+      "game_date": "2026-07-16",
+      "projected_value": 1.001,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.001125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.674,
+          "2.0": 0.26425
+        }
+      }
+    },
+    {
+      "player_id": 547180,
+      "player_name": "Bryce Harper",
+      "category": "hrr",
+      "game_date": "2026-07-16",
+      "projected_value": 2.125,
+      "confidence": 0.7,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.125125,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.519125,
+          "3.0": 0.353
+        }
+      }
+    },
+    {
+      "player_id": 547180,
+      "player_name": "Bryce Harper",
+      "category": "home_runs",
+      "game_date": "2026-07-16",
+      "projected_value": 0.214,
+      "confidence": 0.86,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.213875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.197375
+        }
+      }
+    },
+    {
+      "player_id": 669016,
+      "player_name": "Brandon Marsh",
+      "category": "hits",
+      "game_date": "2026-07-16",
+      "projected_value": 0.708,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.707625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.534,
+          "2.0": 0.149625
+        }
+      }
+    },
+    {
+      "player_id": 669016,
+      "player_name": "Brandon Marsh",
+      "category": "hrr",
+      "game_date": "2026-07-16",
+      "projected_value": 1.619,
+      "confidence": 0.74,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.6195,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.411,
+          "3.0": 0.259875
+        }
+      }
+    },
+    {
+      "player_id": 669016,
+      "player_name": "Brandon Marsh",
+      "category": "home_runs",
+      "game_date": "2026-07-16",
+      "projected_value": 0.159,
+      "confidence": 0.86,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.159375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.151
+        }
+      }
+    },
+    {
+      "player_id": 664761,
+      "player_name": "Alec Bohm",
+      "category": "hits",
+      "game_date": "2026-07-16",
+      "projected_value": 0.992,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.991875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.675,
+          "2.0": 0.260875
+        }
+      }
+    },
+    {
+      "player_id": 664761,
+      "player_name": "Alec Bohm",
+      "category": "hrr",
+      "game_date": "2026-07-16",
+      "projected_value": 1.869,
+      "confidence": 0.74,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.8695,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.48625,
+          "3.0": 0.30075
+        }
+      }
+    },
+    {
+      "player_id": 664761,
+      "player_name": "Alec Bohm",
+      "category": "home_runs",
+      "game_date": "2026-07-16",
+      "projected_value": 0.142,
+      "confidence": 0.86,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1425,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.13375
+        }
+      }
+    },
+    {
+      "player_id": 681082,
+      "player_name": "Bryson Stott",
+      "category": "hits",
+      "game_date": "2026-07-16",
+      "projected_value": 1.07,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.07,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.715125,
+          "2.0": 0.289375
+        }
+      }
+    },
+    {
+      "player_id": 681082,
+      "player_name": "Bryson Stott",
+      "category": "hrr",
+      "game_date": "2026-07-16",
+      "projected_value": 2.086,
+      "confidence": 0.7,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.086125,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.525625,
+          "3.0": 0.343375
+        }
+      }
+    },
+    {
+      "player_id": 681082,
+      "player_name": "Bryson Stott",
+      "category": "home_runs",
+      "game_date": "2026-07-16",
+      "projected_value": 0.174,
+      "confidence": 0.86,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.173875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.164125
+        }
+      }
+    },
+    {
+      "player_id": 592663,
+      "player_name": "J.T. Realmuto",
+      "category": "hits",
+      "game_date": "2026-07-16",
+      "projected_value": 0.823,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.823125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.60525,
+          "2.0": 0.183125
+        }
+      }
+    },
+    {
+      "player_id": 592663,
+      "player_name": "J.T. Realmuto",
+      "category": "hrr",
+      "game_date": "2026-07-16",
+      "projected_value": 1.691,
+      "confidence": 0.74,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.690875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.44825,
+          "3.0": 0.268625
+        }
+      }
+    },
+    {
+      "player_id": 592663,
+      "player_name": "J.T. Realmuto",
+      "category": "home_runs",
+      "game_date": "2026-07-16",
+      "projected_value": 0.145,
+      "confidence": 0.86,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.145375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.137875
+        }
+      }
+    },
+    {
+      "player_id": 687282,
+      "player_name": "Gabriel Rincones Jr.",
+      "category": "hits",
+      "game_date": "2026-07-16",
+      "projected_value": 0.733,
+      "confidence": 0.807,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.733375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.557,
+          "2.0": 0.153125
+        }
+      }
+    },
+    {
+      "player_id": 687282,
+      "player_name": "Gabriel Rincones Jr.",
+      "category": "hrr",
+      "game_date": "2026-07-16",
+      "projected_value": 1.408,
+      "confidence": 0.727,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.408,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.379125,
+          "3.0": 0.206375
+        }
+      }
+    },
+    {
+      "player_id": 687282,
+      "player_name": "Gabriel Rincones Jr.",
+      "category": "home_runs",
+      "game_date": "2026-07-16",
+      "projected_value": 0.081,
+      "confidence": 0.88,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.080625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.078
+        }
+      }
+    },
+    {
+      "player_id": 702222,
+      "player_name": "Justin Crawford",
+      "category": "hits",
+      "game_date": "2026-07-16",
+      "projected_value": 1.045,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.045125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.706875,
+          "2.0": 0.281
+        }
+      }
+    },
+    {
+      "player_id": 702222,
+      "player_name": "Justin Crawford",
+      "category": "hrr",
+      "game_date": "2026-07-16",
+      "projected_value": 1.966,
+      "confidence": 0.7,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.96575,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.51325,
+          "3.0": 0.321625
+        }
+      }
+    },
+    {
+      "player_id": 702222,
+      "player_name": "Justin Crawford",
+      "category": "home_runs",
+      "game_date": "2026-07-16",
+      "projected_value": 0.124,
+      "confidence": 0.86,
+      "team": "Philadelphia Phillies",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Christian Scott",
+      "lineup_status": "confirmed",
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.124125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.118625
+        }
+      }
+    }
+  ],
+  "pitcher_projections": [
+    {
+      "player_id": 681035,
+      "player_name": "Christian Scott",
+      "category": "strikeouts",
+      "game_date": "2026-07-16",
+      "projected_value": 5.08,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.076696695904424,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5728597207874468,
+          "6.0": 0.39749449438772955,
+          "7.0": 0.24911515014773367
+        }
+      }
+    },
+    {
+      "player_id": 605400,
+      "player_name": "Aaron Nola",
+      "category": "strikeouts",
+      "game_date": "2026-07-16",
+      "projected_value": 5.21,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "lineup_status": "unknown",
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.21181800451542,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5958554491239305,
+          "6.0": 0.4211521271618157,
+          "7.0": 0.26939847402001504
+        }
+      }
+    }
+  ],
+  "value_plays": []
+}
