@@ -46,7 +46,17 @@ def main() -> int:
     checks.append(("pitcher-K audit stays outcome-blind, May-sealed, and unauthorized",
                    pitcher_k["official_outcomes_read"] is False
                    and pitcher_k["may_2026_read"] is False
-                   and pitcher_k["betting_authorized"] is False))
+                   and pitcher_k["betting_authorized"] is False
+                   and pitcher_k["draftkings_two_sided_t4_and_close_paths"] == 1948
+                   and pitcher_k["draftkings_start_dates"] == 56))
+    changed_pitcher_items = copy.deepcopy(items)
+    changed_pitcher_items["pitcher_strikeout_readiness_audit"][
+        "two_sided_t4_and_close_paths"
+    ] = 1947
+    changed_pitcher_report = report.build_report(bound, changed_pitcher_items)
+    checks.append(("pitcher-K report derives inventory from the bound audit",
+                   changed_pitcher_report["market_evidence"]["pitcher_strikeouts"]
+                   ["draftkings_two_sided_t4_and_close_paths"] == 1947))
     checks.append(("223-to-194 readiness mutation is caught", caught(items, lambda x: x["forward_shadow_readiness"].__setitem__("guard_checks_passed", 194))))
     checks.append(("223-to-222 readiness mutation is caught", caught(items, lambda x: x["forward_shadow_readiness"].__setitem__("guard_checks_passed", 222))))
     checks.append(("product authorization mutation is caught", caught(items, lambda x: x["execution_product_contracts"]["products"]["onyx"].__setitem__("authorization", True))))

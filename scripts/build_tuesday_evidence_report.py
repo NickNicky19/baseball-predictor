@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -159,6 +160,40 @@ def load_json(path: str | Path) -> dict[str, Any]:
     return value
 
 
+def load_pitcher_strikeout_audit_facts(path: str | Path) -> dict[str, Any]:
+    """Extract only the explicitly reported, outcome-blind audit facts.
+
+    The Markdown audit is hash-bound above.  Parsing its unique DraftKings row
+    keeps the Tuesday report from copying inventory counts as free-standing
+    literals that could drift away from the retained evidence.
+    """
+    text = Path(path).read_text(encoding="utf-8")
+    pattern = re.compile(
+        r"^\|\s*DraftKings\s*\|\s*([\d,]+)\s*\|\s*([\d,]+)\s*\|\s*"
+        r"([\d,]+)\s*\|\s*([\d,]+)\s*\|\s*([\d,]+)\s*\|$",
+        re.MULTILINE,
+    )
+    matches = pattern.findall(text)
+    if len(matches) != 1:
+        raise ValueError("pitcher-K audit must contain exactly one DraftKings inventory row")
+    values = [int(value.replace(",", "")) for value in matches[0]]
+    may_sealed = "May 2026 was not read and remains sealed." in text
+    official_outcomes_read = "No official outcome" not in text
+    betting_authorized = "No pitcher-strikeout product or market is authorized" not in text
+    if not may_sealed or official_outcomes_read or betting_authorized:
+        raise ValueError("pitcher-K audit no longer proves its outcome-blind, May-sealed boundary")
+    return {
+        "pregame_market_selections": values[0],
+        "two_sided_t4_and_close_paths": values[1],
+        "start_dates": values[2],
+        "multi_fragment_vendor_keys": values[3],
+        "maximum_fragments": values[4],
+        "may_2026_read": False,
+        "official_outcomes_read": False,
+        "betting_authorized": False,
+    }
+
+
 def verify_inputs() -> tuple[dict[str, dict[str, str]], dict[str, dict[str, Any]]]:
     bound: dict[str, dict[str, str]] = {}
     loaded: dict[str, dict[str, Any]] = {}
@@ -170,6 +205,8 @@ def verify_inputs() -> tuple[dict[str, dict[str, str]], dict[str, dict[str, Any]
         bound[label] = {"path": relative, "sha256": actual}
         if path.suffix == ".json":
             loaded[label] = load_json(path)
+        elif label == "pitcher_strikeout_readiness_audit":
+            loaded[label] = load_pitcher_strikeout_audit_facts(path)
     return bound, loaded
 
 
@@ -188,6 +225,7 @@ def require_facts(items: dict[str, dict[str, Any]]) -> None:
     credential = items["credential_rotation_attestation"]
     diagnostic = items["v11_event_identity_diagnostic"]
     successor_runtime = items["successor_collector_runtime"]
+    pitcher_k = items["pitcher_strikeout_readiness_audit"]
 
     if hr.get("candidate_supported") is not False or hr.get("may_opened") is not False:
         raise ValueError("HR rejection or May state drifted")
@@ -249,6 +287,25 @@ def require_facts(items: dict[str, dict[str, Any]]) -> None:
         raise ValueError("forward evidence boundary no longer requires 56 complete dates")
     if boundary.get("open_data_derivation", {}).get("may_2026_used") is not False:
         raise ValueError("May entered the boundary derivation")
+    pitcher_counts = (
+        pitcher_k.get("pregame_market_selections"),
+        pitcher_k.get("two_sided_t4_and_close_paths"),
+        pitcher_k.get("start_dates"),
+        pitcher_k.get("multi_fragment_vendor_keys"),
+        pitcher_k.get("maximum_fragments"),
+    )
+    if (
+        any(not isinstance(value, int) or value <= 0 for value in pitcher_counts)
+        or pitcher_k["two_sided_t4_and_close_paths"]
+        > pitcher_k["pregame_market_selections"]
+        or pitcher_k["start_dates"] > pitcher_k["two_sided_t4_and_close_paths"]
+        or pitcher_k["multi_fragment_vendor_keys"]
+        > pitcher_k["pregame_market_selections"]
+        or pitcher_k.get("may_2026_read") is not False
+        or pitcher_k.get("official_outcomes_read") is not False
+        or pitcher_k.get("betting_authorized") is not False
+    ):
+        raise ValueError("pitcher-K audit facts drifted from the locked read-only audit")
     if products.get("betting_authorized") is not False or products.get("cross_product_inheritance_permitted") is not False:
         raise ValueError("execution-product contract is not fail-closed")
     for product, contract in products.get("products", {}).items():
@@ -475,7 +532,9 @@ def _product_readiness(contracts: dict[str, Any]) -> dict[str, Any]:
     return result
 
 
-def _market_ranking(other: dict[str, Any]) -> list[dict[str, Any]]:
+def _market_ranking(
+    other: dict[str, Any], pitcher_k: dict[str, Any]
+) -> list[dict[str, Any]]:
     reports = other["market_reports"]
     return [
         {"rank": 1, "market": "hits", "readiness": "highest", "state": "KBB_RESEARCH_BASELINE_CONTACT_ADAPTER_REJECTED"},
@@ -492,7 +551,7 @@ def _market_ranking(other: dict[str, Any]) -> list[dict[str, Any]]:
             "market": "pitcher_strikeouts",
             "readiness": "outcome-blind price inventory only",
             "state": "HARD_IDENTITY_AND_EXACT_UNIVERSE_BLOCKED",
-            "draftkings_two_sided_t4_and_close_paths": 1948,
+            "draftkings_two_sided_t4_and_close_paths": pitcher_k["two_sided_t4_and_close_paths"],
         },
         {"rank": 5, "market": "rbi", "readiness": "not scoreable", "state": "OFFICIAL_OUTCOME_AND_SIMULATION_CONTRACT_BLOCKED"},
         {"rank": 6, "market": "hits_runs_rbi", "readiness": "not scoreable", "state": "HISTORICAL_PRODUCT_ABSENT"},
@@ -502,6 +561,7 @@ def _market_ranking(other: dict[str, Any]) -> list[dict[str, Any]]:
 def _markdown(report: dict[str, Any]) -> str:
     smoke = report["operational_smoke"]
     hits = report["market_evidence"]["hits"]
+    pitcher_k = report["market_evidence"]["pitcher_strikeouts"]
     lines = [
         "# Tuesday Market-Authorization Evidence Report",
         "",
@@ -521,7 +581,7 @@ def _markdown(report: dict[str, Any]) -> str:
         f"- Hits/KBB combined open capture: {hits['current_kbb_open']['combined_capture']:.4f}.",
         f"- Hits/KBB combined flat-stake theoretical ROI: {hits['current_kbb_open']['combined_flat_stake_roi']:.4f}.",
         "- The Hits contact adapter and HR batted-ball candidate were rejected under their locked gates.",
-        "- Pitcher strikeouts have 1,948 outcome-blind DraftKings T-4h/close paths, but no hard-keyed scoreable universe or admissible economic gate.",
+        f"- Pitcher strikeouts have {pitcher_k['draftkings_two_sided_t4_and_close_paths']:,} outcome-blind DraftKings T-4h/close paths, but no hard-keyed scoreable universe or admissible economic gate.",
         "- Total Bases, pitcher strikeouts, RBI, and Hits+Runs+RBI remain separate research contracts and are not authorization candidates.",
         "",
         "## Execution products",
@@ -553,6 +613,7 @@ def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, An
     other = items["other_market_contracts"]
     shadow = items["forward_shadow_readiness"]
     boundary = items["forward_evidence_boundary"]
+    pitcher_k = items["pitcher_strikeout_readiness_audit"]
     contracts = items["execution_product_contracts"]
     credential = items["credential_rotation_attestation"]
     smoke = _operational_smoke_status()
@@ -716,18 +777,18 @@ def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, An
             "total_bases": other["market_reports"]["total_bases"],
             "pitcher_strikeouts": {
                 "audit_sha256": bound["pitcher_strikeout_readiness_audit"]["sha256"],
-                "draftkings_two_sided_t4_and_close_paths": 1948,
-                "draftkings_start_dates": 56,
-                "may_2026_read": False,
-                "official_outcomes_read": False,
+                "draftkings_two_sided_t4_and_close_paths": pitcher_k["two_sided_t4_and_close_paths"],
+                "draftkings_start_dates": pitcher_k["start_dates"],
+                "may_2026_read": pitcher_k["may_2026_read"],
+                "official_outcomes_read": pitcher_k["official_outcomes_read"],
                 "hard_identity_complete": False,
                 "exact_model_universe_complete": False,
-                "betting_authorized": False,
+                "betting_authorized": pitcher_k["betting_authorized"],
             },
             "rbi": other["market_reports"]["rbi"],
             "hits_runs_rbi": other["market_reports"]["hrr"],
         },
-        "market_readiness_ranking": _market_ranking(other),
+        "market_readiness_ranking": _market_ranking(other, pitcher_k),
         "forward_shadow_readiness": {
             "status": shadow["status"],
             "guard_checks_passed": shadow["guard_checks_passed"],
