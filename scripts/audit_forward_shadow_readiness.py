@@ -197,7 +197,7 @@ def main(argv: list[str] | None = None) -> int:
     payload = {
         "schema_version": "forward-shadow-readiness-audit-v2",
         "built_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "status": "FULL_LOCAL_LIFECYCLE_GUARDS_VALID_V11_FAILED_SUCCESSOR_SMOKE_NOT_DEPLOYED_NO_FORWARD_EVIDENCE",
+        "status": "FULL_LOCAL_LIFECYCLE_GUARDS_VALID_PRIMARY_COLLECTOR_NOT_DEPLOYED_NO_FORWARD_EVIDENCE",
         "betting_authorized": False,
         "guard_checks": checks,
         "guard_checks_passed": total,

@@ -178,8 +178,8 @@ Relevant implementation:
 
 Offline readiness is 223/223. The refreshed readiness artifact is:
 
-  reports/forward_shadow_readiness_v25.json
-  sha256 2411f3286adb7794454e29d82fb741c3210eadd2f3f0100afca0643f058e1e5f
+  reports/forward_shadow_readiness_v26.json
+  sha256 a6eac55011a23e3279bc3de591d15f52e5a6d43731ba85bc5fee79d14a1c5617
 
 The durable collector no longer writes its working daily prediction archive to
 the Git-tracked `data/learning/predictions/` path. `run_slate.py` now accepts an
