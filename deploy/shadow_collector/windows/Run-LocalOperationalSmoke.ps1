@@ -48,6 +48,9 @@ catch {
 }
 
 $python = Get-Command $PythonExe -ErrorAction Stop
+# This repository historically tracked some bytecode files. Never let the
+# operational runner mutate its own source checkout merely by importing Python.
+$env:PYTHONDONTWRITEBYTECODE = "1"
 Push-Location $RepoRoot
 try {
     & $python.Source "scripts\prepare_forward_evidence_scope.py" `

@@ -86,8 +86,8 @@ INPUTS = {
         "509e000cb124edf99de24c0c54ab5ef61b409e19afaf2967e33eb5b198bc45a5",
     ),
     "forward_shadow_readiness": (
-        "reports/forward_shadow_readiness_v26.json",
-        "a6eac55011a23e3279bc3de591d15f52e5a6d43731ba85bc5fee79d14a1c5617",
+        "reports/forward_shadow_readiness_v27.json",
+        "b7b7681bebc540210231b37d821f002bc2217e81e8945f58594ed0a41516b82f",
     ),
     "operational_smoke_preflight": (
         "reports/forward_shadow_operational_smoke_preflight_v6_2026-07-18.json",

@@ -161,8 +161,11 @@ def main(argv: list[str] | None = None) -> int:
         or "[string]$OfficialDate" not in windows_runner
         or "--date $OfficialDate" not in windows_runner
         or "the runner never rolls into another date" not in windows_runner
+        or '$env:PYTHONDONTWRITEBYTECODE = "1"' not in windows_runner
     ):
-        raise ValueError("local operational smoke is not fixed to one explicit official date")
+        raise ValueError(
+            "local operational smoke is not fixed to one date or can mutate tracked bytecode"
+        )
 
     secret_scan = subprocess.run(
         [sys.executable, str(ROOT / "scripts/check_tracked_secrets.py")],
