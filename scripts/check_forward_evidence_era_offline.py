@@ -17,8 +17,10 @@ if str(ROOT) not in sys.path:
 from src.evaluation.forward_evidence_era import (  # noqa: E402
     ForwardEvidenceEraError,
     build_evidence_scope,
+    build_runtime_manifest,
     certify_operational_smoke,
     validate_evidence_scope,
+    validate_runtime_manifest,
 )
 from scripts import prepare_forward_evidence_scope as scope_cli  # noqa: E402
 
@@ -45,7 +47,13 @@ def rejected(path: Path) -> bool:
     return False
 
 
-def build(mode: str, *, readiness: Path, smoke_certificate: Path | None = None) -> dict:
+def build(
+    mode: str,
+    *,
+    readiness: Path,
+    runtime_manifest: Path,
+    smoke_certificate: Path | None = None,
+) -> dict:
     return build_evidence_scope(
         mode=mode,
         era_id="offline-test-smoke" if mode == "operational_smoke" else "offline-test-era",
@@ -54,6 +62,7 @@ def build(mode: str, *, readiness: Path, smoke_certificate: Path | None = None) 
         boundary_path=ROOT / "config/forward_shadow_evidence_boundary.json",
         deployment_protocol_path=ROOT / "config/forward_shadow_deployment_protocol.json",
         product_contracts_path=ROOT / "config/hits_execution_product_contracts.json",
+        runtime_manifest_path=runtime_manifest,
         source_commit="1" * 40,
         source_tree_clean=mode == "forward_evidence",
         root=ROOT,
@@ -91,9 +100,26 @@ def main() -> int:
                 )
             },
         }), encoding="utf-8")
+        runtime_path = temp / "runtime_manifest.json"
+        runtime_payload = build_runtime_manifest(created_at_utc="2026-07-17T00:00:00+00:00")
+        runtime_path.write_text(json.dumps(runtime_payload), encoding="utf-8")
+        checked_runtime = validate_runtime_manifest(runtime_path)
+        check(
+            checked_runtime["contains_secrets"] is False,
+            "runtime manifest validates and is explicitly secret-free",
+        )
         smoke_scope_path = temp / "smoke_scope.json"
-        smoke_scope = build("operational_smoke", readiness=readiness_path)
+        smoke_scope = build(
+            "operational_smoke",
+            readiness=readiness_path,
+            runtime_manifest=runtime_path,
+        )
         smoke_scope_path.write_text(json.dumps(smoke_scope), encoding="utf-8")
+        check(
+            smoke_scope["runtime_manifest"]["sha256"]
+            == hashlib.sha256(runtime_path.read_bytes()).hexdigest(),
+            "evidence scope binds the exact runtime-manifest bytes",
+        )
         check(
             validate_evidence_scope(smoke_scope_path, root=ROOT)["economic_evidence_eligible"] is False,
             "operational smoke is valid and permanently excluded from economic evidence",
@@ -162,6 +188,7 @@ def main() -> int:
                 boundary_path=ROOT / "config/forward_shadow_evidence_boundary.json",
                 deployment_protocol_path=ROOT / "config/forward_shadow_deployment_protocol.json",
                 product_contracts_path=ROOT / "config/hits_execution_product_contracts.json",
+                runtime_manifest_path=runtime_path,
                 source_commit="1" * 40,
                 source_tree_clean=True,
                 root=ROOT,
@@ -181,6 +208,7 @@ def main() -> int:
                 boundary_path=ROOT / "config/forward_shadow_evidence_boundary.json",
                 deployment_protocol_path=ROOT / "config/forward_shadow_deployment_protocol.json",
                 product_contracts_path=ROOT / "config/hits_execution_product_contracts.json",
+                runtime_manifest_path=runtime_path,
                 source_commit="1" * 40,
                 source_tree_clean=False,
                 root=ROOT,
@@ -199,7 +227,12 @@ def main() -> int:
             "replacement_odds_fetched": False,
             "betting_authorized": False,
         }), encoding="utf-8")
-        era_scope = build("forward_evidence", readiness=readiness_path, smoke_certificate=cert_path)
+        era_scope = build(
+            "forward_evidence",
+            readiness=readiness_path,
+            runtime_manifest=runtime_path,
+            smoke_certificate=cert_path,
+        )
         era_path = temp / "era_scope.json"
         era_path.write_text(json.dumps(era_scope), encoding="utf-8")
         with patch(
@@ -229,6 +262,60 @@ def main() -> int:
             return_value=("1" * 40, True),
         ):
             check(rejected(era_path), "MUTATION tampered smoke certificate invalidates the forward era")
+
+        runtime_path.write_text("{}", encoding="utf-8")
+        check(rejected(smoke_scope_path), "MUTATION tampered runtime-manifest bytes invalidate the scope")
+
+        changed_runtime = json.loads(json.dumps(runtime_payload))
+        changed_runtime["fingerprint"]["installed_distributions"].append(
+            {"name": "mutated-runtime", "version": "1.0"}
+        )
+        changed_runtime["fingerprint"]["installed_distributions"].sort(
+            key=lambda item: item["name"]
+        )
+        changed_runtime["fingerprint_sha256"] = hashlib.sha256(
+            json.dumps(
+                changed_runtime["fingerprint"],
+                sort_keys=True,
+                separators=(",", ":"),
+                ensure_ascii=True,
+            ).encode()
+        ).hexdigest()
+        runtime_path.write_text(json.dumps(changed_runtime), encoding="utf-8")
+        try:
+            validate_runtime_manifest(runtime_path)
+        except ForwardEvidenceEraError:
+            runtime_drift_rejected = True
+        else:
+            runtime_drift_rejected = False
+        check(runtime_drift_rejected, "MUTATION installed-package drift invalidates the runtime")
+
+        secret_runtime = json.loads(json.dumps(runtime_payload))
+        secret_runtime["api_key"] = "forbidden"
+        runtime_path.write_text(json.dumps(secret_runtime), encoding="utf-8")
+        try:
+            validate_runtime_manifest(runtime_path)
+        except ForwardEvidenceEraError:
+            secret_field_rejected = True
+        else:
+            secret_field_rejected = False
+        check(secret_field_rejected, "MUTATION an extra secret-bearing field is rejected")
+
+        runtime_path.write_text(json.dumps(runtime_payload), encoding="utf-8")
+        missing_runtime_scope = json.loads(json.dumps(smoke_scope))
+        missing_runtime_scope.pop("runtime_manifest")
+        missing_runtime_scope.pop("scope_sha256")
+        missing_runtime_scope["scope_sha256"] = hashlib.sha256(
+            json.dumps(
+                missing_runtime_scope,
+                sort_keys=True,
+                separators=(",", ":"),
+                ensure_ascii=True,
+            ).encode()
+        ).hexdigest()
+        missing_runtime_path = temp / "missing_runtime_scope.json"
+        missing_runtime_path.write_text(json.dumps(missing_runtime_scope), encoding="utf-8")
+        check(rejected(missing_runtime_path), "MUTATION a scope without runtime binding is rejected")
 
     print(f"\n{PASS}/{PASS + FAIL} checks passed")
     return 0 if FAIL == 0 else 1

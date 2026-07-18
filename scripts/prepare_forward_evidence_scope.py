@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -17,7 +18,9 @@ if str(ROOT) not in sys.path:
 from src.evaluation.forward_evidence_era import (  # noqa: E402
     ForwardEvidenceEraError,
     build_evidence_scope,
+    build_runtime_manifest,
     validate_evidence_scope,
+    validate_runtime_manifest,
 )
 
 
@@ -39,6 +42,19 @@ def _source_tree_clean() -> bool:
     return not bool(_git("status", "--porcelain", "--untracked-files=all"))
 
 
+def _write_json_atomic(path: Path, payload: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(f".{path.name}.tmp-{os.getpid()}")
+    try:
+        with temporary.open("x", encoding="utf-8", newline="\n") as handle:
+            handle.write(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temporary, path)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--mode", required=True, choices=("operational_smoke", "forward_evidence"))
@@ -53,12 +69,24 @@ def main(argv: list[str] | None = None) -> int:
 
     service_root = Path(args.service_root).resolve()
     output = service_root / "evidence_scope.json"
+    runtime_manifest_path = service_root / "runtime_manifest.json"
     if output.exists():
         scope = validate_evidence_scope(output, root=ROOT)
         if scope["mode"] != args.mode or scope["era_id"] != args.era_id:
             raise ForwardEvidenceEraError("service root already belongs to a different immutable scope")
         print(f"EVIDENCE SCOPE VERIFIED {scope['scope_sha256']}")
         return 0
+
+    if runtime_manifest_path.exists():
+        validate_runtime_manifest(runtime_manifest_path)
+    else:
+        _write_json_atomic(
+            runtime_manifest_path,
+            build_runtime_manifest(
+                created_at_utc=datetime.now(timezone.utc).isoformat(timespec="seconds")
+            ),
+        )
+        validate_runtime_manifest(runtime_manifest_path)
 
     payload = build_evidence_scope(
         mode=args.mode,
@@ -68,13 +96,13 @@ def main(argv: list[str] | None = None) -> int:
         boundary_path=Path(args.boundary).resolve(),
         deployment_protocol_path=Path(args.protocol).resolve(),
         product_contracts_path=Path(args.products).resolve(),
+        runtime_manifest_path=runtime_manifest_path,
         source_commit=_git("rev-parse", "HEAD"),
         source_tree_clean=_source_tree_clean(),
         root=ROOT,
         smoke_certificate=Path(args.smoke_certificate).resolve() if args.smoke_certificate else None,
     )
-    output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    _write_json_atomic(output, payload)
     validate_evidence_scope(output, root=ROOT)
     print(f"EVIDENCE SCOPE CREATED {payload['scope_sha256']}")
     print(f"  mode: {payload['mode']}; economic evidence eligible: {payload['economic_evidence_eligible']}")

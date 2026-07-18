@@ -9,8 +9,13 @@ completed smoke certificate exists.
 from __future__ import annotations
 
 import hashlib
+import importlib.metadata
 import json
+import platform
+import re
+import ssl
 import subprocess
+import sys
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -21,6 +26,7 @@ from src.utils.provenance import sha256_file
 
 SCOPE_SCHEMA = "forward-shadow-evidence-scope-v1"
 SMOKE_CERTIFICATE_SCHEMA = "forward-operational-smoke-certificate-v1"
+RUNTIME_MANIFEST_SCHEMA = "forward-runtime-manifest-v1"
 READINESS_STATUS = (
     "FULL_LOCAL_LIFECYCLE_GUARDS_VALID_PRIMARY_COLLECTOR_NOT_DEPLOYED_NO_FORWARD_EVIDENCE"
 )
@@ -38,6 +44,114 @@ def _scope_digest(payload: Mapping[str, Any]) -> str:
     body = dict(payload)
     body.pop("scope_sha256", None)
     return hashlib.sha256(_canonical(body)).hexdigest()
+
+
+def _runtime_digest(payload: Mapping[str, Any]) -> str:
+    return hashlib.sha256(_canonical(payload)).hexdigest()
+
+
+def _distribution_name(value: str) -> str:
+    return re.sub(r"[-_.]+", "-", value).lower()
+
+
+def _runtime_fingerprint() -> dict[str, Any]:
+    """Return a deterministic, secret-free fingerprint of the active runtime."""
+
+    executable = Path(sys.executable).resolve()
+    if not executable.is_file():
+        raise ForwardEvidenceEraError("Python executable is unavailable")
+    distributions: dict[str, str] = {}
+    for distribution in importlib.metadata.distributions():
+        name = distribution.metadata.get("Name")
+        if not name:
+            continue
+        normalized = _distribution_name(str(name))
+        version = str(distribution.version)
+        previous = distributions.get(normalized)
+        if previous is not None and previous != version:
+            raise ForwardEvidenceEraError(
+                f"installed distribution has conflicting versions: {normalized}"
+            )
+        distributions[normalized] = version
+    return {
+        "python_implementation": platform.python_implementation(),
+        "python_version": platform.python_version(),
+        "python_cache_tag": str(sys.implementation.cache_tag),
+        "python_executable_name": executable.name,
+        "python_executable_sha256": sha256_file(executable),
+        "byteorder": sys.byteorder,
+        "platform_system": platform.system(),
+        "platform_release": platform.release(),
+        "platform_version": platform.version(),
+        "platform_machine": platform.machine(),
+        "openssl_version": ssl.OPENSSL_VERSION,
+        "installed_distributions": [
+            {"name": name, "version": distributions[name]}
+            for name in sorted(distributions)
+        ],
+    }
+
+
+def build_runtime_manifest(*, created_at_utc: str) -> dict[str, Any]:
+    fingerprint = _runtime_fingerprint()
+    return {
+        "schema_version": RUNTIME_MANIFEST_SCHEMA,
+        "created_at_utc": str(created_at_utc),
+        "contains_secrets": False,
+        "fingerprint": fingerprint,
+        "fingerprint_sha256": _runtime_digest(fingerprint),
+    }
+
+
+def validate_runtime_manifest(path: str | Path) -> dict[str, Any]:
+    """Require exact schema, internal hash, and equality to the running runtime."""
+
+    payload = _json(Path(path), "runtime manifest")
+    required = {
+        "schema_version",
+        "created_at_utc",
+        "contains_secrets",
+        "fingerprint",
+        "fingerprint_sha256",
+    }
+    if set(payload) != required:
+        raise ForwardEvidenceEraError("runtime manifest fields differ from the locked schema")
+    if payload.get("schema_version") != RUNTIME_MANIFEST_SCHEMA:
+        raise ForwardEvidenceEraError("runtime manifest has an unknown schema")
+    if payload.get("contains_secrets") is not False:
+        raise ForwardEvidenceEraError("runtime manifest must be explicitly secret-free")
+    fingerprint = payload.get("fingerprint")
+    if not isinstance(fingerprint, dict):
+        raise ForwardEvidenceEraError("runtime fingerprint is absent")
+    expected_fingerprint_fields = {
+        "python_implementation",
+        "python_version",
+        "python_cache_tag",
+        "python_executable_name",
+        "python_executable_sha256",
+        "byteorder",
+        "platform_system",
+        "platform_release",
+        "platform_version",
+        "platform_machine",
+        "openssl_version",
+        "installed_distributions",
+    }
+    if set(fingerprint) != expected_fingerprint_fields:
+        raise ForwardEvidenceEraError("runtime fingerprint fields differ from the locked schema")
+    _hash(fingerprint.get("python_executable_sha256"), "python_executable_sha256")
+    distributions = fingerprint.get("installed_distributions")
+    if not isinstance(distributions, list) or any(
+        not isinstance(item, dict) or set(item) != {"name", "version"}
+        for item in distributions
+    ):
+        raise ForwardEvidenceEraError("installed distribution inventory is malformed")
+    expected = _hash(payload.get("fingerprint_sha256"), "fingerprint_sha256")
+    if expected != _runtime_digest(fingerprint):
+        raise ForwardEvidenceEraError("runtime fingerprint hash differs from its contents")
+    if fingerprint != _runtime_fingerprint():
+        raise ForwardEvidenceEraError("running Python/runtime differs from the frozen manifest")
+    return payload
 
 
 def _json(path: Path, label: str) -> dict[str, Any]:
@@ -118,6 +232,7 @@ def build_evidence_scope(
     boundary_path: Path,
     deployment_protocol_path: Path,
     product_contracts_path: Path,
+    runtime_manifest_path: Path,
     source_commit: str,
     source_tree_clean: bool,
     root: Path,
@@ -137,6 +252,7 @@ def build_evidence_scope(
     load_forward_evidence_boundary(boundary_path, root=root)
     validate_execution_product_contracts(product_contracts_path)
     protocol = _json(deployment_protocol_path, "deployment protocol")
+    runtime_manifest = validate_runtime_manifest(runtime_manifest_path)
     if (
         protocol.get("schema_version") != "forward-shadow-live-deployment-protocol-v2"
         or protocol.get("status") != "RESEARCH_ONLY"
@@ -196,6 +312,11 @@ def build_evidence_scope(
             "path": str(product_contracts_path),
             "sha256": sha256_file(product_contracts_path),
         },
+        "runtime_manifest": {
+            "path": str(runtime_manifest_path),
+            "sha256": sha256_file(runtime_manifest_path),
+            "fingerprint_sha256": runtime_manifest["fingerprint_sha256"],
+        },
         "operational_smoke_certificate": smoke_binding,
         "bound_files": bound,
     }
@@ -253,7 +374,7 @@ def validate_evidence_scope(path: str | Path, *, root: str | Path) -> dict[str, 
         if not candidate.is_file() or sha256_file(candidate) != expected:
             raise ForwardEvidenceEraError(f"active release differs from evidence scope: {relative}")
 
-    for field in ("readiness_report", "forward_evidence_boundary", "deployment_protocol", "execution_product_contracts"):
+    for field in ("readiness_report", "forward_evidence_boundary", "deployment_protocol", "execution_product_contracts", "runtime_manifest"):
         item = payload.get(field)
         if not isinstance(item, dict):
             raise ForwardEvidenceEraError(f"{field} binding is absent")
@@ -262,6 +383,12 @@ def validate_evidence_scope(path: str | Path, *, root: str | Path) -> dict[str, 
             candidate = release_root / candidate
         if not candidate.is_file() or sha256_file(candidate) != _hash(item.get("sha256"), f"{field}.sha256"):
             raise ForwardEvidenceEraError(f"{field} artifact is missing or changed")
+        if field == "runtime_manifest":
+            runtime = validate_runtime_manifest(candidate)
+            if runtime["fingerprint_sha256"] != _hash(
+                item.get("fingerprint_sha256"), "runtime_manifest.fingerprint_sha256"
+            ):
+                raise ForwardEvidenceEraError("runtime manifest fingerprint binding changed")
     return payload
 
 

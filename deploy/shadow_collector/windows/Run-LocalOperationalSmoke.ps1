@@ -33,6 +33,26 @@ if ($scope.economic_evidence_eligible -ne $false -or $scope.betting_authorized -
     throw "Operational smoke cannot be economic evidence or authorize betting"
 }
 
+$python = Get-Command $PythonExe -ErrorAction Stop
+Push-Location $RepoRoot
+try {
+    & $python.Source "scripts\prepare_forward_evidence_scope.py" `
+        --mode operational_smoke `
+        --era-id $scope.era_id `
+        --service-root $ServiceRoot `
+        --readiness $scope.readiness_report.path `
+        --boundary $scope.forward_evidence_boundary.path `
+        --protocol $scope.deployment_protocol.path `
+        --products $scope.execution_product_contracts.path
+    $scopeValidationExit = $LASTEXITCODE
+}
+finally {
+    Pop-Location
+}
+if ($scopeValidationExit -ne 0) {
+    throw "Operational-smoke evidence scope or runtime fingerprint validation failed"
+}
+
 if ($ValidateOnly) {
     Write-Host "LOCAL OPERATIONAL-SMOKE RUNNER VALID"
     Write-Host "  scope: $($scope.scope_sha256)"
@@ -40,7 +60,6 @@ if ($ValidateOnly) {
     exit 0
 }
 
-$python = Get-Command $PythonExe -ErrorAction Stop
 $secureKey = Read-Host "Enter the ROTATED odds-provider key (input is hidden; never paste it into source or chat)" -AsSecureString
 $secretPtr = [IntPtr]::Zero
 
