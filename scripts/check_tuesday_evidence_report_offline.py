@@ -38,7 +38,8 @@ def main() -> int:
                    pitcher_k["official_outcomes_read"] is False
                    and pitcher_k["may_2026_read"] is False
                    and pitcher_k["betting_authorized"] is False))
-    checks.append(("195-to-194 readiness mutation is caught", caught(items, lambda x: x["forward_shadow_readiness"].__setitem__("guard_checks_passed", 194))))
+    checks.append(("201-to-194 readiness mutation is caught", caught(items, lambda x: x["forward_shadow_readiness"].__setitem__("guard_checks_passed", 194))))
+    checks.append(("201-to-200 readiness mutation is caught", caught(items, lambda x: x["forward_shadow_readiness"].__setitem__("guard_checks_passed", 200))))
     checks.append(("product authorization mutation is caught", caught(items, lambda x: x["execution_product_contracts"]["products"]["onyx"].__setitem__("authorization", True))))
     checks.append(("56-to-55 boundary mutation is caught", caught(items, lambda x: x["forward_evidence_boundary"]["first_economic_look_boundary"].__setitem__("minimum_complete_official_date_blocks", 55))))
     checks.append(("economic smoke mutation is caught", caught(items, lambda x: x["operational_smoke_scope"].__setitem__("economic_evidence_eligible", True))))
@@ -66,6 +67,7 @@ def main() -> int:
     finally:
         report.INPUTS["pitcher_strikeout_readiness_audit"] = pitcher_input
     checks.append(("pitcher-K audit hash mutation is caught", pitcher_hash_caught))
+    checks.append(("runtime secret mutation is caught", caught(items, lambda x: x["operational_smoke_runtime"].__setitem__("contains_secrets", True))))
 
     passed = sum(ok for _, ok in checks)
     for label, ok in checks:

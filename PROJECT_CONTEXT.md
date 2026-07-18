@@ -176,18 +176,22 @@ Relevant implementation:
   .github/workflows/shadow-evidence-verifier.yml
   deploy/shadow_collector/
 
-Offline readiness is 195/195. The refreshed readiness artifact is:
+Offline readiness is 201/201. The refreshed readiness artifact is:
 
-  reports/forward_shadow_readiness_v17.json
-  sha256 aee44086e26a761cdfe3b2746abfdea526b351afd468198e9c19e4b768ea546a
+  reports/forward_shadow_readiness_v18.json
+  sha256 f0d39e1d4a2eda714db8cd677580b9790126ab21204e45d91e4f9d92f1b2d276
 
 Release preflight found and closed one additional fail-open seam: the economic
 evidence clean-tree check had ignored nonignored untracked files. It now treats
 such source/configuration as dirty, and the mutation is covered by the 195
 guards. An untracked runtime override can no longer enter a supposedly clean
-evidence era. Scope validation also independently compares the running Git HEAD
-and full clean-tree state against the frozen source commit; recorded provenance
-fields are no longer trusted without observing the same release checkout.
+evidence era. Six additional era guards now bind a secret-free exact runtime
+manifest: Python executable bytes/version, platform, OpenSSL, and all installed
+distribution versions. Package or interpreter drift is rejected before a
+credential prompt or provider call. Scope validation also independently compares
+the running Git HEAD and full clean-tree state against the frozen source commit;
+recorded provenance fields are no longer trusted without observing the same
+release checkout.
 
 The release also binds `.gitattributes`, with portable LF text normalization
 for source, configuration, contracts, and reports. Exact readiness hashes must
@@ -220,16 +224,20 @@ replication remain downstream work. No forward-shadow authorization exists yet.
 
 A no-cost local Windows smoke scope is now prepared and independently validated:
 
-  data/learning/shadow/operational_smoke_v6/evidence_scope.json
-  scope_sha256 7c636bf27be733a7147d962a0b5990eab2ef0e28e601e67fc48129334a9e977d
-  file_sha256 d5c303e7effae1749f7dd506b215791fc2729c1818bd7de1ac6dbc9a2c1d55c6
+  data/learning/shadow/operational_smoke_v7/evidence_scope.json
+  scope_sha256 a3053acd9f8594b7b6b2e250a63919eaad39397399a162433702e437e370ef25
+  file_sha256 7fcd7a1dd1db4c67b9c40f866cdd87b1f729763f4e70b97b17fd6c9eac43061d
+
+  data/learning/shadow/operational_smoke_v7/runtime_manifest.json
+  fingerprint_sha256 55747f459e86b04740ca74f75750b5d9ab140582f5b3f54619a0f314357c5b94
+  file_sha256 5e1c649d03e6f1f50a01bc324604fb3d68677ea91e3d299d28580e217ff66270
 
 The bound local runner accepts only this permanently non-economic smoke class,
-uses a hidden credential prompt and environment-only handoff, and rejects a
-mutated forward-evidence scope. It has not made a live request. The key must be
-rotated before the user starts it, and the computer must remain awake through
-official settlement. A durable external primary remains mandatory for the later
-economic evidence era.
+validates the exact runtime fingerprint before showing the hidden credential
+prompt, uses environment-only handoff, and rejects a mutated forward-evidence
+scope. It has not made a live request. The key must be rotated before the user
+starts it, and the computer must remain awake through official settlement. A
+durable external primary remains mandatory for the later economic evidence era.
 
 -------------------------------------------------------------------------------
 GITHUB / RELEASE STATUS (2026-07-17)

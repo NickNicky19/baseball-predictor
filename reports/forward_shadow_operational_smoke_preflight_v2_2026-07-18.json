@@ -1,0 +1,68 @@
+{
+  "schema_version": "forward-shadow-operational-smoke-preflight-v2",
+  "built_at_utc": "2026-07-18T05:06:57Z",
+  "status": "READY_FOR_ROTATED_CREDENTIAL_AND_USER_START",
+  "research_only": true,
+  "betting_authorized": false,
+  "live_request_made": false,
+  "operational_smoke_started": false,
+  "economic_evidence_eligible": false,
+  "source_commit": "7b282c2dc6ab265d266d34489651dd6a9aec1c72",
+  "readiness": {
+    "path": "reports/forward_shadow_readiness_v18.json",
+    "sha256": "f0d39e1d4a2eda714db8cd677580b9790126ab21204e45d91e4f9d92f1b2d276",
+    "guards_passed": 201,
+    "guards_expected": 201
+  },
+  "evidence_scope": {
+    "path": "data/learning/shadow/operational_smoke_v7/evidence_scope.json",
+    "file_sha256": "7fcd7a1dd1db4c67b9c40f866cdd87b1f729763f4e70b97b17fd6c9eac43061d",
+    "scope_sha256": "a3053acd9f8594b7b6b2e250a63919eaad39397399a162433702e437e370ef25",
+    "mode": "operational_smoke",
+    "economic_evidence_eligible": false
+  },
+  "runtime_manifest": {
+    "path": "data/learning/shadow/operational_smoke_v7/runtime_manifest.json",
+    "file_sha256": "5e1c649d03e6f1f50a01bc324604fb3d68677ea91e3d299d28580e217ff66270",
+    "fingerprint_sha256": "55747f459e86b04740ca74f75750b5d9ab140582f5b3f54619a0f314357c5b94",
+    "python": "CPython 3.14.6",
+    "platform": "Windows 11 AMD64",
+    "installed_distribution_count": 114,
+    "contains_secrets": false
+  },
+  "local_runner": {
+    "path": "deploy/shadow_collector/windows/Run-LocalOperationalSmoke.ps1",
+    "sha256": "d686fe28096002668a5a9a628abb7fbff56166a8d135c10345276ec1d7a1c300",
+    "credential_input": "hidden SecureString prompt",
+    "credential_transport": "child-process environment only",
+    "credential_persisted": false,
+    "runtime_validation_before_prompt": true,
+    "durable_forward_primary": false
+  },
+  "verified_preflight": [
+    "current operational-smoke scope validates and is permanently non-economic",
+    "the scope binds the exact Python executable, platform, OpenSSL, and installed distribution inventory",
+    "runtime or package drift is rejected before credential entry or a provider request",
+    "the runtime manifest uses an exact secret-free schema and internal content hash",
+    "scope and runtime-manifest publication are crash-atomic",
+    "local runner accepts the operational-smoke scope using the exact frozen runtime",
+    "mutation to forward_evidence scope is rejected",
+    "economic-era validation rejects a different running commit or any nonignored worktree drift",
+    "portable LF checkout normalization is bound by the readiness certificate",
+    "tracked-source credential scan passes without exposing values"
+  ],
+  "required_user_actions": [
+    "rotate the previously exposed odds-provider credential in the provider dashboard",
+    "do not paste the replacement credential into chat, source, a command line, or a report",
+    "start the v7 local smoke runner from an ordinary PowerShell window using its hidden prompt and the frozen Python runtime",
+    "keep the PowerShell window open and the computer awake through prestart and official settlement"
+  ],
+  "still_blocked_after_smoke": [
+    "clean scoped source release and immutable forward-evidence scope",
+    "durable always-on external primary collector",
+    "GitHub read-only verifier credentials and host-key pinning",
+    "account-visible product evidence for Onyx, Novig, Chalkboard, and PrizePicks",
+    "56 complete future official-date blocks before the first economic look"
+  ],
+  "interpretation": "This preflight proves only that the local excluded smoke is ready to start after credential rotation and that its exact runtime is frozen. It does not prove live reliability, executability, profitability, settlement agreement, or betting authorization."
+}

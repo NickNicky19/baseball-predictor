@@ -41,7 +41,9 @@ not guaranteed and one fixed cron cannot represent T-4h for staggered games.
 The first real lifecycle smoke may run on the local Windows computer before a
 paid external host is selected. It is permanently excluded from economic
 evidence and cannot become the durable primary collector. The prepared scope
-is `data/learning/shadow/operational_smoke_v6/evidence_scope.json`.
+is `data/learning/shadow/operational_smoke_v7/evidence_scope.json`. Its separate
+`runtime_manifest.json` freezes the exact Python executable, interpreter,
+platform, OpenSSL, and installed distribution versions before credential entry.
 
 After rotating the previously exposed provider key, start the runner from a
 normal PowerShell window:
@@ -49,7 +51,8 @@ normal PowerShell window:
 ```powershell
 powershell -ExecutionPolicy Bypass -File `
   .\deploy\shadow_collector\windows\Run-LocalOperationalSmoke.ps1 `
-  -ServiceRoot .\data\learning\shadow\operational_smoke_v6
+  -ServiceRoot .\data\learning\shadow\operational_smoke_v7 `
+  -PythonExe "$env:LOCALAPPDATA\Python\pythoncore-3.14-64\python.exe"
 ```
 
 The key is requested through a hidden secure prompt, passed to Python only in
@@ -59,7 +62,9 @@ PowerShell window open and the computer awake until the selected game's
 prestart and official-settlement phases complete. A sleep, shutdown, network
 failure, or late restart remains visible and is never backfilled.
 
-The runner rejects a forward-economic scope and a scope marked betting-enabled.
+The runner rejects a forward-economic scope, a scope marked betting-enabled,
+and any interpreter/package/runtime drift from the frozen runtime manifest. The
+runtime check completes before the hidden credential prompt or provider access.
 Its purpose is only to prove the real deployed lifecycle before a clean release
 and durable external primary are allowed to begin forward evidence.
 
@@ -145,9 +150,9 @@ evidence clears every locked gate, all artifacts remain `RESEARCH_ONLY` and
 `betting_authorized=false`.
 
 The current credential-free readiness certificate is
-`reports/forward_shadow_readiness_v17.json`, SHA-256
-`aee44086e26a761cdfe3b2746abfdea526b351afd468198e9c19e4b768ea546a`.
-It records 195/195 passing local guards. This proves code readiness only; it
+`reports/forward_shadow_readiness_v18.json`, SHA-256
+`f0d39e1d4a2eda714db8cd677580b9790126ab21204e45d91e4f9d92f1b2d276`.
+It records 201/201 passing local guards. This proves code readiness only; it
 does not prove deployment, live executability, profitability, or authorization.
 
 The first prospective economic look is locked by
@@ -169,4 +174,6 @@ by `scripts/certify_forward_operational_smoke.py`, a different clean release roo
 may be created for the real forward era. The latter refuses to start without the
 smoke certificate or when any source/configuration/policy/runtime/settlement/
 schema/evaluation hash differs from the readiness certificate. The GitHub
-verifier copies and validates this scope alongside the lifecycle evidence.
+verifier copies and validates this scope alongside the lifecycle evidence. Each
+scope also binds an exact secret-free runtime manifest; changing Python,
+OpenSSL, the OS/runtime, or any installed package creates an incompatible era.
