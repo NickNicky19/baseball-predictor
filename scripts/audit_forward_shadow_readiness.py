@@ -153,6 +153,17 @@ def main(argv: list[str] | None = None) -> int:
     ):
         raise ValueError("GitHub verifier is not bound to the immutable evidence scope")
 
+    windows_runner = (
+        ROOT / "deploy/shadow_collector/windows/Run-LocalOperationalSmoke.ps1"
+    ).read_text(encoding="utf-8")
+    if (
+        "[Parameter(Mandatory = $true)]" not in windows_runner
+        or "[string]$OfficialDate" not in windows_runner
+        or "--date $OfficialDate" not in windows_runner
+        or "the runner never rolls into another date" not in windows_runner
+    ):
+        raise ValueError("local operational smoke is not fixed to one explicit official date")
+
     secret_scan = subprocess.run(
         [sys.executable, str(ROOT / "scripts/check_tracked_secrets.py")],
         cwd=ROOT,

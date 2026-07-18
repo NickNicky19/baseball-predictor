@@ -3,6 +3,9 @@ param(
     [string]$RepoRoot = "",
     [string]$ServiceRoot = "",
     [string]$PythonExe = "python",
+    [Parameter(Mandatory = $true)]
+    [ValidatePattern('^\d{4}-\d{2}-\d{2}$')]
+    [string]$OfficialDate,
     [switch]$ValidateOnly
 )
 
@@ -32,6 +35,17 @@ if ($scope.mode -ne "operational_smoke" -or $scope.operational_smoke -ne $true) 
 if ($scope.economic_evidence_eligible -ne $false -or $scope.betting_authorized -ne $false) {
     throw "Operational smoke cannot be economic evidence or authorize betting"
 }
+try {
+    [void][DateTime]::ParseExact(
+        $OfficialDate,
+        "yyyy-MM-dd",
+        [Globalization.CultureInfo]::InvariantCulture,
+        [Globalization.DateTimeStyles]::None
+    )
+}
+catch {
+    throw "OfficialDate must be a real calendar date in YYYY-MM-DD form"
+}
 
 $python = Get-Command $PythonExe -ErrorAction Stop
 Push-Location $RepoRoot
@@ -56,6 +70,7 @@ if ($scopeValidationExit -ne 0) {
 if ($ValidateOnly) {
     Write-Host "LOCAL OPERATIONAL-SMOKE RUNNER VALID"
     Write-Host "  scope: $($scope.scope_sha256)"
+    Write-Host "  fixed official date: $OfficialDate"
     Write-Host "  economic evidence eligible: FALSE"
     exit 0
 }
@@ -71,6 +86,7 @@ try {
     }
 
     Write-Host "Starting the permanently excluded local operational smoke."
+    Write-Host "Fixed official date: $OfficialDate (the runner never rolls into another date)."
     Write-Host "Keep this PowerShell window open and the computer awake until the lifecycle is settled."
     Write-Host "This runner never places a wager and is not the durable forward-evidence primary."
 
@@ -78,7 +94,9 @@ try {
         $tickStarted = Get-Date
         Push-Location $RepoRoot
         try {
-            & $python.Source "run_shadow_collector_tick.py" --service-root $ServiceRoot
+            & $python.Source "run_shadow_collector_tick.py" `
+                --date $OfficialDate `
+                --service-root $ServiceRoot
             $tickExit = $LASTEXITCODE
         }
         finally {
