@@ -41,7 +41,7 @@ not guaranteed and one fixed cron cannot represent T-4h for staggered games.
 The first real lifecycle smoke may run on the local Windows computer before a
 paid external host is selected. It is permanently excluded from economic
 evidence and cannot become the durable primary collector. The prepared scope
-is `data/learning/shadow/operational_smoke_v10/evidence_scope.json`. Its separate
+is `data/learning/shadow/operational_smoke_v11/evidence_scope.json`. Its separate
 `runtime_manifest.json` freezes the exact Python executable, interpreter,
 platform, OpenSSL, and installed distribution versions before credential entry.
 
@@ -51,7 +51,7 @@ normal PowerShell window:
 ```powershell
 powershell -ExecutionPolicy Bypass -File `
   .\deploy\shadow_collector\windows\Run-LocalOperationalSmoke.ps1 `
-  -ServiceRoot .\data\learning\shadow\operational_smoke_v10 `
+  -ServiceRoot .\data\learning\shadow\operational_smoke_v11 `
   -PythonExe "$env:LOCALAPPDATA\Python\pythoncore-3.14-64\python.exe"
 ```
 
@@ -150,9 +150,9 @@ evidence clears every locked gate, all artifacts remain `RESEARCH_ONLY` and
 `betting_authorized=false`.
 
 The current credential-free readiness certificate is
-`reports/forward_shadow_readiness_v20.json`, SHA-256
-`7c57dbba20bde0563e3370bb94b13128f1f87fc2c9d3b817cda97bff0e7bf942`.
-It records 206/206 passing local guards. The durable tick entry point now has
+`reports/forward_shadow_readiness_v23.json`, SHA-256
+`bf7840ab0cb1ad466ef7792695c6802b403e3089e5872321835b639675d0e3cf`.
+It records 215/215 passing local guards. The durable tick entry point now has
 explicit mutations proving that a missing scope or rejected runtime stops before
 MLB client initialization. Prediction preparation also writes its working rich
 archive under the external service root, so a clean evidence checkout cannot
@@ -176,8 +176,14 @@ report. The operational smoke uses its own root and is permanently marked
 `economic_evidence_eligible=false`. After that complete lifecycle is certified
 by `scripts/certify_forward_operational_smoke.py`, a different clean release root
 may be created for the real forward era. The latter refuses to start without the
-smoke certificate or when any source/configuration/policy/runtime/settlement/
+smoke certificate and its exact scope/lifecycle artifact chain, or when any
+source/configuration/policy/runtime/settlement/
 schema/evaluation hash differs from the readiness certificate. The GitHub
 verifier copies and validates this scope alongside the lifecycle evidence. Each
 scope also binds an exact secret-free runtime manifest; changing Python,
 OpenSSL, the OS/runtime, or any installed package creates an incompatible era.
+Release artifacts use checkout-relative paths and runtime artifacts use
+scope-relative paths, so the completed smoke bundle can move to the durable
+host. Historical smoke-runtime integrity is checked there without pretending
+that Linux must equal the Windows smoke runtime; the active forward scope still
+requires exact equality to its own running runtime.

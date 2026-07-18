@@ -233,13 +233,13 @@ replication remain downstream work. No forward-shadow authorization exists yet.
 
 A no-cost local Windows smoke scope is now prepared and independently validated:
 
-  data/learning/shadow/operational_smoke_v10/evidence_scope.json
-  scope_sha256 613fe0a20ec4ca55a27d747c2d1381976002cc8240fac5964da2e1647fa89025
-  file_sha256 766e6c9a53ee3b5e0b78f3e0348eeff00877d08f8973592dd7c05010b90c9f4a
+  data/learning/shadow/operational_smoke_v11/evidence_scope.json
+  scope_sha256 4088a7bda12738371e3a9a2a14b22886a824cf765fd068d0217a016113485b11
+  file_sha256 0d5fefe301ef0c8353a1d40f3b7e22fc74c509ec02a8ec426f8e51337f9b136e
 
-  data/learning/shadow/operational_smoke_v10/runtime_manifest.json
+  data/learning/shadow/operational_smoke_v11/runtime_manifest.json
   fingerprint_sha256 55747f459e86b04740ca74f75750b5d9ab140582f5b3f54619a0f314357c5b94
-  file_sha256 6c28bfe72b1eb4a366c63d13ed460ef59ff8bd7cb8aa3fb86909b900b24860ab
+  file_sha256 76cf3169b89d4796380e6707df6ec1789506b39063d0de9848f553f8a7bd6585
 
 The bound local runner accepts only this permanently non-economic smoke class,
 validates the exact runtime fingerprint before showing the hidden credential
@@ -252,7 +252,7 @@ durable external primary remains mandatory for the later economic evidence era.
 GITHUB / RELEASE STATUS (2026-07-18)
 
   * codex/hits-forward-evidence-release is published to the explicitly approved
-    NickNicky19/baseball-predictor repository through source commit 580f1a7.
+    NickNicky19/baseball-predictor repository through source commit 387bc41.
   * The working tree is a large mixed set of source changes, artifacts, logs,
     caches, and unrelated scratch files. Never stage it with `git add -A`.
   * A tracked documentation example containing a plaintext-looking odds
