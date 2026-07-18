@@ -265,8 +265,49 @@ doubleheaders. Provider and official starts remain separate facts. The measured
 event. Missing, extra, tied, repeated, reversed, ambiguous, or 61-second cases
 hard-fail. Runtime v2 verifies the diagnostic hash and equality of the bound
 before any provider request. The complete local readiness suite is now 223/223.
-A new excluded full-day smoke is still required before a forward-economic era,
-and a durable external primary remains mandatory for that later era.
+
+The corrected successor is now the single active v13 local operational smoke:
+
+  clean release root
+    .codex-release-v13
+  source commit
+    a6374ca7b3154a50b3a389e5ad2eda2e5634426f
+  fixed official date
+    2026-07-19
+  immutable plan
+    15 targets / 15 unique MLB game PKs
+    plan SHA-256 fd88633b78fb29aeb34b5288fa07ea4b82e826c443e92dd8b92153e6254e5292
+  first and last entry targets
+    2026-07-19T12:15:00Z through 2026-07-19T19:20:00Z
+  evidence-scope file SHA-256
+    ce03881079eb0a8c7b1bf47ea55bac8aa270b32736fae677bde3b80d0903a145
+  internal evidence-scope SHA-256
+    237c9b3c505527b1e2ab4469419dc0c4fc30bf940e70a531c60e742ecd67f853
+  runtime-manifest file SHA-256
+    ec2d0237113d6132813a194ad091e0828b5ba0638e3394cc27fe94a1e6e75099
+  runtime fingerprint
+    55747f459e86f04740ca74f75750b5d9ab140582f5b3f54619a0f314357c5b94
+
+At the time of this context update, v13 is running normally but has no due
+targets, terminal receipts, source errors, or ledger rows. That is the expected
+pre-window state, not completion. Keep its PowerShell process open and the
+computer awake. Never start a second copy, retry a target, backfill a miss, or
+certify early. The exact full-day schema-v2 certifier may run only after the
+entire entry, prestart, official-final, settlement, and ledger lifecycle is
+complete. v13 remains permanently `economic_evidence_eligible=false` and cannot
+authorize wagering.
+
+The Tuesday report now retains v11 as a permanent failed gate and accepts v13
+only as a separate successor. A handcrafted `verified=true` value cannot
+advance it; the exact certificate chain is required. The current reporting
+release also compares all 57 collector-critical v13 bound files before allowing
+certificate transfer. All 57 currently match. A future mismatch blocks the
+handoff and requires either an exactly compatible release or a new incompatible
+smoke.
+
+Until v13 certifies, no forward-economic era may be created. After it certifies,
+a clean hash-bound release and a durable external primary remain mandatory;
+GitHub remains verification and alerting only, never the sole collector.
 
 -------------------------------------------------------------------------------
 GITHUB / RELEASE STATUS (2026-07-18)
