@@ -117,6 +117,10 @@ INPUTS = {
         "reports/pitcher_strikeout_readiness_audit_2026-07-17.md",
         "66b9519c0e25da1bd710367ec1c16fa2f339ecdfe7a32bc3fc0c295188a62b82",
     ),
+    "credential_rotation_attestation": (
+        "reports/credential_rotation_attestation_2026-07-18.json",
+        "303f88e1caae7ba2396be308a3809c33a676b6b1df77b10d070363e9c4667741",
+    ),
 }
 
 
@@ -157,6 +161,7 @@ def require_facts(items: dict[str, dict[str, Any]]) -> None:
     runtime = items["operational_smoke_runtime"]
     boundary = items["forward_evidence_boundary"]
     products = items["execution_product_contracts"]
+    credential = items["credential_rotation_attestation"]
 
     if hr.get("candidate_supported") is not False or hr.get("may_opened") is not False:
         raise ValueError("HR rejection or May state drifted")
@@ -204,6 +209,17 @@ def require_facts(items: dict[str, dict[str, Any]]) -> None:
             raise ValueError(f"{product} unexpectedly claims accepted-entry evidence")
         if contract.get("actual_settlement_receipt_verified") is not False:
             raise ValueError(f"{product} unexpectedly claims settlement evidence")
+    if (
+        credential.get("schema_version") != "credential-rotation-attestation-v1"
+        or credential.get("attestation_source") != "user"
+        or credential.get("user_attested_previous_credential_rotated") is not True
+        or credential.get("new_credential_entered_via_hidden_prompt") is not True
+        or credential.get("credential_value_retained") is not False
+        or credential.get("credential_value_logged") is not False
+        or credential.get("economic_evidence_eligible") is not False
+        or credential.get("betting_authorized") is not False
+    ):
+        raise ValueError("credential rotation attestation is absent, unsafe, or overclaims evidence")
 
 
 def _git_head() -> str:
@@ -433,7 +449,7 @@ def _markdown(report: dict[str, Any]) -> str:
         "## Source and forward lifecycle",
         "",
         f"- Source commit: `{report['source_release']['commit']}`.",
-        f"- Local lifecycle guards: {report['forward_shadow_readiness']['guard_checks_passed']}/206.",
+        f"- Local lifecycle guards: {report['forward_shadow_readiness']['guard_checks_passed']}/215.",
         f"- Operational smoke: {smoke['state']} ({smoke['entry_terminal_receipts']}/{smoke['expected_targets']} terminal entry receipts).",
         f"- First economic look: {report['prospective_boundary']['completed_complete_dates']}/{report['prospective_boundary']['required_complete_dates']} complete future dates.",
         "",
@@ -475,6 +491,7 @@ def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, An
     shadow = items["forward_shadow_readiness"]
     boundary = items["forward_evidence_boundary"]
     contracts = items["execution_product_contracts"]
+    credential = items["credential_rotation_attestation"]
     smoke = _operational_smoke_status()
     contact_combined = contact["combined_open"]
     contact_march = contact["blocks"]["march_april_fit"]
@@ -495,10 +512,20 @@ def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, An
         why = "The excluded lifecycle smoke has passed; prospective evidence still requires an always-on primary and one clean frozen era."
     else:
         status = "OPERATIONAL_SMOKE_REQUIRED_RESEARCH_ONLY"
-        action = "Rotate the exposed provider credential and complete the permanently excluded operational smoke before a future T-4h target."
+        action = "Complete and certify the permanently excluded operational smoke across the full planned date."
         why = "The lifecycle is mutation-tested but has not yet been proven against one real future entry, prestart reference, official final, settlement, and ledger sequence."
 
     products = _product_readiness(contracts)
+    provider_capture_verified = smoke["eligible_entry_bundles"] > 0
+    stale_credential_blocker = "a previously tracked odds-provider credential must be rotated before any live request"
+    shadow_blockers = [
+        blocker for blocker in shadow["blockers"]
+        if blocker != stale_credential_blocker
+    ]
+    if not provider_capture_verified:
+        shadow_blockers.append(
+            "the user-attested rotated hidden credential has not yet produced an eligible operational-smoke capture"
+        )
     return {
         "schema_version": "tuesday-market-authorization-evidence-v2",
         "built_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -525,7 +552,18 @@ def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, An
                 else []
             ),
             "exact secret-free Python/runtime fingerprint bound to the operational smoke",
+            "previously exposed credential user-attested rotated; replacement value entered through a hidden prompt and not retained",
         ],
+        "credential_security": {
+            "attestation_sha256": bound["credential_rotation_attestation"]["sha256"],
+            "rotation_status": "USER_ATTESTED_COMPLETE",
+            "replacement_value_retained": credential["credential_value_retained"],
+            "replacement_value_logged": credential["credential_value_logged"],
+            "provider_capture_verified": provider_capture_verified,
+            "previous_disqualified_value_retested": False,
+            "economic_evidence_eligible": False,
+            "betting_authorized": False,
+        },
         "operational_smoke": smoke,
         "expected_vs_captured_targets": {
             "expected": smoke["expected_targets"],
@@ -622,7 +660,7 @@ def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, An
             "guard_checks_passed": shadow["guard_checks_passed"],
             "durable_primary_collector_deployed": False,
             "capture_measurable": False,
-            "blockers": shadow["blockers"],
+            "blockers": shadow_blockers,
         },
         "remaining_authorization_blockers": [
             "operational smoke is not yet certified" if not smoke["verified_complete"] else "durable external primary is not deployed",

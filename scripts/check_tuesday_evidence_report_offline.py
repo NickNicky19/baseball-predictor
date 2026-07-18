@@ -70,6 +70,16 @@ def main() -> int:
         report.INPUTS["pitcher_strikeout_readiness_audit"] = pitcher_input
     checks.append(("pitcher-K audit hash mutation is caught", pitcher_hash_caught))
     checks.append(("runtime secret mutation is caught", caught(items, lambda x: x["operational_smoke_runtime"].__setitem__("contains_secrets", True))))
+    checks.append(("credential retention mutation is caught", caught(items, lambda x: x["credential_rotation_attestation"].__setitem__("credential_value_retained", True))))
+    checks.append(("credential rotation false mutation is caught", caught(items, lambda x: x["credential_rotation_attestation"].__setitem__("user_attested_previous_credential_rotated", False))))
+    checks.append(("credential state is non-secret and research-only",
+                   built["credential_security"]["rotation_status"] == "USER_ATTESTED_COMPLETE"
+                   and built["credential_security"]["replacement_value_retained"] is False
+                   and built["credential_security"]["replacement_value_logged"] is False
+                   and built["credential_security"]["economic_evidence_eligible"] is False
+                   and built["credential_security"]["betting_authorized"] is False))
+    rendered = report._markdown(built)
+    checks.append(("markdown lifecycle guard denominator is current", "Local lifecycle guards: 215/215." in rendered and "/206" not in rendered))
 
     original_smoke_root = report.SMOKE_ROOT
     try:
