@@ -41,7 +41,7 @@ not guaranteed and one fixed cron cannot represent T-4h for staggered games.
 The first real lifecycle smoke may run on the local Windows computer before a
 paid external host is selected. It is permanently excluded from economic
 evidence and cannot become the durable primary collector. The prepared scope
-is `data/learning/shadow/operational_smoke_v8/evidence_scope.json`. Its separate
+is `data/learning/shadow/operational_smoke_v9/evidence_scope.json`. Its separate
 `runtime_manifest.json` freezes the exact Python executable, interpreter,
 platform, OpenSSL, and installed distribution versions before credential entry.
 
@@ -51,7 +51,7 @@ normal PowerShell window:
 ```powershell
 powershell -ExecutionPolicy Bypass -File `
   .\deploy\shadow_collector\windows\Run-LocalOperationalSmoke.ps1 `
-  -ServiceRoot .\data\learning\shadow\operational_smoke_v8 `
+  -ServiceRoot .\data\learning\shadow\operational_smoke_v9 `
   -PythonExe "$env:LOCALAPPDATA\Python\pythoncore-3.14-64\python.exe"
 ```
 
@@ -150,11 +150,13 @@ evidence clears every locked gate, all artifacts remain `RESEARCH_ONLY` and
 `betting_authorized=false`.
 
 The current credential-free readiness certificate is
-`reports/forward_shadow_readiness_v19.json`, SHA-256
-`cb514e111b6768602714b54f834cf79dcced068d912f37fc9c0689bcfb15da86`.
-It records 204/204 passing local guards. The durable tick entry point now has
+`reports/forward_shadow_readiness_v20.json`, SHA-256
+`7c57dbba20bde0563e3370bb94b13128f1f87fc2c9d3b817cda97bff0e7bf942`.
+It records 206/206 passing local guards. The durable tick entry point now has
 explicit mutations proving that a missing scope or rejected runtime stops before
-MLB client initialization. This proves code readiness only; it
+MLB client initialization. Prediction preparation also writes its working rich
+archive under the external service root, so a clean evidence checkout cannot
+invalidate itself on the following tick. This proves code readiness only; it
 does not prove deployment, live executability, profitability, or authorization.
 
 The first prospective economic look is locked by

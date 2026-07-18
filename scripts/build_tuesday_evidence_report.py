@@ -18,7 +18,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 LOCKED_GOAL_SHA = "25d845efeb0189c313a6a9d3e646c53619d12667c8b16929013287b04bee4f4e"
-SMOKE_ROOT = ROOT / "data/learning/shadow/operational_smoke_v8"
+SMOKE_ROOT = ROOT / "data/learning/shadow/operational_smoke_v9"
 
 INPUTS = {
     "goal_contract": (
@@ -58,20 +58,20 @@ INPUTS = {
         "509e000cb124edf99de24c0c54ab5ef61b409e19afaf2967e33eb5b198bc45a5",
     ),
     "forward_shadow_readiness": (
-        "reports/forward_shadow_readiness_v19.json",
-        "cb514e111b6768602714b54f834cf79dcced068d912f37fc9c0689bcfb15da86",
+        "reports/forward_shadow_readiness_v20.json",
+        "7c57dbba20bde0563e3370bb94b13128f1f87fc2c9d3b817cda97bff0e7bf942",
     ),
     "operational_smoke_preflight": (
-        "reports/forward_shadow_operational_smoke_preflight_v3_2026-07-18.json",
-        "ffa3280ae91cb4eac71448c3637fc957b8a778aa03ec0222ab0b3b7415966f54",
+        "reports/forward_shadow_operational_smoke_preflight_v4_2026-07-18.json",
+        "46d45cb4d5ca4014637f3854445e3c045c0573f2c990124a7e9bba75b9d0f6cf",
     ),
     "operational_smoke_scope": (
-        "data/learning/shadow/operational_smoke_v8/evidence_scope.json",
-        "5274282c74e2389e799dde85a2ae5108cfa857a63af89b951617af091960162f",
+        "data/learning/shadow/operational_smoke_v9/evidence_scope.json",
+        "1514754bfd3f62cf7c9ecde8fe27bf22c96b7552ebffcce1dc1e21f13facbef4",
     ),
     "operational_smoke_runtime": (
-        "data/learning/shadow/operational_smoke_v8/runtime_manifest.json",
-        "1425b51220e271d528fd8698038b36e1ca9db3a267385b71d27c29b7af0e4da7",
+        "data/learning/shadow/operational_smoke_v9/runtime_manifest.json",
+        "c8f581d6d034fd314bcc9b64360ee853fa21deb2b4a54b41a6fef7f2d764cb3d",
     ),
     "forward_evidence_boundary": (
         "config/forward_shadow_evidence_boundary.json",
@@ -159,8 +159,8 @@ def require_facts(items: dict[str, dict[str, Any]]) -> None:
     selected = ranking.get("selected_additional_candidates")
     if not isinstance(selected, list) or not selected or selected[0].get("candidate_id") != "hits_point_in_time_hitter_contact_adapter_v1":
         raise ValueError("ranked additional candidate drifted")
-    if shadow.get("guard_checks_passed") != 204 or shadow.get("betting_authorized") is not False:
-        raise ValueError("forward-shadow readiness is not the certified 204/204 research state")
+    if shadow.get("guard_checks_passed") != 206 or shadow.get("betting_authorized") is not False:
+        raise ValueError("forward-shadow readiness is not the certified 206/206 research state")
     if shadow["capture_timing"].get("durable_external_primary_collector_deployed") is not False:
         raise ValueError("unexpected durable collector state")
     if shadow["forward_evidence"].get("capture_measurable") is not False:
@@ -355,7 +355,7 @@ def _markdown(report: dict[str, Any]) -> str:
         "## Source and forward lifecycle",
         "",
         f"- Source commit: `{report['source_release']['commit']}`.",
-        f"- Local lifecycle guards: {report['forward_shadow_readiness']['guard_checks_passed']}/204.",
+        f"- Local lifecycle guards: {report['forward_shadow_readiness']['guard_checks_passed']}/206.",
         f"- Operational smoke: {smoke['state']} ({smoke['entry_terminal_receipts']}/{smoke['expected_targets']} terminal entry receipts).",
         f"- First economic look: {report['prospective_boundary']['completed_complete_dates']}/{report['prospective_boundary']['required_complete_dates']} complete future dates.",
         "",

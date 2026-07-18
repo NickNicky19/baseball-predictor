@@ -1,0 +1,74 @@
+{
+  "schema_version": "forward-shadow-operational-smoke-preflight-v4",
+  "built_at_utc": "2026-07-18T05:33:03Z",
+  "status": "READY_FOR_ROTATED_CREDENTIAL_AND_USER_START",
+  "research_only": true,
+  "betting_authorized": false,
+  "live_request_made": false,
+  "operational_smoke_started": false,
+  "economic_evidence_eligible": false,
+  "source_commit": "b131e59c486048c9fa4dd74b31e9951122611e16",
+  "readiness": {
+    "path": "reports/forward_shadow_readiness_v20.json",
+    "sha256": "7c57dbba20bde0563e3370bb94b13128f1f87fc2c9d3b817cda97bff0e7bf942",
+    "guards_passed": 206,
+    "guards_expected": 206
+  },
+  "evidence_scope": {
+    "path": "data/learning/shadow/operational_smoke_v9/evidence_scope.json",
+    "file_sha256": "1514754bfd3f62cf7c9ecde8fe27bf22c96b7552ebffcce1dc1e21f13facbef4",
+    "scope_sha256": "0b4d91555495f4553f37c6059b0972427594753c1f479c89596ca065c37a0811",
+    "mode": "operational_smoke",
+    "economic_evidence_eligible": false
+  },
+  "runtime_manifest": {
+    "path": "data/learning/shadow/operational_smoke_v9/runtime_manifest.json",
+    "file_sha256": "c8f581d6d034fd314bcc9b64360ee853fa21deb2b4a54b41a6fef7f2d764cb3d",
+    "fingerprint_sha256": "55747f459e86b04740ca74f75750b5d9ab140582f5b3f54619a0f314357c5b94",
+    "python": "CPython 3.14.6",
+    "platform": "Windows 11 AMD64",
+    "installed_distribution_count": 114,
+    "contains_secrets": false
+  },
+  "local_runner": {
+    "path": "deploy/shadow_collector/windows/Run-LocalOperationalSmoke.ps1",
+    "sha256": "d686fe28096002668a5a9a628abb7fbff56166a8d135c10345276ec1d7a1c300",
+    "credential_input": "hidden SecureString prompt",
+    "credential_transport": "child-process environment only",
+    "credential_persisted": false,
+    "scope_validation_before_api_initialization": true,
+    "runtime_validation_before_prompt": true,
+    "prediction_archive_outside_release_checkout": true,
+    "durable_forward_primary": false
+  },
+  "verified_preflight": [
+    "current operational-smoke scope validates and is permanently non-economic",
+    "the systemd collector tick validates service-root evidence scope and runtime before MLB client initialization",
+    "missing evidence scope and runtime-manifest rejection mutations stop before schedule, model, or provider work",
+    "collector prediction preparation writes its rich working archive under the service root rather than the Git-tracked daily archive path",
+    "the external archive redirect preserves the prediction call and decision-time provenance capture",
+    "the scope binds the exact Python executable, platform, OpenSSL, and installed distribution inventory",
+    "runtime or package drift is rejected before credential entry or a provider request",
+    "the runtime manifest uses an exact secret-free schema and internal content hash",
+    "scope and runtime-manifest publication are crash-atomic",
+    "local runner accepts the operational-smoke scope using the exact frozen runtime",
+    "mutation to forward_evidence scope is rejected",
+    "economic-era validation rejects a different running commit or any nonignored worktree drift",
+    "portable LF checkout normalization is bound by the readiness certificate",
+    "tracked-source credential scan passes without exposing values"
+  ],
+  "required_user_actions": [
+    "rotate the previously exposed odds-provider credential in the provider dashboard",
+    "do not paste the replacement credential into chat, source, a command line, or a report",
+    "start the v9 local smoke runner from an ordinary PowerShell window using its hidden prompt and the frozen Python runtime",
+    "keep the PowerShell window open and the computer awake through prestart and official settlement"
+  ],
+  "still_blocked_after_smoke": [
+    "clean scoped source release and immutable forward-evidence scope",
+    "durable always-on external primary collector",
+    "GitHub read-only verifier credentials and host-key pinning",
+    "account-visible product evidence for Onyx, Novig, Chalkboard, and PrizePicks",
+    "56 complete future official-date blocks before the first economic look"
+  ],
+  "interpretation": "This preflight proves only that the local excluded smoke is ready to start after credential rotation and that scope, runtime, and clean-checkout archive boundaries fail closed. It does not prove live reliability, executability, profitability, settlement agreement, or betting authorization."
+}
