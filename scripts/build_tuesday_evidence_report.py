@@ -540,6 +540,7 @@ def _operational_smoke_status(
             else str(smoke_root)
         ),
         "scope_binding": scope_binding,
+        "bound_files": dict(scope.get("bound_files", {})) if scope_path.is_file() else {},
         "planned_dates": planned_dates,
         "expected_targets": expected_targets,
         "entry_terminal_receipts": entry_terminal,
@@ -555,6 +556,39 @@ def _operational_smoke_status(
         "artifact_chain_validated": verified,
         "economic_evidence_eligible": False,
         "betting_authorized": False,
+    }
+
+
+def _release_compatibility(
+    smoke: dict[str, Any] | None,
+    *,
+    release_root: Path,
+    release_commit: str,
+) -> dict[str, Any] | None:
+    if smoke is None:
+        return None
+    bound_files = smoke.get("bound_files")
+    if not isinstance(bound_files, dict) or not bound_files:
+        raise ValueError("successor smoke has no bound release-file inventory")
+    mismatches: list[dict[str, Any]] = []
+    for relative, expected in sorted(bound_files.items()):
+        path = release_root / str(relative)
+        actual = sha256(path) if path.is_file() else None
+        if actual != expected:
+            mismatches.append({
+                "path": str(relative),
+                "expected_sha256": expected,
+                "actual_sha256": actual,
+            })
+    scope_binding = smoke.get("scope_binding") or {}
+    return {
+        "smoke_source_commit": scope_binding.get("source_commit"),
+        "reporting_release_commit": release_commit,
+        "same_source_commit": scope_binding.get("source_commit") == release_commit,
+        "bound_file_count": len(bound_files),
+        "matching_bound_file_count": len(bound_files) - len(mismatches),
+        "all_bound_files_match": not mismatches,
+        "mismatches": mismatches,
     }
 
 
@@ -708,6 +742,11 @@ def build_report(
     contact_june = contact["blocks"]["june_replication"]
 
     source_release = _source_release()
+    successor_compatibility = _release_compatibility(
+        successor_smoke,
+        release_root=ROOT,
+        release_commit=source_release["commit"],
+    )
     if not source_release["reporting_layer_committed"]:
         status = "REPORTING_LAYER_UNCOMMITTED_RESEARCH_ONLY"
         action = "Commit and publish the strengthened goal and mutation-tested reporting layer before treating this report as immutable evidence."
@@ -716,6 +755,15 @@ def build_report(
         status = "REPORTING_LAYER_UNPUBLISHED_RESEARCH_ONLY"
         action = "Publish the exact committed reporting release to its configured trusted upstream before treating it as shared immutable evidence."
         why = "The reporting layer is committed locally, but the exact source commit is not present on the configured upstream reference."
+    elif (
+        successor_smoke is not None
+        and smoke["verified_complete"]
+        and successor_compatibility is not None
+        and not successor_compatibility["all_bound_files_match"]
+    ):
+        status = "SMOKE_VERIFIED_REPORTING_RELEASE_INCOMPATIBLE_RESEARCH_ONLY"
+        action = "Prepare a clean release whose collector-critical bound files exactly match the certified smoke, or run a new incompatible smoke for the changed collector."
+        why = "The smoke certificate is valid, but one or more files inside its frozen readiness boundary differ from the reporting release. The certificate cannot be transferred across that change."
     elif successor_smoke is not None and smoke["verified_complete"]:
         status = "SMOKE_VERIFIED_FORWARD_ERA_NOT_STARTED_RESEARCH_ONLY"
         action = "Prepare a clean checkout of the immutable release, deploy the durable external primary, and create the new hash-bound forward evidence era."
@@ -758,17 +806,36 @@ def build_report(
             blocker for blocker in shadow_blockers
             if blocker not in {successor_incomplete, no_complete_lifecycle}
         ]
+        if (
+            successor_compatibility is not None
+            and not successor_compatibility["all_bound_files_match"]
+        ):
+            shadow_blockers.append(
+                "the reporting release differs from the certified smoke on collector-critical bound files"
+            )
     if not provider_access_verified:
         shadow_blockers.append(
             "the user-attested rotated hidden credential has not yet received a successful provider response"
         )
-    if successor_smoke is not None and smoke["verified_complete"]:
+    if (
+        successor_smoke is not None
+        and smoke["verified_complete"]
+        and successor_compatibility is not None
+        and successor_compatibility["all_bound_files_match"]
+    ):
         hosting_status = "EXCLUDED_LOCAL_SMOKE_VERIFIED_DURABLE_PRIMARY_NOT_DEPLOYED"
         hosting_recommendation = (
             "The excluded local lifecycle smoke is verified. Deploy the exact immutable "
             "collector to one inexpensive always-on external primary, retain GitHub as "
             "verification/alerting only, and measure missed ticks, restarts, network "
             "failures, and complete-date rate before treating the host as reliable."
+        )
+    elif successor_smoke is not None and smoke["verified_complete"]:
+        hosting_status = "CERTIFIED_SMOKE_REPORTING_RELEASE_INCOMPATIBLE"
+        hosting_recommendation = (
+            "Do not deploy the changed release under the existing smoke certificate. "
+            "Restore exact collector-critical compatibility or complete a new "
+            "incompatible smoke before choosing an external primary."
         )
     elif successor_smoke is not None:
         hosting_status = "SUCCESSOR_SMOKE_INCOMPLETE_NO_DURABLE_HOST_RELIABILITY_EVIDENCE"
@@ -853,6 +920,7 @@ def build_report(
             "retained_v11": retained_v11,
             "successor": successor_smoke,
         },
+        "successor_release_compatibility": successor_compatibility,
         "expected_vs_captured_targets": {
             "expected": smoke["expected_targets"],
             "terminal_entry_receipts": smoke["entry_terminal_receipts"],
@@ -953,9 +1021,16 @@ def build_report(
             "blockers": shadow_blockers,
         },
         "remaining_authorization_blockers": [
-            "the new incompatible operational smoke is not yet certified"
-            if successor_smoke is None or not smoke["verified_complete"]
-            else "durable external primary is not deployed",
+            (
+                "the new incompatible operational smoke is not yet certified"
+                if successor_smoke is None or not smoke["verified_complete"]
+                else (
+                    "the reporting release differs from the certified smoke on collector-critical bound files"
+                    if successor_compatibility is not None
+                    and not successor_compatibility["all_bound_files_match"]
+                    else "durable external primary is not deployed"
+                )
+            ),
             "no forward evidence era has 56 complete future official dates",
             "no product has account-visible executable and settlement evidence",
             "no product-specific positive net-ROI lower bound exists",

@@ -210,11 +210,25 @@ def main() -> int:
             "artifact_chain_validated": True,
             "certificate": {"path": "certificate.json", "sha256": "a" * 64},
             "scope_binding": verified_scope,
+            "bound_files": {
+                "scripts/build_tuesday_evidence_report.py": report.sha256(
+                    ROOT / "scripts/build_tuesday_evidence_report.py"
+                ),
+            },
         })
         verified_report = report.build_report(
             bound,
             items,
             successor_smoke=verified_successor,
+        )
+        incompatible_successor = copy.deepcopy(verified_successor)
+        incompatible_successor["bound_files"][
+            "scripts/build_tuesday_evidence_report.py"
+        ] = "0" * 64
+        incompatible_report = report.build_report(
+            bound,
+            items,
+            successor_smoke=incompatible_successor,
         )
     finally:
         report._source_release = original_source_release
@@ -238,9 +252,17 @@ def main() -> int:
                    and verified_report["betting_authorized"] is False
                    and verified_report["cloud_hosting_recommendation"]["status"]
                    == "EXCLUDED_LOCAL_SMOKE_VERIFIED_DURABLE_PRIMARY_NOT_DEPLOYED"
+                   and verified_report["successor_release_compatibility"]["all_bound_files_match"] is True
                    and not any("successor operational smoke has not yet completed" in blocker
                                or "no successful complete future" in blocker
                                for blocker in verified_report["forward_shadow_readiness"]["blockers"])))
+    checks.append(("verified smoke cannot transfer across a bound-file change",
+                   incompatible_report["status"]
+                   == "SMOKE_VERIFIED_REPORTING_RELEASE_INCOMPATIBLE_RESEARCH_ONLY"
+                   and incompatible_report["successor_release_compatibility"]["all_bound_files_match"] is False
+                   and incompatible_report["cloud_hosting_recommendation"]["status"]
+                   == "CERTIFIED_SMOKE_REPORTING_RELEASE_INCOMPATIBLE"
+                   and incompatible_report["betting_authorized"] is False))
 
     try:
         unpublished = copy.deepcopy(built["source_release"])
