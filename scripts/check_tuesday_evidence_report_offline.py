@@ -104,6 +104,18 @@ def main() -> int:
                    == "FAILED_PERMANENTLY_EXCLUDED_NOT_CERTIFIABLE"
                    and built["operational_smokes"]["retained_v11"]["source_error_receipts"] == 1
                    and built["operational_smokes"]["retained_v11"]["verified_complete"] is False))
+    checks.append(("v11 remains a failed gate rather than an erasable current blocker",
+                   built["failed_gates"] == [{
+                       "gate": "operational_smoke_v11_event_identity",
+                       "state": "FAILED_PERMANENTLY_EXCLUDED_NOT_CERTIFIABLE",
+                       "retry_permitted": False,
+                       "backfill_permitted": False,
+                       "certifiable": False,
+                       "economic_evidence_eligible": False,
+                       "betting_authorized": False,
+                   }]
+                   and not any("v11 permanently failed" in blocker
+                               for blocker in built["forward_shadow_readiness"]["blockers"])))
     checks.append(("rotated credential provider access is distinguished from an eligible quote capture",
                    built["credential_security"]["provider_access_verified"] is True
                    and built["credential_security"]["provider_capture_verified"] is False))
@@ -159,6 +171,7 @@ def main() -> int:
         "eligible_entry_bundles": 0,
         "source_error_receipts": 0,
         "verified_complete": False,
+        "artifact_chain_validated": False,
     })
     original_source_release = report._source_release
     published = copy.deepcopy(built["source_release"])
@@ -168,12 +181,35 @@ def main() -> int:
         report._source_release = lambda: published
         successor_report = report.build_report(bound, items, successor_smoke=successor)
 
-        verified_successor = copy.deepcopy(successor)
-        verified_successor.update({
+        false_certificate_successor = copy.deepcopy(successor)
+        false_certificate_successor.update({
             "state": "VERIFIED_COMPLETE_PERMANENTLY_EXCLUDED",
             "entry_terminal_receipts": 15,
             "eligible_entry_bundles": 15,
             "verified_complete": True,
+        })
+        try:
+            report.build_report(
+                bound,
+                items,
+                successor_smoke=false_certificate_successor,
+            )
+        except ValueError:
+            false_successor_caught = True
+        else:
+            false_successor_caught = False
+
+        verified_successor = copy.deepcopy(false_certificate_successor)
+        verified_scope = copy.deepcopy(verified_successor["scope_binding"])
+        verified_scope.update({
+            "source_tree_clean": True,
+            "economic_evidence_eligible": False,
+            "betting_authorized": False,
+        })
+        verified_successor.update({
+            "artifact_chain_validated": True,
+            "certificate": {"path": "certificate.json", "sha256": "a" * 64},
+            "scope_binding": verified_scope,
         })
         verified_report = report.build_report(
             bound,
@@ -190,14 +226,21 @@ def main() -> int:
                    and successor_report["status"]
                    == "SUCCESSOR_SMOKE_IN_PROGRESS_RESEARCH_ONLY"
                    and successor_report["cloud_hosting_recommendation"]["status"]
-                   == "SUCCESSOR_SMOKE_INCOMPLETE_NO_DURABLE_HOST_RELIABILITY_EVIDENCE"))
+                   == "SUCCESSOR_SMOKE_INCOMPLETE_NO_DURABLE_HOST_RELIABILITY_EVIDENCE"
+                   and any("successor operational smoke has not yet completed" in blocker
+                           for blocker in successor_report["forward_shadow_readiness"]["blockers"])))
+    checks.append(("handcrafted successor verified=true cannot advance the lifecycle gate",
+                   false_successor_caught))
     checks.append(("only the separately verified successor advances the lifecycle gate",
                    verified_report["status"]
                    == "SMOKE_VERIFIED_FORWARD_ERA_NOT_STARTED_RESEARCH_ONLY"
                    and verified_report["operational_smokes"]["retained_v11"]["verified_complete"] is False
                    and verified_report["betting_authorized"] is False
                    and verified_report["cloud_hosting_recommendation"]["status"]
-                   == "EXCLUDED_LOCAL_SMOKE_VERIFIED_DURABLE_PRIMARY_NOT_DEPLOYED"))
+                   == "EXCLUDED_LOCAL_SMOKE_VERIFIED_DURABLE_PRIMARY_NOT_DEPLOYED"
+                   and not any("successor operational smoke has not yet completed" in blocker
+                               or "no successful complete future" in blocker
+                               for blocker in verified_report["forward_shadow_readiness"]["blockers"])))
 
     try:
         unpublished = copy.deepcopy(built["source_release"])

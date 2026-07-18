@@ -552,6 +552,7 @@ def _operational_smoke_status(
         "ledger_rows": ledger_rows,
         "certificate": certificate,
         "verified_complete": verified,
+        "artifact_chain_validated": verified,
         "economic_evidence_eligible": False,
         "betting_authorized": False,
     }
@@ -677,6 +678,31 @@ def build_report(
         validate_scope=False,
     )
     smoke = successor_smoke or retained_v11
+    if successor_smoke is not None:
+        if (
+            smoke.get("economic_evidence_eligible") is not False
+            or smoke.get("betting_authorized") is not False
+        ):
+            raise ValueError("successor smoke cannot enter economic evidence or authorize betting")
+        verified = smoke.get("verified_complete") is True
+        chain_validated = smoke.get("artifact_chain_validated") is True
+        if verified != chain_validated:
+            raise ValueError("successor verified state lacks the exact artifact-chain validator")
+        if verified:
+            certificate = smoke.get("certificate")
+            scope_binding = smoke.get("scope_binding")
+            if (
+                smoke.get("state") != "VERIFIED_COMPLETE_PERMANENTLY_EXCLUDED"
+                or not isinstance(certificate, dict)
+                or len(str(certificate.get("sha256", ""))) != 64
+                or not isinstance(scope_binding, dict)
+                or scope_binding.get("economic_evidence_eligible") is not False
+                or scope_binding.get("betting_authorized") is not False
+                or scope_binding.get("source_tree_clean") is not True
+            ):
+                raise ValueError("successor certificate or frozen scope binding is incomplete")
+        elif smoke.get("state") == "VERIFIED_COMPLETE_PERMANENTLY_EXCLUDED":
+            raise ValueError("successor claims a verified state without a validated certificate")
     contact_combined = contact["combined_open"]
     contact_march = contact["blocks"]["march_april_fit"]
     contact_june = contact["blocks"]["june_replication"]
@@ -720,10 +746,18 @@ def build_report(
         or (successor_smoke is not None and smoke["credential_provider_access_verified"])
     )
     stale_credential_blocker = "a previously tracked odds-provider credential must be rotated before any live request"
+    retained_v11_failure = "v11 permanently failed event identity and cannot be retried, backfilled, or certified"
+    successor_incomplete = "the incompatible successor operational smoke has not yet completed"
+    no_complete_lifecycle = "no successful complete future T-4h/prestart/official lifecycle has yet been captured operationally"
     shadow_blockers = [
         blocker for blocker in shadow["blockers"]
-        if blocker != stale_credential_blocker
+        if blocker not in {stale_credential_blocker, retained_v11_failure}
     ]
+    if successor_smoke is not None and smoke["verified_complete"]:
+        shadow_blockers = [
+            blocker for blocker in shadow_blockers
+            if blocker not in {successor_incomplete, no_complete_lifecycle}
+        ]
     if not provider_access_verified:
         shadow_blockers.append(
             "the user-attested rotated hidden credential has not yet received a successful provider response"
@@ -792,6 +826,17 @@ def build_report(
             "product_pooling_permitted": False,
         },
         "completed_gates": completed_gates,
+        "failed_gates": [
+            {
+                "gate": "operational_smoke_v11_event_identity",
+                "state": retained_v11["state"],
+                "retry_permitted": False,
+                "backfill_permitted": False,
+                "certifiable": False,
+                "economic_evidence_eligible": False,
+                "betting_authorized": False,
+            }
+        ],
         "credential_security": {
             "attestation_sha256": bound["credential_rotation_attestation"]["sha256"],
             "rotation_status": "USER_ATTESTED_COMPLETE",
