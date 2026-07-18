@@ -14,6 +14,10 @@ from typing import Any, Optional
 
 import pandas as pd
 
+from src.data.statcast_batted_ball_rates import (
+    barrel_rate as derive_barrel_rate,
+    hard_hit_rate as derive_hard_hit_rate,
+)
 from src.models.dataclasses import LeagueBaselines, PitcherStatcastProfile, StatcastProfile
 from src.utils.logging import get_logger
 
@@ -40,10 +44,12 @@ class SavantClient:
         league_baselines: Optional[LeagueBaselines] = None,
         lookback_days: int = 45,
         min_pa: int = 8,
+        derive_batted_ball_rates: bool = False,
     ):
         self.league = league_baselines or LeagueBaselines()
         self.lookback_days = lookback_days
         self.min_pa = min_pa
+        self.derive_batted_ball_rates = bool(derive_batted_ball_rates)
 
     def fetch_statcast_range(
         self,
@@ -210,6 +216,17 @@ class SavantClient:
                 return None
             return _normalize_rate(val)
 
+        barrel = _rate("barrel")
+        hard_hit = _rate("hard_hit")
+        if self.derive_batted_ball_rates:
+            if "launch_speed" in group.columns:
+                speed = pd.to_numeric(group["launch_speed"], errors="coerce")
+                batted_balls = group[speed.notna() & (speed > 0)]
+            else:
+                batted_balls = group.iloc[0:0]
+            barrel = derive_barrel_rate(batted_balls)
+            hard_hit = derive_hard_hit_rate(batted_balls)
+
         return StatcastProfile(
             player_id=player_id,
             player_name=player_name,
@@ -217,9 +234,9 @@ class SavantClient:
             xwoba=_mean("estimated_woba_using_speedangle"),
             xba=_mean("estimated_ba_using_speedangle"),
             xslg=_mean("estimated_slg_using_speedangle"),
-            barrel_rate=_rate("barrel"),
+            barrel_rate=barrel,
             sweet_spot_rate=_rate("sweet_spot_percent") if "sweet_spot_percent" in group.columns else None,
-            hard_hit_rate=_rate("hard_hit"),
+            hard_hit_rate=hard_hit,
             avg_exit_velocity=_mean("launch_speed"),
             avg_launch_angle=_mean("launch_angle"),
             whiff_rate=self._compute_whiff_rate(group),

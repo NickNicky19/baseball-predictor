@@ -51,6 +51,8 @@ def ref_actual(row, cat, fw):
         return float(h)
     if cat == "home_runs":
         return float(hr)
+    if cat == "total_bases":
+        return float(h + d + 2 * t + 3 * hr)
     if cat == "hrr":
         return float(h + row["out_runs"] + row["out_rbi"])
     if cat == "strikeouts":
@@ -148,7 +150,7 @@ def main() -> int:
         check("pitcher gate does not require roller", False, str(e))
 
     # 2. Targets match compute_actual_value exactly
-    for cat in ("hits", "home_runs", "hrr", "fantasy"):
+    for cat in ("hits", "home_runs", "total_bases", "hrr", "fantasy"):
         got = derive_target(hitters, cat, fw)
         want = np.array([ref_actual(r, cat, fw) for _, r in hitters.iterrows()])
         check(f"target '{cat}' == compute_actual_value", np.allclose(got, want),

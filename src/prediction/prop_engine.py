@@ -32,7 +32,12 @@ turn here; keep the shipped default at the Poisson limit.
 
 from __future__ import annotations
 
+from dataclasses import fields, replace
+
+import hashlib
+import json
 import math
+from pathlib import Path
 from typing import Any, Optional
 
 from src.data.mlb_api import PitchingStatsSnapshot
@@ -49,6 +54,9 @@ from src.simulation.game_simulator import GameSimulator, GameSimulatorInput
 from src.simulation.monte_carlo import FantasyScoring, MonteCarloEngine
 from src.simulation.pa_simulator import HybridPASimulator, PASimulatorConfig
 from src.simulation.probability_engine import ProbabilityEngine
+from src.utils.logging import get_logger
+
+logger = get_logger(__name__)
 
 # Average plate appearances per inning (≈ team PA per game / 9).
 PA_PER_INNING = 4.2
@@ -61,6 +69,59 @@ K_GATE_LINES: tuple[float, ...] = (4.5, 5.5, 6.5)
 def rate_per_9_to_pct(rate_per_9: float) -> float:
     """Convert a per-9-innings rate (K/9, BB/9) to a per-PA percentage."""
     return (rate_per_9 / 9.0) / PA_PER_INNING * 100.0
+
+
+_KBB_COEFFICIENT_FIELDS = {
+    "kbb_k_intercept",
+    "kbb_k_hitter_season",
+    "kbb_k_hitter_recent",
+    "kbb_k_pitcher",
+    "kbb_bb_intercept",
+    "kbb_bb_hitter_season",
+    "kbb_bb_hitter_recent",
+    "kbb_bb_pitcher",
+}
+
+
+def _load_hash_bound_kbb(block: dict[str, Any]) -> dict[str, float]:
+    """Load the only coefficient source permitted by the fitted K/BB path."""
+
+    path_raw = block.get("kbb_artifact_path")
+    expected = str(block.get("kbb_artifact_sha256") or "").lower()
+    if not path_raw or len(expected) != 64:
+        raise ValueError(
+            "pa_simulator.use_fitted_kbb requires kbb_artifact_path and a "
+            "64-character kbb_artifact_sha256; embedded defaults are not an "
+            "acceptable fitted-model provenance source"
+        )
+    path = Path(str(path_raw))
+    if not path.exists():
+        raise ValueError(f"K/BB artifact does not exist: {path}")
+    actual = hashlib.sha256(path.read_bytes()).hexdigest()
+    if actual != expected:
+        raise ValueError(
+            f"K/BB artifact hash mismatch for {path}: expected {expected}, got {actual}"
+        )
+    raw = json.loads(path.read_text(encoding="utf-8-sig"))
+    fits = raw.get("fits") or {}
+    k = fits.get("K") or {}
+    bb = fits.get("BB") or {}
+    mapped = {
+        "kbb_k_intercept": k.get("intercept"),
+        "kbb_k_hitter_season": k.get("hitter_season"),
+        "kbb_k_hitter_recent": k.get("hitter_recent"),
+        "kbb_k_pitcher": k.get("pitcher"),
+        "kbb_bb_intercept": bb.get("intercept"),
+        "kbb_bb_hitter_season": bb.get("hitter_season"),
+        "kbb_bb_hitter_recent": bb.get("hitter_recent"),
+        "kbb_bb_pitcher": bb.get("pitcher"),
+    }
+    invalid = [name for name, value in mapped.items()
+               if isinstance(value, bool) or not isinstance(value, (int, float))
+               or not math.isfinite(float(value))]
+    if invalid:
+        raise ValueError(f"K/BB artifact has missing/non-finite coefficients: {invalid}")
+    return {name: float(value) for name, value in mapped.items()}
 
 
 # ---------------------------------------------------------------------------
@@ -181,7 +242,7 @@ class PropEngine:
         self.n_sims = n_sims if n_sims is not None else int(sim_cfg.get("n_sims", 8000))
 
         self._fantasy_scoring = fantasy_scoring or FantasyScoring.from_config(self.config)
-        self._pa_config = PASimulatorConfig.from_league(self.league)
+        self._pa_config = self._build_pa_config()
 
         self.monte_carlo = monte_carlo or self._build_monte_carlo()
         self.probability_engine = ProbabilityEngine(
@@ -220,7 +281,100 @@ class PropEngine:
     def pa_config(self) -> PASimulatorConfig:
         return self._pa_config
 
+    def _build_pa_config(self) -> PASimulatorConfig:
+        """PASimulatorConfig from the league baselines, THEN overlaid with any
+        `pa_simulator` block in the config dict.
+
+        *** THIS BRIDGE DID NOT EXIST, AND ITS ABSENCE IS THE B4 FAILURE MODE. ***
+
+        PropEngine built the PA config with PASimulatorConfig.from_league(league)
+        -- league baselines ONLY -- and handed it straight to HybridPASimulator.
+        So the `pa_simulator` block in config.json WAS NEVER READ. A config could
+        set pa_simulator.use_fitted_kbb = True, fork the model_version hash, pass
+        every offline check, and change NOTHING in the simulator.
+
+        MEASURED, and this is exactly what happened: with config.kbb.json loaded,
+        `use_fitted_kbb` came back FALSE on the live PASimulatorConfig while the
+        StatcastProfile rates were populated correctly (sd 0.0703, up from
+        0.0000). The simulator had the data and ignored it. The gate smoke showed
+        `hits` drift of 0.00566 against a measured noise floor of 0.00563 -- i.e.
+        EXACTLY ZERO effect, dressed up as a tiny one.
+
+        That is not a tie. It is a plumbing failure, and it is the same seam that
+        silently nulled the B4 gate.
+
+        DEGENERATE WHEN ABSENT: with no `pa_simulator` block, this returns
+        exactly PASimulatorConfig.from_league(league) -- byte-identical to the
+        previous behaviour. Unknown keys are IGNORED (a typo must not crash a
+        live slate), but they are LOGGED, because a silently-ignored key is how a
+        config lies to you.
+        """
+        base = PASimulatorConfig.from_league(self.league)
+        block = self.config.get("pa_simulator") or {}
+        if not isinstance(block, dict) or not block:
+            return base
+
+        use_fitted_kbb = bool(block.get("use_fitted_kbb", False))
+        artifact_keys = {"kbb_artifact_path", "kbb_artifact_sha256"}
+        direct_coefficients = sorted(_KBB_COEFFICIENT_FIELDS.intersection(block))
+        if use_fitted_kbb and direct_coefficients:
+            raise ValueError(
+                "fitted K/BB coefficients may not be supplied directly in config; "
+                f"use the hash-bound artifact only (found {direct_coefficients})"
+            )
+        if not use_fitted_kbb and artifact_keys.intersection(block):
+            raise ValueError(
+                "K/BB artifact metadata is present while use_fitted_kbb is false; "
+                "refusing decorative provenance that the simulator would not consume"
+            )
+
+        valid = {f.name for f in fields(PASimulatorConfig)}
+        overrides: dict[str, Any] = {}
+        unknown: list[str] = []
+        for k, v in block.items():
+            if k.startswith("_"):          # _comment, _note, ...
+                continue
+            if k in artifact_keys:
+                continue
+            if k in valid:
+                overrides[k] = v
+            else:
+                unknown.append(k)
+
+        if unknown:
+            logger.warning(
+                "config['pa_simulator'] has %d key(s) that are not fields of "
+                "PASimulatorConfig and were IGNORED: %s. A silently-ignored key "
+                "is how a config lies to you -- check the spelling.",
+                len(unknown), sorted(unknown),
+            )
+        if use_fitted_kbb:
+            overrides.update(_load_hash_bound_kbb(block))
+        if not overrides:
+            return base
+
+        logger.info(
+            "PASimulatorConfig overridden from config['pa_simulator']: %s",
+            {k: overrides[k] for k in sorted(overrides)},
+        )
+        return replace(base, **overrides)
+
     def _build_monte_carlo(self) -> MonteCarloEngine:
+        # A seed is structural artifact provenance, not a fitted model knob.
+        # When absent, preserve the live model's historical stochastic behavior;
+        # when supplied by a gate, make its probability artifact reproducible.
+        raw_seed = (self.config.get("simulation", {}) or {}).get("random_seed")
+        if raw_seed is None:
+            random_seed = None
+        else:
+            if isinstance(raw_seed, bool):
+                raise ValueError("simulation.random_seed must be an integer, not a boolean")
+            try:
+                random_seed = int(raw_seed)
+            except (TypeError, ValueError) as exc:
+                raise ValueError(
+                    f"simulation.random_seed must be an integer, got {raw_seed!r}"
+                ) from exc
         game_simulator = GameSimulator(
             pa_simulator=HybridPASimulator(
                 config=self._pa_config,
@@ -233,6 +387,7 @@ class PropEngine:
             game_simulator=game_simulator,
             league_baselines=self.league,
             fantasy_scoring=self._fantasy_scoring,
+            random_seed=random_seed,
         )
 
     def project_hitter(
@@ -242,8 +397,21 @@ class PropEngine:
     ) -> list[PropProjection]:
         """Return one PropProjection per requested category for a hitter."""
         cats = categories or self.HITTER_CATEGORIES
+        if "total_bases" in cats:
+            status = (self.config.get("total_bases") or {}).get("status")
+            if status not in {"candidate_unpromoted", "promoted"}:
+                raise ValueError(
+                    "total_bases is candidate-only: pass an explicit provenance "
+                    "config with total_bases.status='candidate_unpromoted' to a gate, "
+                    "or a future promoted status after its market gate passes"
+                )
 
         rich_features = bundle.metadata.get("rich_features", {})
+        # This is a factual record of the exact feature bundle consumed below.
+        # It must not affect rates, PA sampling, ranking, or simulation seeds.
+        from src.evaluation.prediction_health import health_for_bundle
+
+        input_health = health_for_bundle(bundle)
 
         sim_input = self._bundle_to_sim_input(bundle, rich_features=rich_features)
         projections: list[PropProjection] = []
@@ -273,6 +441,8 @@ class PropEngine:
                 opponent=bundle.hitter.game.opponent,
                 opposing_pitcher=bundle.hitter.opposing_pitcher_name,
                 lineup_status=bundle.hitter.game.lineup_status,
+                mlb_game_pk=bundle.hitter.game.game_pk,
+                input_health_flags=input_health.flags,
             )
 
             # Apply output safeguards
@@ -358,6 +528,8 @@ class PropEngine:
             projected_value=round(projected_k, 2),
             confidence=confidence,
             simulation=simulation,
+            mlb_game_pk=pitcher.game.game_pk,
+            input_health_flags=("not_assessed_for_pitcher",),
         )
 
     def _build_k_simulation(self, projected_k: float) -> MonteCarloResult:
@@ -425,12 +597,10 @@ class PropEngine:
         bvp_hr = _clamp(bundle.matchup.bvp_hr_factor, 0.70, 1.40)
         form_mult = _clamp(bundle.matchup.recent_form_multiplier, 0.85, 1.18)
 
-        # ADDITIVE: the fitted per-slot PA distribution needs the lineup slot.
-        # GameSimulatorInput.lineup_slot defaults to None, and GameSimulator
-        # falls back to the legacy floor/floor+1 draw when it is None OR when no
-        # fitted artifact is loaded -- so passing it is INERT until
-        # base_running.pa_distribution_path is set. See game_simulator's module
-        # docstring (DEGENERATE WHEN ABSENT).
+        # The fitted PA artifact is conditional on batting-order slot.  Passing
+        # None silently takes GameSimulator's legacy floor/floor+1 path even
+        # when config claims the fitted distribution is active.  Validate the
+        # boundary here; the offline PA harness mutation-tests this handoff.
         slot = getattr(bundle.hitter, "lineup_slot", None)
         try:
             slot = int(slot) if slot is not None and 1 <= int(slot) <= 9 else None

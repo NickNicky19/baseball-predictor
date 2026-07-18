@@ -1,17 +1,10 @@
-"""Backtesting and calibration — component-level evaluation."""
+"""Backtesting and calibration -- component-level evaluation.
 
-from src.evaluation.backtest_engine import (
-    BacktestEngine,
-    BacktestMetrics,
-    BacktestReport,
-    OutcomeRecord,
-)
-from src.evaluation.calibration import (
-    CalibrationConfig,
-    CalibrationEngine,
-    CalibrationResult,
-    RateObservation,
-)
+Public exports are resolved lazily. Simulation modules consume focused
+evaluation adapters, while calibration itself imports the PA simulator; eager
+package imports therefore create an import cycle that depends on import order.
+Lazy exports preserve the public API without coupling unrelated submodules.
+"""
 
 __all__ = [
     "BacktestEngine",
@@ -28,6 +21,14 @@ __all__ = [
 
 
 def __getattr__(name: str):
+    if name in {"BacktestEngine", "BacktestMetrics", "BacktestReport", "OutcomeRecord"}:
+        from src.evaluation import backtest_engine
+
+        return getattr(backtest_engine, name)
+    if name in {"CalibrationConfig", "CalibrationEngine", "CalibrationResult", "RateObservation"}:
+        from src.evaluation import calibration
+
+        return getattr(calibration, name)
     if name == "PipelineValidationReport":
         from src.evaluation.pipeline_validator import PipelineValidationReport
 

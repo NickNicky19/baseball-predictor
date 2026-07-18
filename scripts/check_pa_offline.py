@@ -40,6 +40,7 @@ import json
 import sys
 import tempfile
 from collections import Counter
+from dataclasses import replace
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -48,6 +49,17 @@ from src.simulation.game_simulator import (          # noqa: E402
     GameSimulator,
     GameSimulatorInput,
 )
+from src.models.dataclasses import (                 # noqa: E402
+    GameContext,
+    HitterGameContext,
+    MatchupContext,
+    ParkFactors,
+    PlayerFeatureBundle,
+    PlayerIdentity,
+    StatcastProfile,
+    WeatherContext,
+)
+from src.prediction.prop_engine import PropEngine    # noqa: E402
 
 # The MEASURED empirical distribution (scripts/fit_pa_distribution.py output
 # shape). Slots 1/5/9 are enough to exercise the fit; the real artifact has all 9.
@@ -125,10 +137,80 @@ def game_lines(gs: GameSimulator, slot: int | None, n: int = 20_000) -> list:
             for r in (gs.simulate_game(inp) for _ in range(n))]
 
 
+def prop_bundle(slot: int) -> PlayerFeatureBundle:
+    """Minimal real production bundle, with no HTTP or feature stubs."""
+    hitter = HitterGameContext(
+        player=PlayerIdentity(mlb_id=1, name="Fixture Hitter", team="NYY"),
+        game=GameContext(
+            game_pk=1,
+            game_date="2025-06-25",
+            venue="Yankee Stadium",
+            is_home=True,
+            opponent="BOS",
+            lineup_status="confirmed",
+        ),
+        lineup_slot=slot,
+    )
+    return PlayerFeatureBundle(
+        hitter=hitter,
+        statcast=StatcastProfile(player_id=1, player_name="Fixture Hitter"),
+        park=ParkFactors(venue="Yankee Stadium"),
+        weather=WeatherContext(venue="Yankee Stadium", game_date="2025-06-25"),
+        matchup=MatchupContext(),
+        expected_pa=EXPECTED_PA,
+    )
+
+
+def prop_input(slot: int, artifact_path: str) -> GameSimulatorInput:
+    """Exercise the production handoff, not the PA sampler in isolation.
+
+    Rule 5: GameSimulator correctly handles a supplied slot, but that does not
+    prove PropEngine actually supplies one.  This fixture stops at the
+    PropEngine -> GameSimulatorInput boundary; its only dependency is the real
+    production value object, with no HTTP or simulation outcomes involved.
+    """
+    engine = PropEngine(
+        n_sims=1,
+        config={
+            "simulation": {"n_sims": 1},
+            "base_running": {"pa_distribution_path": artifact_path},
+        },
+    )
+    return engine._bundle_to_sim_input(prop_bundle(slot))
+
+
+def prop_probabilities(seed: int | None, artifact_path: str) -> tuple[float, ...]:
+    """Five simulation probabilities from a fixed real input.
+
+    The seed is structural provenance, not a model parameter: it fixes only
+    the Monte Carlo draw stream.  Five outputs make an accidental equality of
+    two unseeded runs astronomically unlikely, so the mutation has power.
+    """
+    simulation = {"n_sims": 800}
+    if seed is not None:
+        simulation["random_seed"] = seed
+    engine = PropEngine(
+        n_sims=800,
+        config={
+            "simulation": simulation,
+            "base_running": {"pa_distribution_path": artifact_path},
+        },
+    )
+    projected = engine.project_hitter(
+        prop_bundle(3), categories=("hits", "home_runs", "hrr")
+    )
+    return tuple(
+        p.simulation.p_ge_threshold[k]
+        for p in projected
+        for k in sorted(p.simulation.p_ge_threshold)
+    )
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--mutate", choices=["legacy", "noslot", "badartifact",
-                                         "notbyteident"], default=None)
+                                         "notbyteident", "drop-prop-slot",
+                                         "unseeded"], default=None)
     a = ap.parse_args(argv)
 
     tmp = Path(tempfile.mkdtemp())
@@ -172,6 +254,41 @@ def main(argv=None) -> int:
               "otherwise -- the gate then reads 'no drift' and calls it a tie. This "
               "is exactly the failure B4's config-threading bug produced.")
         return 1
+
+    # This is a separate invariant from INV1-3: those prove GameSimulator
+    # honors a slot *when given one*.  INV0 proves the production PropEngine
+    # hands it over.  Before the regression fix this check fails while INV1-3
+    # still pass, which is precisely why the lower-layer harness was not enough.
+    boundary_input = prop_input(9, str(good))
+    if a.mutate == "drop-prop-slot":
+        boundary_input = replace(boundary_input, lineup_slot=None)
+    try:
+        check(
+            "INV0 PropEngine preserves lineup_slot for the fitted PA distribution",
+            boundary_input.lineup_slot == 9,
+            f"PropEngine produced lineup_slot={boundary_input.lineup_slot!r}. "
+            "With the live fitted P(PA | lineup slot) artifact loaded, None takes "
+            "the legacy floor/floor+1 path and silently changes every hitter "
+            "market. This assertion must fail if that handoff is removed.",
+        )
+    except Failure as f:
+        print(f"\nHARNESS FAILED at {f}")
+        return 1 if not a.mutate else 0
+
+    first_probs = prop_probabilities(17, str(good))
+    second_probs = prop_probabilities(None if a.mutate == "unseeded" else 17, str(good))
+    try:
+        check(
+            "INV0b fixed simulation seed makes the production probabilities reproducible",
+            first_probs == second_probs,
+            "Two PropEngine instances with the same structural random_seed produced "
+            f"different probability vectors: {first_probs!r} vs {second_probs!r}. "
+            "A canonical gate artifact needs a reproducible draw stream; otherwise "
+            "its pre/post delta contains unmeasured Monte Carlo noise.",
+        )
+    except Failure as f:
+        print(f"\nHARNESS FAILED at {f}")
+        return 1 if not a.mutate else 0
 
     # Each tail is tested on the slot that ACTUALLY HAS IT.
     #

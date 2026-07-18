@@ -23,6 +23,7 @@ from src.utils.model_version import MODEL_CONFIG_KEYS, model_version
 logger = get_logger(__name__)
 
 PAIR_COLUMNS = [
+    "mlb_game_pk",
     "player_id",
     "player_name",
     "game_date",
@@ -40,6 +41,8 @@ PAIR_COLUMNS = [
     # short" (e.g. K over-projection vs short outing).
     "actual_pa",
     "actual_hits",
+    "actual_doubles",
+    "actual_triples",
     "actual_home_runs",
     "actual_runs",
     "actual_rbi",
@@ -192,11 +195,11 @@ class OutcomeRecorder:
             )
 
         try:
-            hitting, pitching = self.mlb_api.get_actuals_for_date(game_date)
+            actuals_by_game = self.mlb_api.get_actuals_by_game_for_date(game_date)
         except DataFetchError:
             raise
 
-        rows, skipped = self._build_pair_rows(prediction, hitting, pitching)
+        rows, skipped = self._build_pair_rows(prediction, actuals_by_game)
         appended = self._append_pairs(rows)
 
         return OutcomeRecordingReport(
@@ -210,22 +213,33 @@ class OutcomeRecorder:
     def _build_pair_rows(
         self,
         prediction: DailyPrediction,
-        hitting: dict[int, HittingStatsSnapshot],
-        pitching: dict[int, PitchingStatsSnapshot],
+        actuals_by_game: dict[
+            int, tuple[dict[int, HittingStatsSnapshot], dict[int, PitchingStatsSnapshot]]
+        ],
     ) -> tuple[list[dict[str, Any]], int]:
         rows: list[dict[str, Any]] = []
         skipped = 0
         existing = self._load_existing_keys()
 
         for projection in prediction.hitter_projections + prediction.pitcher_projections:
+            if projection.mlb_game_pk is None:
+                raise RetrainError(
+                    "Historical outcome recording requires mlb_game_pk on every archived "
+                    f"projection; missing for {projection.player_name} ({projection.category})."
+                )
+            game_actuals = actuals_by_game.get(projection.mlb_game_pk)
+            if game_actuals is None:
+                continue
+            hitting, pitching = game_actuals
             actual = self._actual_for_projection(projection, hitting, pitching)
             if actual is None:
                 continue
-            key = (projection.player_id, projection.game_date, projection.category)
+            key = (projection.mlb_game_pk, projection.player_id, projection.category)
             if key in existing:
                 skipped += 1
                 continue
             row = {
+                "mlb_game_pk": projection.mlb_game_pk,
                 "player_id": projection.player_id,
                 "player_name": projection.player_name,
                 "game_date": projection.game_date,
@@ -274,6 +288,8 @@ class OutcomeRecorder:
         if stats is not None:
             detail["actual_pa"] = int(stats.pa)
             detail["actual_hits"] = int(stats.hits)
+            detail["actual_doubles"] = int(stats.doubles)
+            detail["actual_triples"] = int(stats.triples)
             detail["actual_home_runs"] = int(stats.home_runs)
             detail["actual_runs"] = int(stats.runs)
             detail["actual_rbi"] = int(stats.rbi)
@@ -387,16 +403,16 @@ class OutcomeRecorder:
             path = self.project_root / path
         return path
 
-    def _load_existing_keys(self) -> set[tuple[int, str, str]]:
+    def _load_existing_keys(self) -> set[tuple[int, int, str]]:
         path = self._pairs_path()
         if not path.exists():
             return set()
-        keys: set[tuple[int, str, str]] = set()
+        keys: set[tuple[int, int, str]] = set()
         with path.open(newline="", encoding="utf-8") as handle:
             reader = csv.DictReader(handle)
             for row in reader:
                 try:
-                    keys.add((int(row["player_id"]), row["game_date"], row["category"]))
+                    keys.add((int(row["mlb_game_pk"]), int(row["player_id"]), row["category"]))
                 except (KeyError, ValueError):
                     continue
         return keys
@@ -412,6 +428,13 @@ def compute_actual_value(
         return float(stats.hits)
     if category == "home_runs":
         return float(stats.home_runs)
+    if category == "total_bases":
+        return float(
+            (stats.hits - stats.doubles - stats.triples - stats.home_runs)
+            + 2 * stats.doubles
+            + 3 * stats.triples
+            + 4 * stats.home_runs
+        )
     if category == "hrr":
         return float(stats.hits + stats.runs + stats.rbi)
     if category == "fantasy":

@@ -112,6 +112,15 @@ def main(argv: list[str] | None = None) -> int:
             args.date,
             hitter_categories=HITTER_CATEGORIES,
             include_pitchers=INCLUDE_PITCHERS,
+            # Persist the exact feature bundles as well as the prediction
+            # archive. This makes factual fallback rates auditable per slate;
+            # it does not change any feature, probability, or simulation seed.
+            persist_features=True,
+            # The automation archive is the candidate source for future
+            # hard-keyed shadow entries, so record decision-time code/config
+            # provenance now. Archives without it are deliberately ineligible
+            # for forward-shadow evidence.
+            capture_prediction_provenance=True,
             apply_corrections=True if args.apply_corrections else None,
             use_projected_lineups=args.include_projected_lineups,
         )
@@ -133,6 +142,10 @@ def main(argv: list[str] | None = None) -> int:
         print(
             f"Archive: data/learning/predictions/predictions_{args.date}.json "
             f"(includes simulation blocks)."
+        )
+        print(
+            f"Feature snapshot: data/features/{args.date}/ "
+            "(manifest-verified input-health evidence)."
         )
         return EXIT_OK
 

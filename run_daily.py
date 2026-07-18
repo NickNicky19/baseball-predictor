@@ -22,6 +22,7 @@ from typing import Any
 
 from src.models.dataclasses import DailyPrediction, PropCategory, PropProjection
 from src.prediction import DailyPredictor
+from src.evaluation.prediction_health import display_health_flags
 from src.utils.errors import ConfigError, DataFetchError, OddsLoadError, PredictorError
 from src.utils.logging import setup_logging
 
@@ -96,6 +97,24 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         "--include-projected-lineups",
         action="store_true",
         help="Include projected/predicted lineups when confirmed orders are unavailable",
+    )
+    parser.add_argument(
+        "--persist-features",
+        action="store_true",
+        help=(
+            "Persist the exact feature bundles consumed by this run so "
+            "scripts/audit_prediction_input_health.py can measure factual "
+            "fallback/source rates. Does not alter simulations or rankings."
+        ),
+    )
+    parser.add_argument(
+        "--capture-prediction-provenance",
+        action="store_true",
+        help=(
+            "Record decision-time config/code provenance in the prediction archive. "
+            "Required before a future hard-keyed forward-shadow adapter may use "
+            "this run; does not alter the model or make a signal actionable."
+        ),
     )
 
     corrections = parser.add_mutually_exclusive_group()
@@ -206,6 +225,8 @@ def run_prediction(args: argparse.Namespace, predictor: DailyPredictor) -> Daily
             include_edges=resolve_edges(args),
             min_edge_pct=args.min_edge,
             use_projected_lineups=args.include_projected_lineups,
+            persist_features=args.persist_features,
+            capture_prediction_provenance=args.capture_prediction_provenance,
         )
 
     cat = category_key(args.category)
@@ -217,6 +238,8 @@ def run_prediction(args: argparse.Namespace, predictor: DailyPredictor) -> Daily
         include_edges=resolve_edges(args),
         min_edge_pct=args.min_edge,
         use_projected_lineups=args.include_projected_lineups,
+        persist_features=args.persist_features,
+        capture_prediction_provenance=args.capture_prediction_provenance,
     )
 
 
@@ -247,7 +270,7 @@ def projection_rows(ranked: list[PropProjection], game_date: str) -> list[dict[s
                 "lineup_status": p.lineup_status,
                 "category": p.category,
                 "projected": p.projected_value,
-                "confidence": p.confidence,
+                "input_health": display_health_flags(p.input_health_flags),
                 "mc_mean": round(sim.mean, 3) if sim else "",
                 "mc_p10": round(sim.p10, 3) if sim else "",
                 "mc_p90": round(sim.p90, 3) if sim else "",
@@ -268,6 +291,8 @@ def value_play_rows(prediction: DailyPrediction) -> list[dict[str, Any]]:
             "model_prob_over": edge.model_prob_over,
             "implied_prob_over": edge.implied_prob_over,
             "confidence": edge.confidence,
+            "actionable": edge.actionable,
+            "market_status": edge.market_status,
         }
         for edge in prediction.value_plays
     ]
@@ -315,11 +340,18 @@ def print_console(
     for i, p in enumerate(ranked[:10], 1):
         print(
             f"{i:2}. {p.player_name:<24} {p.category:<12} "
-            f"proj {p.projected_value:.2f}  conf {p.confidence:.2f}"
+            f"proj {p.projected_value:.2f}  inputs {display_health_flags(p.input_health_flags)}"
         )
 
     if prediction.value_plays:
-        print(f"\nVALUE PLAYS ({len(prediction.value_plays)})")
+        heading = (
+            "VALUE PLAYS"
+            if prediction.market_status == "BETTING_AUTHORIZED"
+            else "RESEARCH SIGNALS — NOT BETS"
+        )
+        print(f"\n{heading} ({len(prediction.value_plays)})")
+        if prediction.market_status != "BETTING_AUTHORIZED":
+            print(f"Policy: {prediction.market_status}. {prediction.market_policy_reason}")
         print("-" * 72)
         for i, edge in enumerate(prediction.value_plays[:10], 1):
             print(

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from datetime import date
 from pathlib import Path
+from types import SimpleNamespace
 
 from src.data.mlb_api import HittingStatsSnapshot, PitchingStatsSnapshot
 from src.data.odds import CompositeOddsProvider, FileOddsSettings, OddsSettings
@@ -92,6 +93,11 @@ class MockMLBAPI:
 class MockStatcastEngine:
     league = LeagueBaselines()
 
+    def __init__(self):
+        # DailyPredictor synchronizes calibrated league context through this
+        # public boundary.  The mock must expose that same boundary.
+        self.savant = SimpleNamespace(league=self.league)
+
     def build_profiles_for_hitters(self, hitters, game_date=None, savant_csv_path=None):
         return {
             h.player.mlb_id: StatcastProfile(
@@ -127,7 +133,28 @@ def test_predict_without_corrections():
     assert result.game_date == date(2026, 7, 1)
     assert len(result.hitter_projections) == 1
     assert result.hitter_projections[0].category == "hrr"
+    assert result.hitter_projections[0].input_health_flags
     assert result.value_plays == []
+    assert result.prediction_provenance is None
+
+
+def test_prediction_provenance_is_explicit_and_serialized():
+    predictor = _fast_predictor()
+    expected = {
+        "schema_version": "daily-prediction-provenance-v1",
+        "model_version": "test-model",
+    }
+    predictor._prediction_provenance = lambda **_: expected  # type: ignore[method-assign]
+    result = predictor.predict(
+        "2026-07-01",
+        hitter_categories=("hrr",),
+        include_pitchers=False,
+        apply_corrections=False,
+        include_edges=False,
+        capture_prediction_provenance=True,
+    )
+    assert result.prediction_provenance == expected
+    assert result.to_dict()["prediction_provenance"] == expected
 
 
 def test_predict_with_corrections_no_state_graceful():
@@ -157,7 +184,8 @@ def test_predict_with_edges():
         median=2.0,
         p10=1.0,
         p90=3.5,
-        p_ge_threshold={1.5: 0.62},
+        # MC tails are P(actual >= integer count), not book-line keys.
+        p_ge_threshold={2.0: 0.62},
     )
     original_project = predictor.prop_engine.project_hitter
 
@@ -200,7 +228,8 @@ def test_predict_with_inline_odds():
         median=2.4,
         p10=1.2,
         p90=3.8,
-        p_ge_threshold={1.5: 0.70},
+        # Over 1.5 requires at least two H+R+RBI.
+        p_ge_threshold={2.0: 0.70},
     )
 
     def patched_project(bundle, categories=None):

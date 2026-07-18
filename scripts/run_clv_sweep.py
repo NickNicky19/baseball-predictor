@@ -114,6 +114,10 @@ import duckdb
 import numpy as np
 import pandas as pd
 
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 MARKET_MAP = {
     "player hits": "hits",
     "player home runs": "home_runs",
@@ -198,6 +202,12 @@ def kelly_vec(p: np.ndarray, dec: np.ndarray, frac: float, cap: float) -> np.nda
 
 
 def main(argv=None) -> int:
+    # This legacy sweep scores SmartStake's numeric result and collapses market
+    # identity at player/date. It cannot be a valid input to any current market
+    # decision. Keep the source for auditability, but make execution fail closed.
+    from src.evaluation.retired_market_evaluators import retired_market_evaluator_exit
+    return retired_market_evaluator_exit(Path(__file__).name)
+
     ap = argparse.ArgumentParser()
     ap.add_argument("--sim", required=True)
     ap.add_argument("--months", nargs="+", default=["2026-06"])

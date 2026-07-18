@@ -140,6 +140,8 @@ class WalkForwardValidator:
 
 
 def _pairs_to_outcomes(df: pd.DataFrame) -> list[OutcomeRecord]:
+    if "game_pk" not in df.columns:
+        raise ValueError("Walk-forward outcomes require training game_pk for historical scoring.")
     outcomes: list[OutcomeRecord] = []
     for _, row in df.iterrows():
         outcomes.append(
@@ -149,6 +151,7 @@ def _pairs_to_outcomes(df: pd.DataFrame) -> list[OutcomeRecord]:
                 game_date=str(row["game_date"].date()) if hasattr(row["game_date"], "date") else str(row["game_date"]),
                 category=row.get("category", "hrr"),
                 actual_value=float(row.get("actual_value", 0)),
+                mlb_game_pk=int(row["game_pk"]),
             )
         )
     return outcomes

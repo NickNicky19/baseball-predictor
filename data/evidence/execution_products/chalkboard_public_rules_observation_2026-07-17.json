@@ -1,0 +1,43 @@
+{
+  "schema_version": "execution-product-public-rules-observation-v1",
+  "product": "chalkboard",
+  "observed_at_utc": "2026-07-17T00:00:00Z",
+  "observation_method": "read-only manual review of public official product pages; normalized facts, not a raw-page capture",
+  "status": "PARTIAL_PUBLIC_RULES_ONLY",
+  "betting_authorized": false,
+  "jurisdiction_context": "Harris County, Texas, user-declared",
+  "official_sources": [
+    {
+      "url": "https://helps.chalkboard.io/en/articles/7897673-who-can-play",
+      "title": "Who Can Play?",
+      "effective_date": null
+    },
+    {
+      "url": "https://helps.chalkboard.io/en/articles/7992221-chalkboard-daily-fantasy-sports-official-rules-fantasy-contest-rules",
+      "title": "Chalkboard Daily Fantasy Sports Official Rules",
+      "page_date": "2026-03-03",
+      "declared_last_updated_date": "2025-09-02"
+    },
+    {
+      "url": "https://chalkboard.io/terms-of-service",
+      "title": "Terms of Service",
+      "effective_date": null
+    }
+  ],
+  "observed_public_facts": [
+    "The public rules list Texas among eligible states and generally require age 18 or older, with account, identity, banking, and geolocation requirements.",
+    "A valid entry uses 2 through 8 player picks, at least two teams, a minimum entry of $1, and an account-visible multiplier; maximum entry can vary.",
+    "Every leg has its own multiplier and the complete entry multiplier determines the potential prize.",
+    "A tied or DNP leg is voided; entries with three or more legs are regraded with an adjusted payout, while a two-leg entry with a DNP is refunded.",
+    "The public terms prohibit automated scraping of product pages."
+  ],
+  "not_proven": [
+    "current account eligibility or geolocation acceptance for this user",
+    "account-visible MLB Hits projections, sides, multipliers, or correlation restrictions",
+    "complete lineup payout, current maximum entry, fees, submit-ability, accepted receipt, settlement, or actual return",
+    "the exact DNP classification and official scoring feed for a specific MLB entry",
+    "that public platform availability is legal advice or an independent legal determination"
+  ],
+  "automation_restriction": "Automated scraping is prohibited by the reviewed public terms. Only an expressly approved API/export or user-provided account-visible evidence may be used.",
+  "cross_product_inheritance_permitted": false
+}

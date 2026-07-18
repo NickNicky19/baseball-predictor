@@ -33,7 +33,7 @@ from pathlib import Path
 import pandas as pd
 
 ROLLER_SCHEMA = "a4.1"
-BUILDER_SCHEMA = "a3.1"
+DEFAULT_BUILDER_SCHEMA = "a3.1"
 
 
 def _season_shards(season_dir: Path) -> tuple[list[Path], list[Path], list[Path]]:
@@ -54,7 +54,11 @@ def _date_of(shard: Path) -> str:
     return stem.split("_", 1)[1]
 
 
-def assemble(seasons: list[int], training_dir: Path) -> dict[str, Path]:
+def assemble(
+    seasons: list[int], training_dir: Path, *, builder_schema: str = DEFAULT_BUILDER_SCHEMA
+) -> dict[str, Path]:
+    if builder_schema not in {"a3.1", "a3.2"}:
+        raise SystemExit(f"Unsupported builder schema: {builder_schema}")
     span = f"{min(seasons)}_{max(seasons)}" if len(seasons) > 1 else str(seasons[0])
     hitter_frames: list[pd.DataFrame] = []
     pitcher_frames: list[pd.DataFrame] = []
@@ -94,13 +98,13 @@ def assemble(seasons: list[int], training_dir: Path) -> dict[str, Path]:
     outputs: dict[str, Path] = {}
 
     h = pd.concat(hitter_frames, ignore_index=True)
-    _verify_enriched(h)
+    _verify_enriched(h, builder_schema=builder_schema)
     hpath = training_dir / f"training_hitters_{span}_statcast.csv.gz"
     h.to_csv(hpath, index=False)
     outputs["hitters"] = hpath
 
     p = pd.concat(pitcher_frames, ignore_index=True)
-    _verify_pitcher(p)
+    _verify_pitcher(p, builder_schema=builder_schema)
     ppath = training_dir / f"training_pitchers_{span}.csv.gz"
     p.to_csv(ppath, index=False)
     outputs["pitchers"] = ppath
@@ -110,7 +114,7 @@ def assemble(seasons: list[int], training_dir: Path) -> dict[str, Path]:
     return outputs
 
 
-def _verify_enriched(df: pd.DataFrame) -> None:
+def _verify_enriched(df: pd.DataFrame, *, builder_schema: str) -> None:
     if "roller_schema" not in df.columns:
         raise SystemExit("Assembled hitters missing roller_schema — not enriched.")
     bad = set(df["roller_schema"].dropna().unique()) - {ROLLER_SCHEMA}
@@ -121,22 +125,59 @@ def _verify_enriched(df: pd.DataFrame) -> None:
         raise SystemExit(f"{n} assembled hitter rows have blank roller_schema.")
     if not any(c.startswith("roll15_") or c.startswith("roll30_") for c in df.columns):
         raise SystemExit("Assembled hitters have no roll15_/roll30_ columns.")
+    _verify_builder_schema(df, "hitters", builder_schema)
+    _verify_game_identity(df, "hitters")
 
 
-def _verify_pitcher(df: pd.DataFrame) -> None:
+def _verify_pitcher(df: pd.DataFrame, *, builder_schema: str) -> None:
+    _verify_builder_schema(df, "pitchers", builder_schema)
+    _verify_game_identity(df, "pitchers")
+
+
+def _verify_builder_schema(df: pd.DataFrame, kind: str, expected: str) -> None:
     if "builder_schema" not in df.columns:
-        raise SystemExit("Assembled pitchers missing builder_schema.")
-    bad = set(df["builder_schema"].dropna().unique()) - {BUILDER_SCHEMA}
-    if bad:
-        raise SystemExit(f"Assembled pitchers have builder_schema {sorted(bad)}.")
+        raise SystemExit(f"Assembled {kind} missing builder_schema.")
+    values = set(df["builder_schema"].dropna().astype(str).unique())
+    if values != {expected} or df["builder_schema"].isna().any():
+        raise SystemExit(
+            f"Assembled {kind} require builder_schema {expected!r}; got {sorted(values)}."
+        )
+
+
+def _verify_game_identity(df: pd.DataFrame, kind: str) -> None:
+    required = {"game_pk", "game_date", "player_id"}
+    missing = required - set(df.columns)
+    if missing:
+        raise SystemExit(f"Assembled {kind} missing identity columns {sorted(missing)}.")
+    if df[["game_pk", "player_id"]].isna().any().any():
+        raise SystemExit(f"Assembled {kind} have null game_pk/player_id values.")
+    date_counts = df.groupby("game_pk")["game_date"].nunique()
+    bad_dates = date_counts[date_counts > 1]
+    if not bad_dates.empty:
+        raise SystemExit(
+            f"Assembled {kind} map game_pk to multiple dates; examples:\n"
+            f"{bad_dates.head(20).to_string()}"
+        )
+    duplicate = df.duplicated(["game_pk", "player_id"], keep=False)
+    if duplicate.any():
+        raise SystemExit(
+            f"Assembled {kind} have {int(duplicate.sum())} duplicate player-game rows; examples:\n"
+            f"{df.loc[duplicate, ['game_date', 'game_pk', 'player_id']].head(20).to_string(index=False)}"
+        )
 
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="Assemble A4-enriched training set for B1.")
     ap.add_argument("--seasons", type=int, nargs="+", required=True)
     ap.add_argument("--training-dir", default="data/training")
+    ap.add_argument(
+        "--builder-schema",
+        choices=("a3.1", "a3.2"),
+        default=DEFAULT_BUILDER_SCHEMA,
+        help="exact builder schema required in every assembled row",
+    )
     args = ap.parse_args(argv)
-    assemble(args.seasons, Path(args.training_dir))
+    assemble(args.seasons, Path(args.training_dir), builder_schema=args.builder_schema)
     return 0
 
 

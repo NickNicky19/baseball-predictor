@@ -49,27 +49,26 @@ from typing import Optional
 
 import numpy as np
 import pandas as pd
+from src.evaluation.identity_keys import MODEL_KEY, OUTCOME_KEY, require_unique
 
-KEYS = ["player_id", "game_date", "category", "line"]
-OUTCOME_KEYS = ["player_id", "game_date", "category"]
+KEYS = MODEL_KEY
+OUTCOME_KEYS = OUTCOME_KEY
 ACTUAL_COL_CANDIDATES = ("actual_value", "actual", "y_true", "actual_outcome")
 K_CATEGORY = "strikeouts"
 
 
 def _load_probs(path: Path, prob_col: str) -> pd.DataFrame:
     df = pd.read_csv(path)
-    missing = [c for c in KEYS + [prob_col] if c not in df.columns]
+    missing = [c for c in KEYS + ["game_date", prob_col] if c not in df.columns]
     if missing:
         raise ValueError(f"{path} missing columns {missing}; has {list(df.columns)}")
-    df = df[KEYS + [prob_col]].copy()
+    df = df[KEYS + ["game_date", prob_col]].copy()
+    df["mlb_game_pk"] = pd.to_numeric(df["mlb_game_pk"], errors="coerce").astype("Int64")
     df["player_id"] = pd.to_numeric(df["player_id"], errors="coerce").astype("Int64")
     df["line"] = pd.to_numeric(df["line"], errors="coerce")
     df[prob_col] = pd.to_numeric(df[prob_col], errors="coerce")
     df = df.dropna(subset=KEYS + [prob_col])
-    n_before = len(df)
-    df = df.drop_duplicates(subset=KEYS)
-    if len(df) != n_before:
-        print(f"[load] {path}: dropped {n_before - len(df)} duplicate key rows")
+    require_unique(df, KEYS, str(path))
     return df
 
 
@@ -85,15 +84,16 @@ def _load_outcomes(path: Path, actual_col: Optional[str]) -> pd.DataFrame:
             f"Could not find an actuals column in {path}. Tried "
             f"{ACTUAL_COL_CANDIDATES}; available: {list(df.columns)}. "
             f"Pass --actual-col explicitly.")
-    missing = [c for c in OUTCOME_KEYS if c not in df.columns]
+    missing = [c for c in OUTCOME_KEYS + ["game_date"] if c not in df.columns]
     if missing:
         raise ValueError(f"{path} missing outcome key columns {missing}")
-    out = df[OUTCOME_KEYS + [actual_col]].copy()
+    out = df[OUTCOME_KEYS + ["game_date", actual_col]].copy()
+    out["mlb_game_pk"] = pd.to_numeric(out["mlb_game_pk"], errors="coerce").astype("Int64")
     out["player_id"] = pd.to_numeric(out["player_id"], errors="coerce").astype("Int64")
     out[actual_col] = pd.to_numeric(out[actual_col], errors="coerce")
     out = out.dropna(subset=OUTCOME_KEYS + [actual_col])
+    require_unique(out, OUTCOME_KEYS, f"outcomes from {path}")
     n_before = len(out)
-    out = out.drop_duplicates(subset=OUTCOME_KEYS)
     if len(out) != n_before:
         print(f"[load] {path}: dropped {n_before - len(out)} duplicate outcome rows "
               f"(kept first — check for the local+CI same-day collision gotcha)")
@@ -120,10 +120,12 @@ def block_bootstrap_ci(d: np.ndarray, dates: np.ndarray, b: int, seed: int,
 def compare(frozen: pd.DataFrame, candidate: pd.DataFrame, outcomes: pd.DataFrame,
             prob_col: str, b: int, seed: int) -> tuple[pd.DataFrame, pd.DataFrame]:
     m = frozen.rename(columns={prob_col: "p_frozen"}).merge(
-        candidate.rename(columns={prob_col: "p_candidate"}), on=KEYS, how="inner")
+        candidate.drop(columns="game_date").rename(columns={prob_col: "p_candidate"}), on=KEYS, how="inner",
+        validate="one_to_one")
     print(f"[match] frozen={len(frozen)} candidate={len(candidate)} matched={len(m)} "
           f"(inner-join on {KEYS}; unmatched rows are dropped, never scored)")
-    m = m.merge(outcomes, on=OUTCOME_KEYS, how="inner")
+    m = m.merge(outcomes.drop(columns="game_date"), on=OUTCOME_KEYS, how="inner",
+                validate="many_to_one")
     print(f"[match] with outcomes: {len(m)} rows")
     if m.empty:
         raise ValueError("no matched rows with outcomes — check key/date formats")

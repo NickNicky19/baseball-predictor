@@ -104,6 +104,10 @@ import duckdb
 import numpy as np
 import pandas as pd
 
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 MARKET_MAP = {
     "player hits": "hits",
     "player home runs": "home_runs",
@@ -245,6 +249,13 @@ def simulate(bets: pd.DataFrame, kelly_frac: float, kelly_cap: float) -> dict:
 
 
 def main(argv=None) -> int:
+    # This legacy backtest grades with the vendor's numeric result and uses a
+    # name/date identity bridge. Both are retired by the canonical hard-keyed
+    # market contract, so execution must fail rather than create fresh-looking
+    # but invalid output.
+    from src.evaluation.retired_market_evaluators import retired_market_evaluator_exit
+    return retired_market_evaluator_exit(Path(__file__).name)
+
     ap = argparse.ArgumentParser()
     ap.add_argument("--sim", required=True, help="run_gate_reconstruct.py output")
     ap.add_argument("--month", default="2026-06")

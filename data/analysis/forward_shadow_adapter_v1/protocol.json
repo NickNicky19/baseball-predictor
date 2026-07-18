@@ -1,0 +1,42 @@
+{
+  "schema_version": "forward-shadow-adapter-protocol-v1",
+  "locked_before_implementation": true,
+  "scope": "fully synthetic DraftKings Hits forward-shadow adapter check",
+  "network_calls_permitted": false,
+  "live_secrets_permitted": false,
+  "may_2026_permitted": false,
+  "betting_authorized": false,
+  "success_conditions": [
+    "one synthetic official MLB target is derived at exactly T-4h",
+    "one provenance-valid prediction snapshot and one raw-provider-bound hard quote produce one immutable target receipt",
+    "the receipt can produce one ledger entry only through an exact quote hash and the same policy hash bound by the capture plan",
+    "one raw-provider-bound close and one official final outcome produce one immutable linked resolution",
+    "the verified ledger produces a shadow-only per-market capture report"
+  ],
+  "failure_conditions": [
+    "any post-target model, quote, capture, or ledger append is accepted",
+    "a missing or fabricated market side is accepted",
+    "an ambiguous game, player, quote, or final market is silently selected",
+    "a mismatched plan, policy, config, prediction, raw provider, close, or official outcome artifact is accepted",
+    "a close outside entry_quote <= close_quote < official_start is accepted",
+    "a report authorizes betting or pools a different market"
+  ],
+  "protected_invariants": [
+    "GitHub is not the primary collector",
+    "DraftKings Hits is evaluated separately",
+    "provider raw bytes and independently resolved identities remain hash-bound",
+    "the selected side is predeclared by a policy artifact and is never inferred from row order",
+    "the ledger remains append-only and shadow-only"
+  ],
+  "required_mutations": [
+    "wrong selection-policy hash",
+    "unknown quote hash",
+    "post-target ledger append",
+    "tampered raw entry payload",
+    "close for a different market key",
+    "close before the entry quote",
+    "tampered official outcome identity",
+    "post-start close",
+    "empty/non-forward ledger report"
+  ]
+}

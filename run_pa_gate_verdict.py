@@ -95,8 +95,10 @@ from typing import Optional
 import numpy as np
 import pandas as pd
 
-KEYS = ["player_id", "game_date", "category", "line"]
-OUTCOME_KEYS = ["player_id", "game_date", "category"]
+from src.evaluation.identity_keys import MODEL_KEY, OUTCOME_KEY, require_unique
+
+KEYS = MODEL_KEY
+OUTCOME_KEYS = OUTCOME_KEY
 ACTUAL_COL_CANDIDATES = ("actual_value", "actual", "y_true", "actual_outcome")
 
 # ROLES for a PLATE-APPEARANCE change.
@@ -116,18 +118,16 @@ PROMOTION_REGIME = "DK (pa>=2)"
 
 def _load_probs(path: Path, prob_col: str) -> pd.DataFrame:
     df = pd.read_csv(path)
-    missing = [c for c in KEYS + [prob_col] if c not in df.columns]
+    missing = [c for c in KEYS + ["game_date", prob_col] if c not in df.columns]
     if missing:
         raise ValueError(f"{path} missing columns {missing}; has {list(df.columns)}")
-    df = df[KEYS + [prob_col]].copy()
+    df = df[KEYS + ["game_date", prob_col]].copy()
+    df["mlb_game_pk"] = pd.to_numeric(df["mlb_game_pk"], errors="coerce").astype("Int64")
     df["player_id"] = pd.to_numeric(df["player_id"], errors="coerce").astype("Int64")
     df["line"] = pd.to_numeric(df["line"], errors="coerce")
     df[prob_col] = pd.to_numeric(df[prob_col], errors="coerce")
     df = df.dropna(subset=KEYS + [prob_col])
-    n0 = len(df)
-    df = df.drop_duplicates(subset=KEYS)
-    if len(df) != n0:
-        print(f"[load] {path}: dropped {n0 - len(df)} duplicate key rows")
+    require_unique(df, KEYS, str(path))
     return df
 
 
@@ -142,12 +142,35 @@ def _load_outcomes(path: Path, actual_col: Optional[str]) -> pd.DataFrame:
         raise ValueError(
             f"No actuals column in {path}. Tried {ACTUAL_COL_CANDIDATES}; "
             f"available: {list(df.columns)}. Pass --actual-col.")
-    out = df[OUTCOME_KEYS + [actual_col]].copy()
+    out = df[OUTCOME_KEYS + ["game_date", actual_col]].copy()
+    out["mlb_game_pk"] = pd.to_numeric(out["mlb_game_pk"], errors="coerce").astype("Int64")
     out["player_id"] = pd.to_numeric(out["player_id"], errors="coerce").astype("Int64")
     out[actual_col] = pd.to_numeric(out[actual_col], errors="coerce")
-    out = out.dropna(subset=OUTCOME_KEYS + [actual_col]).drop_duplicates(subset=OUTCOME_KEYS)
+    out = out.dropna(subset=OUTCOME_KEYS + [actual_col])
+    require_unique(out, OUTCOME_KEYS, f"outcomes from {path}")
     print(f"[load] outcomes from {path} column '{actual_col}' ({len(out)} rows)")
     return out.rename(columns={actual_col: "actual"})
+
+
+def _load_selection(path: Path) -> pd.DataFrame:
+    """Load the walk-forward row universe without borrowing its old target.
+
+    The rebuilt walk-forward pairs provide the hard player-game-category
+    selection key.  Actuals still come only from the game-scoped reconstruction
+    artifact, so a legacy player/date outcome can never leak back into scoring.
+    """
+    df = pd.read_csv(path, low_memory=False)
+    missing = [col for col in OUTCOME_KEYS if col not in df.columns]
+    if missing:
+        raise ValueError(f"{path} missing selection columns {missing}")
+    cols = OUTCOME_KEYS + (["game_date"] if "game_date" in df.columns else [])
+    out = df[cols].copy()
+    out["mlb_game_pk"] = pd.to_numeric(out["mlb_game_pk"], errors="coerce").astype("Int64")
+    out["player_id"] = pd.to_numeric(out["player_id"], errors="coerce").astype("Int64")
+    out = out.dropna(subset=OUTCOME_KEYS)
+    require_unique(out, OUTCOME_KEYS, f"selection rows from {path}")
+    print(f"[load] hard selection keys from {path} ({len(out)} rows)")
+    return out
 
 
 def _load_pa(training: Path) -> pd.DataFrame:
@@ -157,9 +180,37 @@ def _load_pa(training: Path) -> pd.DataFrame:
     tr = pd.read_csv(training, low_memory=False)
     if "out_pa" not in tr.columns:
         raise SystemExit(f"FATAL: {training} has no out_pa column.")
-    return (tr[["player_id", "game_date", "out_pa"]]
-            .dropna(subset=["out_pa"])
-            .drop_duplicates(subset=["player_id", "game_date"]))
+    required = ["game_pk", "player_id", "out_pa"]
+    missing = [col for col in required if col not in tr.columns]
+    if missing:
+        raise SystemExit(f"FATAL: {training} missing PA identity columns {missing}.")
+    pa = tr[["game_pk", "player_id", "out_pa"]].rename(columns={"game_pk": "mlb_game_pk"})
+    pa["mlb_game_pk"] = pd.to_numeric(pa["mlb_game_pk"], errors="coerce").astype("Int64")
+    pa["player_id"] = pd.to_numeric(pa["player_id"], errors="coerce").astype("Int64")
+    pa = pa.dropna(subset=["mlb_game_pk", "player_id", "out_pa"])
+    # The historical training extract contains a small number of exact repeated
+    # player-game records.  They are not a license to silently deduplicate:
+    # prove first that every repeated key has one and only one observed PA
+    # value, log the normalization, and fail if the target conflicts.
+    pa_key = ["mlb_game_pk", "player_id"]
+    repeated = pa.duplicated(pa_key, keep=False)
+    if repeated.any():
+        repeated_rows = pa.loc[repeated]
+        pa_values = repeated_rows.groupby(pa_key, dropna=False)["out_pa"].nunique()
+        conflicting = pa_values[pa_values > 1]
+        if not conflicting.empty:
+            raise ValueError(
+                f"PA training rows from {training}: {len(conflicting)} duplicate "
+                f"player-game keys disagree on out_pa; examples:\n"
+                f"{conflicting.head(20).to_string()}"
+            )
+        print(
+            f"[load] PA training: normalizing {len(repeated_rows)} exact duplicate "
+            f"rows across {len(pa_values)} player-game keys after equality check"
+        )
+        pa = pa.drop_duplicates(pa_key, keep="first")
+    require_unique(pa, pa_key, f"PA training rows from {training}")
+    return pa
 
 
 def block_bootstrap_ci(d: np.ndarray, dates: np.ndarray, b: int, seed: int,
@@ -187,6 +238,9 @@ def main(argv=None) -> int:
     ap.add_argument("--frozen", required=True)
     ap.add_argument("--candidate", required=True)
     ap.add_argument("--pairs", default="data/models/gbm/wf_predictions_catboost.csv")
+    ap.add_argument("--selection", default=None,
+                    help="optional fresh game-keyed walk-forward row universe; "
+                         "actuals still come from --pairs")
     ap.add_argument("--training",
                     default="data/training/training_hitters_2023_2026.csv.gz",
                     help="source of out_pa for the DK/PP grading regimes")
@@ -204,13 +258,41 @@ def main(argv=None) -> int:
     frozen = _load_probs(Path(args.frozen), args.prob_col)
     cand = _load_probs(Path(args.candidate), args.prob_col)
     outcomes = _load_outcomes(Path(args.pairs), args.actual_col)
+    if args.selection:
+        selection = _load_selection(Path(args.selection))
+        if "game_date" in selection.columns:
+            selected = selection.merge(
+                outcomes, on=OUTCOME_KEYS, how="left", validate="one_to_one",
+                suffixes=("_selection", ""), indicator=True,
+            )
+            missing_actuals = selected.loc[selected["_merge"] != "both", OUTCOME_KEYS]
+            if not missing_actuals.empty:
+                raise ValueError(
+                    f"{len(missing_actuals)} hard selection keys have no official "
+                    f"game-scoped outcome; examples:\n{missing_actuals.head(20).to_string(index=False)}"
+                )
+            bad_dates = selected["game_date_selection"].astype(str) != selected["game_date"].astype(str)
+            if bad_dates.any():
+                raise ValueError(
+                    "selection/outcome game_date disagreement for hard player-game keys; "
+                    f"examples:\n{selected.loc[bad_dates, OUTCOME_KEYS + ['game_date_selection', 'game_date']].head(20).to_string(index=False)}"
+                )
+            outcomes = selected.drop(columns=["game_date_selection", "_merge"])
+        else:
+            outcomes = selection.merge(
+                outcomes, on=OUTCOME_KEYS, how="inner", validate="one_to_one"
+            )
+        print(f"[select] official outcomes restricted to {len(outcomes)} fresh walk-forward keys")
     pa = _load_pa(Path(args.training))
 
     m = (frozen.rename(columns={args.prob_col: "p_frozen"})
-         .merge(cand.rename(columns={args.prob_col: "p_candidate"}),
-                on=KEYS, how="inner"))
+         .merge(cand.drop(columns="game_date").rename(columns={args.prob_col: "p_candidate"}),
+                on=KEYS, how="inner", validate="one_to_one"))
     print(f"[match] frozen={len(frozen)} candidate={len(cand)} matched={len(m)}")
-    m = m.merge(outcomes, on=OUTCOME_KEYS, how="inner")
+    m = m.merge(outcomes.drop(columns="game_date"), on=OUTCOME_KEYS, how="inner",
+                # Each model line has one outcome, while one player-game outcome
+                # legitimately settles more than one model line.
+                validate="many_to_one")
     print(f"[match] with outcomes: {len(m)}")
     if m.empty:
         raise SystemExit(
@@ -221,9 +303,11 @@ def main(argv=None) -> int:
             "  pairs file), not a hand-picked 2026 date.")
 
     n0 = len(m)
-    m = m.merge(pa, on=["player_id", "game_date"], how="left")
-    pa_rate = m["out_pa"].notna().mean()
-    print(f"[match] with out_pa: {int(m['out_pa'].notna().sum())}/{n0} ({pa_rate:.1%})")
+    m = m.merge(pa, on=["mlb_game_pk", "player_id"], how="left", validate="many_to_one")
+    pa_rows = m[~m["category"].isin(HARD_CONTROLS)]
+    pa_rate = pa_rows["out_pa"].notna().mean()
+    print(f"[match] hitter rows with out_pa: {int(pa_rows['out_pa'].notna().sum())}/{len(pa_rows)} ({pa_rate:.1%}); "
+          f"pitcher rows are ALL-only and do not use PA")
     if pa_rate < 0.90:
         raise SystemExit(
             f"FATAL: only {pa_rate:.1%} of rows resolved an out_pa. The DK/PP\n"
@@ -259,7 +343,8 @@ def main(argv=None) -> int:
     for cat in sorted(m.category.unique()):
         for line in sorted(m[m.category == cat].line.unique()):
             base = m[(m.category == cat) & (m.line == line)]
-            for regime, min_pa in REGIMES.items():
+            regimes = {"ALL rows": 0} if cat in HARD_CONTROLS else REGIMES
+            for regime, min_pa in regimes.items():
                 s = base if min_pa == 0 else base[base.out_pa >= min_pa]
                 if len(s) < 50:
                     continue

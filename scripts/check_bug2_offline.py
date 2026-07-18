@@ -17,7 +17,7 @@ from src.utils.model_version import model_version, MODEL_CONFIG_KEYS
 PAIR_COLUMNS = [
     "player_id","player_name","game_date","category","predicted_value",
     "actual_value","confidence","model_version",
-    "actual_pa","actual_hits","actual_home_runs","actual_runs","actual_rbi",
+    "actual_pa","actual_hits","actual_doubles","actual_triples","actual_home_runs","actual_runs","actual_rbi",
     "actual_walks","actual_strikeouts","actual_ip","actual_bb_allowed","actual_hr_allowed",
 ]
 

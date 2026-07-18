@@ -195,6 +195,17 @@ def build_query(hf_glob: str) -> str:
 
 
 def main(argv=None) -> int:
+    # This extractor emits the vendor's numeric result beside close prices and
+    # groups by a non-canonical vendor game identity. Its only consumer was the
+    # retired market verdict path. Keep the implementation for auditability,
+    # but never mint a new close/target artifact that could be mistaken for the
+    # canonical game-keyed market universe.
+    root = Path(__file__).resolve().parents[1]
+    if str(root) not in sys.path:
+        sys.path.insert(0, str(root))
+    from src.evaluation.retired_market_evaluators import retired_market_evaluator_exit
+    return retired_market_evaluator_exit(Path(__file__).name)
+
     ap = argparse.ArgumentParser()
     ap.add_argument("--month", default="2026-05",
                     help="'2026-05' for one month, or 'all' for the whole dataset")

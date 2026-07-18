@@ -32,6 +32,9 @@ CATEGORY_ALIASES: dict[str, PropCategory] = {
     "k": "strikeouts",
     "batter_hits": "hits",
     "batter_home_runs": "home_runs",
+    "total_bases": "total_bases",
+    "batter_total_bases": "total_bases",
+    "player_bases": "total_bases",
     "pitcher_strikeouts": "strikeouts",
 }
 

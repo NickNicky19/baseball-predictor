@@ -130,8 +130,8 @@ class CategoryData:
     X_holdout: pd.DataFrame
     y_holdout: np.ndarray
     # Identity carried alongside holdout rows so predictions can be emitted as
-    # PropProjection objects keyed (player_id, game_date, category).
-    holdout_ids: pd.DataFrame  # columns: player_id, player_name, game_date, team, opponent
+    # PropProjection objects keyed by the originating MLB game.
+    holdout_ids: pd.DataFrame  # includes game_pk, player_id, player_name, game_date
     split_date: str
 
     def summary(self) -> dict[str, Any]:
@@ -198,6 +198,14 @@ def derive_target(df: pd.DataFrame, category: str, fw: FantasyWeights) -> np.nda
         return _num(df["out_hits"])
     if category == "home_runs":
         return _num(df["out_hr"])
+    if category == "total_bases":
+        # 1B + 2*2B + 3*3B + 4*HR, simplified using hits = 1B+2B+3B+HR.
+        return (
+            _num(df["out_hits"])
+            + _num(df["out_doubles"])
+            + 2.0 * _num(df["out_triples"])
+            + 3.0 * _num(df["out_hr"])
+        )
     if category == "hrr":
         return _num(df["out_hits"]) + _num(df["out_runs"]) + _num(df["out_rbi"])
     if category == "strikeouts":
@@ -272,6 +280,8 @@ def build_category_data(
     """
     if "game_date" not in df.columns:
         raise ValueError("frame missing game_date; cannot do a temporal split.")
+    if "game_pk" not in df.columns:
+        raise ValueError("frame missing game_pk; cannot emit game-keyed holdout predictions.")
 
     work = df
     # Optionally drop rows with no prior data (has_prior_data == 0): these are
@@ -292,7 +302,7 @@ def build_category_data(
     train_mask = (gd < split_date).to_numpy()
     holdout_mask = ~train_mask
 
-    id_cols = [c for c in ("player_id", "player_name", "game_date", "team", "opponent")
+    id_cols = [c for c in ("game_pk", "player_id", "player_name", "game_date", "team", "opponent")
                if c in work.columns]
     holdout_ids = work.loc[holdout_mask, id_cols].reset_index(drop=True)
 

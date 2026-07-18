@@ -1,0 +1,23 @@
+{
+  "schema_version": "shadow-draftkings-hits-reference-settlement-v1",
+  "status": "RESEARCH_ONLY_MODELED_REFERENCE_SETTLEMENT",
+  "betting_authorized": false,
+  "sportsbook": "draftkings",
+  "category": "hits",
+  "rule_evidence_path": "data/analysis/market_policy_hits_2026/draftkings_baseball_rules_evidence_2026-07-14.json",
+  "rule_evidence_sha256": "c5810125aa8c4a4fa49eb059bacc62e55413b6d63d4afbdbf91903ddead2a442",
+  "classification_order": [
+    "missing_or_ambiguous_official_game_player_role_or_boxscore -> unscored",
+    "official_nonstarter_or_starter_with_zero_plate_appearances -> void",
+    "over-side starter replaced after exactly one plate appearance and outcome not already unconditionally won -> void",
+    "otherwise starter with at least one plate appearance -> graded"
+  ],
+  "under_early_exit_exception": true,
+  "over_unconditionally_won_rule": "official_hits > selected_line",
+  "limitations": [
+    "This models the published DraftKings reference-market rule; it is not an observed DraftKings bet receipt or settlement.",
+    "DraftKings is not an execution product for this Texas-based project.",
+    "An execution product requires its own separately hashed participation, DNP, reboot, push, correction, payout, and settlement contract.",
+    "Any game-status ambiguity, role ambiguity, missing official player row, or unsupported rule case remains unscored rather than guessed."
+  ]
+}

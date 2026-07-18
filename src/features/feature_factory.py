@@ -11,6 +11,8 @@ injected.
 
 from __future__ import annotations
 
+from dataclasses import replace
+
 from pathlib import Path
 from typing import Any, Optional, Protocol
 
@@ -79,8 +81,14 @@ class FeatureFactory:
         self.config = config or {}
         self.league = league_baselines or LeagueBaselines.from_config(self.config)
         self.mlb_api = mlb_api
+        feature_config = self.config.get("feature_factory", {}) or {}
+        self.derive_batted_ball_rates = bool(
+            feature_config.get("derive_batted_ball_rates", False)
+        )
         self.statcast_engine = statcast_engine or StatcastFeatureEngine(
             league_baselines=self.league,
+            derive_batted_ball_rates=self.derive_batted_ball_rates,
+            config=self.config,
         )
         self.lineup_intelligence = lineup_intelligence or LineupIntelligence.from_config(
             self.config, league_baselines=self.league
@@ -93,7 +101,10 @@ class FeatureFactory:
         self.weather_client = weather_client or WeatherClient()
         self.umpire_client = umpire_client or UmpireClient()
         self.injury_client = injury_client or InjuryClient()
-        self.savant_client = savant_client or SavantClient(league_baselines=self.league)
+        self.savant_client = savant_client or SavantClient(
+            league_baselines=self.league,
+            derive_batted_ball_rates=self.derive_batted_ball_rates,
+        )
         self._park_estimator = park_estimator or ParkFactorEstimator(
             ParkFactorSettings.from_config(self.config)
         )
@@ -189,6 +200,32 @@ class FeatureFactory:
 
             enriched = self.matchup_intelligence.apply_to_bundle(base_bundle)
             season_hitting, recent_hitting = self._hitting_stats(hitter.player.mlb_id)
+
+            # ================================================================
+            # FEED THE HITTER'S OWN K/BB RATES TO THE SIMULATOR.
+            # ================================================================
+            # These snapshots were ALREADY being fetched here -- and handed ONLY
+            # to the GBM feature vector, then DROPPED. The simulator never saw
+            # them, so StatcastProfile.k_rate fell back to the league constant on
+            # every hitter (MEASURED: sd = 0.0000 across 270 hitters) and the K
+            # logit had to use `contact_rate`, a per-swing whiff PROXY that is
+            # mis-centred by +0.52 and over-scaled 1.7x.
+            #
+            # That single defect inflated bip_prob by 9.9%, which carried 91.7%
+            # of the model's ENTIRE hits excess.
+            #
+            # The data and the consumer were both already here. They were simply
+            # not connected. This connects them.
+            #
+            # ADDITIVE and SAFE: if a snapshot is missing or has pa == 0, the
+            # rate is None, StatcastProfile keeps its existing value, and the
+            # simulator's fitted path stays INERT (it requires BOTH the config
+            # flag AND the rates).
+            enriched = self._attach_hitter_rates(
+                enriched, season_hitting, recent_hitting
+            )
+            statcast = enriched.statcast
+
             features = self.feature_vector_builder.build(
                 enriched,
                 season_hitting=season_hitting,
@@ -241,6 +278,29 @@ class FeatureFactory:
                 profile=statcast,
                 rolling=rolling,
             )
+            # The fitted contact adapter is optional and config-gated.  Custom
+            # engines used by tests and downstream callers may implement only
+            # the long-standing profile interface; absence must remain the
+            # explicit inert path, not turn an optional candidate seam into a
+            # slate-wide failure.
+            contact_evidence = getattr(
+                self.statcast_engine, "hits_contact_evidence_for", None
+            )
+            contact_adapter = (
+                contact_evidence(hitter.player.mlb_id)
+                if callable(contact_evidence)
+                else None
+            )
+            if contact_adapter is not None:
+                rich_features = {
+                    **rich_features,
+                    "hits_contact_adapter_status": contact_adapter["status"],
+                    "hits_contact_adapter_reason": contact_adapter.get("reason"),
+                }
+                if contact_adapter["status"] == "adapter_applied":
+                    rich_features["contact_xba_fitted"] = contact_adapter[
+                        "fitted_contact_xba"
+                    ]
 
             enriched = PlayerFeatureBundle(
                 hitter=enriched.hitter,
@@ -257,6 +317,11 @@ class FeatureFactory:
                     **enriched.metadata,
                     "feature_count": features.count(),
                     "rich_features": rich_features,
+                    **(
+                        {"hits_contact_adapter": contact_adapter}
+                        if contact_adapter is not None
+                        else {}
+                    ),
                 },
             )
             bundles.append(self.lineup_intelligence.apply_to_bundle(enriched))
@@ -307,6 +372,39 @@ class FeatureFactory:
             sample_pa=int(recent.innings_pitched * 4.2),
         )
 
+    @staticmethod
+    def _attach_hitter_rates(bundle, season, recent):
+        """Put the hitter's OWN season/recent K and BB rates on his StatcastProfile.
+
+        RULE 8 -- what these quantities MEAN:
+          season.k_rate = strikeouts / PA over the season TO DATE (~208 PA)
+          recent.k_rate = strikeouts / PA over the API's lastXGames (~51 PA)
+        Both are FRACTIONS in [0, 1], matching StatcastProfile's contract
+        ("rates are fractions (0-1) unless noted").
+
+        A missing snapshot, or one with pa == 0, yields None -- and None leaves
+        the existing profile value untouched, which keeps the simulator on its
+        legacy path. We NEVER fabricate a rate.
+        """
+        if bundle.statcast is None:
+            return bundle
+        k_s = season.k_rate if season is not None else None
+        bb_s = season.bb_rate if season is not None else None
+        k_r = recent.k_rate if recent is not None else None
+        bb_r = recent.bb_rate if recent is not None else None
+        if k_s is None and bb_s is None and k_r is None and bb_r is None:
+            return bundle
+        return replace(
+            bundle,
+            statcast=replace(
+                bundle.statcast,
+                k_rate=k_s if k_s is not None else bundle.statcast.k_rate,
+                bb_rate=bb_s if bb_s is not None else bundle.statcast.bb_rate,
+                k_rate_recent=k_r,
+                bb_rate_recent=bb_r,
+            ),
+        )
+
     def _hitting_stats(self, player_id: int):
         if self.mlb_api is None:
             return None, None
@@ -344,4 +442,3 @@ class FeatureFactory:
             root = config_path or Path(__file__).resolve().parents[2]
             path = root / csv_path
         return str(path) if path.exists() else None
-

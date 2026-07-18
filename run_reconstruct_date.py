@@ -40,7 +40,7 @@ from collections import Counter
 from dataclasses import replace
 from datetime import date, datetime
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any, Callable, Optional
 
 from src.data.injury_client import InjuryClient
 from src.data.mlb_api import HittingStatsSnapshot, MLBStatsAPI, PitchingStatsSnapshot
@@ -54,6 +54,7 @@ from src.learning.retrain_runner import RetrainRunner
 from src.models.dataclasses import (
     InjuryStatus,
     LeagueBaselines,
+    PlayerFeatureBundle,
     PropProjection,
     WeatherContext,
 )
@@ -158,6 +159,31 @@ class AsOfMLBAPI(MLBStatsAPI):
         self.pit = pit
         self.reslog = reslog
         self.allow_leaky_splits = allow_leaky_splits
+
+    def _canonical_games_for_date(
+        self,
+        game_date: str,
+        *,
+        require_coded_final: bool = False,
+        include_lineups: bool = False,
+        allowed_game_types: Optional[set[str] | frozenset[str]] = None,
+    ) -> list[dict[str, Any]]:
+        """Bind historical reconstruction to regular-season MLB games.
+
+        Training rows already apply ``gameType == 'R'``. Without the same
+        boundary here, 2025-03-18 reconstructs Spring Training games alongside
+        the Tokyo regular-season game. The override is reconstruction-only;
+        live ``MLBStatsAPI`` behavior is unchanged.
+        """
+        regular_only = {"R"}
+        if allowed_game_types is not None:
+            regular_only &= set(allowed_game_types)
+        return super()._canonical_games_for_date(
+            game_date,
+            require_coded_final=require_coded_final,
+            include_lineups=include_lineups,
+            allowed_game_types=regular_only,
+        )
 
     def get_hitting_stats(
         self, player_id: int
@@ -299,10 +325,16 @@ def reconstruct(
         "resolves, signal does not.",
     )
 
-    # 1. Bundles (statcast forced to baselines; confirmed lineups only —
-    # for a completed game the persisted battingOrder IS the confirmed lineup).
+    # 1. Bundles. Historical reconstruction uses original starters from each
+    # completed game's per-player batting-order sequence. The final
+    # teams.battingOrder list contains the last occupant of each slot and can
+    # silently replace a starter with a substitute.
+    historical_hitters = api.get_completed_hitters_for_date(game_date)
     bundles = factory.build_bundles(
-        game_date, use_projected_lineups=False, savant_csv_path=None
+        game_date,
+        hitters=historical_hitters,
+        use_projected_lineups=False,
+        savant_csv_path=None,
     )
     if not bundles:
         return {
@@ -334,12 +366,14 @@ def reconstruct(
         )
 
     # 2. Actual outcomes from final boxscores.
-    actual_hitting, actual_pitching = api.get_actuals_for_date(game_date)
+    actuals_by_game = api.get_actuals_by_game_for_date(game_date)
 
     outcomes: list[OutcomeRecord] = []
     for b in bundles:
         pid = b.hitter.player.mlb_id
-        stats = actual_hitting.get(pid)
+        game_pk = b.hitter.game.game_pk
+        game_actuals = actuals_by_game.get(game_pk)
+        stats = game_actuals[0].get(pid) if game_actuals is not None else None
         if stats is None:
             reslog.count("actual_outcomes", "missing")
             continue
@@ -352,6 +386,7 @@ def reconstruct(
                     game_date=game_date,
                     category=cat,
                     actual_value=compute_actual_value(stats, cat, fantasy),
+                    mlb_game_pk=game_pk,
                 )
             )
 
@@ -371,7 +406,8 @@ def reconstruct(
             projections.append(
                 prop_engine.project_pitcher_strikeouts(pctx, season, recent)
             )
-            p_stats = actual_pitching.get(pid)
+            game_actuals = actuals_by_game.get(pctx.game.game_pk)
+            p_stats = game_actuals[1].get(pid) if game_actuals is not None else None
             if p_stats is None:
                 reslog.count("pitcher_actuals", "missing")
                 continue
@@ -383,6 +419,7 @@ def reconstruct(
                     game_date=game_date,
                     category="strikeouts",
                     actual_value=float(p_stats.strikeouts),
+                    mlb_game_pk=pctx.game.game_pk,
                 )
             )
         if projections:
@@ -424,6 +461,9 @@ def reconstruct(
 def reconstruct_objects(
     game_date: str,
     config: dict[str, Any],
+    require_statcast_profiles: bool = False,
+    hitter_categories: tuple[str, ...] = HITTER_CATEGORIES,
+    bundle_sink: Optional[Callable[[str, list[PlayerFeatureBundle]], None]] = None,
 ) -> tuple[list[PropProjection], list[OutcomeRecord]]:
     """Return (simulator_projections, outcome_records) for one historical date.
 
@@ -473,26 +513,58 @@ def reconstruct_objects(
     )
     prop_engine = PropEngine(league_baselines=league, config=config)
 
+    historical_hitters = api.get_completed_hitters_for_date(game_date)
     bundles = factory.build_bundles(
-        game_date, use_projected_lineups=False, savant_csv_path=None
+        game_date,
+        hitters=historical_hitters,
+        use_projected_lineups=False,
+        savant_csv_path=None,
     )
     projections: list[PropProjection] = []
     outcomes: list[OutcomeRecord] = []
     if not bundles:
         return projections, outcomes
 
-    actual_hitting, actual_pitching = api.get_actuals_for_date(game_date)
+    # Historical gate artifacts must declare whether Statcast was part of the
+    # model input. A zero-profile fallback changes hitter probabilities yet
+    # previously only emitted a log warning, making two artifacts with the same
+    # config incomparable. This guard asks only whether the provider yielded
+    # ANY usable profile: normal per-player fallback remains supported, but a
+    # whole-slate provider outage is never silent for a canonical gate.
+    if require_statcast_profiles:
+        advanced_profiles = sum(
+            1 for bundle in bundles
+            if bundle.statcast is not None and bundle.statcast.has_advanced_data()
+        )
+        if advanced_profiles == 0:
+            raise RuntimeError(
+                f"{game_date}: required Statcast profiles are absent for the entire "
+                "slate; refusing to publish a fallback-mode canonical artifact"
+            )
 
-    # Hitters: same categories the simulator baseline is defined over.
+    # Canonical reconstruction may persist the exact model-ready feature
+    # boundary. The callback is observational: it receives the completed
+    # bundles before any simulation draws and must never mutate them. Keeping
+    # persistence outside this reconstruction function preserves the live path
+    # while allowing a release runner to bind its data inputs by hash.
+    if bundle_sink is not None:
+        bundle_sink(game_date, bundles)
+
+    actuals_by_game = api.get_actuals_by_game_for_date(game_date)
+
+    # Default to the published simulator categories. Candidate gates may pass
+    # an explicit tuple without changing the default reconstruction universe.
     for b in bundles:
         projections.extend(
-            prop_engine.project_hitter(b, categories=HITTER_CATEGORIES)
+            prop_engine.project_hitter(b, categories=hitter_categories)
         )
         pid = b.hitter.player.mlb_id
-        stats = actual_hitting.get(pid)
+        game_pk = b.hitter.game.game_pk
+        game_actuals = actuals_by_game.get(game_pk)
+        stats = game_actuals[0].get(pid) if game_actuals is not None else None
         if stats is None:
             continue
-        for cat in HITTER_CATEGORIES:
+        for cat in hitter_categories:
             outcomes.append(
                 OutcomeRecord(
                     player_id=pid,
@@ -500,6 +572,7 @@ def reconstruct_objects(
                     game_date=game_date,
                     category=cat,
                     actual_value=compute_actual_value(stats, cat, fantasy),
+                    mlb_game_pk=game_pk,
                 )
             )
 
@@ -510,7 +583,8 @@ def reconstruct_objects(
         projections.append(
             prop_engine.project_pitcher_strikeouts(pctx, season_s, recent_s)
         )
-        p_stats = actual_pitching.get(pid)
+        game_actuals = actuals_by_game.get(pctx.game.game_pk)
+        p_stats = game_actuals[1].get(pid) if game_actuals is not None else None
         if p_stats is not None:
             outcomes.append(
                 OutcomeRecord(
@@ -519,6 +593,7 @@ def reconstruct_objects(
                     game_date=game_date,
                     category="strikeouts",
                     actual_value=float(p_stats.strikeouts),
+                    mlb_game_pk=pctx.game.game_pk,
                 )
             )
 

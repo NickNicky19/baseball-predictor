@@ -1,0 +1,131 @@
+{
+  "schema_version": "hits-execution-product-contracts-v1",
+  "status": "RESEARCH_ONLY",
+  "betting_authorized": false,
+  "jurisdiction_context": {
+    "country": "US",
+    "state": "Texas",
+    "county": "Harris",
+    "legal_eligibility_verified": false,
+    "account_eligibility_verified": false,
+    "interpretation": "Location is user-declared context, not legal advice or proof of product/account eligibility."
+  },
+  "reference_market": {
+    "product": "DraftKings Sportsbook",
+    "role": "reference_market_only",
+    "execution_product": false,
+    "actual_fill_evidence": false,
+    "jurisdiction_execution_verified": false,
+    "may_authorize_execution": false
+  },
+  "cross_product_inheritance_permitted": false,
+  "products": {
+    "onyx": {
+      "display_name": "Onyx Odds",
+      "contract_id": "onyx-hits-execution-v1",
+      "readiness": "BLOCKED_ACCOUNT_EXECUTION_AND_SETTLEMENT_EVIDENCE",
+      "legal_and_account_access_verified": false,
+      "public_platform_texas_eligibility_observed": true,
+      "live_account_visible_hits_verified": false,
+      "rules_observation_path": "data/evidence/execution_products/onyx_public_rules_observation_2026-07-17.json",
+      "rules_and_effective_date_hash": "8370950090a3fc8fa67157bfe0a72e5baeec4805c1e082b3ff4092323916116b",
+      "payout_and_fee_schedule_hash": null,
+      "actual_submit_accept_receipt_verified": false,
+      "actual_settlement_receipt_verified": false,
+      "required_product_fields": [
+        "exact contest or sweepstakes currency",
+        "cash/redemption value and fees",
+        "projection, side, price or multiplier",
+        "entry-size adjustment and minimum/maximum entry",
+        "submit-able evidence, accepted amount, receipt id, settlement, actual return"
+      ],
+      "authorization": false
+    },
+    "novig": {
+      "display_name": "Novig",
+      "contract_id": "novig-hits-execution-v1",
+      "readiness": "BLOCKED_ACCOUNT_EXECUTION_AND_SETTLEMENT_EVIDENCE",
+      "legal_and_account_access_verified": false,
+      "public_platform_texas_eligibility_observed": true,
+      "live_account_visible_hits_verified": false,
+      "rules_observation_path": "data/evidence/execution_products/novig_public_rules_observation_2026-07-17.json",
+      "rules_and_effective_date_hash": "17c6bea31eb201b450aa8c692e8f8da20d3093290f97ada3bddbec781a5130c8",
+      "payout_and_fee_schedule_hash": null,
+      "actual_submit_accept_receipt_verified": false,
+      "actual_settlement_receipt_verified": false,
+      "required_product_fields": [
+        "displayed bid and ask",
+        "requested price and amount",
+        "actual matched price and matched amount",
+        "unfilled amount and available liquidity",
+        "fees, submit-able evidence, receipt id, settlement, actual return"
+      ],
+      "authorization": false
+    },
+    "chalkboard": {
+      "display_name": "Chalkboard",
+      "contract_id": "chalkboard-hits-execution-v1",
+      "readiness": "BLOCKED_ACCOUNT_EXECUTION_AND_SETTLEMENT_EVIDENCE",
+      "legal_and_account_access_verified": false,
+      "public_platform_texas_eligibility_observed": true,
+      "live_account_visible_hits_verified": false,
+      "rules_observation_path": "data/evidence/execution_products/chalkboard_public_rules_observation_2026-07-17.json",
+      "rules_and_effective_date_hash": "040efa29660fddb9d21cdd7d1b0ee18c74179287bd1f59438cbbadb061e2d3f4",
+      "payout_and_fee_schedule_hash": null,
+      "actual_submit_accept_receipt_verified": false,
+      "actual_settlement_receipt_verified": false,
+      "required_product_fields": [
+        "exact contest type and complete lineup",
+        "every leg, projection, side and correlation restriction",
+        "displayed multiplier and payout",
+        "minimum/maximum entry and any currency/redemption terms",
+        "submit-able evidence, accepted receipt, DNP/void handling, settlement, actual return"
+      ],
+      "authorization": false
+    },
+    "prizepicks": {
+      "display_name": "PrizePicks",
+      "contract_id": "prizepicks-hits-execution-v1",
+      "readiness": "BLOCKED_ACCOUNT_EXECUTION_AND_SETTLEMENT_EVIDENCE",
+      "legal_and_account_access_verified": false,
+      "public_platform_texas_eligibility_observed": true,
+      "live_account_visible_hits_verified": false,
+      "rules_observation_path": "data/evidence/execution_products/prizepicks_public_rules_observation_2026-07-17.json",
+      "rules_and_effective_date_hash": "a249e3e6ff3d3edda438f80a2793ba24f06df6cf597a211b597fe5ca79a9109d",
+      "payout_and_fee_schedule_hash": null,
+      "user_supplied_general_scoring_and_dnp_evidence_present": true,
+      "actual_submit_accept_receipt_verified": false,
+      "actual_settlement_receipt_verified": false,
+      "required_product_fields": [
+        "complete lineup and every leg",
+        "Power or Flex type and exact leg count",
+        "displayed payout table or dynamic payout",
+        "correlation and same-team restrictions",
+        "projection-specific DNP/Reboot/tie effects",
+        "submit-able evidence, accepted receipt, reverted lineup, settlement, actual return"
+      ],
+      "authorization": false
+    }
+  },
+  "global_required_gates": [
+    "verified current legal and account eligibility in the declared jurisdiction",
+    "primary rules with effective date and immutable hash",
+    "account-visible market and product identity",
+    "complete payout, fee, minimum, maximum, liquidity and correlation contract",
+    "exact hard game/player/category/line/side identity",
+    "actual submit-able and accepted-entry evidence",
+    "official outcome plus product-specific void/DNP/Reboot/push/correction settlement",
+    "positive net-ROI lower uncertainty bound under the locked product contract",
+    "untouched holdout evidence and prospective forward-shadow replication",
+    "immutable market-and-product-specific authorization record"
+  ],
+  "must_not": [
+    "inherit rules, payouts, DNPs, Reboots, liquidity or fills from another product",
+    "treat a reference-market quote as an executable product price",
+    "treat an odds-feed listing as proof that the user could submit or fill an entry",
+    "evaluate a PrizePicks or Chalkboard leg without the complete lineup payout contract",
+    "treat a Novig displayed quote as an actual match",
+    "pool products or let one product rescue another",
+    "authorize wagering while any required gate is false or unknown"
+  ]
+}

@@ -128,6 +128,16 @@ def block_bootstrap_diff(d: np.ndarray, dates: np.ndarray, b: int, seed: int):
 
 
 def main(argv=None) -> int:
+    # Retained as a historical diagnostic only. Its target is SmartStake's
+    # numeric result and its identity bridge is name/date based; both are
+    # disqualified for the canonical market contract. Never emit new verdicts
+    # from a path whose target was measured wrong on evaluated rows.
+    root = Path(__file__).resolve().parents[1]
+    if str(root) not in sys.path:
+        sys.path.insert(0, str(root))
+    from src.evaluation.retired_market_evaluators import retired_market_evaluator_exit
+    return retired_market_evaluator_exit(Path(__file__).name)
+
     ap = argparse.ArgumentParser()
     ap.add_argument("--sim", required=True, help="run_gate_reconstruct.py output")
     ap.add_argument("--closes", required=True, help="extract_closes.py parquet")

@@ -19,18 +19,19 @@ class MockMLBAPI:
     def get_final_game_pks(self, game_date: str) -> list[int]:
         return [1]
 
-    def get_actuals_for_date(self, game_date: str):
+    def get_actuals_by_game_for_date(self, game_date: str):
         hitting = {
             1: HittingStatsSnapshot(hits=2, runs=1, rbi=1, home_runs=0, doubles=1, triples=0, walks=0),
         }
         pitching = {99: PitchingStatsSnapshot(strikeouts=7)}
-        return hitting, pitching
+        return {1: (hitting, pitching)}
 
 
 def test_compute_actual_values():
     stats = HittingStatsSnapshot(hits=2, runs=1, rbi=1, home_runs=0, doubles=1, triples=0, walks=1)
     fantasy = FantasyScoring()
     assert compute_actual_value(stats, "hits", fantasy) == 2.0
+    assert compute_actual_value(stats, "total_bases", fantasy) == 3.0
     assert compute_actual_value(stats, "hrr", fantasy) == 4.0
     assert compute_actual_value(stats, "fantasy", fantasy) > 0
 
@@ -55,11 +56,11 @@ def test_outcome_recorder_appends_pairs(tmp_path):
     prediction = DailyPrediction(
         game_date=date(2026, 6, 25),
         hitter_projections=[
-            PropProjection(1, "Hitter One", "hrr", "2026-06-25", 2.0, 0.7),
-            PropProjection(1, "Hitter One", "hits", "2026-06-25", 1.2, 0.65),
+            PropProjection(1, "Hitter One", "hrr", "2026-06-25", 2.0, 0.7, mlb_game_pk=1),
+            PropProjection(1, "Hitter One", "hits", "2026-06-25", 1.2, 0.65, mlb_game_pk=1),
         ],
         pitcher_projections=[
-            PropProjection(99, "Pitcher One", "strikeouts", "2026-06-25", 6.5, 0.6),
+            PropProjection(99, "Pitcher One", "strikeouts", "2026-06-25", 6.5, 0.6, mlb_game_pk=1),
         ],
     )
     archive.save(prediction)

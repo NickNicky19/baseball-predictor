@@ -196,7 +196,7 @@ class MatchupIntelligence:
         platoon_slg_z = 0.0
         split_ops = s.league_ops
 
-        if self.data_provider and bats in ("L", "R"):
+        if self.data_provider and bats in ("L", "R") and throws in ("L", "R"):
             vs_lhp, vs_rhp = self.data_provider.get_platoon_splits(hitter.player.mlb_id)
             target = vs_lhp if throws == "L" else vs_rhp
             if target and target.pa >= s.min_platoon_pa:

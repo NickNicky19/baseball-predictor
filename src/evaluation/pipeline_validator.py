@@ -242,8 +242,13 @@ class PipelineValidator:
         df = pd.read_csv(pairs_path)
         df = df[df["game_date"].astype(str) == game_date]
 
+        required = {"mlb_game_pk", "player_id", "category", "actual_value"}
+        missing = required - set(df.columns)
+        if missing:
+            raise ValueError(f"Historical validation pairs missing required identity columns {sorted(missing)}")
         outcome_index = {
-            (int(row["player_id"]), str(row["category"])): float(row["actual_value"])
+            (int(row["mlb_game_pk"]), int(row["player_id"]), str(row["category"])):
+            float(row["actual_value"])
             for _, row in df.iterrows()
         }
 
@@ -251,7 +256,11 @@ class PipelineValidator:
         outcomes: list[OutcomeRecord] = []
 
         for proj in prediction.hitter_projections + prediction.pitcher_projections:
-            key = (proj.player_id, proj.category)
+            if proj.mlb_game_pk is None:
+                raise ValueError(
+                    f"Historical validation projection missing mlb_game_pk: {proj.player_name}"
+                )
+            key = (proj.mlb_game_pk, proj.player_id, proj.category)
             actual = outcome_index.get(key)
             if actual is None:
                 continue
@@ -263,6 +272,7 @@ class PipelineValidator:
                     game_date=game_date,
                     category=proj.category,
                     actual_value=actual,
+                    mlb_game_pk=proj.mlb_game_pk,
                 )
             )
         return projections, outcomes

@@ -34,7 +34,7 @@ TWO-TRACK CLV DISCIPLINE (per A5 KICKOFF "CLV BACKLOG"):
 
 Usage (PowerShell):
     $env:PYTHONPATH="."
-    $env:ODDS_API_KEY="....."
+    $env:ODDS_API_KEY="<load-from-your-secret-store>"
     python run_log_lines.py --config config/config.json                    # midday (default)
     python run_log_lines.py --config config/config.json --snapshot close --commence-within 45
     python run_log_lines.py --config config/config.json --dry-run          # pull + report, write nothing

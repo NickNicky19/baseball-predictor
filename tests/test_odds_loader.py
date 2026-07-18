@@ -94,6 +94,36 @@ def test_odds_api_parses_event_payload():
     assert lines[0].category == "hits"
 
 
+def test_odds_api_refuses_one_sided_or_mismatched_line_payloads():
+    provider = OddsAPIProvider(
+        settings=OddsAPISettings(
+            enabled=True,
+            api_key="test",
+            market_category_map={"batter_hits": "hits", "batter_home_runs": "home_runs"},
+        )
+    )
+    payload = {
+        "bookmakers": [{
+            "key": "draftkings", "title": "DraftKings", "markets": [
+                {
+                    "key": "batter_home_runs",
+                    "outcomes": [
+                        {"name": "Over", "description": "Aaron Judge", "point": 0.5, "price": 300},
+                    ],
+                },
+                {
+                    "key": "batter_hits",
+                    "outcomes": [
+                        {"name": "Over", "description": "Mookie Betts", "point": 1.5, "price": -110},
+                        {"name": "Under", "description": "Mookie Betts", "point": 0.5, "price": -110},
+                    ],
+                },
+            ],
+        }]
+    }
+    assert provider._parse_event_odds(payload) == []
+
+
 def test_composite_merges_api_over_file():
     file_settings = FileOddsSettings(csv_path=str(FIXTURES / "sample_odds.csv"))
     file_provider = FileOddsProvider(settings=file_settings, project_root=PROJECT_ROOT)

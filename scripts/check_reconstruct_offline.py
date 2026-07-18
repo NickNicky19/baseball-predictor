@@ -31,6 +31,7 @@ from src.learning.retrain_runner import RetrainRunner
 TARGET = "2025-06-15"
 SEASON = 2025
 GAME_PK = 100
+SPRING_GAME_PK = 101
 AWAY_HITTERS = list(range(1001, 1010))
 HOME_HITTERS = list(range(2001, 2010))
 AWAY_SP, HOME_SP = 9001, 9002
@@ -147,6 +148,8 @@ def schedule_fixture() -> dict:
                 "games": [
                     {
                         "gamePk": GAME_PK,
+                        "gameType": "R",
+                        "officialDate": TARGET,
                         "venue": {"name": "Coors Field"},
                         "status": {"abstractGameState": "Final", "codedGameState": "F"},
                         "teams": {
@@ -167,7 +170,18 @@ def schedule_fixture() -> dict:
                                 },
                             },
                         },
-                    }
+                    },
+                    {
+                        "gamePk": SPRING_GAME_PK,
+                        "gameType": "S",
+                        "officialDate": TARGET,
+                        "venue": {"name": "Spring Park"},
+                        "status": {"abstractGameState": "Final", "codedGameState": "F"},
+                        "teams": {
+                            "away": {"team": {"name": "Spring Away"}},
+                            "home": {"team": {"name": "Spring Home"}},
+                        },
+                    },
                 ]
             }
         ]
@@ -175,7 +189,13 @@ def schedule_fixture() -> dict:
 
 
 def feed_fixture() -> dict:
-    """Live feed: persisted battingOrder + boxscore actuals for the date."""
+    """Completed feed whose final and original batting orders disagree.
+
+    The final nine lists deliberately name one substitute per side. The
+    per-player battingOrder sequence retains the original starter (``x00``)
+    and the replacement (``x01``). Historical reconstruction must price the
+    original starters; reverting to the live/final helper makes this fail.
+    """
 
     def batting_actual(i: int) -> dict:
         return {
@@ -197,6 +217,15 @@ def feed_fixture() -> dict:
 
     players_away = {f"ID{pid}": batting_actual(i) for i, pid in enumerate(AWAY_HITTERS)}
     players_home = {f"ID{pid}": batting_actual(i) for i, pid in enumerate(HOME_HITTERS)}
+    for slot, pid in enumerate(AWAY_HITTERS, start=1):
+        players_away[f"ID{pid}"]["battingOrder"] = f"{slot}00"
+    for slot, pid in enumerate(HOME_HITTERS, start=1):
+        players_home[f"ID{pid}"]["battingOrder"] = f"{slot}00"
+    away_sub, home_sub = 1099, 2099
+    players_away[f"ID{away_sub}"] = batting_actual(99)
+    players_away[f"ID{away_sub}"]["battingOrder"] = "901"
+    players_home[f"ID{home_sub}"] = batting_actual(99)
+    players_home[f"ID{home_sub}"]["battingOrder"] = "901"
     players_away[f"ID{AWAY_SP}"] = {
         "stats": {"pitching": {"inningsPitched": "6.0", "strikeOuts": 8, "baseOnBalls": 1, "homeRuns": 1}}
     }
@@ -204,11 +233,18 @@ def feed_fixture() -> dict:
         "stats": {"pitching": {"inningsPitched": "5.0", "strikeOuts": 4, "baseOnBalls": 3, "homeRuns": 2}}
     }
     return {
+        "gameData": {"datetime": {"officialDate": TARGET}},
         "liveData": {
             "boxscore": {
                 "teams": {
-                    "away": {"battingOrder": AWAY_HITTERS, "players": players_away},
-                    "home": {"battingOrder": HOME_HITTERS, "players": players_home},
+                    "away": {
+                        "battingOrder": [*AWAY_HITTERS[:8], away_sub],
+                        "players": players_away,
+                    },
+                    "home": {
+                        "battingOrder": [*HOME_HITTERS[:8], home_sub],
+                        "players": players_home,
+                    },
                 }
             }
         }
@@ -221,7 +257,7 @@ def person_fixture(player_id: int) -> dict:
         "people": [
             {
                 "fullName": f"{kind} {player_id}",
-                "batHand": {"code": "L" if player_id % 3 == 0 else "R"},
+                "batSide": {"code": "L" if player_id % 3 == 0 else "R"},
                 "pitchHand": {"code": "R"},
             }
         ]
@@ -230,6 +266,19 @@ def person_fixture(player_id: int) -> dict:
 
 class FixtureAPI(AsOfMLBAPI):
     """AsOfMLBAPI with the HTTP boundary replaced by canned responses."""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.completed_hitters_calls = 0
+        self.live_hitters_calls = 0
+
+    def get_completed_hitters_for_date(self, game_date=None):
+        self.completed_hitters_calls += 1
+        return super().get_completed_hitters_for_date(game_date)
+
+    def get_hitters_for_date(self, game_date=None, include_projected=False):
+        self.live_hitters_calls += 1
+        return super().get_hitters_for_date(game_date, include_projected)
 
     def _get(self, url: str, params=None):
         params = params or {}
@@ -298,6 +347,16 @@ def main() -> int:
           recent_p.games == 5, f"got {recent_p.games}")
 
     print("\nAS-OF EXPECTED IP — pitcher opportunity input is leakage-safe")
+    check(
+        "raw schedule fixture contains a Spring Training control game",
+        len(api.get_schedule(TARGET)) == 2,
+    )
+    historical_games = api._canonical_games_for_date(TARGET)
+    check(
+        "historical reconstruction excludes Spring Training before feed access",
+        [int(game["gamePk"]) for game in historical_games] == [GAME_PK],
+        str([game.get("gamePk") for game in historical_games]),
+    )
     pitchers = api.get_pitchers_for_date(TARGET)
     check("two probables built", len(pitchers) == 2, f"got {len(pitchers)}")
     if pitchers:
@@ -316,7 +375,13 @@ def main() -> int:
     report = reconstruct(TARGET, config=config, api=api, pit=pit, reslog=reslog, include_pitchers=True)
 
     check("no pipeline error", "error" not in report, str(report.get("error")))
-    check("18 bundles (both lineups)", report["slate"]["bundles"] == 18, f"got {report['slate']['bundles']}")
+    check("18 bundles (both original lineups)", report["slate"]["bundles"] == 18, f"got {report['slate']['bundles']}")
+    check("historical pipeline calls completed original-starter provider",
+          api.completed_hitters_calls >= 1,
+          f"completed calls={api.completed_hitters_calls}")
+    check("historical pipeline never calls live/final lineup provider",
+          api.live_hitters_calls == 0,
+          f"live calls={api.live_hitters_calls}")
     hb = report["hitter_backtest"]
     check("54 matched hitter pairs (18 x 3 cats)", hb["matched_pairs"] == 54, f"got {hb['matched_pairs']}")
     check(
@@ -332,7 +397,7 @@ def main() -> int:
         return res.get(src, {}).get("counts", {})
 
     print("\nRESOLUTION LOG — the A3 scoping evidence")
-    check("lineups: 18 confirmed (persisted battingOrder)", counts("lineup").get("status_confirmed") == 18, str(counts("lineup")))
+    check("lineups: 18 confirmed original starters", counts("lineup").get("status_confirmed") == 18, str(counts("lineup")))
     check("opposing pitcher resolved for all 18", counts("opposing_pitcher").get("resolved") == 18, str(counts("opposing_pitcher")))
     check("statcast: 18 baseline fallbacks (policy)", counts("statcast_profiles").get("baseline_fallback") == 18, str(counts("statcast_profiles")))
     check("platoon splits neutralized (policy)", counts("platoon_splits").get("neutralized", 0) >= 18, str(counts("platoon_splits")))

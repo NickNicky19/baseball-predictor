@@ -126,6 +126,16 @@ def _dict_to_prediction(data: dict[str, Any]) -> DailyPrediction:
         hitter_projections=hitter,
         pitcher_projections=pitcher,
         value_plays=[],
+        market_status=str(data.get("market_status", "RESEARCH_ONLY")),
+        market_policy_sha256=data.get("market_policy_sha256"),
+        market_policy_reason=str(
+            data.get("market_policy_reason", "No market authorization was evaluated.")
+        ),
+        prediction_provenance=(
+            data.get("prediction_provenance")
+            if isinstance(data.get("prediction_provenance"), dict)
+            else None
+        ),
     )
 
 
@@ -211,4 +221,6 @@ def _dict_to_projection(data: dict[str, Any]) -> PropProjection:
         opponent=str(data.get("opponent", "")),
         opposing_pitcher=str(data.get("opposing_pitcher", "")),
         lineup_status=data.get("lineup_status", "unknown"),
+        mlb_game_pk=(int(data["mlb_game_pk"]) if data.get("mlb_game_pk") is not None else None),
+        input_health_flags=tuple(str(flag) for flag in data.get("input_health_flags", [])),
     )

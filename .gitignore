@@ -120,3 +120,18 @@ __pycache__/
 *.pyc
 catboost_info/
 data/lines/
+
+data/market/smartstake/
+
+# Local Codex/runtime scratch state. These are machine-local and must never be
+# part of a release or evidence bundle.
+/.codex-*/
+/.codex_runtime_cache/
+/test-tmp-identity/
+/commit_msg.txt
+
+# Known local scratch exports. The API-key filename is intentionally matched by
+# shape so a credential never needs to be repeated in source control metadata.
+/config/$envODDS_API_KEY=*.txt
+/config/Untitled.txt
+/config/You are an expert Python developer.txt

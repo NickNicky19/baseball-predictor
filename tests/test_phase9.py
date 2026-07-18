@@ -88,12 +88,12 @@ def test_slot_pa_estimator_empirical_prior():
 def test_calibration_engine_hr_coefficient_adjustment():
     engine = BacktestEngine()
     projections = [
-        PropProjection(1, "A", "home_runs", "2026-06-25", 0.8, 0.7),
-        PropProjection(2, "B", "home_runs", "2026-06-25", 0.7, 0.7),
+        PropProjection(1, "A", "home_runs", "2026-06-25", 0.8, 0.7, mlb_game_pk=700001),
+        PropProjection(2, "B", "home_runs", "2026-06-25", 0.7, 0.7, mlb_game_pk=700002),
     ]
     outcomes = [
-        OutcomeRecord(1, "A", "2026-06-25", "home_runs", 0.3),
-        OutcomeRecord(2, "B", "2026-06-25", "home_runs", 0.2),
+        OutcomeRecord(1, "A", "2026-06-25", "home_runs", 0.3, mlb_game_pk=700001),
+        OutcomeRecord(2, "B", "2026-06-25", "home_runs", 0.2, mlb_game_pk=700002),
     ]
     report = engine.evaluate_predictions(projections, outcomes)
     cal = CalibrationEngine(
@@ -108,6 +108,7 @@ def test_walk_forward_validator_runs_folds():
     pairs = pd.DataFrame(
         {
             "player_id": [1, 1, 2, 2, 1, 2],
+            "game_pk": [701001, 701002, 701003, 701004, 701005, 701006],
             "player_name": ["A", "A", "B", "B", "A", "B"],
             "game_date": ["2026-06-20", "2026-06-22", "2026-06-20", "2026-06-25", "2026-06-28", "2026-06-28"],
             "category": ["hrr"] * 6,
@@ -125,6 +126,7 @@ def test_walk_forward_validator_runs_folds():
                 str(row["game_date"]),
                 float(row.get("predicted_value", 2.0)),
                 0.7,
+                mlb_game_pk=int(row["game_pk"]),
             )
             for _, row in train.iterrows()
         ]
@@ -168,14 +170,15 @@ def test_calibration_tracker_brier_score():
         median=2.0,
         p10=1.0,
         p90=3.0,
-        p_ge_threshold={1.5: 0.65},
+        p_ge_threshold={2.0: 0.65},
     )
     projections = [
         PropProjection(1, "A", "hrr", "2026-06-25", 2.0, 0.7, simulation=mc),
     ]
     outcomes = [OutcomeRecord(1, "A", "2026-06-25", "hrr", 2.0)]
     report = CalibrationTracker().evaluate_category(projections, outcomes, "hrr", threshold=1.5)
-    assert report.brier_score >= 0.0
+    # P(H+R+RBI >= 2), not the accidental float-line lookup P(... >= 1.5).
+    assert report.brier_score == 0.1225
 
 
 def test_roi_simulator_flat_stake():
@@ -195,9 +198,10 @@ def test_roi_simulator_flat_stake():
         )
     ]
     outcomes = {("A", "hrr"): 2.0}
-    result = ROISimulator().simulate(plays, outcomes)
+    result = ROISimulator(allow_legacy_research=True).simulate(plays, outcomes)
     assert result.overall is not None
     assert result.overall.wins >= 0
+    assert result.status == "RESEARCH_ONLY"
 
 
 def _projections_from_pairs(train: pd.DataFrame, bias: float) -> list[PropProjection]:

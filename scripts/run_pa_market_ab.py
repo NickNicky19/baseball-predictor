@@ -104,6 +104,12 @@ import duckdb
 import numpy as np
 import pandas as pd
 
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from src.evaluation.identity_keys import MARKET_KEY, MODEL_KEY, require_unique
+
 MARKET_MAP = {
     "player hits": "hits",
     "player home runs": "home_runs",
@@ -148,17 +154,17 @@ def fetch_market(month: str, book: str, hours: int) -> pd.DataFrame:
           AND result IS NOT NULL AND ts < start_time
     ),
     entry AS (
-        SELECT game_id, start_time, player, market, line, side,
+        SELECT game_id AS vendor_game_id, start_time, player, market, line, side,
                arg_max(odds, ts) AS odds, max(ts) AS q_ts
         FROM src WHERE ts <= start_time - INTERVAL {hours} HOUR
         GROUP BY 1,2,3,4,5,6
     ),
     close AS (
-        SELECT game_id, start_time, player, market, line, side,
+        SELECT game_id AS vendor_game_id, start_time, player, market, line, side,
                arg_max(odds, ts) AS odds, any_value(result) AS result
         FROM src GROUP BY 1,2,3,4,5,6
     )
-    SELECT eo.game_id, eo.start_time,
+    SELECT eo.vendor_game_id, eo.start_time,
         CAST(eo.start_time AT TIME ZONE 'UTC'
                            AT TIME ZONE 'America/New_York' AS DATE) AS game_date,
         eo.player, eo.market, eo.line,
@@ -170,26 +176,74 @@ def fetch_market(month: str, book: str, hours: int) -> pd.DataFrame:
         (1.0/co.odds) / ((1.0/co.odds) + (1.0/cu.odds)) AS close_p_over,
         co.result
     FROM entry eo
-    JOIN entry eu USING (game_id, start_time, player, market, line)
-    JOIN close co USING (game_id, start_time, player, market, line)
-    JOIN close cu USING (game_id, start_time, player, market, line)
+    JOIN entry eu USING (vendor_game_id, start_time, player, market, line)
+    JOIN close co USING (vendor_game_id, start_time, player, market, line)
+    JOIN close cu USING (vendor_game_id, start_time, player, market, line)
     WHERE eo.side='over' AND eu.side='under'
       AND co.side='over' AND cu.side='under'
     """).df()
 
 
-def load_model(path: Path, training: Path, tag: str) -> pd.DataFrame:
+def load_model(
+    path: Path, training: Path, tag: str, training_pitchers: Path | None = None
+) -> pd.DataFrame:
     sim = pd.read_csv(path)
-    tr = pd.read_csv(training, low_memory=False)
-    bridge = (tr[["player_id", "game_date", "player_name"]].dropna()
-              .drop_duplicates(subset=["player_id", "game_date"]))
-    pa = (tr[["player_id", "game_date", "out_pa"]].dropna()
-          .drop_duplicates(subset=["player_id", "game_date"]))
-    sim = sim.merge(bridge, on=["player_id", "game_date"], how="inner")
-    sim = sim.merge(pa, on=["player_id", "game_date"], how="left")
-    sim["player_key"] = norm_name(sim["player_name"])
+    require_unique(sim, MODEL_KEY, f"{tag} model")
+    required_training = ["game_pk", "player_id", "player_name", "out_pa", "game_date"]
+    frames = []
+    for source in (training, training_pitchers):
+        if source is None:
+            continue
+        tr = pd.read_csv(source, low_memory=False)
+        missing = [col for col in required_training if col not in tr.columns]
+        if missing:
+            # Pitcher training has no PA, but it still supplies a game/player/name
+            # bridge for strikeout market rows.  Treat its PA as unknown.
+            if source == training_pitchers and set(missing) == {"out_pa"}:
+                tr["out_pa"] = pd.NA
+            else:
+                raise ValueError(f"{source}: missing required training columns {missing}")
+        frames.append(tr[required_training])
+    bridge = pd.concat(frames, ignore_index=True).rename(
+        columns={"game_pk": "mlb_game_pk", "game_date": "training_game_date"}
+    ).copy()
+    # Only the model's requested game universe is relevant. Older training
+    # history may contain an independently bad/reused game_pk, which must not
+    # block a clean, disjoint evaluation window; if it intersects this run,
+    # require_unique below fails loudly.
+    bridge = bridge[bridge["mlb_game_pk"].isin(sim["mlb_game_pk"])]
+    require_unique(bridge, ["mlb_game_pk", "player_id"], "training roster/PA bridge")
+    sim = sim.merge(
+        bridge, on=["mlb_game_pk", "player_id"], how="inner", validate="many_to_one"
+    )
+    date_mismatch = sim[sim["game_date"].astype(str) != sim["training_game_date"].astype(str)]
+    if not date_mismatch.empty:
+        raise ValueError(
+            "model/training game dates disagree for the same mlb_game_pk\n"
+            f"{date_mismatch.head(20).to_string(index=False)}"
+        )
+    sim = sim.drop(columns="training_game_date")
     sim = sim.rename(columns={"sim_p_over": f"p_{tag}"})
-    return sim[["game_date", "player_key", "category", "line", "out_pa", f"p_{tag}"]]
+    return sim[[*MODEL_KEY, "game_date", "out_pa", f"p_{tag}"]]
+
+
+def load_crosswalk(path: Path) -> pd.DataFrame:
+    """Load the auditable SmartStake-to-MLB mapping; never resolve by name here."""
+    crosswalk = pd.read_csv(path)
+    required = ["vendor_game_id", "start_time", "player_key", "mlb_game_pk", "player_id"]
+    missing = [col for col in required if col not in crosswalk.columns]
+    if missing:
+        raise ValueError(f"{path}: missing crosswalk columns {missing}")
+    crosswalk = crosswalk[required].copy()
+    crosswalk["start_time"] = pd.to_datetime(crosswalk["start_time"], utc=True)
+    crosswalk["mlb_game_pk"] = pd.to_numeric(crosswalk["mlb_game_pk"], errors="coerce").astype("Int64")
+    crosswalk["player_id"] = pd.to_numeric(crosswalk["player_id"], errors="coerce").astype("Int64")
+    require_unique(
+        crosswalk,
+        ["vendor_game_id", "start_time", "player_key"],
+        "SmartStake-to-MLB player crosswalk",
+    )
+    return crosswalk
 
 
 def arm_stats(j: pd.DataFrame, tag: str, min_edge: float,
@@ -298,6 +352,13 @@ def block_bootstrap_diff(x: np.ndarray, y: np.ndarray, dates: np.ndarray,
 
 
 def main(argv=None) -> int:
+    # Retained only as auditable code archaeology. Its scorer reads the vendor
+    # numeric result, which is now a disqualified target. Keeping this guard at
+    # the execution boundary prevents a new-looking CSV from being mistaken for
+    # a valid market result.
+    from src.evaluation.retired_market_evaluators import retired_market_evaluator_exit
+    return retired_market_evaluator_exit(Path(__file__).name)
+
     ap = argparse.ArgumentParser()
     ap.add_argument("--frozen", required=True, help="sim_probs from config.json")
     ap.add_argument("--candidate", required=True, help="sim_probs from config.pa.json")
@@ -309,6 +370,12 @@ def main(argv=None) -> int:
     ap.add_argument("--void-min-pa", type=int, default=2)
     ap.add_argument("--training",
                     default="data/training/training_hitters_2023_2026.csv.gz")
+    ap.add_argument("--training-pitchers",
+                    default="data/training/training_pitchers_2023_2026.csv.gz")
+    ap.add_argument("--crosswalk", required=True,
+                    help="auditable SmartStake-to-MLB crosswalk CSV from build_smartstake_crosswalk.py")
+    ap.add_argument("--strict-crosswalk", action="store_true", default=True,
+                    help="fail if any market row cannot be mapped uniquely (default)")
     ap.add_argument("--b", type=int, default=4000)
     ap.add_argument("--seed", type=int, default=7)
     ap.add_argument("--out", default="data/market/pa_market_ab.csv")
@@ -320,12 +387,15 @@ def main(argv=None) -> int:
     args = ap.parse_args(argv)
 
     tr = Path(args.training)
-    fz = load_model(Path(args.frozen), tr, "frozen")
-    cd = load_model(Path(args.candidate), tr, "cand")
+    tr_pitchers = Path(args.training_pitchers)
+    fz = load_model(Path(args.frozen), tr, "frozen", tr_pitchers)
+    cd = load_model(Path(args.candidate), tr, "cand", tr_pitchers)
+    require_unique(fz, MODEL_KEY, "frozen model")
+    require_unique(cd, MODEL_KEY, "candidate model")
 
     # ---- the PAIRED join: same selection, both models ---------------------
-    m = fz.merge(cd.drop(columns=["out_pa"]),
-                 on=["game_date", "player_key", "category", "line"], how="inner")
+    m = fz.merge(cd.drop(columns=["out_pa", "game_date"]),
+                 on=MODEL_KEY, how="inner", validate="one_to_one")
     print(f"[model] frozen {len(fz):,} | candidate {len(cd):,} | "
           f"PAIRED {len(m):,} rows, {m.game_date.nunique()} dates")
     if m.empty:
@@ -380,13 +450,31 @@ def main(argv=None) -> int:
     raw = raw[raw.entry_age_min <= args.max_quote_age]
 
     raw["category"] = raw["market"].map(MARKET_MAP)
-    raw["player_key"] = norm_name(raw["player"])
     raw["game_date"] = pd.to_datetime(raw.game_date).dt.strftime("%Y-%m-%d")
-    raw = (raw.sort_values("start_time")
-              .drop_duplicates(subset=["game_date", "player_key", "market", "line"],
-                               keep="first"))
+    raw["start_time"] = pd.to_datetime(raw["start_time"], utc=True)
+    raw["player_key"] = norm_name(raw["player"])
+    crosswalk = load_crosswalk(Path(args.crosswalk))
+    before_crosswalk = len(raw)
+    raw = raw.merge(
+        crosswalk,
+        on=["vendor_game_id", "start_time", "player_key"],
+        how="left",
+        validate="many_to_one",
+        indicator=True,
+    )
+    unmatched = raw[raw["_merge"] != "both"]
+    if not unmatched.empty:
+        sample = unmatched[["vendor_game_id", "start_time", "player"]].head(20)
+        message = f"{len(unmatched)} market rows have no unique MLB crosswalk\n{sample.to_string(index=False)}"
+        if args.strict_crosswalk:
+            raise ValueError(message)
+        print(f"[crosswalk] excluding {message}", file=sys.stderr)
+    raw = raw[raw["_merge"] == "both"].drop(columns="_merge")
+    if len(raw) != before_crosswalk:
+        print(f"[crosswalk] mapped {len(raw):,}/{before_crosswalk:,} market rows")
+    require_unique(raw, MARKET_KEY, "mapped market quotes")
 
-    j = m.merge(raw, on=["game_date", "player_key", "category", "line"], how="inner")
+    j = m.merge(raw, on=MARKET_KEY, how="inner", validate="one_to_one")
     if args.void_min_pa > 0:
         j = j[(j.out_pa.isna()) | (j.out_pa >= args.void_min_pa)]
     if j.empty:

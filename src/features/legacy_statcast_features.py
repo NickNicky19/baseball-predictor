@@ -9,12 +9,17 @@ see ``RichFeatureEnricher`` for additive rich features on top of profiles.
 from __future__ import annotations
 
 from dataclasses import replace
+from datetime import date, timedelta
 from typing import Optional
 
 import pandas as pd
 
 from src.data.savant import SavantClient
 from src.data.statcast_distributions import StatcastDistributionBuilder
+from src.evaluation.hits_contact_adapter import (
+    HitsContactAdapterSettings,
+    build_contact_adapter_evidence,
+)
 from src.models.dataclasses import (
     HitterGameContext,
     LeagueBaselines,
@@ -38,13 +43,21 @@ class StatcastFeatureEngine:
         league_baselines: Optional[LeagueBaselines] = None,
         lookback_days: int = 45,
         min_pa: int = 8,
+        derive_batted_ball_rates: bool = False,
+        config: Optional[dict] = None,
     ):
         self.league = league_baselines or LeagueBaselines()
+        self.derive_batted_ball_rates = bool(derive_batted_ball_rates)
         self.savant = SavantClient(
             league_baselines=self.league,
             lookback_days=lookback_days,
             min_pa=min_pa,
+            derive_batted_ball_rates=self.derive_batted_ball_rates,
         )
+        self.hits_contact_adapter = HitsContactAdapterSettings.from_config(
+            config or {}
+        )
+        self._hits_contact_evidence: dict[int, dict] = {}
 
     def build_profiles_from_statcast_df(
         self, statcast_df: pd.DataFrame
@@ -58,7 +71,9 @@ class StatcastFeatureEngine:
         self._calibrate_contact_baselines(statcast_df)
 
         raw = self.savant.build_hitter_profiles_from_statcast(statcast_df)
-        dist_builder = StatcastDistributionBuilder()
+        dist_builder = StatcastDistributionBuilder(
+            derive_batted_ball_rates=self.derive_batted_ball_rates
+        )
         distributions = dist_builder.build_from_statcast_df(statcast_df)
         merged = dist_builder.attach_to_profiles(raw, distributions)
         return {pid: self.enrich_profile(p) for pid, p in merged.items()}
@@ -107,17 +122,40 @@ class StatcastFeatureEngine:
         self,
         game_date: Optional[str] = None,
         savant_csv_path: Optional[str] = None,
+        active_player_ids: Optional[list[int]] = None,
     ) -> dict[int, StatcastProfile]:
         """
-        Build profiles for a date from live Statcast and/or a local Savant CSV.
+        Build pregame profiles from Statcast rows strictly before ``game_date``.
 
         CSV profiles override live Statcast when both exist for the same player.
+
+        ``pybaseball.statcast`` treats its end date as inclusive. Passing the
+        target game date therefore admits that game's completed batted balls
+        into a historical reconstruction. Use the preceding calendar date so
+        every profile is available before the target date begins. When no date
+        is supplied, today's live slate follows the same fail-closed boundary.
         """
         profiles: dict[int, StatcastProfile] = {}
 
-        statcast_df = self.savant.fetch_statcast_range(end_date=game_date)
+        target_date = date.fromisoformat(game_date) if game_date else date.today()
+        if self.hits_contact_adapter is not None and game_date is None:
+            raise ValueError("hits-contact candidate requires an explicit target date")
+        if self.hits_contact_adapter is not None and savant_csv_path:
+            raise ValueError(
+                "hits-contact candidate cannot mix an unbound Savant CSV override"
+            )
+        last_completed_date = (target_date - timedelta(days=1)).isoformat()
+        statcast_df = self.savant.fetch_statcast_range(end_date=last_completed_date)
         if not statcast_df.empty:
             profiles.update(self.build_profiles_from_statcast_df(statcast_df))
+        self._hits_contact_evidence = {}
+        if self.hits_contact_adapter is not None:
+            self._hits_contact_evidence = build_contact_adapter_evidence(
+                statcast_df,
+                active_player_ids=active_player_ids or [],
+                target_date=target_date.isoformat(),
+                settings=self.hits_contact_adapter,
+            )
 
         if savant_csv_path:
             csv_profiles = self.savant.build_hitter_profiles_from_csv(savant_csv_path)
@@ -135,7 +173,12 @@ class StatcastFeatureEngine:
         player_id = hitter.player.mlb_id
         if player_id in profiles:
             profile = profiles[player_id]
-            if profile.player_name in ("", "Unknown"):
+            if profile.player_id != player_id:
+                raise ValueError(
+                    f"Statcast profile identity mismatch: key={player_id}, "
+                    f"profile.player_id={profile.player_id}"
+                )
+            if profile.player_name != hitter.player.name:
                 profile = replace(profile, player_name=hitter.player.name)
             return self.enrich_profile(profile)
         return self.enrich_profile(
@@ -149,11 +192,26 @@ class StatcastFeatureEngine:
         savant_csv_path: Optional[str] = None,
     ) -> dict[int, StatcastProfile]:
         """Build or resolve StatcastProfile for every hitter on a slate."""
-        pool = self.build_profiles_for_date(game_date, savant_csv_path)
-        return {
-            h.player.mlb_id: self.resolve_profile_for_hitter(h, pool)
-            for h in hitters
-        }
+        active_player_ids = [h.player.mlb_id for h in hitters]
+        pool = self.build_profiles_for_date(
+            game_date,
+            savant_csv_path,
+            active_player_ids=active_player_ids,
+        )
+        resolved: dict[int, StatcastProfile] = {}
+        for hitter in hitters:
+            player_id = hitter.player.mlb_id
+            profile = self.resolve_profile_for_hitter(hitter, pool)
+            adapter = self._hits_contact_evidence.get(player_id)
+            if adapter and adapter["status"] == "adapter_applied":
+                profile = replace(profile, xba=float(adapter["fitted_contact_xba"]))
+            resolved[player_id] = profile
+        return resolved
+
+    def hits_contact_evidence_for(self, player_id: int) -> Optional[dict]:
+        """Return the factual candidate status for one active hitter, if enabled."""
+        evidence = self._hits_contact_evidence.get(int(player_id))
+        return dict(evidence) if evidence is not None else None
 
     def enrich_profile(self, profile: StatcastProfile) -> StatcastProfile:
         """

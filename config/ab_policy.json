@@ -1,0 +1,92 @@
+{
+  "_comment": "THE PARAMETERS THAT DEFINE WHAT A BET IS, AND WHICH ROWS COUNT AT ALL. Hashing a number records a CHOICE; it does not make that choice LEGITIMATE. Every parameter declares its ORIGIN. Any parameter with origin='placeholder' makes the WHOLE RUN research_only: it may establish a baseline and reveal where information is missing, but it MAY NOT claim the +0.10 capture bar and MAY NOT authorize betting. This is rule 2 applied to the EVALUATOR -- we were strict about hand-picked numbers inside the model while the numbers deciding WHICH ROWS ARE BETS went unquestioned for the entire project.",
+
+  "_v3_correction_1": "v1/v2 conflated a conditional DraftKings Early Exit promotion with the base MLB pregame settlement rule. The published base rule is: a pregame hitter selection must start and record at least one plate appearance; a substitute selection is void. The PA>=2 / under-exempt language belongs to a separate conditional Early Exit program and cannot be inferred from a final box score alone. The runner currently applies neither rule; it only uses SmartStake `result IS NOT NULL` as a settlement-presence proxy. That proxy remains a PLACEHOLDER until it is audited against a game-keyed official starter/PA bridge. No historical result may claim the base rule, much less the conditional promotion, until its inputs and scope are verified.",
+
+  "_v2_correction_2": "v1 justified entry_hours and book with PROSE asserting a measurement ('MEASURED and recorded: CLV rises T-1h +0.0003 -> T-6h +0.0024'). *** PROSE ASSERTING A MEASUREMENT IS NOT A MEASUREMENT. *** A structural claim must point at a CHECKABLE, HASHED ARTIFACT, or it is a claim wearing a badge. Both now carry evidence_artifact: null, and both are marked UNVERIFIED until those artifacts exist.",
+
+  "policy_version": "research-2026-07-13-v3",
+
+  "parameters": {
+    "min_edge": {
+      "value": 0.04,
+      "origin": "placeholder",
+      "what_it_does": "A selection is a BET iff |p_model - p_entry_devig| >= this. It DEFINES THE DENOMINATOR of the capture ratio, which is computed ON BETS ONLY.",
+      "why_placeholder": "Inherited from run_pa_market_ab.py. Never fitted, never derived from a staking rule, never validated. A different threshold selects a DIFFERENT SUBSET and yields a DIFFERENT capture ratio -- so the headline is a statistic about an arbitrary subset until this is justified.",
+      "what_would_justify_it": "A fitted threshold from a staking model, or a predeclared structural rule (e.g. the minimum edge at which this book's measured overround is cleared).",
+      "evidence_artifact": null
+    },
+
+    "max_quote_age": {
+      "value": 90,
+      "unit": "minutes",
+      "origin": "placeholder",
+      "what_it_does": "Discards an entry quote whose last update predates the T-Nh horizon by more than this -- a STALE price nobody could actually have taken.",
+      "why_placeholder": "Inherited. Never measured against the actual quote-age distribution. If that distribution is bimodal, 90 could be cutting straight through a mode.",
+      "what_would_justify_it": "Measure the quote-age distribution; place the boundary at a MEASURED gap, or defend a structural rule about book refresh cadence.",
+      "evidence_artifact": null
+    },
+
+    "min_bets_for_capture": {
+      "value": 30,
+      "origin": "placeholder",
+      "what_it_does": "Below this many bets, capture reports n/a rather than a number. Stops a ratio computed on a handful of rows being read as evidence.",
+      "why_placeholder": "A round number. The PRINCIPLE is sound and non-negotiable (a capture ratio on 3 bets is a lie); the SPECIFIC VALUE is arbitrary.",
+      "what_would_justify_it": "A power calculation: the n at which the block-bootstrap CI on capture narrows below the effect size we care about.",
+      "evidence_artifact": null
+    },
+
+    "settlement_presence_rule": {
+      "value": "SmartStake `result IS NOT NULL`, selection-level (bool_or over snapshots)",
+      "origin": "placeholder",
+      "what_it_does": "Excludes selections with no vendor settlement presence. This is the ONLY use of the vendor's `result` column anywhere in the runner -- its VALUE never enters the score.",
+      "why_placeholder": "*** IT IS NOT PROVEN EQUIVALENT TO DRAFTKINGS' ACTUAL VOID/GRADING RULES. *** DraftKings' published BASE MLB pregame rule requires a hitter to start and record at least one plate appearance; a substitute is void. The PA>=2 / under-exempt language previously written here belongs to a separate conditional Early Exit program, not the base rule, and cannot be inferred from a box score without product/event eligibility evidence. The runner implements none of this: no official starter/PA bridge, only vendor result-null. A selection DK would void is not the same thing as a selection the vendor did not grade, and the two have never been compared.",
+      "why_it_matters": "Already MEASURED to be material: regrading hits 0.5 from all-rows to DK-gradeable moved the apparent bias from +0.1146 to +0.0687. *** ~40% OF IT WAS A GRADING ARTIFACT. *** If this proxy disagrees with DK's real rule, that correction is being re-approximated by a different rule with unknown agreement.",
+      "what_would_justify_it": "Build a separate game-keyed official starter/PA bridge containing EVERY box-score hitter (not the starter-only model-training table). Compare vendor-null against DraftKings' published BASE rule, side-aware but without inventing an under exemption. Conditional Early Exit treatment remains unverified unless the historical product/event eligibility data exists.",
+      "evidence_artifact": null
+    },
+
+    "base_pregame_hitter_eligibility_rule": {
+      "value": "official_starter AND official_pa >= 1",
+      "origin": "predeclared_structural_UNVERIFIED",
+      "what_it_does": "Defines the documented BASE DraftKings pregame hitter eligibility rule used by the separate base-rule research artifact. A player who did not start, or who started but recorded zero PA, is void under the published base rule.",
+      "why_unverified": "The current published rule was checked from DraftKings' official help and baseball-rules pages, but this project does not possess historical DraftKings settlement logs or product-level eligibility flags for June 2026. It must therefore remain research-only. Conditional Early Exit protection is deliberately NOT encoded: final PA alone cannot prove its injury/product/event prerequisites.",
+      "evidence_artifact": "data/market/v3/official_hitter_eligibility_manifest.json",
+      "evidence_needed": "A side/product-level historical settlement log or an independently archived rule/version that establishes the base rule and any Early Exit applicability for the evaluated June 2026 products."
+    },
+
+    "entry_hours": {
+      "value": 4,
+      "unit": "hours before first pitch",
+      "origin": "predeclared_structural_UNVERIFIED",
+      "what_it_does": "The entry horizon. Edge is measured against the price available at T-4h; CLV against the close.",
+      "why_structural": "A deliberate modelling decision about WHEN a bet would be placed, not an unexamined default. It is claimed to rest on a measured finding: that CLV rises with lead time (T-1h +0.0003 -> T-6h +0.0024).",
+      "why_unverified": "*** THAT CLAIM IS PROSE, NOT AN ARTIFACT. *** It lives in a handoff document, not in a hashed, re-runnable output. Until it points at something checkable, origin='predeclared_structural' is doing work it has not earned. This alone does not force research-only -- but it is NOT yet a justified structural choice.",
+      "evidence_artifact": null,
+      "evidence_needed": "The CLV-by-lead-time table as a hashed artifact, regenerable from the market data."
+    },
+
+    "book": {
+      "value": "draftkings",
+      "origin": "predeclared_structural_UNVERIFIED",
+      "what_it_does": "*** THE PRICE VENUE, AND ONLY THAT. *** DK supplies the entry price and the close. It does NOT, in this runner, supply a void/grading regime -- that is settlement_presence_rule, a SEPARATE and UNVERIFIED proxy. Do not conflate them.",
+      "why_structural": "A real modelling decision: prices, liquidity and overround differ by book, and the entire capture measurement is against THIS book's line.",
+      "why_unverified": "Also prose. And note the project has already been wrong about venues once, from general knowledge: 'exchanges run near-zero vig' was asserted and then MEASURED -- prophetx came back at 0.0777, the WORST of any venue (rule 9).",
+      "evidence_artifact": null,
+      "evidence_needed": "A per-book overround / closing-sharpness table as a hashed artifact, to justify DK over Pinnacle or an exchange."
+    }
+  },
+
+  "verdict": "RESEARCH_ONLY",
+
+  "verdict_reason": "FOUR parameters carry origin='placeholder': min_edge, max_quote_age, min_bets_for_capture, and settlement_presence_rule. TWO MORE (entry_hours, book) claim structural status on PROSE rather than a checkable artifact. The run may establish a trustworthy BASELINE and reveal where information is missing. It MAY NOT claim the +0.10 capture bar and MAY NOT authorize betting. This is not a formality: capture is computed ON BETS ONLY; min_edge decides which rows ARE bets; settlement_presence_rule decides which rows are SCOREABLE AT ALL. An unjustified pair of those makes the headline a statistic about an ARBITRARY SUBSET of an UNVERIFIED UNIVERSE.",
+
+  "path_out_of_research_only": [
+    "settlement_presence_rule -- vendor-null was falsified as a DK base-rule proxy (June broad audit: 815 false inclusions among 5,800 role-resolved hard-mapped two-sided selections). Do not use it to define a DK-scored universe.",
+    "base_pregame_hitter_eligibility_rule -- maintain the official starter/PA bridge and keep the base-rule artifact research-only until historical product/rule applicability is independently established. Do not infer conditional Early Exit eligibility from PA alone.",
+    "entry_hours / book -- regenerate the CLV-by-lead-time and per-book sharpness tables as HASHED artifacts. They may well confirm the current choices; a confirmation you cannot re-run is not evidence.",
+    "min_edge -- derive from a staking rule, or declare a structural threshold tied to the measured overround.",
+    "max_quote_age -- measure the quote-age distribution; place the boundary at a measured gap.",
+    "min_bets_for_capture -- power calculation against the block-bootstrap CI width."
+  ]
+}

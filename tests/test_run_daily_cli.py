@@ -25,6 +25,17 @@ def test_parse_args_defaults():
     assert args.category == "hrr"
     assert resolve_corrections(args) is None
     assert resolve_edges(args) is None
+    assert args.persist_features is False
+
+
+def test_parse_args_persist_features_is_explicit_and_inert_by_default():
+    assert parse_args(["--persist-features"]).persist_features is True
+    assert parse_args([]).persist_features is False
+
+
+def test_parse_args_prediction_provenance_is_explicit_and_inert_by_default():
+    assert parse_args(["--capture-prediction-provenance"]).capture_prediction_provenance is True
+    assert parse_args([]).capture_prediction_provenance is False
 
 
 def test_parse_args_corrections_flags():
@@ -39,6 +50,7 @@ def test_projection_rows_shape():
     rows = projection_rows([proj], "2026-07-01")
     assert rows[0]["player"] == "Test"
     assert rows[0]["projected"] == 2.1
+    assert rows[0]["input_health"] == "not_assessed"
 
 
 def test_value_play_rows():
