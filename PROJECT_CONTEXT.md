@@ -176,10 +176,10 @@ Relevant implementation:
   .github/workflows/shadow-evidence-verifier.yml
   deploy/shadow_collector/
 
-Offline readiness is 201/201. The refreshed readiness artifact is:
+Offline readiness is 204/204. The refreshed readiness artifact is:
 
-  reports/forward_shadow_readiness_v18.json
-  sha256 f0d39e1d4a2eda714db8cd677580b9790126ab21204e45d91e4f9d92f1b2d276
+  reports/forward_shadow_readiness_v19.json
+  sha256 cb514e111b6768602714b54f834cf79dcced068d912f37fc9c0689bcfb15da86
 
 Release preflight found and closed one additional fail-open seam: the economic
 evidence clean-tree check had ignored nonignored untracked files. It now treats
@@ -224,13 +224,13 @@ replication remain downstream work. No forward-shadow authorization exists yet.
 
 A no-cost local Windows smoke scope is now prepared and independently validated:
 
-  data/learning/shadow/operational_smoke_v7/evidence_scope.json
-  scope_sha256 a3053acd9f8594b7b6b2e250a63919eaad39397399a162433702e437e370ef25
-  file_sha256 7fcd7a1dd1db4c67b9c40f866cdd87b1f729763f4e70b97b17fd6c9eac43061d
+  data/learning/shadow/operational_smoke_v8/evidence_scope.json
+  scope_sha256 bffd9c1c887cb579074095287d93e52fd749bb31480ba6f5046d75f92bfe99b6
+  file_sha256 5274282c74e2389e799dde85a2ae5108cfa857a63af89b951617af091960162f
 
-  data/learning/shadow/operational_smoke_v7/runtime_manifest.json
+  data/learning/shadow/operational_smoke_v8/runtime_manifest.json
   fingerprint_sha256 55747f459e86b04740ca74f75750b5d9ab140582f5b3f54619a0f314357c5b94
-  file_sha256 5e1c649d03e6f1f50a01bc324604fb3d68677ea91e3d299d28580e217ff66270
+  file_sha256 1425b51220e271d528fd8698038b36e1ca9db3a267385b71d27c29b7af0e4da7
 
 The bound local runner accepts only this permanently non-economic smoke class,
 validates the exact runtime fingerprint before showing the hidden credential

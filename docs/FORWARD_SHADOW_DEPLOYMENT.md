@@ -41,7 +41,7 @@ not guaranteed and one fixed cron cannot represent T-4h for staggered games.
 The first real lifecycle smoke may run on the local Windows computer before a
 paid external host is selected. It is permanently excluded from economic
 evidence and cannot become the durable primary collector. The prepared scope
-is `data/learning/shadow/operational_smoke_v7/evidence_scope.json`. Its separate
+is `data/learning/shadow/operational_smoke_v8/evidence_scope.json`. Its separate
 `runtime_manifest.json` freezes the exact Python executable, interpreter,
 platform, OpenSSL, and installed distribution versions before credential entry.
 
@@ -51,7 +51,7 @@ normal PowerShell window:
 ```powershell
 powershell -ExecutionPolicy Bypass -File `
   .\deploy\shadow_collector\windows\Run-LocalOperationalSmoke.ps1 `
-  -ServiceRoot .\data\learning\shadow\operational_smoke_v7 `
+  -ServiceRoot .\data\learning\shadow\operational_smoke_v8 `
   -PythonExe "$env:LOCALAPPDATA\Python\pythoncore-3.14-64\python.exe"
 ```
 
@@ -150,9 +150,11 @@ evidence clears every locked gate, all artifacts remain `RESEARCH_ONLY` and
 `betting_authorized=false`.
 
 The current credential-free readiness certificate is
-`reports/forward_shadow_readiness_v18.json`, SHA-256
-`f0d39e1d4a2eda714db8cd677580b9790126ab21204e45d91e4f9d92f1b2d276`.
-It records 201/201 passing local guards. This proves code readiness only; it
+`reports/forward_shadow_readiness_v19.json`, SHA-256
+`cb514e111b6768602714b54f834cf79dcced068d912f37fc9c0689bcfb15da86`.
+It records 204/204 passing local guards. The durable tick entry point now has
+explicit mutations proving that a missing scope or rejected runtime stops before
+MLB client initialization. This proves code readiness only; it
 does not prove deployment, live executability, profitability, or authorization.
 
 The first prospective economic look is locked by

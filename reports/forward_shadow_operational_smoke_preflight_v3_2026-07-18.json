@@ -1,0 +1,71 @@
+{
+  "schema_version": "forward-shadow-operational-smoke-preflight-v3",
+  "built_at_utc": "2026-07-18T05:20:35Z",
+  "status": "READY_FOR_ROTATED_CREDENTIAL_AND_USER_START",
+  "research_only": true,
+  "betting_authorized": false,
+  "live_request_made": false,
+  "operational_smoke_started": false,
+  "economic_evidence_eligible": false,
+  "source_commit": "87458df73c12ff6b05485e3dc6a503e3e856ab83",
+  "readiness": {
+    "path": "reports/forward_shadow_readiness_v19.json",
+    "sha256": "cb514e111b6768602714b54f834cf79dcced068d912f37fc9c0689bcfb15da86",
+    "guards_passed": 204,
+    "guards_expected": 204
+  },
+  "evidence_scope": {
+    "path": "data/learning/shadow/operational_smoke_v8/evidence_scope.json",
+    "file_sha256": "5274282c74e2389e799dde85a2ae5108cfa857a63af89b951617af091960162f",
+    "scope_sha256": "bffd9c1c887cb579074095287d93e52fd749bb31480ba6f5046d75f92bfe99b6",
+    "mode": "operational_smoke",
+    "economic_evidence_eligible": false
+  },
+  "runtime_manifest": {
+    "path": "data/learning/shadow/operational_smoke_v8/runtime_manifest.json",
+    "file_sha256": "1425b51220e271d528fd8698038b36e1ca9db3a267385b71d27c29b7af0e4da7",
+    "fingerprint_sha256": "55747f459e86b04740ca74f75750b5d9ab140582f5b3f54619a0f314357c5b94",
+    "python": "CPython 3.14.6",
+    "platform": "Windows 11 AMD64",
+    "installed_distribution_count": 114,
+    "contains_secrets": false
+  },
+  "local_runner": {
+    "path": "deploy/shadow_collector/windows/Run-LocalOperationalSmoke.ps1",
+    "sha256": "d686fe28096002668a5a9a628abb7fbff56166a8d135c10345276ec1d7a1c300",
+    "credential_input": "hidden SecureString prompt",
+    "credential_transport": "child-process environment only",
+    "credential_persisted": false,
+    "scope_validation_before_api_initialization": true,
+    "runtime_validation_before_prompt": true,
+    "durable_forward_primary": false
+  },
+  "verified_preflight": [
+    "current operational-smoke scope validates and is permanently non-economic",
+    "the systemd collector tick validates service-root evidence scope and runtime before MLB client initialization",
+    "missing evidence scope and runtime-manifest rejection mutations stop before schedule, model, or provider work",
+    "the scope binds the exact Python executable, platform, OpenSSL, and installed distribution inventory",
+    "runtime or package drift is rejected before credential entry or a provider request",
+    "the runtime manifest uses an exact secret-free schema and internal content hash",
+    "scope and runtime-manifest publication are crash-atomic",
+    "local runner accepts the operational-smoke scope using the exact frozen runtime",
+    "mutation to forward_evidence scope is rejected",
+    "economic-era validation rejects a different running commit or any nonignored worktree drift",
+    "portable LF checkout normalization is bound by the readiness certificate",
+    "tracked-source credential scan passes without exposing values"
+  ],
+  "required_user_actions": [
+    "rotate the previously exposed odds-provider credential in the provider dashboard",
+    "do not paste the replacement credential into chat, source, a command line, or a report",
+    "start the v8 local smoke runner from an ordinary PowerShell window using its hidden prompt and the frozen Python runtime",
+    "keep the PowerShell window open and the computer awake through prestart and official settlement"
+  ],
+  "still_blocked_after_smoke": [
+    "clean scoped source release and immutable forward-evidence scope",
+    "durable always-on external primary collector",
+    "GitHub read-only verifier credentials and host-key pinning",
+    "account-visible product evidence for Onyx, Novig, Chalkboard, and PrizePicks",
+    "56 complete future official-date blocks before the first economic look"
+  ],
+  "interpretation": "This preflight proves only that the local excluded smoke is ready to start after credential rotation and that both the Windows runner and durable tick fail closed on scope/runtime drift. It does not prove live reliability, executability, profitability, settlement agreement, or betting authorization."
+}
