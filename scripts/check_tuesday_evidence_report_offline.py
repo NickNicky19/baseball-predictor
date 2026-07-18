@@ -69,6 +69,21 @@ def main() -> int:
     checks.append(("pitcher-K audit hash mutation is caught", pitcher_hash_caught))
     checks.append(("runtime secret mutation is caught", caught(items, lambda x: x["operational_smoke_runtime"].__setitem__("contains_secrets", True))))
 
+    original_source_release = report._source_release
+    try:
+        unpublished = copy.deepcopy(built["source_release"])
+        unpublished["reporting_layer_committed"] = True
+        unpublished["upstream_publication"]["head_present_on_upstream"] = False
+        report._source_release = lambda: unpublished
+        unpublished_report = report.build_report(bound, items)
+    finally:
+        report._source_release = original_source_release
+    checks.append((
+        "unpublished source commit cannot be reported as a completed publication gate",
+        unpublished_report["status"] == "REPORTING_LAYER_UNPUBLISHED_RESEARCH_ONLY"
+        and not any("present on the configured upstream" in gate for gate in unpublished_report["completed_gates"]),
+    ))
+
     passed = sum(ok for _, ok in checks)
     for label, ok in checks:
         print(f"[{'OK' if ok else 'FAIL'}] {label}")

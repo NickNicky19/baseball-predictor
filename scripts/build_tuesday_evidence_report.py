@@ -208,6 +208,51 @@ def _git_head() -> str:
     return commit
 
 
+def _git_upstream_state(head: str) -> dict[str, Any]:
+    upstream_result = subprocess.run(
+        ["git", "rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{upstream}"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if upstream_result.returncode != 0:
+        return {
+            "upstream": None,
+            "ahead": None,
+            "behind": None,
+            "head_present_on_upstream": False,
+        }
+    upstream = upstream_result.stdout.strip()
+    counts = subprocess.run(
+        ["git", "rev-list", "--left-right", "--count", f"{upstream}...{head}"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if counts.returncode != 0:
+        raise ValueError("source release upstream divergence is unavailable")
+    pieces = counts.stdout.split()
+    if len(pieces) != 2:
+        raise ValueError("source release upstream divergence is malformed")
+    behind, ahead = (int(value) for value in pieces)
+    published = subprocess.run(
+        ["git", "merge-base", "--is-ancestor", head, upstream],
+        cwd=ROOT,
+        capture_output=True,
+        check=False,
+    )
+    if published.returncode not in (0, 1):
+        raise ValueError("source release upstream ancestry is unavailable")
+    return {
+        "upstream": upstream,
+        "ahead": ahead,
+        "behind": behind,
+        "head_present_on_upstream": published.returncode == 0,
+    }
+
+
 def _head_file_sha256(relative: str) -> str | None:
     result = subprocess.run(
         ["git", "show", f"HEAD:{relative}"],
@@ -221,6 +266,7 @@ def _head_file_sha256(relative: str) -> str | None:
 
 
 def _source_release() -> dict[str, Any]:
+    head = _git_head()
     current_files: dict[str, dict[str, Any]] = {}
     for relative in (
         "GOAL_TUESDAY_MARKET_AUTHORIZATION.md",
@@ -234,12 +280,20 @@ def _source_release() -> dict[str, Any]:
             "head_sha256": head_sha,
             "matches_head": disk_sha == head_sha,
         }
+    branch = subprocess.run(
+        ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=True,
+    ).stdout.strip()
     return {
-        "commit": _git_head(),
-        "branch": "codex/hits-forward-evidence-release",
+        "commit": head,
+        "branch": branch,
         "reporting_layer_committed": all(
             item["matches_head"] for item in current_files.values()
         ),
+        "upstream_publication": _git_upstream_state(head),
         "current_files": current_files,
     }
 
@@ -407,6 +461,10 @@ def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, An
         status = "REPORTING_LAYER_UNCOMMITTED_RESEARCH_ONLY"
         action = "Commit and publish the strengthened goal and mutation-tested reporting layer before treating this report as immutable evidence."
         why = "The report correctly detected that its own goal or builder bytes are not yet contained in the stated source commit."
+    elif not source_release["upstream_publication"]["head_present_on_upstream"]:
+        status = "REPORTING_LAYER_UNPUBLISHED_RESEARCH_ONLY"
+        action = "Publish the exact committed reporting release to its configured trusted upstream before treating it as shared immutable evidence."
+        why = "The reporting layer is committed locally, but the exact source commit is not present on the configured upstream reference."
     elif smoke["verified_complete"]:
         status = "SMOKE_VERIFIED_FORWARD_ERA_NOT_STARTED_RESEARCH_ONLY"
         action = "Prepare a clean checkout of the immutable release, deploy the durable external primary, and create the new hash-bound forward evidence era."
@@ -436,7 +494,12 @@ def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, An
             "official MLB final-feed outcome and settlement workers implemented",
             "immutable ledger and exclusion funnels implemented",
             "public rules observations retained separately for four execution products",
-            "source release committed and pushed with readiness-bound hashes",
+            "source release committed with readiness-bound hashes",
+            *(
+                ["exact source commit present on the configured upstream reference"]
+                if source_release["upstream_publication"]["head_present_on_upstream"]
+                else []
+            ),
             "exact secret-free Python/runtime fingerprint bound to the operational smoke",
         ],
         "operational_smoke": smoke,
