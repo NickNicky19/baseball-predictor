@@ -209,6 +209,7 @@ def main() -> int:
         })
         verified_successor.update({
             "artifact_chain_validated": True,
+            "release_identity_matches_scope": True,
             "certificate": {"path": "certificate.json", "sha256": "a" * 64},
             "scope_binding": verified_scope,
             "bound_files": {
@@ -290,6 +291,17 @@ def main() -> int:
                    and runtime_incompatible_report["successor_release_compatibility"]["tracked_tree_transfer"]["material_paths"]
                    == ["src/prediction/prop_engine.py"]
                    and runtime_incompatible_report["betting_authorized"] is False))
+
+    dirty_release_successor = copy.deepcopy(verified_successor)
+    dirty_release_successor["release_identity_matches_scope"] = False
+    try:
+        report.build_report(bound, items, successor_smoke=dirty_release_successor)
+    except ValueError:
+        dirty_release_caught = True
+    else:
+        dirty_release_caught = False
+    checks.append(("verified smoke cannot transfer from a dirty or different checkout",
+                   dirty_release_caught))
 
     try:
         unpublished = copy.deepcopy(built["source_release"])

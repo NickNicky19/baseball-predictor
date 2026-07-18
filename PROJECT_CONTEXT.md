@@ -318,6 +318,13 @@ named reporting-only allowlist. Any other tracked change is a material runtime
 change and fails the transfer closed. No future economic era may rely on the
 57-file comparison by itself.
 
+The full-day schema-v2 certifier is tracked in the v13 source commit but is not
+one of the 57 individually listed readiness files. The successor reporting gate
+therefore independently observes the actual smoke checkout and requires both
+the exact scope-recorded Git commit and a completely clean tracked/untracked
+tree. A certificate from a dirty or different checkout is rejected even if its
+JSON fields and the original 57 hashes appear valid.
+
 Until v13 certifies, no forward-economic era may be created. After it certifies,
 a clean hash-bound release and a durable external primary remain mandatory;
 GitHub remains verification and alerting only, never the sole collector.

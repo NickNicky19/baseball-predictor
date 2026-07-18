@@ -354,6 +354,34 @@ def _git_head() -> str:
     return commit
 
 
+def _git_release_state(root: Path) -> dict[str, Any]:
+    """Observe, rather than trust, the commit and full clean-tree state."""
+
+    head = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=root,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    status = subprocess.run(
+        ["git", "status", "--porcelain", "--untracked-files=all"],
+        cwd=root,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if head.returncode != 0 or status.returncode != 0:
+        raise ValueError("successor release Git identity is unavailable")
+    commit = head.stdout.strip().lower()
+    if len(commit) != 40 or any(char not in "0123456789abcdef" for char in commit):
+        raise ValueError("successor release Git commit is malformed")
+    return {
+        "observed_commit": commit,
+        "observed_source_tree_clean": not bool(status.stdout.strip()),
+    }
+
+
 def _git_upstream_state(head: str) -> dict[str, Any]:
     upstream_result = subprocess.run(
         ["git", "rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{upstream}"],
@@ -497,12 +525,15 @@ def _operational_smoke_status(
     *,
     repo_root: Path,
     validate_scope: bool = True,
+    require_release_identity: bool = False,
 ) -> dict[str, Any]:
     smoke_root = smoke_root.resolve()
     repo_root = repo_root.resolve()
     scope_path = smoke_root / "evidence_scope.json"
     runtime_path = smoke_root / "runtime_manifest.json"
     scope_binding = None
+    release_identity = None
+    release_identity_matches_scope = False
     if scope_path.is_file():
         if not smoke_root.is_relative_to(repo_root):
             raise ValueError("operational-smoke root must stay inside its release root")
@@ -528,6 +559,16 @@ def _operational_smoke_status(
             "economic_evidence_eligible": scope["economic_evidence_eligible"],
             "betting_authorized": scope["betting_authorized"],
         }
+        release_identity = _git_release_state(repo_root)
+        release_identity_matches_scope = (
+            release_identity["observed_commit"] == scope["source_commit"]
+            and release_identity["observed_source_tree_clean"] is True
+            and scope["source_tree_clean"] is True
+        )
+        if require_release_identity and not release_identity_matches_scope:
+            raise ValueError(
+                "successor smoke checkout differs from its recorded clean source release"
+            )
     plans = sorted(smoke_root.glob("plans/*/plan.json"))
     expected_targets = 0
     planned_dates: list[str] = []
@@ -603,6 +644,8 @@ def _operational_smoke_status(
             else str(smoke_root)
         ),
         "scope_binding": scope_binding,
+        "observed_release_identity": release_identity,
+        "release_identity_matches_scope": release_identity_matches_scope,
         "bound_files": dict(scope.get("bound_files", {})) if scope_path.is_file() else {},
         "planned_dates": planned_dates,
         "expected_targets": expected_targets,
@@ -807,6 +850,7 @@ def build_report(
                 or scope_binding.get("economic_evidence_eligible") is not False
                 or scope_binding.get("betting_authorized") is not False
                 or scope_binding.get("source_tree_clean") is not True
+                or smoke.get("release_identity_matches_scope") is not True
             ):
                 raise ValueError("successor certificate or frozen scope binding is incomplete")
         elif smoke.get("state") == "VERIFIED_COMPLETE_PERMANENTLY_EXCLUDED":
@@ -1142,6 +1186,7 @@ def main(argv: list[str] | None = None) -> int:
         successor_smoke = _operational_smoke_status(
             Path(args.successor_smoke_root),
             repo_root=Path(args.successor_repo_root),
+            require_release_identity=True,
         )
     report = build_report(bound, items, successor_smoke=successor_smoke)
     out = Path(args.out)
