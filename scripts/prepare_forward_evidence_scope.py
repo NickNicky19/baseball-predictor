@@ -97,6 +97,7 @@ def main(argv: list[str] | None = None) -> int:
         deployment_protocol_path=Path(args.protocol).resolve(),
         product_contracts_path=Path(args.products).resolve(),
         runtime_manifest_path=runtime_manifest_path,
+        scope_path=output,
         source_commit=_git("rev-parse", "HEAD"),
         source_tree_clean=_source_tree_clean(),
         root=ROOT,

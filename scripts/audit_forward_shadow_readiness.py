@@ -32,7 +32,7 @@ CHECKS = {
     "independent_lifecycle_tree": ("scripts/check_shadow_lifecycle_tree_offline.py", "6/6 checks passed", 6),
     "failure_lifecycle": ("scripts/check_shadow_failure_lifecycle_offline.py", "2/2 checks passed", 2),
     "forward_evidence_boundary": ("scripts/check_forward_evidence_boundary_offline.py", "7/7 checks passed", 7),
-    "forward_evidence_era": ("scripts/check_forward_evidence_era_offline.py", "22/22 checks passed", 22),
+    "forward_evidence_era": ("scripts/check_forward_evidence_era_offline.py", "28/28 checks passed", 28),
     "evaluation_import_boundary": ("scripts/check_evaluation_import_boundary_offline.py", "3/3 checks passed", 3),
     "execution_product_contracts": ("scripts/check_execution_product_contracts_offline.py", "8/8 checks passed", 8),
     "execution_product_observation": ("scripts/check_execution_product_observation_offline.py", "8/8 checks passed", 8),

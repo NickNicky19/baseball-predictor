@@ -24,8 +24,8 @@ from src.evaluation.forward_evidence_boundary import load_forward_evidence_bound
 from src.utils.provenance import sha256_file
 
 
-SCOPE_SCHEMA = "forward-shadow-evidence-scope-v1"
-SMOKE_CERTIFICATE_SCHEMA = "forward-operational-smoke-certificate-v1"
+SCOPE_SCHEMA = "forward-shadow-evidence-scope-v2"
+SMOKE_CERTIFICATE_SCHEMA = "forward-operational-smoke-certificate-v2"
 RUNTIME_MANIFEST_SCHEMA = "forward-runtime-manifest-v1"
 READINESS_STATUS = (
     "FULL_LOCAL_LIFECYCLE_GUARDS_VALID_PRIMARY_COLLECTOR_NOT_DEPLOYED_NO_FORWARD_EVIDENCE"
@@ -103,8 +103,12 @@ def build_runtime_manifest(*, created_at_utc: str) -> dict[str, Any]:
     }
 
 
-def validate_runtime_manifest(path: str | Path) -> dict[str, Any]:
-    """Require exact schema, internal hash, and equality to the running runtime."""
+def validate_runtime_manifest(
+    path: str | Path,
+    *,
+    require_current_runtime: bool = True,
+) -> dict[str, Any]:
+    """Require exact schema/hash and, for an active scope, the running runtime."""
 
     payload = _json(Path(path), "runtime manifest")
     required = {
@@ -149,7 +153,7 @@ def validate_runtime_manifest(path: str | Path) -> dict[str, Any]:
     expected = _hash(payload.get("fingerprint_sha256"), "fingerprint_sha256")
     if expected != _runtime_digest(fingerprint):
         raise ForwardEvidenceEraError("runtime fingerprint hash differs from its contents")
-    if fingerprint != _runtime_fingerprint():
+    if require_current_runtime and fingerprint != _runtime_fingerprint():
         raise ForwardEvidenceEraError("running Python/runtime differs from the frozen manifest")
     return payload
 
@@ -171,6 +175,144 @@ def _hash(value: Any, label: str) -> str:
     if len(out) != 64 or any(char not in "0123456789abcdef" for char in out):
         raise ForwardEvidenceEraError(f"{label} must be a SHA-256 digest")
     return out
+
+
+def _contained_artifact(certificate_path: Path, relative: Any, label: str) -> Path:
+    value = Path(str(relative))
+    if value.is_absolute():
+        raise ForwardEvidenceEraError(f"{label} path must be relative to the smoke certificate")
+    root = certificate_path.resolve().parent
+    candidate = (root / value).resolve()
+    if not candidate.is_relative_to(root):
+        raise ForwardEvidenceEraError(f"{label} path escapes the operational-smoke root")
+    return candidate
+
+
+def _relative_binding(path: Path, *, base: Path, path_base: str, label: str) -> dict[str, str]:
+    artifact = path.resolve()
+    resolved_base = base.resolve()
+    if not artifact.is_relative_to(resolved_base):
+        raise ForwardEvidenceEraError(f"{label} must remain inside its declared {path_base} root")
+    return {
+        "path": str(artifact.relative_to(resolved_base)).replace("\\", "/"),
+        "path_base": path_base,
+        "sha256": sha256_file(artifact),
+    }
+
+
+def _resolve_scope_binding(
+    *,
+    scope_path: Path,
+    release_root: Path,
+    item: Mapping[str, Any],
+    label: str,
+) -> Path:
+    path_base = item.get("path_base")
+    if path_base == "release":
+        base = release_root.resolve()
+    elif path_base == "scope":
+        base = scope_path.resolve().parent
+    else:
+        raise ForwardEvidenceEraError(f"{label}.path_base must be release or scope")
+    relative = Path(str(item.get("path")))
+    if relative.is_absolute():
+        raise ForwardEvidenceEraError(f"{label} path must be relative to its declared root")
+    candidate = (base / relative).resolve()
+    if not candidate.is_relative_to(base):
+        raise ForwardEvidenceEraError(f"{label} path escapes its declared root")
+    return candidate
+
+
+def _validate_smoke_lifecycle_binding(
+    *,
+    evidence_scope_path: Path,
+    lifecycle_verification_path: Path,
+    official_game_date: str,
+    root: Path,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    scope = validate_evidence_scope(
+        evidence_scope_path,
+        root=root,
+        require_current_runtime=False,
+    )
+    if scope["mode"] != "operational_smoke":
+        raise ForwardEvidenceEraError("only an operational-smoke scope can be certified")
+    verification = _json(lifecycle_verification_path, "lifecycle verification")
+    if (
+        verification.get("schema_version") != "shadow-lifecycle-tree-verification-v1"
+        or verification.get("official_game_date") != str(official_game_date)
+        or verification.get("evidence_scope_sha256") != sha256_file(evidence_scope_path)
+        or verification.get("evidence_scope_mode") != "operational_smoke"
+        or verification.get("economic_evidence_eligible") is not False
+        or verification.get("complete_due_entry_and_prestart_phases") is not True
+        or verification.get("settlement_complete") is not True
+        or verification.get("replacement_odds_fetched") is not False
+        or verification.get("betting_authorized") is not False
+    ):
+        raise ForwardEvidenceEraError(
+            "operational smoke lifecycle is incomplete or bound to a different scope/date"
+        )
+    return scope, verification
+
+
+def validate_operational_smoke_certificate(
+    path: str | Path,
+    *,
+    root: str | Path,
+) -> dict[str, Any]:
+    """Reopen and independently verify every artifact named by a smoke certificate."""
+
+    certificate_path = Path(path).resolve()
+    payload = _json(certificate_path, "operational smoke certificate")
+    required = {
+        "schema_version",
+        "official_game_date",
+        "evidence_scope",
+        "lifecycle_verification",
+        "verified",
+        "complete_lifecycle",
+        "operational_smoke",
+        "economic_evidence_eligible",
+        "betting_authorized",
+    }
+    if set(payload) != required:
+        raise ForwardEvidenceEraError("operational smoke certificate fields differ from v2")
+    if (
+        payload.get("schema_version") != SMOKE_CERTIFICATE_SCHEMA
+        or payload.get("verified") is not True
+        or payload.get("complete_lifecycle") is not True
+        or payload.get("operational_smoke") is not True
+        or payload.get("economic_evidence_eligible") is not False
+        or payload.get("betting_authorized") is not False
+    ):
+        raise ForwardEvidenceEraError("operational smoke certificate is not complete and excluded")
+    scope_item = payload.get("evidence_scope")
+    lifecycle_item = payload.get("lifecycle_verification")
+    if not isinstance(scope_item, dict) or set(scope_item) != {"path", "sha256", "scope_sha256"}:
+        raise ForwardEvidenceEraError("smoke certificate scope binding is malformed")
+    if not isinstance(lifecycle_item, dict) or set(lifecycle_item) != {"path", "sha256"}:
+        raise ForwardEvidenceEraError("smoke certificate lifecycle binding is malformed")
+    scope_path = _contained_artifact(certificate_path, scope_item["path"], "evidence scope")
+    lifecycle_path = _contained_artifact(
+        certificate_path,
+        lifecycle_item["path"],
+        "lifecycle verification",
+    )
+    if not scope_path.is_file() or sha256_file(scope_path) != _hash(scope_item["sha256"], "evidence_scope.sha256"):
+        raise ForwardEvidenceEraError("smoke certificate evidence scope is missing or changed")
+    if not lifecycle_path.is_file() or sha256_file(lifecycle_path) != _hash(
+        lifecycle_item["sha256"], "lifecycle_verification.sha256"
+    ):
+        raise ForwardEvidenceEraError("smoke certificate lifecycle verification is missing or changed")
+    scope, _ = _validate_smoke_lifecycle_binding(
+        evidence_scope_path=scope_path,
+        lifecycle_verification_path=lifecycle_path,
+        official_game_date=str(payload.get("official_game_date")),
+        root=Path(root).resolve(),
+    )
+    if scope["scope_sha256"] != _hash(scope_item["scope_sha256"], "evidence_scope.scope_sha256"):
+        raise ForwardEvidenceEraError("smoke certificate internal scope digest differs")
+    return payload
 
 
 def _current_git_release(root: Path) -> tuple[str, bool]:
@@ -233,6 +375,7 @@ def build_evidence_scope(
     deployment_protocol_path: Path,
     product_contracts_path: Path,
     runtime_manifest_path: Path,
+    scope_path: Path,
     source_commit: str,
     source_tree_clean: bool,
     root: Path,
@@ -247,6 +390,9 @@ def build_evidence_scope(
     commit = str(source_commit).strip().lower()
     if len(commit) != 40 or any(char not in "0123456789abcdef" for char in commit):
         raise ForwardEvidenceEraError("source_commit must be a full Git commit hash")
+    release_root = root.resolve()
+    output_path = scope_path.resolve()
+    scope_root = output_path.parent
     readiness = _json(readiness_report, "readiness report")
     bound = _bound_source(readiness, root)
     load_forward_evidence_boundary(boundary_path, root=root)
@@ -269,20 +415,13 @@ def build_evidence_scope(
             raise ForwardEvidenceEraError("forward economic evidence requires a clean release checkout")
         if smoke_certificate is None:
             raise ForwardEvidenceEraError("forward economic evidence requires a completed smoke certificate")
-        certificate = _json(smoke_certificate, "operational smoke certificate")
-        if (
-            certificate.get("schema_version") != SMOKE_CERTIFICATE_SCHEMA
-            or certificate.get("verified") is not True
-            or certificate.get("complete_lifecycle") is not True
-            or certificate.get("operational_smoke") is not True
-            or certificate.get("economic_evidence_eligible") is not False
-            or certificate.get("betting_authorized") is not False
-        ):
-            raise ForwardEvidenceEraError("operational smoke certificate is not complete and excluded")
-        smoke_binding = {
-            "path": str(smoke_certificate),
-            "sha256": sha256_file(smoke_certificate),
-        }
+        validate_operational_smoke_certificate(smoke_certificate, root=root)
+        smoke_binding = _relative_binding(
+            smoke_certificate,
+            base=scope_root,
+            path_base="scope",
+            label="operational smoke certificate",
+        )
 
     payload: dict[str, Any] = {
         "schema_version": SCOPE_SCHEMA,
@@ -296,25 +435,39 @@ def build_evidence_scope(
         "source_commit": commit,
         "source_tree_clean": bool(source_tree_clean),
         "readiness_report": {
-            "path": str(readiness_report),
-            "sha256": sha256_file(readiness_report),
+            **_relative_binding(
+                readiness_report,
+                base=release_root,
+                path_base="release",
+                label="readiness report",
+            ),
             "guard_checks_passed": readiness["guard_checks_passed"],
         },
-        "forward_evidence_boundary": {
-            "path": str(boundary_path),
-            "sha256": sha256_file(boundary_path),
-        },
-        "deployment_protocol": {
-            "path": str(deployment_protocol_path),
-            "sha256": sha256_file(deployment_protocol_path),
-        },
-        "execution_product_contracts": {
-            "path": str(product_contracts_path),
-            "sha256": sha256_file(product_contracts_path),
-        },
+        "forward_evidence_boundary": _relative_binding(
+            boundary_path,
+            base=release_root,
+            path_base="release",
+            label="forward evidence boundary",
+        ),
+        "deployment_protocol": _relative_binding(
+            deployment_protocol_path,
+            base=release_root,
+            path_base="release",
+            label="deployment protocol",
+        ),
+        "execution_product_contracts": _relative_binding(
+            product_contracts_path,
+            base=release_root,
+            path_base="release",
+            label="execution product contracts",
+        ),
         "runtime_manifest": {
-            "path": str(runtime_manifest_path),
-            "sha256": sha256_file(runtime_manifest_path),
+            **_relative_binding(
+                runtime_manifest_path,
+                base=scope_root,
+                path_base="scope",
+                label="runtime manifest",
+            ),
             "fingerprint_sha256": runtime_manifest["fingerprint_sha256"],
         },
         "operational_smoke_certificate": smoke_binding,
@@ -324,7 +477,12 @@ def build_evidence_scope(
     return payload
 
 
-def validate_evidence_scope(path: str | Path, *, root: str | Path) -> dict[str, Any]:
+def validate_evidence_scope(
+    path: str | Path,
+    *,
+    root: str | Path,
+    require_current_runtime: bool = True,
+) -> dict[str, Any]:
     source = Path(path).resolve()
     release_root = Path(root).resolve()
     payload = _json(source, "evidence scope")
@@ -344,15 +502,19 @@ def validate_evidence_scope(path: str | Path, *, root: str | Path) -> dict[str, 
         certificate = payload.get("operational_smoke_certificate")
         if not isinstance(certificate, dict):
             raise ForwardEvidenceEraError("forward evidence scope lacks its smoke certificate binding")
-        certificate_path = Path(str(certificate.get("path")))
-        if not certificate_path.is_absolute():
-            certificate_path = Path(root).resolve() / certificate_path
+        certificate_path = _resolve_scope_binding(
+            scope_path=source,
+            release_root=release_root,
+            item=certificate,
+            label="operational smoke certificate",
+        )
         if (
             not certificate_path.is_file()
             or sha256_file(certificate_path)
             != _hash(certificate.get("sha256"), "operational_smoke_certificate.sha256")
         ):
             raise ForwardEvidenceEraError("operational smoke certificate is missing or changed")
+        validate_operational_smoke_certificate(certificate_path, root=release_root)
         if payload.get("source_tree_clean") is not True:
             raise ForwardEvidenceEraError("forward evidence scope did not start from a clean release")
         running_commit, running_clean = _current_git_release(release_root)
@@ -378,13 +540,19 @@ def validate_evidence_scope(path: str | Path, *, root: str | Path) -> dict[str, 
         item = payload.get(field)
         if not isinstance(item, dict):
             raise ForwardEvidenceEraError(f"{field} binding is absent")
-        candidate = Path(str(item.get("path")))
-        if not candidate.is_absolute():
-            candidate = release_root / candidate
+        candidate = _resolve_scope_binding(
+            scope_path=source,
+            release_root=release_root,
+            item=item,
+            label=field,
+        )
         if not candidate.is_file() or sha256_file(candidate) != _hash(item.get("sha256"), f"{field}.sha256"):
             raise ForwardEvidenceEraError(f"{field} artifact is missing or changed")
         if field == "runtime_manifest":
-            runtime = validate_runtime_manifest(candidate)
+            runtime = validate_runtime_manifest(
+                candidate,
+                require_current_runtime=require_current_runtime,
+            )
             if runtime["fingerprint_sha256"] != _hash(
                 item.get("fingerprint_sha256"), "runtime_manifest.fingerprint_sha256"
             ):
@@ -397,33 +565,38 @@ def certify_operational_smoke(
     evidence_scope_path: Path,
     lifecycle_verification_path: Path,
     official_game_date: str,
+    certificate_path: Path,
     root: Path,
 ) -> dict[str, Any]:
     """Create a certificate only after the excluded smoke completed end to end."""
 
-    scope = validate_evidence_scope(evidence_scope_path, root=root)
-    if scope["mode"] != "operational_smoke":
-        raise ForwardEvidenceEraError("only an operational-smoke scope can be certified")
-    verification = _json(lifecycle_verification_path, "lifecycle verification")
-    if (
-        verification.get("schema_version") != "shadow-lifecycle-tree-verification-v1"
-        or verification.get("official_game_date") != str(official_game_date)
-        or verification.get("evidence_scope_sha256") != sha256_file(evidence_scope_path)
-        or verification.get("evidence_scope_mode") != "operational_smoke"
-        or verification.get("economic_evidence_eligible") is not False
-        or verification.get("complete_due_entry_and_prestart_phases") is not True
-        or verification.get("settlement_complete") is not True
-        or verification.get("replacement_odds_fetched") is not False
-        or verification.get("betting_authorized") is not False
+    scope_path = evidence_scope_path.resolve()
+    lifecycle_path = lifecycle_verification_path.resolve()
+    output_path = certificate_path.resolve()
+    scope, _ = _validate_smoke_lifecycle_binding(
+        evidence_scope_path=scope_path,
+        lifecycle_verification_path=lifecycle_path,
+        official_game_date=official_game_date,
+        root=root,
+    )
+    for artifact, label in (
+        (scope_path, "evidence scope"),
+        (lifecycle_path, "lifecycle verification"),
     ):
-        raise ForwardEvidenceEraError(
-            "operational smoke lifecycle is incomplete or bound to a different scope/date"
-        )
+        if not artifact.is_relative_to(output_path.parent):
+            raise ForwardEvidenceEraError(f"{label} must remain inside the smoke certificate root")
     return {
         "schema_version": SMOKE_CERTIFICATE_SCHEMA,
         "official_game_date": str(official_game_date),
-        "evidence_scope_sha256": scope["scope_sha256"],
-        "lifecycle_verification_sha256": sha256_file(lifecycle_verification_path),
+        "evidence_scope": {
+            "path": str(scope_path.relative_to(output_path.parent)).replace("\\", "/"),
+            "sha256": sha256_file(scope_path),
+            "scope_sha256": scope["scope_sha256"],
+        },
+        "lifecycle_verification": {
+            "path": str(lifecycle_path.relative_to(output_path.parent)).replace("\\", "/"),
+            "sha256": sha256_file(lifecycle_path),
+        },
         "verified": True,
         "complete_lifecycle": True,
         "operational_smoke": True,

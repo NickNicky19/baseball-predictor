@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import hashlib
+import shutil
 import sys
 import tempfile
 from pathlib import Path
@@ -20,6 +21,7 @@ from src.evaluation.forward_evidence_era import (  # noqa: E402
     build_runtime_manifest,
     certify_operational_smoke,
     validate_evidence_scope,
+    validate_operational_smoke_certificate,
     validate_runtime_manifest,
 )
 from scripts import prepare_forward_evidence_scope as scope_cli  # noqa: E402
@@ -54,6 +56,9 @@ def build(
     runtime_manifest: Path,
     smoke_certificate: Path | None = None,
 ) -> dict:
+    scope_path = readiness.parent / (
+        "smoke_scope.json" if mode == "operational_smoke" else "era_scope.json"
+    )
     return build_evidence_scope(
         mode=mode,
         era_id="offline-test-smoke" if mode == "operational_smoke" else "offline-test-era",
@@ -63,6 +68,7 @@ def build(
         deployment_protocol_path=ROOT / "config/forward_shadow_deployment_protocol.json",
         product_contracts_path=ROOT / "config/hits_execution_product_contracts.json",
         runtime_manifest_path=runtime_manifest,
+        scope_path=scope_path,
         source_commit="1" * 40,
         source_tree_clean=mode == "forward_evidence",
         root=ROOT,
@@ -83,7 +89,9 @@ def main() -> int:
     finally:
         scope_cli._git = original_git
 
-    with tempfile.TemporaryDirectory(prefix="forward_era_") as temporary:
+    scratch = ROOT / ".codex_runtime_cache"
+    scratch.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="forward_era_", dir=scratch) as temporary:
         temp = Path(temporary)
         readiness_path = temp / "readiness.json"
         readiness_path.write_text(json.dumps({
@@ -153,18 +161,108 @@ def main() -> int:
             "replacement_odds_fetched": False,
             "betting_authorized": False,
         }), encoding="utf-8")
+        cert_path = temp / "smoke_certificate.json"
         certificate = certify_operational_smoke(
             evidence_scope_path=smoke_scope_path,
             lifecycle_verification_path=lifecycle,
             official_game_date="2026-07-20",
+            certificate_path=cert_path,
             root=ROOT,
         )
-        cert_path = temp / "smoke_certificate.json"
         cert_path.write_text(json.dumps(certificate), encoding="utf-8")
         check(
             certificate["complete_lifecycle"] is True
             and certificate["economic_evidence_eligible"] is False,
             "complete smoke certificate remains explicitly non-economic",
+        )
+        check(
+            validate_operational_smoke_certificate(cert_path, root=ROOT)["verified"] is True,
+            "smoke certificate independently reopens its exact scope and lifecycle artifacts",
+        )
+
+        portable_root = temp / "portable_release"
+        portable_bundle = portable_root / "service"
+        portable_bundle.mkdir(parents=True)
+        for artifact in (smoke_scope_path, runtime_path, lifecycle, cert_path):
+            shutil.copy2(artifact, portable_bundle / artifact.name)
+        for relative in smoke_scope["bound_files"]:
+            destination = portable_root / relative
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(ROOT / relative, destination)
+        for field in (
+            "readiness_report",
+            "forward_evidence_boundary",
+            "deployment_protocol",
+            "execution_product_contracts",
+        ):
+            item = smoke_scope[field]
+            source = ROOT / item["path"]
+            destination = portable_root / item["path"]
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, destination)
+        portable_cert = portable_bundle / cert_path.name
+        check(
+            validate_operational_smoke_certificate(portable_cert, root=portable_root)["verified"] is True,
+            "complete smoke bundle validates after relocation to a different release root",
+        )
+
+        foreign_runtime = json.loads(json.dumps(runtime_payload["fingerprint"]))
+        foreign_runtime["platform_system"] = "ForeignOS"
+        with patch(
+            "src.evaluation.forward_evidence_era._runtime_fingerprint",
+            return_value=foreign_runtime,
+        ):
+            historical_runtime_valid = (
+                validate_operational_smoke_certificate(portable_cert, root=portable_root)["verified"]
+                is True
+            )
+            try:
+                validate_evidence_scope(
+                    portable_bundle / smoke_scope_path.name,
+                    root=portable_root,
+                )
+            except ForwardEvidenceEraError:
+                active_runtime_rejected = True
+            else:
+                active_runtime_rejected = False
+        check(
+            historical_runtime_valid,
+            "historical smoke runtime integrity survives a different forward host runtime",
+        )
+        check(
+            active_runtime_rejected,
+            "MUTATION an active scope still rejects a different running runtime",
+        )
+
+        original_lifecycle = lifecycle.read_bytes()
+        changed_lifecycle = json.loads(original_lifecycle)
+        changed_lifecycle["settlement_complete"] = False
+        lifecycle.write_text(json.dumps(changed_lifecycle), encoding="utf-8")
+        try:
+            validate_operational_smoke_certificate(cert_path, root=ROOT)
+        except ForwardEvidenceEraError:
+            changed_lifecycle_rejected = True
+        else:
+            changed_lifecycle_rejected = False
+        check(
+            changed_lifecycle_rejected,
+            "MUTATION lifecycle drift after certification invalidates the certificate",
+        )
+        lifecycle.write_bytes(original_lifecycle)
+
+        escaped = json.loads(json.dumps(certificate))
+        escaped["lifecycle_verification"]["path"] = "../lifecycle.json"
+        escaped_path = temp / "escaped_certificate.json"
+        escaped_path.write_text(json.dumps(escaped), encoding="utf-8")
+        try:
+            validate_operational_smoke_certificate(escaped_path, root=ROOT)
+        except ForwardEvidenceEraError:
+            escaped_path_rejected = True
+        else:
+            escaped_path_rejected = False
+        check(
+            escaped_path_rejected,
+            "MUTATION certificate cannot escape its immutable smoke-artifact root",
         )
 
         incomplete = json.loads(lifecycle.read_text(encoding="utf-8"))
@@ -175,6 +273,7 @@ def main() -> int:
                 evidence_scope_path=smoke_scope_path,
                 lifecycle_verification_path=lifecycle,
                 official_game_date="2026-07-20",
+                certificate_path=cert_path,
                 root=ROOT,
             )
         except ForwardEvidenceEraError:
@@ -204,6 +303,7 @@ def main() -> int:
                 evidence_scope_path=smoke_scope_path,
                 lifecycle_verification_path=lifecycle,
                 official_game_date="2026-07-20",
+                certificate_path=cert_path,
                 root=ROOT,
             )
         except ForwardEvidenceEraError:
@@ -220,6 +320,7 @@ def main() -> int:
                 evidence_scope_path=smoke_scope_path,
                 lifecycle_verification_path=lifecycle,
                 official_game_date="2026-07-20",
+                certificate_path=cert_path,
                 root=ROOT,
             )
         except ForwardEvidenceEraError:
@@ -237,6 +338,7 @@ def main() -> int:
                 evidence_scope_path=smoke_scope_path,
                 lifecycle_verification_path=lifecycle,
                 official_game_date="2026-07-20",
+                certificate_path=cert_path,
                 root=ROOT,
             )
         except ForwardEvidenceEraError:
@@ -255,6 +357,7 @@ def main() -> int:
                 deployment_protocol_path=ROOT / "config/forward_shadow_deployment_protocol.json",
                 product_contracts_path=ROOT / "config/hits_execution_product_contracts.json",
                 runtime_manifest_path=runtime_path,
+                scope_path=temp / "missing_smoke_scope.json",
                 source_commit="1" * 40,
                 source_tree_clean=True,
                 root=ROOT,
@@ -275,6 +378,7 @@ def main() -> int:
                 deployment_protocol_path=ROOT / "config/forward_shadow_deployment_protocol.json",
                 product_contracts_path=ROOT / "config/hits_execution_product_contracts.json",
                 runtime_manifest_path=runtime_path,
+                scope_path=temp / "dirty_release_scope.json",
                 source_commit="1" * 40,
                 source_tree_clean=False,
                 root=ROOT,

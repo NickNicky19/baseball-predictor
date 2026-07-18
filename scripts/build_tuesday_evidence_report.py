@@ -325,7 +325,7 @@ def _operational_smoke_status() -> dict[str, Any]:
             payload = load_json(path)
         except (OSError, ValueError, json.JSONDecodeError):
             continue
-        if payload.get("schema_version") == "forward-operational-smoke-certificate-v1":
+        if payload.get("schema_version") == "forward-operational-smoke-certificate-v2":
             certificates.append({"path": str(path.relative_to(ROOT)), "sha256": sha256(path), "payload": payload})
     if len(certificates) > 1:
         raise ValueError("multiple operational-smoke certificates exist")

@@ -23,7 +23,7 @@ if (-not (Test-Path -LiteralPath $scopePath -PathType Leaf)) {
     throw "Operational-smoke evidence scope is missing: $scopePath"
 }
 $scope = Get-Content -Raw -LiteralPath $scopePath | ConvertFrom-Json
-if ($scope.schema_version -ne "forward-shadow-evidence-scope-v1") {
+if ($scope.schema_version -ne "forward-shadow-evidence-scope-v2") {
     throw "Evidence scope schema is not the locked forward-shadow schema"
 }
 if ($scope.mode -ne "operational_smoke" -or $scope.operational_smoke -ne $true) {
