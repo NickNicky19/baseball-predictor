@@ -8,6 +8,7 @@ import tempfile
 import json
 import subprocess
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
@@ -21,6 +22,8 @@ from run_shadow_collector_tick import (  # noqa: E402
     run_tick,
     target_action,
 )
+import run_shadow_collector_tick as collector_tick  # noqa: E402
+from src.evaluation.forward_evidence_era import ForwardEvidenceEraError  # noqa: E402
 from src.evaluation.shadow_capture_plan import CaptureTarget  # noqa: E402
 
 
@@ -102,6 +105,89 @@ def main() -> int:
         )),
         "MUTATION May 2026 is blocked before schedule, model, provider, or outcome access",
     )
+
+    with tempfile.TemporaryDirectory(prefix="shadow_tick_scope_") as temporary:
+        scope_root = Path(temporary)
+
+        class ProbeAPI:
+            constructed = 0
+            schedule_calls = 0
+
+            def __init__(self) -> None:
+                type(self).constructed += 1
+
+            def get_schedule(self, _: str) -> list[dict]:
+                type(self).schedule_calls += 1
+                raise AssertionError("sealed May schedule must not be read")
+
+        with patch.object(collector_tick, "MLBStatsAPI", ProbeAPI):
+            check(
+                collector_tick.main([
+                    "--date", "2026-05-15",
+                    "--service-root", str(scope_root / "missing"),
+                    "--policy", str(ROOT / "config/shadow_hits_research_policy.json"),
+                    "--runtime", str(ROOT / "config/shadow_collector_runtime.json"),
+                    "--model-config", str(ROOT / "config/config.kbb.json"),
+                ]) == 2
+                and ProbeAPI.constructed == 0
+                and ProbeAPI.schedule_calls == 0,
+                "MUTATION missing evidence scope fails before MLB client initialization",
+            )
+
+        ProbeAPI.constructed = 0
+        ProbeAPI.schedule_calls = 0
+        calls: list[Path] = []
+
+        def reject_runtime(path: str | Path, *, root: str | Path) -> dict:
+            calls.append(Path(path))
+            raise ForwardEvidenceEraError("running Python/runtime differs from the frozen manifest")
+
+        with (
+            patch.object(collector_tick, "validate_evidence_scope", reject_runtime),
+            patch.object(collector_tick, "MLBStatsAPI", ProbeAPI),
+        ):
+            check(
+                collector_tick.main([
+                    "--date", "2026-05-15",
+                    "--service-root", str(scope_root / "runtime_drift"),
+                    "--policy", str(ROOT / "config/shadow_hits_research_policy.json"),
+                    "--runtime", str(ROOT / "config/shadow_collector_runtime.json"),
+                    "--model-config", str(ROOT / "config/config.kbb.json"),
+                ]) == 2
+                and len(calls) == 1
+                and ProbeAPI.constructed == 0
+                and ProbeAPI.schedule_calls == 0,
+                "MUTATION runtime-manifest rejection fails before MLB client initialization",
+            )
+
+        ProbeAPI.constructed = 0
+        ProbeAPI.schedule_calls = 0
+        calls.clear()
+
+        def accept_scope(path: str | Path, *, root: str | Path) -> dict:
+            calls.append(Path(path))
+            return {
+                "mode": "operational_smoke",
+                "economic_evidence_eligible": False,
+            }
+
+        with (
+            patch.object(collector_tick, "validate_evidence_scope", accept_scope),
+            patch.object(collector_tick, "MLBStatsAPI", ProbeAPI),
+        ):
+            check(
+                collector_tick.main([
+                    "--date", "2026-05-15",
+                    "--service-root", str(scope_root / "valid"),
+                    "--policy", str(ROOT / "config/shadow_hits_research_policy.json"),
+                    "--runtime", str(ROOT / "config/shadow_collector_runtime.json"),
+                    "--model-config", str(ROOT / "config/config.kbb.json"),
+                ]) == 2
+                and len(calls) == 1
+                and ProbeAPI.constructed == 1
+                and ProbeAPI.schedule_calls == 0,
+                "a validated excluded-smoke scope reaches the sealed-May guard without schedule access",
+            )
     target = CaptureTarget(
         mlb_game_pk=901,
         official_game_date="2099-07-18",
