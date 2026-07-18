@@ -202,6 +202,7 @@ def main() -> int:
         verified_successor = copy.deepcopy(false_certificate_successor)
         verified_scope = copy.deepcopy(verified_successor["scope_binding"])
         verified_scope.update({
+            "source_commit": published["commit"],
             "source_tree_clean": True,
             "economic_evidence_eligible": False,
             "betting_authorized": False,
@@ -230,6 +231,23 @@ def main() -> int:
             items,
             successor_smoke=incompatible_successor,
         )
+
+        original_git_tree_transfer = report._git_tree_transfer
+        try:
+            report._git_tree_transfer = lambda **_: {
+                "comparison_available": True,
+                "changed_tracked_paths": ["src/prediction/prop_engine.py"],
+                "reporting_only_paths": [],
+                "material_paths": ["src/prediction/prop_engine.py"],
+                "runtime_tree_compatible": False,
+            }
+            runtime_incompatible_report = report.build_report(
+                bound,
+                items,
+                successor_smoke=verified_successor,
+            )
+        finally:
+            report._git_tree_transfer = original_git_tree_transfer
     finally:
         report._source_release = original_source_release
     checks.append(("successor smoke is reported without erasing retained v11 failure",
@@ -253,6 +271,7 @@ def main() -> int:
                    and verified_report["cloud_hosting_recommendation"]["status"]
                    == "EXCLUDED_LOCAL_SMOKE_VERIFIED_DURABLE_PRIMARY_NOT_DEPLOYED"
                    and verified_report["successor_release_compatibility"]["all_bound_files_match"] is True
+                   and verified_report["successor_release_compatibility"]["transfer_compatible"] is True
                    and not any("successor operational smoke has not yet completed" in blocker
                                or "no successful complete future" in blocker
                                for blocker in verified_report["forward_shadow_readiness"]["blockers"])))
@@ -263,6 +282,14 @@ def main() -> int:
                    and incompatible_report["cloud_hosting_recommendation"]["status"]
                    == "CERTIFIED_SMOKE_REPORTING_RELEASE_INCOMPATIBLE"
                    and incompatible_report["betting_authorized"] is False))
+    checks.append(("verified smoke cannot transfer across an unbound runtime-source change",
+                   runtime_incompatible_report["status"]
+                   == "SMOKE_VERIFIED_REPORTING_RELEASE_INCOMPATIBLE_RESEARCH_ONLY"
+                   and runtime_incompatible_report["successor_release_compatibility"]["all_bound_files_match"] is True
+                   and runtime_incompatible_report["successor_release_compatibility"]["transfer_compatible"] is False
+                   and runtime_incompatible_report["successor_release_compatibility"]["tracked_tree_transfer"]["material_paths"]
+                   == ["src/prediction/prop_engine.py"]
+                   and runtime_incompatible_report["betting_authorized"] is False))
 
     try:
         unpublished = copy.deepcopy(built["source_release"])

@@ -50,6 +50,17 @@ REPORTING_SOURCE_FILES = (
     "reports/v11_event_identity_offset_diagnostic_2026-07-18.json",
 )
 
+# These files can change without changing the deployed collector or model
+# runtime. Every other tracked-tree difference between a certified smoke and
+# the reporting release is treated as material until proved otherwise.
+SMOKE_TRANSFER_REPORTING_ONLY_ALLOWLIST = frozenset(
+    {
+        "PROJECT_CONTEXT.md",
+        "scripts/build_tuesday_evidence_report.py",
+        "scripts/check_tuesday_evidence_report_offline.py",
+    }
+)
+
 INPUTS = {
     "goal_contract": (
         "GOAL_TUESDAY_MARKET_AUTHORIZATION.md",
@@ -429,6 +440,58 @@ def _source_release() -> dict[str, Any]:
     }
 
 
+def _git_tree_transfer(
+    *,
+    smoke_commit: str,
+    release_commit: str,
+    release_root: Path,
+) -> dict[str, Any]:
+    """Fail closed on any non-reporting tracked-tree change across a smoke handoff."""
+
+    for label, value in (
+        ("smoke source commit", smoke_commit),
+        ("reporting release commit", release_commit),
+    ):
+        if len(value) != 40 or any(char not in "0123456789abcdef" for char in value):
+            raise ValueError(f"{label} is unavailable or malformed")
+    result = subprocess.run(
+        [
+            "git",
+            "diff",
+            "--name-only",
+            "--diff-filter=ACDMRTUXB",
+            f"{smoke_commit}..{release_commit}",
+            "--",
+        ],
+        cwd=release_root,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        return {
+            "comparison_available": False,
+            "changed_tracked_paths": [],
+            "reporting_only_paths": [],
+            "material_paths": ["GIT_TREE_COMPARISON_UNAVAILABLE"],
+            "runtime_tree_compatible": False,
+        }
+    changed = sorted({line.strip().replace("\\", "/") for line in result.stdout.splitlines() if line.strip()})
+    reporting_only = [
+        path for path in changed if path in SMOKE_TRANSFER_REPORTING_ONLY_ALLOWLIST
+    ]
+    material = [
+        path for path in changed if path not in SMOKE_TRANSFER_REPORTING_ONLY_ALLOWLIST
+    ]
+    return {
+        "comparison_available": True,
+        "changed_tracked_paths": changed,
+        "reporting_only_paths": reporting_only,
+        "material_paths": material,
+        "runtime_tree_compatible": not material,
+    }
+
+
 def _operational_smoke_status(
     smoke_root: Path,
     *,
@@ -581,14 +644,25 @@ def _release_compatibility(
                 "actual_sha256": actual,
             })
     scope_binding = smoke.get("scope_binding") or {}
+    smoke_commit = str(scope_binding.get("source_commit", "")).strip().lower()
+    tree_transfer = _git_tree_transfer(
+        smoke_commit=smoke_commit,
+        release_commit=release_commit,
+        release_root=release_root,
+    )
+    all_bound_files_match = not mismatches
     return {
-        "smoke_source_commit": scope_binding.get("source_commit"),
+        "smoke_source_commit": smoke_commit,
         "reporting_release_commit": release_commit,
-        "same_source_commit": scope_binding.get("source_commit") == release_commit,
+        "same_source_commit": smoke_commit == release_commit,
         "bound_file_count": len(bound_files),
         "matching_bound_file_count": len(bound_files) - len(mismatches),
-        "all_bound_files_match": not mismatches,
+        "all_bound_files_match": all_bound_files_match,
         "mismatches": mismatches,
+        "tracked_tree_transfer": tree_transfer,
+        "transfer_compatible": (
+            all_bound_files_match and tree_transfer["runtime_tree_compatible"]
+        ),
     }
 
 
@@ -759,11 +833,11 @@ def build_report(
         successor_smoke is not None
         and smoke["verified_complete"]
         and successor_compatibility is not None
-        and not successor_compatibility["all_bound_files_match"]
+        and not successor_compatibility["transfer_compatible"]
     ):
         status = "SMOKE_VERIFIED_REPORTING_RELEASE_INCOMPATIBLE_RESEARCH_ONLY"
-        action = "Prepare a clean release whose collector-critical bound files exactly match the certified smoke, or run a new incompatible smoke for the changed collector."
-        why = "The smoke certificate is valid, but one or more files inside its frozen readiness boundary differ from the reporting release. The certificate cannot be transferred across that change."
+        action = "Prepare a clean release whose complete runtime tree and collector-critical bound files are compatible with the certified smoke, or run a new incompatible smoke for the changed runtime."
+        why = "The smoke certificate is valid, but its bound files or a non-reporting tracked source differs from the reporting release. The certificate cannot be transferred across an unmeasured runtime change."
     elif successor_smoke is not None and smoke["verified_complete"]:
         status = "SMOKE_VERIFIED_FORWARD_ERA_NOT_STARTED_RESEARCH_ONLY"
         action = "Prepare a clean checkout of the immutable release, deploy the durable external primary, and create the new hash-bound forward evidence era."
@@ -808,10 +882,10 @@ def build_report(
         ]
         if (
             successor_compatibility is not None
-            and not successor_compatibility["all_bound_files_match"]
+            and not successor_compatibility["transfer_compatible"]
         ):
             shadow_blockers.append(
-                "the reporting release differs from the certified smoke on collector-critical bound files"
+                "the reporting release differs from the certified smoke on bound files or non-reporting tracked runtime source"
             )
     if not provider_access_verified:
         shadow_blockers.append(
@@ -821,7 +895,7 @@ def build_report(
         successor_smoke is not None
         and smoke["verified_complete"]
         and successor_compatibility is not None
-        and successor_compatibility["all_bound_files_match"]
+        and successor_compatibility["transfer_compatible"]
     ):
         hosting_status = "EXCLUDED_LOCAL_SMOKE_VERIFIED_DURABLE_PRIMARY_NOT_DEPLOYED"
         hosting_recommendation = (
@@ -1027,7 +1101,7 @@ def build_report(
                 else (
                     "the reporting release differs from the certified smoke on collector-critical bound files"
                     if successor_compatibility is not None
-                    and not successor_compatibility["all_bound_files_match"]
+                    and not successor_compatibility["transfer_compatible"]
                     else "durable external primary is not deployed"
                 )
             ),

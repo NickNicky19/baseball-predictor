@@ -305,6 +305,19 @@ certificate transfer. All 57 currently match. A future mismatch blocks the
 handoff and requires either an exactly compatible release or a new incompatible
 smoke.
 
+A post-freeze completeness audit found that `run_slate.py` can statically reach
+56 local Python runtime files, while only 5 of those files are individually in
+the 57-file readiness boundary. The remaining 51 include prediction,
+simulation, feature, data, learning, and utility modules. This does not alter or
+invalidate the running v13 smoke: its entire release checkout remains clean at
+the exact recorded commit. It does mean that bound-file equality alone is not
+sufficient evidence for transferring a smoke certificate to a later commit.
+The Tuesday reporting handoff therefore also compares the complete tracked Git
+tree between the smoke commit and reporting release and permits only an exact,
+named reporting-only allowlist. Any other tracked change is a material runtime
+change and fails the transfer closed. No future economic era may rely on the
+57-file comparison by itself.
+
 Until v13 certifies, no forward-economic era may be created. After it certifies,
 a clean hash-bound release and a durable external primary remain mandatory;
 GitHub remains verification and alerting only, never the sole collector.
