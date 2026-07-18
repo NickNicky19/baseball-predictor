@@ -295,11 +295,13 @@ def _prepare_predictions(
     stamp = preparation_started_at.replace(":", "").replace("-", "")
     log_dir = service_root / "service_logs" / official_date
     log_dir.mkdir(parents=True, exist_ok=True)
+    archive_dir = service_root / "generated_predictions"
     command = [
         sys.executable,
         str(project_root / "run_slate.py"),
         "--date", official_date,
         "--config", str(model_config),
+        "--archive-dir", str(archive_dir),
         "--include-projected-lineups",
         "--refresh",
     ]
@@ -310,7 +312,7 @@ def _prepare_predictions(
         raise ShadowCollectorServiceError(
             f"prediction preparation failed with exit code {result.returncode}; see retained service logs"
         )
-    source = project_root / "data" / "learning" / "predictions" / f"predictions_{official_date}.json"
+    source = archive_dir / f"predictions_{official_date}.json"
     snapshot = load_shadow_prediction_snapshot(source)
     if snapshot.game_date != official_date:
         raise ShadowCollectorServiceError("prepared prediction archive has the wrong official date")

@@ -25,7 +25,7 @@ CHECKS = {
     "live_provider": ("scripts/check_shadow_live_provider_offline.py", "14/14 checks passed", 14),
     "research_selection_policy": ("scripts/check_shadow_research_selection_policy_offline.py", "7/7 checks passed", 7),
     "primary_collector": ("scripts/check_shadow_primary_collector_offline.py", "14/14 checks passed", 14),
-    "collector_tick": ("scripts/check_shadow_collector_tick_offline.py", "18/18 checks passed", 18),
+    "collector_tick": ("scripts/check_shadow_collector_tick_offline.py", "20/20 checks passed", 20),
     "prestart_reference": ("scripts/check_shadow_close_collector_offline.py", "6/6 checks passed", 6),
     "official_hits_rules": ("scripts/check_shadow_official_hits_offline.py", "10/10 checks passed", 10),
     "official_settlement_worker": ("scripts/check_shadow_official_settlement_worker.py", "5/5 checks passed", 5),

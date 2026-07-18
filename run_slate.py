@@ -34,6 +34,7 @@ from datetime import date
 from pathlib import Path
 
 from src.models.dataclasses import PropCategory
+from src.learning.prediction_archive import PredictionArchive
 from src.prediction import DailyPredictor
 from src.utils.errors import ConfigError, DataFetchError, PredictorError
 from src.utils.logging import setup_logging
@@ -69,6 +70,15 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         help="Path to config.json (default: config/config.json)",
     )
     parser.add_argument(
+        "--archive-dir",
+        metavar="PATH",
+        help=(
+            "Write the rich prediction archive to this directory without changing "
+            "model configuration or prediction provenance. The forward collector "
+            "uses a directory outside its clean release checkout."
+        ),
+    )
+    parser.add_argument(
         "--include-projected-lineups",
         action="store_true",
         help="Include projected lineups when confirmed orders are unavailable",
@@ -101,6 +111,16 @@ def main(argv: list[str] | None = None) -> int:
     try:
         config_path = Path(args.config) if args.config else None
         predictor = DailyPredictor(config_path=config_path)
+        archive_dir = (
+            Path(args.archive_dir).resolve()
+            if args.archive_dir
+            else Path("data/learning/predictions")
+        )
+        if args.archive_dir:
+            predictor.outcome_recorder.archive = PredictionArchive(
+                archive_dir=str(archive_dir),
+                project_root=Path.cwd(),
+            )
 
         if args.refresh:
             predictor.mlb_api.clear_cache(args.date)
@@ -139,10 +159,7 @@ def main(argv: list[str] | None = None) -> int:
             f"Slate {args.date}: {n_hit} hitter + {n_pit} pitcher projections "
             f"across {cats}."
         )
-        print(
-            f"Archive: data/learning/predictions/predictions_{args.date}.json "
-            f"(includes simulation blocks)."
-        )
+        print(f"Archive: {archive_dir / f'predictions_{args.date}.json'} (includes simulation blocks).")
         print(
             f"Feature snapshot: data/features/{args.date}/ "
             "(manifest-verified input-health evidence)."

@@ -7,6 +7,7 @@ import sys
 import tempfile
 import json
 import subprocess
+from datetime import date
 from pathlib import Path
 from unittest.mock import patch
 
@@ -23,8 +24,10 @@ from run_shadow_collector_tick import (  # noqa: E402
     target_action,
 )
 import run_shadow_collector_tick as collector_tick  # noqa: E402
+import run_slate  # noqa: E402
 from src.evaluation.forward_evidence_era import ForwardEvidenceEraError  # noqa: E402
 from src.evaluation.shadow_capture_plan import CaptureTarget  # noqa: E402
+from src.models.dataclasses import DailyPrediction, PropProjection  # noqa: E402
 
 
 PASS = 0
@@ -188,6 +191,50 @@ def main() -> int:
                 and ProbeAPI.schedule_calls == 0,
                 "a validated excluded-smoke scope reaches the sealed-May guard without schedule access",
             )
+
+        slate_seen: dict = {}
+
+        class SlateArchive:
+            def __init__(self, archive_dir: str, project_root: Path) -> None:
+                slate_seen["archive_dir"] = Path(archive_dir)
+
+        class SlateRecorder:
+            archive = object()
+
+        class SlatePredictor:
+            def __init__(self, config_path=None) -> None:
+                self.mlb_api = object()
+                self.outcome_recorder = SlateRecorder()
+
+            def predict(self, *args, **kwargs) -> DailyPrediction:
+                slate_seen["kwargs"] = kwargs
+                return DailyPrediction(
+                    game_date=date(2099, 7, 18),
+                    hitter_projections=[PropProjection(
+                        player_id=1,
+                        player_name="Test Hitter",
+                        category="hits",
+                        game_date="2099-07-18",
+                        projected_value=1.0,
+                        confidence=0.5,
+                    )],
+                )
+
+        external_archive = scope_root / "external_prediction_archive"
+        with (
+            patch.object(run_slate, "DailyPredictor", SlatePredictor),
+            patch.object(run_slate, "PredictionArchive", SlateArchive),
+        ):
+            slate_exit = run_slate.main([
+                "--date", "2099-07-18",
+                "--archive-dir", str(external_archive),
+            ])
+        check(
+            slate_exit == 0
+            and slate_seen["archive_dir"] == external_archive.resolve()
+            and slate_seen["kwargs"]["capture_prediction_provenance"] is True,
+            "run_slate honors the external archive boundary without changing provenance capture",
+        )
     target = CaptureTarget(
         mlb_game_pk=901,
         official_game_date="2099-07-18",
@@ -279,13 +326,27 @@ def main() -> int:
         )
 
         project = root / "synthetic_project"
-        archive = project / "data/learning/predictions/predictions_2099-07-18.json"
-        archive.parent.mkdir(parents=True, exist_ok=True)
+        legacy_archive = project / "data/learning/predictions/predictions_2099-07-18.json"
         model_config = project / "config.json"
         model_config.parent.mkdir(parents=True, exist_ok=True)
         model_config.write_text("{}\n", encoding="utf-8")
-        fake_runner = lambda *args, **kwargs: subprocess.CompletedProcess([], 0, "ok\n", "")
-        archive.write_text(json.dumps(prediction("2099-07-18T18:49:59Z")), encoding="utf-8")
+
+        commands: list[list[str]] = []
+
+        def runner_at(captured_at: str):
+            def fake_runner(command, *args, **kwargs):
+                commands.append(command)
+                archive_index = command.index("--archive-dir") + 1
+                archive_dir = Path(command[archive_index])
+                archive_dir.mkdir(parents=True, exist_ok=True)
+                (archive_dir / "predictions_2099-07-18.json").write_text(
+                    json.dumps(prediction(captured_at)),
+                    encoding="utf-8",
+                )
+                return subprocess.CompletedProcess([], 0, "ok\n", "")
+
+            return fake_runner
+
         check(
             raises(lambda: _prepare_predictions(
                 official_date="2099-07-18",
@@ -294,12 +355,11 @@ def main() -> int:
                 model_config=model_config,
                 runtime=runtime,
                 project_root=project,
-                runner=fake_runner,
+                runner=runner_at("2099-07-18T18:49:59Z"),
                 clock=lambda: "2099-07-18T18:50:00Z",
             )),
             "MUTATION a successful command cannot reuse a stale prediction archive",
         )
-        archive.write_text(json.dumps(prediction("2099-07-18T18:50:00Z")), encoding="utf-8")
         _prepare_predictions(
             official_date="2099-07-18",
             targets=[target],
@@ -307,12 +367,22 @@ def main() -> int:
             model_config=model_config,
             runtime=runtime,
             project_root=project,
-            runner=fake_runner,
+            runner=runner_at("2099-07-18T18:50:00Z"),
             clock=lambda: "2099-07-18T18:50:00Z",
         )
         check(
             (root / "fresh_prediction_service/prepared/2099-07-18" / target.target_id / "receipt.json").is_file(),
             "a newly published provenance timestamp creates a target-specific immutable snapshot",
+        )
+        check(
+            len(commands) == 2
+            and all("--archive-dir" in command for command in commands)
+            and Path(commands[0][commands[0].index("--archive-dir") + 1])
+                == root / "stale_prediction_service/generated_predictions"
+            and Path(commands[1][commands[1].index("--archive-dir") + 1])
+                == root / "fresh_prediction_service/generated_predictions"
+            and not legacy_archive.exists(),
+            "collector prediction preparation never writes the Git-tracked archive path",
         )
 
     print(f"\n{PASS}/{PASS + FAIL} checks passed")
