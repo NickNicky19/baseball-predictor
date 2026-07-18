@@ -33,6 +33,11 @@ def main() -> int:
     checks.append(("report remains research-only and May-sealed", built["betting_authorized"] is False and built["may_2026_read"] is False))
     checks.append(("56-date boundary remains locked", built["prospective_boundary"]["required_complete_dates"] == 56))
     checks.append(("all products remain separately unauthorized", all(value["authorization"] is False for value in built["execution_product_readiness"].values())))
+    pitcher_k = built["market_evidence"]["pitcher_strikeouts"]
+    checks.append(("pitcher-K audit stays outcome-blind, May-sealed, and unauthorized",
+                   pitcher_k["official_outcomes_read"] is False
+                   and pitcher_k["may_2026_read"] is False
+                   and pitcher_k["betting_authorized"] is False))
     checks.append(("195-to-194 readiness mutation is caught", caught(items, lambda x: x["forward_shadow_readiness"].__setitem__("guard_checks_passed", 194))))
     checks.append(("product authorization mutation is caught", caught(items, lambda x: x["execution_product_contracts"]["products"]["onyx"].__setitem__("authorization", True))))
     checks.append(("56-to-55 boundary mutation is caught", caught(items, lambda x: x["forward_evidence_boundary"]["first_economic_look_boundary"].__setitem__("minimum_complete_official_date_blocks", 55))))
@@ -49,6 +54,18 @@ def main() -> int:
     finally:
         report.INPUTS["goal_contract"] = original
     checks.append(("goal hash mutation is caught", goal_hash_caught))
+    pitcher_input = report.INPUTS["pitcher_strikeout_readiness_audit"]
+    try:
+        report.INPUTS["pitcher_strikeout_readiness_audit"] = (pitcher_input[0], "0" * 64)
+        try:
+            report.verify_inputs()
+        except ValueError:
+            pitcher_hash_caught = True
+        else:
+            pitcher_hash_caught = False
+    finally:
+        report.INPUTS["pitcher_strikeout_readiness_audit"] = pitcher_input
+    checks.append(("pitcher-K audit hash mutation is caught", pitcher_hash_caught))
 
     passed = sum(ok for _, ok in checks)
     for label, ok in checks:

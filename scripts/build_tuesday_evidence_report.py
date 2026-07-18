@@ -97,6 +97,10 @@ INPUTS = {
         "data/evidence/execution_products/prizepicks_public_rules_observation_2026-07-17.json",
         "a249e3e6ff3d3edda438f80a2793ba24f06df6cf597a211b597fe5ca79a9109d",
     ),
+    "pitcher_strikeout_readiness_audit": (
+        "reports/pitcher_strikeout_readiness_audit_2026-07-17.md",
+        "66b9519c0e25da1bd710367ec1c16fa2f339ecdfe7a32bc3fc0c295188a62b82",
+    ),
 }
 
 
@@ -312,8 +316,15 @@ def _market_ranking(other: dict[str, Any]) -> list[dict[str, Any]]:
             "state": "UNCERTIFIED_MARKET_UNIVERSE",
             "measured_two_sided_entry_close_selections": reports["total_bases"]["price_contract"]["draftkings_entry_and_close_two_sided_selections"],
         },
-        {"rank": 4, "market": "rbi", "readiness": "not scoreable", "state": "OFFICIAL_OUTCOME_AND_SIMULATION_CONTRACT_BLOCKED"},
-        {"rank": 5, "market": "hits_runs_rbi", "readiness": "not scoreable", "state": "HISTORICAL_PRODUCT_ABSENT"},
+        {
+            "rank": 4,
+            "market": "pitcher_strikeouts",
+            "readiness": "outcome-blind price inventory only",
+            "state": "HARD_IDENTITY_AND_EXACT_UNIVERSE_BLOCKED",
+            "draftkings_two_sided_t4_and_close_paths": 1948,
+        },
+        {"rank": 5, "market": "rbi", "readiness": "not scoreable", "state": "OFFICIAL_OUTCOME_AND_SIMULATION_CONTRACT_BLOCKED"},
+        {"rank": 6, "market": "hits_runs_rbi", "readiness": "not scoreable", "state": "HISTORICAL_PRODUCT_ABSENT"},
     ]
 
 
@@ -339,7 +350,8 @@ def _markdown(report: dict[str, Any]) -> str:
         f"- Hits/KBB combined open capture: {hits['current_kbb_open']['combined_capture']:.4f}.",
         f"- Hits/KBB combined flat-stake theoretical ROI: {hits['current_kbb_open']['combined_flat_stake_roi']:.4f}.",
         "- The Hits contact adapter and HR batted-ball candidate were rejected under their locked gates.",
-        "- Total Bases, RBI, and Hits+Runs+RBI remain separate research contracts and are not authorization candidates.",
+        "- Pitcher strikeouts have 1,948 outcome-blind DraftKings T-4h/close paths, but no hard-keyed scoreable universe or admissible economic gate.",
+        "- Total Bases, pitcher strikeouts, RBI, and Hits+Runs+RBI remain separate research contracts and are not authorization candidates.",
         "",
         "## Execution products",
         "",
@@ -450,6 +462,13 @@ def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, An
             "accepted_for_betting": [],
             "ready_to_open_may": [],
             "research_baselines": ["hits_fitted_kbb", "hr_over_0_5_frozen"],
+            "readiness_audits": [
+                {
+                    "market": "pitcher_strikeouts",
+                    "status": "HISTORICAL_PRICE_INVENTORY_PRESENT_CONTRACT_BLOCKED",
+                    "audit_sha256": bound["pitcher_strikeout_readiness_audit"]["sha256"],
+                }
+            ],
             "rejected": [
                 {"market": "home_runs_over_0.5", "candidate": hr["candidate"], "reason": "worsened proper scores in both open blocks"},
                 {"market": "hits", "candidate": "hits_point_in_time_hitter_contact_adapter_v1", "reason": "locked open-period gate failed"},
@@ -482,6 +501,16 @@ def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, An
                 "historical_executability_verified": False,
             },
             "total_bases": other["market_reports"]["total_bases"],
+            "pitcher_strikeouts": {
+                "audit_sha256": bound["pitcher_strikeout_readiness_audit"]["sha256"],
+                "draftkings_two_sided_t4_and_close_paths": 1948,
+                "draftkings_start_dates": 56,
+                "may_2026_read": False,
+                "official_outcomes_read": False,
+                "hard_identity_complete": False,
+                "exact_model_universe_complete": False,
+                "betting_authorized": False,
+            },
             "rbi": other["market_reports"]["rbi"],
             "hits_runs_rbi": other["market_reports"]["hrr"],
         },
