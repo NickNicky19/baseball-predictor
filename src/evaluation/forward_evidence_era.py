@@ -407,12 +407,18 @@ def certify_operational_smoke(
     verification = _json(lifecycle_verification_path, "lifecycle verification")
     if (
         verification.get("schema_version") != "shadow-lifecycle-tree-verification-v1"
+        or verification.get("official_game_date") != str(official_game_date)
+        or verification.get("evidence_scope_sha256") != sha256_file(evidence_scope_path)
+        or verification.get("evidence_scope_mode") != "operational_smoke"
+        or verification.get("economic_evidence_eligible") is not False
         or verification.get("complete_due_entry_and_prestart_phases") is not True
         or verification.get("settlement_complete") is not True
         or verification.get("replacement_odds_fetched") is not False
         or verification.get("betting_authorized") is not False
     ):
-        raise ForwardEvidenceEraError("operational smoke lifecycle is incomplete or out of scope")
+        raise ForwardEvidenceEraError(
+            "operational smoke lifecycle is incomplete or bound to a different scope/date"
+        )
     return {
         "schema_version": SMOKE_CERTIFICATE_SCHEMA,
         "official_game_date": str(official_game_date),

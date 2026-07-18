@@ -180,7 +180,8 @@ def main() -> int:
         }
         report = verify_lifecycle_tree(**verify_args)
         check(
-            report["complete_due_entry_and_prestart_phases"] is True
+            report["official_game_date"] == "2099-07-18"
+            and report["complete_due_entry_and_prestart_phases"] is True
             and report["settlement_complete"] is True
             and report["verified_resolution_artifacts"] == 1
             and report["replacement_odds_fetched"] is False

@@ -144,6 +144,10 @@ def main() -> int:
         lifecycle = temp / "lifecycle.json"
         lifecycle.write_text(json.dumps({
             "schema_version": "shadow-lifecycle-tree-verification-v1",
+            "official_game_date": "2026-07-20",
+            "evidence_scope_sha256": hashlib.sha256(smoke_scope_path.read_bytes()).hexdigest(),
+            "evidence_scope_mode": "operational_smoke",
+            "economic_evidence_eligible": False,
             "complete_due_entry_and_prestart_phases": True,
             "settlement_complete": True,
             "replacement_odds_fetched": False,
@@ -178,6 +182,68 @@ def main() -> int:
         else:
             incomplete_rejected = False
         check(incomplete_rejected, "MUTATION incomplete lifecycle cannot certify the smoke")
+
+        valid_lifecycle = {
+            "schema_version": "shadow-lifecycle-tree-verification-v1",
+            "official_game_date": "2026-07-20",
+            "evidence_scope_sha256": hashlib.sha256(smoke_scope_path.read_bytes()).hexdigest(),
+            "evidence_scope_mode": "operational_smoke",
+            "economic_evidence_eligible": False,
+            "complete_due_entry_and_prestart_phases": True,
+            "settlement_complete": True,
+            "replacement_odds_fetched": False,
+            "betting_authorized": False,
+        }
+        lifecycle.write_text(json.dumps(valid_lifecycle), encoding="utf-8")
+
+        wrong_scope = dict(valid_lifecycle)
+        wrong_scope["evidence_scope_sha256"] = "0" * 64
+        lifecycle.write_text(json.dumps(wrong_scope), encoding="utf-8")
+        try:
+            certify_operational_smoke(
+                evidence_scope_path=smoke_scope_path,
+                lifecycle_verification_path=lifecycle,
+                official_game_date="2026-07-20",
+                root=ROOT,
+            )
+        except ForwardEvidenceEraError:
+            wrong_scope_rejected = True
+        else:
+            wrong_scope_rejected = False
+        check(wrong_scope_rejected, "MUTATION lifecycle from another scope cannot certify the smoke")
+
+        wrong_date = dict(valid_lifecycle)
+        wrong_date["official_game_date"] = "2026-07-21"
+        lifecycle.write_text(json.dumps(wrong_date), encoding="utf-8")
+        try:
+            certify_operational_smoke(
+                evidence_scope_path=smoke_scope_path,
+                lifecycle_verification_path=lifecycle,
+                official_game_date="2026-07-20",
+                root=ROOT,
+            )
+        except ForwardEvidenceEraError:
+            wrong_date_rejected = True
+        else:
+            wrong_date_rejected = False
+        check(wrong_date_rejected, "MUTATION wrong lifecycle date cannot certify the smoke")
+
+        wrong_mode = dict(valid_lifecycle)
+        wrong_mode["evidence_scope_mode"] = "forward_evidence"
+        wrong_mode["economic_evidence_eligible"] = True
+        lifecycle.write_text(json.dumps(wrong_mode), encoding="utf-8")
+        try:
+            certify_operational_smoke(
+                evidence_scope_path=smoke_scope_path,
+                lifecycle_verification_path=lifecycle,
+                official_game_date="2026-07-20",
+                root=ROOT,
+            )
+        except ForwardEvidenceEraError:
+            wrong_mode_rejected = True
+        else:
+            wrong_mode_rejected = False
+        check(wrong_mode_rejected, "MUTATION economic lifecycle cannot certify excluded smoke")
 
         try:
             build_evidence_scope(
@@ -222,6 +288,10 @@ def main() -> int:
 
         lifecycle.write_text(json.dumps({
             "schema_version": "shadow-lifecycle-tree-verification-v1",
+            "official_game_date": "2026-07-20",
+            "evidence_scope_sha256": hashlib.sha256(smoke_scope_path.read_bytes()).hexdigest(),
+            "evidence_scope_mode": "operational_smoke",
+            "economic_evidence_eligible": False,
             "complete_due_entry_and_prestart_phases": True,
             "settlement_complete": True,
             "replacement_odds_fetched": False,

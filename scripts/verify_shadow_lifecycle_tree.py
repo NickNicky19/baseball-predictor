@@ -192,6 +192,7 @@ def verify_lifecycle_tree(
     complete_due_phases = bool(capture["complete"])
     return {
         "schema_version": "shadow-lifecycle-tree-verification-v1",
+        "official_game_date": plan.official_game_date,
         "assessed_at_utc": assessed_at_utc,
         "plan_sha256": plan.plan_sha256,
         "entry_capture": capture,
