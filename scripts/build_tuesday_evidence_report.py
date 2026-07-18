@@ -31,6 +31,16 @@ from src.evaluation.shadow_capture_plan import load_capture_plan  # noqa: E402
 
 LOCKED_GOAL_SHA = "25d845efeb0189c313a6a9d3e646c53619d12667c8b16929013287b04bee4f4e"
 SMOKE_ROOT = ROOT / "data/learning/shadow/operational_smoke_v11"
+REPORTING_SOURCE_FILES = (
+    "GOAL_TUESDAY_MARKET_AUTHORIZATION.md",
+    "scripts/build_tuesday_evidence_report.py",
+    "scripts/check_tuesday_evidence_report_offline.py",
+    "scripts/certify_forward_operational_smoke_full_day.py",
+    "scripts/validate_execution_product_observation_contained.py",
+    "scripts/check_execution_product_observation_containment_offline.py",
+    "src/evaluation/forward_evidence_era.py",
+    "src/evaluation/shadow_capture_plan.py",
+)
 
 INPUTS = {
     "goal_contract": (
@@ -296,11 +306,7 @@ def _head_file_sha256(relative: str) -> str | None:
 def _source_release() -> dict[str, Any]:
     head = _git_head()
     current_files: dict[str, dict[str, Any]] = {}
-    for relative in (
-        "GOAL_TUESDAY_MARKET_AUTHORIZATION.md",
-        "scripts/build_tuesday_evidence_report.py",
-        "scripts/check_tuesday_evidence_report_offline.py",
-    ):
+    for relative in REPORTING_SOURCE_FILES:
         disk_sha = sha256(ROOT / relative)
         head_sha = _head_file_sha256(relative)
         current_files[relative] = {

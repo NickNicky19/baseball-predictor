@@ -32,6 +32,13 @@ def main() -> int:
     report.require_facts(items)
     built = report.build_report(bound, items)
     checks.append(("current hash-bound inputs pass", True))
+    checks.append(("report safety dependency set is complete",
+                   {
+                       "scripts/certify_forward_operational_smoke_full_day.py",
+                       "scripts/validate_execution_product_observation_contained.py",
+                       "src/evaluation/forward_evidence_era.py",
+                       "src/evaluation/shadow_capture_plan.py",
+                   }.issubset(report.REPORTING_SOURCE_FILES)))
     checks.append(("report remains research-only and May-sealed", built["betting_authorized"] is False and built["may_2026_read"] is False))
     checks.append(("56-date boundary remains locked", built["prospective_boundary"]["required_complete_dates"] == 56))
     checks.append(("all products remain separately unauthorized", all(value["authorization"] is False for value in built["execution_product_readiness"].values())))
