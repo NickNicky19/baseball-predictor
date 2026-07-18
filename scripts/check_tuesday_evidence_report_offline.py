@@ -40,6 +40,10 @@ def main() -> int:
                        "src/evaluation/shadow_capture_plan.py",
                    }.issubset(report.REPORTING_SOURCE_FILES)))
     checks.append(("report remains research-only and May-sealed", built["betting_authorized"] is False and built["may_2026_read"] is False))
+    checks.append(("uncommitted reporting bytes are not listed as a completed gate",
+                   built["source_release"]["reporting_layer_committed"]
+                   or "source release committed with readiness-bound hashes"
+                   not in built["completed_gates"]))
     checks.append(("56-date boundary remains locked", built["prospective_boundary"]["required_complete_dates"] == 56))
     checks.append(("all products remain separately unauthorized", all(value["authorization"] is False for value in built["execution_product_readiness"].values())))
     pitcher_k = built["market_evidence"]["pitcher_strikeouts"]
@@ -96,10 +100,10 @@ def main() -> int:
                    and built["credential_security"]["economic_evidence_eligible"] is False
                    and built["credential_security"]["betting_authorized"] is False))
     checks.append(("v11 is permanently failed and cannot masquerade as in progress",
-                   built["operational_smoke"]["state"]
+                   built["operational_smokes"]["retained_v11"]["state"]
                    == "FAILED_PERMANENTLY_EXCLUDED_NOT_CERTIFIABLE"
-                   and built["operational_smoke"]["source_error_receipts"] == 1
-                   and built["operational_smoke"]["verified_complete"] is False))
+                   and built["operational_smokes"]["retained_v11"]["source_error_receipts"] == 1
+                   and built["operational_smokes"]["retained_v11"]["verified_complete"] is False))
     checks.append(("rotated credential provider access is distinguished from an eligible quote capture",
                    built["credential_security"]["provider_access_verified"] is True
                    and built["credential_security"]["provider_capture_verified"] is False))
@@ -107,7 +111,7 @@ def main() -> int:
                    built["inputs"]["v11_event_identity_diagnostic"]["sha256"]
                    == report.INPUTS["v11_event_identity_diagnostic"][1]
                    and items["v11_event_identity_diagnostic"]["official_outcomes_inspected"] is False
-                   and built["operational_smoke"]["state"]
+                   and built["operational_smokes"]["retained_v11"]["state"]
                    == "FAILED_PERMANENTLY_EXCLUDED_NOT_CERTIFIABLE"))
     checks.append(("identity diagnostic outcome mutation is caught", caught(
         items,
@@ -116,43 +120,85 @@ def main() -> int:
     rendered = report._markdown(built)
     checks.append(("markdown lifecycle guard denominator is current", "Local lifecycle guards: 223/223." in rendered and "/215" not in rendered))
 
-    original_smoke_root = report.SMOKE_ROOT
-    try:
-        with tempfile.TemporaryDirectory(prefix="fake_smoke_certificate_") as temporary:
-            fake_root = Path(temporary)
-            report.SMOKE_ROOT = fake_root
-            (fake_root / "handcrafted.json").write_text(
-                json.dumps({
-                    "schema_version": "forward-operational-smoke-certificate-v2",
-                    "official_game_date": "2026-07-18",
-                    "evidence_scope": {
-                        "path": "missing_scope.json",
-                        "sha256": "0" * 64,
-                        "scope_sha256": "0" * 64,
-                    },
-                    "lifecycle_verification": {
-                        "path": "missing_lifecycle.json",
-                        "sha256": "0" * 64,
-                    },
-                    "verified": True,
-                    "complete_lifecycle": True,
-                    "operational_smoke": True,
-                    "economic_evidence_eligible": False,
-                    "betting_authorized": False,
-                }),
-                encoding="utf-8",
-            )
-            try:
-                report._operational_smoke_status()
-            except ValueError:
-                fake_certificate_caught = True
-            else:
-                fake_certificate_caught = False
-    finally:
-        report.SMOKE_ROOT = original_smoke_root
+    with tempfile.TemporaryDirectory(prefix="fake_smoke_certificate_") as temporary:
+        fake_root = Path(temporary)
+        (fake_root / "handcrafted.json").write_text(
+            json.dumps({
+                "schema_version": "forward-operational-smoke-certificate-v2",
+                "official_game_date": "2026-07-18",
+                "evidence_scope": {
+                    "path": "missing_scope.json",
+                    "sha256": "0" * 64,
+                    "scope_sha256": "0" * 64,
+                },
+                "lifecycle_verification": {
+                    "path": "missing_lifecycle.json",
+                    "sha256": "0" * 64,
+                },
+                "verified": True,
+                "complete_lifecycle": True,
+                "operational_smoke": True,
+                "economic_evidence_eligible": False,
+                "betting_authorized": False,
+            }),
+            encoding="utf-8",
+        )
+        try:
+            report._operational_smoke_status(fake_root, repo_root=ROOT)
+        except ValueError:
+            fake_certificate_caught = True
+        else:
+            fake_certificate_caught = False
     checks.append(("handcrafted verified=true smoke certificate cannot change report status", fake_certificate_caught))
 
+    successor = copy.deepcopy(built["operational_smokes"]["retained_v11"])
+    successor.update({
+        "state": "IN_PROGRESS_NOT_CERTIFIED",
+        "expected_targets": 15,
+        "entry_terminal_receipts": 0,
+        "eligible_entry_bundles": 0,
+        "source_error_receipts": 0,
+        "verified_complete": False,
+    })
     original_source_release = report._source_release
+    published = copy.deepcopy(built["source_release"])
+    published["reporting_layer_committed"] = True
+    published["upstream_publication"]["head_present_on_upstream"] = True
+    try:
+        report._source_release = lambda: published
+        successor_report = report.build_report(bound, items, successor_smoke=successor)
+
+        verified_successor = copy.deepcopy(successor)
+        verified_successor.update({
+            "state": "VERIFIED_COMPLETE_PERMANENTLY_EXCLUDED",
+            "entry_terminal_receipts": 15,
+            "eligible_entry_bundles": 15,
+            "verified_complete": True,
+        })
+        verified_report = report.build_report(
+            bound,
+            items,
+            successor_smoke=verified_successor,
+        )
+    finally:
+        report._source_release = original_source_release
+    checks.append(("successor smoke is reported without erasing retained v11 failure",
+                   successor_report["operational_smoke"]["state"]
+                   == "IN_PROGRESS_NOT_CERTIFIED"
+                   and successor_report["operational_smokes"]["retained_v11"]["state"]
+                   == "FAILED_PERMANENTLY_EXCLUDED_NOT_CERTIFIABLE"
+                   and successor_report["status"]
+                   == "SUCCESSOR_SMOKE_IN_PROGRESS_RESEARCH_ONLY"
+                   and successor_report["cloud_hosting_recommendation"]["status"]
+                   == "SUCCESSOR_SMOKE_INCOMPLETE_NO_DURABLE_HOST_RELIABILITY_EVIDENCE"))
+    checks.append(("only the separately verified successor advances the lifecycle gate",
+                   verified_report["status"]
+                   == "SMOKE_VERIFIED_FORWARD_ERA_NOT_STARTED_RESEARCH_ONLY"
+                   and verified_report["operational_smokes"]["retained_v11"]["verified_complete"] is False
+                   and verified_report["betting_authorized"] is False
+                   and verified_report["cloud_hosting_recommendation"]["status"]
+                   == "EXCLUDED_LOCAL_SMOKE_VERIFIED_DURABLE_PRIMARY_NOT_DEPLOYED"))
+
     try:
         unpublished = copy.deepcopy(built["source_release"])
         unpublished["reporting_layer_committed"] = True

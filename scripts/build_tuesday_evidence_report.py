@@ -26,13 +26,14 @@ from scripts.certify_forward_operational_smoke_full_day import (  # noqa: E402
     require_full_day_completion,
 )
 from src.evaluation.forward_evidence_era import (  # noqa: E402
+    validate_evidence_scope,
     validate_operational_smoke_certificate,
 )
 from src.evaluation.shadow_capture_plan import load_capture_plan  # noqa: E402
 from run_shadow_collector_tick import load_runtime_config  # noqa: E402
 
 LOCKED_GOAL_SHA = "25d845efeb0189c313a6a9d3e646c53619d12667c8b16929013287b04bee4f4e"
-SMOKE_ROOT = ROOT / "data/learning/shadow/operational_smoke_v11"
+V11_SMOKE_ROOT = ROOT / "data/learning/shadow/operational_smoke_v11"
 REPORTING_SOURCE_FILES = (
     "GOAL_TUESDAY_MARKET_AUTHORIZATION.md",
     "scripts/build_tuesday_evidence_report.py",
@@ -428,8 +429,43 @@ def _source_release() -> dict[str, Any]:
     }
 
 
-def _operational_smoke_status() -> dict[str, Any]:
-    plans = sorted(SMOKE_ROOT.glob("plans/*/plan.json"))
+def _operational_smoke_status(
+    smoke_root: Path,
+    *,
+    repo_root: Path,
+    validate_scope: bool = True,
+) -> dict[str, Any]:
+    smoke_root = smoke_root.resolve()
+    repo_root = repo_root.resolve()
+    scope_path = smoke_root / "evidence_scope.json"
+    runtime_path = smoke_root / "runtime_manifest.json"
+    scope_binding = None
+    if scope_path.is_file():
+        if not smoke_root.is_relative_to(repo_root):
+            raise ValueError("operational-smoke root must stay inside its release root")
+        scope = (
+            validate_evidence_scope(
+                scope_path,
+                root=repo_root,
+                require_current_runtime=False,
+            )
+            if validate_scope
+            else load_json(scope_path)
+        )
+        if scope.get("mode") != "operational_smoke":
+            raise ValueError("operational-smoke root contains a non-smoke evidence scope")
+        scope_binding = {
+            "path": str(scope_path.relative_to(repo_root)).replace("\\", "/"),
+            "sha256": sha256(scope_path),
+            "scope_sha256": scope["scope_sha256"],
+            "runtime_manifest_sha256": sha256(runtime_path),
+            "runtime_fingerprint_sha256": scope["runtime_manifest"]["fingerprint_sha256"],
+            "source_commit": scope["source_commit"],
+            "source_tree_clean": scope["source_tree_clean"],
+            "economic_evidence_eligible": scope["economic_evidence_eligible"],
+            "betting_authorized": scope["betting_authorized"],
+        }
+    plans = sorted(smoke_root.glob("plans/*/plan.json"))
     expected_targets = 0
     planned_dates: list[str] = []
     for path in plans:
@@ -440,10 +476,10 @@ def _operational_smoke_status() -> dict[str, Any]:
         expected_targets += len(targets)
         planned_dates.append(path.parent.name)
 
-    entry_terminal = len(list(SMOKE_ROOT.glob("live/*/*/terminal_attempt.json")))
-    entry_bundles = len(list(SMOKE_ROOT.glob("live/*/*/target_bundle.json")))
-    source_errors = list(SMOKE_ROOT.glob("live/*/*/attempts/*/source_error.json"))
-    event_receipts = list(SMOKE_ROOT.glob("live/*/*/attempts/*/events_receipt.json"))
+    entry_terminal = len(list(smoke_root.glob("live/*/*/terminal_attempt.json")))
+    entry_bundles = len(list(smoke_root.glob("live/*/*/target_bundle.json")))
+    source_errors = list(smoke_root.glob("live/*/*/attempts/*/source_error.json"))
+    event_receipts = list(smoke_root.glob("live/*/*/attempts/*/events_receipt.json"))
     provider_http_200_receipts = 0
     for path in event_receipts:
         receipt = load_json(path)
@@ -455,34 +491,34 @@ def _operational_smoke_status() -> dict[str, Any]:
             and receipt.get("betting_authorized") is False
         ):
             provider_http_200_receipts += 1
-    prestart_bundles = len(list(SMOKE_ROOT.glob("close/*/*/prestart_reference_bundle.json")))
-    prestart_errors = len(list(SMOKE_ROOT.glob("close/*/*/prestart_terminal_error.json")))
-    ledger = SMOKE_ROOT / "ledger/forward_ledger.jsonl"
+    prestart_bundles = len(list(smoke_root.glob("close/*/*/prestart_reference_bundle.json")))
+    prestart_errors = len(list(smoke_root.glob("close/*/*/prestart_terminal_error.json")))
+    ledger = smoke_root / "ledger/forward_ledger.jsonl"
     ledger_rows = 0
     if ledger.is_file():
         ledger_rows = sum(1 for line in ledger.read_text(encoding="utf-8").splitlines() if line.strip())
 
     certificates: list[dict[str, Any]] = []
-    for path in SMOKE_ROOT.glob("**/*.json"):
+    for path in smoke_root.glob("**/*.json"):
         try:
             payload = load_json(path)
         except (OSError, ValueError, json.JSONDecodeError):
             continue
         if payload.get("schema_version") == "forward-operational-smoke-certificate-v2":
-            certificates.append({"path": str(path.relative_to(ROOT)), "sha256": sha256(path), "payload": payload})
+            certificates.append({"path": str(path), "sha256": sha256(path), "payload": payload})
     if len(certificates) > 1:
         raise ValueError("multiple operational-smoke certificates exist")
     verified = False
     if certificates:
         certificate = certificates[0]
-        certificate_path = ROOT / certificate["path"]
-        validated = validate_operational_smoke_certificate(certificate_path, root=ROOT)
+        certificate_path = Path(certificate["path"])
+        validated = validate_operational_smoke_certificate(certificate_path, root=repo_root)
         official_date = str(validated["official_game_date"])
         if planned_dates != [official_date]:
             raise ValueError("operational-smoke certificate does not cover the exact planned date")
         lifecycle_path = certificate_path.parent / validated["lifecycle_verification"]["path"]
         lifecycle = load_json(lifecycle_path)
-        plan = load_capture_plan(SMOKE_ROOT / "plans" / official_date / "plan.json")
+        plan = load_capture_plan(smoke_root / "plans" / official_date / "plan.json")
         require_full_day_completion(plan, lifecycle)
         verified = True
     if verified:
@@ -498,6 +534,12 @@ def _operational_smoke_status() -> dict[str, Any]:
         certificate = {key: certificates[0][key] for key in ("path", "sha256")}
     return {
         "state": state,
+        "root": (
+            str(smoke_root.relative_to(repo_root)).replace("\\", "/")
+            if smoke_root.is_relative_to(repo_root)
+            else str(smoke_root)
+        ),
+        "scope_binding": scope_binding,
         "planned_dates": planned_dates,
         "expected_targets": expected_targets,
         "entry_terminal_receipts": entry_terminal,
@@ -560,6 +602,8 @@ def _market_ranking(
 
 def _markdown(report: dict[str, Any]) -> str:
     smoke = report["operational_smoke"]
+    retained_v11 = report["operational_smokes"]["retained_v11"]
+    successor = report["operational_smokes"]["successor"]
     hits = report["market_evidence"]["hits"]
     pitcher_k = report["market_evidence"]["pitcher_strikeouts"]
     lines = [
@@ -573,7 +617,12 @@ def _markdown(report: dict[str, Any]) -> str:
         "",
         f"- Source commit: `{report['source_release']['commit']}`.",
         f"- Local lifecycle guards: {report['forward_shadow_readiness']['guard_checks_passed']}/223.",
-        f"- Operational smoke: {smoke['state']} ({smoke['entry_terminal_receipts']}/{smoke['expected_targets']} terminal entry receipts).",
+        f"- Retained v11 smoke: {retained_v11['state']} ({retained_v11['entry_terminal_receipts']}/{retained_v11['expected_targets']} terminal entry receipts).",
+        *(
+            [f"- Successor smoke: {successor['state']} ({successor['entry_terminal_receipts']}/{successor['expected_targets']} terminal entry receipts)."]
+            if successor is not None
+            else ["- Successor smoke: NOT PROVIDED TO THIS REPORT BUILD."]
+        ),
         f"- First economic look: {report['prospective_boundary']['completed_complete_dates']}/{report['prospective_boundary']['required_complete_dates']} complete future dates.",
         "",
         "## Open research evidence",
@@ -606,7 +655,13 @@ def _markdown(report: dict[str, Any]) -> str:
     return "\n".join(lines) + "\n"
 
 
-def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, Any]]) -> dict[str, Any]:
+def build_report(
+    bound: dict[str, dict[str, str]],
+    items: dict[str, dict[str, Any]],
+    *,
+    retained_v11_smoke: dict[str, Any] | None = None,
+    successor_smoke: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     hr = items["hr_rejection"]
     hits = items["hits_consolidation"]
     contact = items["hits_contact_adjudication"]
@@ -616,7 +671,12 @@ def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, An
     pitcher_k = items["pitcher_strikeout_readiness_audit"]
     contracts = items["execution_product_contracts"]
     credential = items["credential_rotation_attestation"]
-    smoke = _operational_smoke_status()
+    retained_v11 = retained_v11_smoke or _operational_smoke_status(
+        V11_SMOKE_ROOT,
+        repo_root=ROOT,
+        validate_scope=False,
+    )
+    smoke = successor_smoke or retained_v11
     contact_combined = contact["combined_open"]
     contact_march = contact["blocks"]["march_april_fit"]
     contact_june = contact["blocks"]["june_replication"]
@@ -630,11 +690,19 @@ def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, An
         status = "REPORTING_LAYER_UNPUBLISHED_RESEARCH_ONLY"
         action = "Publish the exact committed reporting release to its configured trusted upstream before treating it as shared immutable evidence."
         why = "The reporting layer is committed locally, but the exact source commit is not present on the configured upstream reference."
-    elif smoke["verified_complete"]:
+    elif successor_smoke is not None and smoke["verified_complete"]:
         status = "SMOKE_VERIFIED_FORWARD_ERA_NOT_STARTED_RESEARCH_ONLY"
         action = "Prepare a clean checkout of the immutable release, deploy the durable external primary, and create the new hash-bound forward evidence era."
         why = "The excluded lifecycle smoke has passed; prospective evidence still requires an always-on primary and one clean frozen era."
-    elif smoke["state"] == "FAILED_PERMANENTLY_EXCLUDED_NOT_CERTIFIABLE":
+    elif successor_smoke is not None and smoke["state"] == "FAILED_PERMANENTLY_EXCLUDED_NOT_CERTIFIABLE":
+        status = "SUCCESSOR_SMOKE_FAILED_RESEARCH_ONLY"
+        action = "Stop and preserve the successor failure exactly; diagnose outcome-blind operational state before proposing any new incompatible era."
+        why = "The corrected successor smoke failed and cannot be retried or backfilled. A new era is permissible only after the measured failure is diagnosed and the repair is mutation-tested."
+    elif successor_smoke is not None:
+        status = "SUCCESSOR_SMOKE_IN_PROGRESS_RESEARCH_ONLY"
+        action = "Let the single corrected successor smoke finish its predeclared lifecycle, then run the exact full-day schema-v2 certifier."
+        why = "The successor exists and remains operationally incomplete. No retry, duplicate run, early certification, or economic inspection is permitted."
+    elif retained_v11["state"] == "FAILED_PERMANENTLY_EXCLUDED_NOT_CERTIFIABLE":
         status = "INCOMPATIBLE_SUCCESSOR_SMOKE_REQUIRED_RESEARCH_ONLY"
         action = "Finish, freeze, and run a new incompatible operational smoke under the mutation-tested event-identity v2 contract; preserve v11 unchanged as failed evidence."
         why = "v11 proved provider access but permanently failed exact event identity on its first target. Its retained outcome-blind diagnostic now binds the successor's 60-second rejection limit; v11 can never be retried or certified."
@@ -644,8 +712,13 @@ def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, An
         why = "The lifecycle is mutation-tested but has not yet been proven against one real future entry, prestart reference, official final, settlement, and ledger sequence."
 
     products = _product_readiness(contracts)
-    provider_capture_verified = smoke["eligible_entry_bundles"] > 0
-    provider_access_verified = smoke["credential_provider_access_verified"]
+    provider_capture_verified = (
+        successor_smoke is not None and smoke["eligible_entry_bundles"] > 0
+    )
+    provider_access_verified = (
+        retained_v11["credential_provider_access_verified"]
+        or (successor_smoke is not None and smoke["credential_provider_access_verified"])
+    )
     stale_credential_blocker = "a previously tracked odds-provider credential must be rotated before any live request"
     shadow_blockers = [
         blocker for blocker in shadow["blockers"]
@@ -655,6 +728,55 @@ def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, An
         shadow_blockers.append(
             "the user-attested rotated hidden credential has not yet received a successful provider response"
         )
+    if successor_smoke is not None and smoke["verified_complete"]:
+        hosting_status = "EXCLUDED_LOCAL_SMOKE_VERIFIED_DURABLE_PRIMARY_NOT_DEPLOYED"
+        hosting_recommendation = (
+            "The excluded local lifecycle smoke is verified. Deploy the exact immutable "
+            "collector to one inexpensive always-on external primary, retain GitHub as "
+            "verification/alerting only, and measure missed ticks, restarts, network "
+            "failures, and complete-date rate before treating the host as reliable."
+        )
+    elif successor_smoke is not None:
+        hosting_status = "SUCCESSOR_SMOKE_INCOMPLETE_NO_DURABLE_HOST_RELIABILITY_EVIDENCE"
+        hosting_recommendation = (
+            "Do not purchase or rank a host from an incomplete smoke. Preserve the "
+            "single corrected successor run until it either fails or certifies, then "
+            "measure one external primary while keeping GitHub verification-only."
+        )
+    else:
+        hosting_status = "NO_DURABLE_HOST_RELIABILITY_EVIDENCE"
+        hosting_recommendation = (
+            "Do not rank or purchase a host on unmeasured reliability. Complete a new "
+            "incompatible excluded smoke under the corrected identity contract, then "
+            "deploy the immutable collector to one inexpensive always-on external "
+            "primary and measure missed ticks, restarts, network failures, and "
+            "complete-date rate; keep GitHub verification-only."
+        )
+    completed_gates = [
+        "future-only T-4h lifecycle implemented and mutation-tested locally",
+        "official MLB final-feed outcome and settlement workers implemented",
+        "immutable ledger and exclusion funnels implemented",
+        "public rules observations retained separately for four execution products",
+        *(
+            ["source release committed with readiness-bound hashes"]
+            if source_release["reporting_layer_committed"]
+            else []
+        ),
+        *(
+            ["exact source commit present on the configured upstream reference"]
+            if source_release["upstream_publication"]["head_present_on_upstream"]
+            else []
+        ),
+        "exact secret-free Python/runtime fingerprint bound to the operational smoke",
+        "previously exposed credential user-attested rotated; replacement value entered through a hidden prompt and not retained",
+        "v11 source failure retained unchanged and diagnosed without prices, model probabilities, outcomes, or May",
+        "successor event-identity rejection bound hash-bound to the retained v11 diagnostic",
+        *(
+            ["corrected successor operational smoke certified through the exact schema-v2 artifact chain"]
+            if successor_smoke is not None and smoke["verified_complete"]
+            else []
+        ),
+    ]
     return {
         "schema_version": "tuesday-market-authorization-evidence-v2",
         "built_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -669,22 +791,7 @@ def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, An
             "point_estimates_can_authorize": False,
             "product_pooling_permitted": False,
         },
-        "completed_gates": [
-            "future-only T-4h lifecycle implemented and mutation-tested locally",
-            "official MLB final-feed outcome and settlement workers implemented",
-            "immutable ledger and exclusion funnels implemented",
-            "public rules observations retained separately for four execution products",
-            "source release committed with readiness-bound hashes",
-            *(
-                ["exact source commit present on the configured upstream reference"]
-                if source_release["upstream_publication"]["head_present_on_upstream"]
-                else []
-            ),
-            "exact secret-free Python/runtime fingerprint bound to the operational smoke",
-            "previously exposed credential user-attested rotated; replacement value entered through a hidden prompt and not retained",
-            "v11 source failure retained unchanged and diagnosed without prices, model probabilities, outcomes, or May",
-            "successor event-identity rejection bound hash-bound to the retained v11 diagnostic",
-        ],
+        "completed_gates": completed_gates,
         "credential_security": {
             "attestation_sha256": bound["credential_rotation_attestation"]["sha256"],
             "rotation_status": "USER_ATTESTED_COMPLETE",
@@ -697,6 +804,10 @@ def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, An
             "betting_authorized": False,
         },
         "operational_smoke": smoke,
+        "operational_smokes": {
+            "retained_v11": retained_v11,
+            "successor": successor_smoke,
+        },
         "expected_vs_captured_targets": {
             "expected": smoke["expected_targets"],
             "terminal_entry_receipts": smoke["entry_terminal_receipts"],
@@ -728,8 +839,8 @@ def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, An
             "may_counts": False,
         },
         "cloud_hosting_recommendation": {
-            "status": "NO_DURABLE_HOST_RELIABILITY_EVIDENCE",
-            "recommendation": "Do not rank or purchase a host on unmeasured reliability. Complete a new incompatible excluded smoke under the corrected identity contract, then deploy the immutable collector to one inexpensive always-on external primary and measure missed ticks, restarts, network failures, and complete-date rate; keep GitHub verification-only.",
+            "status": hosting_status,
+            "recommendation": hosting_recommendation,
             "github_as_primary": False,
         },
         "candidate_register": {
@@ -797,7 +908,9 @@ def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, An
             "blockers": shadow_blockers,
         },
         "remaining_authorization_blockers": [
-            "the new incompatible operational smoke is not yet certified" if not smoke["verified_complete"] else "durable external primary is not deployed",
+            "the new incompatible operational smoke is not yet certified"
+            if successor_smoke is None or not smoke["verified_complete"]
+            else "durable external primary is not deployed",
             "no forward evidence era has 56 complete future official dates",
             "no product has account-visible executable and settlement evidence",
             "no product-specific positive net-ROI lower bound exists",
@@ -821,11 +934,22 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--out", required=True)
     ap.add_argument("--markdown", required=True)
     ap.add_argument("--manifest", required=True)
+    ap.add_argument("--successor-smoke-root")
+    ap.add_argument("--successor-repo-root")
     args = ap.parse_args(argv)
+
+    if bool(args.successor_smoke_root) != bool(args.successor_repo_root):
+        ap.error("--successor-smoke-root and --successor-repo-root must be provided together")
 
     bound, items = verify_inputs()
     require_facts(items)
-    report = build_report(bound, items)
+    successor_smoke = None
+    if args.successor_smoke_root:
+        successor_smoke = _operational_smoke_status(
+            Path(args.successor_smoke_root),
+            repo_root=Path(args.successor_repo_root),
+        )
+    report = build_report(bound, items, successor_smoke=successor_smoke)
     out = Path(args.out)
     markdown = Path(args.markdown)
     manifest = Path(args.manifest)
