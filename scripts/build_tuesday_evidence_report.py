@@ -1,17 +1,24 @@
 #!/usr/bin/env python3
-"""Build the terminal hash-bound Tuesday market-authorization evidence report."""
+"""Build the fail-closed, hash-bound Tuesday authorization-progress report.
+
+The report may summarize certified open research artifacts and operational
+completeness. It must not inspect prospective economic outcomes before the
+locked evidence boundary, open May 2026, or imply betting authorization.
+"""
 from __future__ import annotations
 
 import argparse
 import hashlib
 import json
+import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
-LOCKED_GOAL_SHA = "a16fb86571d037dbdf7a268218d5086fea905f555af44ce1bee5f03aab38fbf5"
+LOCKED_GOAL_SHA = "25d845efeb0189c313a6a9d3e646c53619d12667c8b16929013287b04bee4f4e"
+SMOKE_ROOT = ROOT / "data/learning/shadow/operational_smoke_v6"
 
 INPUTS = {
     "goal_contract": (
@@ -51,8 +58,44 @@ INPUTS = {
         "509e000cb124edf99de24c0c54ab5ef61b409e19afaf2967e33eb5b198bc45a5",
     ),
     "forward_shadow_readiness": (
-        "data/analysis/tuesday_market_authorization_2026-07-21/forward_shadow_readiness.json",
-        "073d1ab3219052359fd8746025304f90fa588db1ea22aeecd60f6642fafdc6f0",
+        "reports/forward_shadow_readiness_v17.json",
+        "aee44086e26a761cdfe3b2746abfdea526b351afd468198e9c19e4b768ea546a",
+    ),
+    "operational_smoke_preflight": (
+        "reports/forward_shadow_operational_smoke_preflight_2026-07-17.json",
+        "c0658b15963a23e14db38e2af45fce3311a7ec5cdbfab463b13b5ec40658465a",
+    ),
+    "operational_smoke_scope": (
+        "data/learning/shadow/operational_smoke_v6/evidence_scope.json",
+        "d5c303e7effae1749f7dd506b215791fc2729c1818bd7de1ac6dbc9a2c1d55c6",
+    ),
+    "forward_evidence_boundary": (
+        "config/forward_shadow_evidence_boundary.json",
+        "3a68c32e32ea3479b7b567ae195bf76a0c2b7eadb97bc0910e999c7ad9beaecf",
+    ),
+    "deployment_protocol": (
+        "config/forward_shadow_deployment_protocol.json",
+        "9fe3939378276337d800e4e6f3a986d6d3833ee7b65508e022c5782d95165b00",
+    ),
+    "execution_product_contracts": (
+        "config/hits_execution_product_contracts.json",
+        "2176655f236649852de70f2ac7bad639876db64b8a3a5f612aae8ced34aea3fd",
+    ),
+    "onyx_public_rules": (
+        "data/evidence/execution_products/onyx_public_rules_observation_2026-07-17.json",
+        "8370950090a3fc8fa67157bfe0a72e5baeec4805c1e082b3ff4092323916116b",
+    ),
+    "novig_public_rules": (
+        "data/evidence/execution_products/novig_public_rules_observation_2026-07-17.json",
+        "17c6bea31eb201b450aa8c692e8f8da20d3093290f97ada3bddbec781a5130c8",
+    ),
+    "chalkboard_public_rules": (
+        "data/evidence/execution_products/chalkboard_public_rules_observation_2026-07-17.json",
+        "040efa29660fddb9d21cdd7d1b0ee18c74179287bd1f59438cbbadb061e2d3f4",
+    ),
+    "prizepicks_public_rules": (
+        "data/evidence/execution_products/prizepicks_public_rules_observation_2026-07-17.json",
+        "a249e3e6ff3d3edda438f80a2793ba24f06df6cf597a211b597fe5ca79a9109d",
     ),
 }
 
@@ -75,9 +118,7 @@ def verify_inputs() -> tuple[dict[str, dict[str, str]], dict[str, dict[str, Any]
         path = ROOT / relative
         actual = sha256(path)
         if actual != expected:
-            raise ValueError(
-                f"{label} hash mismatch: expected {expected}, got {actual}"
-            )
+            raise ValueError(f"{label} hash mismatch: expected {expected}, got {actual}")
         bound[label] = {"path": relative, "sha256": actual}
         if path.suffix == ".json":
             loaded[label] = load_json(path)
@@ -89,8 +130,13 @@ def require_facts(items: dict[str, dict[str, Any]]) -> None:
     hits = items["hits_consolidation"]
     contact = items["hits_contact_adjudication"]
     other = items["other_market_contracts"]
-    shadow = items["forward_shadow_readiness"]
     ranking = items["market_ranking"]
+    shadow = items["forward_shadow_readiness"]
+    preflight = items["operational_smoke_preflight"]
+    scope = items["operational_smoke_scope"]
+    boundary = items["forward_evidence_boundary"]
+    products = items["execution_product_contracts"]
+
     if hr.get("candidate_supported") is not False or hr.get("may_opened") is not False:
         raise ValueError("HR rejection or May state drifted")
     if hits.get("betting_authorized") is not False or hits.get("may_2026_holdout_read") is not False:
@@ -101,77 +147,179 @@ def require_facts(items: dict[str, dict[str, Any]]) -> None:
         raise ValueError("Hits contact report violates May or authorization state")
     if other.get("may_2026_read") is not False or other.get("official_outcomes_read") is not False:
         raise ValueError("other-market audit no longer proves outcome-blind/no-May scope")
-    if ranking.get("selected_additional_candidates", [{}])[0].get("candidate_id") != "hits_point_in_time_hitter_contact_adapter_v1":
+    selected = ranking.get("selected_additional_candidates")
+    if not isinstance(selected, list) or not selected or selected[0].get("candidate_id") != "hits_point_in_time_hitter_contact_adapter_v1":
         raise ValueError("ranked additional candidate drifted")
-    if shadow.get("guard_checks_passed") != 38:
-        raise ValueError("forward-shadow guards are not fully validated")
+    if shadow.get("guard_checks_passed") != 195 or shadow.get("betting_authorized") is not False:
+        raise ValueError("forward-shadow readiness is not the certified 195/195 research state")
     if shadow["capture_timing"].get("durable_external_primary_collector_deployed") is not False:
-        raise ValueError("unexpected external collector state")
+        raise ValueError("unexpected durable collector state")
     if shadow["forward_evidence"].get("capture_measurable") is not False:
-        raise ValueError("unexpected forward evidence state")
+        raise ValueError("unexpected measurable forward evidence before the boundary")
+    if preflight.get("live_request_made") is not False or preflight.get("economic_evidence_eligible") is not False:
+        raise ValueError("operational-smoke preflight is no longer an unused excluded preflight")
+    if scope.get("mode") != "operational_smoke" or scope.get("economic_evidence_eligible") is not False:
+        raise ValueError("operational smoke scope is not permanently excluded")
+    first_look = boundary.get("first_economic_look_boundary", {})
+    if first_look.get("minimum_complete_official_date_blocks") != 56:
+        raise ValueError("forward evidence boundary no longer requires 56 complete dates")
+    if boundary.get("open_data_derivation", {}).get("may_2026_used") is not False:
+        raise ValueError("May entered the boundary derivation")
+    if products.get("betting_authorized") is not False or products.get("cross_product_inheritance_permitted") is not False:
+        raise ValueError("execution-product contract is not fail-closed")
+    for product, contract in products.get("products", {}).items():
+        if contract.get("authorization") is not False:
+            raise ValueError(f"{product} unexpectedly has authorization")
+        if contract.get("actual_submit_accept_receipt_verified") is not False:
+            raise ValueError(f"{product} unexpectedly claims accepted-entry evidence")
+        if contract.get("actual_settlement_receipt_verified") is not False:
+            raise ValueError(f"{product} unexpectedly claims settlement evidence")
+
+
+def _git_head() -> str:
+    result = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    commit = result.stdout.strip().lower()
+    if len(commit) != 40:
+        raise ValueError("source release commit is unavailable")
+    return commit
+
+
+def _head_file_sha256(relative: str) -> str | None:
+    result = subprocess.run(
+        ["git", "show", f"HEAD:{relative}"],
+        cwd=ROOT,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        return None
+    return hashlib.sha256(result.stdout).hexdigest()
+
+
+def _source_release() -> dict[str, Any]:
+    current_files: dict[str, dict[str, Any]] = {}
+    for relative in (
+        "GOAL_TUESDAY_MARKET_AUTHORIZATION.md",
+        "scripts/build_tuesday_evidence_report.py",
+        "scripts/check_tuesday_evidence_report_offline.py",
+    ):
+        disk_sha = sha256(ROOT / relative)
+        head_sha = _head_file_sha256(relative)
+        current_files[relative] = {
+            "sha256": disk_sha,
+            "head_sha256": head_sha,
+            "matches_head": disk_sha == head_sha,
+        }
+    return {
+        "commit": _git_head(),
+        "branch": "codex/hits-forward-evidence-release",
+        "reporting_layer_committed": all(
+            item["matches_head"] for item in current_files.values()
+        ),
+        "current_files": current_files,
+    }
+
+
+def _operational_smoke_status() -> dict[str, Any]:
+    plans = sorted(SMOKE_ROOT.glob("plans/*/plan.json"))
+    expected_targets = 0
+    planned_dates: list[str] = []
+    for path in plans:
+        payload = load_json(path)
+        targets = payload.get("targets")
+        if not isinstance(targets, list):
+            raise ValueError(f"{path}: smoke plan targets are malformed")
+        expected_targets += len(targets)
+        planned_dates.append(path.parent.name)
+
+    entry_terminal = len(list(SMOKE_ROOT.glob("live/*/*/terminal_attempt.json")))
+    entry_bundles = len(list(SMOKE_ROOT.glob("live/*/*/target_bundle.json")))
+    prestart_bundles = len(list(SMOKE_ROOT.glob("close/*/*/prestart_reference_bundle.json")))
+    prestart_errors = len(list(SMOKE_ROOT.glob("close/*/*/prestart_terminal_error.json")))
+    ledger = SMOKE_ROOT / "ledger/forward_ledger.jsonl"
+    ledger_rows = 0
+    if ledger.is_file():
+        ledger_rows = sum(1 for line in ledger.read_text(encoding="utf-8").splitlines() if line.strip())
+
+    certificates: list[dict[str, Any]] = []
+    for path in SMOKE_ROOT.glob("**/*.json"):
+        try:
+            payload = load_json(path)
+        except (OSError, ValueError, json.JSONDecodeError):
+            continue
+        if payload.get("schema_version") == "forward-operational-smoke-certificate-v1":
+            certificates.append({"path": str(path.relative_to(ROOT)), "sha256": sha256(path), "payload": payload})
+    if len(certificates) > 1:
+        raise ValueError("multiple operational-smoke certificates exist")
+    verified = bool(certificates) and certificates[0]["payload"].get("verified") is True
+    if verified:
+        state = "VERIFIED_COMPLETE_PERMANENTLY_EXCLUDED"
+    elif plans or entry_terminal or entry_bundles:
+        state = "IN_PROGRESS_NOT_CERTIFIED"
+    else:
+        state = "NOT_STARTED"
+    certificate = None
+    if certificates:
+        certificate = {key: certificates[0][key] for key in ("path", "sha256")}
+    return {
+        "state": state,
+        "planned_dates": planned_dates,
+        "expected_targets": expected_targets,
+        "entry_terminal_receipts": entry_terminal,
+        "eligible_entry_bundles": entry_bundles,
+        "prestart_reference_bundles": prestart_bundles,
+        "prestart_terminal_errors": prestart_errors,
+        "ledger_rows": ledger_rows,
+        "certificate": certificate,
+        "verified_complete": verified,
+        "economic_evidence_eligible": False,
+        "betting_authorized": False,
+    }
+
+
+def _product_readiness(contracts: dict[str, Any]) -> dict[str, Any]:
+    result: dict[str, Any] = {}
+    for key, value in contracts["products"].items():
+        result[key] = {
+            "contract_id": value["contract_id"],
+            "readiness": value["readiness"],
+            "public_platform_texas_eligibility_observed": value.get("public_platform_texas_eligibility_observed", False),
+            "legal_and_account_access_verified": value["legal_and_account_access_verified"],
+            "live_account_visible_hits_verified": value["live_account_visible_hits_verified"],
+            "payout_and_fee_schedule_hash": value["payout_and_fee_schedule_hash"],
+            "actual_submit_accept_receipt_verified": value["actual_submit_accept_receipt_verified"],
+            "actual_settlement_receipt_verified": value["actual_settlement_receipt_verified"],
+            "authorization": value["authorization"],
+        }
+    return result
 
 
 def _market_ranking(other: dict[str, Any]) -> list[dict[str, Any]]:
     reports = other["market_reports"]
     return [
-        {
-            "rank": 1,
-            "market": "hits",
-            "current_state": "KBB_ACTIVE_RESEARCH_BASELINE_CONTACT_ADAPTER_REJECTED",
-            "readiness": "highest",
-            "blocking_reason": (
-                "absolute capture and payout uncertainty remain below authorization; "
-                "historical executability and forward evidence are absent"
-            ),
-        },
-        {
-            "rank": 2,
-            "market": "home_runs_over_0.5",
-            "current_state": "FROZEN_RESEARCH_BASELINE_BATTED_BALL_CANDIDATE_REJECTED",
-            "readiness": "research contract complete",
-            "blocking_reason": (
-                "latest candidate worsened proper scores; next mapping requires a "
-                "separate pre-2026 fit and no executable forward evidence exists"
-            ),
-        },
+        {"rank": 1, "market": "hits", "readiness": "highest", "state": "KBB_RESEARCH_BASELINE_CONTACT_ADAPTER_REJECTED"},
+        {"rank": 2, "market": "home_runs_over_0.5", "readiness": "research contract complete", "state": "BATTED_BALL_CANDIDATE_REJECTED"},
         {
             "rank": 3,
             "market": "total_bases",
-            "current_state": "CONTRACT_WORK_ONLY",
-            "readiness": "promising price inventory, uncertified market universe",
-            "measured_draftkings_two_sided_entry_close_selections": reports[
-                "total_bases"
-            ]["price_contract"]["draftkings_entry_and_close_two_sided_selections"],
-            "blocking_reason": (
-                "canonical identity, settlement, duplicate resolution, and executability "
-                "are incomplete"
-            ),
+            "readiness": "contract work only",
+            "state": "UNCERTIFIED_MARKET_UNIVERSE",
+            "measured_two_sided_entry_close_selections": reports["total_bases"]["price_contract"]["draftkings_entry_and_close_two_sided_selections"],
         },
-        {
-            "rank": 4,
-            "market": "rbi",
-            "current_state": "RECONSTRUCTION_BLOCKED",
-            "readiness": "not scoreable",
-            "blocking_reason": (
-                "official-outcome code falls through to Hits and no RBI simulation output "
-                "path is certified"
-            ),
-        },
-        {
-            "rank": 5,
-            "market": "hits_runs_rbi",
-            "current_state": "RECONSTRUCTION_BLOCKED",
-            "readiness": "historical product absent",
-            "blocking_reason": (
-                "zero matching product in the locked no-May vendor export"
-            ),
-        },
+        {"rank": 4, "market": "rbi", "readiness": "not scoreable", "state": "OFFICIAL_OUTCOME_AND_SIMULATION_CONTRACT_BLOCKED"},
+        {"rank": 5, "market": "hits_runs_rbi", "readiness": "not scoreable", "state": "HISTORICAL_PRODUCT_ABSENT"},
     ]
 
 
 def _markdown(report: dict[str, Any]) -> str:
+    smoke = report["operational_smoke"]
     hits = report["market_evidence"]["hits"]
-    hr = report["market_evidence"]["home_runs_over_0.5"]
     lines = [
         "# Tuesday Market-Authorization Evidence Report",
         "",
@@ -179,27 +327,30 @@ def _markdown(report: dict[str, Any]) -> str:
         "",
         "Betting is **not authorized**. May 2026 remained sealed.",
         "",
-        "## Completed work",
+        "## Source and forward lifecycle",
         "",
-        "- HR-over-0.5 batted-ball candidate: validated and rejected; frozen behavior preserved.",
-        "- Hits evidence: consolidated; the K/BB model remains the active research baseline.",
-        "- Hits contact adapter: fully reconstructed on March-April and corrected June, then rejected under its locked gate.",
-        "- Total Bases, RBI, and Hits+Runs+RBI: separate outcome-blind readiness contracts completed.",
-        "- Market ranking: completed; exactly one additional candidate was advanced.",
-        "- Forward-shadow guards: 38/38 passed; no primary collector or forward evidence exists yet.",
+        f"- Source commit: `{report['source_release']['commit']}`.",
+        f"- Local lifecycle guards: {report['forward_shadow_readiness']['guard_checks_passed']}/195.",
+        f"- Operational smoke: {smoke['state']} ({smoke['entry_terminal_receipts']}/{smoke['expected_targets']} terminal entry receipts).",
+        f"- First economic look: {report['prospective_boundary']['completed_complete_dates']}/{report['prospective_boundary']['required_complete_dates']} complete future dates.",
         "",
-        "## Main evidence",
+        "## Open research evidence",
         "",
-        f"- Current Hits/KBB combined open capture: {hits['current_kbb_open']['combined_capture']:.4f}; combined flat-stake ROI: {hits['current_kbb_open']['combined_flat_stake_roi']:.4f}.",
-        f"- Rejected Hits contact candidate combined capture: {hits['rejected_contact_candidate']['combined_capture']:.4f}, 95% CI [{hits['rejected_contact_candidate']['combined_capture_95'][0]:.4f}, {hits['rejected_contact_candidate']['combined_capture_95'][1]:.4f}].",
-        f"- HR candidate confirmation Brier delta 95%: [{hr['confirmation_brier_delta_95'][0]:.6f}, {hr['confirmation_brier_delta_95'][1]:.6f}].",
-        f"- Locked authorization capture lower-bound bar: +{report['locked_capture_lower_bound']:.2f}.",
+        f"- Hits/KBB combined open capture: {hits['current_kbb_open']['combined_capture']:.4f}.",
+        f"- Hits/KBB combined flat-stake theoretical ROI: {hits['current_kbb_open']['combined_flat_stake_roi']:.4f}.",
+        "- The Hits contact adapter and HR batted-ball candidate were rejected under their locked gates.",
+        "- Total Bases, RBI, and Hits+Runs+RBI remain separate research contracts and are not authorization candidates.",
         "",
-        "## Final decisions",
+        "## Execution products",
         "",
-        "- No candidate is ready to open May.",
-        "- No market is profitable, bettable, approved, or authorized by this package.",
-        "- Hits remains the highest-readiness market, but its evidence does not clear the bar.",
+    ]
+    for product, state in report["execution_product_readiness"].items():
+        lines.append(f"- {product}: {state['readiness']}; authorization=false.")
+    lines.extend([
+        "",
+        "## Cloud recommendation",
+        "",
+        report["cloud_hosting_recommendation"]["recommendation"],
         "",
         "## Single highest-value next action",
         "",
@@ -207,84 +358,103 @@ def _markdown(report: dict[str, Any]) -> str:
         "",
         report["single_highest_value_next_action"]["why"],
         "",
-        "This action requires explicit deployment authority and does not change the model or authorize wagering.",
-    ]
+        "No report field constitutes legal advice, an executable recommendation, or betting authorization.",
+    ])
     return "\n".join(lines) + "\n"
 
 
-def main(argv: list[str] | None = None) -> int:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--out", required=True)
-    ap.add_argument("--markdown", required=True)
-    ap.add_argument("--manifest", required=True)
-    args = ap.parse_args(argv)
-
-    bound, items = verify_inputs()
-    require_facts(items)
+def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, Any]]) -> dict[str, Any]:
     hr = items["hr_rejection"]
     hits = items["hits_consolidation"]
     contact = items["hits_contact_adjudication"]
     other = items["other_market_contracts"]
     shadow = items["forward_shadow_readiness"]
-
+    boundary = items["forward_evidence_boundary"]
+    contracts = items["execution_product_contracts"]
+    smoke = _operational_smoke_status()
     contact_combined = contact["combined_open"]
     contact_march = contact["blocks"]["march_april_fit"]
     contact_june = contact["blocks"]["june_replication"]
-    report = {
-        "schema_version": "tuesday-market-authorization-evidence-v1",
+
+    source_release = _source_release()
+    if not source_release["reporting_layer_committed"]:
+        status = "REPORTING_LAYER_UNCOMMITTED_RESEARCH_ONLY"
+        action = "Commit and publish the strengthened goal and mutation-tested reporting layer before treating this report as immutable evidence."
+        why = "The report correctly detected that its own goal or builder bytes are not yet contained in the stated source commit."
+    elif smoke["verified_complete"]:
+        status = "SMOKE_VERIFIED_FORWARD_ERA_NOT_STARTED_RESEARCH_ONLY"
+        action = "Prepare a clean checkout of the immutable release, deploy the durable external primary, and create the new hash-bound forward evidence era."
+        why = "The excluded lifecycle smoke has passed; prospective evidence still requires an always-on primary and one clean frozen era."
+    else:
+        status = "OPERATIONAL_SMOKE_REQUIRED_RESEARCH_ONLY"
+        action = "Rotate the exposed provider credential and complete the permanently excluded operational smoke before a future T-4h target."
+        why = "The lifecycle is mutation-tested but has not yet been proven against one real future entry, prestart reference, official final, settlement, and ledger sequence."
+
+    products = _product_readiness(contracts)
+    return {
+        "schema_version": "tuesday-market-authorization-evidence-v2",
         "built_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "deadline": "2026-07-21T08:00:00-05:00",
-        "status": "EVIDENCE_PACKAGE_COMPLETE_RESEARCH_ONLY",
+        "status": status,
         "betting_authorized": False,
         "may_2026_read": False,
-        "locked_capture_lower_bound": 0.10,
-        "goal_contract": bound["goal_contract"],
-        "completed_stages": {
-            "stage_0_active_run_protection": "completed",
-            "stage_1_hr_over_0_5": "completed_candidate_rejected",
-            "stage_2_hits": "completed_contact_candidate_rejected",
-            "stage_3_other_market_contracts": "completed_outcome_blind",
-            "stage_4_rank_and_advance_one": "completed_exactly_one_candidate_advanced",
+        "source_release": source_release,
+        "locked_gates": {
+            "capture_lower_95_bound_strictly_greater_than": 0.10,
+            "net_roi_lower_95_bound_strictly_greater_than": 0.0,
+            "point_estimates_can_authorize": False,
+            "product_pooling_permitted": False,
+        },
+        "completed_gates": [
+            "future-only T-4h lifecycle implemented and mutation-tested locally",
+            "official MLB final-feed outcome and settlement workers implemented",
+            "immutable ledger and exclusion funnels implemented",
+            "public rules observations retained separately for four execution products",
+            "source release committed and pushed with readiness-bound hashes",
+        ],
+        "operational_smoke": smoke,
+        "expected_vs_captured_targets": {
+            "expected": smoke["expected_targets"],
+            "terminal_entry_receipts": smoke["entry_terminal_receipts"],
+            "eligible_entry_bundles": smoke["eligible_entry_bundles"],
+            "prestart_reference_bundles": smoke["prestart_reference_bundles"],
+            "ledger_rows": smoke["ledger_rows"],
+        },
+        "explicit_exclusion_funnel": {
+            "operational_smoke_rows_count_as_economic_evidence": False,
+            "prestart_terminal_errors": smoke["prestart_terminal_errors"],
+            "incomplete_dates_count_toward_boundary": False,
+            "missed_targets_backfilled": False,
+            "vendor_results_used_for_grading": False,
+        },
+        "execution_product_readiness": products,
+        "jurisdiction_execution_blockers": [
+            "public Texas availability is not an independent legal determination",
+            "the user's current account eligibility and geolocation acceptance are unverified",
+            "no account-visible Hits market or complete lineup evidence is retained",
+            "no accepted entry, fill or match, settlement receipt, or actual return is retained",
+        ],
+        "prospective_boundary": {
+            "required_complete_dates": boundary["first_economic_look_boundary"]["minimum_complete_official_date_blocks"],
+            "completed_complete_dates": 0,
+            "economic_outcomes_inspected": False,
+            "operational_smoke_counts": False,
+            "may_counts": False,
+        },
+        "cloud_hosting_recommendation": {
+            "status": "NO_DURABLE_HOST_RELIABILITY_EVIDENCE",
+            "recommendation": "Do not rank or purchase a host on unmeasured reliability. Complete the excluded local smoke, then deploy the immutable collector to one inexpensive always-on external primary and measure missed ticks, restarts, network failures, and complete-date rate; keep GitHub verification-only.",
+            "github_as_primary": False,
         },
         "candidate_register": {
             "accepted_for_betting": [],
             "ready_to_open_may": [],
-            "still_research_only": [
-                {
-                    "market": "hits",
-                    "candidate": "fitted_kbb_current_baseline",
-                    "status": "ACTIVE_RESEARCH_BASELINE_NOT_PROMOTED",
-                },
-                {
-                    "market": "home_runs_over_0.5",
-                    "candidate": "frozen_pre_batted_ball_baseline",
-                    "status": "PRESERVED_RESEARCH_BASELINE_NOT_PROMOTED",
-                },
-            ],
+            "research_baselines": ["hits_fitted_kbb", "hr_over_0_5_frozen"],
             "rejected": [
-                {
-                    "market": "home_runs_over_0.5",
-                    "candidate": hr["candidate"],
-                    "reason": "worsened Brier and log loss in both open blocks",
-                },
-                {
-                    "market": "hits",
-                    "candidate": "hits_point_in_time_hitter_contact_adapter_v1",
-                    "reason": (
-                        "June proper scores and flat-stake ROI regressed; combined "
-                        "proper-score intervals crossed zero"
-                    ),
-                },
-                {
-                    "market": "hits",
-                    "candidate": "blanket_pa_or_monte_carlo_intervention",
-                    "reason": hits["evidence"]["pa_and_simulation"]["reason"],
-                },
-                {
-                    "market": "hits",
-                    "candidate": "pitcher_contact_input",
-                    "reason": hits["evidence"]["pitcher_contact"]["decision"],
-                },
+                {"market": "home_runs_over_0.5", "candidate": hr["candidate"], "reason": "worsened proper scores in both open blocks"},
+                {"market": "hits", "candidate": "hits_point_in_time_hitter_contact_adapter_v1", "reason": "locked open-period gate failed"},
+                {"market": "hits", "candidate": "blanket_pa_or_monte_carlo_intervention", "reason": hits["evidence"]["pa_and_simulation"]["reason"]},
+                {"market": "hits", "candidate": "pitcher_contact_input", "reason": hits["evidence"]["pitcher_contact"]["decision"]},
             ],
         },
         "market_evidence": {
@@ -294,22 +464,6 @@ def main(argv: list[str] | None = None) -> int:
                     "june_strict_rows": contact_june["strict_rows"],
                     "combined_capture": contact_combined["economics"]["baseline"]["capture"],
                     "combined_flat_stake_roi": contact_combined["economics"]["baseline"]["flat_stake_roi"],
-                    "march_april_capture_95": [
-                        contact_march["economics"]["baseline"]["capture_interval"]["lower"],
-                        contact_march["economics"]["baseline"]["capture_interval"]["upper"],
-                    ],
-                    "march_april_flat_stake_roi_95": [
-                        contact_march["economics"]["baseline"]["flat_stake_roi_interval"]["lower"],
-                        contact_march["economics"]["baseline"]["flat_stake_roi_interval"]["upper"],
-                    ],
-                    "june_capture_95": [
-                        contact_june["economics"]["baseline"]["capture_interval"]["lower"],
-                        contact_june["economics"]["baseline"]["capture_interval"]["upper"],
-                    ],
-                    "june_flat_stake_roi_95": [
-                        contact_june["economics"]["baseline"]["flat_stake_roi_interval"]["lower"],
-                        contact_june["economics"]["baseline"]["flat_stake_roi_interval"]["upper"],
-                    ],
                 },
                 "rejected_contact_candidate": {
                     "combined_capture": contact_combined["economics"]["candidate"]["capture"],
@@ -317,36 +471,13 @@ def main(argv: list[str] | None = None) -> int:
                         contact_combined["economics"]["candidate"]["capture_interval"]["lower"],
                         contact_combined["economics"]["candidate"]["capture_interval"]["upper"],
                     ],
-                    "combined_capture_delta_95": [
-                        contact_combined["economics"]["candidate_minus_baseline_capture"]["lower"],
-                        contact_combined["economics"]["candidate_minus_baseline_capture"]["upper"],
-                    ],
-                    "combined_brier_delta_95": [
-                        contact_combined["probability_scores"]["candidate_minus_baseline"]["brier"]["lower"],
-                        contact_combined["probability_scores"]["candidate_minus_baseline"]["brier"]["upper"],
-                    ],
-                    "combined_log_loss_delta_95": [
-                        contact_combined["probability_scores"]["candidate_minus_baseline"]["log_loss"]["lower"],
-                        contact_combined["probability_scores"]["candidate_minus_baseline"]["log_loss"]["upper"],
-                    ],
                     "gate_passed": contact["gate"]["all_pass"],
-                },
-                "coverage": {
-                    "june_corrected_strict_keys": items["june_identity_correction"]["strict_universe"]["rows"],
-                    "missing_model_keys": 0,
-                    "identity_mutations_caught": 4,
-                    "candidate_evaluator_mutations_caught": 4,
                 },
                 "settlement": hits["evidence"]["settlement"],
                 "executability": hits["evidence"]["executability"],
             },
             "home_runs_over_0.5": {
-                "certified_model_market_keys": hr["funnel"]["certified_model_market_keys"],
                 "official_gradeable_keys": hr["funnel"]["official_gradeable_keys"],
-                "confirmation_brier_delta_95": hr["economic_results"]["confirmation"]["candidate_minus_frozen_brier_95"],
-                "confirmation_log_loss_delta_95": hr["economic_results"]["confirmation"]["candidate_minus_frozen_log_loss_95"],
-                "confirmation_candidate_roi": hr["economic_results"]["confirmation"]["candidate_theoretical_flat_stake_roi"],
-                "confirmation_candidate_roi_95": hr["economic_results"]["confirmation"]["candidate_theoretical_roi_95"],
                 "latest_candidate_supported": False,
                 "historical_executability_verified": False,
             },
@@ -358,67 +489,64 @@ def main(argv: list[str] | None = None) -> int:
         "forward_shadow_readiness": {
             "status": shadow["status"],
             "guard_checks_passed": shadow["guard_checks_passed"],
-            "github_is_primary_collector": False,
             "durable_primary_collector_deployed": False,
             "capture_measurable": False,
             "blockers": shadow["blockers"],
         },
         "remaining_authorization_blockers": [
-            "no candidate absolute capture lower bound clears +0.10",
-            "proper-score and payout evidence do not support the rejected candidates",
-            "historical timestamps do not prove executable sportsbook availability or fills",
-            "the inherited 90-minute freshness proxy remains unapproved",
-            "no durable per-game T-4h primary collector is deployed",
-            "no prospective linked entry/close/outcome evidence exists",
-            "May remains sealed and no candidate is ready to open it",
-            "no immutable market-specific authorization record exists",
+            "operational smoke is not yet certified" if not smoke["verified_complete"] else "durable external primary is not deployed",
+            "no forward evidence era has 56 complete future official dates",
+            "no product has account-visible executable and settlement evidence",
+            "no product-specific positive net-ROI lower bound exists",
+            "no immutable product-specific authorization record exists",
         ],
         "single_highest_value_next_action": {
-            "action": (
-                "Deploy the existing fail-closed hard-keyed forward-shadow stack as a "
-                "durable per-game T-4h primary collector for DraftKings Hits using the "
-                "current K/BB research baseline; keep GitHub as verification/alert backup."
-            ),
-            "why": (
-                "Hits has the strongest current contract and replicated research signal, "
-                "while exact historical executability is the largest unresolved fact that "
-                "cannot be reconstructed later. Prospective capture is time-sensitive and "
-                "does not require weakening a model gate or opening May."
-            ),
+            "action": action,
+            "why": why,
             "requires_user_authority": True,
             "requires_model_change": False,
             "opens_may": False,
             "authorizes_betting": False,
         },
         "inputs": bound,
-        "terminal_statement": (
-            "All feasible stages in the locked Tuesday goal are complete. Further "
-            "authorization progress requires deployment authority for prospective "
-            "capture or a separately predeclared future candidate."
-        ),
+        "terminal_statement": "The strengthened Tuesday goal remains in progress. This package reports verified state and blockers; it does not authorize betting.",
     }
 
+
+def main(argv: list[str] | None = None) -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--out", required=True)
+    ap.add_argument("--markdown", required=True)
+    ap.add_argument("--manifest", required=True)
+    args = ap.parse_args(argv)
+
+    bound, items = verify_inputs()
+    require_facts(items)
+    report = build_report(bound, items)
     out = Path(args.out)
     markdown = Path(args.markdown)
     manifest = Path(args.manifest)
     for path in (out, markdown, manifest):
         path.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    markdown.write_text(_markdown(report), encoding="utf-8")
+    out.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
+    markdown.write_text(_markdown(report), encoding="utf-8", newline="\n")
     binding = {
-        "schema_version": "tuesday-evidence-report-binding-v1",
+        "schema_version": "tuesday-evidence-report-binding-v2",
         "built_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "report": {"path": str(out), "sha256": sha256(out)},
         "markdown": {"path": str(markdown), "sha256": sha256(markdown)},
         "goal_contract_sha256": LOCKED_GOAL_SHA,
+        "source_commit": report["source_release"]["commit"],
+        "status": report["status"],
         "betting_authorized": False,
         "may_2026_read": False,
     }
-    manifest.write_text(json.dumps(binding, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    print("TUESDAY EVIDENCE PACKAGE COMPLETE")
+    manifest.write_text(json.dumps(binding, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
+    print("TUESDAY EVIDENCE PACKAGE BUILT")
+    print(f"  status: {report['status']}")
     print("  betting authorized: FALSE")
     print("  May opened: FALSE")
-    print("  READY_TO_OPEN_MAY records: 0")
+    print(f"  operational smoke: {report['operational_smoke']['state']}")
     print(f"  report: {out} sha {binding['report']['sha256']}")
     print(f"  markdown: {markdown} sha {binding['markdown']['sha256']}")
     print(f"  binding: {manifest} sha {sha256(manifest)}")

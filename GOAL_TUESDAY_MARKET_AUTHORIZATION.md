@@ -1,158 +1,110 @@
-# Tuesday Market-Authorization Research Goal
+# Strengthened Tuesday Hits Authorization Goal
 
 ## Objective
 
-By Tuesday, July 21, 2026 at 8:00 AM America/Chicago, produce the strongest
-verified market-specific evidence package possible toward eventual betting
-authorization. Success means trustworthy evidence and a clear next decision,
-not forcing a candidate to pass.
+By Tuesday, July 21, 2026 at 8:00 AM America/Chicago, maximize verified
+progress toward a legal, product-specific MLB batter Hits betting authorization
+without weakening any existing rule. Success is the strongest trustworthy
+evidence attainable by the deadline, never a manufactured passing result.
+
+DraftKings is the reference market only. Onyx, Novig, Chalkboard, and
+PrizePicks are four separate execution products with independent eligibility,
+availability, payout, identity, settlement, executability, ROI, and
+authorization contracts.
+
+## Required sequence
+
+1. Complete and mutation-test the future-only T-4h prediction-to-entry-to-
+   prestart-reference-to-official-outcome-to-settlement-to-ledger lifecycle.
+2. Rotate and protect credentials before any live provider access.
+3. Run exactly one operational smoke that is permanently excluded from
+   economic evidence.
+4. Freeze model, configuration, policy, source, runtime, settlement, schema,
+   and evaluation hashes to begin a new forward evidence era.
+5. Collect prospective evidence without inspecting or tuning on economic
+   outcomes before the predeclared evidence boundary.
+6. Evaluate each execution product independently. A reference-market price is
+   never an executable-product price, fill, lineup, payout, or settlement.
 
 ## Global invariants
 
-- Never weaken, bypass, delete, reinterpret, or silently relax an existing
-  identity, chronology, settlement, provenance, mutation, coverage,
-  uncertainty, or authorization guard.
-- Never inspect or score May. If a market becomes fully May-ready, create a
-  hash-bound `READY_TO_OPEN_MAY` record and stop for explicit user approval.
-- Never authorize betting, expose actionable GUI plays, or treat research
-  output as executable.
-- Never pool markets, dates, sides, books, products, or model versions to
-  rescue a weak result.
-- Never tune against June confirmation results, sealed evidence, or repeated
-  holdout observations.
-- Never fabricate or infer missing prices, sides, dates, identities,
-  settlement, outcomes, lineups, or executability.
-- Heuristic confidence cannot select bets, size wagers, or satisfy uncertainty
-  requirements.
-- Preserve unrelated behavior and user work. Every changed line must trace to
-  a measured defect, predeclared experiment, or required invariant.
-- Predeclare success, failure, protected invariants, and distinguishing
-  mutations before every intervention.
-- Run the cheapest discriminating test first: mutation/offline test, one-date
-  smoke, then full reconstruction only when justified.
-- Record exact source, configuration, protocol, data, feature, probability,
-  outcome, market, and report hashes.
-- Reject improvements whose economic value does not justify added complexity.
-- Do not consume usage merely to remain active. Stop when further progress
-  requires new data, authority, or an irreversible user decision.
+- May 2026 remains sealed.
+- Never backfill a missed observation.
+- Never fabricate a price, side, identity, outcome, settlement, fill, payout,
+  limit, liquidity observation, or product availability state.
+- Vendor result fields never grade model predictions or entries.
+- Heuristic confidence never selects or sizes a wager.
+- Markets, books, products, dates, sides, model versions, and evidence eras
+  remain separate. One cannot rescue another.
+- A material model, configuration, policy, provider, timing, settlement,
+  identity, schema, ledger, or evaluation change starts a new incompatible
+  evidence era.
+- The capture 95% lower-bound requirement remains strictly above +0.10.
+- The net-ROI 95% lower-bound requirement remains strictly above zero after
+  product-specific fees, payouts, voids, and actual execution constraints.
+- No wager is authorized without verified legal/account access, product-visible
+  and executable evidence, verified settlement, untouched holdout evidence,
+  and prospective replication.
+- Every uncertainty or missing fact fails closed.
 
-## Stage 0 — Protect the active run
+## Forward evidence boundary
 
-Do not modify source, model, configuration, protocol, feature, reconstruction,
-validator, or evaluation files until both active 56-date HR reconstruction
-processes terminate and publish complete artifacts. Monitor only. On any
-material failure, report the exact failure and do not infer success or patch
-around it mid-run.
+The first prospective economic look requires at least 56 complete future
+official-date blocks from one frozen evidence era. The count was derived only
+from the 37-date March-April and 19-date June open Hits universes. The excluded
+operational smoke, incomplete dates, and May 2026 cannot count.
 
-## Stage 1 — Adjudicate HR over 0.5
+Before the boundary, official outcomes and settlements may be retained and
+hash-verified, but capture, ROI, calibration, subgroup, and other economic
+summaries must not be produced or inspected.
 
-Validate frozen and batted-ball candidate artifacts against the exact 56-date
-March–April plus June contract:
+## Execution-product requirements
 
-- exact dates, model keys, official outcomes, market coverage, feature
-  manifests, source snapshots, configurations, random seed, and pre-2026 PA
-  artifact;
-- candidate-only feature differences and no unrelated drift;
-- no May dates;
-- all probability, identity, chronology, settlement, and provenance
-  invariants.
+For Onyx, Novig, Chalkboard, and PrizePicks separately, retain and verify:
 
-Apply the locked HR candidate gate unchanged. Require better Brier score and
-log loss in both open blocks, confirmation paired date-block 95% upper bounds
-below zero for both, nonnegative market-movement evidence in both blocks, and
-no coverage, fallback, identity, settlement, or data-health regression.
+- current jurisdiction and account eligibility;
+- exact account-visible MLB Hits market or complete lineup;
+- game, player, category, line, side, and product identity;
+- price, multiplier, payout, fees, minimum, maximum, and product-specific
+  liquidity or correlation constraints;
+- submit-ability, accepted receipt, amount or match, and any unfilled amount;
+- product-specific void, DNP, Reboot, push, correction, and settlement;
+- actual returned value and product-specific net ROI;
+- an immutable market-and-product-specific authorization record.
 
-If HR fails, reject it and preserve frozen behavior. Produce a hash-bound
-failure diagnosis and identify one highest-value measured next experiment; do
-not immediately implement a chain of speculative alternatives.
+Public rules and feed quotes are necessary context but cannot prove account
+access, executability, acceptance, fill, settlement, or realized return.
 
-If HR passes, freeze the challenger and produce a hash-bound
-`READY_TO_OPEN_MAY` package. Do not open May.
+## Secondary read-only lane
 
-## Stage 2 — Consolidate Hits
-
-Reconcile the complete time-safe Hits evidence into one immutable status
-report:
-
-- accepted and rejected candidates;
-- current absolute capture and ROI uncertainty;
-- remaining policy, settlement, executability, calibration, and forward-shadow
-  blockers;
-- one highest-value measured next experiment.
-
-Implement a new Hits candidate only if existing open-period evidence identifies
-a specific defect and the experiment can be predeclared, mutation-tested,
-smoked, and evaluated without opening May. Otherwise stop Hits at a documented
-next-action decision.
-
-## Stage 3 — Establish other market contracts
-
-For Total Bases, RBI, and Hits+Runs+RBI separately, perform outcome-blind
-readiness audits before changing prediction logic:
-
-- actual historical availability by book, product, line, and side;
-- one-sided versus two-sided price contract;
-- posted-price and closing-price availability;
-- canonical MLB identity and official outcome definition;
-- book-specific settlement, void, DNP, and participation rules;
-- duplicate and fragment behavior;
-- executable-price evidence;
-- current model coverage and required simulator outputs;
-- leakage and fallback risks.
-
-Do not assume these markets share the Hits or HR contract. Do not manufacture
-an under price. Do not begin full reconstruction for a market whose identity,
-price, settlement, outcome, or executability contract fails.
-
-## Stage 4 — Rank and advance one market
-
-Rank HR, Hits, Total Bases, RBI, and Hits+Runs+RBI by:
-
-1. contract completeness;
-2. clean historical sample size;
-3. official grading reliability;
-4. executable-price evidence;
-5. model coverage and data health;
-6. open-period calibration and discrimination;
-7. economic signal and uncertainty;
-8. implementation complexity and risk.
-
-Advance at most one additional candidate after HR: the highest-ranked candidate
-supported by measured evidence. Predeclare its protocol, mutations, smoke gate,
-full open-period gate, and rejection rule. Do not stack it with another
-unproven change.
-
-## Terminal conditions
-
-Stop successfully when all four stages that remain feasible are complete and
-the Tuesday evidence report is produced.
-
-Stop safely and report `BLOCKED` when progress requires:
-
-- opening May;
-- paid or unavailable external data;
-- a new sportsbook or product decision;
-- an irreversible architecture choice not established by evidence;
-- missing authority;
-- materially incomplete artifacts;
-- or a repeated external or system failure.
+HR over 0.5, RBI, and pitcher strikeout readiness may be audited only when the
+work cannot delay Hits, consume substantial live quota, open May, or modify the
+frozen forward evidence era. No secondary market may be pooled with Hits.
 
 ## Tuesday evidence report
 
-Produce one hash-bound report containing:
+Produce an immutable report containing:
 
+- exact source, model, configuration, policy, runtime, settlement, schema,
+  evaluation, contract, and evidence hashes;
 - completed and failed gates;
-- exact artifact and protocol hashes;
-- accepted, rejected, and still-research-only candidates;
-- per-market readiness ranking;
-- current capture, ROI, calibration, coverage, and uncertainty evidence;
-- sealed evidence still untouched;
-- forward-shadow readiness;
-- remaining authorization blockers;
-- `READY_TO_OPEN_MAY` records, if any;
+- expected versus captured operational targets;
+- explicit missing, failed, void, unscored, and excluded funnels;
+- execution-product-specific readiness and blockers;
+- the required future evidence boundary and current completed-date count;
+- jurisdiction and execution blockers;
+- a cloud-hosting recommendation based on measured reliability, or an explicit
+  statement that no host has yet produced enough evidence to rank;
+- rejected ideas and surviving research candidates;
 - the single highest-value next action.
 
-No result may be called profitable, bettable, approved, or authorized unless a
-separate immutable market-specific authorization record eventually satisfies
-the locked historical, held-out, executable-price, settlement, and prospective
-forward-shadow requirements.
+Routine updates occur no more frequently than every 30-60 minutes. Notify
+immediately only for a material failure, required user action, validated
+milestone, or terminal completion.
+
+## Authorization condition
+
+No output may be called profitable, bettable, approved, or authorized unless a
+separate immutable authorization record proves every historical, held-out,
+settlement, executable-price, positive-uncertainty, and prospective requirement
+for one specific market and one specific execution product.
