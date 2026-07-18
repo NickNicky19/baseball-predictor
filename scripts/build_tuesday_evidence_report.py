@@ -11,12 +11,24 @@ import argparse
 import hashlib
 import json
 import subprocess
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from scripts.certify_forward_operational_smoke_full_day import (  # noqa: E402
+    require_full_day_completion,
+)
+from src.evaluation.forward_evidence_era import (  # noqa: E402
+    validate_operational_smoke_certificate,
+)
+from src.evaluation.shadow_capture_plan import load_capture_plan  # noqa: E402
+
 LOCKED_GOAL_SHA = "25d845efeb0189c313a6a9d3e646c53619d12667c8b16929013287b04bee4f4e"
 SMOKE_ROOT = ROOT / "data/learning/shadow/operational_smoke_v11"
 
@@ -329,7 +341,19 @@ def _operational_smoke_status() -> dict[str, Any]:
             certificates.append({"path": str(path.relative_to(ROOT)), "sha256": sha256(path), "payload": payload})
     if len(certificates) > 1:
         raise ValueError("multiple operational-smoke certificates exist")
-    verified = bool(certificates) and certificates[0]["payload"].get("verified") is True
+    verified = False
+    if certificates:
+        certificate = certificates[0]
+        certificate_path = ROOT / certificate["path"]
+        validated = validate_operational_smoke_certificate(certificate_path, root=ROOT)
+        official_date = str(validated["official_game_date"])
+        if planned_dates != [official_date]:
+            raise ValueError("operational-smoke certificate does not cover the exact planned date")
+        lifecycle_path = certificate_path.parent / validated["lifecycle_verification"]["path"]
+        lifecycle = load_json(lifecycle_path)
+        plan = load_capture_plan(SMOKE_ROOT / "plans" / official_date / "plan.json")
+        require_full_day_completion(plan, lifecycle)
+        verified = True
     if verified:
         state = "VERIFIED_COMPLETE_PERMANENTLY_EXCLUDED"
     elif plans or entry_terminal or entry_bundles:

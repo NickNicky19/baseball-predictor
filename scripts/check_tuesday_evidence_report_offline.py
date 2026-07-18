@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import copy
+import json
 import sys
+import tempfile
 from pathlib import Path
 
 
@@ -68,6 +70,42 @@ def main() -> int:
         report.INPUTS["pitcher_strikeout_readiness_audit"] = pitcher_input
     checks.append(("pitcher-K audit hash mutation is caught", pitcher_hash_caught))
     checks.append(("runtime secret mutation is caught", caught(items, lambda x: x["operational_smoke_runtime"].__setitem__("contains_secrets", True))))
+
+    original_smoke_root = report.SMOKE_ROOT
+    try:
+        with tempfile.TemporaryDirectory(prefix="fake_smoke_certificate_") as temporary:
+            fake_root = Path(temporary)
+            report.SMOKE_ROOT = fake_root
+            (fake_root / "handcrafted.json").write_text(
+                json.dumps({
+                    "schema_version": "forward-operational-smoke-certificate-v2",
+                    "official_game_date": "2026-07-18",
+                    "evidence_scope": {
+                        "path": "missing_scope.json",
+                        "sha256": "0" * 64,
+                        "scope_sha256": "0" * 64,
+                    },
+                    "lifecycle_verification": {
+                        "path": "missing_lifecycle.json",
+                        "sha256": "0" * 64,
+                    },
+                    "verified": True,
+                    "complete_lifecycle": True,
+                    "operational_smoke": True,
+                    "economic_evidence_eligible": False,
+                    "betting_authorized": False,
+                }),
+                encoding="utf-8",
+            )
+            try:
+                report._operational_smoke_status()
+            except ValueError:
+                fake_certificate_caught = True
+            else:
+                fake_certificate_caught = False
+    finally:
+        report.SMOKE_ROOT = original_smoke_root
+    checks.append(("handcrafted verified=true smoke certificate cannot change report status", fake_certificate_caught))
 
     original_source_release = report._source_release
     try:
