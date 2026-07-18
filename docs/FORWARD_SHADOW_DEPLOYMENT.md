@@ -41,7 +41,7 @@ not guaranteed and one fixed cron cannot represent T-4h for staggered games.
 The first real lifecycle smoke may run on the local Windows computer before a
 paid external host is selected. It is permanently excluded from economic
 evidence and cannot become the durable primary collector. The prepared scope
-is `data/learning/shadow/operational_smoke_v9/evidence_scope.json`. Its separate
+is `data/learning/shadow/operational_smoke_v10/evidence_scope.json`. Its separate
 `runtime_manifest.json` freezes the exact Python executable, interpreter,
 platform, OpenSSL, and installed distribution versions before credential entry.
 
@@ -51,7 +51,7 @@ normal PowerShell window:
 ```powershell
 powershell -ExecutionPolicy Bypass -File `
   .\deploy\shadow_collector\windows\Run-LocalOperationalSmoke.ps1 `
-  -ServiceRoot .\data\learning\shadow\operational_smoke_v9 `
+  -ServiceRoot .\data\learning\shadow\operational_smoke_v10 `
   -PythonExe "$env:LOCALAPPDATA\Python\pythoncore-3.14-64\python.exe"
 ```
 
