@@ -159,6 +159,7 @@ def main() -> int:
                 client=client,  # type: ignore[arg-type]
                 api_key_env="SYNTHETIC_SHADOW_KEY",
                 max_early_seconds=600,
+                max_event_start_delta_seconds=60,
                 clock=lambda: "2099-07-18T19:05:00Z",
             )
             bundle = load_target_capture_bundle(bundle_path)
@@ -181,6 +182,7 @@ def main() -> int:
                 client=client,  # type: ignore[arg-type]
                 api_key_env="SYNTHETIC_SHADOW_KEY",
                 max_early_seconds=600,
+                max_event_start_delta_seconds=60,
                 clock=lambda: "2099-07-18T19:05:00Z",
             )
             check(
@@ -200,6 +202,7 @@ def main() -> int:
                 client=client,  # type: ignore[arg-type]
                 api_key_env="SYNTHETIC_SHADOW_KEY",
                 max_early_seconds=600,
+                max_event_start_delta_seconds=60,
                 clock=lambda: "2099-07-18T19:05:00Z",
             )
             check(
@@ -223,6 +226,7 @@ def main() -> int:
                     client=too_early_client,  # type: ignore[arg-type]
                     api_key_env="SYNTHETIC_SHADOW_KEY",
                     max_early_seconds=600,
+                    max_event_start_delta_seconds=60,
                     clock=lambda: "2099-07-18T18:59:00Z",
                 )) and too_early_client.calls == 0,
                 "MUTATION capture before the locked operational window fails before provider access",
@@ -278,6 +282,7 @@ def main() -> int:
                     client=FakeClient(),  # type: ignore[arg-type]
                     api_key_env="SYNTHETIC_SHADOW_KEY",
                     max_early_seconds=600,
+                    max_event_start_delta_seconds=60,
                     clock=lambda: "2099-07-18T19:05:00Z",
                 )),
                 "MUTATION schedule snapshot differing from plan hard-fails",
@@ -295,6 +300,7 @@ def main() -> int:
                     client=failing,  # type: ignore[arg-type]
                     api_key_env="SYNTHETIC_SHADOW_KEY",
                     max_early_seconds=600,
+                    max_event_start_delta_seconds=60,
                     clock=lambda: "2099-07-18T19:05:00Z",
                 )),
                 "provider failure publishes no successful bundle",
@@ -329,6 +335,7 @@ def main() -> int:
                     client=failing,  # type: ignore[arg-type]
                     api_key_env="SYNTHETIC_SHADOW_KEY",
                     max_early_seconds=600,
+                    max_event_start_delta_seconds=60,
                     clock=lambda: "2099-07-18T19:05:00Z",
                 )) and failing.calls == calls,
                 "MUTATION terminal source error cannot be overwritten by retry",
@@ -346,6 +353,7 @@ def main() -> int:
                     client=FakeClient(),  # type: ignore[arg-type]
                     api_key_env="SYNTHETIC_SHADOW_KEY",
                     max_early_seconds=600,
+                    max_event_start_delta_seconds=60,
                     clock=lambda: "2099-07-18T19:05:00Z",
                 )),
                 "MUTATION post-target prediction cannot enter forward evidence",

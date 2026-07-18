@@ -47,8 +47,8 @@ def main() -> int:
                    pitcher_k["official_outcomes_read"] is False
                    and pitcher_k["may_2026_read"] is False
                    and pitcher_k["betting_authorized"] is False))
-    checks.append(("215-to-194 readiness mutation is caught", caught(items, lambda x: x["forward_shadow_readiness"].__setitem__("guard_checks_passed", 194))))
-    checks.append(("215-to-214 readiness mutation is caught", caught(items, lambda x: x["forward_shadow_readiness"].__setitem__("guard_checks_passed", 214))))
+    checks.append(("223-to-194 readiness mutation is caught", caught(items, lambda x: x["forward_shadow_readiness"].__setitem__("guard_checks_passed", 194))))
+    checks.append(("223-to-222 readiness mutation is caught", caught(items, lambda x: x["forward_shadow_readiness"].__setitem__("guard_checks_passed", 222))))
     checks.append(("product authorization mutation is caught", caught(items, lambda x: x["execution_product_contracts"]["products"]["onyx"].__setitem__("authorization", True))))
     checks.append(("56-to-55 boundary mutation is caught", caught(items, lambda x: x["forward_evidence_boundary"]["first_economic_look_boundary"].__setitem__("minimum_complete_official_date_blocks", 55))))
     checks.append(("economic smoke mutation is caught", caught(items, lambda x: x["operational_smoke_scope"].__setitem__("economic_evidence_eligible", True))))
@@ -85,8 +85,26 @@ def main() -> int:
                    and built["credential_security"]["replacement_value_logged"] is False
                    and built["credential_security"]["economic_evidence_eligible"] is False
                    and built["credential_security"]["betting_authorized"] is False))
+    checks.append(("v11 is permanently failed and cannot masquerade as in progress",
+                   built["operational_smoke"]["state"]
+                   == "FAILED_PERMANENTLY_EXCLUDED_NOT_CERTIFIABLE"
+                   and built["operational_smoke"]["source_error_receipts"] == 1
+                   and built["operational_smoke"]["verified_complete"] is False))
+    checks.append(("rotated credential provider access is distinguished from an eligible quote capture",
+                   built["credential_security"]["provider_access_verified"] is True
+                   and built["credential_security"]["provider_capture_verified"] is False))
+    checks.append(("v11 diagnostic remains outcome-blind and successor-bound",
+                   built["inputs"]["v11_event_identity_diagnostic"]["sha256"]
+                   == report.INPUTS["v11_event_identity_diagnostic"][1]
+                   and items["v11_event_identity_diagnostic"]["official_outcomes_inspected"] is False
+                   and built["operational_smoke"]["state"]
+                   == "FAILED_PERMANENTLY_EXCLUDED_NOT_CERTIFIABLE"))
+    checks.append(("identity diagnostic outcome mutation is caught", caught(
+        items,
+        lambda x: x["v11_event_identity_diagnostic"].__setitem__("official_outcomes_inspected", True),
+    )))
     rendered = report._markdown(built)
-    checks.append(("markdown lifecycle guard denominator is current", "Local lifecycle guards: 215/215." in rendered and "/206" not in rendered))
+    checks.append(("markdown lifecycle guard denominator is current", "Local lifecycle guards: 223/223." in rendered and "/215" not in rendered))
 
     original_smoke_root = report.SMOKE_ROOT
     try:

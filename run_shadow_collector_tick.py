@@ -44,7 +44,7 @@ from run_shadow_official_settlement import settle_final_entries
 from run_shadow_primary_collector import capture_target
 
 
-RUNTIME_SCHEMA = "shadow-collector-runtime-v1"
+RUNTIME_SCHEMA = "shadow-collector-runtime-v2"
 Action = Literal["future", "prepare", "wait_capture", "capture", "complete", "missed"]
 
 
@@ -76,12 +76,85 @@ def _positive_int(value: Any, label: str) -> int:
 class RuntimeConfig:
     prediction_lead_seconds: int
     capture_max_early_seconds: int
+    max_event_start_delta_seconds: int
     service_timer_seconds: int
     max_parallel_targets: int
     provider_timeout_seconds: int
     api_key_environment: str
     provider_base_url: str
+    event_identity_evidence_path: str
+    event_identity_evidence_sha256: str
     sha256: str
+
+
+def _identity_evidence(path: Path, payload: dict[str, Any]) -> tuple[str, str, int]:
+    evidence = payload.get("event_identity_evidence")
+    if not isinstance(evidence, dict):
+        raise ShadowCollectorServiceError("collector runtime identity evidence is absent")
+    relative_path = str(evidence.get("path", "")).strip().replace("\\", "/")
+    expected_sha = str(evidence.get("sha256", "")).strip().lower()
+    if not relative_path or Path(relative_path).is_absolute() or ".." in Path(relative_path).parts:
+        raise ShadowCollectorServiceError("collector runtime identity evidence path is unsafe")
+    if len(expected_sha) != 64 or any(value not in "0123456789abcdef" for value in expected_sha):
+        raise ShadowCollectorServiceError("collector runtime identity evidence hash is invalid")
+
+    project_root = path.resolve().parent.parent
+    evidence_path = (project_root / relative_path).resolve()
+    try:
+        evidence_path.relative_to(project_root)
+    except ValueError as exc:
+        raise ShadowCollectorServiceError(
+            "collector runtime identity evidence escapes the project root"
+        ) from exc
+    if not evidence_path.is_file() or sha256_file(evidence_path) != expected_sha:
+        raise ShadowCollectorServiceError(
+            "collector runtime identity evidence is missing or differs from its hash"
+        )
+    try:
+        diagnostic = json.loads(evidence_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise ShadowCollectorServiceError(
+            "collector runtime identity evidence is unreadable"
+        ) from exc
+    if (
+        not isinstance(diagnostic, dict)
+        or diagnostic.get("schema_version") != "shadow-event-identity-offset-diagnostic-v1"
+        or diagnostic.get("scope") != "outcome_blind_operational_identity_only"
+        or diagnostic.get("operational_smoke_status")
+        != "PERMANENT_SOURCE_ERROR_NOT_CERTIFIABLE"
+        or diagnostic.get("provider_prices_inspected") is not False
+        or diagnostic.get("model_probabilities_inspected") is not False
+        or diagnostic.get("official_outcomes_inspected") is not False
+        or diagnostic.get("may_2026_read") is not False
+        or diagnostic.get("economic_evidence_eligible") is not False
+        or diagnostic.get("betting_authorized") is not False
+    ):
+        raise ShadowCollectorServiceError(
+            "collector runtime identity evidence violates its outcome-blind scope"
+        )
+    measurement = diagnostic.get("slate_measurement")
+    contract = diagnostic.get("new_incompatible_contract")
+    if not isinstance(measurement, dict) or not isinstance(contract, dict):
+        raise ShadowCollectorServiceError("collector runtime identity evidence is incomplete")
+    measured_bound = _positive_int(
+        measurement.get("max_abs_start_delta_seconds"),
+        "identity evidence max_abs_start_delta_seconds",
+    )
+    if (
+        measurement.get("official_schedule_games") != 16
+        or measurement.get("provider_events") != 16
+        or measurement.get("exact_normalized_team_pair_mappings") != 16
+        or measurement.get("unresolved_team_pair_mappings") != 0
+        or contract.get("max_abs_start_delta_seconds") != measured_bound
+        or contract.get("time_tolerance_used_for_selection") is not False
+        or contract.get("start_delta_used_as_fail_closed_consistency_bound") is not True
+        or contract.get("provider_and_official_start_times_retained_separately") is not True
+        or contract.get("v11_retry_or_backfill_permitted") is not False
+    ):
+        raise ShadowCollectorServiceError(
+            "collector runtime identity evidence does not prove the locked rejection bound"
+        )
+    return relative_path, expected_sha, measured_bound
 
 
 def load_runtime_config(path: Path) -> RuntimeConfig:
@@ -96,10 +169,15 @@ def load_runtime_config(path: Path) -> RuntimeConfig:
         raise ShadowCollectorServiceError("collector runtime must use the isolated ODDS_API_KEY environment")
     if base_url != "https://api.the-odds-api.com/v4":
         raise ShadowCollectorServiceError("collector runtime provider URL differs from the locked official v4 endpoint")
+    evidence_path, evidence_sha, measured_bound = _identity_evidence(path, payload)
     runtime = RuntimeConfig(
         prediction_lead_seconds=_positive_int(payload.get("prediction_lead_seconds"), "prediction_lead_seconds"),
         capture_max_early_seconds=_positive_int(
             payload.get("capture_max_early_seconds"), "capture_max_early_seconds"
+        ),
+        max_event_start_delta_seconds=_positive_int(
+            payload.get("max_event_start_delta_seconds"),
+            "max_event_start_delta_seconds",
         ),
         service_timer_seconds=_positive_int(payload.get("service_timer_seconds"), "service_timer_seconds"),
         max_parallel_targets=_positive_int(payload.get("max_parallel_targets"), "max_parallel_targets"),
@@ -108,8 +186,14 @@ def load_runtime_config(path: Path) -> RuntimeConfig:
         ),
         api_key_environment=api_key_environment,
         provider_base_url=base_url,
+        event_identity_evidence_path=evidence_path,
+        event_identity_evidence_sha256=evidence_sha,
         sha256=sha256_file(path),
     )
+    if runtime.max_event_start_delta_seconds != measured_bound:
+        raise ShadowCollectorServiceError(
+            "collector runtime event-start rejection bound differs from retained evidence"
+        )
     if runtime.service_timer_seconds > runtime.capture_max_early_seconds:
         raise ShadowCollectorServiceError(
             "service timer interval exceeds the locked capture window"
@@ -433,6 +517,7 @@ def run_tick(
             ),
             api_key_env=runtime.api_key_environment,
             max_early_seconds=runtime.capture_max_early_seconds,
+            max_event_start_delta_seconds=runtime.max_event_start_delta_seconds,
             on_bundle_published=lambda bundle_path: commit_target_entries(
                 bundle_path=bundle_path,
                 selection_policy_path=policy_path,

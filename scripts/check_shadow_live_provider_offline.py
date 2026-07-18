@@ -82,7 +82,8 @@ def prediction(player_name: str = "Mookie Betts", *, duplicate_name: bool = Fals
 
 def odds(*, market_at: str = "2026-07-18T19:05:00Z", under: bool = True,
          over_sid: str = "over-1", under_sid: str = "under-1",
-         player_name: str = "Mookie Betts", under_line: float = 0.5) -> dict:
+         player_name: str = "Mookie Betts", under_line: float = 0.5,
+         commence_time: str = "2026-07-18T23:11:00Z") -> dict:
     outcomes = [{
         "name": "Over", "description": player_name, "point": 0.5,
         "price": -120, "sid": over_sid,
@@ -95,7 +96,7 @@ def odds(*, market_at: str = "2026-07-18T19:05:00Z", under: bool = True,
     return {
         "id": "provider-event-901",
         "sport_key": "baseball_mlb",
-        "commence_time": "2026-07-18T23:10:00Z",
+        "commence_time": commence_time,
         "home_team": "Los Angeles Dodgers",
         "away_team": "San Francisco Giants",
         "bookmakers": [{
@@ -130,7 +131,7 @@ def main() -> int:
     target = plan.targets[0]
     provider_events = [{
         "id": "provider-event-901",
-        "commence_time": "2026-07-18T23:10:00Z",
+        "commence_time": "2026-07-18T23:11:00Z",
         "home_team": "Los Angeles Dodgers",
         "away_team": "San Francisco Giants",
     }]
@@ -138,18 +139,94 @@ def main() -> int:
         target=target,
         schedule_snapshot=schedule,
         provider_events=provider_events,
+        max_event_start_delta_seconds=60,
     )
     check(
-        game["mlb_game_pk"] == 901 and game["fuzzy_matching_used"] is False,
-        "exact team/start identity resolves without fuzzy matching",
+        game["mlb_game_pk"] == 901
+        and game["source_event_start_time_utc"] == "2026-07-18T23:11:00Z"
+        and game["official_start_time_utc"] == "2026-07-18T23:10:00Z"
+        and game["start_delta_seconds"] == 60
+        and game["time_tolerance_used_for_selection"] is False
+        and game["fuzzy_matching_used"] is False,
+        "exact-team identity retains the measured provider/MLB start delta",
     )
     changed_start = copy.deepcopy(provider_events)
-    changed_start[0]["commence_time"] = "2026-07-18T23:11:00Z"
+    changed_start[0]["commence_time"] = "2026-07-18T23:11:01Z"
     check(
         raises(lambda: exact_game_identity(
-            target=target, schedule_snapshot=schedule, provider_events=changed_start
+            target=target,
+            schedule_snapshot=schedule,
+            provider_events=changed_start,
+            max_event_start_delta_seconds=60,
         )),
-        "MUTATION one-minute provider start drift does not fuzzy-join",
+        "MUTATION a 61-second start delta exceeds the locked rejection bound",
+    )
+    extra_event = copy.deepcopy(provider_events)
+    extra_event.append({
+        **provider_events[0],
+        "id": "unexpected-duplicate-event",
+        "commence_time": "2026-07-19T05:10:00Z",
+    })
+    check(
+        raises(lambda: exact_game_identity(
+            target=target,
+            schedule_snapshot=schedule,
+            provider_events=extra_event,
+            max_event_start_delta_seconds=60,
+        )),
+        "MUTATION unequal exact-team cardinality fails instead of choosing nearest",
+    )
+
+    second_schedule_row = copy.deepcopy(schedule_row)
+    second_schedule_row["gamePk"] = 902
+    second_schedule_row["gameDate"] = "2026-07-19T05:10:00Z"
+    doubleheader_schedule = {"schedule": [schedule_row, second_schedule_row]}
+    doubleheader_plan = plan_from_schedule(
+        official_game_date="2026-07-18",
+        entry_hours=4,
+        policy_sha256="c" * 64,
+        schedule_snapshot=[schedule_row, second_schedule_row],
+    )
+    doubleheader_events = [
+        provider_events[0],
+        {
+            **provider_events[0],
+            "id": "provider-event-902",
+            "commence_time": "2026-07-19T05:10:00Z",
+        },
+    ]
+    doubleheader_targets = {
+        value.mlb_game_pk: value for value in doubleheader_plan.targets
+    }
+    first_game = exact_game_identity(
+        target=doubleheader_targets[901],
+        schedule_snapshot=doubleheader_schedule,
+        provider_events=doubleheader_events,
+        max_event_start_delta_seconds=60,
+    )
+    second_game = exact_game_identity(
+        target=doubleheader_targets[902],
+        schedule_snapshot=doubleheader_schedule,
+        provider_events=doubleheader_events,
+        max_event_start_delta_seconds=60,
+    )
+    check(
+        first_game["source_event_id"] == "provider-event-901"
+        and first_game["team_pair_chronological_ordinal"] == 1
+        and second_game["source_event_id"] == "provider-event-902"
+        and second_game["team_pair_chronological_ordinal"] == 2,
+        "exact-team doubleheader maps by equal-cardinality chronological ordinal",
+    )
+    tied_doubleheader = copy.deepcopy(doubleheader_events)
+    tied_doubleheader[1]["commence_time"] = tied_doubleheader[0]["commence_time"]
+    check(
+        raises(lambda: exact_game_identity(
+            target=doubleheader_targets[901],
+            schedule_snapshot=doubleheader_schedule,
+            provider_events=tied_doubleheader,
+            max_event_start_delta_seconds=60,
+        )),
+        "MUTATION tied provider doubleheader times fail as ambiguous",
     )
 
     with tempfile.TemporaryDirectory(prefix="shadow_live_provider_") as tmp:
@@ -175,10 +252,14 @@ def main() -> int:
         check(
             resolved["rows"][0]["source_over_outcome_id"] == "over-1"
             and resolved["rows"][0]["source_under_outcome_id"] == "under-1"
+            and resolved["rows"][0]["source_event_start_time_utc"]
+            == "2026-07-18T23:11:00Z"
+            and resolved["rows"][0]["official_start_time_utc"]
+            == "2026-07-18T23:10:00Z"
             and resolved["rows"][0]["source_player_id"].startswith(
                 "derived-event-description:"
             ),
-            "real outcome sids remain distinct and derived player key is labelled honestly",
+            "source ids and provider/official start times remain distinct and truthful",
         )
 
         tampered = copy.deepcopy(resolved)
@@ -289,6 +370,17 @@ def main() -> int:
                 game_identity_artifact_sha256=artifact_sha256(game),
             )),
             "MUTATION event-odds payload cannot cross hard game identity",
+        )
+        write(raw_path, odds(commence_time="2026-07-18T23:10:00Z"))
+        check(
+            raises(lambda: resolve_hits_snapshot(
+                target=target,
+                prediction_archive=prediction_path,
+                raw_provider_artifact=raw_path,
+                game_identity=game,
+                game_identity_artifact_sha256=artifact_sha256(game),
+            )),
+            "MUTATION odds payload must retain the mapped provider start, not copy MLB time",
         )
 
     prior = os.environ.pop("MISSING_SHADOW_TEST_KEY", None)

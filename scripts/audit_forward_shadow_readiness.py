@@ -22,10 +22,10 @@ CHECKS = {
     "target_capture": ("scripts/check_shadow_target_capture_offline.py", "12/12", 12),
     "live_identity": ("scripts/check_live_market_identity_offline.py", "7/7", 7),
     "provider_adapter_e2e": ("scripts/check_shadow_provider_adapter_e2e.py", "14/14 checks passed", 14),
-    "live_provider": ("scripts/check_shadow_live_provider_offline.py", "14/14 checks passed", 14),
+    "live_provider": ("scripts/check_shadow_live_provider_offline.py", "18/18 checks passed", 18),
     "research_selection_policy": ("scripts/check_shadow_research_selection_policy_offline.py", "7/7 checks passed", 7),
     "primary_collector": ("scripts/check_shadow_primary_collector_offline.py", "14/14 checks passed", 14),
-    "collector_tick": ("scripts/check_shadow_collector_tick_offline.py", "20/20 checks passed", 20),
+    "collector_tick": ("scripts/check_shadow_collector_tick_offline.py", "24/24 checks passed", 24),
     "prestart_reference": ("scripts/check_shadow_close_collector_offline.py", "6/6 checks passed", 6),
     "official_hits_rules": ("scripts/check_shadow_official_hits_offline.py", "10/10 checks passed", 10),
     "official_settlement_worker": ("scripts/check_shadow_official_settlement_worker.py", "5/5 checks passed", 5),
@@ -47,6 +47,7 @@ BOUND_FILES = [
     "config/forward_shadow_deployment_protocol.json",
     "config/forward_shadow_evidence_boundary.json",
     "config/shadow_collector_runtime.json",
+    "reports/v11_event_identity_offset_diagnostic_2026-07-18.json",
     "config/shadow_hits_research_policy.json",
     "config/shadow_draftkings_hits_reference_settlement.json",
     "config/hits_execution_product_contracts.json",
@@ -167,10 +168,25 @@ def main(argv: list[str] | None = None) -> int:
     if ledger.exists():
         ledger_rows = sum(1 for row in ledger.read_text(encoding="utf-8").splitlines() if row.strip())
 
+    diagnostic_path = ROOT / "reports/v11_event_identity_offset_diagnostic_2026-07-18.json"
+    diagnostic = json.loads(diagnostic_path.read_text(encoding="utf-8"))
+    if (
+        diagnostic.get("operational_smoke_status")
+        != "PERMANENT_SOURCE_ERROR_NOT_CERTIFIABLE"
+        or diagnostic.get("scope") != "outcome_blind_operational_identity_only"
+        or diagnostic.get("provider_prices_inspected") is not False
+        or diagnostic.get("model_probabilities_inspected") is not False
+        or diagnostic.get("official_outcomes_inspected") is not False
+        or diagnostic.get("may_2026_read") is not False
+        or diagnostic.get("economic_evidence_eligible") is not False
+        or diagnostic.get("betting_authorized") is not False
+    ):
+        raise ValueError("v11 operational failure diagnostic is unsafe or incomplete")
+
     payload = {
         "schema_version": "forward-shadow-readiness-audit-v2",
         "built_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "status": "FULL_LOCAL_LIFECYCLE_GUARDS_VALID_PRIMARY_COLLECTOR_NOT_DEPLOYED_NO_FORWARD_EVIDENCE",
+        "status": "FULL_LOCAL_LIFECYCLE_GUARDS_VALID_V11_FAILED_SUCCESSOR_SMOKE_NOT_DEPLOYED_NO_FORWARD_EVIDENCE",
         "betting_authorized": False,
         "guard_checks": checks,
         "guard_checks_passed": total,
@@ -185,6 +201,17 @@ def main(argv: list[str] | None = None) -> int:
             "prestart_reference_capture_implemented": True,
             "official_mlb_outcome_resolution_implemented": True,
             "void_and_unscored_funnels_implemented": True,
+            "event_identity_v2_mutation_tested": True,
+            "v11_permanently_failed_and_excluded": True,
+        },
+        "operational_identity": {
+            "v11_status": diagnostic["operational_smoke_status"],
+            "v11_diagnostic_path": str(diagnostic_path.relative_to(ROOT)).replace("\\", "/"),
+            "v11_diagnostic_sha256": sha256(diagnostic_path),
+            "successor_max_event_start_delta_seconds": diagnostic["new_incompatible_contract"]["max_abs_start_delta_seconds"],
+            "time_delta_used_for_selection": False,
+            "provider_and_official_start_times_retained_separately": True,
+            "successor_smoke_completed": False,
         },
         "forward_evidence": {
             "ledger_path": str(ledger.relative_to(ROOT)).replace("\\", "/"),
@@ -206,11 +233,12 @@ def main(argv: list[str] | None = None) -> int:
             relative: sha256(ROOT / relative) for relative in BOUND_FILES
         },
         "blockers": [
-            "a previously tracked odds-provider credential must be rotated before any live request",
+            "v11 permanently failed event identity and cannot be retried, backfilled, or certified",
+            "the incompatible successor operational smoke has not yet completed",
             "no durable always-on per-game T-4h primary collector is deployed",
             "no external host or provider plan has been explicitly selected and authorized",
             "GitHub read-only evidence SSH variables/secrets are not configured",
-            "no future T-4h/prestart/official lifecycle has yet been captured operationally",
+            "no successful complete future T-4h/prestart/official lifecycle has yet been captured operationally",
             "no exact executable execution-product prices, accepted entries, fills, or settlements have been captured",
             "Onyx, Novig, Chalkboard, and PrizePicks each remain blocked on separate primary rules/account/payout/executability evidence",
             "no market-specific forward capture interval can yet be calculated",
@@ -218,7 +246,9 @@ def main(argv: list[str] | None = None) -> int:
         "interpretation": (
             "The fail-closed T-4h entry, research selection ledger commit, exact prestart reference, official MLB "
             "outcome, modeled DraftKings reference settlement, void/unscored, one-minute service state machine, "
-            "independent GitHub lifecycle verifier, and product-separation guards pass locally. They are deployment-ready, not deployed. "
+            "independent GitHub lifecycle verifier, event-identity v2, and product-separation guards pass locally. "
+            "The first real v11 attempt is permanently failed and excluded; its outcome-blind diagnostic binds the incompatible successor. "
+            "The successor is locally ready, not deployed. "
             "GitHub remains a verifier and backup, never the primary collector. No prospective performance or "
             "executability claim exists yet."
         ),

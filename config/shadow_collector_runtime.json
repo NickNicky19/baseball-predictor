@@ -1,18 +1,25 @@
 {
-  "schema_version": "shadow-collector-runtime-v1",
+  "schema_version": "shadow-collector-runtime-v2",
   "status": "RESEARCH_ONLY",
   "betting_authorized": false,
   "official_timezone": "America/New_York",
   "prediction_lead_seconds": 1200,
   "capture_max_early_seconds": 120,
+  "max_event_start_delta_seconds": 60,
   "service_timer_seconds": 60,
   "max_parallel_targets": 8,
   "provider_timeout_seconds": 25,
   "api_key_environment": "ODDS_API_KEY",
   "provider_base_url": "https://api.the-odds-api.com/v4",
-  "interpretation": "These are locked operational safety windows for an unattended collector, not fitted betting thresholds. Predictions are prepared up to 20 minutes before T-4h so network-bound feature generation can finish; provider capture may begin no earlier than 120 seconds before T-4h and must finish by T-4h. Any miss remains a failure and is never backfilled.",
+  "event_identity_evidence": {
+    "path": "reports/v11_event_identity_offset_diagnostic_2026-07-18.json",
+    "sha256": "053b8b2e2227fd9baeef45277a1550157d5020714f4751cc1f7d8b3fb754f795",
+    "interpretation": "The excluded v11 smoke retained 16 official games and 16 provider events: 15 exact-team mappings differed by +60 seconds and one by 0 seconds. The 60-second value is an outcome-blind fail-closed identity-consistency bound for a new incompatible smoke, not a betting threshold and not a nearest-event selector."
+  },
+  "interpretation": "These are locked operational safety windows for an unattended collector, not fitted betting thresholds. Predictions are prepared up to 20 minutes before T-4h so network-bound feature generation can finish; provider capture may begin no earlier than 120 seconds before T-4h and must finish by T-4h. Exact normalized team pairs and equal-cardinality chronological mapping establish event identity; the measured start-delta bound can only reject a mapping, never choose one. Any miss or ambiguity remains a failure and is never backfilled.",
   "required_review": [
     "Measure prediction and provider runtime distributions during the shadow period",
+    "Any event start delta above the bound or any unequal/ambiguous team-pair cardinality hard-fails",
     "Do not change these values during an evidence window without creating a new hashed runtime version",
     "Never use operational timing changes to tune performance after outcomes are known"
   ]

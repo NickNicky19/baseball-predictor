@@ -5,9 +5,11 @@ prices, but it does not prove which MLB game, player, event, or timestamp the
 prices belong to.  It must never be used directly to create forward evidence.
 
 This module defines the narrower, fail-closed record required before a quote
-can be selected for the ledger.  Name matching, fuzzy time joins, inferred
+can be selected for the ledger.  Fuzzy or nearest-event selection, inferred
 start times, and fabricated sides belong outside this boundary and are
-rejected here by omission: every identity field is required.
+rejected here by omission: every identity field is required. A separately
+measured start-time delta may reject an otherwise exact, bijective mapping;
+it must never choose one.
 """
 
 from __future__ import annotations

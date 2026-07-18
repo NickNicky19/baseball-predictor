@@ -7,6 +7,7 @@ import sys
 import tempfile
 import json
 import subprocess
+import hashlib
 from datetime import date
 from pathlib import Path
 from unittest.mock import patch
@@ -92,9 +93,67 @@ def main() -> int:
     check(
         runtime.prediction_lead_seconds == 1200
         and runtime.capture_max_early_seconds == 120
+        and runtime.max_event_start_delta_seconds == 60
+        and runtime.event_identity_evidence_path
+        == "reports/v11_event_identity_offset_diagnostic_2026-07-18.json"
+        and len(runtime.event_identity_evidence_sha256) == 64
         and len(runtime.sha256) == 64,
-        "locked research-only runtime loads with a content hash",
+        "locked research-only runtime loads with its measured identity evidence",
     )
+    with tempfile.TemporaryDirectory(prefix="shadow_runtime_identity_") as temporary:
+        root = Path(temporary)
+        (root / "config").mkdir()
+        (root / "reports").mkdir()
+        runtime_payload = json.loads(
+            (ROOT / "config/shadow_collector_runtime.json").read_text(encoding="utf-8")
+        )
+        diagnostic_payload = json.loads(
+            (ROOT / "reports/v11_event_identity_offset_diagnostic_2026-07-18.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        diagnostic_path = root / runtime_payload["event_identity_evidence"]["path"]
+        diagnostic_path.write_text(
+            json.dumps(diagnostic_payload, indent=2) + "\n", encoding="utf-8"
+        )
+        runtime_payload["event_identity_evidence"]["sha256"] = hashlib.sha256(
+            diagnostic_path.read_bytes()
+        ).hexdigest()
+        runtime_path = root / "config/shadow_collector_runtime.json"
+        runtime_path.write_text(json.dumps(runtime_payload, indent=2) + "\n", encoding="utf-8")
+        check(
+            load_runtime_config(runtime_path).max_event_start_delta_seconds == 60,
+            "an exact copied diagnostic binds the incompatible runtime",
+        )
+
+        mutated = json.loads(json.dumps(runtime_payload))
+        mutated["max_event_start_delta_seconds"] = 61
+        runtime_path.write_text(json.dumps(mutated, indent=2) + "\n", encoding="utf-8")
+        check(
+            raises(lambda: load_runtime_config(runtime_path)),
+            "MUTATION a runtime bound not proved by the diagnostic hard-fails",
+        )
+
+        diagnostic_payload["official_outcomes_inspected"] = True
+        diagnostic_path.write_text(
+            json.dumps(diagnostic_payload, indent=2) + "\n", encoding="utf-8"
+        )
+        mutated = json.loads(json.dumps(runtime_payload))
+        mutated["event_identity_evidence"]["sha256"] = hashlib.sha256(
+            diagnostic_path.read_bytes()
+        ).hexdigest()
+        runtime_path.write_text(json.dumps(mutated, indent=2) + "\n", encoding="utf-8")
+        check(
+            raises(lambda: load_runtime_config(runtime_path)),
+            "MUTATION outcome-aware identity evidence cannot authorize a runtime bound",
+        )
+
+        diagnostic_path.write_text("{}\n", encoding="utf-8")
+        runtime_path.write_text(json.dumps(runtime_payload, indent=2) + "\n", encoding="utf-8")
+        check(
+            raises(lambda: load_runtime_config(runtime_path)),
+            "MUTATION a diagnostic hash mismatch hard-fails",
+        )
     check(
         raises(lambda: run_tick(
             official_date="2026-05-15",

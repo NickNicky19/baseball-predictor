@@ -28,6 +28,7 @@ from src.evaluation.forward_evidence_era import (  # noqa: E402
     validate_operational_smoke_certificate,
 )
 from src.evaluation.shadow_capture_plan import load_capture_plan  # noqa: E402
+from run_shadow_collector_tick import load_runtime_config  # noqa: E402
 
 LOCKED_GOAL_SHA = "25d845efeb0189c313a6a9d3e646c53619d12667c8b16929013287b04bee4f4e"
 SMOKE_ROOT = ROOT / "data/learning/shadow/operational_smoke_v11"
@@ -40,6 +41,11 @@ REPORTING_SOURCE_FILES = (
     "scripts/check_execution_product_observation_containment_offline.py",
     "src/evaluation/forward_evidence_era.py",
     "src/evaluation/shadow_capture_plan.py",
+    "src/evaluation/shadow_live_provider.py",
+    "run_shadow_primary_collector.py",
+    "run_shadow_collector_tick.py",
+    "config/shadow_collector_runtime.json",
+    "reports/v11_event_identity_offset_diagnostic_2026-07-18.json",
 )
 
 INPUTS = {
@@ -80,8 +86,8 @@ INPUTS = {
         "509e000cb124edf99de24c0c54ab5ef61b409e19afaf2967e33eb5b198bc45a5",
     ),
     "forward_shadow_readiness": (
-        "reports/forward_shadow_readiness_v23.json",
-        "bf7840ab0cb1ad466ef7792695c6802b403e3089e5872321835b639675d0e3cf",
+        "reports/forward_shadow_readiness_v24.json",
+        "9b72ea2322ed32c080e6aeeefa19a9269a517b663e8f0dbffe466ba110c5db24",
     ),
     "operational_smoke_preflight": (
         "reports/forward_shadow_operational_smoke_preflight_v6_2026-07-18.json",
@@ -94,6 +100,14 @@ INPUTS = {
     "operational_smoke_runtime": (
         "data/learning/shadow/operational_smoke_v11/runtime_manifest.json",
         "76cf3169b89d4796380e6707df6ec1789506b39063d0de9848f553f8a7bd6585",
+    ),
+    "v11_event_identity_diagnostic": (
+        "reports/v11_event_identity_offset_diagnostic_2026-07-18.json",
+        "053b8b2e2227fd9baeef45277a1550157d5020714f4751cc1f7d8b3fb754f795",
+    ),
+    "successor_collector_runtime": (
+        "config/shadow_collector_runtime.json",
+        "feadad6c1bd9952f01773533131401e18c93610603da94dfda2b023bc58a0739",
     ),
     "forward_evidence_boundary": (
         "config/forward_shadow_evidence_boundary.json",
@@ -172,6 +186,8 @@ def require_facts(items: dict[str, dict[str, Any]]) -> None:
     boundary = items["forward_evidence_boundary"]
     products = items["execution_product_contracts"]
     credential = items["credential_rotation_attestation"]
+    diagnostic = items["v11_event_identity_diagnostic"]
+    successor_runtime = items["successor_collector_runtime"]
 
     if hr.get("candidate_supported") is not False or hr.get("may_opened") is not False:
         raise ValueError("HR rejection or May state drifted")
@@ -186,8 +202,8 @@ def require_facts(items: dict[str, dict[str, Any]]) -> None:
     selected = ranking.get("selected_additional_candidates")
     if not isinstance(selected, list) or not selected or selected[0].get("candidate_id") != "hits_point_in_time_hitter_contact_adapter_v1":
         raise ValueError("ranked additional candidate drifted")
-    if shadow.get("guard_checks_passed") != 215 or shadow.get("betting_authorized") is not False:
-        raise ValueError("forward-shadow readiness is not the certified 215/215 research state")
+    if shadow.get("guard_checks_passed") != 223 or shadow.get("betting_authorized") is not False:
+        raise ValueError("forward-shadow readiness is not the certified 223/223 research state")
     if shadow["capture_timing"].get("durable_external_primary_collector_deployed") is not False:
         raise ValueError("unexpected durable collector state")
     if shadow["forward_evidence"].get("capture_measurable") is not False:
@@ -205,6 +221,29 @@ def require_facts(items: dict[str, dict[str, Any]]) -> None:
         != runtime.get("fingerprint_sha256")
     ):
         raise ValueError("operational smoke runtime is not exactly frozen and secret-free")
+    validated_successor_runtime = load_runtime_config(
+        ROOT / INPUTS["successor_collector_runtime"][0]
+    )
+    if (
+        diagnostic.get("operational_smoke") != "v11"
+        or diagnostic.get("operational_smoke_status")
+        != "PERMANENT_SOURCE_ERROR_NOT_CERTIFIABLE"
+        or diagnostic.get("scope") != "outcome_blind_operational_identity_only"
+        or diagnostic.get("provider_prices_inspected") is not False
+        or diagnostic.get("model_probabilities_inspected") is not False
+        or diagnostic.get("official_outcomes_inspected") is not False
+        or diagnostic.get("may_2026_read") is not False
+        or diagnostic.get("economic_evidence_eligible") is not False
+        or diagnostic.get("betting_authorized") is not False
+        or successor_runtime.get("schema_version") != "shadow-collector-runtime-v2"
+        or successor_runtime.get("max_event_start_delta_seconds") != 60
+        or successor_runtime.get("event_identity_evidence", {}).get("sha256")
+        != INPUTS["v11_event_identity_diagnostic"][1]
+        or validated_successor_runtime.max_event_start_delta_seconds != 60
+        or validated_successor_runtime.event_identity_evidence_sha256
+        != INPUTS["v11_event_identity_diagnostic"][1]
+    ):
+        raise ValueError("v11 failure or incompatible successor identity contract drifted")
     first_look = boundary.get("first_economic_look_boundary", {})
     if first_look.get("minimum_complete_official_date_blocks") != 56:
         raise ValueError("forward evidence boundary no longer requires 56 complete dates")
@@ -346,6 +385,19 @@ def _operational_smoke_status() -> dict[str, Any]:
 
     entry_terminal = len(list(SMOKE_ROOT.glob("live/*/*/terminal_attempt.json")))
     entry_bundles = len(list(SMOKE_ROOT.glob("live/*/*/target_bundle.json")))
+    source_errors = list(SMOKE_ROOT.glob("live/*/*/attempts/*/source_error.json"))
+    event_receipts = list(SMOKE_ROOT.glob("live/*/*/attempts/*/events_receipt.json"))
+    provider_http_200_receipts = 0
+    for path in event_receipts:
+        receipt = load_json(path)
+        if (
+            receipt.get("schema_version") == "shadow-live-provider-receipt-v1"
+            and receipt.get("phase") == "events"
+            and receipt.get("http_status") == 200
+            and receipt.get("credential_recorded") is False
+            and receipt.get("betting_authorized") is False
+        ):
+            provider_http_200_receipts += 1
     prestart_bundles = len(list(SMOKE_ROOT.glob("close/*/*/prestart_reference_bundle.json")))
     prestart_errors = len(list(SMOKE_ROOT.glob("close/*/*/prestart_terminal_error.json")))
     ledger = SMOKE_ROOT / "ledger/forward_ledger.jsonl"
@@ -378,6 +430,8 @@ def _operational_smoke_status() -> dict[str, Any]:
         verified = True
     if verified:
         state = "VERIFIED_COMPLETE_PERMANENTLY_EXCLUDED"
+    elif source_errors:
+        state = "FAILED_PERMANENTLY_EXCLUDED_NOT_CERTIFIABLE"
     elif plans or entry_terminal or entry_bundles:
         state = "IN_PROGRESS_NOT_CERTIFIED"
     else:
@@ -391,6 +445,9 @@ def _operational_smoke_status() -> dict[str, Any]:
         "expected_targets": expected_targets,
         "entry_terminal_receipts": entry_terminal,
         "eligible_entry_bundles": entry_bundles,
+        "source_error_receipts": len(source_errors),
+        "provider_http_200_receipts": provider_http_200_receipts,
+        "credential_provider_access_verified": provider_http_200_receipts > 0,
         "prestart_reference_bundles": prestart_bundles,
         "prestart_terminal_errors": prestart_errors,
         "ledger_rows": ledger_rows,
@@ -455,7 +512,7 @@ def _markdown(report: dict[str, Any]) -> str:
         "## Source and forward lifecycle",
         "",
         f"- Source commit: `{report['source_release']['commit']}`.",
-        f"- Local lifecycle guards: {report['forward_shadow_readiness']['guard_checks_passed']}/215.",
+        f"- Local lifecycle guards: {report['forward_shadow_readiness']['guard_checks_passed']}/223.",
         f"- Operational smoke: {smoke['state']} ({smoke['entry_terminal_receipts']}/{smoke['expected_targets']} terminal entry receipts).",
         f"- First economic look: {report['prospective_boundary']['completed_complete_dates']}/{report['prospective_boundary']['required_complete_dates']} complete future dates.",
         "",
@@ -516,6 +573,10 @@ def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, An
         status = "SMOKE_VERIFIED_FORWARD_ERA_NOT_STARTED_RESEARCH_ONLY"
         action = "Prepare a clean checkout of the immutable release, deploy the durable external primary, and create the new hash-bound forward evidence era."
         why = "The excluded lifecycle smoke has passed; prospective evidence still requires an always-on primary and one clean frozen era."
+    elif smoke["state"] == "FAILED_PERMANENTLY_EXCLUDED_NOT_CERTIFIABLE":
+        status = "INCOMPATIBLE_SUCCESSOR_SMOKE_REQUIRED_RESEARCH_ONLY"
+        action = "Finish, freeze, and run a new incompatible operational smoke under the mutation-tested event-identity v2 contract; preserve v11 unchanged as failed evidence."
+        why = "v11 proved provider access but permanently failed exact event identity on its first target. Its retained outcome-blind diagnostic now binds the successor's 60-second rejection limit; v11 can never be retried or certified."
     else:
         status = "OPERATIONAL_SMOKE_REQUIRED_RESEARCH_ONLY"
         action = "Complete and certify the permanently excluded operational smoke across the full planned date."
@@ -523,14 +584,15 @@ def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, An
 
     products = _product_readiness(contracts)
     provider_capture_verified = smoke["eligible_entry_bundles"] > 0
+    provider_access_verified = smoke["credential_provider_access_verified"]
     stale_credential_blocker = "a previously tracked odds-provider credential must be rotated before any live request"
     shadow_blockers = [
         blocker for blocker in shadow["blockers"]
         if blocker != stale_credential_blocker
     ]
-    if not provider_capture_verified:
+    if not provider_access_verified:
         shadow_blockers.append(
-            "the user-attested rotated hidden credential has not yet produced an eligible operational-smoke capture"
+            "the user-attested rotated hidden credential has not yet received a successful provider response"
         )
     return {
         "schema_version": "tuesday-market-authorization-evidence-v2",
@@ -559,6 +621,8 @@ def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, An
             ),
             "exact secret-free Python/runtime fingerprint bound to the operational smoke",
             "previously exposed credential user-attested rotated; replacement value entered through a hidden prompt and not retained",
+            "v11 source failure retained unchanged and diagnosed without prices, model probabilities, outcomes, or May",
+            "successor event-identity rejection bound hash-bound to the retained v11 diagnostic",
         ],
         "credential_security": {
             "attestation_sha256": bound["credential_rotation_attestation"]["sha256"],
@@ -566,6 +630,7 @@ def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, An
             "replacement_value_retained": credential["credential_value_retained"],
             "replacement_value_logged": credential["credential_value_logged"],
             "provider_capture_verified": provider_capture_verified,
+            "provider_access_verified": provider_access_verified,
             "previous_disqualified_value_retested": False,
             "economic_evidence_eligible": False,
             "betting_authorized": False,
@@ -575,12 +640,14 @@ def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, An
             "expected": smoke["expected_targets"],
             "terminal_entry_receipts": smoke["entry_terminal_receipts"],
             "eligible_entry_bundles": smoke["eligible_entry_bundles"],
+            "source_error_receipts": smoke["source_error_receipts"],
             "prestart_reference_bundles": smoke["prestart_reference_bundles"],
             "ledger_rows": smoke["ledger_rows"],
         },
         "explicit_exclusion_funnel": {
             "operational_smoke_rows_count_as_economic_evidence": False,
             "prestart_terminal_errors": smoke["prestart_terminal_errors"],
+            "entry_source_errors": smoke["source_error_receipts"],
             "incomplete_dates_count_toward_boundary": False,
             "missed_targets_backfilled": False,
             "vendor_results_used_for_grading": False,
@@ -601,7 +668,7 @@ def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, An
         },
         "cloud_hosting_recommendation": {
             "status": "NO_DURABLE_HOST_RELIABILITY_EVIDENCE",
-            "recommendation": "Do not rank or purchase a host on unmeasured reliability. Complete the excluded local smoke, then deploy the immutable collector to one inexpensive always-on external primary and measure missed ticks, restarts, network failures, and complete-date rate; keep GitHub verification-only.",
+            "recommendation": "Do not rank or purchase a host on unmeasured reliability. Complete a new incompatible excluded smoke under the corrected identity contract, then deploy the immutable collector to one inexpensive always-on external primary and measure missed ticks, restarts, network failures, and complete-date rate; keep GitHub verification-only.",
             "github_as_primary": False,
         },
         "candidate_register": {
@@ -669,7 +736,7 @@ def build_report(bound: dict[str, dict[str, str]], items: dict[str, dict[str, An
             "blockers": shadow_blockers,
         },
         "remaining_authorization_blockers": [
-            "operational smoke is not yet certified" if not smoke["verified_complete"] else "durable external primary is not deployed",
+            "the new incompatible operational smoke is not yet certified" if not smoke["verified_complete"] else "durable external primary is not deployed",
             "no forward evidence era has 56 complete future official dates",
             "no product has account-visible executable and settlement evidence",
             "no product-specific positive net-ROI lower bound exists",

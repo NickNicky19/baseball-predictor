@@ -1,0 +1,58 @@
+{
+  "schema_version": "shadow-event-identity-offset-diagnostic-v1",
+  "created_at_utc": "2026-07-18T13:27:21Z",
+  "scope": "outcome_blind_operational_identity_only",
+  "operational_smoke": "v11",
+  "operational_smoke_status": "PERMANENT_SOURCE_ERROR_NOT_CERTIFIABLE",
+  "official_game_date": "2026-07-18",
+  "failed_target": {
+    "mlb_game_pk": 824414,
+    "official_start_time_utc": "2026-07-18T17:10:00Z",
+    "provider_start_time_utc": "2026-07-18T17:11:00Z",
+    "start_delta_seconds": 60,
+    "terminal_outcome": "source_error"
+  },
+  "retained_inputs": {
+    "schedule_snapshot": {
+      "sha256": "ae8fd153e9d32d509ea0583b8523a48217ad35616b29fa3da70206c08edc2451"
+    },
+    "provider_events": {
+      "sha256": "89cdd08c1aabf3c398fdd5386b153609f2c63e95a53a0d679c10e8bb3b3b7382"
+    },
+    "source_error": {
+      "sha256": "5b529186172be800b58aa848c1a28637b2fd43da35c76f93e11ecf356383fa98"
+    },
+    "terminal_attempt": {
+      "sha256": "1198d118f7a45dcf413cf401987315e2a62b4465ff3c89bb7a1ef996e51ca3b6"
+    }
+  },
+  "slate_measurement": {
+    "official_schedule_games": 16,
+    "provider_events": 16,
+    "exact_normalized_team_pair_mappings": 16,
+    "unresolved_team_pair_mappings": 0,
+    "start_delta_seconds_counts": {
+      "0": 1,
+      "60": 15
+    },
+    "max_abs_start_delta_seconds": 60,
+    "doubleheader_team_pairs": 1,
+    "doubleheader_ordering_unambiguous": true
+  },
+  "new_incompatible_contract": {
+    "required_exact_normalized_home_and_away": true,
+    "required_equal_team_pair_cardinality": true,
+    "required_unique_chronological_order": true,
+    "max_abs_start_delta_seconds": 60,
+    "time_tolerance_used_for_selection": false,
+    "start_delta_used_as_fail_closed_consistency_bound": true,
+    "provider_and_official_start_times_retained_separately": true,
+    "v11_retry_or_backfill_permitted": false
+  },
+  "provider_prices_inspected": false,
+  "model_probabilities_inspected": false,
+  "official_outcomes_inspected": false,
+  "may_2026_read": false,
+  "economic_evidence_eligible": false,
+  "betting_authorized": false
+}

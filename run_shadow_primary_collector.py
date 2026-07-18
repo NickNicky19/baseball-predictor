@@ -136,6 +136,7 @@ def capture_target(
     client: TheOddsAPIShadowClient,
     api_key_env: str,
     max_early_seconds: int,
+    max_event_start_delta_seconds: int,
     clock: Callable[[], str] = _now,
     on_bundle_published: Callable[[Path], None] | None = None,
 ) -> Path:
@@ -157,6 +158,13 @@ def capture_target(
 
     if isinstance(max_early_seconds, bool) or int(max_early_seconds) <= 0:
         raise ShadowLiveProviderError("max_early_seconds must be a positive integer")
+    if (
+        isinstance(max_event_start_delta_seconds, bool)
+        or int(max_event_start_delta_seconds) <= 0
+    ):
+        raise ShadowLiveProviderError(
+            "max_event_start_delta_seconds must be a positive integer"
+        )
     started = clock()
     earliest = _utc_dt(target.entry_target_at_utc) - timedelta(seconds=int(max_early_seconds))
     if _utc_dt(started) < earliest:
@@ -210,6 +218,7 @@ def capture_target(
             target=target,
             schedule_snapshot=schedule_payload,
             provider_events=events,
+            max_event_start_delta_seconds=max_event_start_delta_seconds,
         )
         game_identity_path = attempt_root / "game_identity.json"
         _publish_json(game_identity_path, game_identity)
@@ -308,6 +317,12 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         required=True,
         help="Locked operational window; capture may not start earlier than this before T-4h",
     )
+    parser.add_argument(
+        "--max-event-start-delta-seconds",
+        type=int,
+        required=True,
+        help="Outcome-blind identity-consistency bound; never used to select nearest events",
+    )
     return parser.parse_args(argv)
 
 
@@ -327,6 +342,7 @@ def main(argv: list[str] | None = None) -> int:
             ),
             api_key_env=args.api_key_env,
             max_early_seconds=args.max_early_seconds,
+            max_event_start_delta_seconds=args.max_event_start_delta_seconds,
         )
     except (OSError, ValueError, ShadowLiveProviderError, ShadowTargetCaptureError) as exc:
         print(f"FATAL: {type(exc).__name__}: {exc}", file=sys.stderr)

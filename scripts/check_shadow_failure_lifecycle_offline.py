@@ -83,6 +83,7 @@ def main() -> int:
             client=FakeClient(),  # type: ignore[arg-type]
             api_key_env="SYNTHETIC_KEY",
             max_early_seconds=600,
+            max_event_start_delta_seconds=60,
             clock=lambda: "2099-07-18T19:05:00Z",
         )
         ledger_path = service / "ledger/forward_ledger.jsonl"

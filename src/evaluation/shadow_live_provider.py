@@ -242,8 +242,22 @@ def exact_game_identity(
     target: CaptureTarget,
     schedule_snapshot: Mapping[str, Any],
     provider_events: Sequence[Mapping[str, Any]],
+    max_event_start_delta_seconds: int,
 ) -> dict[str, Any]:
-    """Resolve one provider event with exact teams and exact UTC start only."""
+    """Resolve one event by exact teams and equal-cardinality slate order.
+
+    Provider and MLB start times are independent source facts.  The measured
+    delta bound can reject a mapping, but it never selects the nearest event.
+    """
+
+    if (
+        isinstance(max_event_start_delta_seconds, bool)
+        or int(max_event_start_delta_seconds) <= 0
+    ):
+        raise ShadowLiveProviderError(
+            "max_event_start_delta_seconds must be a positive integer"
+        )
+    max_delta = int(max_event_start_delta_seconds)
 
     schedule = _list(schedule_snapshot.get("schedule"), "schedule snapshot.schedule")
     official = [
@@ -264,30 +278,85 @@ def exact_game_identity(
     if not home or not away:
         raise ShadowLiveProviderError("schedule team names cannot be blank")
 
-    matches: list[dict[str, Any]] = []
+    official_pair: list[dict[str, Any]] = []
+    for raw in schedule:
+        row = _object(raw, "schedule row")
+        row_teams = _object(row.get("teams"), "schedule row.teams")
+        row_home = str(_object(
+            _object(row_teams.get("home"), "schedule row.home").get("team"),
+            "schedule row.home.team",
+        ).get("name", "")).strip()
+        row_away = str(_object(
+            _object(row_teams.get("away"), "schedule row.away").get("team"),
+            "schedule row.away.team",
+        ).get("name", "")).strip()
+        if (
+            str(row.get("officialDate")) == target.official_game_date
+            and _name(row_home) == _name(home)
+            and _name(row_away) == _name(away)
+        ):
+            official_pair.append(row)
+
+    provider_pair: list[dict[str, Any]] = []
     for raw in provider_events:
         event = _object(raw, "provider event")
         if (
             _name(event.get("home_team")) == _name(home)
             and _name(event.get("away_team")) == _name(away)
-            and _utc(event.get("commence_time"), "provider commence_time")
-            == target.official_start_time_utc
         ):
-            matches.append(event)
-    if len(matches) != 1:
+            provider_pair.append(event)
+    if not official_pair or len(official_pair) != len(provider_pair):
         raise ShadowLiveProviderError(
-            "exact provider event identity is absent or ambiguous; no fuzzy team/time join is permitted"
+            "exact team-pair event cardinality differs between MLB and provider"
         )
-    event = matches[0]
+
+    official_pair.sort(key=lambda row: _utc(row.get("gameDate"), "schedule pair gameDate"))
+    provider_pair.sort(key=lambda row: _utc(
+        row.get("commence_time"), "provider pair commence_time"
+    ))
+    official_starts = [
+        _utc(row.get("gameDate"), "schedule pair gameDate") for row in official_pair
+    ]
+    provider_starts = [
+        _utc(row.get("commence_time"), "provider pair commence_time")
+        for row in provider_pair
+    ]
+    official_game_pks = [int(row.get("gamePk", 0)) for row in official_pair]
+    provider_event_ids = [str(row.get("id", "")).strip() for row in provider_pair]
+    if (
+        len(set(official_starts)) != len(official_starts)
+        or len(set(provider_starts)) != len(provider_starts)
+        or any(value <= 0 for value in official_game_pks)
+        or len(set(official_game_pks)) != len(official_game_pks)
+        or any(not value for value in provider_event_ids)
+        or len(set(provider_event_ids)) != len(provider_event_ids)
+    ):
+        raise ShadowLiveProviderError(
+            "team-pair chronological identity is tied, blank, or repeated"
+        )
+    target_positions = [
+        index for index, value in enumerate(official_game_pks)
+        if value == target.mlb_game_pk
+    ]
+    if len(target_positions) != 1:
+        raise ShadowLiveProviderError("target is ambiguous within exact MLB team pair")
+    position = target_positions[0]
+    event = provider_pair[position]
     event_id = str(event.get("id", "")).strip()
-    if not event_id:
-        raise ShadowLiveProviderError("provider event lacks id")
+    source_start = provider_starts[position]
+    delta_seconds = int(
+        (_utc_dt(source_start) - _utc_dt(target.official_start_time_utc)).total_seconds()
+    )
+    if abs(delta_seconds) > max_delta:
+        raise ShadowLiveProviderError(
+            "provider/MLB event start delta exceeds the locked identity bound"
+        )
     return {
-        "schema_version": "shadow-live-game-identity-v1",
-        "resolution_method": "exact_nfkc_casefold_home_away_and_exact_utc_start",
+        "schema_version": "shadow-live-game-identity-v2",
+        "resolution_method": "exact_nfkc_casefold_teams_equal_cardinality_chronological_ordinal",
         "source_name": SOURCE_NAME,
         "source_event_id": event_id,
-        "source_event_start_time_utc": _utc(event.get("commence_time"), "provider commence_time"),
+        "source_event_start_time_utc": source_start,
         "source_home_team": str(event.get("home_team")),
         "source_away_team": str(event.get("away_team")),
         "mlb_game_pk": target.mlb_game_pk,
@@ -295,6 +364,12 @@ def exact_game_identity(
         "official_start_time_utc": target.official_start_time_utc,
         "official_home_team": home,
         "official_away_team": away,
+        "team_pair_event_count": len(official_pair),
+        "team_pair_chronological_ordinal": position + 1,
+        "start_delta_seconds": delta_seconds,
+        "max_abs_start_delta_seconds": max_delta,
+        "time_tolerance_used_for_selection": False,
+        "start_delta_bound_used_for_rejection": True,
         "fuzzy_matching_used": False,
     }
 
@@ -355,10 +430,29 @@ def resolve_hits_snapshot(
         raise ShadowLiveProviderError("raw event-odds artifact is malformed") from exc
     event = _object(payload, "event odds payload")
     expected_event = str(game_identity.get("source_event_id", ""))
+    expected_source_start = _utc(
+        game_identity.get("source_event_start_time_utc"),
+        "game_identity.source_event_start_time_utc",
+    )
     if (
-        str(event.get("id", "")) != expected_event
+        game_identity.get("schema_version") != "shadow-live-game-identity-v2"
+        or int(game_identity.get("mlb_game_pk") or 0) != target.mlb_game_pk
+        or str(game_identity.get("official_game_date")) != target.official_game_date
+        or _utc(
+            game_identity.get("official_start_time_utc"),
+            "game_identity.official_start_time_utc",
+        ) != target.official_start_time_utc
+        or game_identity.get("fuzzy_matching_used") is not False
+        or game_identity.get("time_tolerance_used_for_selection") is not False
+        or game_identity.get("start_delta_bound_used_for_rejection") is not True
+        or int(game_identity.get("start_delta_seconds")) != int(
+            (_utc_dt(expected_source_start) - _utc_dt(target.official_start_time_utc)).total_seconds()
+        )
+        or abs(int(game_identity.get("start_delta_seconds")))
+        > int(game_identity.get("max_abs_start_delta_seconds"))
+        or str(event.get("id", "")) != expected_event
         or _utc(event.get("commence_time"), "event odds commence_time")
-        != target.official_start_time_utc
+        != expected_source_start
         or _name(event.get("home_team")) != _name(game_identity.get("official_home_team"))
         or _name(event.get("away_team")) != _name(game_identity.get("official_away_team"))
     ):
@@ -514,7 +608,7 @@ def resolve_hits_snapshot(
                 source_player_id=candidate["source_player_key"],
                 source_over_outcome_id=value["over_sid"],
                 source_under_outcome_id=value["under_sid"],
-                source_event_start_time_utc=target.official_start_time_utc,
+                source_event_start_time_utc=expected_source_start,
                 source_quote_at_utc=value["quote_at_utc"],
                 source_payload_sha256=raw_sha,
                 game_identity_artifact_sha256=game_identity_artifact_sha256,

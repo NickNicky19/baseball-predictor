@@ -176,10 +176,10 @@ Relevant implementation:
   .github/workflows/shadow-evidence-verifier.yml
   deploy/shadow_collector/
 
-Offline readiness is 206/206. The refreshed readiness artifact is:
+Offline readiness is 223/223. The refreshed readiness artifact is:
 
-  reports/forward_shadow_readiness_v20.json
-  sha256 7c57dbba20bde0563e3370bb94b13128f1f87fc2c9d3b817cda97bff0e7bf942
+  reports/forward_shadow_readiness_v24.json
+  sha256 9b72ea2322ed32c080e6aeeefa19a9269a517b663e8f0dbffe466ba110c5db24
 
 The durable collector no longer writes its working daily prediction archive to
 the Git-tracked `data/learning/predictions/` path. `run_slate.py` now accepts an
@@ -222,16 +222,17 @@ scope requires a completed smoke certificate, a clean release checkout, and an
 exact match to every bound readiness hash. Any material drift requires a new
 era rather than continuing the old denominator.
 
-This is code readiness, not operational deployment. Before any live request:
-rotate the previously exposed odds key, explicitly select/authorize the host and
-provider plan, configure the host secret plus GitHub's separate read-only SSH
-credentials, and complete one future real shadow smoke that is permanently
+This is code readiness, not operational deployment. The previously exposed key
+has been rotated and the replacement passed provider authentication without
+being retained. Before durable deployment: explicitly select/authorize the host
+and provider plan, configure the host secret plus GitHub's separate read-only
+SSH credentials, and complete one future real successor shadow smoke that is
 excluded from economic evidence. The complete T−4h-to-prestart-to-official-
 settlement-to-ledger lifecycle exists and is mutation-tested locally; operational
 deployment, exact execution-product evidence, and accumulated prospective
 replication remain downstream work. No forward-shadow authorization exists yet.
 
-A no-cost local Windows smoke scope is now prepared and independently validated:
+A no-cost local Windows v11 smoke scope was prepared and independently validated:
 
   data/learning/shadow/operational_smoke_v11/evidence_scope.json
   scope_sha256 4088a7bda12738371e3a9a2a14b22886a824cf765fd068d0217a016113485b11
@@ -241,24 +242,45 @@ A no-cost local Windows smoke scope is now prepared and independently validated:
   fingerprint_sha256 55747f459e86b04740ca74f75750b5d9ab140582f5b3f54619a0f314357c5b94
   file_sha256 76cf3169b89d4796380e6707df6ec1789506b39063d0de9848f553f8a7bd6585
 
-The bound local runner accepts only this permanently non-economic smoke class,
-validates the exact runtime fingerprint before showing the hidden credential
-prompt, uses environment-only handoff, and rejects a mutated forward-evidence
-scope. It has not made a live request. The key must be rotated before the user
-starts it, and the computer must remain awake through official settlement. A
-durable external primary remains mandatory for the later economic evidence era.
+The user rotated the previously exposed credential and entered its replacement
+through the runner's hidden prompt. The replacement value was not retained or
+logged. v11 made one provider request: the event-list receipt returned HTTP 200,
+proving provider access, but the first T-4h target permanently failed before any
+quote was resolved. The provider start was 60 seconds later than the official
+MLB start, so the former exact-start identity contract rejected the otherwise
+exact home/away event. v11 was stopped immediately and is permanently
+non-economic, non-retryable, non-backfillable, and not certifiable.
+
+The retained outcome-blind v11 slate contained 16 MLB games and 16 provider
+events. Exact normalized team-pair mappings resolved all 16; 15 start deltas
+were +60 seconds and one was zero. No provider prices, model probabilities,
+official outcomes, or May data were inspected. The diagnostic is retained at
+`reports/v11_event_identity_offset_diagnostic_2026-07-18.json` with SHA-256
+`053b8b2e2227fd9baeef45277a1550157d5020714f4751cc1f7d8b3fb754f795`.
+
+The incompatible successor event identity requires exact normalized home/away
+teams, equal team-pair cardinality, and unique chronological ordinal for
+doubleheaders. Provider and official starts remain separate facts. The measured
+60-second value is a hard rejection bound only; it never chooses a nearest
+event. Missing, extra, tied, repeated, reversed, ambiguous, or 61-second cases
+hard-fail. Runtime v2 verifies the diagnostic hash and equality of the bound
+before any provider request. The complete local readiness suite is now 223/223.
+A new excluded full-day smoke is still required before a forward-economic era,
+and a durable external primary remains mandatory for that later era.
 
 -------------------------------------------------------------------------------
 GITHUB / RELEASE STATUS (2026-07-18)
 
-  * codex/hits-forward-evidence-release is published to the explicitly approved
-    NickNicky19/baseball-predictor repository through source commit 387bc41.
+  * `codex/hits-forward-evidence-release` is the explicitly approved publication
+    branch in NickNicky19/baseball-predictor. Query Git for the authoritative
+    current source commit; do not copy a historical commit from this context.
   * The working tree is a large mixed set of source changes, artifacts, logs,
     caches, and unrelated scratch files. Never stage it with `git add -A`.
   * A tracked documentation example containing a plaintext-looking odds
-    credential was redacted. Ignored local credential-looking files also exist.
-    Treat the key as compromised and rotate it; current-tree deletion does not
-    revoke it or erase Git history. The tracked-source scanner is green now.
+    credential was redacted. The user attested that the compromised value was
+    rotated. The replacement was entered through a hidden prompt and was not
+    retained. The tracked-source scanner is green; Git history remains evidence
+    that the retired value was once exposed.
   * GitHub CLI is not currently installed/authenticated on this machine.
   * GitHub is NOT fully updated until an explicitly scoped branch is scanned,
     committed, pushed, and reviewed through a draft pull request.
