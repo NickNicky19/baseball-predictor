@@ -1,0 +1,16 @@
+{
+  "schema_version": "open-2026-benchmark-source-build-failure-v2",
+  "status": "INVALID_INCOMPLETE_NO_MANIFEST_PUBLISHED",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "may_2026_opened": false,
+  "confirmation_2025_opened": false,
+  "source_commit": "94417d77832f842235a85ef129f228af3e990644",
+  "output_directory": "data/analysis/shared_pa_foundation_v1/open_2026_benchmark_v2",
+  "source_manifest_published": false,
+  "source_certificate_published": false,
+  "benchmark_score_observed": false,
+  "exact_failure": "TypeError: Object of type int64 is not JSON serializable at historical_outcome_boundary.loaded_seasons",
+  "allowed_repair": "Convert the already-validated loaded season identifiers from numpy.int64 to built-in int before JSON serialization; change no input, hash, boundary, metric, market, or decision rule.",
+  "retry_output_directory": "data/analysis/shared_pa_foundation_v1/open_2026_benchmark_v3"
+}

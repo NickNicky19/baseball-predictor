@@ -92,7 +92,10 @@ def main() -> int:
                          "out_doubles", "out_triples", "out_hr", "out_bb", "out_k"}
     if len(bounded_training) != 87462 or not required_training.issubset(bounded_training.columns):
         raise ValueError("bounded official training source schema or row count changed")
-    loaded_seasons = sorted(pd.to_numeric(bounded_training["season"], errors="raise").astype(int).unique())
+    loaded_seasons = [
+        int(value)
+        for value in sorted(pd.to_numeric(bounded_training["season"], errors="raise").astype(int).unique())
+    ]
     if loaded_seasons != [2023, 2024]:
         raise ValueError("bounded official training source admitted 2025 confirmation")
     loaded_dates = bounded_training["game_date"].astype(str)
