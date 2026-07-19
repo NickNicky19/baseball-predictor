@@ -122,10 +122,23 @@ def main() -> int:
     def read_csv(name: str, **kwargs: Any) -> pd.DataFrame:
         return pd.read_csv(root / artifacts[name]["path"], **kwargs)
 
-    history = read_csv("cumulative_history", compression="gzip")
+    training = artifacts.get("official_training_outcomes") or {}
+    training_path = root / str(training.get("path", ""))
+    if not training_path.is_file() or sha256(training_path) != training.get("sha256"):
+        raise ValueError("official training outcome source is missing or hash-mismatched")
+    history = pd.read_csv(training_path, compression="gzip", nrows=87462)
+    required_history = {
+        "season", "game_date", "player_id", "out_k", "out_bb", "out_hbp",
+        "out_hr", "out_3b", "out_2b", "out_1b", "out_bip_out",
+    }
+    if not required_history.issubset(history.columns):
+        raise ValueError("official training outcome schema changed")
     seasons = sorted(pd.to_numeric(history["season"], errors="raise").astype(int).unique())
     if seasons != [2023, 2024] or len(history) != 87462:
         raise ValueError("historical fit boundary changed or admitted confirmation data")
+    training_dates = pd.to_datetime(history["game_date"], errors="raise")
+    if training_dates.max().strftime("%Y-%m-%d") != "2024-09-30":
+        raise ValueError("historical fit date boundary changed or admitted confirmation data")
     official = read_csv("official_outcomes")
     lineups = read_csv("lineup_snapshots")
     production = read_csv("production_probabilities")
@@ -218,7 +231,7 @@ def main() -> int:
         ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
     ).strip()
     report = finite_or_none({
-        "schema_version": "open-2026-eb-production-benchmark-report-v1",
+        "schema_version": "open-2026-eb-production-benchmark-report-v2",
         "status": "OPEN_2026_EB_PRODUCTION_BENCHMARK_COMPLETE",
         "betting_authorized": False,
         "production_unchanged": True,

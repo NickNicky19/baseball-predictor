@@ -15,8 +15,8 @@ from src.evaluation.open_2026_benchmark_sources import validate_source_manifest
 from src.learning.shared_pa_model import PA_OUTCOMES, derived_market_probabilities, normalized_counts
 
 
-SCHEMA = "open-2026-eb-production-benchmark-protocol-v1"
-STATUS = "LOCKED_BEFORE_OPEN_2026_BENCHMARK_SCORING"
+SCHEMA = "open-2026-eb-production-benchmark-protocol-v2"
+STATUS = "LOCKED_AFTER_SOURCE_REPAIR_BEFORE_OPEN_2026_BENCHMARK_SCORING"
 PRODUCTION_MARKETS = ["hits_0.5", "hits_1.5", "home_runs_0.5"]
 TOTAL_BASES_MARKETS = [f"total_bases_{line}" for line in (0.5, 1.5, 2.5, 3.5, 4.5, 5.5)]
 ALL_MARKETS = [*PRODUCTION_MARKETS, *TOTAL_BASES_MARKETS]
@@ -39,6 +39,29 @@ def validate_protocol(payload: dict[str, Any], *, evidence_root: str | Path) -> 
     if payload.get("may_2026_opened") is not False or payload.get("confirmation_2025_opened") is not False:
         raise ValueError("benchmark opened sealed evidence")
     repo_root = Path(__file__).resolve().parents[2]
+    supersession = payload.get("supersession") or {}
+    required_supersession = {
+        "unchanged_v1_protocol": ("config/open_2026_eb_production_benchmark_protocol.json", "49f1dfed590a253ceb91d193e3d6d1660a716ac5ec2c39b01b36d72adbb0a1d4"),
+        "v1_failure": ("reports/open_2026_eb_production_benchmark_v1_FAILURE.json", "0a703849fdc042bac7c0627c1174696403672d48be4950c902b73a2e6186c389"),
+        "input_only_retry": ("config/open_2026_eb_benchmark_source_retry_v2.json", "3690f3ff29a46626d38bfe6ea65947991cf02934d88ab5c411120b5353a7b500"),
+        "invalid_source_v2": ("reports/open_2026_benchmark_source_v2_BUILD_FAILURE.json", "b764b24ac6faf5f090c1e86fb5cb2ad070e4ba2691ff10714bf3e550a7ca1307"),
+        "invalid_source_v3": ("reports/open_2026_benchmark_source_v3_BUILD_FAILURE.json", "72dadadb93b22ed57704cbca86a1647be42e8c416777eed827de9a8d15e5ad35"),
+    }
+    actual_supersession = {
+        name: (record.get("path"), record.get("sha256"))
+        for name, record in supersession.items()
+    }
+    if actual_supersession != required_supersession:
+        raise ValueError("benchmark retry provenance changed")
+    for rel, expected in required_supersession.values():
+        path = repo_root / rel
+        if not path.is_file() or sha256(path) != expected:
+            raise ValueError(f"benchmark retry provenance missing or hash-mismatched: {rel}")
+    v1 = _json(repo_root / required_supersession["unchanged_v1_protocol"][0])
+    for key in ("chronology", "identity", "probability_arms", "pa_volume", "market_contract",
+                "eligibility", "metrics", "decision_contract", "protected_invariants"):
+        if payload.get(key) != v1.get(key):
+            raise ValueError(f"benchmark scoring rule changed during source repair: {key}")
     foundation = payload.get("foundation_protocol") or {}
     foundation_path = repo_root / str(foundation.get("path", ""))
     if not foundation_path.is_file() or sha256(foundation_path) != foundation.get("sha256"):
