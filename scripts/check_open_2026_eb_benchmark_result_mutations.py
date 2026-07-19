@@ -35,6 +35,7 @@ def main() -> int:
         ("confirmation", lambda r: r.update(confirmation_2025_opened=True)),
         ("rows", lambda r: r.update(rows=r["rows"] + 1)),
         ("proper score", lambda r: r["markets"]["hits_1.5"]["metrics"]["pooled_open"]["empirical_bayes"].update(binary_log_loss=0.0)),
+        ("calibration", lambda r: r["markets"]["hits_1.5"]["metrics"]["pooled_open"]["empirical_bayes"].update(calibration_intercept=10.0)),
         ("interval", lambda r: r["markets"]["home_runs_0.5"]["comparisons"]["pooled_open"]["eb_vs_production"]["binary_brier"].update(upper=1.0)),
         ("screen", lambda r: r["markets"]["hits_1.5"]["predictive_screen"].update(predictive_screen_passed=False)),
         ("passed markets", lambda r: r.update(measured_simplification_limiter_markets=[])),
@@ -72,9 +73,9 @@ def main() -> int:
             checked += 1
         else:
             raise AssertionError(f"prediction mutation survived: {label}")
-    if checked != 19:
-        raise AssertionError(f"expected 19 detected mutations, found {checked}")
-    print("19/19")
+    if checked != 20:
+        raise AssertionError(f"expected 20 detected mutations, found {checked}")
+    print("20/20")
     return 0
 
 

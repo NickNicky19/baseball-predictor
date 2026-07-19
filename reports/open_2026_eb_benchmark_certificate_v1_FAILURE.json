@@ -1,0 +1,32 @@
+{
+  "schema_version": "open-2026-eb-benchmark-certificate-failure-v1",
+  "status": "CERTIFICATE_NOT_ISSUED",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "may_2026_opened": false,
+  "confirmation_2025_opened": false,
+  "failure": {
+    "message": "numeric value changed at report.markets.hits_1.5.metrics.march_april.league_rate.calibration_intercept",
+    "cause": "Calibration intercept and slope are obtained by iterative BFGS optimization. Recomputing them from the atomically published CSV probabilities can terminate a few optimizer steps differently from the in-memory calculation used by the runner because CSV serialization changes floating-point inputs below proper-score precision.",
+    "measured_max_absolute_difference": {
+      "calibration_intercept": 0.000016994067203235375,
+      "calibration_slope": 0.000008130507143100374,
+      "binary_log_loss": 1.1102230246251565e-16,
+      "binary_brier": 2.7755575615628914e-17,
+      "paired_interval_endpoint": 1.734723475976807e-17
+    },
+    "authorized_repair": "Use a field-specific absolute tolerance of 0.00005 only for calibration intercept and slope. Preserve the existing near-machine-precision tolerance for proper scores and intervals, and independently require the recomputed calibration gate booleans to match exactly.",
+    "certificate_published": false
+  },
+  "artifacts": {
+    "report_sha256": "5a44cec79aef8a50df0ce1cca1994b3a56da810eb6f1b5b5754be19f79ff8733",
+    "validator_commit": "ae331c8"
+  },
+  "protected_invariants": {
+    "proper_score_tolerance_not_weakened": true,
+    "paired_interval_tolerance_not_weakened": true,
+    "calibration_gate_recomputed_independently": true,
+    "no_certificate_inferred": true,
+    "no_betting_authorization": true
+  }
+}
