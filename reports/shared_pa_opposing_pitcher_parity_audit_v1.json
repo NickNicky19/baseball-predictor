@@ -1,0 +1,64 @@
+{
+  "schema_version": "shared-pa-opposing-pitcher-parity-audit-v1",
+  "status": "REJECTED_NO_T_MINUS_4_AVAILABILITY_PROOF",
+  "scope": "Read-only input-provenance audit; no outcomes, model fit, selection, calibration, market score, or May data were read.",
+  "betting_authorized": false,
+  "production_changed": false,
+  "source": {
+    "path": "data/analysis/hr_over_contract_v1/pre2026_a3_2_migration_v2/training/training_hitters_2023_2025_statcast.csv.gz",
+    "sha256": "3fc38325007845d6a7a99102274f7e520ed6f4310cc2a3248ebc441afeb814c5",
+    "rows": 131202,
+    "date_min": "2023-03-30",
+    "date_max": "2025-09-28",
+    "outcome_columns_read": false
+  },
+  "coverage": {
+    "probable_rows": 131130,
+    "probable_share": 0.9994512278776239,
+    "actual_starter_rows": 72,
+    "probable_pitcher_fields_missing": {
+      "opp_sp_id": 0,
+      "opp_sp_throws": 0,
+      "opp_sp_ip": 0,
+      "opp_sp_k9": 0,
+      "opp_sp_bb9": 0,
+      "opp_sp_hr9": 0,
+      "opp_sp_gs": 0,
+      "opp_sp_recent_ip": 0,
+      "opp_sp_recent_k9": 0,
+      "opp_sp_recent_bb9": 0,
+      "opp_sp_recent_hr9": 0
+    }
+  },
+  "verified_source_behavior": {
+    "training_builder": {
+      "path": "src/learning/training_set_builder.py",
+      "sha256": "946ff77d19f261862605700e6209a36010c23fb6e70fb30170f062f95327c754",
+      "behavior": "Uses schedule probablePitcher when present, otherwise falls back to the boxscore actual starter."
+    },
+    "runtime_feature_contract": {
+      "path": "config/shared_pa_runtime_feature_contract.json",
+      "sha256": "f4027b757784d022c6d7f27108355bc4a10be12a24df432929680b5b54c76ede",
+      "behavior": "Quarantines opposing-pitcher fields until a complete point-in-time pitcher source and live-equivalent fallback contract pass coverage audit."
+    },
+    "existing_contract_mutations": "scripts/check_shared_pa_runtime_feature_contract_offline.py: 15/15 checks valid"
+  },
+  "decision": {
+    "candidate_feature_release_permitted": false,
+    "reason": "The historical training row records source labels but no raw schedule payload hash, schedule receipt timestamp, or T-minus-4 observation timestamp. A probable pitcher retained in a completed-game schedule response is not proof that the same identity and statistics were available at the decision horizon.",
+    "actual_starter_fallback": "The 72 actual_starter rows are explicitly postgame and cannot be used as pregame feature evidence.",
+    "required_before_reconsideration": [
+      "Timestamped pre-horizon schedule/probable-pitcher observations.",
+      "Raw payload and hash for each observation.",
+      "A live-equivalent as-of pitcher-statistics transformer with a defined fallback contract.",
+      "A new chronology, coverage, identity, fallback, and leakage mutation suite before fitting any challenger."
+    ]
+  },
+  "protected_invariants": {
+    "May_2026_not_used": true,
+    "no_historical_backfill": true,
+    "no_postgame_pitcher_identity": true,
+    "production_unchanged": true,
+    "no_betting_authorization": true
+  }
+}
