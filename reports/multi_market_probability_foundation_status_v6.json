@@ -1,0 +1,62 @@
+{
+  "schema_version": "multi-market-probability-foundation-status-v6",
+  "status": "ACTIVE_RESEARCH_FOUNDATION_CONSOLIDATED_NO_NEW_PROBABILITY_CANDIDATE",
+  "as_of": "2026-07-19",
+  "betting_authorized": false,
+  "production_changed": false,
+  "previous_status": {
+    "path": "reports/multi_market_probability_foundation_status_v5.json",
+    "sha256": "2c5fcb02532661a3a5cb7ec6b7f05eff1369161f67b2a49d63103a813c003beb"
+  },
+  "consolidation": {
+    "protocol": {
+      "path": "config/probability_foundation_consolidation_v1.json",
+      "sha256": "3cbc6e3b9e6a77219edb070299aae00bfb6f89a292b979804738a78290484714"
+    },
+    "validator": {
+      "path": "scripts/validate_probability_foundation_consolidation.py",
+      "sha256": "c03af1101d30ec54fc2c4c9ddfee8df7493a9deed909a9777d1e3a8d6a5b0163"
+    },
+    "mutation_check": {
+      "path": "scripts/check_probability_foundation_consolidation_offline.py",
+      "sha256": "be3cb6e69afa7eab47a9648f065eda2be53af80c1cabd96d3d876aa0ef4b8df2",
+      "checks": 5
+    },
+    "bound_record_count": 10,
+    "guarantees": [
+      "A later hash, status, authorization-boundary, omission, or duplicate-record change fails validation.",
+      "The known May scope incident remains explicitly bound as invalidated evidence, not a clean holdout.",
+      "The v13 operational failure remains bound as a separate non-economic failure record.",
+      "No bound rejection can be silently reclassified as an accepted probability improvement."
+    ]
+  },
+  "newly_adjudicated_input_family": {
+    "name": "regular-season-only Statcast filtering and classwise calibration",
+    "decision": "REJECTED_AS_IMMATERIAL",
+    "reason": "The outcome-blind removal of spring-training events was a necessary data-quality repair, but its fitted challenger missed both locked materiality floors. Even a deliberately leaky full-period classwise calibration oracle was far below those floors, so a chronological version is not eligible."
+  },
+  "market_status": {
+    "hits": "No new candidate permitted until a measured limiter beyond the rejected PA/contact/calibration families exists.",
+    "hr_over_0_5": "Per-PA empirical-Bayes signal remains confirmed; full-game advancement remains blocked by point-in-time lineup and PA-volume context.",
+    "total_bases": "No production-compatible candidate cleared the required comparison gates.",
+    "rbi_and_hrr": "Blocked by missing coupled point-in-time context and exact outcome contracts.",
+    "pitcher_strikeouts": "Fitted workload/count challenger remains rejected on its calibration confirmation gate."
+  },
+  "highest_value_next_action": {
+    "action": "Collect official probable-pitcher context at the declared T-minus-4 horizon across future regular-season slates using the separately released, hash-bound lifecycle; only then predeclare a single opposing-pitcher contact candidate.",
+    "why": "It is the only currently measured baseball-relevant input family blocked by missing point-in-time evidence rather than by an already adjudicated materiality failure.",
+    "forbidden": [
+      "backfilling historical probable pitchers from completed schedules",
+      "reopening May as a fresh holdout",
+      "tuning market policy or thresholds to historical returns",
+      "production changes or wagering authorization"
+    ]
+  },
+  "protected_invariants": {
+    "markets_products_and_settlement_contracts_remain_separate": true,
+    "historical_prices_are_not_executable_fills": true,
+    "production_baselines_immutable": true,
+    "v13_frozen_and_non_economic": true,
+    "no_betting_authorization": true
+  }
+}
