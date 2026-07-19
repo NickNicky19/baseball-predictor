@@ -28,10 +28,13 @@
     "tree_sha256": "7590b8bd3e5e7fdb28792733e0a9df746066925fc7efe48ad7a8cbcd56d1befe"
   },
   "event_taxonomy": {
-    "path": "data/analysis/shared_pa_foundation_v1/statcast_event_taxonomy_2023_2024_v2.json",
-    "sha256": "2ebc728ebfc5b4464ef51c50e289d4b18e236f76add3fbe2489fe64a6909d89a",
-    "required_status": "VALID_COMPLETE_TAXONOMY",
-    "selection_files_verified": 1288,
+    "path": "data/analysis/shared_pa_foundation_v1/statcast_event_taxonomy_cumulative_2023_2024.json",
+    "sha256": "102c202416dc365208704d25d9242038efdbb88452524a954516ad8d53226f3d",
+    "required_status": "VALID_COMPLETE_CUMULATIVE_TAXONOMY",
+    "expected_player_year_groups": 1421,
+    "verified_files": 1290,
+    "missing_player_year_groups": 131,
+    "verified_tree_sha256": "0566db2a4e90effbfe5133891316410b13b795d3b2745283c285cde1da1d1689",
     "unmapped_events_required": 0
   },
   "canonical_transformer": {

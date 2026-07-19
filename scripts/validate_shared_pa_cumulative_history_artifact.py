@@ -146,6 +146,17 @@ def main() -> int:
         artifact = evidence_root / record["path"]
         if not artifact.exists() or sha256(artifact) != record["sha256"]:
             raise ValueError(f"cumulative history validation input changed: {name}")
+    taxonomy = json.loads((evidence_root / contract["event_taxonomy"]["path"]).read_text(encoding="utf-8"))
+    taxonomy_contract = contract["event_taxonomy"]
+    if taxonomy.get("status") != taxonomy_contract["required_status"] or taxonomy.get("unmapped_events"):
+        raise ValueError("cumulative history taxonomy is not complete")
+    subset = manifest["verified_selection_statcast_subset"]
+    if int(subset["files"]) != int(taxonomy_contract["verified_files"]):
+        raise ValueError("cumulative history manifest file coverage differs from taxonomy")
+    if int(subset["missing_player_year_cache_groups"]) != int(taxonomy_contract["missing_player_year_groups"]):
+        raise ValueError("cumulative history manifest missingness differs from taxonomy")
+    if subset["tree_sha256"] != taxonomy_contract["verified_tree_sha256"]:
+        raise ValueError("cumulative history manifest source tree differs from taxonomy")
     artifact = Path(manifest["artifact"]["path"])
     if not artifact.exists() or sha256(artifact) != manifest["artifact"]["sha256"]:
         raise ValueError("cumulative history artifact hash changed")

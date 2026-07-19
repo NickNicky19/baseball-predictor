@@ -89,10 +89,14 @@ def load_contract(path: Path, evidence_root: Path) -> dict[str, Any]:
         if not artifact.exists() or sha256(artifact) != record["sha256"]:
             raise ValueError(f"cumulative history input hash changed: {name}")
     taxonomy = json.loads((evidence_root / contract["event_taxonomy"]["path"]).read_text(encoding="utf-8"))
-    if taxonomy.get("status") != contract["event_taxonomy"]["required_status"]:
+    taxonomy_contract = contract["event_taxonomy"]
+    if taxonomy.get("status") != taxonomy_contract["required_status"]:
         raise ValueError("cumulative history event taxonomy is not complete")
     if taxonomy.get("unmapped_events") or taxonomy.get("confirmation_2025_read") or taxonomy.get("may_2026_read"):
         raise ValueError("cumulative history event taxonomy crossed a protected boundary")
+    for key in ("expected_player_year_groups", "verified_files", "missing_player_year_groups", "verified_tree_sha256"):
+        if taxonomy.get(key) != taxonomy_contract[key]:
+            raise ValueError(f"cumulative history taxonomy coverage changed: {key}")
     certificate = json.loads((evidence_root / contract["recent_feature_certificate"]["path"]).read_text(encoding="utf-8"))
     if certificate.get("status") != contract["recent_feature_certificate"]["required_status"]:
         raise ValueError("recent feature certificate is invalid")
@@ -215,6 +219,13 @@ def build(evidence_root: Path, out_dir: Path, contract_path: Path) -> dict[str, 
     atomic_csv_gz(artifact_path, output)
     verified_sources = sorted(verified.values(), key=lambda item: item["path"])
     subset_tree_sha = hashlib.sha256(canonical_json(verified_sources).encode("utf-8")).hexdigest()
+    taxonomy_contract = contract["event_taxonomy"]
+    if len(verified_sources) != int(taxonomy_contract["verified_files"]):
+        raise ValueError("cumulative history verified file count differs from taxonomy")
+    if missing_player_years != int(taxonomy_contract["missing_player_year_groups"]):
+        raise ValueError("cumulative history missing source count differs from taxonomy")
+    if subset_tree_sha != taxonomy_contract["verified_tree_sha256"]:
+        raise ValueError("cumulative history verified source tree differs from taxonomy")
     missing_rate = {column: float(output[column].isna().mean()) for column in sorted(expected_features)}
     manifest = {
         "schema_version": "shared-pa-cumulative-history-artifact-v1",

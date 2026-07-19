@@ -1,0 +1,15 @@
+cumulative taxonomy groups 100/1421
+cumulative taxonomy groups 300/1421
+cumulative taxonomy groups 400/1421
+cumulative taxonomy groups 500/1421
+cumulative taxonomy groups 600/1421
+cumulative taxonomy groups 700/1421
+cumulative taxonomy groups 800/1421
+cumulative taxonomy groups 900/1421
+cumulative taxonomy groups 1100/1421
+cumulative taxonomy groups 1300/1421
+cumulative taxonomy groups 1421/1421
+cumulative taxonomy status: VALID_COMPLETE_CUMULATIVE_TAXONOMY
+verified files: 1290
+missing groups: 131
+unmapped events: {}

@@ -38,6 +38,13 @@ def valid(contract: dict) -> bool:
             return False
         if contract["canonical_transformer"]["function"] != "cumulative_profiles":
             return False
+        taxonomy = contract["event_taxonomy"]
+        if taxonomy["required_status"] != "VALID_COMPLETE_CUMULATIVE_TAXONOMY":
+            return False
+        if taxonomy["expected_player_year_groups"] != 1421 or taxonomy["verified_files"] != 1290:
+            return False
+        if taxonomy["missing_player_year_groups"] != 131:
+            return False
         transformer = ROOT / contract["canonical_transformer"]["path"]
         if sha256(transformer) != contract["canonical_transformer"]["sha256"]:
             return False
@@ -78,6 +85,8 @@ def main() -> int:
         ("row-boundary mutation rejected", not valid(mutate(contract, lambda c: c.update(selection_rows=131202)))),
         ("transformer hash mutation rejected", not valid(mutate(contract, lambda c: c["canonical_transformer"].update(sha256="0" * 64)))),
         ("feature omission rejected", not valid(mutate(contract, lambda c: c["feature_group"].pop()))),
+        ("incomplete taxonomy rejected", not valid(mutate(contract, lambda c: c["event_taxonomy"].update(required_status="VALID_COMPLETE_TAXONOMY")))),
+        ("taxonomy coverage mutation rejected", not valid(mutate(contract, lambda c: c["event_taxonomy"].update(verified_files=1288)))),
         ("production mutation rejected", not valid(mutate(contract, lambda c: c.update(production_unchanged=False)))),
         ("authorization mutation rejected", not valid(mutate(contract, lambda c: c.update(betting_authorized=True)))),
     ]
