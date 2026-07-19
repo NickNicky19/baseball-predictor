@@ -1,0 +1,65 @@
+{
+  "schema_version": "hr-eb-simplification-certified-summary-v1",
+  "status": "CERTIFIED_PROBABILITY_READY_HISTORICAL_ECONOMICS_BLOCKED",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "may_2026_opened": false,
+  "confirmation_2025_opened": false,
+  "market": "draftkings_home_runs_over_0.5",
+  "candidate": "hr_over_0_5_rolling_eb_shared_pa_v1",
+  "probability_confirmation_ready": true,
+  "historical_economic_ready": false,
+  "probability_results": {
+    "march_april": {
+      "rows": 6637,
+      "candidate_minus_production_brier_95": [-0.002170586048087873, -0.00005770586772842001],
+      "candidate_minus_production_log_loss_95": [-0.011151365694043673, -0.0008738868347632278],
+      "production_auc": 0.5733006179571065,
+      "candidate_auc": 0.5992348122695235
+    },
+    "june": {
+      "rows": 2190,
+      "candidate_minus_production_brier_95": [-0.0024461834042474703, -0.0005888580157623056],
+      "candidate_minus_production_log_loss_95": [-0.011829855314846465, -0.0026222330161734613],
+      "production_auc": 0.5896630403005807,
+      "candidate_auc": 0.6019883026773065
+    }
+  },
+  "historical_market_results": {
+    "march_april": {
+      "candidate_positive_ev_rows": 2175,
+      "raw_movement_95": [0.00034413413863237913, 0.0015958310472424253],
+      "flat_stake_roi": -0.1647862068965517,
+      "flat_stake_roi_95": [-0.29979096965590823, -0.016425243577171733]
+    },
+    "june": {
+      "candidate_positive_ev_rows": 549,
+      "raw_movement_95": [0.001665586788267075, 0.00367613126590076],
+      "flat_stake_roi": -0.1707103825136612,
+      "flat_stake_roi_95": [-0.393468995215311, 0.029249929418407615]
+    },
+    "interpretation": "The candidate improves probability quality and historical raw closing-line movement, but its positive-EV selections do not demonstrate positive payout performance. Historical quotes are not verified executable. The candidate remains economically blocked."
+  },
+  "next_action": {
+    "permitted": "Predeclare untouched 2025 probability confirmation only if point-in-time lineup and PA-volume inputs can be certified without using postgame information.",
+    "forbidden": [
+      "production installation", "May 2026 opening", "economic threshold tuning",
+      "betting authorization", "treating historical listed prices as fills"
+    ]
+  },
+  "artifacts": {
+    "protocol": {"path": "config/hr_eb_simplification_open_gate_protocol.json", "sha256": "7f5871a69b3e55e72300028d3adb4db2193eda80ae3ba6a81fc0f3a0e966ba6e"},
+    "report": {"path": "data/analysis/shared_pa_foundation_v1/hr_eb_simplification_open_v1/report.json", "sha256": "4a391b72998bdaf36cfb517d515e7ba1503e68cf3b02fb80a9571b9e3ad85db3"},
+    "candidate": {"path": "data/analysis/shared_pa_foundation_v1/hr_eb_simplification_open_v1/candidate_probabilities.csv", "sha256": "c4d1b82cd580754b41b32e50838f9f51c8e4835e007169d8c8e17ab22a411c35"},
+    "certificate": {"path": "data/analysis/shared_pa_foundation_v1/hr_eb_simplification_open_v1/certificate.json", "sha256": "1a8d8293fcac37c1ad2bbd9e0a8b266511a9796dcf3dd51fc39a0ef09200ea0c"},
+    "source_commit": "0a91d4dcc70b6eb89533ddc293f497176a865539"
+  },
+  "protected_invariants": {
+    "probability_and_economic_readiness_separate": true,
+    "historical_executability_unverified": true,
+    "production_unchanged": true,
+    "May_2026_remains_sealed": true,
+    "2025_confirmation_remains_unread": true,
+    "no_betting_authorization": true
+  }
+}
