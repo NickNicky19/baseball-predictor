@@ -1,0 +1,160 @@
+{
+  "schema_version": "shared-pa-hierarchical-selection-protocol-v1",
+  "status": "LOCKED_BEFORE_2024_HIERARCHICAL_SELECTION",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "confirmation_2025_forbidden_during_selection": true,
+  "may_2026_forbidden": true,
+  "chronology": {
+    "initial_fit": [2023],
+    "rolling_selection": [2024],
+    "confirmation_open_once_only_after_selection_pass": [2025],
+    "forbidden": ["2026-05"]
+  },
+  "inputs": {
+    "cumulative_selection_protocol": {
+      "root": "code",
+      "path": "config/shared_pa_cumulative_selection_protocol.json",
+      "sha256": "e7ce92e73825004bb029a45e8f4bf2e154bb25865581aed84989a6b10cd52100"
+    },
+    "certified_cumulative_rejection": {
+      "root": "code",
+      "path": "reports/shared_pa_cumulative_selection_v3_CERTIFIED_REJECTION.json",
+      "sha256": "4177bebc02c1c41843ac4d6b2e5c4117fbd835dab66e6ea02d1e71a08731c300",
+      "required_status": "CUMULATIVE_SELECTION_REJECTION_CERTIFIED"
+    },
+    "certified_rejection_diagnostic": {
+      "root": "code",
+      "path": "reports/shared_pa_cumulative_rejection_diagnostic_v1_CERTIFIED.json",
+      "sha256": "2cf2fac038da5344c0a8a31487c20738119487e6cff3ce5701e0c3c7f16e8454",
+      "required_status": "CERTIFIED_REJECTION_DIAGNOSIS_REPRODUCED"
+    },
+    "selection_report": {
+      "root": "evidence",
+      "path": "data/analysis/shared_pa_foundation_v1/cumulative_selection_v3/selection_report.json",
+      "sha256": "233885c2dd8e88ae3b4d2886b6a625ef8bbe727ec5548dc165609ad8514695d3",
+      "required_status": "CUMULATIVE_SELECTION_REJECTED_NO_CANDIDATE"
+    },
+    "selection_oof": {
+      "root": "evidence",
+      "path": "data/analysis/shared_pa_foundation_v1/cumulative_selection_v3/selection_oof.csv",
+      "sha256": "847ab60beddeb03568320366f4af2e485936630fe70900a0866986ec333a7bd9",
+      "rows": 43668
+    },
+    "selection_certificate": {
+      "root": "evidence",
+      "path": "data/analysis/shared_pa_foundation_v1/cumulative_selection_v3/selection_certificate.json",
+      "sha256": "2be8907408ac8c3acde174f3cf855830cc279c596f0bc60db34c8ddc880023cc",
+      "required_status": "CUMULATIVE_SELECTION_REJECTION_CERTIFIED"
+    }
+  },
+  "single_intervention": {
+    "id": "hierarchical_recent_noncontact_cumulative_contact",
+    "measured_basis": {
+      "robust_gain_outcomes": ["bip_out", "single"],
+      "largest_offsetting_log_loss_regression": "strikeout",
+      "derived_markets_robust_vs_both_comparators": []
+    },
+    "forbidden_additions": [
+      "opposing_pitcher", "park", "weather", "umpire", "lineup_slot_classifier",
+      "player_identifier", "hand_set_shrinkage", "new_hyperparameter_search",
+      "market_price", "policy_threshold"
+    ]
+  },
+  "hierarchy": {
+    "stage_1": {
+      "id": "recent_noncontact_vs_contact",
+      "outcomes": ["strikeout", "walk", "other_non_ab", "contact"],
+      "contact_members": ["single", "double", "triple", "home_run", "bip_out"],
+      "feature_groups": ["canonical_hitter_46d"]
+    },
+    "stage_2": {
+      "id": "recent_plus_cumulative_contact_quality",
+      "outcomes": ["single", "double", "triple", "home_run", "bip_out"],
+      "condition": "contact",
+      "feature_groups": ["canonical_hitter_46d", "canonical_hitter_cumulative"]
+    },
+    "recombination": "P(noncontact outcome)=stage1; P(contact member)=P(stage1 contact)*P(stage2 member|contact)",
+    "required_final_outcomes": [
+      "strikeout", "walk", "single", "double", "triple", "home_run",
+      "bip_out", "other_non_ab"
+    ]
+  },
+  "selection_folds": [
+    ["2024-03-28", "2024-06-30"],
+    ["2024-07-01", "2024-07-31"],
+    ["2024-08-01", "2024-08-31"],
+    ["2024-09-01", "2024-09-30"]
+  ],
+  "model": {
+    "kind": "two_stage_catboost_multiclass",
+    "loss": "MultiClass",
+    "random_seed": 260724,
+    "stability_audit_seeds": [260725, 260726],
+    "fixed_params_from_prior_bounded_selection": {
+      "depth": 4,
+      "l2_leaf_reg": 10.0,
+      "learning_rate": 0.03,
+      "iterations": 1200
+    },
+    "inner_early_stopping": {
+      "holdout_tail_official_dates": 28,
+      "early_stopping_rounds": 100
+    }
+  },
+  "comparators": {
+    "strongest_simple": "empirical_bayes_player_rate_pa_200",
+    "canonical_v1": "canonical_v1",
+    "required_exact_simple_scores": {
+      "multiclass_log_loss": 1.5049497116582167,
+      "multiclass_brier": 0.7082514224627132
+    },
+    "required_exact_canonical_v1_scores": {
+      "multiclass_log_loss": 1.5039925004041703,
+      "multiclass_brier": 0.7077029817506865
+    }
+  },
+  "inference": {
+    "primary_metrics": ["multiclass_log_loss", "multiclass_brier"],
+    "bootstrap_draws": 10000,
+    "bootstrap_seed": 260724,
+    "uncertainty_unit": "official_game_date"
+  },
+  "materiality": {
+    "vs_strongest_simple_required_point_and_upper_below": {
+      "multiclass_log_loss": -0.012134926932596546,
+      "multiclass_brier": -0.004660965632301117
+    },
+    "vs_canonical_v1_required_point_and_upper_below": {
+      "multiclass_log_loss": 0.0,
+      "multiclass_brier": 0.0
+    },
+    "all_stability_seeds_must_improve_both_metrics_vs_both_comparators": true,
+    "coverage_loss_allowed": 0
+  },
+  "calibration": {
+    "method": "single_temperature_multiclass",
+    "cross_fitted_on_prior_oof_folds_only": true,
+    "first_fold_temperature": 1.0,
+    "log_temperature_bounds": [-2.0, 2.0],
+    "install_only_if_both_scores_improve_and_both_paired_upper_bounds_below_zero": true
+  },
+  "derived_market_gates": {
+    "markets": [
+      "hits_0.5", "hits_1.5", "home_runs_0.5",
+      "total_bases_0.5", "total_bases_1.5", "total_bases_2.5",
+      "total_bases_3.5", "total_bases_4.5", "total_bases_5.5"
+    ],
+    "each_market_evaluated_separately": true,
+    "market_eligible_only_if_both_score_points_and_upper_bounds_below_zero_vs_both_comparators": true,
+    "one_market_cannot_validate_another": true,
+    "confirmation_may_open_only_if_foundation_passes_and_at_least_one_market_is_independently_eligible": true
+  },
+  "selection_output": {
+    "publish_model_only_if_foundation_and_at_least_one_market_pass": true,
+    "confirmation_2025_must_remain_unread_on_rejection": true,
+    "may_2026_must_remain_unread": true,
+    "production_must_remain_unchanged": true,
+    "betting_authorized": false
+  }
+}
