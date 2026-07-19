@@ -262,6 +262,19 @@ def context_from_schedule(
     return context.bind_target(target)
 
 
+def games_from_raw_schedule_response(raw: object) -> list[dict[str, Any]]:
+    """Extract exactly one date's games from unmodified official schedule JSON."""
+    if not isinstance(raw, Mapping):
+        raise ForwardPitcherContextError("raw MLB schedule response must be an object")
+    dates = raw.get("dates")
+    if not isinstance(dates, list) or len(dates) != 1 or not isinstance(dates[0], Mapping):
+        raise ForwardPitcherContextError("raw MLB schedule response must contain exactly one date record")
+    games = dates[0].get("games")
+    if not isinstance(games, list) or any(not isinstance(game, Mapping) for game in games):
+        raise ForwardPitcherContextError("raw MLB schedule response lacks an object games list")
+    return [dict(game) for game in games]
+
+
 def publish_context(
     context: ForwardPitcherContext,
     plan: ShadowCapturePlan,

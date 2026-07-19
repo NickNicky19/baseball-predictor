@@ -1,0 +1,22 @@
+{
+  "schema_version": "forward-pitcher-context-runtime-v1",
+  "scope": "future_only_research_input",
+  "source": {
+    "name": "mlb_statsapi_schedule",
+    "base_url": "https://statsapi.mlb.com/api/v1/schedule",
+    "sport_id": 1,
+    "hydrate": "probablePitcher,team,venue"
+  },
+  "scheduler": {
+    "max_early_seconds": 120,
+    "tick_seconds": 15,
+    "late_target_terminal_state": "missed"
+  },
+  "invariants": {
+    "retain_raw_response": true,
+    "capture_before_or_at_t4_only": true,
+    "backfill_forbidden": true,
+    "research_only": true,
+    "betting_authorized": false
+  }
+}
