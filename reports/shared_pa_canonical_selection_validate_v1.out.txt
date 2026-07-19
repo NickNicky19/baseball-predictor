@@ -1,0 +1,3 @@
+CANONICAL_SELECTION_REJECTION_CERTIFIED
+rows: 43668
+materiality_passed: False

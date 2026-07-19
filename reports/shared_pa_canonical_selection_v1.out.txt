@@ -1,0 +1,5 @@
+SELECTION_REJECTED_NO_CANDIDATE
+core_passed: False
+stability_passed: False
+selected_variant: canonical_hitter_46d
+report: C:\Projects\baseball_predictor\data\analysis\shared_pa_foundation_v1\canonical_selection_v1\selection_report.json
