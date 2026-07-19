@@ -1,0 +1,45 @@
+{
+  "schema_version": "shared-pa-cumulative-history-uncertified-artifact-v1",
+  "status": "PUBLISHED_BUT_NOT_CERTIFIED_OR_SCORED",
+  "betting_authorized": false,
+  "production_changed": false,
+  "confirmation_2025_read": false,
+  "may_2026_read": false,
+  "source_commit": "01147c7",
+  "reason": "The cumulative source universe contained 1421 expected player-year groups: 1290 existing caches and 131 explicit missing groups. The pre-build taxonomy certificate covered the 1288 same-season caches used by the prior 46-day artifact, not the two additional existing prior-season caches. The artifact is quarantined without certification or scoring until an exact 1290-file cumulative taxonomy is locked and a new artifact is rebuilt against it.",
+  "newly_used_existing_sources": [
+    "data/cache/statcast/2023/batter_669200.csv",
+    "data/cache/statcast/2023/batter_672279.csv"
+  ],
+  "artifacts": {
+    "features": {
+      "path": "data/analysis/shared_pa_foundation_v1/cumulative_history_v2/canonical_hitter_history_2023_2024.csv.gz",
+      "sha256": "d43fe3a91acf3ef1f0f743d27580a1b0f1dc1e709b7fe9f9b3d9db363bc37c26",
+      "bytes": 13302509
+    },
+    "manifest": {
+      "path": "data/analysis/shared_pa_foundation_v1/cumulative_history_v2/canonical_hitter_history_2023_2024.manifest.json",
+      "sha256": "3da49f6d60b5de97fd275f4b9b4781fd262446f10cbd435110b71c2771a76f91",
+      "bytes": 3185
+    }
+  },
+  "logs": {
+    "stdout": {
+      "path": "reports/shared_pa_cumulative_history_build_v2.out.txt",
+      "sha256": "a08403be4a5e943d200ef85d84818cc195d729130c38b0fab60066b32bd44f96",
+      "bytes": 874
+    },
+    "stderr": {
+      "path": "reports/shared_pa_cumulative_history_build_v2.err.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  },
+  "protected_invariants": {
+    "artifact_not_certified": true,
+    "artifact_not_scored": true,
+    "confirmation_2025_unread": true,
+    "may_2026_unread": true,
+    "production_unchanged": true
+  }
+}

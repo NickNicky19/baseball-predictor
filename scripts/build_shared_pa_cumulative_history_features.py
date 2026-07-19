@@ -22,6 +22,7 @@ from src.features.canonical_pa_features import PROFILE_FIELDS, REQUIRED_RAW_COLU
 from src.features.canonical_cumulative_pa_features import (  # noqa: E402
     SCHEMA_VERSION,
     cumulative_profiles,
+    expected_cache_groups,
 )
 
 
@@ -138,6 +139,10 @@ def build(evidence_root: Path, out_dir: Path, contract_path: Path) -> dict[str, 
     targets = load_targets(evidence_root / contract["training_source"]["path"], contract)
     records, full_inventory = load_inventory(evidence_root / contract["statcast_inventory"]["path"], contract)
     allowed_years = [int(year) for year in contract["history_window"]["source_years_allowed"]]
+    allowed_groups = set(expected_cache_groups(
+        targets[["season", "player_id"]].drop_duplicates(),
+        allowed_years=allowed_years,
+    ))
     start = str(contract["history_window"]["start_inclusive"])
     feature_rows: list[dict[str, Any]] = []
     verified: dict[str, dict[str, Any]] = {}
@@ -147,9 +152,8 @@ def build(evidence_root: Path, out_dir: Path, contract_path: Path) -> dict[str, 
     for group_number, (raw_player_id, group) in enumerate(grouped, start=1):
         player_id = int(raw_player_id)
         raw_parts: list[pd.DataFrame] = []
-        maximum_target_year = int(group["season"].max())
         for year in allowed_years:
-            if year > maximum_target_year:
+            if (year, player_id) not in allowed_groups:
                 continue
             relative = f"data/cache/statcast/{year}/batter_{player_id}.csv"
             record = records.get(relative)

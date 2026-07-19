@@ -14,6 +14,7 @@ if str(ROOT) not in sys.path:
 from src.features.canonical_cumulative_pa_features import (  # noqa: E402
     SCHEMA_VERSION,
     cumulative_profiles,
+    expected_cache_groups,
 )
 from src.features.canonical_pa_features import PROFILE_FIELDS, canonical_profile  # noqa: E402
 
@@ -98,6 +99,9 @@ def main() -> int:
         ("nonpositive window rejected", expect_failure(lambda: cumulative_profiles(frame, target_dates=["2024-06-15"], start_inclusive="2024-06-15", entity_column="batter", entity_id=10, prefix="history"))),
         ("invalid identity column rejected", expect_failure(lambda: cumulative_profiles(frame, target_dates=["2024-06-15"], start_inclusive="2024-04-01", entity_column="fielder", entity_id=10, prefix="history"))),
         ("missing source column rejected", expect_failure(lambda: cumulative_profiles(frame.drop(columns=["zone"]), target_dates=["2024-06-15"], start_inclusive="2024-04-01", entity_column="batter", entity_id=10, prefix="history"))),
+        ("source universe includes prior active years", expected_cache_groups(pd.DataFrame({"season": [2023, 2024], "player_id": [10, 11]}), allowed_years=[2023, 2024]) == [(2023, 10), (2023, 11), (2024, 11)]),
+        ("future source year rejected", expect_failure(lambda: expected_cache_groups(pd.DataFrame({"season": [2025], "player_id": [10]}), allowed_years=[2023, 2024]))),
+        ("source-universe schema mutation rejected", expect_failure(lambda: expected_cache_groups(pd.DataFrame({"season": [2024], "player_id": [10], "game_pk": [1]}), allowed_years=[2023, 2024]))),
     ]
     failed = [name for name, passed in checks if not passed]
     if failed:

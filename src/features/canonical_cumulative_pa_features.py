@@ -32,6 +32,32 @@ from src.features.canonical_pa_features import (
 SCHEMA_VERSION = "shared-pa-canonical-cumulative-statcast-v1"
 
 
+def expected_cache_groups(
+    targets: pd.DataFrame,
+    *,
+    allowed_years: list[int],
+) -> list[tuple[int, int]]:
+    """Return the exact player-year source universe required by targets."""
+    if set(targets.columns) != {"season", "player_id"}:
+        raise ValueError("cumulative source-universe columns changed")
+    years = [int(year) for year in allowed_years]
+    if years != sorted(set(years)):
+        raise ValueError("cumulative allowed source years must be unique and sorted")
+    target_years = pd.to_numeric(targets["season"], errors="raise").astype(int)
+    if not set(target_years).issubset(set(years)):
+        raise ValueError("cumulative targets exceed allowed source years")
+    groups: list[tuple[int, int]] = []
+    work = targets.assign(_season=target_years)
+    for raw_player_id, player in work.groupby("player_id", sort=True):
+        maximum_target_year = int(player["_season"].max())
+        groups.extend(
+            (year, int(raw_player_id))
+            for year in years
+            if year <= maximum_target_year
+        )
+    return groups
+
+
 def cumulative_profiles(
     frame: pd.DataFrame,
     *,

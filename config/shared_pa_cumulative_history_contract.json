@@ -36,7 +36,7 @@
   },
   "canonical_transformer": {
     "path": "src/features/canonical_cumulative_pa_features.py",
-    "sha256": "1611759d78fcaf3070844c275cf1c3d687461e991f4da31c367a1b9f9dce95b6",
+    "sha256": "3e0ef2f009ce3a62af6cb79e5fd0be2e2056f2330c8d58fe2e7756677268e27d",
     "schema_version": "shared-pa-canonical-cumulative-statcast-v1",
     "function": "cumulative_profiles"
   },
