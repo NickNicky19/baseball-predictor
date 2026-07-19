@@ -1,0 +1,183 @@
+{
+  "schema_version": "shared-pa-cumulative-selection-protocol-v1",
+  "status": "LOCKED_BEFORE_2023_2024_CUMULATIVE_SELECTION",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "confirmation_2025_forbidden_during_selection": true,
+  "may_2026_forbidden": true,
+  "identity_key": ["game_pk", "player_id"],
+  "chronology": {
+    "initial_fit": [2023],
+    "rolling_selection": [2024],
+    "confirmation_open_once_only_after_selection_pass": [2025],
+    "forbidden": ["2026-05"]
+  },
+  "inputs": {
+    "base_selection_protocol": {
+      "path": "config/shared_pa_canonical_selection_protocol.json",
+      "sha256": "744ca06fce9b6b102cbe303f1ee6ccc9b55f5982c2412d8ebf130d9f429fca91"
+    },
+    "cumulative_features": {
+      "path": "data/analysis/shared_pa_foundation_v1/cumulative_history_v4/canonical_hitter_history_2023_2024.csv.gz",
+      "sha256": "d334566c6e8a7be8c77d0a47f27fc90a59841bc4b69a9c512fe7680a32e158af",
+      "rows": 87462
+    },
+    "cumulative_manifest": {
+      "path": "data/analysis/shared_pa_foundation_v1/cumulative_history_v4/canonical_hitter_history_2023_2024.manifest.json",
+      "sha256": "b8a6d90c65f63e9e4cfec7b2778313d3c3c0347968477c236e6aa67cba6e298d"
+    },
+    "cumulative_certificate": {
+      "path": "data/analysis/shared_pa_foundation_v1/cumulative_history_v4/canonical_hitter_history_2023_2024.certificate.json",
+      "sha256": "d50d8e44cfb75eb2228e3823ded62ca9d619230454e5d62ffb7bb89b97764c98",
+      "required_status": "CUMULATIVE_HISTORY_ARTIFACT_CERTIFIED"
+    },
+    "cumulative_reproducibility": {
+      "path": "reports/shared_pa_cumulative_history_v4_reproducibility.json",
+      "sha256": "2ca7cdf436f01226a6d0f461ef7ddb13fafe6b81dc1d8c899133c524b7e99dd4",
+      "required_status": "BYTE_REPRODUCIBLE_ARTIFACT_CERTIFIED"
+    },
+    "canonical_v1_report": {
+      "path": "data/analysis/shared_pa_foundation_v1/canonical_selection_v1/selection_report.json",
+      "sha256": "6a2efae0146ad99101e668c5985226672dd6c8e3e6d86374d079279b779c59be",
+      "required_status": "SELECTION_REJECTED_NO_CANDIDATE"
+    },
+    "canonical_v1_oof": {
+      "path": "data/analysis/shared_pa_foundation_v1/canonical_selection_v1/selection_oof.csv",
+      "sha256": "2b5360c5445431e5d238ef30623a8da28313933ba9ebffdc1363e4f3d635a815",
+      "rows": 43668
+    },
+    "canonical_v1_certificate": {
+      "path": "data/analysis/shared_pa_foundation_v1/canonical_selection_v1/selection_certificate.json",
+      "sha256": "c29f8bce4e003aca060ce9cc4d9bb02ddf87b05ae3661724dfc1d3a9489d2cdd",
+      "required_status": "CANONICAL_SELECTION_REJECTION_CERTIFIED"
+    }
+  },
+  "single_intervention": {
+    "id": "add_raw_cumulative_player_history_to_canonical_46d",
+    "rationale": "The 46-day canonical model improved consistently but captured only a small fraction of the locked complexity floor, while the empirical-Bayes player baseline demonstrated that longer-term player history contains the strongest remaining measured signal.",
+    "forbidden_additions": [
+      "opposing_pitcher", "park", "weather", "umpire", "lineup_slot_classifier",
+      "player_identifier", "hand_set_shrinkage", "new_hyperparameter_search"
+    ]
+  },
+  "feature_variants": [
+    {
+      "id": "canonical_recent_plus_cumulative",
+      "groups": ["canonical_hitter_46d", "canonical_hitter_cumulative"]
+    },
+    {
+      "id": "canonical_recent_plus_cumulative_context",
+      "groups": ["canonical_hitter_46d", "canonical_hitter_cumulative", "raw_pregame_context_safe"]
+    }
+  ],
+  "feature_groups": {
+    "canonical_hitter_46d": [
+      "hitter_pitch_count", "hitter_pa", "hitter_bip", "hitter_k_rate",
+      "hitter_bb_rate", "hitter_single_rate", "hitter_double_rate",
+      "hitter_triple_rate", "hitter_home_run_rate", "hitter_bip_out_rate",
+      "hitter_other_non_ab_rate", "hitter_xwoba", "hitter_xba",
+      "hitter_xslg", "hitter_avg_exit_velocity", "hitter_avg_launch_angle",
+      "hitter_barrel_rate", "hitter_hard_hit_rate", "hitter_whiff_rate",
+      "hitter_chase_rate", "hitter_contact_rate", "hitter_swing_rate",
+      "hitter_zone_rate"
+    ],
+    "canonical_hitter_cumulative": [
+      "history_pitch_count", "history_pa", "history_bip", "history_k_rate",
+      "history_bb_rate", "history_single_rate", "history_double_rate",
+      "history_triple_rate", "history_home_run_rate", "history_bip_out_rate",
+      "history_other_non_ab_rate", "history_xwoba", "history_xba",
+      "history_xslg", "history_avg_exit_velocity", "history_avg_launch_angle",
+      "history_barrel_rate", "history_hard_hit_rate", "history_whiff_rate",
+      "history_chase_rate", "history_contact_rate", "history_swing_rate",
+      "history_zone_rate"
+    ],
+    "raw_pregame_context_safe": ["bats", "is_home", "venue"]
+  },
+  "forbidden_classifier_features": [
+    "season", "game_date", "game_pk", "player_id", "player_name",
+    "lineup_slot", "opp_sp_id", "opp_sp_name", "opp_sp_throws",
+    "opp_sp_source", "platoon_adv", "park_hits_factor", "park_hr_factor",
+    "park_runs_factor", "weather_temp", "weather_wind", "weather_is_dome",
+    "umpire_id", "pit_avg", "pit_obp", "pit_slg", "recent_avg",
+    "recent_obp", "recent_slg", "roll15_xwoba", "roll30_xwoba",
+    "out_pa", "out_ab", "out_hits", "out_doubles", "out_triples",
+    "out_hr", "out_rbi", "out_runs", "out_bb", "out_k"
+  ],
+  "opposing_pitcher_quarantine": {
+    "classifier_allowed": false,
+    "reason": "T-4h opposing-pitcher identity parity remains uncertified."
+  },
+  "selection_folds": [
+    ["2024-03-28", "2024-06-30"],
+    ["2024-07-01", "2024-07-31"],
+    ["2024-08-01", "2024-08-31"],
+    ["2024-09-01", "2024-09-30"]
+  ],
+  "simple_baseline_selection": {
+    "selection_eligible": ["league_rate", "empirical_bayes_player_rate"],
+    "diagnostic_only": ["lineup_slot_rate"],
+    "empirical_bayes_prior_strength_pa_grid": [50, 100, 200, 400],
+    "selection_metric": "multiclass_log_loss",
+    "tie_breaker": "multiclass_brier",
+    "required_exact_selected": "empirical_bayes_player_rate_pa_200",
+    "required_exact_scores": {
+      "multiclass_log_loss": 1.5049497116582167,
+      "multiclass_brier": 0.7082514224627132
+    }
+  },
+  "model_family": {
+    "kind": "catboost_multiclass",
+    "loss": "MultiClass",
+    "random_seed": 260719,
+    "stability_audit_seeds": [260720, 260721],
+    "bounded_grid": {
+      "depth": [4, 6],
+      "l2_leaf_reg": [3, 10],
+      "learning_rate": [0.03],
+      "iterations_max": [1200],
+      "early_stopping_rounds": [100]
+    },
+    "inner_early_stopping": {
+      "holdout_tail_official_dates": 28,
+      "selection_only": true
+    }
+  },
+  "required_metrics": {
+    "pa_primary": ["multiclass_log_loss", "multiclass_brier"],
+    "bootstrap_draws": 10000,
+    "bootstrap_seed": 260719,
+    "uncertainty_unit": "official_game_date"
+  },
+  "materiality": {
+    "primary_metrics": ["multiclass_log_loss", "multiclass_brier"],
+    "complexity_benefit_floor": "Unchanged: max(0, league-rate loss minus strongest-simple loss) for each metric.",
+    "candidate_vs_simple_point_and_upper_must_clear_floor": true,
+    "candidate_vs_canonical_v1_point_and_upper_must_be_below_zero": true,
+    "all_stability_seeds_must_improve_both_scores_vs_simple": true,
+    "context_variant_requires_paired_interval_upper_below_zero_for_both_scores": true,
+    "context_variant_must_pass_same_stability_audit": true,
+    "no_feature_variant_may_reduce_coverage": true
+  },
+  "calibration": {
+    "method": "single_temperature_multiclass",
+    "cross_fitted_on_prior_oof_folds_only": true,
+    "first_fold_temperature": 1.0,
+    "log_temperature_bounds": [-2.0, 2.0],
+    "install_only_if_both_scores_and_paired_intervals_improve": true
+  },
+  "derived_market_diagnostics": {
+    "selection_only_not_a_promotion_gate": true,
+    "markets": [
+      "hits_0.5", "hits_1.5", "home_runs_0.5",
+      "total_bases_0.5", "total_bases_1.5", "total_bases_2.5",
+      "total_bases_3.5", "total_bases_4.5", "total_bases_5.5"
+    ],
+    "confirmation_gate_must_be_locked_before_2025_is_opened": true
+  },
+  "selection_output": {
+    "confirmation_2025_must_remain_unread_on_rejection": true,
+    "May_2026_must_remain_unread": true,
+    "production_must_remain_unchanged": true,
+    "betting_authorized": false
+  }
+}
