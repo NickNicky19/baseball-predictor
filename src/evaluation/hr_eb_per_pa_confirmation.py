@@ -169,8 +169,16 @@ def build_predictions(source: pd.DataFrame, confirmation_dates: list[str], prior
     if sorted(out["game_date"].unique()) != confirmation_dates:
         raise ValueError("one or more confirmation dates has no gradeable row")
     for arm in ARMS:
-        if out[arm].isna().any() or not out[arm].between(0, 1, inclusive="neither").all():
+        probability = out[arm]
+        if probability.isna().any() or not probability.between(0, 1, inclusive="both").all():
             raise ValueError(f"invalid {arm} probability")
+    # The rolling league and shrunk candidate are interior when the history
+    # contains both HR and non-HR PA.  The declared raw-player comparator may
+    # legitimately be exactly 0 or 1; scoring clips it only for finite log loss.
+    if not out["candidate"].between(0, 1, inclusive="neither").all():
+        raise ValueError("candidate probability reached a boundary")
+    if not out["rolling_league"].between(0, 1, inclusive="neither").all():
+        raise ValueError("rolling league probability reached a boundary")
     return out, {"eligible_rows": len(out), "zero_pa_rows": zero_pa, "candidate_fallback_rows": fallback}
 
 

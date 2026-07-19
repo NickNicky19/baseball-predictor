@@ -1,0 +1,24 @@
+{
+  "schema_version": "hr-eb-per-pa-2025-confirmation-failed-attempt-v1",
+  "status": "FAILED_BEFORE_PREDICTION_PUBLICATION_OR_SCORE",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "may_2026_opened": false,
+  "confirmation_2025_opened": true,
+  "source_commit": "83428c1",
+  "protocol": "config/hr_eb_per_pa_2025_confirmation_protocol.json",
+  "output_directory": "C:/Projects/baseball_predictor/data/analysis/shared_pa_foundation_v1/hr_eb_per_pa_2025_confirmation_v1",
+  "published_artifacts": [],
+  "failure": {
+    "exception": "ValueError: invalid rolling_raw_player probability",
+    "location": "src/evaluation/hr_eb_per_pa_confirmation.py build_predictions pre-publication probability validation",
+    "cause": "The declared raw-player comparator is prior HR divided by prior PA. It can legitimately equal exactly zero for a player with prior PA and zero prior HR, but the implementation incorrectly required every arm to be strictly inside (0,1).",
+    "economic_or_performance_result_observed": false
+  },
+  "permitted_repair": "Accept the declared raw-player comparator on the closed interval [0,1], retain numerical clipping only inside proper-score calculations, add boundary mutation coverage, and rerun into a fresh versioned output directory without changing any model, date, metric, decision, or gate.",
+  "forbidden": [
+    "change the candidate", "change prior strength", "change dates",
+    "change metrics or uncertainty", "weaken the material-improvement gate",
+    "inspect outcome performance before rerun", "open May", "authorize betting"
+  ]
+}

@@ -29,7 +29,7 @@ def synthetic() -> pd.DataFrame:
     rows = [
         row(2023, "2023-04-01", 1, 10, 100, 5),
         row(2024, "2024-04-01", 2, 10, 100, 5),
-        row(2024, "2024-04-01", 2, 20, 100, 1),
+        row(2024, "2024-04-01", 2, 20, 100, 0),
     ]
     for index, date in enumerate(DATES, start=10):
         rows.extend([row(2025, date, index, 10, 4, index % 2), row(2025, date, index, 20, 4, 0)])
@@ -61,6 +61,8 @@ def decision_fixture() -> dict:
 def main() -> int:
     source = synthetic()
     before, _ = build_predictions(source, DATES, 200)
+    if 0.0 not in set(before["rolling_raw_player"]):
+        raise AssertionError("synthetic boundary did not exercise an exact-zero raw comparator")
     changed = source.copy()
     changed.loc[changed["game_date"].eq(DATES[-1]), "out_hr"] = 4
     after, _ = build_predictions(changed, DATES, 200)
