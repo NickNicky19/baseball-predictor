@@ -1,0 +1,112 @@
+{
+  "schema_version": "hr-eb-per-pa-2025-confirmation-protocol-v1",
+  "status": "LOCKED_BEFORE_2025_CONFIRMATION_OUTCOMES_OPENED",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "may_2026_opened": false,
+  "confirmation_2025_opened": false,
+  "purpose": "Untouched chronological confirmation of only the player per-PA HR-rate foundation. This is not a confirmation of full-game HR market probability because historical T-4h lineup and PA-volume availability is not timestamp-certified.",
+  "certified_parent": {
+    "path": "reports/hr_eb_simplification_open_v1_CERTIFIED.json",
+    "sha256": "558e06f4d181fa12efd1826b0c5d112d127bcc60dbd88c55ff5084ca32f34830",
+    "required_status": "CERTIFIED_PROBABILITY_READY_HISTORICAL_ECONOMICS_BLOCKED"
+  },
+  "inputs": {
+    "training": {
+      "path": "data/analysis/hr_over_contract_v1/pre2026_a3_2_migration_v2/training/training_hitters_2023_2025_statcast.csv.gz",
+      "sha256": "3fc38325007845d6a7a99102274f7e520ed6f4310cc2a3248ebc441afeb814c5"
+    },
+    "date_universe": {
+      "path": "data/analysis/hr_over_contract_v1/pre2026_a3_2_migration_v2/reconstruct_dates_2025_v4.json",
+      "sha256": "7612e62a930f73c70a8af2836e049b6a367fd8318ae5ecb5e5c3b6cfced58afb",
+      "required_status": "LOCKED_OUTCOME_BLIND_DATE_UNIVERSE"
+    },
+    "manifest_2023": {
+      "path": "data/analysis/hr_over_contract_v1/pre2026_a3_2_migration_v2/training/manifest_2023.json",
+      "sha256": "b383c2205b9c97bc12b76cea964f364adb50185b7d81a656fe7a4aad3488a515"
+    },
+    "manifest_2024": {
+      "path": "data/analysis/hr_over_contract_v1/pre2026_a3_2_migration_v2/training/manifest_2024.json",
+      "sha256": "829e5106f76a347beed69c279f967854815544907aaa75d532f35ef53017a221"
+    },
+    "manifest_2025": {
+      "path": "data/analysis/hr_over_contract_v1/pre2026_a3_2_migration_v2/training/manifest_2025.json",
+      "sha256": "4e7a4e45a47516507f1b318df822e608d1f2f9cb6da634f14bb22c85d9e63eae"
+    }
+  },
+  "confirmation_dates": [
+    "2025-06-29", "2025-07-07", "2025-07-19", "2025-07-27",
+    "2025-08-04", "2025-08-12", "2025-08-20", "2025-08-28",
+    "2025-09-04", "2025-09-12", "2025-09-20", "2025-09-28"
+  ],
+  "candidate": {
+    "id": "hr_per_pa_rolling_empirical_bayes_v1",
+    "initial_history_seasons": [2023, 2024],
+    "rolling_2025_history": "all regular-season player-game PA and HR outcomes from dates strictly earlier than the prediction date",
+    "same_date_updates_forbidden": true,
+    "prior_strength_pa": 200,
+    "formula": "(player_prior_hr + prior_strength_pa * rolling_league_hr_per_pa) / (player_prior_pa + prior_strength_pa)"
+  },
+  "comparators": {
+    "rolling_league": "rolling league HR divided by rolling league PA",
+    "rolling_raw_player": "player prior HR divided by player prior PA, falling back exactly to rolling league when player prior PA is zero"
+  },
+  "eligibility": {
+    "score_only_exact_confirmation_dates": true,
+    "official_out_pa_above_zero_required": true,
+    "official_out_pa_and_out_hr_are_scoring_exposure_only": true,
+    "lineup_slot_forbidden": true,
+    "opposing_pitcher_forbidden": true,
+    "weather_park_umpire_forbidden": true,
+    "market_price_and_settlement_forbidden": true,
+    "zero_pa_reported_not_silently_dropped": true
+  },
+  "metrics": {
+    "unit": "official_plate_appearance",
+    "proper_scores": ["pa_weighted_binary_log_loss", "pa_weighted_binary_brier"],
+    "calibration": ["pa_weighted_intercept", "pa_weighted_slope", "pa_weighted_bias"],
+    "discrimination": "pa_weighted_roc_auc",
+    "bootstrap_unit": "official_game_date",
+    "bootstrap_draws": 20000,
+    "bootstrap_seed": 17,
+    "interval": "paired_two_sided_95_percentile"
+  },
+  "material_improvement_gate": {
+    "candidate_minus_each_comparator_brier_95_upper_below_zero": true,
+    "candidate_minus_each_comparator_log_loss_95_upper_below_zero": true,
+    "early_and_late_half_point_deltas_below_zero_for_both_scores_and_both_comparators": true,
+    "candidate_auc_not_below_either_comparator": true,
+    "candidate_calibration_coordinates_not_both_farther_from_ideal_than_raw_player": true,
+    "all_bootstrap_draws_valid": true,
+    "exact_eligible_coverage": true,
+    "all_conditions_required": true
+  },
+  "interpretation": {
+    "pass": "The player HR-rate component may be called untouched-2025 confirmed. Full-game HR probability, economics, production installation, May opening, and betting remain blocked.",
+    "fail": "Reject the HR-rate component as a surviving challenger and preserve production.",
+    "cannot_prove": [
+      "T-4h lineup availability", "T-4h PA volume", "full-game HR probability",
+      "historical executability", "positive ROI", "betting authorization"
+    ]
+  },
+  "required_mutations": [
+    "alter any input hash -> fail",
+    "alter a confirmation date -> fail",
+    "admit same-date or future outcome history -> fail",
+    "use lineup, pitcher, weather, park, umpire, market, or settlement input -> fail",
+    "drop or duplicate an eligible player-game -> fail",
+    "score zero-PA rows -> fail",
+    "change prior strength -> fail",
+    "omit a comparator, metric, half-period, or bootstrap draw -> fail",
+    "weaken the decision -> fail",
+    "open May, install production, or authorize betting -> fail"
+  ],
+  "protected_invariants": {
+    "production_unchanged": true,
+    "May_2026_remains_sealed": true,
+    "no_full_game_confirmation_claim": true,
+    "no_market_or_economic_claim": true,
+    "no_policy_tuning": true,
+    "no_betting_authorization": true
+  }
+}
