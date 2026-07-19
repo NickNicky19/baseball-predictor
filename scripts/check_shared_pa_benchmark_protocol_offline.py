@@ -43,6 +43,7 @@ def main() -> int:
         ("simple baseline removed", lambda p: p["required_baselines"].remove("league_rate")),
         ("confirmation fold", lambda p: p["selection_folds"].append(["2025-01-01", "2025-12-31"])),
         ("baseline tuned on confirmation", lambda p: p["simple_baseline_selection"].update(source="2025")),
+        ("postgame slot made selection eligible", lambda p: p["simple_baseline_selection"]["selection_eligible"].append("lineup_slot_rate")),
         ("hidden baseline tie breaker", lambda p: p["simple_baseline_selection"].update(tie_breaker="none")),
         ("larger unbound grid", lambda p: p["model_family"]["bounded_grid"]["depth"].append(10)),
         ("early stopping changed", lambda p: p["model_family"]["inner_early_stopping"].update(holdout_tail_official_dates=7)),
@@ -58,7 +59,7 @@ def main() -> int:
         candidate = copy.deepcopy(original)
         mutate(candidate)
         must_fail(candidate, args.evidence_root, label)
-    print("23/23")
+    print("24/24")
     return 0
 
 

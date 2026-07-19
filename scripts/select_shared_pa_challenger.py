@@ -144,15 +144,20 @@ def evaluate_simple_baselines(
     best_name = ""
     best_key = (float("inf"), float("inf"))
     best_probabilities: np.ndarray | None = None
+    selection_eligible = set(protocol["simple_baseline_selection"]["selection_eligible"])
     for name, parts in records.items():
         probabilities = np.vstack(parts)
         scores = proper_scores(counts, probabilities)
         report[name] = {
             "scores": scores,
             "fallback_fraction": float(np.concatenate(fallback[name]).mean()),
+            "selection_eligible": (
+                name in selection_eligible
+                or (name.startswith("empirical_bayes_player_rate_pa_") and "empirical_bayes_player_rate" in selection_eligible)
+            ),
         }
         key = (scores["multiclass_log_loss"], scores["multiclass_brier"])
-        if key < best_key:
+        if report[name]["selection_eligible"] and key < best_key:
             best_name, best_key, best_probabilities = name, key, probabilities
     if best_probabilities is None:
         raise ValueError("no simple baseline was evaluated")

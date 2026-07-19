@@ -1,6 +1,6 @@
 {
   "betting_authorized": false,
-  "built_at_utc": "2026-07-19T11:57:21.746552+00:00",
+  "built_at_utc": "2026-07-19T12:00:42.945995+00:00",
   "confirmation_2025_outcomes_summarized": false,
   "date_max": "2025-09-28",
   "date_min": "2023-03-30",
@@ -77,7 +77,7 @@
   "postgame_opposing_starter_rows": 72,
   "protocol": {
     "path": "config/shared_pa_benchmark_protocol.json",
-    "sha256": "89f31fcc696ee7dd8ac16857cf81e52dc9bfc08bfd1a03643cf2f528f6887d78"
+    "sha256": "83de49754e99446382f2c490a44d487e83ab642b331189225f2c914eb8544e3c"
   },
   "rows": 131202,
   "rows_by_season": {
