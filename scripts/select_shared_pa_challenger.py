@@ -405,7 +405,7 @@ def main() -> int:
         "historical_feature_sanitization": sanitization_report,
         "pa_target_population": {
             "source_rows_retained": int(len(frame)),
-            "positive_pa_rows_scored": int((pd.to_numeric(frame["out_pa"]) > 0).sum()),
+            "positive_pa_source_rows": int((pd.to_numeric(frame["out_pa"]) > 0).sum()),
             "zero_pa_rows_zero_weight": int(len(zero_pa)),
             "zero_pa_rows_by_season": zero_pa_by_season,
             "market_settlement_inferred": False,

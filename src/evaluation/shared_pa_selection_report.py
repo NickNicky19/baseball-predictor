@@ -39,7 +39,7 @@ def validate_selection_report(
         raise ValueError("selection seasons changed")
     if report.get("pa_target_population") != {
         "source_rows_retained": 87462,
-        "positive_pa_rows_scored": 87430,
+        "positive_pa_source_rows": 87430,
         "zero_pa_rows_zero_weight": 32,
         "zero_pa_rows_by_season": {"2023": 14, "2024": 18},
         "market_settlement_inferred": False,
