@@ -61,6 +61,9 @@ def main() -> int:
     reconstructed_outcomes_path = base / "outcomes_frozen.csv"
     history_path = evidence_root / "data/analysis/shared_pa_foundation_v1/cumulative_history_v4/canonical_hitter_history_2023_2024.csv.gz"
     history_certificate_path = evidence_root / "data/analysis/shared_pa_foundation_v1/cumulative_history_v4/canonical_hitter_history_2023_2024.certificate.json"
+    official_training_path = evidence_root / "data/analysis/hr_over_contract_v1/pre2026_a3_2_migration_v2/training/training_hitters_2023_2025_statcast.csv.gz"
+    canonical_training_certificate_path = evidence_root / "data/analysis/shared_pa_foundation_v1/canonical_hitter_features_2023_2024.certificate_v2.json"
+    canonical_selection_protocol_path = ROOT / "config/shared_pa_canonical_selection_protocol.json"
     pa_path = evidence_root / "data/analysis/hr_over_contract_v1/pre2026_a3_2_migration_v2/pa_distribution_fit_2023_2024.json"
 
     model = pd.read_csv(probability_path)
@@ -84,6 +87,15 @@ def main() -> int:
         raise ValueError("production hitter lacks a bound lineup slot")
     reconstructed = pd.read_csv(reconstructed_outcomes_path)
     crosscheck = crosscheck_certified_hitter_outcomes(official, reconstructed, model)
+    bounded_training = pd.read_csv(official_training_path, nrows=87462, compression="gzip")
+    required_training = {"season", "game_date", "player_id", "out_pa", "out_ab", "out_hits",
+                         "out_doubles", "out_triples", "out_hr", "out_bb", "out_k"}
+    if len(bounded_training) != 87462 or not required_training.issubset(bounded_training.columns):
+        raise ValueError("bounded official training source schema or row count changed")
+    loaded_seasons = sorted(pd.to_numeric(bounded_training["season"], errors="raise").astype(int).unique())
+    if loaded_seasons != [2023, 2024]:
+        raise ValueError("bounded official training source admitted 2025 confirmation")
+    loaded_dates = bounded_training["game_date"].astype(str)
 
     official_path = output_dir / "official_batter_outcomes.csv"
     lineups_path = output_dir / "production_lineup_snapshots.csv"
@@ -104,6 +116,14 @@ def main() -> int:
         "official_feed_count": len(feed_records),
         "official_outcome_rows": len(official),
         "lineup_snapshot_rows": len(lineups),
+        "historical_outcome_boundary": {
+            "maximum_rows_read": 87462,
+            "loaded_rows": len(bounded_training),
+            "loaded_seasons": loaded_seasons,
+            "date_min": loaded_dates.min(),
+            "date_max": loaded_dates.max(),
+            "forbid_loaded_year_at_or_after": 2025,
+        },
         "crosscheck": crosscheck,
         "total_bases_production_comparator_available": False,
         "total_bases_status": "EMPIRICAL_BAYES_VS_LEAGUE_READINESS_ONLY",
@@ -114,6 +134,12 @@ def main() -> int:
             "certified_reconstruction_outcomes": artifact(evidence_root, reconstructed_outcomes_path, rows=len(reconstructed)),
             "cumulative_history": artifact(evidence_root, history_path),
             "cumulative_history_certificate": artifact(evidence_root, history_certificate_path),
+            "official_training_outcomes": artifact(evidence_root, official_training_path, maximum_rows_read=87462),
+            "canonical_training_certificate": artifact(evidence_root, canonical_training_certificate_path),
+            "canonical_selection_protocol": {
+                "path": "config/shared_pa_canonical_selection_protocol.json",
+                "sha256": sha256(canonical_selection_protocol_path),
+            },
             "pa_distribution": artifact(evidence_root, pa_path),
             "official_outcomes": artifact(evidence_root, official_path, rows=len(official)),
             "lineup_snapshots": artifact(evidence_root, lineups_path, rows=len(lineups)),

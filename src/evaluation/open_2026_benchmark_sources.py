@@ -9,8 +9,8 @@ from typing import Any
 import pandas as pd
 
 
-SCHEMA = "open-2026-probability-benchmark-source-manifest-v1"
-STATUS = "SOURCES_BOUND_BEFORE_BENCHMARK_SCORING"
+SCHEMA = "open-2026-probability-benchmark-source-manifest-v2"
+STATUS = "SOURCES_BOUND_BEFORE_BENCHMARK_SCORING_V2"
 ALLOWED_MONTHS = {"2026-03", "2026-04", "2026-06"}
 MODEL_KEY = ["mlb_game_pk", "player_id", "game_date", "category", "line"]
 HITTER_KEY = ["mlb_game_pk", "player_id", "game_date"]
@@ -249,6 +249,7 @@ def validate_source_manifest(payload: dict[str, Any], *, evidence_root: str | Pa
     resolved: dict[str, Path] = {}
     for name in ("production_probabilities", "production_manifest", "production_certificate",
                  "certified_reconstruction_outcomes", "cumulative_history", "cumulative_history_certificate",
+                 "official_training_outcomes", "canonical_training_certificate", "canonical_selection_protocol",
                  "pa_distribution", "official_outcomes", "lineup_snapshots"):
         record = (payload.get("artifacts") or {}).get(name) or {}
         path = root / str(record.get("path", ""))
@@ -303,6 +304,27 @@ def validate_source_manifest(payload: dict[str, Any], *, evidence_root: str | Pa
     reconstructed = pd.read_csv(resolved["certified_reconstruction_outcomes"])
     if crosscheck_certified_hitter_outcomes(official, reconstructed, model) != payload.get("crosscheck"):
         raise ValueError("official cached-feed crosscheck changed")
+    boundary = payload.get("historical_outcome_boundary") or {}
+    if boundary != {
+        "maximum_rows_read": 87462,
+        "loaded_rows": 87462,
+        "loaded_seasons": [2023, 2024],
+        "date_min": "2023-03-30",
+        "date_max": "2024-09-30",
+        "forbid_loaded_year_at_or_after": 2025,
+    }:
+        raise ValueError("historical outcome read boundary changed")
+    training = pd.read_csv(resolved["official_training_outcomes"], nrows=87462, compression="gzip")
+    required_training = {"season", "game_date", "player_id", "out_pa", "out_ab", "out_hits",
+                         "out_doubles", "out_triples", "out_hr", "out_bb", "out_k"}
+    if len(training) != 87462 or not required_training.issubset(training.columns):
+        raise ValueError("bounded official training outcome schema or row count changed")
+    loaded_seasons = sorted(pd.to_numeric(training["season"], errors="raise").astype(int).unique())
+    if loaded_seasons != [2023, 2024] or int(max(loaded_seasons)) >= 2025:
+        raise ValueError("bounded official training outcomes admitted confirmation data")
+    loaded_dates = training["game_date"].astype(str)
+    if loaded_dates.min() != "2023-03-30" or loaded_dates.max() != "2024-09-30":
+        raise ValueError("bounded official training outcome dates changed")
 
     repo_root = Path(__file__).resolve().parents[2]
     expected_runtime = {

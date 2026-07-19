@@ -41,12 +41,14 @@ def main() -> int:
         ("Total Bases comparator invented", lambda p: p.update(total_bases_production_comparator_available=True)),
         ("runtime changed", lambda p: p["runtime"]["module"].update(sha256="f" * 64)),
         ("crosscheck changed", lambda p: p["crosscheck"].update(hits_crosschecked=0)),
+        ("2025 training admitted", lambda p: p["historical_outcome_boundary"].update(forbid_loaded_year_at_or_after=2026)),
+        ("training boundary enlarged", lambda p: p["historical_outcome_boundary"].update(maximum_rows_read=131202)),
     ]
     for label, mutate in mutations:
         candidate = copy.deepcopy(original)
         mutate(candidate)
         must_fail(candidate, args.evidence_root, label)
-    print("10/10")
+    print("12/12")
     return 0
 
 

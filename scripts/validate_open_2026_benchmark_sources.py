@@ -35,8 +35,8 @@ def main() -> int:
     payload = json.loads(args.manifest.read_text(encoding="utf-8"))
     validate_source_manifest(payload, evidence_root=args.evidence_root)
     certificate = {
-        "schema_version": "open-2026-probability-benchmark-source-certificate-v1",
-        "status": "OPEN_2026_BENCHMARK_SOURCES_CERTIFIED",
+        "schema_version": "open-2026-probability-benchmark-source-certificate-v2",
+        "status": "OPEN_2026_BENCHMARK_SOURCES_CERTIFIED_V2",
         "betting_authorized": False,
         "may_2026_opened": False,
         "production_unchanged": True,
@@ -49,6 +49,7 @@ def main() -> int:
         "official_outcome_rows": payload["official_outcome_rows"],
         "lineup_snapshot_rows": payload["lineup_snapshot_rows"],
         "crosscheck": payload["crosscheck"],
+        "historical_outcome_boundary": payload["historical_outcome_boundary"],
         "total_bases_production_comparator_available": False,
     }
     atomic_json(certificate, args.out)
