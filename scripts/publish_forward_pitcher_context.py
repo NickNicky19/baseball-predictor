@@ -14,7 +14,6 @@ import hashlib
 import json
 import sys
 from pathlib import Path
-from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -22,23 +21,10 @@ sys.path.insert(0, str(ROOT))
 from src.evaluation.forward_pitcher_context import (  # noqa: E402
     ForwardPitcherContextError,
     context_from_schedule,
+    games_from_raw_schedule_response,
     publish_context,
 )
 from src.evaluation.shadow_capture_plan import ShadowCapturePlan  # noqa: E402
-
-
-def _games(raw: Any) -> list[dict[str, Any]]:
-    if not isinstance(raw, dict):
-        raise ForwardPitcherContextError("raw MLB schedule response must be an object")
-    dates = raw.get("dates")
-    if not isinstance(dates, list) or len(dates) != 1 or not isinstance(dates[0], dict):
-        raise ForwardPitcherContextError("raw MLB schedule response must contain exactly one date record")
-    games = dates[0].get("games")
-    if not isinstance(games, list):
-        raise ForwardPitcherContextError("raw MLB schedule response lacks games list")
-    if any(not isinstance(game, dict) for game in games):
-        raise ForwardPitcherContextError("raw MLB schedule contains a non-object game")
-    return games
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -59,7 +45,7 @@ def main(argv: list[str] | None = None) -> int:
         context = context_from_schedule(
             target=targets[0], plan=plan, captured_at_utc=args.received_at_utc,
             source_payload_sha256=hashlib.sha256(raw_bytes).hexdigest(),
-            schedule_games=_games(raw),
+            schedule_games=games_from_raw_schedule_response(raw),
         )
         changed = publish_context(context, plan, targets[0], args.out)
     except (OSError, UnicodeDecodeError, json.JSONDecodeError, ValueError, ForwardPitcherContextError) as exc:

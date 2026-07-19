@@ -10,6 +10,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Literal, Mapping
@@ -25,6 +26,7 @@ from src.evaluation.shadow_capture_plan import CaptureTarget, ShadowCapturePlan
 
 LedgerState = Literal["captured", "source_error", "missed"]
 _EMPTY_CHAIN = "0" * 64
+_SHA256 = re.compile(r"^[0-9a-f]{64}$")
 
 
 class ForwardPitcherContextLedgerError(ValueError):
@@ -76,9 +78,12 @@ def _load_object(path: Path, label: str) -> dict[str, Any]:
 class ForwardPitcherContextLedger:
     """One immutable terminal context state per plan target."""
 
-    def __init__(self, root: str | Path, plan: ShadowCapturePlan) -> None:
+    def __init__(self, root: str | Path, plan: ShadowCapturePlan, runtime_sha256: str) -> None:
         self.root = Path(root).resolve()
         self.plan = plan
+        self.runtime_sha256 = str(runtime_sha256).strip().lower()
+        if not _SHA256.fullmatch(self.runtime_sha256):
+            raise ForwardPitcherContextLedgerError("runtime_sha256 must be a SHA-256 digest")
         self.targets = {target.target_id: target for target in plan.targets}
         if not self.targets:
             raise ForwardPitcherContextLedgerError("pitcher-context plan has no targets")
@@ -95,6 +100,7 @@ class ForwardPitcherContextLedger:
         expected = {
             "schema_version": "forward-pitcher-context-ledger-v1",
             "plan_sha256": self.plan.plan_sha256,
+            "runtime_sha256": self.runtime_sha256,
             "target_ids": sorted(self.targets),
             "records": 0,
             "last_chain_sha256": _EMPTY_CHAIN,
@@ -233,6 +239,14 @@ class ForwardPitcherContextLedger:
     ) -> str:
         return self._append(target=target, state=state, observed_at_utc=observed_at_utc, detail=detail)
 
+    def terminal_target_ids(self) -> set[str]:
+        """Return existing immutable terminal targets after validating the index shape."""
+        self.initialize()
+        targets = _load_object(self.index_path, "pitcher context index").get("targets")
+        if not isinstance(targets, Mapping) or any(str(target_id) not in self.targets for target_id in targets):
+            raise ForwardPitcherContextLedgerError("pitcher context index is invalid")
+        return {str(target_id) for target_id in targets}
+
     def verify(self, *, assessed_at_utc: str) -> dict[str, Any]:
         self.initialize()
         assessed = _utc(assessed_at_utc, "assessed_at_utc")
@@ -241,7 +255,11 @@ class ForwardPitcherContextLedger:
         targets = index.get("targets")
         if not isinstance(targets, Mapping):
             raise ForwardPitcherContextLedgerError("pitcher context index is invalid")
-        if manifest.get("plan_sha256") != self.plan.plan_sha256 or manifest.get("target_ids") != sorted(self.targets):
+        if (
+            manifest.get("plan_sha256") != self.plan.plan_sha256
+            or manifest.get("runtime_sha256") != self.runtime_sha256
+            or manifest.get("target_ids") != sorted(self.targets)
+        ):
             raise ForwardPitcherContextLedgerError("ledger manifest plan binding drifted")
         if manifest.get("research_only") is not True or manifest.get("betting_authorized") is not False:
             raise ForwardPitcherContextLedgerError("ledger scope changed")

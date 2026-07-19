@@ -19,6 +19,7 @@ from src.evaluation.shadow_capture_plan import plan_from_schedule  # noqa: E402
 
 
 H = "a" * 64
+R = "b" * 64
 
 
 def fails(fn) -> bool:
@@ -56,7 +57,7 @@ def main() -> int:
     )
     with tempfile.TemporaryDirectory(prefix="pitcher_context_ledger_") as temporary:
         root = Path(temporary)
-        ledger = ForwardPitcherContextLedger(root, plan)
+        ledger = ForwardPitcherContextLedger(root, plan, R)
         ledger.initialize()
         ledger.append_captured(target=first, context=first_context, raw_payload=raw)
         ledger.append_exclusion(
@@ -102,10 +103,13 @@ def main() -> int:
         third_plan = plan_from_schedule(
             official_game_date="2026-07-20", entry_hours=4, policy_sha256="b" * 64, schedule_snapshot=games,
         )
-        assert fails(lambda: ForwardPitcherContextLedger(root, third_plan).verify(assessed_at_utc="2026-07-20T21:11:00Z"))
+        assert fails(lambda: ForwardPitcherContextLedger(root, third_plan, R).verify(assessed_at_utc="2026-07-20T21:11:00Z"))
         print("[OK] MUTATION different capture plan fails")
 
-    print("6/6")
+        assert fails(lambda: ForwardPitcherContextLedger(root, plan, "c" * 64).verify(assessed_at_utc="2026-07-20T21:11:00Z"))
+        print("[OK] MUTATION runtime-config hash differs from ledger binding")
+
+    print("7/7")
     return 0
 
 
