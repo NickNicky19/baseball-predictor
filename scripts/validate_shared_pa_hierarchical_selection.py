@@ -253,6 +253,19 @@ def main() -> int:
     if not failure_path.is_file() or sha256(failure_path) != retry["failed_validator_record"]["sha256"]:
         raise ValueError("hierarchical validator failure record changed")
     failure = json.loads(failure_path.read_text(encoding="utf-8"))
+    retry_v3_path = ROOT / "config/shared_pa_hierarchical_validator_retry_v3.json"
+    retry_v3 = json.loads(retry_v3_path.read_text(encoding="utf-8"))
+    if retry_v3.get("status") != "LOCKED_SCOPE_RESTORATION_BEFORE_CERTIFICATION":
+        raise ValueError("hierarchical validator scope restoration is not locked")
+    failure_v2_path = ROOT / retry_v3["failure_v2_record"]["path"]
+    if not failure_v2_path.is_file() or sha256(failure_v2_path) != retry_v3["failure_v2_record"]["sha256"]:
+        raise ValueError("hierarchical validator v2 failure record changed")
+    failure_v2 = json.loads(failure_v2_path.read_text(encoding="utf-8"))
+    if retry_v3["required_hashes"]["repaired_validator_before_v3"] != failure_v2["repaired_validator_sha256"]:
+        raise ValueError("hierarchical repaired validator predecessor changed")
+    mutation_checker = ROOT / "scripts/check_shared_pa_hierarchical_selection_validator_mutations.py"
+    if sha256(mutation_checker) != retry_v3["required_hashes"]["restored_mutation_checker"]:
+        raise ValueError("hierarchical validator mutation checker was not restored")
     report_expected = failure["unchanged_complete_selector_artifacts"]["report"]
     oof_expected = failure["unchanged_complete_selector_artifacts"]["oof"]
     if sha256(report_path) != report_expected["sha256"]:
@@ -277,11 +290,19 @@ def main() -> int:
         "confirmation_2025_opened": False, "may_2026_opened": False,
         "report": {"path": str(report_path), "sha256": sha256(report_path)},
         "protocol": report["protocol"], "oof_artifact": report["oof_artifact"],
-        "validator_retry": {
-            "path": "config/shared_pa_hierarchical_validator_retry_v2.json",
-            "sha256": sha256(retry_path),
-            "failure_record_sha256": sha256(failure_path),
-            "repaired_validator_sha256": sha256(Path(__file__)),
+        "validator_retries": {
+            "v2": {
+                "path": "config/shared_pa_hierarchical_validator_retry_v2.json",
+                "sha256": sha256(retry_path),
+                "failure_record_sha256": sha256(failure_path)
+            },
+            "v3": {
+                "path": "config/shared_pa_hierarchical_validator_retry_v3.json",
+                "sha256": sha256(retry_v3_path),
+                "failure_record_sha256": sha256(failure_v2_path),
+                "restored_mutation_checker_sha256": sha256(mutation_checker)
+            },
+            "final_repaired_validator_sha256": sha256(Path(__file__)),
         },
         "validation": validation, "protected_invariants": report["protected_invariants"],
     }

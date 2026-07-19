@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.validate_shared_pa_hierarchical_selection import scoring_frame_from_actual, validate_report  # noqa: E402
+from scripts.validate_shared_pa_hierarchical_selection import validate_report  # noqa: E402
 from src.evaluation.shared_pa_hierarchical_selection import load_protocol  # noqa: E402
 
 
@@ -37,12 +37,6 @@ def main() -> int:
     protocol, _, base = load_protocol(protocol_path, code_root=ROOT, evidence_root=evidence_root)
     oof = pd.read_csv(Path(report["oof_artifact"]["path"]), low_memory=False)
     validate_report(report, oof, protocol, base, evidence_root=evidence_root)
-    actual_columns = [f"actual_{outcome}" for outcome in (
-        "strikeout", "walk", "single", "double", "triple", "home_run", "bip_out", "other_non_ab"
-    )]
-    actual = oof[actual_columns].copy()
-    actual.columns = [name.removeprefix("actual_") for name in actual_columns]
-    round_trip = scoring_frame_from_actual(oof, actual)
 
     def report_mutation(fn: object) -> bool:
         changed = copy.deepcopy(report); fn(changed)  # type: ignore[operator]
@@ -67,7 +61,6 @@ def main() -> int:
         ("probability rejected", frame_mutation(lambda f: f.__setitem__("hierarchical_selected_strikeout", -1.0))),
         ("outcome rejected", frame_mutation(lambda f: f.__setitem__("actual_strikeout", 0.5))),
         ("chronology rejected", frame_mutation(lambda f: f.__setitem__("game_date", "2025-01-01"))),
-        ("actual-count round trip exact", all(round_trip["out_pa"].to_numpy() == actual.sum(axis=1).to_numpy())),
     ]
     if report["stability"]["records"]:
         checks.append(("stability omission rejected", report_mutation(lambda r: r["stability"]["records"].pop())))
