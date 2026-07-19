@@ -210,3 +210,38 @@ def load_retry_authorization(path: Path, *, code_root: Path) -> dict[str, Any]:
     if failure.get("confirmation_2025_opened") or failure.get("may_2026_opened"):
         raise ValueError("cumulative failed attempt crossed protected evidence")
     return retry
+
+
+def load_retry_v3_authorization(path: Path, *, code_root: Path) -> dict[str, Any]:
+    retry = json.loads(path.read_text(encoding="utf-8"))
+    if retry.get("status") != "LOCKED_SECOND_MECHANICAL_RETRY_BEFORE_RESULT_READ":
+        raise ValueError("cumulative retry v3 is not locked")
+    if retry.get("betting_authorized") or not retry.get("production_unchanged"):
+        raise ValueError("cumulative retry v3 altered authorization or production")
+    if not retry.get("confirmation_2025_forbidden") or not retry.get("may_2026_forbidden"):
+        raise ValueError("cumulative retry v3 does not protect confirmation evidence")
+    expected_changes = {
+        "replace_python_name_true_with_True",
+        "publish_complete_selector_directory_atomically",
+        "add_execution_level_report_contract_and_static_name_checks",
+    }
+    if set(retry.get("allowed_changes", [])) != expected_changes:
+        raise ValueError("cumulative retry v3 scope changed")
+    if not retry.get("all_failed_outputs_must_remain_quarantined"):
+        raise ValueError("cumulative retry v3 released a failed output")
+    for name in ("previous_retry", "failed_attempt_record"):
+        record = retry[name]
+        artifact = code_root / record["path"]
+        if not artifact.exists() or sha256(artifact) != record["sha256"]:
+            raise ValueError(f"cumulative retry v3 binding changed: {name}")
+    previous = json.loads((code_root / retry["previous_retry"]["path"]).read_text(encoding="utf-8"))
+    if previous.get("status") != "LOCKED_MECHANICAL_RETRY_BEFORE_RESULT_READ":
+        raise ValueError("cumulative retry v3 predecessor changed")
+    failure = json.loads((code_root / retry["failed_attempt_record"]["path"]).read_text(encoding="utf-8"))
+    if failure.get("status") != "INVALID_INCOMPLETE_NOT_ADJUDICATED":
+        raise ValueError("cumulative retry v3 failed attempt is not invalidated")
+    if failure.get("partial_output", {}).get("scores_inspected"):
+        raise ValueError("cumulative retry v3 failed attempt was inspected")
+    if failure.get("confirmation_2025_opened") or failure.get("may_2026_opened"):
+        raise ValueError("cumulative retry v3 failed attempt crossed protected evidence")
+    return retry

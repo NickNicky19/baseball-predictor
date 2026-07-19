@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import platform
 import statistics
 import subprocess
@@ -44,6 +45,7 @@ from src.evaluation.shared_pa_cumulative_selection import (  # noqa: E402
     load_protocol,
     load_bound_pa_distribution,
     load_retry_authorization,
+    load_retry_v3_authorization,
     load_selection_frame,
     load_v1_comparator,
 )
@@ -52,6 +54,22 @@ from src.learning.shared_pa_model import fit_catboost, fit_temperature, proper_s
 
 
 PRIMARY_METRICS = ("multiclass_log_loss", "multiclass_brier")
+PREFIT_MUTATION_CONTRACT = {
+    "protocol_checks_required": 17,
+    "selection_logic_checks_required": 14,
+    "mechanical_retry_v2_checks_required": 10,
+    "mechanical_retry_v3_checks_required": 14,
+    "validator_mutations_required_after_publication": True,
+}
+
+
+def atomic_publish_directory(staging: Path, final: Path) -> None:
+    if not staging.is_dir():
+        raise ValueError("cumulative staging directory is missing")
+    if final.exists():
+        raise ValueError("cumulative final output already exists")
+    final.parent.mkdir(parents=True, exist_ok=True)
+    os.replace(staging, final)
 
 
 def same_identity(left: pd.DataFrame, right: pd.DataFrame) -> bool:
@@ -108,10 +126,15 @@ def main() -> int:
     )
     args = parser.parse_args()
     evidence_root = args.evidence_root.resolve()
+    final_out = args.out_dir.resolve()
+    staging_out = final_out.with_name(f".{final_out.name}.{os.getpid()}.tmp")
+    if final_out.exists() or staging_out.exists():
+        raise ValueError("cumulative v3 output or staging path already exists")
     protocol_path = args.protocol.resolve()
     protocol, base_protocol = load_protocol(protocol_path, evidence_root=evidence_root, code_root=ROOT)
-    retry_path = ROOT / "config/shared_pa_cumulative_selection_retry_v2.json"
-    load_retry_authorization(retry_path, code_root=ROOT)
+    load_retry_authorization(ROOT / "config/shared_pa_cumulative_selection_retry_v2.json", code_root=ROOT)
+    retry_path = ROOT / "config/shared_pa_cumulative_selection_retry_v3.json"
+    load_retry_v3_authorization(retry_path, code_root=ROOT)
     frame = load_selection_frame(protocol, base_protocol, evidence_root=evidence_root)
 
     simple_report, best_simple, simple_validation = evaluate_simple_baselines(frame, protocol)
@@ -284,10 +307,13 @@ def main() -> int:
         ROOT / base_protocol["inputs"]["runtime_feature_contract"]["path"],
         ROOT / "src/features/canonical_cumulative_pa_features.py",
         ROOT / "config/shared_pa_cumulative_selection_retry_v2.json",
+        ROOT / "config/shared_pa_cumulative_selection_retry_v3.json",
         ROOT / "reports/shared_pa_cumulative_selection_v1_INVALID_INCOMPLETE.json",
+        ROOT / "reports/shared_pa_cumulative_selection_v2_INVALID_INCOMPLETE.json",
         ROOT / "scripts/validate_shared_pa_cumulative_selection.py",
         ROOT / "scripts/check_shared_pa_cumulative_selection_validator_mutations.py",
         ROOT / "scripts/check_shared_pa_cumulative_selection_retry_v2_offline.py",
+        ROOT / "scripts/check_shared_pa_cumulative_selection_retry_v3_offline.py",
         ROOT / "scripts/check_shared_pa_cumulative_selection_protocol_offline.py",
         ROOT / "scripts/check_shared_pa_cumulative_selection_logic_offline.py",
     ]
@@ -298,9 +324,15 @@ def main() -> int:
     except (OSError, subprocess.CalledProcessError):
         source_commit = "UNAVAILABLE"
 
-    args.out_dir.mkdir(parents=True, exist_ok=True)
-    oof_path = args.out_dir / "selection_oof.csv"
-    atomic_csv(oof_path, oof)
+    derived_market_report = {
+        "vs_strongest_simple": derived_diagnostics(selected_validation, selected_probability, best_simple, protocol, pa_distribution),
+        "vs_canonical_v1": derived_diagnostics(selected_validation, selected_probability, v1_probability, protocol, pa_distribution),
+        "selection_only_not_a_promotion_gate": True,
+    }
+    staging_out.mkdir(parents=True, exist_ok=False)
+    staging_oof_path = staging_out / "selection_oof.csv"
+    final_oof_path = final_out / "selection_oof.csv"
+    atomic_csv(staging_oof_path, oof)
     report: dict[str, Any] = {
         "schema_version": "shared-pa-cumulative-selection-report-v1",
         "built_at_utc": datetime.now(timezone.utc).isoformat(),
@@ -312,8 +344,8 @@ def main() -> int:
         "selection_seasons": [2023, 2024],
         "source_commit": source_commit,
         "retry_authorization": {
-            "path": "config/shared_pa_cumulative_selection_retry_v2.json",
-            "sha256": sha256(ROOT / "config/shared_pa_cumulative_selection_retry_v2.json"),
+            "path": "config/shared_pa_cumulative_selection_retry_v3.json",
+            "sha256": sha256(retry_path),
         },
         "protocol": {"path": str(protocol_path.relative_to(ROOT)).replace("\\", "/"), "sha256": sha256(protocol_path)},
         "inputs": protocol["inputs"],
@@ -324,12 +356,7 @@ def main() -> int:
             "thread_count": int(args.threads),
             "file_hashes": {str(path.relative_to(ROOT)).replace("\\", "/"): sha256(path) for path in runtime_files},
         },
-        "pre_fit_mutation_contract": {
-            "protocol_checks_required": 17,
-            "selection_logic_checks_required": 14,
-            "mechanical_retry_checks_required": 10,
-            "validator_mutations_required_after_publication": true,
-        },
+        "pre_fit_mutation_contract": PREFIT_MUTATION_CONTRACT,
         "population": {
             "source_rows": int(len(frame)),
             "positive_pa_scoring_rows": int(len(selected_validation)),
@@ -373,12 +400,8 @@ def main() -> int:
         "selected_decisions": selected_decisions,
         "selected_comparisons_passed": bool(selected_comparisons_passed),
         "selection_passed": selection_passed,
-        "derived_market_diagnostics": {
-            "vs_strongest_simple": derived_diagnostics(selected_validation, selected_probability, best_simple, protocol, pa_distribution),
-            "vs_canonical_v1": derived_diagnostics(selected_validation, selected_probability, v1_probability, protocol, pa_distribution),
-            "selection_only_not_a_promotion_gate": True,
-        },
-        "oof_artifact": {"path": str(oof_path), "sha256": sha256(oof_path), "rows": int(len(oof)), "seasons": [2024]},
+        "derived_market_diagnostics": derived_market_report,
+        "oof_artifact": {"path": str(final_oof_path), "sha256": sha256(staging_oof_path), "rows": int(len(oof)), "seasons": [2024]},
         "model_artifact": None,
         "protected_invariants": {
             "confirmation_2025_unread": True,
@@ -396,18 +419,19 @@ def main() -> int:
             params={**selected_params, "iterations": iterations, "thread_count": int(args.threads)},
             seed=primary_seed,
         )
-        model_path = args.out_dir / "shared_pa_cumulative_catboost.cbm"
-        model.model.save_model(str(model_path))
+        staging_model_path = staging_out / "shared_pa_cumulative_catboost.cbm"
+        final_model_path = final_out / "shared_pa_cumulative_catboost.cbm"
+        model.model.save_model(str(staging_model_path))
         report["model_artifact"] = {
-            "path": str(model_path),
-            "sha256": sha256(model_path),
+            "path": str(final_model_path),
+            "sha256": sha256(staging_model_path),
             "features": features,
             "categorical_features": model.categorical_features,
             "iterations": iterations,
             "temperature": selected_temperature,
         }
-    report_path = args.out_dir / "selection_report.json"
-    atomic_json(report_path, report)
+    atomic_json(staging_out / "selection_report.json", report)
+    atomic_publish_directory(staging_out, final_out)
     print(json.dumps({
         "status": report["status"],
         "selected_simple": simple_report["selected"],

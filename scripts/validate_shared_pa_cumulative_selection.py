@@ -94,7 +94,8 @@ def validate_report(report: dict[str, Any], oof: pd.DataFrame, protocol: dict[st
     if report.get("pre_fit_mutation_contract") != {
         "protocol_checks_required": 17,
         "selection_logic_checks_required": 14,
-        "mechanical_retry_checks_required": 10,
+        "mechanical_retry_v2_checks_required": 10,
+        "mechanical_retry_v3_checks_required": 14,
         "validator_mutations_required_after_publication": True,
     }:
         raise ValueError("cumulative pre-fit mutation contract changed")

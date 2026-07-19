@@ -1,0 +1,31 @@
+{
+  "schema_version": "shared-pa-cumulative-selection-invalid-attempt-v2",
+  "status": "INVALID_INCOMPLETE_NOT_ADJUDICATED",
+  "betting_authorized": false,
+  "production_changed": false,
+  "confirmation_2025_opened": false,
+  "may_2026_opened": false,
+  "source_commit": "388227f",
+  "failure": {
+    "type": "mechanical_python_report_construction",
+    "message": "NameError: name 'true' is not defined",
+    "cause": "A JSON-style lowercase boolean was used in the Python report payload.",
+    "statistical_result_adjudicated": false
+  },
+  "partial_output": {
+    "path": "data/analysis/shared_pa_foundation_v1/cumulative_selection_v2_INVALID_INCOMPLETE/selection_oof.csv",
+    "sha256": "847ab60beddeb03568320366f4af2e485936630fe70900a0866986ec333a7bd9",
+    "bytes": 37908581,
+    "matches_invalid_v1_oof_byte_for_byte": true,
+    "final_report_published": false,
+    "quarantined": true,
+    "scores_inspected": false
+  },
+  "protected_invariants": {
+    "partial_artifact_permanently_inadmissible": true,
+    "confirmation_2025_unread": true,
+    "may_2026_unread": true,
+    "production_unchanged": true,
+    "betting_unauthorized": true
+  }
+}

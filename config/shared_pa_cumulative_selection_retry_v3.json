@@ -1,0 +1,36 @@
+{
+  "schema_version": "shared-pa-cumulative-selection-retry-v3",
+  "status": "LOCKED_SECOND_MECHANICAL_RETRY_BEFORE_RESULT_READ",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "confirmation_2025_forbidden": true,
+  "may_2026_forbidden": true,
+  "previous_retry": {
+    "path": "config/shared_pa_cumulative_selection_retry_v2.json",
+    "sha256": "f53576370934f6ffbe92abe95be054718f6be7548d0f974eb9357ea653719784"
+  },
+  "failed_attempt_record": {
+    "path": "reports/shared_pa_cumulative_selection_v2_INVALID_INCOMPLETE.json",
+    "sha256": "4636e88053c81b1b4bccbf475e63d16d736f1498f54f623dd8b7a89eb1c1760d"
+  },
+  "allowed_changes": [
+    "replace_python_name_true_with_True",
+    "publish_complete_selector_directory_atomically",
+    "add_execution_level_report_contract_and_static_name_checks"
+  ],
+  "forbidden_changes": [
+    "model_features",
+    "model_grid",
+    "random_seeds",
+    "selection_folds",
+    "materiality_thresholds",
+    "calibration_rules",
+    "stability_rules",
+    "simple_baseline",
+    "canonical_v1_comparator",
+    "2025_access",
+    "May_2026_access"
+  ],
+  "retry_output": "data/analysis/shared_pa_foundation_v1/cumulative_selection_v3",
+  "all_failed_outputs_must_remain_quarantined": true
+}
