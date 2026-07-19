@@ -69,6 +69,71 @@ def per_row_proper_loss(counts: pd.DataFrame, probabilities: np.ndarray) -> pd.D
     })
 
 
+def binary_class_metrics(
+    counts: pd.DataFrame,
+    probabilities: np.ndarray,
+) -> dict[str, dict[str, float | int | bool]]:
+    """Exact classwise metrics from aggregated player-game PA counts."""
+    from scipy.optimize import minimize
+    from sklearn.metrics import roc_auc_score
+
+    values = counts.loc[:, PA_OUTCOMES].to_numpy(float)
+    probs = np.asarray(probabilities, dtype=float)
+    if probs.shape != values.shape or not np.allclose(probs.sum(axis=1), 1.0, atol=1e-9):
+        raise ValueError("invalid probability matrix for classwise metrics")
+    exposure = values.sum(axis=1)
+    if (exposure < 0).any() or exposure.sum() <= 0:
+        raise ValueError("invalid PA exposure for classwise metrics")
+    result: dict[str, dict[str, float | int | bool]] = {}
+    for class_index, name in enumerate(PA_OUTCOMES):
+        positive = values[:, class_index]
+        negative = exposure - positive
+        p = np.clip(probs[:, class_index], EPSILON, 1.0 - EPSILON)
+        total = float(exposure.sum())
+        positives = float(positive.sum())
+        negatives = float(negative.sum())
+        sufficient = positives > 0 and negatives > 0
+        brier = float((positive * np.square(1.0 - p) + negative * np.square(p)).sum() / total)
+        log_loss = float(-(positive * np.log(p) + negative * np.log1p(-p)).sum() / total)
+        if sufficient:
+            auc = float(roc_auc_score(
+                np.concatenate([np.ones(len(p)), np.zeros(len(p))]),
+                np.concatenate([p, p]),
+                sample_weight=np.concatenate([positive, negative]),
+            ))
+            model_logit = np.log(p) - np.log1p(-p)
+
+            def objective(parameters: np.ndarray) -> float:
+                linear = parameters[0] + parameters[1] * model_logit
+                calibrated = 1.0 / (1.0 + np.exp(-np.clip(linear, -40.0, 40.0)))
+                calibrated = np.clip(calibrated, EPSILON, 1.0 - EPSILON)
+                return float(-(positive * np.log(calibrated) + negative * np.log1p(-calibrated)).sum())
+
+            fitted = minimize(objective, x0=np.array([0.0, 1.0]), method="BFGS")
+            if fitted.success and np.isfinite(fitted.x).all():
+                calibration_intercept = float(fitted.x[0])
+                calibration_slope = float(fitted.x[1])
+            else:
+                calibration_intercept = float("nan")
+                calibration_slope = float("nan")
+                sufficient = False
+        else:
+            auc = float("nan")
+            calibration_intercept = float("nan")
+            calibration_slope = float("nan")
+        result[name] = {
+            "binary_brier": brier,
+            "binary_log_loss": log_loss,
+            "roc_auc": auc,
+            "calibration_intercept": calibration_intercept,
+            "calibration_slope": calibration_slope,
+            "positive_pa": int(positives),
+            "negative_pa": int(negatives),
+            "sufficient_evidence": bool(sufficient),
+        }
+    return result
+
+
 def paired_date_block_interval(
     counts: pd.DataFrame,
     candidate: np.ndarray,

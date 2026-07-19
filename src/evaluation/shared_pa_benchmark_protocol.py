@@ -168,6 +168,15 @@ def validate_protocol(payload: dict[str, Any], *, evidence_root: str | Path) -> 
         raise ValueError("derived market scoring scope changed")
     if metrics.get("uncertainty_unit") != "official_game_date" or metrics.get("bootstrap_draws") != 10000 or metrics.get("bootstrap_seed") != 260719:
         raise ValueError("uncertainty unit, draws, or seed changed")
+    if payload.get("per_class_metric_contract") != {
+        "exposure_unit": "official_plate_appearance",
+        "binary_brier_and_log_loss": "exact_aggregated_binomial_counts",
+        "roc_auc": "exact_weighted_positive_negative_counts",
+        "calibration": "binomial_logistic_intercept_and_slope_on_model_logit",
+        "probability_clip_epsilon": 1e-12,
+        "degenerate_class_is_insufficient_evidence": True,
+    }:
+        raise ValueError("per-class scoring or insufficiency contract changed")
 
     pa_volume = payload.get("pa_volume") or {}
     expected_pa_path = "data/analysis/hr_over_contract_v1/pre2026_a3_2_migration_v2/pa_distribution_fit_2023_2024.json"

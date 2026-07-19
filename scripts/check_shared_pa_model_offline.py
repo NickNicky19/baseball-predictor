@@ -14,6 +14,7 @@ if str(ROOT) not in sys.path:
 
 from src.evaluation.multi_market_foundation import PA_OUTCOMES  # noqa: E402
 from src.learning.shared_pa_model import (  # noqa: E402
+    binary_class_metrics,
     derived_market_probabilities,
     fit_rate_baseline,
     fit_temperature,
@@ -51,6 +52,16 @@ def main() -> int:
         probs,
     )
     assert score["multiclass_log_loss"] > 0 and score["multiclass_brier"] > 0
+    class_metrics = binary_class_metrics(
+        pd.DataFrame([
+            [1, 1, 1, 0, 0, 0, 1, 0],
+            [1, 0, 1, 1, 0, 0, 1, 0],
+        ], columns=PA_OUTCOMES),
+        probs,
+    )
+    assert class_metrics["single"]["sufficient_evidence"] is True
+    assert class_metrics["triple"]["sufficient_evidence"] is False
+    print("[OK] exact per-class scoring flags degenerate evidence")
     events, labels, weights = weighted_event_rows(frame, ["x"])
     assert len(events) == len(labels) == len(weights) == 8
     assert weights.sum() == 8
@@ -111,7 +122,7 @@ def main() -> int:
     else:
         raise AssertionError("invalid temperature bounds passed")
     print("[OK] exact PA-volume mixture produces monotone market tails")
-    print("7/7")
+    print("8/8")
     return 0
 
 

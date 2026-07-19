@@ -50,6 +50,7 @@ def main() -> int:
         ("early stopping changed", lambda p: p["model_family"]["inner_early_stopping"].update(holdout_tail_official_dates=7)),
         ("PA artifact changed", lambda p: p["pa_volume"].update(sha256="0" * 64)),
         ("log loss removed", lambda p: p["required_metrics"].update(pa_primary=["multiclass_brier"])),
+        ("degenerate class admitted", lambda p: p["per_class_metric_contract"].update(degenerate_class_is_insufficient_evidence=False)),
         ("weak confirmation", lambda p: p["confirmation_gate"].update(paired_log_loss_interval_upper_below_zero=False)),
         ("calibration on 2025", lambda p: p["calibration"].update(selection_source="2025")),
         ("calibration not cross-fitted", lambda p: p["calibration"].update(selection_evaluation="same_oof_rows")),
@@ -60,7 +61,7 @@ def main() -> int:
         candidate = copy.deepcopy(original)
         mutate(candidate)
         must_fail(candidate, args.evidence_root, label)
-    print("25/25")
+    print("26/26")
     return 0
 
 

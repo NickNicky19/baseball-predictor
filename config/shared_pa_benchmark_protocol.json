@@ -176,6 +176,14 @@
     "bootstrap_draws": 10000,
     "bootstrap_seed": 260719
   },
+  "per_class_metric_contract": {
+    "exposure_unit": "official_plate_appearance",
+    "binary_brier_and_log_loss": "exact_aggregated_binomial_counts",
+    "roc_auc": "exact_weighted_positive_negative_counts",
+    "calibration": "binomial_logistic_intercept_and_slope_on_model_logit",
+    "probability_clip_epsilon": 1e-12,
+    "degenerate_class_is_insufficient_evidence": true
+  },
   "confirmation_gate": {
     "beat_current_and_best_simple_where_comparable": true,
     "paired_log_loss_interval_upper_below_zero": true,
