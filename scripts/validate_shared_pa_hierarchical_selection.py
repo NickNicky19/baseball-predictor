@@ -27,6 +27,7 @@ from src.evaluation.shared_pa_hierarchical_selection import (  # noqa: E402
     MARKETS, clears_primary, load_protocol,
 )
 from src.evaluation.shared_pa_rejection_diagnostic import sha256  # noqa: E402
+from src.evaluation.shared_pa_training_data import outcome_counts  # noqa: E402
 from src.learning.shared_pa_model import proper_scores  # noqa: E402
 
 
@@ -77,6 +78,23 @@ def matrix(oof: pd.DataFrame, prefix: str) -> np.ndarray:
     return values
 
 
+def scoring_frame_from_actual(oof: pd.DataFrame, actual: pd.DataFrame) -> pd.DataFrame:
+    """Reconstruct raw official-count columns exactly from exhaustive PA classes."""
+    scoring = oof.copy()
+    scoring["out_k"] = actual["strikeout"].to_numpy()
+    scoring["out_bb"] = actual["walk"].to_numpy()
+    scoring["out_hits"] = actual[["single", "double", "triple", "home_run"]].sum(axis=1).to_numpy()
+    scoring["out_doubles"] = actual["double"].to_numpy()
+    scoring["out_triples"] = actual["triple"].to_numpy()
+    scoring["out_hr"] = actual["home_run"].to_numpy()
+    scoring["out_ab"] = actual[["strikeout", "single", "double", "triple", "home_run", "bip_out"]].sum(axis=1).to_numpy()
+    scoring["out_pa"] = actual.sum(axis=1).to_numpy()
+    reconstructed = outcome_counts(scoring).loc[:, PA_OUTCOMES]
+    if not np.array_equal(reconstructed.to_numpy(float), actual.loc[:, PA_OUTCOMES].to_numpy(float)):
+        raise ValueError("hierarchical validator outcome round trip changed")
+    return scoring
+
+
 def validate_report(
     report: dict[str, Any],
     oof: pd.DataFrame,
@@ -117,14 +135,15 @@ def validate_report(
     values = actual.to_numpy(float)
     if not np.isfinite(values).all() or (values < 0).any() or not np.allclose(values, np.rint(values)) or (values.sum(axis=1) <= 0).any():
         raise ValueError("hierarchical OOF outcomes are invalid")
+    scoring = scoring_frame_from_actual(oof, actual)
     matrices = {prefix: matrix(oof, prefix) for prefix in prefixes}
     close(report["comparators"]["strongest_simple"]["scores"], proper_scores(actual, matrices["strongest_simple"]), "simple scores")
     close(report["comparators"]["canonical_v1"]["scores"], proper_scores(actual, matrices["canonical_v1"]), "v1 scores")
     close(protocol["comparators"]["required_exact_simple_scores"], report["comparators"]["strongest_simple"]["scores"], "locked simple scores")
     close(protocol["comparators"]["required_exact_canonical_v1_scores"], report["comparators"]["canonical_v1"]["scores"], "locked v1 scores")
     close(report["raw"]["scores"], proper_scores(actual, matrices["hierarchical_raw"]), "raw scores")
-    raw_simple = interval_report(oof, matrices["hierarchical_raw"], matrices["strongest_simple"], protocol)
-    raw_v1 = interval_report(oof, matrices["hierarchical_raw"], matrices["canonical_v1"], protocol)
+    raw_simple = interval_report(scoring, matrices["hierarchical_raw"], matrices["strongest_simple"], protocol)
+    raw_v1 = interval_report(scoring, matrices["hierarchical_raw"], matrices["canonical_v1"], protocol)
     close(report["raw"]["intervals_vs_strongest_simple"], raw_simple, "raw/simple intervals")
     close(report["raw"]["intervals_vs_canonical_v1"], raw_v1, "raw/v1 intervals")
     raw_passed, raw_decisions = clears_primary(protocol, vs_simple=raw_simple, vs_v1=raw_v1)
@@ -143,8 +162,8 @@ def validate_report(
         probability = matrix(oof, f"hierarchical_seed_{int(record['seed'])}")
         score = proper_scores(actual, probability)
         close(record["scores"], score, "stability scores")
-        vs_simple = interval_report(oof, probability, matrices["strongest_simple"], protocol)
-        vs_v1 = interval_report(oof, probability, matrices["canonical_v1"], protocol)
+        vs_simple = interval_report(scoring, probability, matrices["strongest_simple"], protocol)
+        vs_v1 = interval_report(scoring, probability, matrices["canonical_v1"], protocol)
         close(record["intervals_vs_strongest_simple"], vs_simple, "stability/simple")
         close(record["intervals_vs_canonical_v1"], vs_v1, "stability/v1")
         passed = all(float(group[metric]["point"]) < 0.0 and float(group[metric]["upper"]) < 0.0 for group in (vs_simple, vs_v1) for metric in PRIMARY)
@@ -160,7 +179,7 @@ def validate_report(
     if calibration["installed"]:
         selected_scores = proper_scores(actual, matrices["hierarchical_selected"])
         close(calibration["scores"], selected_scores, "calibrated scores")
-        intervals = interval_report(oof, matrices["hierarchical_selected"], matrices["hierarchical_raw"], protocol)
+        intervals = interval_report(scoring, matrices["hierarchical_selected"], matrices["hierarchical_raw"], protocol)
         close(calibration["intervals_vs_raw"], intervals, "calibration intervals")
         if not all(float(selected_scores[m]) < float(report["raw"]["scores"][m]) and float(intervals[m]["upper"]) < 0.0 for m in PRIMARY):
             raise ValueError("hierarchical calibration installation is unsupported")
@@ -168,8 +187,8 @@ def validate_report(
         raise ValueError("hierarchical uninstalled calibration changed probabilities")
 
     close(report["selected"]["scores"], proper_scores(actual, matrices["hierarchical_selected"]), "selected scores")
-    selected_simple = interval_report(oof, matrices["hierarchical_selected"], matrices["strongest_simple"], protocol)
-    selected_v1 = interval_report(oof, matrices["hierarchical_selected"], matrices["canonical_v1"], protocol)
+    selected_simple = interval_report(scoring, matrices["hierarchical_selected"], matrices["strongest_simple"], protocol)
+    selected_v1 = interval_report(scoring, matrices["hierarchical_selected"], matrices["canonical_v1"], protocol)
     close(report["selected"]["intervals_vs_strongest_simple"], selected_simple, "selected/simple")
     close(report["selected"]["intervals_vs_canonical_v1"], selected_v1, "selected/v1")
     selected_primary, selected_decisions = clears_primary(protocol, vs_simple=selected_simple, vs_v1=selected_v1)
@@ -178,7 +197,7 @@ def validate_report(
         raise ValueError("hierarchical selected primary decision changed")
     pa_distribution = load_bound_pa_distribution(base, evidence_root=evidence_root)
     derived = derived_market_report(
-        oof, matrices["hierarchical_selected"], matrices["strongest_simple"], matrices["canonical_v1"],
+        scoring, matrices["hierarchical_selected"], matrices["strongest_simple"], matrices["canonical_v1"],
         protocol, pa_distribution,
     )
     close(report["derived_markets"], derived, "derived markets")
@@ -226,12 +245,28 @@ def main() -> int:
     protocol, _, base = load_protocol(protocol_path, code_root=ROOT, evidence_root=evidence_root)
     if report.get("inputs") != protocol["inputs"]:
         raise ValueError("hierarchical report input bindings changed")
+    retry_path = ROOT / "config/shared_pa_hierarchical_validator_retry_v2.json"
+    retry = json.loads(retry_path.read_text(encoding="utf-8"))
+    if retry.get("status") != "LOCKED_VALIDATOR_ONLY_RETRY_BEFORE_CERTIFICATION":
+        raise ValueError("hierarchical validator retry is not locked")
+    failure_path = ROOT / retry["failed_validator_record"]["path"]
+    if not failure_path.is_file() or sha256(failure_path) != retry["failed_validator_record"]["sha256"]:
+        raise ValueError("hierarchical validator failure record changed")
+    failure = json.loads(failure_path.read_text(encoding="utf-8"))
+    report_expected = failure["unchanged_complete_selector_artifacts"]["report"]
+    oof_expected = failure["unchanged_complete_selector_artifacts"]["oof"]
+    if sha256(report_path) != report_expected["sha256"]:
+        raise ValueError("hierarchical selector report changed during validator retry")
     for relative, expected in report["runtime"]["file_hashes"].items():
         path = ROOT / relative
+        if relative == "scripts/validate_shared_pa_hierarchical_selection.py":
+            if expected != failure["failed_validator"]["sha256"]:
+                raise ValueError("hierarchical failed validator binding changed")
+            continue
         if not path.is_file() or sha256(path) != expected:
             raise ValueError(f"hierarchical runtime changed: {relative}")
     oof_path = Path(report["oof_artifact"]["path"])
-    if not oof_path.is_file() or sha256(oof_path) != report["oof_artifact"]["sha256"]:
+    if not oof_path.is_file() or sha256(oof_path) != report["oof_artifact"]["sha256"] or sha256(oof_path) != oof_expected["sha256"]:
         raise ValueError("hierarchical OOF artifact changed")
     validation = validate_report(report, pd.read_csv(oof_path, low_memory=False), protocol, base, evidence_root=evidence_root)
     certificate = {
@@ -242,6 +277,12 @@ def main() -> int:
         "confirmation_2025_opened": False, "may_2026_opened": False,
         "report": {"path": str(report_path), "sha256": sha256(report_path)},
         "protocol": report["protocol"], "oof_artifact": report["oof_artifact"],
+        "validator_retry": {
+            "path": "config/shared_pa_hierarchical_validator_retry_v2.json",
+            "sha256": sha256(retry_path),
+            "failure_record_sha256": sha256(failure_path),
+            "repaired_validator_sha256": sha256(Path(__file__)),
+        },
         "validation": validation, "protected_invariants": report["protected_invariants"],
     }
     atomic_json(args.out.resolve(), certificate)
