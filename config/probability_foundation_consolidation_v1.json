@@ -1,0 +1,22 @@
+{
+  "schema_version": "probability-foundation-consolidation-protocol-v1",
+  "status": "LOCKED_REJECTION_AND_READINESS_EVIDENCE",
+  "scope": {
+    "production_changed": false,
+    "betting_authorized": false,
+    "may_2026_is_not_a_new_candidate_holdout": true,
+    "markets_must_remain_separate": true
+  },
+  "records": [
+    {"id": "nonregular_statcast_audit", "path": "reports/shared_pa_nonregular_statcast_audit_v1.json", "sha256": "146b95d30a4f0bdf4dcbd45d321f995478be60d42f19d65c7df6e00e60f03025", "required_status": "OUTCOME_BLIND_INPUT_CONTAMINATION_MEASURED"},
+    {"id": "classwise_calibration_oracle", "path": "reports/shared_pa_classwise_calibration_oracle_v1.json", "sha256": "b967ec11d0f4c7b6f297633fed2c37e837db3bcb8d008ca0c26fee8728e1209c", "required_status": "ORACLE_FAMILY_NOT_ELIGIBLE_FOR_CHALLENGER"},
+    {"id": "hierarchical_shared_pa", "path": "reports/shared_pa_hierarchical_selection_v1_CERTIFIED_REJECTION.json", "sha256": "234db075629a79404f161edf2396f302accde66dbb73ce6cc00dea0f442d38a8", "required_status": "HIERARCHICAL_SELECTION_REJECTION_CERTIFIED"},
+    {"id": "opposing_pitcher_parity", "path": "reports/shared_pa_opposing_pitcher_parity_audit_v1.json", "sha256": "e3b7b31a260a37e2613418d0fd0f2b473b183eedafb0f017dcf460ca8ded74fe", "required_status": "REJECTED_NO_T_MINUS_4_AVAILABILITY_PROOF"},
+    {"id": "open_2026_empirical_bayes", "path": "reports/open_2026_eb_benchmark_v4_CERTIFIED.json", "sha256": "cd53bee161335ff8bb8a24d241e71bd4e463921003e721eda38365f1d88f3cfa", "required_status": "CERTIFIED_DIAGNOSTIC_ONE_NEXT_INTERVENTION_MAXIMUM"},
+    {"id": "hr_eb_open_gate", "path": "reports/hr_eb_simplification_open_v1_CERTIFIED.json", "sha256": "558e06f4d181fa12efd1826b0c5d112d127bcc60dbd88c55ff5084ca32f34830", "required_status": "CERTIFIED_PROBABILITY_READY_HISTORICAL_ECONOMICS_BLOCKED"},
+    {"id": "hits_1_5_eb_open_gate", "path": "reports/hits_1_5_eb_open_v1_CERTIFIED.json", "sha256": "e7708c197558dccfca9169f1bb70482cd0cb1e833a4bc1c64a68ccb532d10d9a", "required_status": "CERTIFIED_REJECTED_ON_OPEN_MARKET_GRADEABLE_GATE"},
+    {"id": "pitcher_k_rejection", "path": "reports/pitcher_k_fitted_challenger_v1_CERTIFIED_REJECTION.json", "sha256": "72e0a76d1391854709783400a4cfc6f57921185666d7f9da0fdc86e73ed4d59d", "required_status": "CERTIFIED_CONFIRMATION_REJECTION"},
+    {"id": "may_scope_incident", "path": "reports/pitcher_k_input_audit_v1_INVALIDATED_MAY_ACCESS.json", "sha256": "45ab63eb8a38e6d44daea425b9d20b6d860dc51c238dad7577a7c854cf4bb7e2", "required_status": "INVALIDATED_DO_NOT_USE"},
+    {"id": "v13_operational_failure", "path": "reports/v13_operational_smoke_failure_2026-07-19.json", "sha256": "d0958a897d0393757dfcacbaacfc1efa50c829ba906f8c2a24487021d75199ef", "required_status": "MATERIAL_OPERATIONAL_FAILURE_NO_RETRY"}
+  ]
+}
