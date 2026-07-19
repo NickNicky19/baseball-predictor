@@ -161,7 +161,8 @@ def main() -> int:
         try:
             pd.testing.assert_frame_equal(
                 pd.read_csv(report_path.parent / filename).reset_index(drop=True),
-                expected_frame.reset_index(drop=True), check_dtype=False, rtol=1e-12, atol=1e-14,
+                expected_frame.reset_index(drop=True), check_dtype=False,
+                check_categorical=False, rtol=1e-12, atol=1e-14,
             )
         except AssertionError as exc:
             raise ValueError(f"published Hits 1.5 {label} rows changed") from exc

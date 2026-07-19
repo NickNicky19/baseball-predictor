@@ -1,0 +1,25 @@
+{
+  "schema_version": "hits-1-5-eb-validation-stop-v1",
+  "status": "CERTIFICATION_STOPPED_BEFORE_CERTIFICATE",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "may_2026_opened": false,
+  "report_claim_accepted": false,
+  "failure": {
+    "stage": "independent_published_row_roundtrip_comparison",
+    "artifact": "model_unavailable_rows.csv",
+    "type": "representation_only_dtype_mismatch",
+    "detail": "The independently rebuilt pandas merge indicator is categorical in memory; the atomically published CSV reloads the same values as text. assert_frame_equal rejected the dtype representation even with check_dtype=False because categorical comparison has its own guard."
+  },
+  "repair_scope": {
+    "validator_only": true,
+    "allow_categorical_vs_text_representation": true,
+    "value_comparison_retained": true,
+    "probabilities_unchanged": true,
+    "outcomes_unchanged": true,
+    "coverage_unchanged": true,
+    "gates_unchanged": true,
+    "protocol_unchanged": true,
+    "published_result_unchanged": true
+  }
+}
