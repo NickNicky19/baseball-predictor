@@ -1,0 +1,107 @@
+{
+  "schema_version": "hr-eb-simplification-open-gate-protocol-v1",
+  "status": "LOCKED_BEFORE_HR_EB_MARKET_JOIN_OR_ECONOMIC_RESULT",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "may_2026_opened": false,
+  "confirmation_2025_opened": false,
+  "purpose": "Adjudicate exactly one production-compatible rolling empirical-Bayes shared-PA simplification candidate for DraftKings HR over 0.5 on the already-open 56-date research universe. Separate probability-confirmation readiness from historical economic readiness.",
+  "certified_parent": {"path": "reports/open_2026_eb_benchmark_v4_CERTIFIED.json", "sha256": "cd53bee161335ff8bb8a24d241e71bd4e463921003e721eda38365f1d88f3cfa", "required_status": "CERTIFIED_DIAGNOSTIC_ONE_NEXT_INTERVENTION_MAXIMUM"},
+  "candidate": {
+    "id": "hr_over_0_5_rolling_eb_shared_pa_v1",
+    "market": {"sportsbook": "draftkings", "category": "home_runs", "line": 0.5, "side": "over"},
+    "probability_source_column": "eb_home_runs_0.5",
+    "initial_history": [2023, 2024],
+    "rolling_updates": "strictly_earlier_open_2026_official_PA_outcomes_only",
+    "prior_strength_pa": 200,
+    "pa_volume": "unchanged_hash_bound_2023_2024_lineup_slot_distribution",
+    "policy_or_edge_threshold_fit": false,
+    "production_install_permitted": false
+  },
+  "inputs": {
+    "benchmark_protocol": {"path": "config/open_2026_eb_production_benchmark_protocol_v4.json", "sha256": "c1e90be5de4c7c93ef408c8f91f85b29c4506a35ab749438988d43688f651a6b"},
+    "benchmark_report": {"path": "data/analysis/shared_pa_foundation_v1/open_2026_benchmark_v5/benchmark_report.json", "sha256": "6a695a94b77d02217aecc00fd32f0a0c7d472bedc6b5a927de25fbeeaff74e9b"},
+    "benchmark_predictions": {"path": "data/analysis/shared_pa_foundation_v1/open_2026_benchmark_v5/benchmark_predictions.csv", "sha256": "aab32838f6c93c7b0ad5bfa4e0531020b086683b24753a67ca7bb5708188c867"},
+    "benchmark_certificate": {"path": "data/analysis/shared_pa_foundation_v1/open_2026_benchmark_v5/benchmark_certificate.json", "sha256": "eeb1a901eb83c0336a1d87b84ba8cdc8ec1dcb279f9cf29fb3f59c705d7dac1c"},
+    "market_source": {"path": "data/analysis/hr_over_contract_v1/hr_over_reconstruct_source.csv", "sha256": "a1cb375a93bcd694e1130f79413db5a9d68b599c3df5c72f018cd96165b714ba"},
+    "market_manifest": {"path": "data/analysis/hr_over_contract_v1/hr_over_reconstruct_source_manifest.json", "sha256": "53ee84a33398d2a03435f8aa5e29cb497f76cc45933d98457dd519b74d459f03"},
+    "frozen_probabilities": {"path": "data/analysis/hr_over_contract_v1/batted_ball_candidate_v1/full_open_v1/frozen.csv", "sha256": "0e3b52e9e93dd20904cd858c52bf7e9d3a35eb027c6be46b1ab818c29a608471"},
+    "frozen_manifest": {"path": "data/analysis/hr_over_contract_v1/batted_ball_candidate_v1/full_open_v1/frozen.manifest.json", "sha256": "110da021ab7234c4d7a872b0a5de89745f22587112824212aeec2a1d84b782aa"},
+    "full_reconstruction_certificate": {"path": "data/analysis/hr_over_contract_v1/batted_ball_candidate_v1/full_open_v1/full_validation_certificate.json", "sha256": "5baafd80011866484206146e6ad50d013381514a850f605314dabe6e73ea6033"},
+    "official_outcomes": {"path": "data/analysis/hr_over_contract_v1/batted_ball_candidate_v1/full_open_v1/outcomes_frozen.csv", "sha256": "d85fe8cab38a367e55d8e6a142f0e1b3b023742033a000b8ae4e80614f82320f"},
+    "official_settlement_bridge": {"path": "data/analysis/hr_over_contract_v1/settlement_v1/official_settlement_bridge.csv", "sha256": "f930b3aab299aa470d3ff99bbfa0bbc88033016a8ca70fecfa418bd32baf08f9"},
+    "official_settlement_report": {"path": "data/analysis/hr_over_contract_v1/settlement_v1/report.json", "sha256": "0d253c6ab7c61f9995edcf9951a618bac8a0b257db32243278461186943cc38a"},
+    "reused_inference_protocol": {"path": "data/analysis/hr_over_contract_v1/batted_ball_candidate_v1/economic_gate_protocol.json", "sha256": "8faa8aaeb40486f35682c254472fa843e964ad0b127f9d429ee06d71da70dce1"}
+  },
+  "chronology": {
+    "diagnostic": "2026-03-25_through_2026-04-30_exact_37_dates",
+    "confirmation": "2026-06-01_through_2026-06-19_exact_19_dates",
+    "forbidden": [2025, "2026-05"],
+    "both_blocks_required": true
+  },
+  "coverage": {
+    "strict_market_rows": 9356,
+    "model_market_rows": 8854,
+    "official_gradeable_rows": 8827,
+    "official_void_or_unresolved_rows": 27,
+    "benchmark_candidate_rows_covering_model_market": 8848,
+    "six_missing_candidate_rows_must_be_exact_VOID_NO_PA": true,
+    "gradeable_candidate_coverage_must_be_exact": true,
+    "no_silent_drop": true
+  },
+  "scoring": {
+    "probability": ["binary_log_loss", "binary_brier", "roc_auc", "calibration_bias"],
+    "historical_market_label": "RAW_ONE_SIDED_BREAK_EVEN_INCLUDES_UNKNOWN_MARGIN_AND_IS_NOT_VERIFIED_EXECUTABLE",
+    "positive_ev_selection": "candidate_probability_times_entry_decimal_odds_minus_one_strictly_above_zero",
+    "edge_threshold": null,
+    "top_n": null,
+    "raw_probability_movement": "one_over_entry_decimal_odds_minus_one_over_close_decimal_odds",
+    "flat_stake_profit": "entry_decimal_odds_minus_one_on_win_else_minus_one",
+    "vendor_numeric_result_forbidden": true
+  },
+  "inference": {"bootstrap_unit": "official_game_date", "bootstrap_draws": 20000, "bootstrap_seed": 17, "interval": "paired_two_sided_95_percentile"},
+  "probability_confirmation_readiness": {
+    "both_blocks_candidate_brier_below_production": true,
+    "both_blocks_candidate_log_loss_below_production": true,
+    "June_candidate_minus_production_brier_upper_below_zero": true,
+    "June_candidate_minus_production_log_loss_upper_below_zero": true,
+    "pooled_candidate_auc_not_below_production": true,
+    "gradeable_coverage_exact": true,
+    "all_conditions_required": true
+  },
+  "historical_economic_readiness": {
+    "candidate_positive_ev_rows_required_in_both_blocks": true,
+    "candidate_positive_ev_raw_movement_95_lower_strictly_above_zero_in_both_blocks": true,
+    "candidate_positive_ev_flat_stake_roi_95_lower_strictly_above_zero_in_both_blocks": true,
+    "historical_executability_remains_unverified": true,
+    "cannot_authorize_betting": true,
+    "all_conditions_required": true
+  },
+  "decision": {
+    "probability_pass_economic_fail": "Candidate may proceed only to a predeclared untouched probability confirmation; it remains economically blocked and cannot be installed.",
+    "probability_and_economic_pass": "Candidate may be frozen for untouched confirmation; no production install, May opening, or betting authorization is automatic.",
+    "probability_fail": "Reject candidate and preserve production.",
+    "one_market_only": true
+  },
+  "required_mutations": [
+    "alter any input hash -> fail",
+    "inject May or 2025 -> fail",
+    "remove or duplicate a market/model/settlement key -> fail",
+    "treat VOID_NO_PA as gradeable -> fail",
+    "invent candidate probability for a missing gradeable row -> fail",
+    "alter entry odds -> EV and payout move but predictive score does not",
+    "alter close odds -> raw movement moves but predictive score does not",
+    "omit either block -> fail",
+    "weaken either readiness decision -> fail",
+    "authorize betting or alter production -> fail"
+  ],
+  "protected_invariants": {
+    "production_unchanged": true,
+    "May_2026_remains_sealed": true,
+    "2025_confirmation_remains_unread": true,
+    "no_under_or_market_pooling": true,
+    "no_policy_tuning": true,
+    "no_historical_executability_claim": true,
+    "no_betting_authorization": true
+  }
+}
