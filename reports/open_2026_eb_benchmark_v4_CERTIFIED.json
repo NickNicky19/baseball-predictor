@@ -1,0 +1,71 @@
+{
+  "schema_version": "open-2026-eb-benchmark-certified-summary-v1",
+  "status": "CERTIFIED_DIAGNOSTIC_ONE_NEXT_INTERVENTION_MAXIMUM",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "may_2026_opened": false,
+  "confirmation_2025_opened": false,
+  "rows": 12774,
+  "dates": 56,
+  "predictive_screen": {
+    "hits_0.5": "FAIL",
+    "hits_1.5": "PASS",
+    "home_runs_0.5": "PASS",
+    "total_bases": "READINESS_ONLY_NO_PRODUCTION_COMPARATOR"
+  },
+  "certified_effects": {
+    "home_runs_0.5": {
+      "empirical_bayes_minus_production_log_loss": {
+        "point": -0.008079421584367391,
+        "lower_95": -0.011629687992076117,
+        "upper_95": -0.004756799704899198
+      },
+      "empirical_bayes_minus_production_brier": {
+        "point": -0.0014751881210957982,
+        "lower_95": -0.0021452333027523617,
+        "upper_95": -0.0008401709566642389
+      },
+      "empirical_bayes_auc": 0.6051753148067738,
+      "production_auc": 0.5760744197077535,
+      "empirical_bayes_calibration": {"intercept": -0.0004386546969086373, "slope": 1.0242122903327708},
+      "production_calibration": {"intercept": -0.9015301420594447, "slope": 0.5042536305703921}
+    },
+    "hits_1.5": {
+      "empirical_bayes_minus_production_log_loss": {
+        "point": -0.004453646496198566,
+        "lower_95": -0.006658928794284203,
+        "upper_95": -0.0021890442556252825
+      },
+      "empirical_bayes_minus_production_brier": {
+        "point": -0.0015296100585047412,
+        "lower_95": -0.002300429406403665,
+        "upper_95": -0.0007171210252651447
+      },
+      "empirical_bayes_auc": 0.5637812579793164,
+      "production_auc": 0.562985799560726
+    }
+  },
+  "highest_value_next_intervention": {
+    "market": "draftkings_home_runs_over_0.5",
+    "reason": "HR has the larger log-loss improvement, materially better AUC, near-ideal calibration, and directionally consistent March-April and June effects. Hits 1.5 survives as secondary evidence but cannot become a simultaneous intervention.",
+    "scope": "One production-compatible rolling empirical-Bayes shared-PA simplification candidate for HR over 0.5; no policy, PA-volume, market, settlement, or production changes.",
+    "next_gate": "Predeclare and mutation-test open-period market-coherence and runtime-reproduction gates before any 2025 confirmation or May 2026 evidence is opened."
+  },
+  "artifacts": {
+    "protocol": {"path": "config/open_2026_eb_production_benchmark_protocol_v4.json", "sha256": "c1e90be5de4c7c93ef408c8f91f85b29c4506a35ab749438988d43688f651a6b"},
+    "report": {"path": "data/analysis/shared_pa_foundation_v1/open_2026_benchmark_v5/benchmark_report.json", "sha256": "6a695a94b77d02217aecc00fd32f0a0c7d472bedc6b5a927de25fbeeaff74e9b"},
+    "predictions": {"path": "data/analysis/shared_pa_foundation_v1/open_2026_benchmark_v5/benchmark_predictions.csv", "sha256": "aab32838f6c93c7b0ad5bfa4e0531020b086683b24753a67ca7bb5708188c867"},
+    "certificate": {"path": "data/analysis/shared_pa_foundation_v1/open_2026_benchmark_v5/benchmark_certificate.json", "sha256": "eeb1a901eb83c0336a1d87b84ba8cdc8ec1dcb279f9cf29fb3f59c705d7dac1c"},
+    "source_commit": "65ae3db071a0e4a2726fa3a2e2d8aa867c7b2d4d"
+  },
+  "protected_invariants": {
+    "prior_raw_pass_withdrawn": true,
+    "independent_certificate_required": true,
+    "one_next_intervention_maximum": true,
+    "no_market_pooling": true,
+    "production_unchanged": true,
+    "May_2026_remains_sealed": true,
+    "2025_confirmation_remains_unread": true,
+    "no_betting_authorization": true
+  }
+}
