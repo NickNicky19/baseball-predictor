@@ -60,7 +60,7 @@ def main() -> int:
         result = run_tick(
             plan=plan, ledger=ledger, max_early_seconds=120,
             fetch_schedule=lambda date: (calls.append(date) or response(raw, "2026-07-20T19:09:40Z")),
-            now=when("2026-07-20T19:09:40Z"),
+            now=when("2026-07-20T19:09:40Z"), clock=lambda: when("2026-07-20T19:09:40Z"),
         )
         assert result == {"future": 0, "captured": 1, "source_error": 0, "missed": 0} and calls == ["2026-07-20"]
         assert ledger.verify(assessed_at_utc="2026-07-20T19:10:00Z")["complete_due_targets"]
@@ -69,7 +69,7 @@ def main() -> int:
         result = run_tick(
             plan=plan, ledger=ledger, max_early_seconds=120,
             fetch_schedule=lambda _: (_ for _ in ()).throw(AssertionError("already terminal")),
-            now=when("2026-07-20T19:09:50Z"),
+            now=when("2026-07-20T19:09:50Z"), clock=lambda: when("2026-07-20T19:09:50Z"),
         )
         assert result["captured"] == 0 and result["future"] == 0
         print("[OK] terminal target is never requested again")
@@ -79,7 +79,7 @@ def main() -> int:
         result = run_tick(
             plan=plan, ledger=ledger, max_early_seconds=120,
             fetch_schedule=lambda _: (_ for _ in ()).throw(AssertionError("must not backfill")),
-            now=when("2026-07-20T19:10:01Z"),
+            now=when("2026-07-20T19:10:01Z"), clock=lambda: when("2026-07-20T19:10:01Z"),
         )
         assert result["missed"] == 1 and ledger.verify(assessed_at_utc="2026-07-20T19:10:01Z")["state_counts"]["missed"] == 1
         print("[OK] post-horizon target becomes permanently missed without a request")
@@ -89,17 +89,38 @@ def main() -> int:
         result = run_tick(
             plan=plan, ledger=ledger, max_early_seconds=120,
             fetch_schedule=lambda _: (_ for _ in ()).throw(RuntimeError("network unavailable")),
-            now=when("2026-07-20T19:09:40Z"),
+            now=when("2026-07-20T19:09:40Z"), clock=lambda: when("2026-07-20T19:09:40Z"),
         )
         assert result["source_error"] == 1 and ledger.verify(assessed_at_utc="2026-07-20T19:10:00Z")["state_counts"]["source_error"] == 1
         print("[OK] timely source failure is explicit rather than a silent drop")
 
+    with tempfile.TemporaryDirectory(prefix="pitcher_collector_slow_") as temp:
+        ledger = ForwardPitcherContextLedger(Path(temp), plan, R)
+        result = run_tick(
+            plan=plan, ledger=ledger, max_early_seconds=120,
+            fetch_schedule=lambda _: response(raw, "2026-07-20T19:10:01Z"),
+            now=when("2026-07-20T19:09:40Z"), clock=lambda: when("2026-07-20T19:10:01Z"),
+        )
+        assert result["missed"] == 1 and result["source_error"] == 0
+        assert ledger.verify(assessed_at_utc="2026-07-20T19:10:01Z")["state_counts"]["missed"] == 1
+        print("[OK] slow response crossing T-4 is a missed target, never a timely capture")
+
+    with tempfile.TemporaryDirectory(prefix="pitcher_collector_slow_error_") as temp:
+        ledger = ForwardPitcherContextLedger(Path(temp), plan, R)
+        result = run_tick(
+            plan=plan, ledger=ledger, max_early_seconds=120,
+            fetch_schedule=lambda _: (_ for _ in ()).throw(RuntimeError("network unavailable")),
+            now=when("2026-07-20T19:09:40Z"), clock=lambda: when("2026-07-20T19:10:01Z"),
+        )
+        assert result["missed"] == 1 and result["source_error"] == 0
+        print("[OK] slow failure crossing T-4 is permanently missed")
+
     assert fails(lambda: run_tick(
         plan=plan, ledger=ForwardPitcherContextLedger(Path("."), plan, R), max_early_seconds=0,
-        fetch_schedule=lambda _: response(raw, "2026-07-20T19:09:40Z"), now=when("2026-07-20T19:09:40Z"),
+        fetch_schedule=lambda _: response(raw, "2026-07-20T19:09:40Z"), now=when("2026-07-20T19:09:40Z"), clock=lambda: when("2026-07-20T19:09:40Z"),
     ))
     print("[OK] MUTATION nonpositive scheduler tolerance fails")
-    print("4/4")
+    print("6/6")
     return 0
 
 

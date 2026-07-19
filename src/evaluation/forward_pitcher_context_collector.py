@@ -60,6 +60,7 @@ def run_tick(
     max_early_seconds: int,
     fetch_schedule: Callable[[str], RawScheduleResponse],
     now: datetime,
+    clock: Callable[[], datetime] | None = None,
 ) -> dict[str, int]:
     """Process only target windows due on this tick and return exact counts.
 
@@ -72,6 +73,7 @@ def run_tick(
     if ledger.plan.plan_sha256 != plan.plan_sha256:
         raise ForwardPitcherContextCollectorError("ledger is bound to a different capture plan")
     current = _dt(_utc(now))
+    completed_clock = clock or (lambda: datetime.now(timezone.utc))
     terminal = ledger.terminal_target_ids()
     due = []
     missed = []
@@ -99,15 +101,22 @@ def run_tick(
         games = games_from_raw_schedule_response(raw)
     except Exception as exc:
         detail = f"official schedule fetch/parse failed ({type(exc).__name__})"
+        completed_at = _utc(completed_clock())
+        completed = _dt(completed_at)
+        source_errors = 0
+        missed_after_fetch = 0
         for target in due:
             # A failed transport may finish after the target. In that case it
             # is a missed window, not a falsely timely source error.
-            state = "source_error" if current <= _dt(target.entry_target_at_utc) else "missed"
-            ledger.append_exclusion(target=target, state=state, observed_at_utc=_utc(now), detail=detail)
-        return {"future": len(plan.targets) - len(terminal) - len(missed) - len(due), "captured": 0, "source_error": len(due), "missed": len(missed)}
+            state = "source_error" if completed <= _dt(target.entry_target_at_utc) else "missed"
+            ledger.append_exclusion(target=target, state=state, observed_at_utc=completed_at, detail=detail)
+            source_errors += int(state == "source_error")
+            missed_after_fetch += int(state == "missed")
+        return {"future": len(plan.targets) - len(terminal) - len(missed) - len(due), "captured": 0, "source_error": source_errors, "missed": len(missed) + missed_after_fetch}
 
     captured = 0
     source_errors = 0
+    missed_after_resolution = 0
     for target in due:
         try:
             context = context_from_schedule(
@@ -123,5 +132,6 @@ def run_tick(
                 target=target, state=state, observed_at_utc=response.received_at_utc,
                 detail=f"official schedule target resolution failed ({type(exc).__name__})",
             )
-            source_errors += 1
-    return {"future": len(plan.targets) - len(terminal) - len(missed) - len(due), "captured": captured, "source_error": source_errors, "missed": len(missed)}
+            source_errors += int(state == "source_error")
+            missed_after_resolution += int(state == "missed")
+    return {"future": len(plan.targets) - len(terminal) - len(missed) - len(due), "captured": captured, "source_error": source_errors, "missed": len(missed) + missed_after_resolution}
