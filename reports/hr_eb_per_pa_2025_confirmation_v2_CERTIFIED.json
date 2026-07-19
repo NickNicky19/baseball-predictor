@@ -1,0 +1,94 @@
+{
+  "schema_version": "hr-eb-per-pa-2025-certified-summary-v1",
+  "status": "CERTIFIED_PER_PA_HR_COMPONENT_CONFIRMED_FULL_GAME_AND_ECONOMICS_BLOCKED",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "may_2026_opened": false,
+  "confirmation_2025_opened": true,
+  "per_pa_component_confirmed": true,
+  "full_game_probability_confirmed": false,
+  "economic_evidence_generated": false,
+  "scope": "Untouched chronological confirmation of the rolling empirical-Bayes player HR-per-PA component only.",
+  "coverage": {
+    "confirmation_dates": 12,
+    "player_games": 2825,
+    "plate_appearances": 11201,
+    "home_runs": 374,
+    "zero_pa_rows_reported": 1,
+    "candidate_fallback_rows": 4
+  },
+  "candidate_metrics": {
+    "pa_weighted_binary_brier": 0.032119496823403544,
+    "pa_weighted_binary_log_loss": 0.14404750107836575,
+    "pa_weighted_roc_auc": 0.6038194768574701,
+    "pa_weighted_bias": -0.0014648858997719355,
+    "calibration_intercept": 0.4972374149609088,
+    "calibration_slope": 1.1344587572251301
+  },
+  "comparators": {
+    "rolling_league": {
+      "brier": 0.03227996665661831,
+      "log_loss": 0.14641564744555297,
+      "auc": 0.5187983201038798,
+      "candidate_minus_comparator_brier_95": [-0.00024083009930060456, -0.00009149168830314227],
+      "candidate_minus_comparator_log_loss_95": [-0.0034386312310465367, -0.001439907343525848]
+    },
+    "rolling_raw_player": {
+      "brier": 0.032197959057106165,
+      "log_loss": 0.16936622266858717,
+      "auc": 0.5956464552621219,
+      "candidate_minus_comparator_brier_95": [-0.000134869501424296, -0.000021571241796142842],
+      "candidate_minus_comparator_log_loss_95": [-0.04415341351871992, -0.00876169046343462]
+    }
+  },
+  "stability": {
+    "early_half_brier_and_log_loss_improved_against_both_comparators": true,
+    "late_half_brier_and_log_loss_improved_against_both_comparators": true,
+    "all_20000_date_block_bootstrap_draws_valid": true,
+    "all_material_improvement_conditions_passed": true
+  },
+  "attempt_history": {
+    "v1": "FAILED_BEFORE_PREDICTION_PUBLICATION_OR_SCORE because the implementation incorrectly rejected a valid exact-zero raw comparator; transparently recorded and repaired without changing the locked candidate or gate.",
+    "v2": "Completed and independently certified; 11/11 result mutations rejected."
+  },
+  "interpretation": {
+    "proven": "The rolling empirical-Bayes player HR-per-PA component materially outperformed both locked simple comparators on previously unread 2025 confirmation data.",
+    "not_proven": [
+      "timestamp-certified T-4h lineup availability",
+      "timestamp-certified T-4h PA volume",
+      "full-game HR probability on untouched historical data",
+      "historical price executability",
+      "positive ROI",
+      "production readiness",
+      "betting authorization"
+    ]
+  },
+  "artifacts": {
+    "protocol": {
+      "path": "config/hr_eb_per_pa_2025_confirmation_protocol.json",
+      "sha256": "4eb44ed92b7270d990b79ce2b834487e637f14d4a56e11dada377839c08e465f"
+    },
+    "report": {
+      "path": "data/analysis/shared_pa_foundation_v1/hr_eb_per_pa_2025_confirmation_v2/report.json",
+      "sha256": "32d82f8fac15a81bf2b3995d2548f098c2753a14b0640704648d81557c7de8a0"
+    },
+    "predictions": {
+      "path": "data/analysis/shared_pa_foundation_v1/hr_eb_per_pa_2025_confirmation_v2/predictions.csv",
+      "sha256": "eedf2aea986c3886a5fad9e43b5f4b370c40ecddba613c2aac7a135ccfbb4783"
+    },
+    "certificate": {
+      "path": "data/analysis/shared_pa_foundation_v1/hr_eb_per_pa_2025_confirmation_v2/certificate.json",
+      "sha256": "097ee2548cb927663969ed65ff3844130929051083f85fdb55774d7caeab92d4"
+    },
+    "source_commit": "0740a7f"
+  },
+  "next_action": "Preserve the confirmed HR-rate component. Do not install it. Resolve the full-game T-4h lineup and PA-volume confirmation boundary or obtain prospective point-in-time evidence; continue the multi-market foundation benchmark separately without opening May.",
+  "protected_invariants": {
+    "production_unchanged": true,
+    "May_2026_remains_sealed": true,
+    "no_full_game_confirmation_claim": true,
+    "no_market_or_economic_claim": true,
+    "no_policy_tuning": true,
+    "no_betting_authorization": true
+  }
+}
