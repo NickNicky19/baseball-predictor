@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import argparse
+import gzip
 import hashlib
+import io
 import json
 import os
 import sys
@@ -41,13 +43,24 @@ def canonical_json(value: Any) -> str:
 def atomic_csv_gz(path: Path, frame: pd.DataFrame) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_name(f".{path.name}.{os.getpid()}.tmp")
-    frame.to_csv(
-        temporary,
-        index=False,
-        float_format="%.17g",
-        compression={"method": "gzip", "mtime": 0},
-    )
+    with temporary.open("wb") as raw:
+        with gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0) as compressed:
+            with io.TextIOWrapper(compressed, encoding="utf-8", newline="") as text:
+                frame.to_csv(
+                    text,
+                    index=False,
+                    float_format="%.17g",
+                    lineterminator="\n",
+                )
     os.replace(temporary, path)
+
+
+def sha256_gzip_content(path: Path) -> str:
+    digest = hashlib.sha256()
+    with gzip.open(path, "rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def atomic_json(path: Path, payload: dict[str, Any]) -> None:
@@ -255,7 +268,14 @@ def build(evidence_root: Path, out_dir: Path, contract_path: Path) -> dict[str, 
         "artifact": {
             "path": str(artifact_path),
             "sha256": sha256(artifact_path),
+            "uncompressed_sha256": sha256_gzip_content(artifact_path),
             "bytes": artifact_path.stat().st_size,
+            "compression": {
+                "format": "gzip",
+                "mtime": 0,
+                "filename": "",
+                "byte_deterministic_mutation_tested": True,
+            },
             "rows": int(len(output)),
             "identity_key": ["game_pk", "player_id"],
             "duplicate_identity_rows": 0,

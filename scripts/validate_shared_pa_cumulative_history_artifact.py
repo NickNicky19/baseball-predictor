@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import gzip
 import hashlib
 import json
 import os
@@ -32,6 +33,14 @@ CONTEXT_COLUMNS = ["season", "game_date", *IDENTITY]
 def sha256(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def sha256_gzip_content(path: Path) -> str:
+    digest = hashlib.sha256()
+    with gzip.open(path, "rb") as handle:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
@@ -160,6 +169,17 @@ def main() -> int:
     artifact = Path(manifest["artifact"]["path"])
     if not artifact.exists() or sha256(artifact) != manifest["artifact"]["sha256"]:
         raise ValueError("cumulative history artifact hash changed")
+    compression = manifest["artifact"].get("compression", {})
+    if compression != {
+        "format": "gzip", "mtime": 0, "filename": "",
+        "byte_deterministic_mutation_tested": True,
+    }:
+        raise ValueError("cumulative history compression contract changed")
+    header = artifact.read_bytes()[:10]
+    if len(header) != 10 or header[:3] != b"\x1f\x8b\x08" or header[3] != 0 or header[4:8] != b"\x00\x00\x00\x00":
+        raise ValueError("cumulative history gzip header is nondeterministic")
+    if sha256_gzip_content(artifact) != manifest["artifact"].get("uncompressed_sha256"):
+        raise ValueError("cumulative history uncompressed hash changed")
     targets = pd.read_csv(
         evidence_root / contract["training_source"]["path"],
         nrows=int(contract["training_source"]["maximum_rows_read"]),

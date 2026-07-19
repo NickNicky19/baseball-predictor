@@ -1,0 +1,43 @@
+{
+  "schema_version": "shared-pa-cumulative-history-certificate-invalidation-v1",
+  "status": "CERTIFICATE_INVALIDATED_BEFORE_MODEL_SELECTION",
+  "betting_authorized": false,
+  "production_changed": false,
+  "confirmation_2025_read": false,
+  "may_2026_read": false,
+  "source_commit": "342b1c6",
+  "reason": "The v3 feature contents were structurally valid, but independent comparison with the quarantined v2 artifact proved identical uncompressed CSV content produced different gzip bytes. The temporary filename was entering the gzip header, violating deterministic artifact publication. The v3 certificate is invalidated and the artifact is prohibited from model selection.",
+  "reproducibility_evidence": {
+    "v2_uncompressed_sha256": "53c5721b7274b5a4a4db56312ab54a265bbe910751e0fc52501746ce31642331",
+    "v3_uncompressed_sha256": "53c5721b7274b5a4a4db56312ab54a265bbe910751e0fc52501746ce31642331",
+    "v2_compressed_sha256": "d43fe3a91acf3ef1f0f743d27580a1b0f1dc1e709b7fe9f9b3d9db363bc37c26",
+    "v3_compressed_sha256": "2656f3c6dca04a7a7cd1eb0e99f17d226b8f6540f22c7ad8628dfbd7ec7fe43d"
+  },
+  "invalidated_artifacts": {
+    "features": {
+      "path": "data/analysis/shared_pa_foundation_v1/cumulative_history_v3/canonical_hitter_history_2023_2024.csv.gz",
+      "sha256": "2656f3c6dca04a7a7cd1eb0e99f17d226b8f6540f22c7ad8628dfbd7ec7fe43d",
+      "bytes": 13302508
+    },
+    "manifest": {
+      "sha256": "c3cb6b3371af9442ea1b25e95046d739bb217609ee840defe025d9ea7aa42382",
+      "bytes": 3185
+    },
+    "certificate": {
+      "sha256": "052f7483c9c6d19d574ecb8b31da03ecc454141666d9c20d0184aab883435f80",
+      "bytes": 4905
+    }
+  },
+  "logs": {
+    "build_stdout_sha256": "d5ff1b497430b6bcde19263dfa814eff5ef3c79077e95273a72610ca3839bcd8",
+    "build_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "validate_stdout_sha256": "f17b0590093d19a2169bafd7653078a0985e8fea6ad095b4f14c48d221ad8e57",
+    "validate_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "protected_invariants": {
+    "invalidated_artifact_not_scored": true,
+    "confirmation_2025_unread": true,
+    "may_2026_unread": true,
+    "production_unchanged": true
+  }
+}
