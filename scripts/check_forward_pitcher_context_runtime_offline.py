@@ -33,6 +33,7 @@ def main() -> int:
         for label, mutate in (
             ("source mutation", lambda p: p["source"].update(base_url="https://example.invalid")),
             ("unsafe scope", lambda p: p.update(scope="economic_execution")),
+            ("entry horizon mutation", lambda p: p["scheduler"].update(entry_hours=3)),
             ("negative tolerance", lambda p: p["scheduler"].update(max_early_seconds=-1)),
             ("backfill mutation", lambda p: p["invariants"].update(backfill_forbidden=False)),
             ("authorization mutation", lambda p: p["invariants"].update(betting_authorized=True)),
@@ -42,7 +43,7 @@ def main() -> int:
             path.write_text(json.dumps(changed), encoding="utf-8")
             assert fails(path), label
             print(f"[OK] MUTATION {label} fails")
-    print("6/6")
+    print("7/7")
     return 0
 
 
