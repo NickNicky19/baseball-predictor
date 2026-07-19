@@ -48,6 +48,9 @@ def load_runtime(path: Path) -> tuple[dict, str]:
     }:
         raise ValueError("runtime source contract changed")
     if (
+        not isinstance(scheduler.get("entry_hours"), int)
+        or scheduler["entry_hours"] != 4
+        or
         not isinstance(scheduler.get("max_early_seconds"), int)
         or scheduler["max_early_seconds"] <= 0
         or not isinstance(scheduler.get("tick_seconds"), int)
