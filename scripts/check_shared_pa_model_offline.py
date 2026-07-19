@@ -37,6 +37,12 @@ def main() -> int:
     probs, fallback = league.predict(frame)
     assert probs.shape == (2, len(PA_OUTCOMES)) and np.allclose(probs.sum(axis=1), 1.0)
     assert fallback.all()
+    zero_exposure = frame.iloc[[0]].copy()
+    zero_exposure.loc[:, ["out_pa", "out_ab", "out_hits", "out_doubles", "out_triples", "out_hr", "out_bb", "out_k"]] = 0
+    mixed = pd.concat([frame, zero_exposure], ignore_index=True)
+    mixed_model = fit_rate_baseline(mixed, kind="league_rate")
+    assert np.allclose(mixed_model.league_probability, league.league_probability)
+    print("[OK] zero-PA source rows have exactly zero training exposure")
     score = proper_scores(
         pd.DataFrame([
             [1, 1, 1, 0, 0, 0, 1, 0],
@@ -105,7 +111,7 @@ def main() -> int:
     else:
         raise AssertionError("invalid temperature bounds passed")
     print("[OK] exact PA-volume mixture produces monotone market tails")
-    print("6/6")
+    print("7/7")
     return 0
 
 

@@ -1,0 +1,34 @@
+{
+  "schema_version": "shared-pa-selection-failure-v1",
+  "status": "FAILED_BEFORE_MODEL_FIT",
+  "betting_authorized": false,
+  "may_2026_opened": false,
+  "confirmation_2025_opened": false,
+  "source_commit": "a6dd40e40e569073b1f63d8620e2c06b0875afd5",
+  "started_at_utc": "2026-07-19T12:02:49.3115335Z",
+  "failed_at_utc": "2026-07-19T12:02:50.8854140Z",
+  "stdout": {
+    "path": "reports/shared_pa_selection_v1.out.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "reports/shared_pa_selection_v1.err.txt",
+    "sha256": "aae5174169173ff891372625f11e356b22093998ddc42dccd74018a06e335192",
+    "bytes": 1204
+  },
+  "material_failure": "The PA helper rejected the selection source because 32 of 87,462 2023-2024 official-starter rows have zero official plate appearances.",
+  "failure_class": "TARGET_ELIGIBILITY_CONTRACT_MISSING",
+  "model_fit_started": false,
+  "selection_metrics_published": false,
+  "output_directory_published": false,
+  "measured_scope": {
+    "selection_rows": 87462,
+    "zero_pa_rows": 32,
+    "zero_pa_rows_by_season": {"2023": 14, "2024": 18},
+    "zero_pa_official_dates": 27,
+    "zero_pa_games": 27
+  },
+  "repair_contract": "Retain and count every source row. Zero-PA rows receive zero PA-training exposure and are omitted only from per-PA proper scoring because no PA outcome exists. This is not a sportsbook settlement decision, market-coverage exclusion, or permission to drop missing outcomes.",
+  "retry_policy": "A versioned v2 selection may run only after the eligibility rule is protocol-bound, mutation-tested, and committed. The v1 logs remain immutable."
+}

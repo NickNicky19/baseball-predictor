@@ -53,6 +53,18 @@ def main() -> int:
             "may_2026_opened": False,
             "confirmation_2025_opened": False,
             "selection_seasons": [2023, 2024],
+            "pa_target_population": {
+                "source_rows_retained": 87462,
+                "positive_pa_rows_scored": 87430,
+                "zero_pa_rows_zero_weight": 32,
+                "zero_pa_rows_by_season": {"2023": 14, "2024": 18},
+                "market_settlement_inferred": False,
+                "model_coverage_inferred": False,
+            },
+            "historical_feature_sanitization": {
+                "rows_sanitized": 27,
+                "source_values_removed": ["actual_starter"],
+            },
             "source": {"path": source_relative, "sha256": sha256(source)},
             "protocol": {"path": "config/shared_pa_benchmark_protocol.json", "sha256": sha256(protocol)},
             "runtime": {
@@ -72,6 +84,7 @@ def main() -> int:
             ("OOF hash", lambda item: item["selection_oof"].update(sha256="0" * 64)),
             ("runtime hash", lambda item: item["runtime"]["file_hashes"].update({"src/learning/shared_pa_model.py": "0" * 64})),
             ("candidate on rejection", lambda item: item.update(selected_variant="core")),
+            ("zero PA called settlement", lambda item: item["pa_target_population"].update(market_settlement_inferred=True)),
         ]
         for label, mutate in mutations:
             candidate = copy.deepcopy(report)
@@ -83,7 +96,7 @@ def main() -> int:
                 print(f"[OK] MUTATION {label} fails")
             else:
                 raise AssertionError(f"selection-report mutation passed: {label}")
-    print("5/5")
+    print("6/6")
     return 0
 
 

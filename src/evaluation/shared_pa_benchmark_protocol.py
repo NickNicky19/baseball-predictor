@@ -61,6 +61,18 @@ def validate_protocol(payload: dict[str, Any], *, evidence_root: str | Path) -> 
     }
     if accounting != required_accounting:
         raise ValueError("PA outcome accounting changed")
+    if payload.get("pa_target_eligibility") != {
+        "retain_all_source_rows": True,
+        "training_weight": "official_pa_outcome_count",
+        "proper_scoring_requires_official_pa_above_zero": True,
+        "zero_pa_rows_have_zero_training_weight": True,
+        "zero_pa_rows_omitted_only_from_pa_proper_scoring": True,
+        "zero_pa_is_not_a_market_settlement_decision": True,
+        "zero_pa_is_not_a_model_coverage_claim": True,
+        "expected_selection_zero_pa_rows": 32,
+        "expected_selection_zero_pa_rows_by_season": {"2023": 14, "2024": 18},
+    }:
+        raise ValueError("PA target-eligibility or zero-exposure contract changed")
 
     expected_model_family = {
         "kind": "catboost_multiclass",
@@ -141,6 +153,10 @@ def validate_protocol(payload: dict[str, Any], *, evidence_root: str | Path) -> 
     if simple != {
         "source": "2024_rolling_origin_only",
         "empirical_bayes_prior_strength_pa_grid": [50, 100, 200, 400],
+        "selection_eligible": ["league_rate", "empirical_bayes_player_rate"],
+        "diagnostic_only": {
+            "lineup_slot_rate": "official historical slot is not proven available at the T-4h decision horizon",
+        },
         "selection_metric": "multiclass_log_loss",
         "tie_breaker": "multiclass_brier",
     }:

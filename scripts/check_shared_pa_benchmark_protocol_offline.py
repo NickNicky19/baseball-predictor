@@ -35,6 +35,7 @@ def main() -> int:
         ("2025 selection", lambda p: p["chronology"].update(rolling_selection=[2024, 2025])),
         ("confirmation rows readable", lambda p: p["selection_input_boundary"].update(maximum_rows_read=131202)),
         ("realized PA class removed", lambda p: p["outcome_classes"].remove("other_non_ab")),
+        ("zero-PA rows treated as market void", lambda p: p["pa_target_eligibility"].update(zero_pa_is_not_a_market_settlement_decision=False)),
         ("hits leakage", lambda p: p["forbidden_features"].remove("out_hits")),
         ("weather unquarantined", lambda p: p["quarantined_until_availability_proven"].remove("weather_temp")),
         ("official lineup slot admitted", lambda p: p["quarantined_until_availability_proven"].remove("lineup_slot")),
@@ -59,7 +60,7 @@ def main() -> int:
         candidate = copy.deepcopy(original)
         mutate(candidate)
         must_fail(candidate, args.evidence_root, label)
-    print("24/24")
+    print("25/25")
     return 0
 
 

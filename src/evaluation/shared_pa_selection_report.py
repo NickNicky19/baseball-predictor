@@ -37,6 +37,18 @@ def validate_selection_report(
         raise ValueError("selection report opened protected evidence")
     if report.get("selection_seasons") != [2023, 2024]:
         raise ValueError("selection seasons changed")
+    if report.get("pa_target_population") != {
+        "source_rows_retained": 87462,
+        "positive_pa_rows_scored": 87430,
+        "zero_pa_rows_zero_weight": 32,
+        "zero_pa_rows_by_season": {"2023": 14, "2024": 18},
+        "market_settlement_inferred": False,
+        "model_coverage_inferred": False,
+    }:
+        raise ValueError("selection PA-target population or interpretation changed")
+    sanitization = report.get("historical_feature_sanitization") or {}
+    if sanitization.get("rows_sanitized") != 27 or sanitization.get("source_values_removed") != ["actual_starter"]:
+        raise ValueError("selection postgame-starter sanitization changed")
 
     source = report.get("source") or {}
     source_path = evidence / str(source.get("path", ""))

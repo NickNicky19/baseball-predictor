@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "C:\Projects\baseball_predictor\.codex-hits-model-v1\scripts\select_shared_pa_challenger.py", line 456, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "C:\Projects\baseball_predictor\.codex-hits-model-v1\scripts\select_shared_pa_challenger.py", line 284, in main
+    simple_report, best_simple, simple_validation = evaluate_simple_baselines(frame, protocol)
+                                                    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Projects\baseball_predictor\.codex-hits-model-v1\scripts\select_shared_pa_challenger.py", line 129, in evaluate_simple_baselines
+    model = fit_rate_baseline(train, kind=kind)
+  File "C:\Projects\baseball_predictor\.codex-hits-model-v1\src\learning\shared_pa_model.py", line 142, in fit_rate_baseline
+    counts, exposure = normalized_counts(frame)
+                       ~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Projects\baseball_predictor\.codex-hits-model-v1\src\learning\shared_pa_model.py", line 27, in normalized_counts
+    raise ValueError("shared PA scoring requires positive official PA")
+ValueError: shared PA scoring requires positive official PA

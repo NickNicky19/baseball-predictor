@@ -119,7 +119,11 @@ def evaluate_simple_baselines(
     dates = pd.to_datetime(frame["game_date"])
     for fold_number, (start, end) in enumerate(protocol["selection_folds"]):
         train = frame[dates < pd.Timestamp(start)]
-        validation = frame[(dates >= pd.Timestamp(start)) & (dates <= pd.Timestamp(end))]
+        validation = frame[
+            (dates >= pd.Timestamp(start))
+            & (dates <= pd.Timestamp(end))
+            & (pd.to_numeric(frame["out_pa"], errors="raise") > 0)
+        ]
         if train.empty or validation.empty:
             raise ValueError(f"empty simple-baseline fold: {start}..{end}")
         validation = validation.copy()
@@ -190,7 +194,11 @@ def evaluate_candidate(
     dates = pd.to_datetime(frame["game_date"])
     for fold_number, (start, end) in enumerate(protocol["selection_folds"]):
         outer_train = frame[dates < pd.Timestamp(start)]
-        outer_validation = frame[(dates >= pd.Timestamp(start)) & (dates <= pd.Timestamp(end))]
+        outer_validation = frame[
+            (dates >= pd.Timestamp(start))
+            & (dates <= pd.Timestamp(end))
+            & (pd.to_numeric(frame["out_pa"], errors="raise") > 0)
+        ]
         fit, early_stop = inner_split(
             outer_train,
             n_dates=int(protocol["model_family"]["inner_early_stopping"]["holdout_tail_official_dates"]),
@@ -280,6 +288,16 @@ def main() -> int:
         raise ValueError("corrected hitter source hash changed")
     frame = load_selection_rows(source, protocol)
     frame, sanitization_report = sanitize_point_in_time_features(frame, protocol)
+    zero_pa = frame[pd.to_numeric(frame["out_pa"], errors="raise") == 0]
+    zero_pa_by_season = {
+        str(int(season)): int(count)
+        for season, count in zero_pa.groupby("season").size().items()
+    }
+    eligibility = protocol["pa_target_eligibility"]
+    if len(zero_pa) != int(eligibility["expected_selection_zero_pa_rows"]):
+        raise ValueError("selection zero-PA row count changed")
+    if zero_pa_by_season != eligibility["expected_selection_zero_pa_rows_by_season"]:
+        raise ValueError("selection zero-PA season counts changed")
 
     simple_report, best_simple, simple_validation = evaluate_simple_baselines(frame, protocol)
     variants = [item["id"] for item in protocol["sequential_feature_variants"]]
@@ -385,6 +403,14 @@ def main() -> int:
         "source_commit": source_commit,
         "source": source_record,
         "historical_feature_sanitization": sanitization_report,
+        "pa_target_population": {
+            "source_rows_retained": int(len(frame)),
+            "positive_pa_rows_scored": int((pd.to_numeric(frame["out_pa"]) > 0).sum()),
+            "zero_pa_rows_zero_weight": int(len(zero_pa)),
+            "zero_pa_rows_by_season": zero_pa_by_season,
+            "market_settlement_inferred": False,
+            "model_coverage_inferred": False,
+        },
         "protocol": {"path": str(protocol_path.relative_to(ROOT)).replace("\\", "/"), "sha256": sha256(protocol_path)},
         "runtime": {
             "python": platform.python_version(),

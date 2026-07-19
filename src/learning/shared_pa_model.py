@@ -23,8 +23,8 @@ EPSILON = 1e-12
 def normalized_counts(frame: pd.DataFrame) -> tuple[pd.DataFrame, np.ndarray]:
     counts = outcome_counts(frame).loc[:, PA_OUTCOMES].astype(float)
     exposure = counts.sum(axis=1).to_numpy(float)
-    if (exposure <= 0).any():
-        raise ValueError("shared PA scoring requires positive official PA")
+    if (exposure < 0).any() or float(exposure.sum()) <= 0:
+        raise ValueError("shared PA fitting requires nonnegative and positive aggregate exposure")
     return counts, exposure
 
 
