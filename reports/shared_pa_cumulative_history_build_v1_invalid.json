@@ -1,0 +1,35 @@
+{
+  "schema_version": "shared-pa-cumulative-history-invalid-attempt-v1",
+  "status": "STOPPED_BEFORE_ARTIFACT_PUBLICATION",
+  "betting_authorized": false,
+  "production_changed": false,
+  "confirmation_2025_read": false,
+  "may_2026_read": false,
+  "source_commit": "36b5ebf",
+  "reason": "The attempted implementation modified src/features/canonical_pa_features.py, whose prior byte hash is bound by the canonical v1 selection report and certificate. The process was stopped before publication so the immutable prior evidence could be restored and the cumulative transformer isolated in a new module.",
+  "progress_observed": {
+    "completed_player_groups": 150,
+    "planned_player_groups": 776,
+    "final_artifact_published": false,
+    "final_manifest_published": false
+  },
+  "logs": {
+    "stdout": {
+      "path": "reports/shared_pa_cumulative_history_build_v1.out.txt",
+      "sha256": "0aeab47db0d84b188e28472681d2a6dd4d7e1d771d35514f99ae4f8e30543858",
+      "bytes": 169
+    },
+    "stderr": {
+      "path": "reports/shared_pa_cumulative_history_build_v1.err.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  },
+  "protected_invariants": {
+    "incomplete_result_not_scored": true,
+    "prior_transformer_restored_byte_for_byte": true,
+    "confirmation_2025_unread": true,
+    "may_2026_unread": true,
+    "production_unchanged": true
+  }
+}

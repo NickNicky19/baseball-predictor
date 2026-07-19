@@ -36,7 +36,7 @@ def valid(contract: dict) -> bool:
             return False
         if window["league_fallback_imputed"] or window["hand_specified_shrinkage_applied"]:
             return False
-        if contract["canonical_transformer"]["function"] != "canonical_profiles_between":
+        if contract["canonical_transformer"]["function"] != "cumulative_profiles":
             return False
         transformer = ROOT / contract["canonical_transformer"]["path"]
         if sha256(transformer) != contract["canonical_transformer"]["sha256"]:

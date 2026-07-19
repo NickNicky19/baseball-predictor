@@ -16,7 +16,6 @@ from src.features.canonical_pa_features import (  # noqa: E402
     SCHEMA_VERSION,
     canonical_profile,
     canonical_profiles,
-    canonical_profiles_between,
     window_bounds,
 )
 
@@ -92,14 +91,6 @@ def main() -> int:
         entity_id=10,
         prefix="hitter",
     )
-    expanding = canonical_profiles_between(
-        frame,
-        target_dates=["2024-06-14", "2024-06-15"],
-        start_inclusive="2024-04-01",
-        entity_column="batter",
-        entity_id=10,
-        prefix="history",
-    )
     checks.extend([
         ("empty history retained", empty["hitter_pa"] == 0),
         ("empty rates remain missing", empty["hitter_xba"] is None and empty["hitter_k_rate"] is None),
@@ -109,10 +100,6 @@ def main() -> int:
         ("invalid entity rejected", expect_failure(lambda: canonical_profile(frame, target_date="2024-06-15", entity_column="fielder", entity_id=10, prefix="hitter"))),
         ("multi-date chronology differs", multiple[0]["hitter_pa"] == 1 and multiple[1]["hitter_pa"] == 4),
         ("duplicate target dates rejected", expect_failure(lambda: canonical_profiles(frame, target_dates=["2024-06-15", "2024-06-15"], entity_column="batter", entity_id=10, prefix="hitter"))),
-        ("expanding history uses declared lower bound", expanding[0]["history_pa"] == 1 and expanding[1]["history_pa"] == 4),
-        ("expanding history excludes target date", expanding[1]["history_home_run_rate"] == 0.0),
-        ("expanding history records exact bounds", expanding[1]["window_start_inclusive"] == "2024-04-01" and expanding[1]["window_end_exclusive"] == "2024-06-15"),
-        ("invalid expanding lower bound rejected", expect_failure(lambda: canonical_profiles_between(frame, target_dates=["2024-06-15"], start_inclusive="2024-06-15", entity_column="batter", entity_id=10, prefix="history"))),
     ])
     failed = [name for name, passed in checks if not passed]
     if failed:

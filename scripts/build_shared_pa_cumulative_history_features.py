@@ -18,11 +18,10 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from src.features.canonical_pa_features import (  # noqa: E402
-    PROFILE_FIELDS,
-    REQUIRED_RAW_COLUMNS,
+from src.features.canonical_pa_features import PROFILE_FIELDS, REQUIRED_RAW_COLUMNS  # noqa: E402
+from src.features.canonical_cumulative_pa_features import (  # noqa: E402
     SCHEMA_VERSION,
-    canonical_profiles_between,
+    cumulative_profiles,
 )
 
 
@@ -172,7 +171,7 @@ def build(evidence_root: Path, out_dir: Path, contract_path: Path) -> dict[str, 
                 raw_parts.append(raw)
         raw_history = pd.concat(raw_parts, ignore_index=True) if raw_parts else empty_raw_frame()
         target_dates = sorted(group["game_date"].astype(str).unique())
-        profiles = canonical_profiles_between(
+        profiles = cumulative_profiles(
             raw_history,
             target_dates=target_dates,
             start_inclusive=start,

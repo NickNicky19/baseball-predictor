@@ -141,47 +141,6 @@ def canonical_profiles(
     ]
 
 
-def canonical_profiles_between(
-    frame: pd.DataFrame,
-    *,
-    target_dates: list[str],
-    start_inclusive: str | date,
-    entity_column: str,
-    entity_id: int,
-    prefix: str,
-) -> list[dict[str, Any]]:
-    """Build expanding point-in-time profiles from one declared lower bound.
-
-    This is the live-reproducible long-history counterpart to the fixed
-    46-calendar-day profile.  The target date is always excluded, so neither
-    same-day pitches nor outcomes can enter a feature row.
-    """
-    if len(target_dates) != len(set(target_dates)):
-        raise ValueError("canonical target dates are duplicated")
-    if entity_column not in {"batter", "pitcher"}:
-        raise ValueError("canonical entity_column must be batter or pitcher")
-    if not prefix or not prefix.replace("_", "").isalnum():
-        raise ValueError("canonical feature prefix is invalid")
-    start = date.fromisoformat(start_inclusive) if isinstance(start_inclusive, str) else start_inclusive
-    work = _validate_raw(frame)
-    output: list[dict[str, Any]] = []
-    for target_date in target_dates:
-        end = date.fromisoformat(target_date)
-        if end <= start:
-            raise ValueError("canonical expanding-history target must follow its lower bound")
-        output.append(
-            _canonical_profile_prepared_between(
-                work,
-                start=start,
-                end=end,
-                entity_column=entity_column,
-                entity_id=entity_id,
-                prefix=prefix,
-            )
-        )
-    return output
-
-
 def _canonical_profile_prepared(
     work: pd.DataFrame,
     *,
@@ -195,27 +154,6 @@ def _canonical_profile_prepared(
     if not prefix or not prefix.replace("_", "").isalnum():
         raise ValueError("canonical feature prefix is invalid")
     start, end = window_bounds(target_date)
-    return _canonical_profile_prepared_between(
-        work,
-        start=start,
-        end=end,
-        entity_column=entity_column,
-        entity_id=entity_id,
-        prefix=prefix,
-    )
-
-
-def _canonical_profile_prepared_between(
-    work: pd.DataFrame,
-    *,
-    start: date,
-    end: date,
-    entity_column: str,
-    entity_id: int,
-    prefix: str,
-) -> dict[str, Any]:
-    if end <= start:
-        raise ValueError("canonical feature window must have positive duration")
     ids = pd.to_numeric(work[entity_column], errors="coerce")
     work = work.loc[
         ids.eq(int(entity_id))

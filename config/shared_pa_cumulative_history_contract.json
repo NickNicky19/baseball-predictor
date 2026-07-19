@@ -35,10 +35,10 @@
     "unmapped_events_required": 0
   },
   "canonical_transformer": {
-    "path": "src/features/canonical_pa_features.py",
-    "sha256": "faf4d50395a7cb1941d3444c78caae0352ce7606c554f909c7be36a5ee24b3fc",
-    "schema_version": "shared-pa-canonical-statcast-v1",
-    "function": "canonical_profiles_between"
+    "path": "src/features/canonical_cumulative_pa_features.py",
+    "sha256": "1611759d78fcaf3070844c275cf1c3d687461e991f4da31c367a1b9f9dce95b6",
+    "schema_version": "shared-pa-canonical-cumulative-statcast-v1",
+    "function": "cumulative_profiles"
   },
   "recent_feature_artifact": {
     "path": "data/analysis/shared_pa_foundation_v1/canonical_hitter_features_2023_2024.csv.gz",
@@ -62,7 +62,8 @@
   ],
   "protected_invariants": {
     "raw_rates_and_counts_only": true,
-    "same_transformer_as_recent_window": true,
+    "immutable_recent_transformer_unchanged": true,
+    "recent_window_parity_mutation_tested": true,
     "same_day_excluded": true,
     "confirmation_2025_unread": true,
     "may_2026_unread": true,

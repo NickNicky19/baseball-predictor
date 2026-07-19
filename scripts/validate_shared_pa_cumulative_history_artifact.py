@@ -19,7 +19,8 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from src.features.canonical_pa_features import PROFILE_FIELDS, SCHEMA_VERSION  # noqa: E402
+from src.features.canonical_pa_features import PROFILE_FIELDS  # noqa: E402
+from src.features.canonical_cumulative_pa_features import SCHEMA_VERSION  # noqa: E402
 
 
 IDENTITY = ["game_pk", "player_id"]
@@ -156,6 +157,7 @@ def main() -> int:
     validation = validate_frame(pd.read_csv(artifact, low_memory=False), targets, manifest, contract)
     runtime_files = [
         ROOT / "src/features/canonical_pa_features.py",
+        ROOT / "src/features/canonical_cumulative_pa_features.py",
         ROOT / "scripts/build_shared_pa_cumulative_history_features.py",
         Path(__file__),
         contract_path,
