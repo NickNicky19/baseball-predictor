@@ -1,0 +1,56 @@
+{
+  "schema_version": "multi-market-probability-foundation-status-v4",
+  "status": "ACTIVE_RESEARCH_FOUNDATION_CONSOLIDATED_NOT_BETTABLE",
+  "as_of": "2026-07-19",
+  "betting_authorized": false,
+  "production_changed": false,
+  "previous_consolidation": {
+    "path": "reports/multi_market_probability_foundation_status_v3.json",
+    "sha256": "9c45920805c0e8ed329fc4068b392fb29f151ef383a25bf567ca4a526ee22e05"
+  },
+  "new_prospective_input_contract": {
+    "name": "forward-opposing-probable-pitcher-context",
+    "source": "official MLB Stats API schedule response",
+    "source_code": {
+      "path": "src/evaluation/forward_pitcher_context.py",
+      "sha256": "544ad27cea9099c88361280fda18e53035e4142b31534532edd72d00770b4a41"
+    },
+    "publisher": {
+      "path": "scripts/publish_forward_pitcher_context.py",
+      "sha256": "5b9bff5837462cfcfbf3203fcdc5e166e4a8ea61c4672c9b7d5860154fe957c1"
+    },
+    "mutation_test": {
+      "path": "scripts/check_forward_pitcher_context_offline.py",
+      "sha256": "4587e8d2727bd13bd8a5e762be3cf3cbfbdb38c8788b45705bfabb54422133f2",
+      "checks": 10
+    },
+    "locked_facts": [
+      "exact capture-plan target and MLB game identity",
+      "actual schedule-payload hash and receipt timestamp no later than T-4",
+      "home and away probable-pitcher IDs or explicit unavailable/malformed status",
+      "regular-season eligibility without silently dropping non-eligible observations",
+      "atomic idempotent publication with conflicting-retry rejection"
+    ],
+    "prohibitions": [
+      "no actual-starter substitution",
+      "no post-target capture or backfill",
+      "no completed-game probable-pitcher field treated as decision-time truth",
+      "no prediction, selection, production, or betting decision"
+    ],
+    "live_observations": 0,
+    "candidate_permitted": false
+  },
+  "next_permitted_action": {
+    "action": "Collect a sufficient prospective regular-season T-4 sample under the new contract, then predeclare a separate as-of pitcher-contact feature contract before fitting any opposing-pitcher challenger.",
+    "why": "No remaining batter-only filter or calibration family cleared the materiality screen. Opposing-pitcher quality is the remaining strongest measured input family, but it must first be observed at the decision horizon.",
+    "must_not_do": "Do not retrofit historical actual starters, use the new contract as a prediction claim, open 2025 or May, or change production before a separately passing candidate exists."
+  },
+  "protected_invariants": {
+    "may_2026_scope_incident_preserved_in_previous_status": true,
+    "no_market_or_product_pooling": true,
+    "historical_prices_not_executable_by_assumption": true,
+    "production_baselines_immutable": true,
+    "v13_operational_failure_preserved": true,
+    "no_betting_authorization": true
+  }
+}
