@@ -1,0 +1,90 @@
+{
+  "schema_version": "shared-pa-cumulative-rejection-diagnostic-protocol-v1",
+  "status": "LOCKED_BEFORE_CERTIFIED_REJECTION_DIAGNOSIS",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "model_fitting_forbidden": true,
+  "candidate_selection_forbidden": true,
+  "confirmation_2025_forbidden": true,
+  "may_2026_forbidden": true,
+  "chronology": {
+    "allowed_scoring_season": 2024,
+    "allowed_selection_dates": 183,
+    "forbidden": [2025, "2026-05"]
+  },
+  "identity_key": ["game_pk", "player_id"],
+  "inputs": {
+    "selection_protocol": {
+      "root": "code",
+      "path": "config/shared_pa_cumulative_selection_protocol.json",
+      "sha256": "e7ce92e73825004bb029a45e8f4bf2e154bb25865581aed84989a6b10cd52100"
+    },
+    "certified_rejection": {
+      "root": "code",
+      "path": "reports/shared_pa_cumulative_selection_v3_CERTIFIED_REJECTION.json",
+      "sha256": "4177bebc02c1c41843ac4d6b2e5c4117fbd835dab66e6ea02d1e71a08731c300",
+      "required_status": "CUMULATIVE_SELECTION_REJECTION_CERTIFIED"
+    },
+    "selection_report": {
+      "root": "evidence",
+      "path": "data/analysis/shared_pa_foundation_v1/cumulative_selection_v3/selection_report.json",
+      "sha256": "233885c2dd8e88ae3b4d2886b6a625ef8bbe727ec5548dc165609ad8514695d3",
+      "required_status": "CUMULATIVE_SELECTION_REJECTED_NO_CANDIDATE"
+    },
+    "selection_oof": {
+      "root": "evidence",
+      "path": "data/analysis/shared_pa_foundation_v1/cumulative_selection_v3/selection_oof.csv",
+      "sha256": "847ab60beddeb03568320366f4af2e485936630fe70900a0866986ec333a7bd9",
+      "rows": 43668
+    },
+    "selection_certificate": {
+      "root": "evidence",
+      "path": "data/analysis/shared_pa_foundation_v1/cumulative_selection_v3/selection_certificate.json",
+      "sha256": "2be8907408ac8c3acde174f3cf855830cc279c596f0bc60db34c8ddc880023cc",
+      "required_status": "CUMULATIVE_SELECTION_REJECTION_CERTIFIED"
+    },
+    "pa_distribution": {
+      "root": "evidence",
+      "path": "data/analysis/hr_over_contract_v1/pre2026_a3_2_migration_v2/pa_distribution_fit_2023_2024.json",
+      "sha256": "d61818e0fd4cfb70e40fdb240dc372ee5872b43263157ca1b23ee30cb3983570"
+    }
+  },
+  "arms": ["strongest_simple", "canonical_v1", "cumulative_core"],
+  "candidate_arm": "cumulative_core",
+  "comparators": ["strongest_simple", "canonical_v1"],
+  "pa_outcomes": [
+    "strikeout", "walk", "single", "double", "triple", "home_run",
+    "bip_out", "other_non_ab"
+  ],
+  "derived_markets": [
+    "hits_0.5", "hits_1.5", "home_runs_0.5",
+    "total_bases_0.5", "total_bases_1.5", "total_bases_2.5",
+    "total_bases_3.5", "total_bases_4.5", "total_bases_5.5"
+  ],
+  "metrics": {
+    "class_contributions": ["multiclass_log_loss", "multiclass_brier"],
+    "derived_binary": ["log_loss", "brier"],
+    "bootstrap_draws": 10000,
+    "bootstrap_seed": 260723,
+    "uncertainty_unit": "official_game_date",
+    "interval": [0.025, 0.975]
+  },
+  "target_ranking": {
+    "purpose": "diagnostic_only_not_candidate_selection",
+    "class_eligibility": "candidate point and upper 95% bound below zero for both contribution metrics against both comparators",
+    "class_order": "descending mean share of total positive candidate-vs-strongest-simple improvement across both contribution metrics, then PA outcome order",
+    "derived_market_eligibility": "candidate point and upper 95% bound below zero for both binary metrics against both comparators",
+    "derived_market_order": "descending mean relative point improvement against strongest simple across both binary metrics, then declared market order",
+    "no_eligible_item_result": "NO_ROBUST_TARGET_IDENTIFIED"
+  },
+  "protected_invariants": {
+    "rejected_model_cannot_advance": true,
+    "no_confirmation_read": true,
+    "no_may_read": true,
+    "no_market_prices_or_economic_outcomes": true,
+    "no_policy_tuning": true,
+    "no_model_artifact": true,
+    "no_production_change": true,
+    "betting_unauthorized": true
+  }
+}
