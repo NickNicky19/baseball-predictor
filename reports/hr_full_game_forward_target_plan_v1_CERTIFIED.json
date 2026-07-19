@@ -1,0 +1,38 @@
+{
+  "schema_version": "hr-full-game-forward-target-plan-certificate-v1",
+  "status": "PREREGISTRATION_AND_OFFLINE_MUTATIONS_CERTIFIED",
+  "source_commit": "9c4927543156132339ba963aff4dfa8f7b6cdb7b",
+  "betting_authorized": false,
+  "economic_evidence_eligible": false,
+  "production_changed": false,
+  "v13_modified": false,
+  "may_2026_used": false,
+  "artifacts": {
+    "target_plan_contract": {
+      "path": "config/hr_full_game_forward_target_plan_contract_v1.json",
+      "sha256": "0af1ac28adc1b2c6308ea25cc11e7020d5b1b12b3075a31f83a489d5a9b9bcad"
+    },
+    "validator": {
+      "path": "src/evaluation/hr_full_game_forward_target_plan.py",
+      "sha256": "4a9a3077bacf0e1b80ac2beeaf81d2410b4aa95b849958f34366708b3ced3b4e"
+    },
+    "offline_mutations": {
+      "path": "scripts/check_hr_full_game_forward_target_plan_offline.py",
+      "sha256": "1211507b5ce2a3ebee4493206fbde0b71476e37800985e9b24c953e364822c52",
+      "result": "PASS",
+      "mutations_rejected": 8
+    }
+  },
+  "verified": [
+    "Each planned HR-over-0.5 target has a hard MLB game/player identity and an exact T-4 horizon.",
+    "A plan receipt or source observation after a target horizon is rejected.",
+    "The plan binds the immutable v1 input contract hash and rejects hard-key drift or duplicates.",
+    "A later terminal-coverage verifier rejects missing planned terminal records and unplanned terminal records."
+  ],
+  "not_proven": [
+    "No live target plan has been captured.",
+    "No prospective full-game HR probability, official outcome, market price, capture, payout, or ROI has been evaluated.",
+    "No production HR model change or betting authorization exists."
+  ],
+  "next_action": "A separate HR forward collector may only create a new prospective target plan and append terminal records under both the v1 input contract and this target-plan contract. It must not retrofit v13, backfill historical dates, or use May 2026 as a fresh holdout."
+}
