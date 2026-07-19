@@ -51,6 +51,25 @@ $python = Get-Command $PythonExe -ErrorAction Stop
 # This repository historically tracked some bytecode files. Never let the
 # operational runner mutate its own source checkout merely by importing Python.
 $env:PYTHONDONTWRITEBYTECODE = "1"
+
+# The collector may never begin a lifecycle with an omitted fitted artifact.
+# This check is intentionally before the provider credential is requested and
+# before the runner can prepare a model snapshot or make a network request.
+$modelConfig = Join-Path $RepoRoot "config\config.kbb.json"
+Push-Location $RepoRoot
+try {
+    & $python.Source "scripts\validate_release_hash_bound_artifacts.py" `
+        --repo-root $RepoRoot `
+        --config $modelConfig
+    $artifactPreflightExit = $LASTEXITCODE
+}
+finally {
+    Pop-Location
+}
+if ($artifactPreflightExit -ne 0) {
+    throw "Hash-bound release-artifact preflight failed; collector will not start"
+}
+
 Push-Location $RepoRoot
 try {
     & $python.Source "scripts\prepare_forward_evidence_scope.py" `
