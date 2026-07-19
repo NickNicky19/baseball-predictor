@@ -1,0 +1,18 @@
+{
+  "schema_version": "open-2026-benchmark-source-build-failure-v3",
+  "status": "INVALID_UNCERTIFIED_MANIFEST",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "may_2026_opened": false,
+  "confirmation_2025_opened": false,
+  "source_commit": "a8b54c7190ac70b26ad2de28384b22e505a2fb95",
+  "output_directory": "data/analysis/shared_pa_foundation_v1/open_2026_benchmark_v3",
+  "source_manifest_published": true,
+  "source_manifest_sha256": "42b08eddd534474e3ec4183d0de02d29e505da6773d01626b3e47bddb203064d",
+  "source_certificate_published": false,
+  "benchmark_score_observed": false,
+  "exact_failure": "ValueError: source artifact missing or hash-mismatched: canonical_selection_protocol",
+  "diagnosis": "The canonical selection protocol is committed in the research worktree and is not an evidence-root data artifact. The validator incorrectly resolved it under the main evidence root, where that branch-only file does not exist.",
+  "allowed_repair": "Resolve and hash-check only canonical_selection_protocol from the committed research repository root; change no input, outcome boundary, metric, market, or decision rule.",
+  "retry_output_directory": "data/analysis/shared_pa_foundation_v1/open_2026_benchmark_v4"
+}

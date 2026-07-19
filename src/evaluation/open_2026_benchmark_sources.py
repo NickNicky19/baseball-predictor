@@ -249,7 +249,7 @@ def validate_source_manifest(payload: dict[str, Any], *, evidence_root: str | Pa
     resolved: dict[str, Path] = {}
     for name in ("production_probabilities", "production_manifest", "production_certificate",
                  "certified_reconstruction_outcomes", "cumulative_history", "cumulative_history_certificate",
-                 "official_training_outcomes", "canonical_training_certificate", "canonical_selection_protocol",
+                 "official_training_outcomes", "canonical_training_certificate",
                  "pa_distribution", "official_outcomes", "lineup_snapshots"):
         record = (payload.get("artifacts") or {}).get(name) or {}
         path = root / str(record.get("path", ""))
@@ -327,6 +327,10 @@ def validate_source_manifest(payload: dict[str, Any], *, evidence_root: str | Pa
         raise ValueError("bounded official training outcome dates changed")
 
     repo_root = Path(__file__).resolve().parents[2]
+    canonical_protocol = (payload.get("artifacts") or {}).get("canonical_selection_protocol") or {}
+    canonical_protocol_path = repo_root / str(canonical_protocol.get("path", ""))
+    if not canonical_protocol_path.is_file() or sha256(canonical_protocol_path) != canonical_protocol.get("sha256"):
+        raise ValueError("canonical selection protocol missing or hash-mismatched")
     expected_runtime = {
         "module": "src/evaluation/open_2026_benchmark_sources.py",
         "builder": "scripts/build_open_2026_benchmark_sources.py",
