@@ -1,6 +1,6 @@
 {
   "schema_version": "multi-market-probability-readiness-v1",
-  "status": "READINESS_UPDATED_AFTER_HITS_1_5_REJECTION",
+  "status": "READINESS_UPDATED_AFTER_PITCHER_K_CHALLENGER_REJECTION",
   "betting_authorized": false,
   "production_unchanged": true,
   "may_2026_opened": false,
@@ -12,7 +12,13 @@
     "hr_2025_confirmation": {"path": "reports/hr_eb_per_pa_2025_confirmation_v2_CERTIFIED.json", "sha256": "009c411ea512b34bf4373fac590b8b41cdcd2e04cf26bb4f91f14bcc9dbe6c63"},
     "hits_1_5_open_gate": {"path": "reports/hits_1_5_eb_open_v1_CERTIFIED.json", "sha256": "e7708c197558dccfca9169f1bb70482cd0cb1e833a4bc1c64a68ccb532d10d9a"},
     "other_market_contracts": {"path": "data/analysis/other_market_contracts_v1/report.json", "sha256": "9f9d118790b7aee7001a6e1d336d818382fffdbcc2357ec7defbdbd3756ac26c"},
-    "pitcher_k_readiness": {"path": "reports/pitcher_strikeout_readiness_audit_2026-07-17.md", "sha256": "66b9519c0e25da1bd710367ec1c16fa2f339ecdfe7a32bc3fc0c295188a62b82"}
+    "pitcher_k_readiness": {"path": "reports/pitcher_strikeout_readiness_audit_2026-07-17.md", "sha256": "66b9519c0e25da1bd710367ec1c16fa2f339ecdfe7a32bc3fc0c295188a62b82"},
+    "pitcher_k_identity_funnel": {"path": "data/analysis/pitcher_k_foundation_v1/identity_funnel_v1/pitcher_k_identity_funnel_report.json", "sha256": "2a16038bcdec4be84fd37b4aa0e9a4e91afcbdb76093bc5ae13a2ef11eba4326"},
+    "pitcher_k_open_benchmark": {"path": "data/analysis/pitcher_k_foundation_v1/open_benchmark_v1/pitcher_k_open_benchmark_report.json", "sha256": "35fc7f89ef822f0b92ba25bbbaf51fc3de3a223729e28fbe39a9ec61940391ff"},
+    "pitcher_k_input_audit_v1_invalidated": {"path": "reports/pitcher_k_input_audit_v1_INVALIDATED_MAY_ACCESS.json", "sha256": "45ab63eb8a38e6d44daea425b9d20b6d860dc51c238dad7577a7c854cf4bb7e2"},
+    "pitcher_k_input_audit_v2": {"path": "data/analysis/pitcher_k_foundation_v1/input_audit_v2/report.json", "sha256": "6dfa772614e6c60218c7bd51a09316c43d40b694f198876a98703dd3f825a09d"},
+    "pitcher_k_fitted_challenger": {"path": "data/analysis/pitcher_k_foundation_v1/fitted_challenger_v1/report.json", "sha256": "c8f8ae622aed27e00d50043e80d2a4ec0af2818c39e69d529dbff8753f758bba"},
+    "pitcher_k_fitted_challenger_certified_rejection": {"path": "reports/pitcher_k_fitted_challenger_v1_CERTIFIED_REJECTION.json", "sha256": "72e0a76d1391854709783400a4cfc6f57921185666d7f9da0fdc86e73ed4d59d"}
   },
   "market_readiness": {
     "hits_0_5": {
@@ -59,26 +65,28 @@
       "reason": "No matching historical vendor product survived the locked inventory and the current run/RBI context remains approximate."
     },
     "pitcher_strikeouts": {
-      "probability_candidate": "NOT_YET_ADJUDICATED",
+      "probability_candidate": "FITTED_CHALLENGER_REJECTED_ON_UNTOUCHED_2025_CALIBRATION_GATE",
       "economic_candidate": "NONE",
       "production_action": "RETAIN",
       "historical_draftkings_two_sided_paths": 1948,
-      "next_model_intervention": "OUTCOME_BLIND_HARD_IDENTITY_AND_DUPLICATE_FUNNEL",
-      "reason": "Pitcher K is the only remaining market with substantial two-sided price inventory and an active projection path, but the existing legacy gate silently dropped unmatched keys and cannot be reused."
+      "model_compatible_market_rows": 967,
+      "primary_scoring_rows": 966,
+      "next_model_intervention": "NONE_UNTIL_A_NEW_CALIBRATION_LIMITER_IS_MEASURED",
+      "reason": "The hard identity funnel reconciled all 1,948 complete paths without silent drops. A simple fitted Poisson mean plus selected count dispersion improved 2025 count likelihood and all three threshold Brier/log-loss intervals versus the 2023 empirical baseline, but worsened calibration bias at K 4.5. The predeclared confirmation gate correctly rejected it before any 2026 candidate score or production wiring."
     }
   },
   "selected_next_action": {
-    "market": "pitcher_strikeouts",
-    "action": "Build and hash-bind the March-April-June DraftKings T-4h/close hard event and pitcher identity funnel without reading May, vendor results, or official outcomes.",
-    "success_condition": "Every one of the 1,948 observed complete paths is assigned exactly one terminal state: hard-mapped unique MARKET_KEY, conflicting duplicate, event-unmapped, pitcher-unmapped, malformed, or another predeclared exclusion.",
-    "failure_condition": "Any silent drop, ambiguous identity arbitration, May access, vendor-result access, duplicate collapse, or inability to reconcile the denominator.",
+    "market": "batter_PA_foundation",
+    "action": "Consolidate the already completed batter probability evidence and identify the single remaining, measured prerequisite for a shared point-in-time PA-outcome challenger; do not repeat rejected Hits or HR interventions.",
+    "success_condition": "A candidate is attempted only if its point-in-time feature source, chronology, outcome contract, and material-improvement gate can be locked without accessing a new holdout or relying on any previously rejected mechanism.",
+    "failure_condition": "Any repetition of a rejected intervention, partial point-in-time source, pooled-market claim, May access, or production change without a passing research gate.",
     "protected_invariants": [
-      "No model rewrite before the exact scoreable universe exists",
-      "No outcome or economic scoring during identity construction",
+      "No production rewrite before a candidate passes its research gate",
+      "No vendor result or payout scoring",
       "No inherited 90-minute freshness claim",
       "No product pooling",
       "No production change",
-      "May remains sealed",
+      "May scope incident is preserved and May is not reused as a new-candidate holdout",
       "No betting authorization"
     ]
   }

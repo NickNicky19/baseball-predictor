@@ -1,0 +1,33 @@
+{
+  "schema_version": "multi-market-probability-foundation-status-certificate-v1",
+  "status": "HASH_AND_MUTATION_CERTIFIED_NOT_BETTABLE",
+  "as_of": "2026-07-19",
+  "foundation_status": {
+    "path": "reports/multi_market_probability_foundation_status_v1.json",
+    "sha256": "82965e88eccfa086466944a1412976fcf57bbf4fe049e32aa7301b746e838b53"
+  },
+  "validator": {
+    "path": "src/evaluation/multi_market_foundation_status.py",
+    "sha256": "1bda00f52b25fbba1a6b6ea82c2c098bceceeaac2cc4416674bbaee3e85c82b9"
+  },
+  "offline_mutation_check": {
+    "path": "scripts/check_multi_market_probability_foundation_status.py",
+    "sha256": "1a1ec7624e7da94c4f0102dafae91262126f0b014b6f8d4685750f15c4af5762",
+    "result": "PASS",
+    "mutations_rejected": 6
+  },
+  "verified": [
+    "Every cited accepted/rejected source that is required by the consolidation record exists at one declared local evidence root and matches its recorded SHA-256.",
+    "The cited source status values match the current market-state claims.",
+    "The May 2026 scope incident is retained accurately: no fit, selection, outcome score, or economic metric used May, but May cannot be a fresh untouched holdout after the source read.",
+    "Hits remains rejected, HR remains per-PA-only, Total Bases remains readiness-only, RBI and HRR remain not-ready, and the fitted K challenger remains rejected.",
+    "The frozen v13 smoke remains independent, unchanged, and non-economic."
+  ],
+  "not_proven": [
+    "No market has a newly surviving end-to-end production candidate.",
+    "No current or historical row is proven executable-price or net-ROI evidence.",
+    "No full-game HR prospective record has been collected under the new contract.",
+    "No betting authorization exists."
+  ],
+  "next_action": "A separate, source-authorized HR full-game release may implement the already certified T-4 contract and append-only ledger. It must collect a new prospective confirmation period; it may not retrofit v13 or use May 2026 as a fresh holdout."
+}

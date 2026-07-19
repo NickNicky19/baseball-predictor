@@ -1,0 +1,109 @@
+{
+  "schema_version": "pitcher-k-open-benchmark-protocol-v1",
+  "status": "LOCKED_AFTER_OUTCOME_BLIND_IDENTITY_BEFORE_FULL_OPEN_BENCHMARK",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "may_2026_opened": false,
+  "economic_evidence_eligible": false,
+  "purpose": "Evaluate immutable production pitcher-strikeout probabilities against a fixed pre-2026 empirical count baseline and two-sided DraftKings reference probabilities on the exact hard-keyed open March-April-June market universe.",
+  "scope": {
+    "book": "draftkings",
+    "category": "strikeouts",
+    "sides": ["over", "under"],
+    "lines": [4.5, 5.5, 6.5],
+    "months": ["2026-03", "2026-04", "2026-06"],
+    "forbidden_month": "2026-05",
+    "historical_executability_verified": false,
+    "settlement_truth": "official_mlb_only"
+  },
+  "inputs": {
+    "identity_report": {
+      "path": "data/analysis/pitcher_k_foundation_v1/identity_funnel_v1/pitcher_k_identity_funnel_report.json",
+      "sha256": "2a16038bcdec4be84fd37b4aa0e9a4e91afcbdb76093bc5ae13a2ef11eba4326"
+    },
+    "identity_terminal": {
+      "path": "data/analysis/pitcher_k_foundation_v1/identity_funnel_v1/pitcher_k_identity_terminal.csv",
+      "sha256": "384f67abc97bad2074b1c6e5b18f59e6e8eeb6ecaba3983e576a4fa77fd51d9b"
+    },
+    "production_probabilities": {
+      "path": "data/analysis/hr_over_contract_v1/batted_ball_candidate_v1/full_open_v1/frozen.csv",
+      "sha256": "0e3b52e9e93dd20904cd858c52bf7e9d3a35eb027c6be46b1ab818c29a608471",
+      "required_category": "strikeouts"
+    },
+    "reconstruction_official_outcomes_crosscheck": {
+      "path": "data/analysis/hr_over_contract_v1/batted_ball_candidate_v1/full_open_v1/outcomes_frozen.csv",
+      "sha256": "d85fe8cab38a367e55d8e6a142f0e1b3b023742033a000b8ae4e80614f82320f"
+    },
+    "official_feed_manifest": {
+      "path": "data/analysis/shared_pa_foundation_v1/open_2026_benchmark_v4/source_manifest.json",
+      "sha256": "ff5d00282b452fa848f76bfc4f5a5ac23ed48eb627c861c26d3420180c288baa",
+      "required_status": "SOURCES_BOUND_BEFORE_BENCHMARK_SCORING_V2",
+      "official_feed_count": 710
+    },
+    "pre2026_pitcher_training": {
+      "path": "data/training/training_pitchers_2023_2025.csv.gz",
+      "sha256": "9e88d91d0101be6f26459052747185efb9c80613ae528bc3dabf5bb5ee9d0831",
+      "seasons": [2023, 2024, 2025],
+      "baseline_row_rule": "out_ip > 0",
+      "expected_rows": 14566
+    }
+  },
+  "locked_denominators": {
+    "identity_complete_paths": 1948,
+    "identity_unique_market_keys": 1291,
+    "production_strikeout_rows": 4260,
+    "model_compatible_market_rows": 967,
+    "model_compatible_pitcher_games": 766,
+    "dates": 56,
+    "market_rows_by_line": {"4.5": 437, "5.5": 350, "6.5": 180},
+    "identity_rows_without_production_line_or_key": 324,
+    "production_supported_line_identity_rows_without_model_key": 14
+  },
+  "official_outcome_contract": {
+    "source": "official MLB feed/live boxscore pitching statistics",
+    "pitcher_game_key": ["mlb_game_pk", "player_id", "game_date"],
+    "market_key": ["mlb_game_pk", "player_id", "game_date", "category", "line"],
+    "terminal_states": ["started", "not_started", "player_missing_official", "pitching_stat_missing", "malformed"],
+    "primary_scoring_state": "started",
+    "required_started_fields": ["strikeOuts", "inningsPitched", "outs", "battersFaced", "gamesStarted"],
+    "required_games_started": 1,
+    "vendor_result_columns_forbidden": ["result", "won"],
+    "no_silent_drop": true,
+    "reconstruction_crosscheck_required": true
+  },
+  "comparators": {
+    "production": "immutable sim_p_over from the hash-bound frozen reconstruction",
+    "pre2026_empirical_count": "P(out_k > line) from the pooled 2023-2025 official starter outcomes selected only by out_ip > 0",
+    "draftkings_two_sided_reference": "entry two-sided de-vig probability = (1/over_decimal)/(1/over_decimal + 1/under_decimal); reference only, not executable-price or economic truth"
+  },
+  "metrics": {
+    "primary": ["brier", "log_loss", "calibration_10_bin", "auc"],
+    "secondary": ["mean_probability_bias", "entry_to_close_reference_movement"],
+    "log_loss_probability_clip": 0.000001,
+    "uncertainty": {
+      "method": "date_cluster_bootstrap_percentile",
+      "replicates": 10000,
+      "seed": 20260719,
+      "confidence_level": 0.95
+    },
+    "required_strata": ["all", "line", "month"],
+    "no_policy_selection": true,
+    "no_roi_or_payout_claim": true
+  },
+  "success_condition": "Every one of the 967 exact production-compatible market keys joins to one exhaustive official pitcher-game terminal state; every started row has official K/IP/out/batters-faced data and agrees with the immutable reconstruction outcome artifact; all comparator probabilities, scoring rows, and uncertainty calculations are reproducible from hash-bound inputs.",
+  "failure_condition": "Any May access, input hash mismatch, vendor result access, missing terminal state, duplicate key, start-status arbitration, mismatch with official/reconstruction K outcomes, production mutation, post-outcome comparator/policy choice, economic claim, or betting authorization.",
+  "protected_invariants": {
+    "production_unchanged": true,
+    "May_2026_remains_sealed": true,
+    "official_outcomes_only": true,
+    "vendor_results_forbidden": true,
+    "no_silent_drop": true,
+    "no_start_status_arbitration": true,
+    "no_quote_freshness_filter": true,
+    "no_policy_selection": true,
+    "historical_prices_not_executable": true,
+    "no_product_pooling": true,
+    "economic_evidence_ineligible": true,
+    "no_betting_authorization": true
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "schema_version": "hr-full-game-forward-input-contract-certificate-v1",
+  "status": "PREREGISTRATION_AND_OFFLINE_MUTATIONS_CERTIFIED",
+  "as_of": "2026-07-19",
+  "betting_authorized": false,
+  "economic_evidence_eligible": false,
+  "production_changed": false,
+  "may_2026_eligible_as_untouched_holdout": false,
+  "v13_operational_smoke_changed": false,
+  "scope": {
+    "market": "MLB home runs over 0.5",
+    "decision_horizon": "T-4h",
+    "purpose": "Future full-game probability validation only; no price, payout, settlement-product, or wagering conclusion is licensed by this certificate."
+  },
+  "artifacts": {
+    "contract": {
+      "path": "config/hr_full_game_forward_input_contract_v1.json",
+      "sha256": "17d8214ac76cd84c8c6198295ba528a44fe7c26ab74bfce14f9b943ad114e63c"
+    },
+    "validator": {
+      "path": "src/evaluation/hr_full_game_forward_contract.py",
+      "sha256": "2a721cb39c101c9d81b3805e425dc0cc9f5a2b40e595c9e5cd22581920d55e05"
+    },
+    "offline_mutation_check": {
+      "path": "scripts/check_hr_full_game_forward_contract_offline.py",
+      "sha256": "d393cd4b9916cc49233d3f7e7d7d68461d04bd352308a9fe6a9cf3ca1c0b49b8",
+      "result": "PASS",
+      "mutations_rejected": 15
+    },
+    "append_only_ledger": {
+      "path": "src/evaluation/hr_full_game_forward_ledger.py",
+      "sha256": "bf8e8774a89b8072be9d3463749c902bed132189bd7d4013e575ba4cbd1ed53f"
+    },
+    "ledger_mutation_check": {
+      "path": "scripts/check_hr_full_game_forward_ledger_offline.py",
+      "sha256": "4cedc9e550d2d447724ecd058f02bb94c414a38192da91592f6c75e964ed6dcc",
+      "result": "PASS",
+      "mutations_rejected": 4
+    }
+  },
+  "validated_invariants": [
+    "May 2026 cannot become a new untouched holdout after the recorded scope incident.",
+    "The new HR boundary is structurally separate from the running v13 Hits-only operational smoke.",
+    "Production remains unchanged; betting and economic evidence remain disabled.",
+    "A completed record must have hard MLB game/player identity, T-4-or-earlier receipt/source/lineup times, a normalized PA distribution, a valid per-PA HR probability, and a reproducible full-game HR tail.",
+    "Official PA, official HR, final lineup, and vendor result fields are forbidden from the pregame record.",
+    "Append-only, atomic, single-terminal-state publication and permanent no-backfill are prerequisites for future use.",
+    "The separate local ledger binds a complete T-4 record to its raw payload hash and detects duplicate terminal targets, raw-payload drift, and committed-record mutation."
+  ],
+  "not_proven": [
+    "No new prospective HR full-game observation has been collected.",
+    "No full-game HR candidate has been evaluated under this boundary.",
+    "No historical listed price has become executable-price evidence.",
+    "No settlement/product contract, ROI result, or betting authorization exists."
+  ],
+  "next_action": "Implement this contract as a separate future collector/release only after its raw lineup source, PA-distribution serialization, atomic ledger, and exact target schedule are bound and mutation-tested. Do not modify or reuse v13 as though it were this complete HR record."
+}

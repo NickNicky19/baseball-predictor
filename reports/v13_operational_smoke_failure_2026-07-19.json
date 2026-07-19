@@ -1,23 +1,45 @@
 {
-  "schema_version": "operational-smoke-failure-record-v1",
-  "status": "INVALID_NO_CAPTURE",
-  "betting_authorized": false,
-  "economic_evidence_eligible": false,
+  "schema_version": "frozen-operational-smoke-failure-record-v1",
+  "status": "MATERIAL_OPERATIONAL_FAILURE_NO_RETRY",
+  "as_of": "2026-07-19",
   "official_date": "2026-07-19",
   "clean_release_commit": "a6374ca",
+  "affected_release": "C:/Projects/baseball_predictor/.codex-release-v13",
   "frozen_release_modified": false,
   "backfill_attempted": false,
   "retry_after_failure_attempted_by_codex": false,
   "collector_stopped_to_prevent_further_automatic_attempts": true,
-  "material_failure": "The frozen prediction runtime could not find data\\learning\\k_bb_pre2026.json, so no prediction or market capture could be committed.",
-  "exception": "ValueError: K/BB artifact does not exist: data\\learning\\k_bb_pre2026.json",
-  "missing_bound_artifact_verified": true,
-  "automatic_prediction_failures_before_stop": 20,
-  "identical_stderr_sha256": "c571138e2a7e43fd6c381d03b511955944a3714970ba2d4fb9c46f9b8093dbe4",
-  "first_failure_at_utc": "2026-07-19T11:55:27.1185617Z",
-  "last_failure_at_utc": "2026-07-19T12:14:34.6805116Z",
-  "first_entry_target_at_utc": "2026-07-19T12:15:00Z",
-  "collector_and_resource_monitor_stopped_at_approximately_utc": "2026-07-19T12:18:30Z",
+  "economic_evidence_eligible": false,
+  "betting_authorized": false,
+  "failure": {
+    "stage": "prediction initialization",
+    "exact_error": "ValueError: K/BB artifact does not exist: data\\learning\\k_bb_pre2026.json",
+    "stderr_path": "C:/Projects/baseball_predictor/.codex-release-v13/data/learning/shadow/operational_smoke_v13/service_logs/2026-07-19/20260719T121433Z.prediction.stderr.txt",
+    "stderr_sha256": "c571138e2a7e43fd6c381d03b511955944a3714970ba2d4fb9c46f9b8093dbe4",
+    "automatic_prediction_failures_before_stop": 20,
+    "first_failure_at_utc": "2026-07-19T11:55:27.1185617Z",
+    "last_failure_at_utc": "2026-07-19T12:14:34.6805116Z",
+    "first_entry_target_at_utc": "2026-07-19T12:15:00Z",
+    "collector_and_resource_monitor_stopped_at_approximately_utc": "2026-07-19T12:18:30Z"
+  },
+  "verified_cause": {
+    "frozen_config_path": "C:/Projects/baseball_predictor/.codex-release-v13/config/config.kbb.json",
+    "frozen_config_sha256": "497f94dfd0e3ee4c5e9184143f3f786866d5252d829893c280e4e58e401f9f8f",
+    "configured_relative_path": "data/learning/k_bb_pre2026.json",
+    "configured_sha256": "a6448d39d9ce1f0666b9656e848e10ac5ab2c9518a0bbff8eadeb753c2d08cc1",
+    "artifact_exists_in_frozen_release": false,
+    "verified_artifact_exists_in_main_workspace": true,
+    "main_workspace_artifact_sha256": "a6448d39d9ce1f0666b9656e848e10ac5ab2c9518a0bbff8eadeb753c2d08cc1"
+  },
+  "response": {
+    "v13_retry_or_backfill": false,
+    "v13_source_config_runtime_or_evidence_change": false,
+    "future_clean_release_requirement": [
+      "Copy the exact hash-bound artifact into a new release staging tree before its runtime manifest is frozen.",
+      "Run the release-artifact preflight before any collector process can start.",
+      "Bind the new runtime manifest, source snapshot, artifact path and hash; do not call the repaired release v13."
+    ]
+  },
   "ledger": {
     "bytes": 0,
     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -28,5 +50,19 @@
     "runtime_manifest_sha256": "ec2d0237113d6132813a194ad091e0828b5ba0638e3394cc27fe94a1e6e75099",
     "evidence_scope_sha256": "ce03881079eb0a8c7b1bf47ea55bac8aa270b32736fae677bde3b80d0903a145"
   },
-  "disposition": "The v13 smoke is permanently rejected as prospective evidence. It must not be repaired, retried, or backfilled. Any future smoke requires a new versioned clean release and a future untouched official date."
+  "new_preflight": {
+    "validator_path": "src/evaluation/release_artifact_preflight.py",
+    "validator_sha256": "0f138e22d2e376f913974d2f4f75b38050301e390e5be8661f68ee9b429c875f",
+    "cli_path": "scripts/validate_release_hash_bound_artifacts.py",
+    "cli_sha256": "c9cf25bda429e7e4d2f64d85a5336061faacf425ea9fd33d3d2d018eb2d9f91c",
+    "offline_mutation_path": "scripts/check_release_artifact_preflight_offline.py",
+    "offline_mutation_sha256": "5ac51c68ace4f78cb404b0270c7b5329d575742061347a97554baf74c7c31598",
+    "offline_mutations_rejected": 3
+  },
+  "disposition": "The v13 smoke is permanently rejected as prospective evidence. It must not be repaired, retried, or backfilled. Any future smoke requires a newly named clean release and a future untouched official date.",
+  "not_claimed": [
+    "No prospective economic observation was captured or backfilled.",
+    "No model-quality conclusion follows from this operational failure.",
+    "No betting authorization exists."
+  ]
 }

@@ -1,0 +1,140 @@
+{
+  "schema_version": "hr-full-game-forward-input-contract-v1",
+  "status": "PREREGISTERED_NOT_DEPLOYED",
+  "purpose": "Create a new, forward-only evidence boundary for adjudicating whether the already-confirmed HR per-PA component improves full-game HR-over-0.5 probabilities once the exact T-minus-4-hour lineup state and PA-volume distribution are retained. This is not a betting, economic, or model-promotion contract.",
+  "production_unchanged": true,
+  "betting_authorized": false,
+  "economic_evidence_eligible": false,
+  "may_2026_eligible_as_untouched_holdout": false,
+  "separate_from_running_v13_operational_smoke": true,
+  "prior_evidence": {
+    "hr_per_pa_confirmation": {
+      "path": "reports/hr_eb_per_pa_2025_confirmation_v2_CERTIFIED.json",
+      "required_status": "CERTIFIED"
+    },
+    "hr_full_game_open_simplification": {
+      "path": "reports/hr_eb_simplification_open_v1_CERTIFIED.json",
+      "required_status": "CERTIFIED"
+    },
+    "may_scope_incident": {
+      "path": "reports/pitcher_k_input_audit_v1_INVALIDATED_MAY_ACCESS.json",
+      "effect": "May 2026 must not be used as a new untouched candidate holdout."
+    }
+  },
+  "scope": {
+    "category": "home_runs",
+    "line": 0.5,
+    "side": "over",
+    "decision_horizon": "T-4h",
+    "population": "only MLB hitter/player keys with a complete, time-stamped and identity-resolved forward input record",
+    "confirmation_period": "a new prospective period beginning only after this contract and its implementation are frozen",
+    "excluded_periods": ["2026-05", "any date captured before this contract is deployed"],
+    "historical_backfill_forbidden": true
+  },
+  "required_t4_record": {
+    "receipt": [
+      "collector_instance_id",
+      "receipt_utc",
+      "monotonic_receipt_sequence",
+      "raw_source_payload_sha256",
+      "raw_source_schema_version",
+      "collector_code_sha256",
+      "runtime_manifest_sha256"
+    ],
+    "game_identity": [
+      "mlb_game_pk",
+      "official_game_date",
+      "official_start_utc",
+      "home_team_id",
+      "away_team_id",
+      "game_identity_artifact_sha256"
+    ],
+    "player_identity": [
+      "player_id",
+      "player_identity_artifact_sha256",
+      "hard_model_key"
+    ],
+    "lineup_and_pa_volume": [
+      "lineup_state: confirmed|projected|unknown",
+      "lineup_slot_or_null",
+      "lineup_source_receipt_utc",
+      "lineup_raw_payload_sha256",
+      "pa_distribution_support",
+      "pa_distribution_probability_by_support",
+      "pa_distribution_sha256",
+      "expected_pa",
+      "pa_feature_snapshot_sha256",
+      "pa_fallback_labels"
+    ],
+    "per_pa_hr_input": [
+      "per_pa_hr_probability",
+      "per_pa_hr_feature_snapshot_sha256",
+      "per_pa_hr_component_version_sha256",
+      "rate_fallback_labels"
+    ],
+    "prediction_provenance": [
+      "full_game_p_over_0_5",
+      "simulation_seed_or_analytic_method",
+      "model_code_sha256",
+      "effective_config_sha256",
+      "feature_manifest_sha256",
+      "policy_sha256",
+      "prediction_artifact_sha256"
+    ]
+  },
+  "derivation_invariant": {
+    "full_game_probability": "must be deterministically recomputable from the stored T-4 PA distribution and stored T-4 per-PA HR probability; no later lineup, PA, outcome, or market field may enter",
+    "minimum_required_formula": "sum_n P(PA=n at T-4) * (1 - (1 - p_hr_per_pa_at_T-4)^n)",
+    "alternative_simulation_allowed_only_if": "the complete seed, sampler version, PA distribution and per-PA probability are stored and reproduce the archived tail probability within the predeclared tolerance",
+    "post_hoc_adjustments_forbidden": true
+  },
+  "official_settlement": {
+    "only_after": "MLB final game status",
+    "required": ["mlb_game_pk", "player_id", "official_pa", "official_home_runs", "official_final_status", "official_outcome_payload_sha256"],
+    "not_allowed_as_pregame_input": ["official_pa", "official_home_runs", "final_lineup", "boxscore_participation", "vendor_result"]
+  },
+  "terminal_states": [
+    "captured_complete",
+    "missed_before_horizon",
+    "lineup_missing_at_horizon",
+    "lineup_identity_ambiguous",
+    "player_identity_ambiguous",
+    "game_identity_ambiguous",
+    "pa_distribution_missing_or_invalid",
+    "per_pa_rate_missing_or_invalid",
+    "prediction_provenance_incomplete",
+    "raw_schema_changed",
+    "official_outcome_unresolved",
+    "not_applicable"
+  ],
+  "publication": {
+    "append_only_hash_chained_ledger": true,
+    "atomic_publish_required": true,
+    "one_terminal_state_per_target": true,
+    "late_backfill_forbidden": true,
+    "partial_artifact_is_ineligible": true
+  },
+  "success_condition_before_any_full_game_adjudication": {
+    "new_prospective_period_only": true,
+    "every expected target has exactly one terminal state": true,
+    "captured_complete_rows_have_all_required_t4_fields": true,
+    "all_prediction_tails_recompute_from_stored_inputs": true,
+    "official_outcomes_are_only_joined_after_final_status": true,
+    "coverage_and_exclusion_rates_are_reported": true,
+    "no_t4_record_uses_post_horizon_information": true,
+    "production_model_remains_unchanged_until_a_separate_candidate_protocol_passes": true
+  },
+  "required_mutations": [
+    "replace a T-4 lineup receipt with a post-start receipt: must reject",
+    "replace PA distribution with realized official PA: must reject",
+    "remove a PA support probability or make probabilities not sum to one: must reject",
+    "change player or game identity after capture: must reject",
+    "delete raw payload or hash: must reject",
+    "alter model/config/feature/policy hash: must reject",
+    "create a partial publish or duplicate terminal state: must reject",
+    "attempt historical backfill: must reject",
+    "join official outcome before MLB final status: must reject",
+    "attempt to treat a v13 operational-smoke row as a complete full-game HR record: must reject"
+  ],
+  "failure_condition": "Any access to May 2026 for a new candidate holdout, any modification of v13, absent or post-horizon lineup/PA evidence, incomplete identity/provenance, backfill, outcome leakage, silent exclusion, economic claim, betting authorization, or production-model change."
+}

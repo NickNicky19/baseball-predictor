@@ -1,0 +1,45 @@
+{
+  "schema_version": "pitcher-k-fitted-challenger-certified-rejection-v1",
+  "status": "CERTIFIED_CONFIRMATION_REJECTION",
+  "betting_authorized": false,
+  "production_changed": false,
+  "may_2026_opened": false,
+  "open_2026_candidate_scored": false,
+  "candidate": "regularized Poisson pitcher-K mean with 2024-selected negative-binomial count dispersion",
+  "locked_chronology": {
+    "fit": [2023],
+    "selection": [2024],
+    "untouched_confirmation": [2025],
+    "open_2026_evaluation": "prohibited because confirmation failed",
+    "may_2026": "unread"
+  },
+  "bindings": {
+    "protocol": {"path": "config/pitcher_k_fitted_challenger_protocol.json", "sha256": "28709ce5fbda996e024dda0919cac30ef7045fa5bea5105b7bffb061b673d2d4"},
+    "implementation": {"path": "src/evaluation/pitcher_k_fitted_challenger.py", "sha256": "a75a08939daa6e2d7c4911b5e5b90f41db46dbb46f798026f486d8c322744b32"},
+    "builder": {"path": "scripts/adjudicate_pitcher_k_fitted_challenger.py", "sha256": "c2ed9bd378efbdddb9cde87ace0aa5b9741c1178276644b656c0dd3ba23cf335"},
+    "mutation_harness": {"path": "scripts/check_pitcher_k_fitted_challenger_offline.py", "sha256": "5f91767e6b5a8ec5b0f2ef0d211d8fddcbdd8645695fc27acdf825679c556c33"},
+    "sealed_may_repair": {"path": "reports/pitcher_k_input_audit_v1_INVALIDATED_MAY_ACCESS.json", "sha256": "45ab63eb8a38e6d44daea425b9d20b6d860dc51c238dad7577a7c854cf4bb7e2"}
+  },
+  "result": {
+    "selected_alpha": 0.1,
+    "selected_dispersion": 0.05,
+    "confirmation_count_nll_candidate": 2.2467446186987288,
+    "confirmation_count_nll_simple": 2.3148040517287116,
+    "threshold_brier_and_log_loss_95pct_improved_vs_simple": [4.5, 5.5, 6.5],
+    "rejection_reason": "The candidate's K 4.5 mean-probability bias was farther from zero than the simple comparator, violating the predeclared no-calibration-regression condition."
+  },
+  "primary_artifact": {"path": "data/analysis/pitcher_k_foundation_v1/fitted_challenger_v1/report.json", "sha256": "c8f8ae622aed27e00d50043e80d2a4ec0af2818c39e69d529dbff8753f758bba"},
+  "reproducibility": {
+    "separate_recompute_report": {"path": "data/analysis/pitcher_k_foundation_v1/fitted_challenger_v1_recompute/report.json", "sha256": "179d0f8541c32d7611aabcdcb6d7241c75577e808851d1d5ebf41d5e3ca6fd4f"},
+    "same_selected_parameters": true,
+    "same_confirmation_gate": true,
+    "same_confirmation_rows_sha256": "c55e1b97563cc2837df78d70f107fe64d75ce48aebd3ed5aa010d6542a297143",
+    "same_confirmation_metrics_sha256": "65208b54c8ad1e6787258eb747795f4d3b1fa7b89d54a61c4603bf54b490e52e",
+    "same_confirmation_calibration_sha256": "fdd733e3852345026bfc1188f544b3f681eef2cfe5e1bc4d224d58def478f5fa"
+  },
+  "decision": {
+    "candidate_rejected": true,
+    "production_action": "RETAIN_UNCHANGED",
+    "next_action": "Do not retune this candidate. A new pitcher-K intervention requires a separately measured calibration limiter and a new locked protocol."
+  }
+}

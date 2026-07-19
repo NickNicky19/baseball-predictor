@@ -1,0 +1,102 @@
+{
+  "schema_version": "pitcher-k-identity-funnel-protocol-v1",
+  "status": "LOCKED_BEFORE_PITCHER_K_IDENTITY_BUILD",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "may_2026_opened": false,
+  "purpose": "Build an outcome-blind, hard-keyed DraftKings pitcher-strikeout price-path universe for March-April and June 2026 before any model or economic evaluation.",
+  "certified_parent": {
+    "path": "reports/multi_market_probability_readiness_2026-07-19.json",
+    "sha256": "de131cc11efb34f95f92633a656de91e8369422856dc23e4193283dd4fd44151",
+    "required_status": "READINESS_UPDATED_AFTER_HITS_1_5_REJECTION"
+  },
+  "inputs": {
+    "official_source_manifest": {
+      "path": "data/analysis/shared_pa_foundation_v1/open_2026_benchmark_v4/source_manifest.json",
+      "sha256": "ff5d00282b452fa848f76bfc4f5a5ac23ed48eb627c861c26d3420180c288baa",
+      "required_status": "SOURCES_BOUND_BEFORE_BENCHMARK_SCORING_V2",
+      "official_feed_count": 710
+    },
+    "market_parquets": [
+      {"path": "data/market/smartstake/mon=2026-03/part-000.parquet", "sha256": "c1058237807fbd39306a3b5091460cf4c02e63948e457e3c0a2a3b1aa4e0fba3"},
+      {"path": "data/market/smartstake/mon=2026-04/part-000.parquet", "sha256": "d3eb5e15fa0309ea5b1e698daf40d32d9f6376b0600eb60a07451a12668ceebd"},
+      {"path": "data/market/smartstake/mon=2026-04/part-001.parquet", "sha256": "af9938e78c3bf9ee5cda96cd646da7671e547bfbf1763f3c14c8ef53bdd97aad"},
+      {"path": "data/market/smartstake/mon=2026-04/part-002.parquet", "sha256": "aab964eb77b573a3f1552ae89b0e9447fd9bb8b342370d2578f51c3ebabfa2b4"},
+      {"path": "data/market/smartstake/mon=2026-04/part-003.parquet", "sha256": "e96441885d057603d4b88ede94e676a3d4cbe56e720b370a3d094e59327f4b92"},
+      {"path": "data/market/smartstake/mon=2026-04/part-004.parquet", "sha256": "69b645f171c5824ae8f2f5cc6a24b652a7436d7d6a805b0b0b70310080c33188"},
+      {"path": "data/market/smartstake/mon=2026-06/part-000.parquet", "sha256": "616dccd4e06c3138942236eed2531ade8db7d13c93f5f6babca504be40aba7d6"},
+      {"path": "data/market/smartstake/mon=2026-06/part-001.parquet", "sha256": "dc9c09351caf0976bbc46990713a8c37c62ed14a42fdea71202fb9ada827bb74"},
+      {"path": "data/market/smartstake/mon=2026-06/part-002.parquet", "sha256": "1b5db24a71e7a237f2f76bab0bbb619602b0693cac801766b13e2ac90562c37c"},
+      {"path": "data/market/smartstake/mon=2026-06/part-003.parquet", "sha256": "c9e1138e9b4776fbe635b4bde94fa6bf01ea09e3a35f553fa706b2e3d545ebd1"}
+    ]
+  },
+  "chronology": {
+    "months": ["2026-03", "2026-04", "2026-06"],
+    "allowed_dates_source": "official_source_manifest.dates",
+    "expected_dates": 56,
+    "forbidden": ["2026-05"],
+    "timezone_for_vendor_slate_date": "America/New_York"
+  },
+  "market_contract": {
+    "book": "draftkings",
+    "vendor_market": "player strikeouts",
+    "category": "strikeouts",
+    "sides": ["over", "under"],
+    "entry_horizon_hours": 4,
+    "entry_observation": "last quote per side at_or_before start_time_minus_4_hours",
+    "close_observation": "last quote per side strictly_before start_time",
+    "complete_path_count": 1948,
+    "freshness_filter": null,
+    "vendor_result_columns_forbidden": ["result", "won"],
+    "historical_executability_verified": false
+  },
+  "identity_contract": {
+    "normalization": "NFKD remove combining marks; lowercase; trim; remove apostrophe-period-backtick-hyphen; collapse whitespace; remove suffix tokens jr/sr/ii/iii/iv/v",
+    "event_evidence": "all distinct pregame vendor player names on the exact vendor fragment, identity columns only",
+    "event_rule": "at least one exact normalized official-name match and every matched name resolves to the same singleton official game on the vendor Eastern slate date",
+    "event_arbitration": "none",
+    "player_rule": "pitcher name resolves to exactly one official player_id inside the hard-mapped game",
+    "fuzzy_matching": false,
+    "vote_threshold": null,
+    "time_tolerance": null,
+    "market_key": ["mlb_game_pk", "player_id", "category", "line"],
+    "duplicate_rule": "exclude every row belonging to any duplicated final market_key; never choose a winner"
+  },
+  "terminal_states": [
+    "mapped_unique",
+    "conflicting_duplicate",
+    "event_unmapped",
+    "event_ambiguous",
+    "pitcher_unmapped",
+    "pitcher_ambiguous",
+    "malformed"
+  ],
+  "success_condition": "Every one of the 1,948 complete DraftKings paths receives exactly one terminal state, all source/feed hashes match, every mapped_unique MARKET_KEY is non-null and unique, and no forbidden data is read.",
+  "failure_condition": "Any denominator mismatch, silent drop, arbitrary identity decision, partial duplicate retention, source/feed hash mismatch, May access, vendor result access, official outcome access, model/economic scoring, production change, or betting authorization.",
+  "required_mutations": [
+    "alter any input hash -> fail",
+    "inject May -> fail",
+    "read vendor result or won -> fail",
+    "read official liveData outcomes -> fail",
+    "change the 1,948 denominator -> fail",
+    "drop any path without a terminal state -> fail",
+    "make identity fuzzy or threshold-based -> fail",
+    "retain one side of a duplicated final key -> fail",
+    "apply a freshness filter -> fail",
+    "authorize betting or alter production -> fail"
+  ],
+  "protected_invariants": {
+    "production_unchanged": true,
+    "May_2026_remains_sealed": true,
+    "outcome_blind": true,
+    "vendor_results_forbidden": true,
+    "official_liveData_forbidden": true,
+    "no_silent_drop": true,
+    "no_duplicate_arbitration": true,
+    "no_fuzzy_identity": true,
+    "no_freshness_assumption": true,
+    "products_not_pooled": true,
+    "no_model_or_economic_scoring": true,
+    "no_betting_authorization": true
+  }
+}

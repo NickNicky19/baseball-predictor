@@ -1,0 +1,87 @@
+{
+  "schema_version": "multi-market-probability-foundation-status-v1",
+  "status": "ACTIVE_RESEARCH_FOUNDATION_CONSOLIDATED_NOT_BETTABLE",
+  "as_of": "2026-07-19",
+  "betting_authorized": false,
+  "production_changed": false,
+  "may_2026_opened": true,
+  "may_2026_scope_incident": {
+    "occurred": true,
+    "record": "reports/pitcher_k_input_audit_v1_INVALIDATED_MAY_ACCESS.json",
+    "model_fit_or_selection_used_may": false,
+    "outcome_or_economic_metric_used_may": false,
+    "future_rule": "May 2026 must not be represented as an untouched holdout for any candidate created after this incident."
+  },
+  "economic_evidence_eligible": false,
+  "purpose": "Immutable consolidation of the current verified multi-market probability evidence. This record does not pool markets, products, prices, settlement contracts, or economic outcomes.",
+  "evidence": {
+    "batter_flat_cumulative_rejection": {"path": "reports/shared_pa_cumulative_rejection_diagnostic_v1_CERTIFIED.json", "sha256": "2cf2fac038da5344c0a8a31487c20738119487e6cff3ce5701e0c3c7f16e8454"},
+    "batter_hierarchical_rejection": {"path": "reports/shared_pa_hierarchical_selection_v1_CERTIFIED_REJECTION.json", "sha256": "234db075629a79404f161edf2396f302accde66dbb73ce6cc00dea0f442d38a8"},
+    "open_2026_eb_benchmark": {"path": "reports/open_2026_eb_benchmark_v4_CERTIFIED.json", "sha256": "cd53bee161335ff8bb8a24d241e71bd4e463921003e721eda38365f1d88f3cfa"},
+    "hits_1_5_market_gate": {"path": "reports/hits_1_5_eb_open_v1_CERTIFIED.json", "sha256": "e7708c197558dccfca9169f1bb70482cd0cb1e833a4bc1c64a68ccb532d10d9a"},
+    "hr_open_probability_and_economic_gate": {"path": "reports/hr_eb_simplification_open_v1_CERTIFIED.json", "sha256": "558e06f4d181fa12efd1826b0c5d112d127bcc60dbd88c55ff5084ca32f34830"},
+    "hr_per_pa_2025_confirmation": {"path": "reports/hr_eb_per_pa_2025_confirmation_v2_CERTIFIED.json", "sha256": "009c411ea512b34bf4373fac590b8b41cdcd2e04cf26bb4f91f14bcc9dbe6c63"},
+    "other_market_readiness": {"path": "data/analysis/other_market_contracts_v1/report.json", "sha256": "9f9d118790b7aee7001a6e1d336d818382fffdbcc2357ec7defbdbd3756ac26c"},
+    "pitcher_k_rejection": {"path": "reports/pitcher_k_fitted_challenger_v1_CERTIFIED_REJECTION.json", "sha256": "72e0a76d1391854709783400a4cfc6f57921185666d7f9da0fdc86e73ed4d59d"},
+    "hr_full_game_forward_input_contract": {"path": "config/hr_full_game_forward_input_contract_v1.json", "sha256": "17d8214ac76cd84c8c6198295ba528a44fe7c26ab74bfce14f9b943ad114e63c", "status": "PREREGISTERED_NOT_DEPLOYED"},
+    "hr_full_game_forward_input_contract_certificate": {"path": "reports/hr_full_game_forward_input_contract_v1_CERTIFIED.json", "sha256": "0de07aab3fdfdfe463ff85d4688bb43f5737d44f2bfe16037051e46d9aa29504", "status": "PREREGISTRATION_AND_OFFLINE_MUTATIONS_CERTIFIED"},
+    "v13_operational_failure": {"path": "reports/v13_operational_smoke_failure_2026-07-19.json", "sha256": "d0958a897d0393757dfcacbaacfc1efa50c829ba906f8c2a24487021d75199ef", "status": "MATERIAL_OPERATIONAL_FAILURE_NO_RETRY"},
+    "per_market_readiness": {"path": "reports/multi_market_probability_readiness_2026-07-19.json", "sha256": "b27fdb2133d4b51a2dd6b25481c83b451050752333a8bd2773910bf292c5c0ee"}
+  },
+  "market_status": {
+    "hits": {
+      "current_state": "NO_SURVIVING_PRODUCTION_CANDIDATE",
+      "verified": "The production-compatible rolling empirical-Bayes simplification failed the exact Hits 1.5 market gate on Brier, log loss, and payout uncertainty.",
+      "forbidden_next_step": "Do not repeat contact, blanket PA, Monte Carlo, global calibration, lineup-slot, opposing-pitcher-contact, flat cumulative, hierarchical, or Hits 1.5 empirical-Bayes interventions without a newly measured limiter."
+    },
+    "home_runs_over_0_5": {
+      "current_state": "PER_PA_COMPONENT_CONFIRMED_FULL_GAME_AND_ECONOMICS_BLOCKED",
+      "verified": "The rolling empirical-Bayes HR per-PA component materially improved on untouched 2025 confirmation. The separate full-game HR candidate improved probability quality on open 2026 but has negative historical payout estimates and no certified point-in-time lineup/PA volume or executable-price evidence.",
+      "forbidden_inference": "A per-PA rate improvement does not prove a full-game HR market edge, payout advantage, or betting authorization."
+    },
+    "total_bases": {
+      "current_state": "READINESS_ONLY",
+      "verified": "No full production-comparable candidate passed; market contracts remain separate from Hits and HR.",
+      "blocker": "No independently surviving coherent PA/full-game probability engine."
+    },
+    "rbi": {
+      "current_state": "NOT_READY",
+      "blockers": ["exact official outcome branch", "canonical market identity", "book-specific settlement", "coupled point-in-time game/base-state context", "projection path"]
+    },
+    "hits_runs_rbi": {
+      "current_state": "NOT_READY",
+      "blockers": ["matching historical product", "canonical identity", "book-specific settlement", "coupled point-in-time runs/RBI context", "executable-price evidence"]
+    },
+    "pitcher_strikeouts": {
+      "current_state": "FITTED_CHALLENGER_REJECTED",
+      "verified": "A locked 2023→2024→2025 regularized count challenger improved threshold scores but failed its untouched 2025 K 4.5 calibration condition. It was rejected before open-2026 candidate scoring.",
+      "next_permitted_step": "Only a new, separately measured calibration limiter may justify another K intervention."
+    }
+  },
+  "surviving_component": {
+    "market_component": "home-run per-PA rate only",
+    "status": "CONFIRMED_RESEARCH_COMPONENT_NOT_DEPLOYABLE",
+      "required_before_any_full_game_test": ["timestamp-certified point-in-time lineup state", "timestamp-certified PA-volume input", "separate full-game probability gate", "separate executable-price/settlement/economic evidence"],
+      "current_progress": "The forward-only lineup/PA evidence contract is preregistered but deliberately not deployed into the v13 Hits-only operational smoke."
+  },
+  "protected_invariants": {
+    "v13_operational_smoke_unchanged_and_non_economic": true,
+    "may_2026_scope_incident_preserved_and_not_reused": true,
+    "immutable_production_baselines_retained": true,
+    "historical_listed_prices_not_assumed_executable": true,
+    "official_outcomes_not_vendor_results": true,
+    "no_market_or_product_pooling": true,
+    "no_policy_tuning_on_outcomes": true,
+    "no_betting_authorization": true
+  },
+  "operational_prerequisite_before_any_future_collection": {
+    "action": "Build a newly named clean operational release that copies and hash-binds every required runtime artifact and passes the release-artifact preflight. V13 remains unchanged after its missing-K/BB-artifact failure.",
+    "evidence": "reports/v13_operational_smoke_failure_2026-07-19.json",
+    "not_a_model_or_betting_change": true
+  },
+  "highest_value_next_action": {
+    "action": "Do not invent another batter or pitcher model variant. The separate forward-only HR T-4 lineup/PA input contract is preregistered. Its distinct implementation must mutation-test and collect a new prospective period before any full-game HR gate is adjudicated.",
+    "why": "HR is the only category with a materially confirmed component improvement. The missing full-game volume contract—not another rate-model tweak—is the measured blocker.",
+    "not_authorization": "Even a passing full-game probability gate would still require a new untouched confirmation period, verified settlement, executable account-visible prices, positive net-ROI uncertainty bounds, and prospective forward replication."
+  }
+}

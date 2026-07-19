@@ -1,0 +1,17 @@
+{
+  "schema_version": "research-artifact-invalidation-v1",
+  "status": "INVALIDATED_DO_NOT_USE",
+  "artifact": {
+    "path": "data/analysis/pitcher_k_foundation_v1/input_audit_v1/report.json",
+    "sha256": "cc37e7bc3969760b8e071ce8c0badf9dde626d8aa9944b63001bd52c0492ee89"
+  },
+  "reason": "The v1 input audit loaded training_pitchers_2023_2026.csv.gz before filtering to March-April-June. That combined source contains May 2026 rows, so the audit does not satisfy the sealed-May access contract.",
+  "consequences": {
+    "candidate_fit_or_selection_performed": false,
+    "production_changed": false,
+    "May_data_used_for_any_metric": false,
+    "artifact_must_not_bind_any_future_protocol": true,
+    "replacement_requirement": "Read only the 56 explicitly approved daily 2026 pitcher files listed by the already bound open-date source manifest."
+  },
+  "betting_authorized": false
+}

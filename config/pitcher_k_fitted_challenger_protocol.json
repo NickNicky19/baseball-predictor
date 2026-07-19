@@ -1,0 +1,90 @@
+{
+  "schema_version": "pitcher-k-fitted-challenger-protocol-v1",
+  "status": "LOCKED_BEFORE_FITTED_K_CHALLENGER",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "may_2026_opened": false,
+  "economic_evidence_eligible": false,
+  "purpose": "Evaluate one simple, fitted pitcher-strikeout mean-and-count challenger after the certified open-2026 benchmark found the immutable production probabilities weaker than both simple and market-reference controls.",
+  "prior_evidence": {
+    "identity_funnel": {"path": "data/analysis/pitcher_k_foundation_v1/identity_funnel_v1/pitcher_k_identity_funnel_report.json", "sha256": "2a16038bcdec4be84fd37b4aa0e9a4e91afcbdb76093bc5ae13a2ef11eba4326"},
+    "open_benchmark": {"path": "data/analysis/pitcher_k_foundation_v1/open_benchmark_v1/pitcher_k_open_benchmark_report.json", "sha256": "35fc7f89ef822f0b92ba25bbbaf51fc3de3a223729e28fbe39a9ec61940391ff"},
+    "input_audit_v1_invalidated": {"path": "reports/pitcher_k_input_audit_v1_INVALIDATED_MAY_ACCESS.json", "sha256": "45ab63eb8a38e6d44daea425b9d20b6d860dc51c238dad7577a7c854cf4bb7e2"},
+    "input_audit_v2": {"path": "data/analysis/pitcher_k_foundation_v1/input_audit_v2/report.json", "sha256": "6dfa772614e6c60218c7bd51a09316c43d40b694f198876a98703dd3f825a09d"}
+  },
+  "inputs": {
+    "pre2026_training": {"path": "data/training/training_pitchers_2023_2025.csv.gz", "sha256": "9e88d91d0101be6f26459052747185efb9c80613ae528bc3dabf5bb5ee9d0831", "seasons": [2023, 2024, 2025], "rows": 14578, "positive_ip_rows": 14566},
+    "open_date_manifest": {"path": "data/analysis/shared_pa_foundation_v1/open_2026_benchmark_v4/source_manifest.json", "sha256": "ff5d00282b452fa848f76bfc4f5a5ac23ed48eb627c861c26d3420180c288baa", "dates": 56},
+    "open_daily_pitcher_root": "data/training/2026",
+    "open_benchmark_rows": {"path": "data/analysis/pitcher_k_foundation_v1/open_benchmark_v1/pitcher_k_benchmark_rows.csv", "sha256": "4cd7cc43170ea91356d02d4b524c0a7f4ebb3f56d893ef9b000222d9eab70a2a", "rows": 967},
+    "open_official_outcomes": {"path": "data/analysis/pitcher_k_foundation_v1/open_benchmark_v1/official_pitcher_k_outcomes.csv", "sha256": "abb5977511805ecdda21df6c76783a153693c3363927c535fff912c5d7d5b2d0", "rows": 766}
+  },
+  "chronology": {
+    "initial_fit": [2023],
+    "selection": [2024],
+    "untouched_confirmation": [2025],
+    "open_2026_evaluation": ["2026-03", "2026-04", "2026-06"],
+    "forbidden": ["2026-05"],
+    "refit_for_open_evaluation_only_after_confirmation_pass": [2023, 2024, 2025]
+  },
+  "candidate": {
+    "family": "regularized_poisson_regression_with_selected_negative_binomial_count_dispersion",
+    "implementation": "sklearn.linear_model.PoissonRegressor plus scipy count survival",
+    "target": "official out_k conditional on historical out_ip > 0; target columns are never prediction features",
+    "features": ["is_home", "throws", "pit_ip", "pit_k9", "pit_bb9", "pit_hr9", "pit_gs", "pit_recent_ip", "pit_recent_k9", "pit_recent_bb9", "pit_recent_hr9", "pit_recent_gs", "pit_recent_ip_per_gs", "park_hits_factor", "park_hr_factor", "park_runs_factor", "park_resolved", "weather_temp", "weather_wind", "weather_is_dome", "weather_resolved", "umpire_resolved", "has_prior_data"],
+    "forbidden_features": ["game_pk", "player_id", "player_name", "out_ip", "out_k", "out_bb", "out_hr"],
+    "regularization_alpha_grid": [0.01, 0.1, 1.0, 10.0],
+    "dispersion_grid": [0.0, 0.05, 0.1, 0.2],
+    "selection_metric": "2024 count negative log likelihood; tie break lower alpha then lower dispersion",
+    "no_calibration_or_post_fit_adjustment": true,
+    "random_seed": 20260719
+  },
+  "comparators": {
+    "confirmation_simple_baseline": "pooled 2023 empirical K count distribution conditional on out_ip > 0",
+    "open_simple_baseline": "pooled 2023-2025 empirical K count distribution conditional on out_ip > 0",
+    "open_production": "immutable sim_p_over from the certified benchmark rows",
+    "draftkings_reference": "entry two-sided de-vig probability; diagnostic reference only, never executable-price or payout truth"
+  },
+  "evaluation": {
+    "lines": [4.5, 5.5, 6.5],
+    "official_primary_state": "started",
+    "required_open_market_rows": 966,
+    "required_open_pitcher_games": 765,
+    "metrics": ["count_negative_log_likelihood", "binary_brier", "binary_log_loss", "roc_auc", "calibration_10_bin", "mean_probability_bias"],
+    "uncertainty": {"method": "date_cluster_bootstrap_percentile", "draws": 10000, "seed": 20260719, "confidence_level": 0.95},
+    "market_pooling_forbidden": true,
+    "economic_scoring_forbidden": true
+  },
+  "confirmation_gate": {
+    "count_nll_must_improve_vs_2023_simple": true,
+    "each_line_is_separate": true,
+    "at_least_two_lines_require_positive_95pct_lower_bound_for_brier_and_log_loss_vs_simple": true,
+    "remaining_line_must_not_have_both_brier_and_log_loss_point_estimates_worse_vs_simple": true,
+    "no_calibration_point_estimate_may_move_farther_from_ideal_on_any_line": true,
+    "auc_must_not_regress_on_any_line": true,
+    "failure_stops_before_open_2026_candidate_scoring": true
+  },
+  "open_gate": {
+    "each_line_is_separate": true,
+    "candidate_must_improve_brier_and_log_loss_vs_production_with_positive_95pct_lower_bounds": true,
+    "candidate_must_improve_or_match_brier_and_log_loss_vs_simple": true,
+    "calibration_and_auc_must_not_regress": true,
+    "coverage_must_equal_certified_open_universe": true,
+    "reference_movement_is_diagnostic_only": true,
+    "any_failed_line_rejects_the_shared_candidate": true
+  },
+  "failure_condition": "Any May access, source hash drift, missing approved daily file, use of outcome/identity columns as features, post-2024 hyperparameter choice, confirmation leakage, non-started row silently dropped, coverage loss, production change, payout/ROI claim, or betting authorization.",
+  "protected_invariants": {
+    "production_unchanged": true,
+    "May_2026_remains_sealed": true,
+    "only_approved_daily_open_dates_read": true,
+    "official_outcomes_only": true,
+    "no_vendor_result_or_payout_fields": true,
+    "no_silent_drop": true,
+    "no_policy_or_economic_selection": true,
+    "historical_prices_not_executable": true,
+    "markets_not_pooled": true,
+    "economic_evidence_ineligible": true,
+    "no_betting_authorization": true
+  }
+}
