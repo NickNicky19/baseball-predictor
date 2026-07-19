@@ -1,0 +1,30 @@
+{
+  "schema_version": "legacy-gbm-probability-eligibility-audit-v1",
+  "status": "INELIGIBLE_AS_PROBABILITY_OR_MARKET_CHALLENGER",
+  "legacy_report": {
+    "path": "reports/benchmark_gbm.json",
+    "sha256": "543a0387b040cb5b0ecb0b58c2500d27fad1dece4f4f86084a2a04d2c30034d7"
+  },
+  "reported_categories": ["hits", "home_runs", "hrr", "strikeouts"],
+  "missing_required_probability_bindings": [
+    "calibration_artifact_sha256",
+    "chronological_protocol_sha256",
+    "feature_schema_sha256",
+    "market_identity_contract_sha256",
+    "model_artifact_sha256",
+    "official_outcome_contract_sha256",
+    "probability_contract_sha256",
+    "source_commit",
+    "training_data_sha256"
+  ],
+  "disqualifiers": [
+    "Point-MAE comparisons do not establish calibrated line-specific probabilities.",
+    "No hard game/player/category/line/side market identity contract is bound.",
+    "No official-outcome settlement contract is bound.",
+    "No model, feature, or training-data artifact hash is bound.",
+    "No chronological probability-calibration or market-economics gate is reported."
+  ],
+  "production_changed": false,
+  "betting_authorized": false,
+  "decision": "The legacy GBM result cannot be promoted, compared to the current probability engine, used to select plays, or used as evidence of profitability. A future GBM may be reconsidered only as a new fully point-in-time, hash-bound PA-outcome challenger under the active chronological protocol."
+}
