@@ -1,0 +1,36 @@
+{
+  "schema_version": "shared-pa-cumulative-selection-retry-v2",
+  "status": "LOCKED_MECHANICAL_RETRY_BEFORE_RESULT_READ",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "confirmation_2025_forbidden": true,
+  "may_2026_forbidden": true,
+  "failed_attempt_record": {
+    "path": "reports/shared_pa_cumulative_selection_v1_INVALID_INCOMPLETE.json",
+    "sha256": "a5e366a6427260f89a95c66904bc11b087094f9c316dfb00824e82eb93d4e69e"
+  },
+  "allowed_change": {
+    "id": "extract_bound_by_lineup_slot_distribution",
+    "scope": "Mechanical diagnostic input-shape repair only.",
+    "required_behavior": [
+      "Validate exact lineup slots 1 through 9.",
+      "Validate every PA probability vector is finite, nonnegative, nonempty, and sums to one.",
+      "Pass only the by_lineup_slot mapping to derived-market diagnostics."
+    ]
+  },
+  "forbidden_changes": [
+    "model_features",
+    "model_grid",
+    "random_seeds",
+    "selection_folds",
+    "materiality_thresholds",
+    "calibration_rules",
+    "stability_rules",
+    "simple_baseline",
+    "canonical_v1_comparator",
+    "2025_access",
+    "May_2026_access"
+  ],
+  "retry_output": "data/analysis/shared_pa_foundation_v1/cumulative_selection_v2",
+  "failed_output_must_remain_quarantined": true
+}

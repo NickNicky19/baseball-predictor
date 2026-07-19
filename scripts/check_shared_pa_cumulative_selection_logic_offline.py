@@ -20,6 +20,7 @@ from src.evaluation.shared_pa_cumulative_selection import (  # noqa: E402
     assert_expected_simple,
     clears_all_comparisons,
     feature_columns,
+    validate_pa_distribution_payload,
 )
 
 
@@ -76,6 +77,16 @@ def main() -> int:
     wrong_date.loc[0, "game_date"] = "2024-04-03"
     wrong_simple = copy.deepcopy(expected_simple)
     wrong_simple["empirical_bayes_player_rate_pa_200"]["scores"]["multiclass_brier"] += 1e-10
+    valid_distribution = {
+        "by_lineup_slot": {
+            str(slot): {"3": 0.25, "4": 0.75}
+            for slot in range(1, 10)
+        }
+    }
+    missing_slot = copy.deepcopy(valid_distribution)
+    missing_slot["by_lineup_slot"].pop("9")
+    bad_sum = copy.deepcopy(valid_distribution)
+    bad_sum["by_lineup_slot"]["9"] = {"3": 0.25, "4": 0.70}
     checks = [
         ("core exact size", len(core) == 46),
         ("context exact addition", set(context) - set(core) == {"bats", "is_home", "venue"}),
@@ -88,6 +99,9 @@ def main() -> int:
         ("v1 left order preserved", np.allclose(aligned_v1_probabilities(validation, reordered), aligned)),
         ("v1 missing coverage rejected", expect_failure(lambda: aligned_v1_probabilities(validation, missing))),
         ("v1 chronology mismatch rejected", expect_failure(lambda: aligned_v1_probabilities(validation, wrong_date))),
+        ("PA wrapper extracted", set(validate_pa_distribution_payload(valid_distribution)) == {str(slot) for slot in range(1, 10)}),
+        ("PA slot omission rejected", expect_failure(lambda: validate_pa_distribution_payload(missing_slot))),
+        ("PA probability sum rejected", expect_failure(lambda: validate_pa_distribution_payload(bad_sum))),
     ]
     failed = [name for name, passed in checks if not passed]
     if failed:

@@ -1,0 +1,30 @@
+{
+  "schema_version": "shared-pa-cumulative-selection-invalid-attempt-v1",
+  "status": "INVALID_INCOMPLETE_NOT_ADJUDICATED",
+  "betting_authorized": false,
+  "production_changed": false,
+  "confirmation_2025_opened": false,
+  "may_2026_opened": false,
+  "source_commit": "e356b2d",
+  "failure": {
+    "type": "mechanical_diagnostic_input_shape",
+    "message": "ValueError: missing PA distribution for lineup slot 9",
+    "cause": "The selector passed the complete PA-distribution artifact wrapper to derived_market_probabilities instead of its bound by_lineup_slot member.",
+    "statistical_result_adjudicated": false
+  },
+  "partial_output": {
+    "path": "data/analysis/shared_pa_foundation_v1/cumulative_selection_v1_INVALID_INCOMPLETE/selection_oof.csv",
+    "sha256": "847ab60beddeb03568320366f4af2e485936630fe70900a0866986ec333a7bd9",
+    "bytes": 37908581,
+    "final_report_published": false,
+    "quarantined": true,
+    "scores_inspected": false
+  },
+  "protected_invariants": {
+    "partial_artifact_permanently_inadmissible": true,
+    "confirmation_2025_unread": true,
+    "may_2026_unread": true,
+    "production_unchanged": true,
+    "betting_unauthorized": true
+  }
+}

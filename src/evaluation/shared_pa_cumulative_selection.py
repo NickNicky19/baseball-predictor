@@ -155,3 +155,58 @@ def assert_expected_simple(report: dict[str, Any], protocol: dict[str, Any]) -> 
     for metric, value in expected["required_exact_scores"].items():
         if not math.isclose(float(scores[metric]), float(value), rel_tol=0.0, abs_tol=1e-14):
             raise ValueError(f"strongest simple baseline score changed: {metric}")
+
+
+def validate_pa_distribution_payload(payload: dict[str, Any]) -> dict[str, dict[str, float]]:
+    if not isinstance(payload, dict) or "by_lineup_slot" not in payload:
+        raise ValueError("PA distribution wrapper is missing by_lineup_slot")
+    distributions = payload["by_lineup_slot"]
+    if not isinstance(distributions, dict) or set(distributions) != {str(slot) for slot in range(1, 10)}:
+        raise ValueError("PA distribution does not cover exact lineup slots 1 through 9")
+    validated: dict[str, dict[str, float]] = {}
+    for slot, raw in distributions.items():
+        if not isinstance(raw, dict) or not raw:
+            raise ValueError(f"PA distribution is empty for lineup slot {slot}")
+        values = np.asarray([float(value) for value in raw.values()], dtype=float)
+        if not np.isfinite(values).all() or (values < 0).any():
+            raise ValueError(f"PA distribution is invalid for lineup slot {slot}")
+        if not math.isclose(float(values.sum()), 1.0, rel_tol=0.0, abs_tol=1e-12):
+            raise ValueError(f"PA distribution does not sum to one for lineup slot {slot}")
+        if any(int(pa) < 0 for pa in raw):
+            raise ValueError(f"PA distribution contains a negative count for lineup slot {slot}")
+        validated[str(slot)] = {str(pa): float(value) for pa, value in raw.items()}
+    return validated
+
+
+def load_bound_pa_distribution(base_protocol: dict[str, Any], *, evidence_root: Path) -> dict[str, dict[str, float]]:
+    record = base_protocol["inputs"]["pa_distribution"]
+    path = evidence_root / record["path"]
+    if not path.exists() or sha256(path) != record["sha256"]:
+        raise ValueError("bound PA distribution hash changed")
+    return validate_pa_distribution_payload(json.loads(path.read_text(encoding="utf-8")))
+
+
+def load_retry_authorization(path: Path, *, code_root: Path) -> dict[str, Any]:
+    retry = json.loads(path.read_text(encoding="utf-8"))
+    if retry.get("status") != "LOCKED_MECHANICAL_RETRY_BEFORE_RESULT_READ":
+        raise ValueError("cumulative retry authorization is not locked")
+    if retry.get("betting_authorized") or not retry.get("production_unchanged"):
+        raise ValueError("cumulative retry altered authorization or production")
+    if not retry.get("confirmation_2025_forbidden") or not retry.get("may_2026_forbidden"):
+        raise ValueError("cumulative retry does not protect confirmation evidence")
+    if retry.get("allowed_change", {}).get("id") != "extract_bound_by_lineup_slot_distribution":
+        raise ValueError("cumulative retry scope changed")
+    if not retry.get("failed_output_must_remain_quarantined"):
+        raise ValueError("cumulative retry released its failed output")
+    record = retry["failed_attempt_record"]
+    failure_path = code_root / record["path"]
+    if not failure_path.exists() or sha256(failure_path) != record["sha256"]:
+        raise ValueError("cumulative failed-attempt record changed")
+    failure = json.loads(failure_path.read_text(encoding="utf-8"))
+    if failure.get("status") != "INVALID_INCOMPLETE_NOT_ADJUDICATED":
+        raise ValueError("cumulative failed attempt is not invalidated")
+    if failure.get("partial_output", {}).get("scores_inspected"):
+        raise ValueError("cumulative failed attempt was inspected before retry")
+    if failure.get("confirmation_2025_opened") or failure.get("may_2026_opened"):
+        raise ValueError("cumulative failed attempt crossed protected evidence")
+    return retry

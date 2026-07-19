@@ -42,6 +42,8 @@ from src.evaluation.shared_pa_cumulative_selection import (  # noqa: E402
     assert_expected_simple,
     clears_all_comparisons,
     load_protocol,
+    load_bound_pa_distribution,
+    load_retry_authorization,
     load_selection_frame,
     load_v1_comparator,
 )
@@ -108,6 +110,8 @@ def main() -> int:
     evidence_root = args.evidence_root.resolve()
     protocol_path = args.protocol.resolve()
     protocol, base_protocol = load_protocol(protocol_path, evidence_root=evidence_root, code_root=ROOT)
+    retry_path = ROOT / "config/shared_pa_cumulative_selection_retry_v2.json"
+    load_retry_authorization(retry_path, code_root=ROOT)
     frame = load_selection_frame(protocol, base_protocol, evidence_root=evidence_root)
 
     simple_report, best_simple, simple_validation = evaluate_simple_baselines(frame, protocol)
@@ -267,9 +271,7 @@ def main() -> int:
         for seed, probability in context_stability_probabilities.items():
             oof[f"cumulative_context_seed_{seed}_{outcome}"] = probability[:, index]
 
-    pa_distribution = json.loads(
-        (evidence_root / base_protocol["inputs"]["pa_distribution"]["path"]).read_text(encoding="utf-8")
-    )
+    pa_distribution = load_bound_pa_distribution(base_protocol, evidence_root=evidence_root)
     runtime_files = [
         Path(__file__),
         ROOT / "scripts/select_shared_pa_canonical_challenger.py",
@@ -281,6 +283,13 @@ def main() -> int:
         protocol_path,
         ROOT / base_protocol["inputs"]["runtime_feature_contract"]["path"],
         ROOT / "src/features/canonical_cumulative_pa_features.py",
+        ROOT / "config/shared_pa_cumulative_selection_retry_v2.json",
+        ROOT / "reports/shared_pa_cumulative_selection_v1_INVALID_INCOMPLETE.json",
+        ROOT / "scripts/validate_shared_pa_cumulative_selection.py",
+        ROOT / "scripts/check_shared_pa_cumulative_selection_validator_mutations.py",
+        ROOT / "scripts/check_shared_pa_cumulative_selection_retry_v2_offline.py",
+        ROOT / "scripts/check_shared_pa_cumulative_selection_protocol_offline.py",
+        ROOT / "scripts/check_shared_pa_cumulative_selection_logic_offline.py",
     ]
     try:
         source_commit = subprocess.check_output(
@@ -302,6 +311,10 @@ def main() -> int:
         "may_2026_opened": False,
         "selection_seasons": [2023, 2024],
         "source_commit": source_commit,
+        "retry_authorization": {
+            "path": "config/shared_pa_cumulative_selection_retry_v2.json",
+            "sha256": sha256(ROOT / "config/shared_pa_cumulative_selection_retry_v2.json"),
+        },
         "protocol": {"path": str(protocol_path.relative_to(ROOT)).replace("\\", "/"), "sha256": sha256(protocol_path)},
         "inputs": protocol["inputs"],
         "runtime": {
@@ -310,6 +323,12 @@ def main() -> int:
             "pandas": pd.__version__,
             "thread_count": int(args.threads),
             "file_hashes": {str(path.relative_to(ROOT)).replace("\\", "/"): sha256(path) for path in runtime_files},
+        },
+        "pre_fit_mutation_contract": {
+            "protocol_checks_required": 17,
+            "selection_logic_checks_required": 14,
+            "mechanical_retry_checks_required": 10,
+            "validator_mutations_required_after_publication": true,
         },
         "population": {
             "source_rows": int(len(frame)),

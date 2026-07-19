@@ -91,6 +91,13 @@ def validate_report(report: dict[str, Any], oof: pd.DataFrame, protocol: dict[st
         raise ValueError("cumulative selection crossed protected evidence")
     if report.get("selection_seasons") != [2023, 2024]:
         raise ValueError("cumulative selection seasons changed")
+    if report.get("pre_fit_mutation_contract") != {
+        "protocol_checks_required": 17,
+        "selection_logic_checks_required": 14,
+        "mechanical_retry_checks_required": 10,
+        "validator_mutations_required_after_publication": True,
+    }:
+        raise ValueError("cumulative pre-fit mutation contract changed")
     protected = report.get("protected_invariants", {})
     if protected != {
         "confirmation_2025_unread": True,
@@ -271,6 +278,12 @@ def main() -> int:
     evidence_root = args.evidence_root.resolve()
     report_path = args.report.resolve()
     report = json.loads(report_path.read_text(encoding="utf-8"))
+    retry = report.get("retry_authorization")
+    if not retry:
+        raise ValueError("cumulative retry authorization is missing")
+    retry_path = ROOT / retry["path"]
+    if not retry_path.exists() or sha256(retry_path) != retry["sha256"]:
+        raise ValueError("cumulative retry authorization changed")
     protocol_path = ROOT / report["protocol"]["path"]
     if sha256(protocol_path) != report["protocol"]["sha256"]:
         raise ValueError("cumulative selection protocol hash changed")
