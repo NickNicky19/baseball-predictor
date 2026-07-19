@@ -1,0 +1,40 @@
+{
+  "schema_version": "open-2026-eb-benchmark-source-retry-v2",
+  "status": "LOCKED_AFTER_MECHANICAL_INPUT_OMISSION_BEFORE_RETRY",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "may_2026_opened": false,
+  "confirmation_2025_opened": false,
+  "failure_record": {
+    "path": "reports/open_2026_eb_production_benchmark_v1_FAILURE.json",
+    "sha256": "0a703849fdc042bac7c0627c1174696403672d48be4950c902b73a2e6186c389"
+  },
+  "unchanged_protocol": {
+    "path": "config/open_2026_eb_production_benchmark_protocol.json",
+    "sha256": "49f1dfed590a253ceb91d193e3d6d1660a716ac5ec2c39b01b36d72adbb0a1d4"
+  },
+  "single_allowed_repair": {
+    "kind": "bind_certified_official_training_outcomes",
+    "path": "data/analysis/hr_over_contract_v1/pre2026_a3_2_migration_v2/training/training_hitters_2023_2025_statcast.csv.gz",
+    "sha256": "3fc38325007845d6a7a99102274f7e520ed6f4310cc2a3248ebc441afeb814c5",
+    "maximum_rows_read": 87462,
+    "required_loaded_seasons": [2023, 2024],
+    "forbid_loaded_year_at_or_after": 2025,
+    "canonical_certificate_path": "data/analysis/shared_pa_foundation_v1/canonical_hitter_features_2023_2024.certificate_v2.json",
+    "canonical_certificate_sha256": "1927f4c7fea085ce40df4a2459f150de24e644c2a7c5933ca1a74d7b09ae98b4"
+  },
+  "forbidden_changes": [
+    "probability arms",
+    "prior strength",
+    "date universe",
+    "market scope",
+    "eligibility",
+    "metrics",
+    "bootstrap",
+    "decision contract",
+    "economic gate",
+    "production",
+    "May 2026",
+    "2025 confirmation"
+  ]
+}

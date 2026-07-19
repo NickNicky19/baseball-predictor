@@ -1,0 +1,34 @@
+{
+  "schema_version": "open-2026-eb-production-benchmark-failure-v1",
+  "status": "FAILED_BEFORE_ANY_BENCHMARK_SCORE",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "may_2026_opened": false,
+  "confirmation_2025_opened": false,
+  "attempt_source_commit": "14140bd1d70cb667e887248d50e1ff0169ebf931",
+  "protocol": {
+    "path": "config/open_2026_eb_production_benchmark_protocol.json",
+    "sha256": "49f1dfed590a253ceb91d193e3d6d1660a716ac5ec2c39b01b36d72adbb0a1d4"
+  },
+  "source_manifest": {
+    "path": "data/analysis/shared_pa_foundation_v1/open_2026_benchmark_v1/source_manifest.json",
+    "sha256": "264654c857afbbd49c5e3450acbe018a6d213b9194b2a5554b400055ab51b20c"
+  },
+  "source_certificate": {
+    "path": "data/analysis/shared_pa_foundation_v1/open_2026_benchmark_v1/source_certificate.json",
+    "sha256": "4f96273c786ab84928835d43655a2a065dd3a560ca069e0aaac8b16036146db7"
+  },
+  "exact_failure": "KeyError: 'out_k' while normalized_counts attempted to fit the empirical-Bayes control from canonical_hitter_history_2023_2024.csv.gz",
+  "diagnosis": "The bound cumulative-history artifact contains pregame cumulative features only. The certified PA outcome columns live in the canonical selection protocol's official_outcomes source and were omitted from the benchmark source manifest.",
+  "benchmark_report_published": false,
+  "benchmark_predictions_published": false,
+  "any_score_observed": false,
+  "allowed_retry": {
+    "add_exact_input": "data/analysis/hr_over_contract_v1/pre2026_a3_2_migration_v2/training/training_hitters_2023_2025_statcast.csv.gz",
+    "sha256": "3fc38325007845d6a7a99102274f7e520ed6f4310cc2a3248ebc441afeb814c5",
+    "maximum_rows_read": 87462,
+    "required_loaded_seasons": [2023, 2024],
+    "forbid_loaded_year_at_or_after": 2025,
+    "all_scoring_metrics_decision_rules_and_market_scope_unchanged": true
+  }
+}
