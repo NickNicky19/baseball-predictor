@@ -246,6 +246,7 @@ def validate_source_manifest(payload: dict[str, Any], *, evidence_root: str | Pa
     if payload.get("months") != sorted(ALLOWED_MONTHS):
         raise ValueError("open-month contract changed")
     root = Path(evidence_root)
+    resolved: dict[str, Path] = {}
     for name in ("production_probabilities", "production_manifest", "production_certificate",
                  "certified_reconstruction_outcomes", "cumulative_history", "cumulative_history_certificate",
                  "pa_distribution", "official_outcomes", "lineup_snapshots"):
@@ -253,6 +254,7 @@ def validate_source_manifest(payload: dict[str, Any], *, evidence_root: str | Pa
         path = root / str(record.get("path", ""))
         if not path.is_file() or sha256(path) != record.get("sha256"):
             raise ValueError(f"source artifact missing or hash-mismatched: {name}")
+        resolved[name] = path
     feeds = payload.get("official_mlb_feeds")
     snapshots = payload.get("feature_snapshots")
     if not isinstance(feeds, list) or not feeds or not isinstance(snapshots, list) or len(snapshots) != len(dates):
@@ -268,6 +270,53 @@ def validate_source_manifest(payload: dict[str, Any], *, evidence_root: str | Pa
             path = root / str(item[path_key])
             if not path.is_file() or sha256(path) != item.get(hash_key):
                 raise ValueError(f"bound source file missing or hash-mismatched: {path_key}")
+    if len({int(item.get("mlb_game_pk", -1)) for item in feeds}) != len(feeds):
+        raise ValueError("official MLB feed inventory contains duplicate game keys")
+    if payload.get("official_feed_count") != len(feeds):
+        raise ValueError("official MLB feed count changed")
+
+    model = pd.read_csv(resolved["production_probabilities"])
+    if validate_probability_artifact(model) != dates:
+        raise ValueError("production date universe differs from source manifest")
+    official = pd.read_csv(resolved["official_outcomes"])
+    lineups = pd.read_csv(resolved["lineup_snapshots"])
+    if list(official.columns) != OUTCOME_COLUMNS or len(official) != payload.get("official_outcome_rows"):
+        raise ValueError("official outcome artifact schema or row count changed")
+    if list(lineups.columns) != LINEUP_COLUMNS or len(lineups) != payload.get("lineup_snapshot_rows"):
+        raise ValueError("lineup snapshot artifact schema or row count changed")
+    if official[HITTER_KEY].isna().any().any() or official.duplicated(HITTER_KEY).any():
+        raise ValueError("official outcome artifact key is null or duplicated")
+    if lineups[HITTER_KEY].isna().any().any() or lineups.duplicated(HITTER_KEY).any():
+        raise ValueError("lineup snapshot artifact key is null or duplicated")
+    if require_open_dates(official["game_date"]) != dates or require_open_dates(lineups["game_date"]) != dates:
+        raise ValueError("official outcome or lineup dates differ from source manifest")
+    classes = official[["strikeouts", "walks", "singles", "doubles", "triples", "home_runs", "bip_out", "other_non_ab"]].sum(axis=1)
+    if not (classes == official["pa"]).all():
+        raise ValueError("official PA class accounting changed")
+    expected_tb = official["singles"] + 2 * official["doubles"] + 3 * official["triples"] + 4 * official["home_runs"]
+    if not (expected_tb == official["total_bases"]).all():
+        raise ValueError("official Total Bases derivation changed")
+    hitter_keys = model[model["category"].isin(["hits", "home_runs"])][HITTER_KEY].drop_duplicates()
+    joined = hitter_keys.merge(lineups, on=HITTER_KEY, how="left", validate="one_to_one")
+    if joined["lineup_slot"].isna().any() or len(joined) != len(hitter_keys):
+        raise ValueError("lineup snapshot no longer covers production hitter universe")
+    reconstructed = pd.read_csv(resolved["certified_reconstruction_outcomes"])
+    if crosscheck_certified_hitter_outcomes(official, reconstructed, model) != payload.get("crosscheck"):
+        raise ValueError("official cached-feed crosscheck changed")
+
+    repo_root = Path(__file__).resolve().parents[2]
+    expected_runtime = {
+        "module": "src/evaluation/open_2026_benchmark_sources.py",
+        "builder": "scripts/build_open_2026_benchmark_sources.py",
+    }
+    runtime = payload.get("runtime") or {}
+    if set(runtime) != set(expected_runtime):
+        raise ValueError("source-builder runtime inventory changed")
+    for name, rel in expected_runtime.items():
+        record = runtime.get(name) or {}
+        path = repo_root / rel
+        if record.get("path") != rel or not path.is_file() or sha256(path) != record.get("sha256"):
+            raise ValueError(f"source-builder runtime changed: {name}")
     if payload.get("total_bases_production_comparator_available") is not False:
         raise ValueError("Total Bases production comparator was invented")
     return payload
