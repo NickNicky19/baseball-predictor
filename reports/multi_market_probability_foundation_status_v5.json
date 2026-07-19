@@ -1,0 +1,51 @@
+{
+  "schema_version": "multi-market-probability-foundation-status-v5",
+  "status": "ACTIVE_RESEARCH_FOUNDATION_CONSOLIDATED_NOT_BETTABLE",
+  "as_of": "2026-07-19",
+  "betting_authorized": false,
+  "production_changed": false,
+  "previous_consolidation": {
+    "path": "reports/multi_market_probability_foundation_status_v4.json",
+    "sha256": "309c5521c709dd91ac0e5196578884fbc88ed087ae2a8512ec1cc2426d526a67"
+  },
+  "prospective_pitcher_context_lifecycle": {
+    "ledger_source": {
+      "path": "src/evaluation/forward_pitcher_context_ledger.py",
+      "sha256": "79e3165727d993357ac49175acd14303f7278e1a89214c5cf44876225864c7e9"
+    },
+    "mutation_test": {
+      "path": "scripts/check_forward_pitcher_context_ledger_offline.py",
+      "sha256": "9eb38d8d3a65a4b926e35ca4c2faa8a8a96e3862b7d7f7a006ffc234296e1876",
+      "checks": 6
+    },
+    "terminal_states": ["captured", "source_error", "missed"],
+    "guarantees": [
+      "one immutable terminal state per planned target",
+      "captured context is bound to exact raw schedule bytes, target, plan, and timely receipt",
+      "source errors and missed horizons remain explicit permanent evidence",
+      "hash-chain, raw-payload, context-identity, and plan-binding mutations fail",
+      "no late backfill or target retry"
+    ],
+    "live_observations": 0,
+    "economic_evidence_eligible": false,
+    "betting_authorized": false
+  },
+  "current_probability_foundation": {
+    "hits": "No shared batter PA challenger has cleared materiality against the strongest simple baseline.",
+    "hr_over_0_5": "Per-PA empirical-Bayes component is confirmed but full-game probability remains unproven.",
+    "total_bases": "Readiness only; no production-compatible candidate passed.",
+    "rbi_and_hrr": "Blocked by missing coupled point-in-time game-context and exact outcome contracts.",
+    "pitcher_strikeouts": "Fitted count challenger rejected on untouched calibration gate."
+  },
+  "highest_value_next_action": {
+    "action": "Run the separately permitted T-4 pitcher-context lifecycle across future regular-season slates, certify exhaustive terminal records, then predeclare and test one as-of opposing-pitcher contact challenger.",
+    "must_not_do": "Do not treat the new ledger as a model improvement, use it to reconstruct prior days, open new protected evidence, or modify production."
+  },
+  "protected_invariants": {
+    "may_2026_scope_incident_preserved_in_previous_status": true,
+    "v13_operational_failure_preserved": true,
+    "all_markets_products_and_settlement_contracts_separate": true,
+    "production_baselines_immutable": true,
+    "no_betting_authorization": true
+  }
+}
