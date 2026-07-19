@@ -1,0 +1,95 @@
+{
+  "schema_version": "hits-1-5-eb-certified-summary-v1",
+  "status": "CERTIFIED_REJECTED_ON_OPEN_MARKET_GRADEABLE_GATE",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "may_2026_opened": false,
+  "historical_executability_verified": false,
+  "candidate": "hits_1_5_rolling_eb_shared_pa_v1",
+  "scope": {
+    "sportsbook": "draftkings",
+    "category": "hits",
+    "line": 1.5,
+    "sides": ["over", "under"],
+    "diagnostic_dates": 37,
+    "confirmation_dates": 19,
+    "strict_market_rows": 1391,
+    "scored_rows": 1383,
+    "model_unavailable_rows": 8,
+    "conflicting_duplicate_keys_excluded_whole": 1,
+    "conflicting_duplicate_rows_excluded": 2
+  },
+  "decision": {
+    "probability_ready": false,
+    "historical_economic_ready": false,
+    "production_install_permitted": false,
+    "reason": "The rolling empirical-Bayes Hits 1.5 candidate was worse than immutable production in Brier score and log loss in both chronological blocks, did not establish uncertainty-bounded superiority over production or league controls, and failed the predeclared payout uncertainty gates."
+  },
+  "diagnostic": {
+    "rows": 896,
+    "candidate_minus_production_brier_point": 0.00050440871635496,
+    "candidate_minus_production_log_loss_point": 0.0015115837177655,
+    "candidate_auc": 0.4974540396710208,
+    "production_auc": 0.5131894049346879,
+    "candidate_positive_ev_raw_movement_point": -0.000636777986367967,
+    "candidate_positive_ev_raw_movement_95": [-0.0015811918258900428, 0.0004042355653673772],
+    "candidate_positive_ev_roi_point": 0.016725689762308996,
+    "candidate_positive_ev_roi_95": [-0.05526663469102293, 0.09199580343450527]
+  },
+  "confirmation": {
+    "rows": 487,
+    "candidate_minus_production_brier_point": 0.00268816699161345,
+    "candidate_minus_production_log_loss_point": 0.0068801688911043,
+    "candidate_auc": 0.5302752293577981,
+    "production_auc": 0.5280963302752293,
+    "candidate_positive_ev_raw_movement_point": 0.0017698907157637923,
+    "candidate_positive_ev_raw_movement_95": [0.000008645965993307556, 0.0036567675578853104],
+    "candidate_positive_ev_roi_point": -0.04230058890140845,
+    "candidate_positive_ev_roi_95": [-0.13151141224312252, 0.042845943720791466]
+  },
+  "mutation_evidence": {
+    "protocol_mutations_rejected": "13/13",
+    "decision_logic_mutations_rejected": "9/9",
+    "result_claim_mutations_rejected": "13/13"
+  },
+  "artifacts": {
+    "protocol": {
+      "path": "config/hits_1_5_eb_open_gate_protocol.json",
+      "source_commit": "33cb1cd"
+    },
+    "report": {
+      "path": "data/analysis/shared_pa_foundation_v1/hits_1_5_eb_open_v1/report.json",
+      "sha256": "402fefbc665b10bb39890064af9e1b54a042b3152bfa3c75f6d675f07ec48a5d"
+    },
+    "certificate": {
+      "path": "data/analysis/shared_pa_foundation_v1/hits_1_5_eb_open_v1/certificate.json",
+      "sha256": "4847488adc14f517caa954d6c2e0892a6b59f2161fb73fa9450d33e43dd36a3d"
+    },
+    "scored_rows": {
+      "path": "data/analysis/shared_pa_foundation_v1/hits_1_5_eb_open_v1/scored_rows.csv",
+      "sha256": "94647c9e5f9d8059df2935e801df3258c0d4bdb312fcd89a5040027045c1dc04"
+    },
+    "model_unavailable_rows": {
+      "path": "data/analysis/shared_pa_foundation_v1/hits_1_5_eb_open_v1/model_unavailable_rows.csv",
+      "sha256": "89a9945658d1b782c6b4e14109ca6832ad69a0761ba095583ad516ca4b4f3609"
+    },
+    "excluded_conflicting_duplicate_rows": {
+      "path": "data/analysis/shared_pa_foundation_v1/hits_1_5_eb_open_v1/excluded_conflicting_duplicate_rows.csv",
+      "sha256": "75a604000ae34ab882ae6030cfa0e3ec887c4b4e9910f883ae07772ad3559e75"
+    },
+    "validation_stop_record": {
+      "path": "reports/hits_1_5_eb_open_v1_VALIDATION_STOP.json",
+      "repair_commit": "bab1560"
+    }
+  },
+  "protected_invariants": {
+    "no_gate_weakened": true,
+    "no_duplicate_arbitration": true,
+    "no_model_gap_hidden": true,
+    "no_policy_tuning": true,
+    "production_unchanged": true,
+    "May_2026_remains_sealed": true,
+    "no_betting_authorization": true
+  },
+  "next_action": "Do not pursue this Hits 1.5 simplification. Preserve immutable production and return to the multi-market readiness audit to select the next measured limiter without reopening rejected candidates."
+}
