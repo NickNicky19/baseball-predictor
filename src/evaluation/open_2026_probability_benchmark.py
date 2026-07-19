@@ -7,7 +7,8 @@ from typing import Any
 
 import numpy as np
 import pandas as pd
-from scipy.optimize import minimize
+from scipy.optimize import root
+from scipy.special import expit
 from sklearn.metrics import roc_auc_score
 
 from src.evaluation.multi_market_foundation import sha256
@@ -15,8 +16,8 @@ from src.evaluation.open_2026_benchmark_sources import validate_source_manifest
 from src.learning.shared_pa_model import PA_OUTCOMES, derived_market_probabilities, normalized_counts
 
 
-SCHEMA = "open-2026-eb-production-benchmark-protocol-v3"
-STATUS = "LOCKED_AFTER_OUTCOME_SCHEMA_REPAIR_BEFORE_OPEN_2026_BENCHMARK_SCORING"
+SCHEMA = "open-2026-eb-production-benchmark-protocol-v4"
+STATUS = "LOCKED_AFTER_FAIL_CLOSED_CALIBRATION_REPAIR_BEFORE_RERUN"
 PRODUCTION_MARKETS = ["hits_0.5", "hits_1.5", "home_runs_0.5"]
 TOTAL_BASES_MARKETS = [f"total_bases_{line}" for line in (0.5, 1.5, 2.5, 3.5, 4.5, 5.5)]
 ALL_MARKETS = [*PRODUCTION_MARKETS, *TOTAL_BASES_MARKETS]
@@ -48,6 +49,8 @@ def validate_protocol(payload: dict[str, Any], *, evidence_root: str | Path) -> 
         "invalid_source_v3": ("reports/open_2026_benchmark_source_v3_BUILD_FAILURE.json", "72dadadb93b22ed57704cbca86a1647be42e8c416777eed827de9a8d15e5ad35"),
         "unchanged_v2_protocol": ("config/open_2026_eb_production_benchmark_protocol_v2.json", "2179e1223e0b10498c9316ffae8ec9be38ff293dc004f105f1f68264fdca4afe"),
         "v2_failure": ("reports/open_2026_eb_production_benchmark_v2_FAILURE.json", "4809fe8ad1dc354d6031ecb0efb277fe7ecf2842dc62f9552d982d695513de32"),
+        "unchanged_v3_protocol": ("config/open_2026_eb_production_benchmark_protocol_v3.json", "5d9d0792f3f60e8ce8109b9d5d8d5f99a1b1876a5c4436dc9f81ab415c965344"),
+        "uncertified_v3_result": ("reports/open_2026_eb_benchmark_v3_UNCERTIFIED.json", "b3c8630ca42bfa15718ae33bf6d444a3818c71685b44230c70fea1d972bf3ee6"),
     }
     actual_supersession = {
         name: (record.get("path"), record.get("sha256"))
@@ -61,9 +64,24 @@ def validate_protocol(payload: dict[str, Any], *, evidence_root: str | Path) -> 
             raise ValueError(f"benchmark retry provenance missing or hash-mismatched: {rel}")
     v1 = _json(repo_root / required_supersession["unchanged_v1_protocol"][0])
     for key in ("chronology", "identity", "probability_arms", "pa_volume", "market_contract",
-                "eligibility", "metrics", "decision_contract", "protected_invariants"):
+                "eligibility", "protected_invariants"):
         if payload.get(key) != v1.get(key):
             raise ValueError(f"benchmark scoring rule changed during source repair: {key}")
+    for key in v1["metrics"]:
+        if payload.get("metrics", {}).get(key) != v1["metrics"][key]:
+            raise ValueError(f"benchmark metric changed during calibration repair: {key}")
+    required_solver = {
+        "method": "scipy.optimize.root", "root_method": "hybr",
+        "equations": "binomial_score", "jacobian": "analytic",
+        "initial_parameters": [0.0, 1.0],
+    }
+    if payload.get("metrics", {}).get("calibration_solver") != required_solver:
+        raise ValueError("calibration solver contract changed")
+    for key in v1["decision_contract"]:
+        if payload.get("decision_contract", {}).get(key) != v1["decision_contract"][key]:
+            raise ValueError(f"benchmark decision rule changed during calibration repair: {key}")
+    if payload.get("decision_contract", {}).get("calibration_estimates_must_be_finite") is not True:
+        raise ValueError("calibration estimates are not fail-closed")
     foundation = payload.get("foundation_protocol") or {}
     foundation_path = repo_root / str(foundation.get("path", ""))
     if not foundation_path.is_file() or sha256(foundation_path) != foundation.get("sha256"):
@@ -124,6 +142,7 @@ def validate_protocol(payload: dict[str, Any], *, evidence_root: str | Path) -> 
     if metrics != {
         "proper_scores": ["binary_log_loss", "binary_brier"],
         "calibration": ["calibration_intercept", "calibration_slope"],
+        "calibration_solver": required_solver,
         "discrimination": ["roc_auc"],
         "uncertainty_unit": "official_game_date",
         "bootstrap_draws": 10000,
@@ -142,6 +161,7 @@ def validate_protocol(payload: dict[str, Any], *, evidence_root: str | Path) -> 
         "benchmark_is_diagnostic_not_a_candidate", "no_model_may_be_published_from_this_benchmark",
         "no_policy_or_economic_threshold_may_be_fit", "measured_simplification_limiter_requires_both_paired_interval_uppers_below_zero",
         "measured_simplification_limiter_requires_both_period_point_estimates_below_zero",
+        "calibration_estimates_must_be_finite",
         "calibration_point_estimates_must_not_both_move_farther_from_ideal", "discrimination_point_estimate_must_not_regress",
         "total_bases_cannot_drive_a_production_replacement_decision", "economic_analysis_allowed_only_after_predictive_screen_passes",
         "one_next_intervention_maximum", "weak_or_mixed_result_requires_no_intervention",
@@ -232,13 +252,20 @@ def binary_metrics(actual: np.ndarray, probability: np.ndarray) -> dict[str, flo
     auc = float(roc_auc_score(y, p)) if len(np.unique(y)) == 2 else float("nan")
     logit = np.log(p) - np.log1p(-p)
 
-    def objective(parameters: np.ndarray) -> float:
-        linear = parameters[0] + parameters[1] * logit
-        calibrated = np.clip(1.0 / (1.0 + np.exp(-np.clip(linear, -40.0, 40.0))), EPSILON, 1.0 - EPSILON)
-        return float(-(y * np.log(calibrated) + (1.0 - y) * np.log1p(-calibrated)).sum())
+    design = np.column_stack([np.ones(len(p)), logit])
 
-    fit = minimize(objective, x0=np.array([0.0, 1.0]), method="BFGS")
-    intercept, slope = (float(fit.x[0]), float(fit.x[1])) if fit.success and np.isfinite(fit.x).all() else (float("nan"), float("nan"))
+    def score(parameters: np.ndarray) -> np.ndarray:
+        return design.T @ (expit(design @ parameters) - y)
+
+    def jacobian(parameters: np.ndarray) -> np.ndarray:
+        calibrated = expit(design @ parameters)
+        return design.T @ ((calibrated * (1.0 - calibrated))[:, None] * design)
+
+    fit = root(score, np.array([0.0, 1.0]), jac=jacobian, method="hybr")
+    intercept, slope = (
+        (float(fit.x[0]), float(fit.x[1]))
+        if fit.success and np.isfinite(fit.x).all() else (float("nan"), float("nan"))
+    )
     return {
         "rows": len(y),
         "positives": int(y.sum()),
@@ -250,6 +277,39 @@ def binary_metrics(actual: np.ndarray, probability: np.ndarray) -> dict[str, flo
         "calibration_intercept": intercept,
         "calibration_slope": slope,
     }
+
+
+def screen_market(report: dict[str, Any]) -> dict[str, bool]:
+    pooled = report["comparisons"]["pooled_open"]["eb_vs_production"]
+    march_april = report["comparisons"]["march_april"]["eb_vs_production"]
+    june = report["comparisons"]["june"]["eb_vs_production"]
+    metrics = report["metrics"]["pooled_open"]
+    eb = metrics["empirical_bayes"]
+    production = metrics["production"]
+    calibration_values = [
+        eb["calibration_intercept"], eb["calibration_slope"],
+        production["calibration_intercept"], production["calibration_slope"],
+    ]
+    calibration_available = bool(np.isfinite(np.asarray(calibration_values, dtype=float)).all())
+    result = {
+        "both_pooled_interval_uppers_below_zero": all(
+            pooled[metric]["upper"] < 0.0 for metric in ("binary_log_loss", "binary_brier")
+        ),
+        "both_periods_both_points_below_zero": all(
+            block[metric]["point"] < 0.0
+            for block in (march_april, june)
+            for metric in ("binary_log_loss", "binary_brier")
+        ),
+        "calibration_estimates_available": calibration_available,
+        "calibration_not_both_farther_from_ideal": calibration_available and not (
+            abs(float(eb["calibration_intercept"])) > abs(float(production["calibration_intercept"]))
+            and abs(float(eb["calibration_slope"]) - 1.0) > abs(float(production["calibration_slope"]) - 1.0)
+        ),
+        "auc_noninferior_point_estimate": float(eb["roc_auc"]) >= float(production["roc_auc"]),
+        "identical_coverage": int(eb["rows"]) == int(production["rows"]),
+    }
+    result["predictive_screen_passed"] = all(result.values())
+    return result
 
 
 def paired_interval(

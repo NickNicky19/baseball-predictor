@@ -1,0 +1,44 @@
+{
+  "schema_version": "open-2026-eb-production-benchmark-protocol-v4",
+  "status": "LOCKED_AFTER_FAIL_CLOSED_CALIBRATION_REPAIR_BEFORE_RERUN",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "may_2026_opened": false,
+  "confirmation_2025_opened": false,
+  "supersession": {
+    "unchanged_v1_protocol": {"path": "config/open_2026_eb_production_benchmark_protocol.json", "sha256": "49f1dfed590a253ceb91d193e3d6d1660a716ac5ec2c39b01b36d72adbb0a1d4"},
+    "v1_failure": {"path": "reports/open_2026_eb_production_benchmark_v1_FAILURE.json", "sha256": "0a703849fdc042bac7c0627c1174696403672d48be4950c902b73a2e6186c389"},
+    "input_only_retry": {"path": "config/open_2026_eb_benchmark_source_retry_v2.json", "sha256": "3690f3ff29a46626d38bfe6ea65947991cf02934d88ab5c411120b5353a7b500"},
+    "invalid_source_v2": {"path": "reports/open_2026_benchmark_source_v2_BUILD_FAILURE.json", "sha256": "b764b24ac6faf5f090c1e86fb5cb2ad070e4ba2691ff10714bf3e550a7ca1307"},
+    "invalid_source_v3": {"path": "reports/open_2026_benchmark_source_v3_BUILD_FAILURE.json", "sha256": "72dadadb93b22ed57704cbca86a1647be42e8c416777eed827de9a8d15e5ad35"},
+    "unchanged_v2_protocol": {"path": "config/open_2026_eb_production_benchmark_protocol_v2.json", "sha256": "2179e1223e0b10498c9316ffae8ec9be38ff293dc004f105f1f68264fdca4afe"},
+    "v2_failure": {"path": "reports/open_2026_eb_production_benchmark_v2_FAILURE.json", "sha256": "4809fe8ad1dc354d6031ecb0efb277fe7ecf2842dc62f9552d982d695513de32"},
+    "unchanged_v3_protocol": {"path": "config/open_2026_eb_production_benchmark_protocol_v3.json", "sha256": "5d9d0792f3f60e8ce8109b9d5d8d5f99a1b1876a5c4436dc9f81ab415c965344"},
+    "uncertified_v3_result": {"path": "reports/open_2026_eb_benchmark_v3_UNCERTIFIED.json", "sha256": "b3c8630ca42bfa15718ae33bf6d444a3818c71685b44230c70fea1d972bf3ee6"}
+  },
+  "foundation_protocol": {"path": "config/multi_market_probability_foundation_protocol.json", "sha256": "42239a4c2a219c40900855421390f9702e0bfca50f51c23ff474147cdb3ff82d"},
+  "source_manifest": {"path": "data/analysis/shared_pa_foundation_v1/open_2026_benchmark_v4/source_manifest.json", "sha256": "ff5d00282b452fa848f76bfc4f5a5ac23ed48eb627c861c26d3420180c288baa", "required_status": "SOURCES_BOUND_BEFORE_BENCHMARK_SCORING_V2"},
+  "source_certificate": {"path": "data/analysis/shared_pa_foundation_v1/open_2026_benchmark_v4/source_certificate.json", "sha256": "f9d4cb096ee66f45e03379e179da9dfc717bb2667617d632b06ed9562d612274", "required_status": "OPEN_2026_BENCHMARK_SOURCES_CERTIFIED_V2"},
+  "prior_evidence": {
+    "cumulative_rejection": {"path": "reports/shared_pa_cumulative_selection_v3_CERTIFIED_REJECTION.json", "sha256": "4177bebc02c1c41843ac4d6b2e5c4117fbd835dab66e6ea02d1e71a08731c300"},
+    "hierarchical_rejection": {"path": "reports/shared_pa_hierarchical_selection_v1_CERTIFIED_REJECTION.json", "sha256": "234db075629a79404f161edf2396f302accde66dbb73ce6cc00dea0f442d38a8"}
+  },
+  "chronology": {"initial_history": [2023, 2024], "open_evaluation_dates": 56, "open_evaluation_months": ["2026-03", "2026-04", "2026-06"], "rolling_updates": "strictly_earlier_open_evaluation_dates_only", "missing_month_between_april_and_june": "excluded_from_fit_and_evaluation", "forbidden": [2025, "2026-05"]},
+  "identity": {"model_key": ["mlb_game_pk", "player_id", "game_date", "category", "line"], "official_hitter_key": ["mlb_game_pk", "player_id", "game_date"], "require_unique_non_null_keys": true, "doubleheader_game_key_required": true},
+  "probability_arms": {
+    "rolling_league_rate": {"fitted_on": "2023_2024_plus_strictly_earlier_open_2026_official_pa", "selection_status": "control"},
+    "rolling_empirical_bayes_player_rate_pa_200": {"fitted_on": "2023_2024_plus_strictly_earlier_open_2026_official_pa", "prior_strength_pa": 200, "prior_source": "rolling_league_rate", "selection_source": "certified_2024_simple_control", "selection_status": "strongest_surviving_simple_control"},
+    "immutable_production": {"artifact_status": "certified_open_2026_reconstruction", "selection_status": "baseline"}
+  },
+  "pa_volume": {"artifact_path": "data/analysis/hr_over_contract_v1/pre2026_a3_2_migration_v2/pa_distribution_fit_2023_2024.json", "sha256": "d61818e0fd4cfb70e40fdb240dc372ee5872b43263157ca1b23ee30cb3983570", "lineup_slot_source": "immutable_production_feature_snapshots", "realized_pa_forbidden_as_prediction_input": true},
+  "market_contract": {"production_comparable": ["hits_0.5", "hits_1.5", "home_runs_0.5"], "readiness_only_without_production_comparator": ["total_bases_0.5", "total_bases_1.5", "total_bases_2.5", "total_bases_3.5", "total_bases_4.5", "total_bases_5.5"], "each_market_and_line_scored_separately": true, "market_pooling_forbidden": true},
+  "eligibility": {"proper_scoring_requires_official_pa_above_zero": true, "zero_pa_is_not_a_model_coverage_claim": true, "zero_pa_is_not_a_settlement_decision": true, "identical_key_intersection_for_paired_comparisons": true, "fallbacks_reported_separately": true},
+  "metrics": {
+    "proper_scores": ["binary_log_loss", "binary_brier"],
+    "calibration": ["calibration_intercept", "calibration_slope"],
+    "calibration_solver": {"method": "scipy.optimize.root", "root_method": "hybr", "equations": "binomial_score", "jacobian": "analytic", "initial_parameters": [0.0, 1.0]},
+    "discrimination": ["roc_auc"], "uncertainty_unit": "official_game_date", "bootstrap_draws": 10000, "bootstrap_seed": 260719, "probability_clip_epsilon": 1e-12, "periods": ["march_april", "june", "pooled_open"]
+  },
+  "decision_contract": {"benchmark_is_diagnostic_not_a_candidate": true, "no_model_may_be_published_from_this_benchmark": true, "no_policy_or_economic_threshold_may_be_fit": true, "measured_simplification_limiter_requires_both_paired_interval_uppers_below_zero": true, "measured_simplification_limiter_requires_both_period_point_estimates_below_zero": true, "calibration_estimates_must_be_finite": true, "calibration_point_estimates_must_not_both_move_farther_from_ideal": true, "discrimination_point_estimate_must_not_regress": true, "total_bases_cannot_drive_a_production_replacement_decision": true, "economic_analysis_allowed_only_after_predictive_screen_passes": true, "one_next_intervention_maximum": true, "weak_or_mixed_result_requires_no_intervention": true},
+  "protected_invariants": {"production_source_config_runtime_unchanged": true, "May_2026_remains_sealed": true, "2025_confirmation_remains_unread": true, "no_market_rescues_another": true, "no_backfill_or_fabricated_comparator": true, "no_betting_authorization": true}
+}

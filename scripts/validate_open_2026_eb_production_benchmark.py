@@ -15,7 +15,8 @@ from typing import Any
 
 import numpy as np
 import pandas as pd
-from scipy.optimize import minimize
+from scipy.optimize import root
+from scipy.special import expit
 from sklearn.metrics import roc_auc_score
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -89,13 +90,20 @@ def binary_metrics(actual: np.ndarray, probability: np.ndarray) -> dict[str, Any
     auc = float(roc_auc_score(y, p)) if len(np.unique(y)) == 2 else float("nan")
     logit = np.log(p) - np.log1p(-p)
 
-    def objective(parameters: np.ndarray) -> float:
-        linear = parameters[0] + parameters[1] * logit
-        calibrated = np.clip(1.0 / (1.0 + np.exp(-np.clip(linear, -40.0, 40.0))), EPSILON, 1.0 - EPSILON)
-        return float(-(y * np.log(calibrated) + (1.0 - y) * np.log1p(-calibrated)).sum())
+    design = np.column_stack([np.ones(len(p)), logit])
 
-    fit = minimize(objective, x0=np.array([0.0, 1.0]), method="BFGS")
-    intercept, slope = (float(fit.x[0]), float(fit.x[1])) if fit.success and np.isfinite(fit.x).all() else (float("nan"), float("nan"))
+    def score_equations(parameters: np.ndarray) -> np.ndarray:
+        return design.T @ (expit(design @ parameters) - y)
+
+    def score_jacobian(parameters: np.ndarray) -> np.ndarray:
+        calibrated = expit(design @ parameters)
+        return design.T @ ((calibrated * (1.0 - calibrated))[:, None] * design)
+
+    fit = root(score_equations, np.array([0.0, 1.0]), jac=score_jacobian, method="hybr")
+    intercept, slope = (
+        (float(fit.x[0]), float(fit.x[1]))
+        if fit.success and np.isfinite(fit.x).all() else (float("nan"), float("nan"))
+    )
     return {
         "rows": len(y), "positives": int(y.sum()), "mean_probability": float(p.mean()),
         "actual_rate": float(y.mean()), "binary_log_loss": log_loss, "binary_brier": brier,
@@ -150,10 +158,16 @@ def screen(market: dict[str, Any]) -> dict[str, bool]:
     june = market["comparisons"]["june"]["eb_vs_production"]
     eb = market["metrics"]["pooled_open"]["empirical_bayes"]
     production = market["metrics"]["pooled_open"]["production"]
+    calibration_values = [
+        eb["calibration_intercept"], eb["calibration_slope"],
+        production["calibration_intercept"], production["calibration_slope"],
+    ]
+    calibration_available = bool(np.isfinite(np.asarray(calibration_values, dtype=float)).all())
     result = {
         "both_pooled_interval_uppers_below_zero": all(pooled[name]["upper"] < 0 for name in ("binary_log_loss", "binary_brier")),
         "both_periods_both_points_below_zero": all(block[name]["point"] < 0 for block in (march_april, june) for name in ("binary_log_loss", "binary_brier")),
-        "calibration_not_both_farther_from_ideal": not (
+        "calibration_estimates_available": calibration_available,
+        "calibration_not_both_farther_from_ideal": calibration_available and not (
             abs(eb["calibration_intercept"]) > abs(production["calibration_intercept"])
             and abs(eb["calibration_slope"] - 1.0) > abs(production["calibration_slope"] - 1.0)
         ),
@@ -244,7 +258,7 @@ def validate_report_claims(
     assert_close(report["markets"], expected_markets, "report.markets")
     passed = [market for market in PRODUCTION_MARKETS if expected_markets[market]["predictive_screen"]["predictive_screen_passed"]]
     expected = {
-        "schema_version": "open-2026-eb-production-benchmark-report-v3",
+        "schema_version": "open-2026-eb-production-benchmark-report-v4",
         "status": "OPEN_2026_EB_PRODUCTION_BENCHMARK_COMPLETE",
         "betting_authorized": False,
         "production_unchanged": True,
@@ -309,8 +323,8 @@ def main() -> int:
     report_path = args.report.resolve()
     predictions_path = args.predictions.resolve()
     protocol = json.loads(protocol_path.read_text(encoding="utf-8"))
-    if protocol.get("schema_version") != "open-2026-eb-production-benchmark-protocol-v3":
-        raise ValueError("validator requires locked v3 protocol")
+    if protocol.get("schema_version") != "open-2026-eb-production-benchmark-protocol-v4":
+        raise ValueError("validator requires locked v4 protocol")
     source_path = evidence_root / protocol["source_manifest"]["path"]
     source = json.loads(source_path.read_text(encoding="utf-8"))
     if sha256(source_path) != protocol["source_manifest"]["sha256"]:
@@ -322,7 +336,7 @@ def main() -> int:
     passed = validate_report_claims(report, frame, protocol, source, expected_markets)
     validate_runtime(report, report_path, predictions_path, protocol_path, source_path, evidence_root)
     certificate = {
-        "schema_version": "open-2026-eb-production-benchmark-certificate-v1",
+        "schema_version": "open-2026-eb-production-benchmark-certificate-v2",
         "status": "OPEN_2026_EB_PRODUCTION_BENCHMARK_CERTIFIED_DIAGNOSTIC",
         "betting_authorized": False,
         "production_unchanged": True,

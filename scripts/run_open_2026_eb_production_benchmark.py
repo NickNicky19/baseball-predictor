@@ -22,7 +22,7 @@ from src.evaluation.multi_market_foundation import sha256  # noqa: E402
 from src.evaluation.open_2026_probability_benchmark import (  # noqa: E402
     ALL_MARKETS, PRODUCTION_MARKETS, TOTAL_BASES_MARKETS, actual_markets,
     binary_metrics, load_protocol, paired_interval, period_mask,
-    rolling_pa_probabilities,
+    rolling_pa_probabilities, screen_market,
 )
 from src.learning.shared_pa_model import derived_market_probabilities  # noqa: E402
 
@@ -76,34 +76,6 @@ def production_wide(frame: pd.DataFrame) -> pd.DataFrame:
     if any(market not in wide for market in PRODUCTION_MARKETS):
         raise ValueError("production comparable market is missing")
     return wide
-
-
-def screen_market(report: dict[str, Any]) -> dict[str, bool]:
-    pooled = report["comparisons"]["pooled_open"]["eb_vs_production"]
-    march_april = report["comparisons"]["march_april"]["eb_vs_production"]
-    june = report["comparisons"]["june"]["eb_vs_production"]
-    metrics = report["metrics"]["pooled_open"]
-    eb = metrics["empirical_bayes"]
-    production = metrics["production"]
-    calibration_not_both_farther = not (
-        abs(float(eb["calibration_intercept"])) > abs(float(production["calibration_intercept"]))
-        and abs(float(eb["calibration_slope"]) - 1.0) > abs(float(production["calibration_slope"]) - 1.0)
-    )
-    result = {
-        "both_pooled_interval_uppers_below_zero": all(
-            pooled[metric]["upper"] < 0.0 for metric in ("binary_log_loss", "binary_brier")
-        ),
-        "both_periods_both_points_below_zero": all(
-            block[metric]["point"] < 0.0
-            for block in (march_april, june)
-            for metric in ("binary_log_loss", "binary_brier")
-        ),
-        "calibration_not_both_farther_from_ideal": calibration_not_both_farther,
-        "auc_noninferior_point_estimate": float(eb["roc_auc"]) >= float(production["roc_auc"]),
-        "identical_coverage": int(eb["rows"]) == int(production["rows"]),
-    }
-    result["predictive_screen_passed"] = all(result.values())
-    return result
 
 
 def main() -> int:
@@ -231,7 +203,7 @@ def main() -> int:
         ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
     ).strip()
     report = finite_or_none({
-        "schema_version": "open-2026-eb-production-benchmark-report-v3",
+        "schema_version": "open-2026-eb-production-benchmark-report-v4",
         "status": "OPEN_2026_EB_PRODUCTION_BENCHMARK_COMPLETE",
         "betting_authorized": False,
         "production_unchanged": True,

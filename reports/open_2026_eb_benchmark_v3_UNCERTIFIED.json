@@ -1,0 +1,41 @@
+{
+  "schema_version": "open-2026-eb-benchmark-uncertified-v3",
+  "status": "UNCERTIFIED_FAIL_CLOSED_CALIBRATION_GATE_BUG",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "may_2026_opened": false,
+  "confirmation_2025_opened": false,
+  "material_failure": {
+    "cause": "The runner represented non-converged BFGS calibration fits as NaN. Its predictive screen then used ordinary floating-point comparisons, for which comparisons against NaN are false, causing the negated calibration-regression condition to evaluate true. Missing calibration therefore passed instead of failing closed.",
+    "affected_raw_claim": "The raw report claimed predictive-screen passes for hits_1.5 and home_runs_0.5. Those claims are withdrawn and cannot be cited because pooled calibration was unavailable for at least one required arm in each market.",
+    "proper_scores_and_intervals_status": "Independently reproduced to near machine precision, but insufficient by themselves to satisfy the full predictive screen.",
+    "certificate_issued": false
+  },
+  "authorized_repair": {
+    "calibration_solver": "Solve the binomial calibration score equations with an analytic Jacobian using scipy.optimize.root(method='hybr').",
+    "finite_gate": "Require finite calibration intercept and slope for both empirical-Bayes and production arms before the calibration comparison can pass.",
+    "mutation": "A missing or non-finite required calibration estimate must force predictive_screen_passed=false.",
+    "unchanged": [
+      "chronology", "source rows", "probability arms", "prior strength", "PA volume",
+      "markets", "official grades", "proper scores", "bootstrap intervals", "coverage",
+      "AUC gate", "May seal", "2025 confirmation seal", "no betting authorization"
+    ]
+  },
+  "artifacts": {
+    "protocol": {"path": "config/open_2026_eb_production_benchmark_protocol_v3.json", "sha256": "5d9d0792f3f60e8ce8109b9d5d8d5f99a1b1876a5c4436dc9f81ab415c965344"},
+    "report": {"path": "data/analysis/shared_pa_foundation_v1/open_2026_benchmark_v4/benchmark_report.json", "sha256": "5a44cec79aef8a50df0ce1cca1994b3a56da810eb6f1b5b5754be19f79ff8733"},
+    "predictions": {"path": "data/analysis/shared_pa_foundation_v1/open_2026_benchmark_v4/benchmark_predictions.csv", "sha256": "aab32838f6c93c7b0ad5bfa4e0531020b086683b24753a67ca7bb5708188c867"},
+    "runner": {"path": "scripts/run_open_2026_eb_production_benchmark.py", "sha256": "374a9881e63dd2c88b8c73285d56bb5bf7d7944edc044e6110bd84dadf113f67"},
+    "validator": {"path": "scripts/validate_open_2026_eb_production_benchmark.py", "sha256": "e7bc292cb7695fd3e92cf7ec3e446601b15275897f4342578cf88ae451786cbc"},
+    "source_commit": "7d08ad4",
+    "validator_commit": "be694d03cebdf5271a4700edd962d3b192d578db"
+  },
+  "protected_invariants": {
+    "raw_pass_claim_withdrawn": true,
+    "no_certificate_inferred": true,
+    "production_unchanged": true,
+    "May_2026_remains_sealed": true,
+    "2025_confirmation_remains_unread": true,
+    "no_betting_authorization": true
+  }
+}

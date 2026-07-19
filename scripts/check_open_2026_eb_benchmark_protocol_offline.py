@@ -27,7 +27,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--evidence-root", type=Path, required=True)
     args = parser.parse_args()
-    original = load_protocol(ROOT / "config/open_2026_eb_production_benchmark_protocol_v3.json", evidence_root=args.evidence_root)
+    original = load_protocol(ROOT / "config/open_2026_eb_production_benchmark_protocol_v4.json", evidence_root=args.evidence_root)
     mutations = [
         ("May opened", lambda p: p.update(may_2026_opened=True)),
         ("2025 confirmation opened", lambda p: p.update(confirmation_2025_opened=True)),
@@ -45,12 +45,14 @@ def main() -> int:
         ("betting authorized", lambda p: p.update(betting_authorized=True)),
         ("retry provenance changed", lambda p: p["supersession"]["v1_failure"].update(sha256="0" * 64)),
         ("schema failure provenance changed", lambda p: p["supersession"]["v2_failure"].update(sha256="0" * 64)),
+        ("calibration solver changed", lambda p: p["metrics"]["calibration_solver"].update(root_method="guess")),
+        ("finite calibration gate removed", lambda p: p["decision_contract"].update(calibration_estimates_must_be_finite=False)),
     ]
     for label, mutate in mutations:
         candidate = copy.deepcopy(original)
         mutate(candidate)
         must_fail(candidate, args.evidence_root, label)
-    print("17/17")
+    print("19/19")
     return 0
 
 

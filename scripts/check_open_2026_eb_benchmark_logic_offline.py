@@ -14,7 +14,7 @@ if str(ROOT) not in sys.path:
 
 from src.evaluation.open_2026_probability_benchmark import (  # noqa: E402
     actual_markets, binary_metrics, paired_interval, period_mask,
-    rolling_pa_probabilities,
+    rolling_pa_probabilities, screen_market,
 )
 
 
@@ -29,6 +29,29 @@ def history_row(player_id: int, hits: int, pa: int = 10) -> dict:
 def main() -> int:
     metrics = binary_metrics(np.array([0, 1]), np.array([0.1, 0.9]))
     assert metrics["binary_brier"] < 0.02 and metrics["binary_log_loss"] < 0.11
+    calibration_metrics = binary_metrics(
+        np.array([0, 1, 0, 1]), np.array([0.1, 0.2, 0.8, 0.9])
+    )
+    assert np.isfinite([
+        calibration_metrics["calibration_intercept"], calibration_metrics["calibration_slope"],
+    ]).all()
+    screen_input = {
+        "comparisons": {
+            period: {"eb_vs_production": {
+                metric: {"point": -0.01, "upper": -0.001}
+                for metric in ("binary_log_loss", "binary_brier")
+            }}
+            for period in ("march_april", "june", "pooled_open")
+        },
+        "metrics": {"pooled_open": {
+            "empirical_bayes": {"calibration_intercept": 0.0, "calibration_slope": 1.0, "roc_auc": 0.6, "rows": 10},
+            "production": {"calibration_intercept": 0.1, "calibration_slope": 0.9, "roc_auc": 0.5, "rows": 10},
+        }},
+    }
+    assert screen_market(screen_input)["predictive_screen_passed"]
+    screen_input["metrics"]["pooled_open"]["empirical_bayes"]["calibration_intercept"] = float("nan")
+    failed_screen = screen_market(screen_input)
+    assert not failed_screen["calibration_estimates_available"] and not failed_screen["predictive_screen_passed"]
     interval = paired_interval(
         np.array([0, 1, 0, 1]), np.array([0.1, 0.9, 0.1, 0.9]),
         np.array([0.4, 0.6, 0.4, 0.6]), pd.Series(["a", "a", "b", "b"]),
@@ -63,7 +86,7 @@ def main() -> int:
     past_changed.loc[past_changed["game_date"] == "2026-03-25", "hits"] = 0
     _, changed, _ = rolling_pa_probabilities(history, targets, past_changed, prior_strength=200)
     assert np.array_equal(before[0], changed[0]) and not np.array_equal(before[1], changed[1])
-    print("9/9")
+    print("12/12")
     return 0
 
 
