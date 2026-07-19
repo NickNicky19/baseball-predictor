@@ -1,0 +1,84 @@
+{
+  "built_at_utc": "2026-07-19T22:33:40.612844+00:00",
+  "decision": {
+    "cross_fitted_classwise_calibration_candidate_permitted": false,
+    "reason": "Even the deliberately leaky full-period oracle misses at least one point materiality floor. A chronological calibration version cannot be claimed to supply the required material improvement."
+  },
+  "inputs": {
+    "selection_oof": {
+      "path": "C:\\Projects\\baseball_predictor\\data\\analysis\\shared_pa_regular_season_v1\\selection\\selection_oof.csv",
+      "rows": 43668,
+      "sha256": "2a0f02046a79420465d35ebc00c66badb55bb8942203efe13cbda46279e3d584"
+    },
+    "selection_report": {
+      "path": "C:\\Projects\\baseball_predictor\\data\\analysis\\shared_pa_regular_season_v1\\selection\\selection_report.json",
+      "sha256": "c36851bacfdfbb047a704c0a5cf5fed970d6e1253510b43ff79839ae8fb12206"
+    }
+  },
+  "materiality_screen": {
+    "multiclass_brier": {
+      "clears_even_optimistic_point_floor": false,
+      "oracle_minus_simple": -0.00043168332518439545,
+      "required_strictly_below": -0.004660965632301117
+    },
+    "multiclass_log_loss": {
+      "clears_even_optimistic_point_floor": false,
+      "oracle_minus_simple": -0.0007243873955993241,
+      "required_strictly_below": -0.012134926932596546
+    }
+  },
+  "optimizer": {
+    "gradient_norm": 0.060123985209043364,
+    "intercepts": {
+      "bip_out": -0.08722516204432022,
+      "double": -1.1542519008404288,
+      "home_run": 0.0492968999115361,
+      "other_non_ab": 0.5483083221054657,
+      "single": -0.3029559509172032,
+      "strikeout": 0.0022052335745753075,
+      "triple": 0.9757616992943805,
+      "walk": -0.03113914108438814
+    },
+    "iterations": 469,
+    "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+    "method": "full_2024_in_sample_multinomial_affine_log_probability_oracle",
+    "objective": 263836.6091996904,
+    "scales": {
+      "bip_out": 0.9178266782908671,
+      "double": 0.6533363856369102,
+      "home_run": 1.0341912481841262,
+      "other_non_ab": 1.1571678662613132,
+      "single": 0.8601355180062432,
+      "strikeout": 1.01624293844854,
+      "triple": 1.1850457725608297,
+      "walk": 1.0107233125692088
+    },
+    "success": true
+  },
+  "purpose": "Non-deployable upper-bound screen only; it cannot select, calibrate, promote, or authorize a model.",
+  "schema_version": "shared-pa-classwise-calibration-oracle-v1",
+  "scope": {
+    "betting_authorized": false,
+    "confirmation_2025_read": false,
+    "may_2026_read": false,
+    "production_changed": false,
+    "selection_season": [
+      2024
+    ]
+  },
+  "scores": {
+    "leaky_oracle": {
+      "multiclass_brier": 0.7078197391375288,
+      "multiclass_log_loss": 1.504225324262618
+    },
+    "raw_candidate": {
+      "multiclass_brier": 0.7078603957189146,
+      "multiclass_log_loss": 1.5044001196704098
+    },
+    "strongest_simple": {
+      "multiclass_brier": 0.7082514224627132,
+      "multiclass_log_loss": 1.5049497116582173
+    }
+  },
+  "status": "ORACLE_FAMILY_NOT_ELIGIBLE_FOR_CHALLENGER"
+}

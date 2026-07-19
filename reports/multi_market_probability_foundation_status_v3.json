@@ -1,0 +1,47 @@
+{
+  "schema_version": "multi-market-probability-foundation-status-v3",
+  "status": "ACTIVE_RESEARCH_FOUNDATION_CONSOLIDATED_NOT_BETTABLE",
+  "as_of": "2026-07-19",
+  "betting_authorized": false,
+  "production_changed": false,
+  "previous_consolidation": {
+    "path": "reports/multi_market_probability_foundation_status_v2.json",
+    "sha256": "2c47c62337a37110a3acd08f0b97d00b954350544b5be4caa7a4524c78804fbb"
+  },
+  "additional_rejection": {
+    "classwise_calibration_oracle": {
+      "path": "reports/shared_pa_classwise_calibration_oracle_v1.json",
+      "sha256": "b967ec11d0f4c7b6f297633fed2c37e837db3bcb8d008ca0c26fee8728e1209c",
+      "status": "ORACLE_FAMILY_NOT_ELIGIBLE_FOR_CHALLENGER",
+      "finding": "Even deliberately leaky full-2024 multinomial classwise calibration improved log loss versus empirical Bayes by only -0.000724 versus the locked -0.012135 materiality floor, and Brier by -0.000432 versus -0.004661.",
+      "decision": "Do not build or tune a chronological classwise-calibration candidate from this family."
+    }
+  },
+  "repetition_guard": {
+    "forbidden_without_new_measured_limiter": [
+      "regular-season-only Statcast filtering",
+      "global or classwise PA-output calibration",
+      "blanket PA-volume adjustment",
+      "Monte Carlo/analytic substitution",
+      "global or lineup-slot correction",
+      "opposing-pitcher contact using historically unproven T-4 pitcher identity"
+    ]
+  },
+  "current_surviving_evidence": {
+    "home_run_per_pa_component": "Rolling empirical-Bayes HR per-PA improvement confirmed historically; it remains insufficient for full-game HR or betting inference.",
+    "shared_batter_pa_engine": "No candidate has cleared the locked materiality requirement versus the strongest simple baseline."
+  },
+  "next_permitted_action": {
+    "action": "Collect and certify genuine prospective T-4 opposing-pitcher identity and as-of pitcher-stat inputs, then assess that distinct input family before fitting another batter PA challenger.",
+    "why": "The remaining strongest baseball-relevant input is opposing pitcher quality, but historical source labels lack timestamped T-4 availability proof. Further batter-only calibration/filter changes are now explicitly rejected.",
+    "must_not_do": "Do not use completed-game probable/actual pitcher fields as if they were T-4 observations, and do not open 2025 or May for another rejected family."
+  },
+  "protected_invariants": {
+    "may_2026_scope_incident_preserved_in_v2": true,
+    "no_market_or_product_pooling": true,
+    "historical_prices_not_executable_by_assumption": true,
+    "production_baselines_immutable": true,
+    "v13_operational_failure_preserved": true,
+    "no_betting_authorization": true
+  }
+}
