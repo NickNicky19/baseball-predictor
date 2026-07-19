@@ -31,3 +31,7 @@ def main(argv: list[str] | None = None) -> int:
     for key, value in verified.items():
         print(f"{key}: {value}")
     return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

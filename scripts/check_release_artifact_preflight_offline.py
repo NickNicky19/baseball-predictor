@@ -37,12 +37,20 @@ def main() -> int:
         artifact.write_bytes(b"verified kbb artifact")
         import hashlib
         config = {
+            "base_running": {
+                "pa_distribution_path": "data/learning/pa.json",
+            },
             "pa_simulator": {
                 "use_fitted_kbb": True,
                 "kbb_artifact_path": "data/learning/k.json",
                 "kbb_artifact_sha256": hashlib.sha256(artifact.read_bytes()).hexdigest(),
             }
         }
+        pa_artifact = root / "data" / "learning" / "pa.json"
+        pa_artifact.write_bytes(b"verified pa distribution artifact")
+        config["base_running"]["pa_distribution_sha256"] = hashlib.sha256(
+            pa_artifact.read_bytes()
+        ).hexdigest()
         config_path = root / "config" / "config.json"
         config_path.write_text(json.dumps(config), encoding="utf-8")
         validate_hash_bound_runtime_artifacts(repo_root=root, config_path=config_path)
@@ -55,7 +63,17 @@ def main() -> int:
         config["pa_simulator"]["kbb_artifact_path"] = "../outside.json"
         config_path.write_text(json.dumps(config), encoding="utf-8")
         must_fail(root, config_path, "artifact path escapes release")
-    print("3/3 mutations rejected")
+        config["pa_simulator"]["kbb_artifact_path"] = "data/learning/k.json"
+        config["base_running"].pop("pa_distribution_sha256")
+        config_path.write_text(json.dumps(config), encoding="utf-8")
+        must_fail(root, config_path, "unbound PA distribution")
+        config["base_running"]["pa_distribution_sha256"] = hashlib.sha256(
+            pa_artifact.read_bytes()
+        ).hexdigest()
+        pa_artifact.unlink()
+        config_path.write_text(json.dumps(config), encoding="utf-8")
+        must_fail(root, config_path, "missing PA distribution")
+    print("5/5 mutations rejected")
     return 0
 
 
