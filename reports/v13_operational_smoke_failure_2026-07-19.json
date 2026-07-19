@@ -1,0 +1,32 @@
+{
+  "schema_version": "operational-smoke-failure-record-v1",
+  "status": "INVALID_NO_CAPTURE",
+  "betting_authorized": false,
+  "economic_evidence_eligible": false,
+  "official_date": "2026-07-19",
+  "clean_release_commit": "a6374ca",
+  "frozen_release_modified": false,
+  "backfill_attempted": false,
+  "retry_after_failure_attempted_by_codex": false,
+  "collector_stopped_to_prevent_further_automatic_attempts": true,
+  "material_failure": "The frozen prediction runtime could not find data\\learning\\k_bb_pre2026.json, so no prediction or market capture could be committed.",
+  "exception": "ValueError: K/BB artifact does not exist: data\\learning\\k_bb_pre2026.json",
+  "missing_bound_artifact_verified": true,
+  "automatic_prediction_failures_before_stop": 20,
+  "identical_stderr_sha256": "c571138e2a7e43fd6c381d03b511955944a3714970ba2d4fb9c46f9b8093dbe4",
+  "first_failure_at_utc": "2026-07-19T11:55:27.1185617Z",
+  "last_failure_at_utc": "2026-07-19T12:14:34.6805116Z",
+  "first_entry_target_at_utc": "2026-07-19T12:15:00Z",
+  "collector_and_resource_monitor_stopped_at_approximately_utc": "2026-07-19T12:18:30Z",
+  "ledger": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "captured_observations": 0
+  },
+  "frozen_bindings": {
+    "plan_sha256": "0e0572c9cd9d4148b9a86781498b4650bc366383fd956d12b2133f97c14a473c",
+    "runtime_manifest_sha256": "ec2d0237113d6132813a194ad091e0828b5ba0638e3394cc27fe94a1e6e75099",
+    "evidence_scope_sha256": "ce03881079eb0a8c7b1bf47ea55bac8aa270b32736fae677bde3b80d0903a145"
+  },
+  "disposition": "The v13 smoke is permanently rejected as prospective evidence. It must not be repaired, retried, or backfilled. Any future smoke requires a new versioned clean release and a future untouched official date."
+}
