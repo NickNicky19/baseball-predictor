@@ -1,0 +1,3 @@
+CUMULATIVE HISTORY ARTIFACT CERTIFIED
+rows: 87462
+zero_pa_feature_rows: 28

@@ -1,0 +1,46 @@
+{
+  "schema_version": "shared-pa-cumulative-history-reproducibility-v1",
+  "status": "BYTE_REPRODUCIBLE_ARTIFACT_CERTIFIED",
+  "betting_authorized": false,
+  "production_changed": false,
+  "confirmation_2025_read": false,
+  "may_2026_read": false,
+  "source_commit": "0822386",
+  "artifact": {
+    "path": "data/analysis/shared_pa_foundation_v1/cumulative_history_v4/canonical_hitter_history_2023_2024.csv.gz",
+    "sha256": "d334566c6e8a7be8c77d0a47f27fc90a59841bc4b69a9c512fe7680a32e158af",
+    "uncompressed_sha256": "3af40d1f2e96b843ad1958ebc687378d540922b5ca2fca023090f0f8f52e7548",
+    "bytes": 13292746,
+    "rows": 87462
+  },
+  "manifest": {
+    "sha256": "b8a6d90c65f63e9e4cfec7b2778313d3c3c0347968477c236e6aa67cba6e298d",
+    "bytes": 3428
+  },
+  "certificate": {
+    "sha256": "d50d8e44cfb75eb2228e3823ded62ca9d619230454e5d62ffb7bb89b97764c98",
+    "bytes": 5148,
+    "status": "CUMULATIVE_HISTORY_ARTIFACT_CERTIFIED"
+  },
+  "replay": {
+    "path": "data/analysis/shared_pa_foundation_v1/cumulative_history_v4_replay/canonical_hitter_history_2023_2024.csv.gz",
+    "sha256": "d334566c6e8a7be8c77d0a47f27fc90a59841bc4b69a9c512fe7680a32e158af",
+    "bytes": 13292746,
+    "byte_identical": true
+  },
+  "logs": {
+    "build_stdout_sha256": "ac8ef018bd25cff61fa6ac9350bb8b9bfb0afb15beb5469b959ed58dadc3afab",
+    "build_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "validate_stdout_sha256": "f17b0590093d19a2169bafd7653078a0985e8fea6ad095b4f14c48d221ad8e57",
+    "validate_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "replay_stdout_sha256": "28cedb5f479950d8e2d30bdd060ca257b7b71462e0960991a7985fbd45936e43",
+    "replay_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "protected_invariants": {
+    "full_artifact_replayed_from_same_commit": true,
+    "compressed_bytes_identical": true,
+    "confirmation_2025_unread": true,
+    "may_2026_unread": true,
+    "production_unchanged": true
+  }
+}
