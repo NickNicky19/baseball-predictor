@@ -1,0 +1,96 @@
+{
+  "schema_version": "shared-pa-cumulative-rejection-diagnostic-record-v1",
+  "status": "CERTIFIED_REJECTION_DIAGNOSIS_REPRODUCED",
+  "betting_authorized": false,
+  "production_changed": false,
+  "confirmation_2025_opened": false,
+  "may_2026_opened": false,
+  "source_commit": "b4d0f45bdf3aa38cfd3c66a32bf62d9829f4ed95",
+  "artifacts": {
+    "protocol": {
+      "root": "code",
+      "path": "config/shared_pa_cumulative_rejection_diagnostic_protocol.json",
+      "sha256": "1042d0d65dff6cfeda371851dcdeb4d2aa9f2460eacfa45c8a78625b51b08455"
+    },
+    "report": {
+      "root": "evidence",
+      "path": "data/analysis/shared_pa_foundation_v1/cumulative_selection_v3/rejection_diagnostic_v1.json",
+      "sha256": "3fb2815cfdc49847bc8e7ad9f9b4f377840e44783167d7eb18b746928febceed"
+    },
+    "certificate": {
+      "root": "evidence",
+      "path": "data/analysis/shared_pa_foundation_v1/cumulative_selection_v3/rejection_diagnostic_v1.certificate.json",
+      "sha256": "7eca278f50e7a5c3a896ff812fc58a1468608c274d7309d5a6c812dbad90ab1d"
+    }
+  },
+  "population": {
+    "rows": 43668,
+    "dates": 183,
+    "pa": 175397,
+    "seasons": [2024],
+    "coverage_loss": 0
+  },
+  "diagnostic_ranking": {
+    "eligible_pa_outcomes": ["bip_out", "single"],
+    "highest_pa_outcome_target": "bip_out",
+    "eligible_derived_markets": [],
+    "highest_derived_market_target": "NO_ROBUST_TARGET_IDENTIFIED",
+    "diagnostic_only_not_candidate_selection": true
+  },
+  "measured_findings": {
+    "bip_out": {
+      "actual_rate": 0.4549564701790795,
+      "mean_share_of_positive_improvement": 0.589398609119573,
+      "vs_strongest_simple": {
+        "log_loss_point": -0.005256231998554078,
+        "log_loss_upper_95": -0.004877026585240236,
+        "brier_point": -0.0006860825510407754,
+        "brier_upper_95": -0.0005644774398140752
+      },
+      "vs_canonical_v1": {
+        "log_loss_point": -0.001044342201332221,
+        "log_loss_upper_95": -0.0005753941543401872,
+        "brier_point": -0.00026913611924250975,
+        "brier_upper_95": -0.000179203701117865
+      }
+    },
+    "single": {
+      "actual_rate": 0.14251669070736672,
+      "mean_share_of_positive_improvement": 0.10725078183077782,
+      "vs_strongest_simple": {
+        "log_loss_point": -0.001162396706173859,
+        "log_loss_upper_95": -0.000815631903481934,
+        "brier_point": -0.0000856828626947986,
+        "brier_upper_95": -0.0000452574032334348
+      },
+      "vs_canonical_v1": {
+        "log_loss_point": -0.001068546742208831,
+        "log_loss_upper_95": -0.0009343651768900164,
+        "brier_point": -0.000080364303776298,
+        "brier_upper_95": -0.00005827660706740512
+      }
+    },
+    "largest_offsetting_log_loss_regression": {
+      "pa_outcome": "strikeout",
+      "vs_strongest_simple_point": 0.0022644074948469984,
+      "vs_strongest_simple_upper_95": 0.0028415982102221703,
+      "vs_canonical_v1_point": 0.002191209261426697,
+      "vs_canonical_v1_upper_95": 0.0025076040707323636
+    },
+    "derived_market_conclusion": "All nine derived market point estimates improved against the strongest empirical-Bayes simple comparator with paired upper bounds below zero, but none cleared both score bounds against canonical v1. Cumulative history therefore provides real PA-level signal without a certified incremental derived-market gain over the prior canonical challenger."
+  },
+  "decision": {
+    "cumulative_candidate_remains_rejected": true,
+    "confirmation_2025_must_remain_unread": true,
+    "next_experiment_must_not_reuse_flat_multiclass_cumulative_design": true,
+    "highest_value_next_design": "Predeclare a coherent hierarchical PA challenger that keeps the recent-history K/BB/non-contact branch separate from a cumulative-history contact-quality branch, then evaluate the combined probabilities against both locked comparators on 2024 only.",
+    "reason": "The flat cumulative multiclass model gained primarily from BIP outs and singles but materially worsened strikeout log-loss contribution. Separating non-contact and contacted-ball probability stages is the smallest evidence-supported mechanism that can preserve the measured contact gain without forcing cumulative history into the strikeout branch."
+  },
+  "protected_invariants": {
+    "rejected_model_not_advanced": true,
+    "confirmation_2025_unread": true,
+    "may_2026_unread": true,
+    "production_unchanged": true,
+    "betting_unauthorized": true
+  }
+}
