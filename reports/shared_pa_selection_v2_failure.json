@@ -1,0 +1,38 @@
+{
+  "schema_version": "shared-pa-selection-failure-v1",
+  "status": "STOPPED_BEFORE_METRICS",
+  "betting_authorized": false,
+  "may_2026_opened": false,
+  "confirmation_2025_opened": false,
+  "source_commit": "26ef58484cb1e68f01e69f1d20ff763b79ccde98",
+  "started_at_utc": "2026-07-19T12:20:53Z",
+  "stopped_at_approximately_utc": "2026-07-19T12:26:22Z",
+  "stdout": {
+    "path": "reports/shared_pa_selection_v2.out.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "reports/shared_pa_selection_v2.err.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "material_failure": "The historical selector's candidate feature surface was not proven reproducible from the open-2026 point-in-time runtime snapshots. Continuing could have selected a historically strong model that could not be generated live without changed definitions or unmeasured fallbacks.",
+  "failure_class": "RUNTIME_FEATURE_PARITY_PRECONDITION_MISSING",
+  "model_fit_started": true,
+  "selection_metrics_published": false,
+  "output_directory_published": false,
+  "observed_contract_mismatches": [
+    "Historical career/recent-rate fields were not serialized in the open-2026 feature snapshots under the same definitions.",
+    "Historical rolling Statcast xwOBA, xBA, xSLG, exit-velocity, launch-angle, barrel, hard-hit, and whiff fields were not populated in the open-2026 runtime snapshots under the same windows.",
+    "Historical opposing-pitcher K/BB/HR inputs did not yet have a proven one-to-one definition and fallback mapping to the live runtime fields."
+  ],
+  "protected_invariants": {
+    "no_2025_rows_loaded": true,
+    "may_2026_remained_sealed": true,
+    "production_unchanged": true,
+    "no_metrics_used_for_selection": true,
+    "no_partial_output_treated_as_evidence": true
+  },
+  "retry_policy": "A versioned v3 selection may run only after an exact canonical point-in-time feature contract proves identical definitions, availability, chronology, and measured fallback behavior on both the pre-2026 training source and open-2026 runtime. The v2 logs remain immutable."
+}
