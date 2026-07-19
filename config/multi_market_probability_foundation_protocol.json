@@ -1,0 +1,151 @@
+{
+  "schema_version": "multi-market-probability-foundation-protocol-v1",
+  "status": "LOCKED_BEFORE_CHALLENGER_FIT",
+  "source_commit": "a6374ca7b3154a50b3a389e5ad2eda2e5634426f",
+  "markets": ["hits", "home_runs", "total_bases", "rbi", "hrr", "strikeouts"],
+  "shared_pa_outcomes": [
+    "strikeout", "walk", "single", "double", "triple", "home_run",
+    "bip_out", "other_non_ab"
+  ],
+  "betting_authorized": false,
+  "chronology": {
+    "initial_fit_seasons": [2023],
+    "selection_seasons": [2024],
+    "confirmation_open_once_seasons": [2025],
+    "open_2026_research_months": ["2026-03", "2026-04", "2026-06"],
+    "may_2026_forbidden": true
+  },
+  "material_improvement_gate": {
+    "beat_current_model": true,
+    "beat_strongest_simple_baseline": true,
+    "paired_brier_improvement": true,
+    "paired_log_loss_improvement": true,
+    "calibration_noninferior": true,
+    "discrimination_noninferior": true,
+    "season_and_line_stability": true,
+    "coverage_noninferior": true,
+    "no_leakage": true,
+    "no_unmeasured_fallback": true,
+    "open_2026_economic_coherence": true
+  },
+  "supersession": {
+    "hits_contact_selection": "hits_contact_open_rejection"
+  },
+  "training_inputs": {
+    "migration_protocol": {
+      "path": "data/analysis/hr_over_contract_v1/pre2026_a3_2_migration_v2/migration_protocol.json",
+      "sha256": "3476d59538f1027150e44fd8721cafae497cbabc96f3052dec18c8f423df8bc0"
+    },
+    "assembled_validation": {
+      "path": "data/analysis/hr_over_contract_v1/pre2026_a3_2_migration_v2/assembled_validation_report.json",
+      "sha256": "47236d30ac63684c7fa7b70e0fa1d3d9124c8f6b9c743032aa555923bc289113"
+    },
+    "corrected_hitters": {
+      "path": "data/analysis/hr_over_contract_v1/pre2026_a3_2_migration_v2/training/training_hitters_2023_2025_statcast.csv.gz",
+      "sha256": "3fc38325007845d6a7a99102274f7e520ed6f4310cc2a3248ebc441afeb814c5"
+    },
+    "corrected_pitchers": {
+      "path": "data/analysis/hr_over_contract_v1/pre2026_a3_2_migration_v2/training/training_pitchers_2023_2025.csv.gz",
+      "sha256": "18501bac763ff82599e93e435bfe21977797ef5df3676949470222caa1b4981b"
+    }
+  },
+  "evidence": [
+    {
+      "id": "hits_consolidated_baseline",
+      "path": "data/analysis/hits_evidence_consolidation_v1/report.json",
+      "sha256": "d8f20e6f440341076aea36f288cce908a0a2c99f22385f1429811e21f6ecce43",
+      "disposition": "ACCEPTED_BASELINE",
+      "assertions": [
+        {"path": ["status"], "equals": "CONSOLIDATED_RESEARCH_ONLY"},
+        {"path": ["evidence", "policy_fit", "verdict"], "equals": "NO_POLICY_QUALIFIES"}
+      ]
+    },
+    {
+      "id": "hits_contact_open_rejection",
+      "path": "data/analysis/hits_contact_adapter_candidate_v1/open_adjudication_report.json",
+      "sha256": "aace784fded2c1c32b0759ceef392b113fc8e55940ea3791b90cd9f2fe55deac",
+      "disposition": "REJECTED",
+      "assertions": [
+        {"path": ["status"], "equals": "CANDIDATE_REJECTED_OPEN_GATE_FAILED"},
+        {"path": ["gate", "all_pass"], "equals": false}
+      ]
+    },
+    {
+      "id": "pitcher_contact_rejection",
+      "path": "data/analysis/pitcher_contact_audit_v1/report.json",
+      "sha256": "19a127819eae4f65112d23d4606343b889a61356a4fde25073a47495bd253c2c",
+      "disposition": "REJECTED",
+      "assertions": [
+        {"path": ["gate", "all_pass"], "equals": false},
+        {"path": ["production_candidate_supported"], "equals": false}
+      ]
+    },
+    {
+      "id": "hr_batted_ball_open_rejection",
+      "path": "data/analysis/hr_over_contract_v1/batted_ball_candidate_v1/REJECTED_OPEN_PERIOD.json",
+      "sha256": "5f7fa92f841cb19ebb93390448b4741bc6728d5370e06aaef80fe7663017b2cf",
+      "disposition": "REJECTED",
+      "assertions": [
+        {"path": ["status"], "equals": "REJECTED_ON_LOCKED_OPEN_PERIOD_GATE"},
+        {"path": ["decision"], "equals": "REJECT_CANDIDATE_KEEP_FROZEN_BEHAVIOR"}
+      ]
+    },
+    {
+      "id": "hits_policy_rejection",
+      "path": "data/analysis/market_policy_hits_2026/policy_fit_time_safe_v6_release/fit_report.json",
+      "sha256": "7d7f91630a8700509e693e95f2be0250511af7f738360c74170efd993128ecb8",
+      "disposition": "REJECTED",
+      "assertions": [
+        {"path": ["verdict"], "equals": "NO_POLICY_QUALIFIES"},
+        {"path": ["fit_gate_passed"], "equals": false}
+      ]
+    },
+    {
+      "id": "total_bases_readiness",
+      "path": "data/analysis/other_market_contracts_v1/total_bases_readiness.json",
+      "sha256": "734a73ecccd4465ae0baeefa287de3978d568194e7671d7bffe17d1f19338733",
+      "disposition": "READINESS_ONLY",
+      "assertions": [
+        {"path": ["market"], "equals": "total_bases"},
+        {"path": ["reconstruction_ready"], "equals": false}
+      ]
+    },
+    {
+      "id": "rbi_readiness",
+      "path": "data/analysis/other_market_contracts_v1/rbi_readiness.json",
+      "sha256": "983af06d6a918134b12a98011a2a3546b3503c871c17dfeb174d6841a46744ae",
+      "disposition": "READINESS_ONLY",
+      "assertions": [
+        {"path": ["market"], "equals": "rbi"},
+        {"path": ["code_readiness", "projection_path_present"], "equals": false}
+      ]
+    },
+    {
+      "id": "hrr_readiness",
+      "path": "data/analysis/other_market_contracts_v1/hrr_readiness.json",
+      "sha256": "12b2c086628f1815e1ac67a83da348ab4b5f39cfe266ac8f27dcbc6939909d0f",
+      "disposition": "READINESS_ONLY",
+      "assertions": [
+        {"path": ["market"], "equals": "hrr"},
+        {"path": ["reconstruction_ready"], "equals": false}
+      ]
+    },
+    {
+      "id": "pitcher_strikeout_readiness",
+      "path": "reports/pitcher_strikeout_readiness_audit_2026-07-17.md",
+      "sha256": "66b9519c0e25da1bd710367ec1c16fa2f339ecdfe7a32bc3fc0c295188a62b82",
+      "disposition": "READINESS_ONLY",
+      "assertions": []
+    },
+    {
+      "id": "legacy_gbm_benchmark",
+      "path": "reports/benchmark_gbm.json",
+      "sha256": "ec83452874099d6c423f7edea98280433e1e55bde72d028a64162ae1768015cc",
+      "disposition": "READINESS_ONLY",
+      "notes": "Retired a3.1 count-regression experiment: sampled dates, MAE-only gate, no probability calibration, no uncertainty, and no corrected a3.2 identity. It cannot be promoted or reinterpreted as the shared PA-probability challenger.",
+      "assertions": [
+        {"path": ["split_date"], "equals": "2025-09-01"}
+      ]
+    }
+  ]
+}

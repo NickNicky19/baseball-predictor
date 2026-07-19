@@ -1,0 +1,166 @@
+{
+  "schema_version": "shared-batter-pa-benchmark-protocol-v1",
+  "status": "LOCKED_BEFORE_2025_CONFIRMATION",
+  "betting_authorized": false,
+  "may_2026_forbidden": true,
+  "foundation_protocol": {
+    "path": "config/multi_market_probability_foundation_protocol.json",
+    "sha256": "42239a4c2a219c40900855421390f9702e0bfca50f51c23ff474147cdb3ff82d"
+  },
+  "identity_key": ["game_pk", "player_id"],
+  "chronology": {
+    "fit": [2023],
+    "rolling_selection": [2024],
+    "confirmation_open_once": [2025],
+    "open_2026_research": ["2026-03", "2026-04", "2026-06"],
+    "forbidden": ["2026-05"]
+  },
+  "selection_input_boundary": {
+    "ordered_prefix_only": true,
+    "maximum_rows_read": 87462,
+    "expected_rows_by_season": {"2023": 43740, "2024": 43722},
+    "expected_date_min": "2023-03-30",
+    "expected_date_max": "2024-09-30",
+    "forbid_any_loaded_year_at_or_after": 2025
+  },
+  "outcome_classes": [
+    "strikeout", "walk", "single", "double", "triple", "home_run",
+    "bip_out", "other_non_ab"
+  ],
+  "outcome_accounting": {
+    "strikeout": "out_k",
+    "walk": "out_bb",
+    "single": "out_hits-out_doubles-out_triples-out_hr",
+    "double": "out_doubles",
+    "triple": "out_triples",
+    "home_run": "out_hr",
+    "bip_out": "out_ab-out_k-out_hits",
+    "other_non_ab": "out_pa-out_ab-out_bb"
+  },
+  "forbidden_features": [
+    "builder_schema", "roller_schema", "season", "game_date", "game_pk",
+    "player_id", "player_name", "out_pa", "out_ab", "out_hits",
+    "out_doubles", "out_triples", "out_hr", "out_rbi", "out_runs",
+    "out_bb", "out_k"
+  ],
+  "quarantined_until_availability_proven": [
+    "umpire_id", "umpire_resolved", "weather_temp", "weather_wind", "weather_resolved"
+  ],
+  "model_family": {
+    "kind": "catboost_multiclass",
+    "reason": "One coherent nonlinear probability model with native missing and categorical handling; no separate market-specific regressions.",
+    "selection_loss": "MultiClass",
+    "random_seed": 260719,
+    "bounded_grid": {
+      "depth": [4, 6],
+      "l2_leaf_reg": [3, 10],
+      "learning_rate": [0.03],
+      "iterations_max": [1200],
+      "early_stopping_rounds": [100]
+    },
+    "inner_early_stopping": {
+      "holdout_tail_official_dates": 28,
+      "selection_only": true
+    }
+  },
+  "sequential_feature_variants": [
+    {
+      "id": "core",
+      "groups": ["career_and_recent_rate"],
+      "selection_data": "2024_rolling_origin_only"
+    },
+    {
+      "id": "core_statcast",
+      "groups": ["career_and_recent_rate", "statcast_rolling"],
+      "selection_data": "2024_rolling_origin_only"
+    },
+    {
+      "id": "core_statcast_pitcher",
+      "groups": ["career_and_recent_rate", "statcast_rolling", "opposing_pitcher"],
+      "selection_data": "2024_rolling_origin_only"
+    },
+    {
+      "id": "core_statcast_pitcher_context",
+      "groups": ["career_and_recent_rate", "statcast_rolling", "opposing_pitcher", "pregame_context"],
+      "selection_data": "2024_rolling_origin_only"
+    }
+  ],
+  "feature_group_contract": {
+    "career_and_recent_rate": [
+      "pit_pa", "pit_avg", "pit_obp", "pit_slg", "recent_pa", "recent_avg",
+      "recent_obp", "recent_slg", "recent_hr", "recent_k", "recent_bb",
+      "recent_pa_15", "roll15_k_rate", "roll15_bb_rate", "roll15_babip",
+      "recent_pa_30", "roll30_k_rate", "roll30_bb_rate", "roll30_babip",
+      "has_prior_data"
+    ],
+    "statcast_rolling": [
+      "roll15_games", "roll15_bip", "roll15_xwoba", "roll15_xba", "roll15_xslg",
+      "roll15_ev", "roll15_la", "roll15_barrel_rate", "roll15_hardhit_rate",
+      "roll15_whiff_rate", "roll30_games", "roll30_bip", "roll30_xwoba",
+      "roll30_xba", "roll30_xslg", "roll30_ev", "roll30_la",
+      "roll30_barrel_rate", "roll30_hardhit_rate", "roll30_whiff_rate"
+    ],
+    "opposing_pitcher": [
+      "opp_sp_throws", "opp_sp_source", "opp_sp_ip", "opp_sp_k9", "opp_sp_bb9",
+      "opp_sp_hr9", "opp_sp_gs", "opp_sp_recent_ip", "opp_sp_recent_k9",
+      "opp_sp_recent_bb9", "opp_sp_recent_hr9"
+    ],
+    "pregame_context": [
+      "lineup_slot", "bats", "platoon_adv", "is_home", "venue"
+    ]
+  },
+  "required_baselines": [
+    "league_rate", "lineup_slot_rate", "empirical_bayes_player_rate",
+    "current_production_on_open_2026", "valid_market_implied_on_open_2026"
+  ],
+  "selection_folds": [
+    ["2024-03-28", "2024-06-30"],
+    ["2024-07-01", "2024-07-31"],
+    ["2024-08-01", "2024-08-31"],
+    ["2024-09-01", "2024-09-30"]
+  ],
+  "simple_baseline_selection": {
+    "source": "2024_rolling_origin_only",
+    "empirical_bayes_prior_strength_pa_grid": [50, 100, 200, 400],
+    "selection_metric": "multiclass_log_loss",
+    "tie_breaker": "multiclass_brier"
+  },
+  "calibration": {
+    "method": "single_temperature_multiclass",
+    "selection_source": "2024_out_of_fold_only",
+    "selection_evaluation": "chronological_cross_fitted_by_selection_fold",
+    "first_fold_temperature": 1.0,
+    "log_temperature_bounds": [-2.0, 2.0],
+    "identity_calibration_is_default": true,
+    "install_only_if_both_proper_scores_improve": true,
+    "install_only_if_both_paired_interval_uppers_below_zero": true
+  },
+  "pa_volume": {
+    "artifact_path": "data/analysis/hr_over_contract_v1/pre2026_a3_2_migration_v2/pa_distribution_fit_2023_2024.json",
+    "sha256": "d61818e0fd4cfb70e40fdb240dc372ee5872b43263157ca1b23ee30cb3983570",
+    "realized_pa_forbidden_as_prediction_input": true
+  },
+  "required_metrics": {
+    "pa_primary": ["multiclass_log_loss", "multiclass_brier"],
+    "per_class": ["binary_brier", "binary_log_loss", "roc_auc", "calibration_intercept", "calibration_slope"],
+    "derived_markets": ["hits_0.5", "hits_1.5", "home_runs_0.5", "total_bases_0.5_to_5.5"],
+    "uncertainty_unit": "official_game_date",
+    "bootstrap_draws": 10000,
+    "bootstrap_seed": 260719
+  },
+  "confirmation_gate": {
+    "beat_current_and_best_simple_where_comparable": true,
+    "paired_log_loss_interval_upper_below_zero": true,
+    "paired_brier_interval_upper_below_zero": true,
+    "calibration_noninferior": true,
+    "discrimination_noninferior": true,
+    "all_season_direction_consistent": true,
+    "relevant_line_direction_consistent": true,
+    "identical_coverage": true,
+    "fallbacks_measured": true,
+    "no_subgroup_material_regression": true,
+    "open_2026_economic_coherence": true,
+    "production_requires_capture_lower_bound_above_0_10": true,
+    "production_requires_net_roi_lower_bound_above_zero": true
+  }
+}
