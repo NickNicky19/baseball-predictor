@@ -1,0 +1,87 @@
+{
+  "schema_version": "shared-pa-runtime-feature-contract-v1",
+  "status": "LOCKED_BEFORE_CANONICAL_SELECTION_ARTIFACT",
+  "betting_authorized": false,
+  "may_2026_forbidden": true,
+  "confirmation_2025_forbidden_during_selection_build": true,
+  "selection_seasons": [2023, 2024],
+  "selection_rows": 87462,
+  "identity_key": ["game_pk", "player_id"],
+  "training_source": {
+    "path": "data/analysis/hr_over_contract_v1/pre2026_a3_2_migration_v2/training/training_hitters_2023_2025_statcast.csv.gz",
+    "sha256": "3fc38325007845d6a7a99102274f7e520ed6f4310cc2a3248ebc441afeb814c5",
+    "maximum_rows_read": 87462
+  },
+  "statcast_inventory": {
+    "path": "data/analysis/hitter_skill_contact_audit_v1/statcast_source_inventory.json",
+    "sha256": "54508a45cf1a57cf1d2239ed5c078db5540a93bf3660b62442383786772949d1",
+    "tree_sha256": "7590b8bd3e5e7fdb28792733e0a9df746066925fc7efe48ad7a8cbcd56d1befe",
+    "allowed_years_during_selection_build": [2023, 2024]
+  },
+  "event_taxonomy": {
+    "path": "data/analysis/shared_pa_foundation_v1/statcast_event_taxonomy_2023_2024_v2.json",
+    "sha256": "2ebc728ebfc5b4464ef51c50e289d4b18e236f76add3fbe2489fe64a6909d89a",
+    "required_status": "VALID_COMPLETE_TAXONOMY",
+    "selection_files_verified": 1288,
+    "terminal_events_observed": 22,
+    "unmapped_events_required": 0
+  },
+  "canonical_transformer": {
+    "path": "src/features/canonical_pa_features.py",
+    "schema_version": "shared-pa-canonical-statcast-v1",
+    "window": {
+      "fetch_lookback_days_argument": 45,
+      "calendar_days_inclusive_source_request": 46,
+      "interval": "[target_date-46 calendar days, target_date)",
+      "same_day_excluded": true,
+      "all_statcast_game_types_retained": true
+    },
+    "fallback": {
+      "league_values_imputed": false,
+      "missing_history_remains_missing": true,
+      "sample_counts_required": true,
+      "unknown_terminal_events_fail_closed": true
+    }
+  },
+  "classifier_feature_groups": {
+    "canonical_hitter_46d": [
+      "hitter_pitch_count", "hitter_pa", "hitter_bip", "hitter_k_rate",
+      "hitter_bb_rate", "hitter_single_rate", "hitter_double_rate",
+      "hitter_triple_rate", "hitter_home_run_rate", "hitter_bip_out_rate",
+      "hitter_other_non_ab_rate", "hitter_xwoba", "hitter_xba",
+      "hitter_xslg", "hitter_avg_exit_velocity", "hitter_avg_launch_angle",
+      "hitter_barrel_rate", "hitter_hard_hit_rate", "hitter_whiff_rate",
+      "hitter_chase_rate", "hitter_contact_rate", "hitter_swing_rate",
+      "hitter_zone_rate"
+    ],
+    "raw_pregame_context": ["bats", "opp_sp_throws", "is_home", "venue"]
+  },
+  "quarantined_from_classifier": [
+    "lineup_slot", "park_hits_factor", "park_hr_factor", "park_runs_factor",
+    "weather_temp", "weather_wind", "weather_is_dome", "umpire_id",
+    "platoon_adv", "pit_avg", "pit_obp", "pit_slg", "recent_avg",
+    "recent_obp", "recent_slg", "roll15_xwoba", "roll30_xwoba",
+    "opp_sp_k9", "opp_sp_bb9", "opp_sp_hr9"
+  ],
+  "quarantine_reasons": {
+    "lineup_slot": "Official historical slot is retained for PA-volume diagnostics but is not proven available at T-4h.",
+    "hand_set_context": "Existing park, weather, and platoon adjustments are not fitted under this protocol.",
+    "legacy_rollups": "Historical season/recent/A4 fields do not have an identical serialized live-runtime definition.",
+    "opposing_pitcher": "A complete point-in-time pitcher Statcast source and live-equivalent fallback contract has not yet passed coverage audit."
+  },
+  "required_runtime_parity": {
+    "same_transformer_file_and_hash": true,
+    "same_raw_column_contract": true,
+    "same_window_boundary": true,
+    "same_missingness_semantics": true,
+    "same_event_accounting": true,
+    "same_identity_resolution": true,
+    "no_unmeasured_fallback": true
+  },
+  "protected_evidence": {
+    "selector_v2_failure": "reports/shared_pa_selection_v2_failure.json",
+    "production_unchanged": true,
+    "confirmation_2025_unread": true,
+    "may_2026_unread": true
+  }
+}

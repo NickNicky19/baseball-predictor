@@ -1,0 +1,26 @@
+Traceback (most recent call last):
+  File "C:\Projects\baseball_predictor\.codex-hits-model-v1\scripts\build_shared_pa_canonical_hitter_features.py", line 271, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "C:\Projects\baseball_predictor\.codex-hits-model-v1\scripts\build_shared_pa_canonical_hitter_features.py", line 266, in main
+    build(args.evidence_root.resolve(), args.out_dir.resolve(), args.contract.resolve())
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\baseball_predictor\.codex-hits-model-v1\scripts\build_shared_pa_canonical_hitter_features.py", line 162, in build
+    profiles = canonical_profiles(
+        raw,
+    ...<3 lines>...
+        prefix="hitter",
+    )
+  File "C:\Projects\baseball_predictor\.codex-hits-model-v1\src\features\canonical_pa_features.py", line 126, in canonical_profiles
+    _canonical_profile_prepared(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        work,
+        ^^^^^
+    ...<3 lines>...
+        prefix=prefix,
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Projects\baseball_predictor\.codex-hits-model-v1\src\features\canonical_pa_features.py", line 175, in _canonical_profile_prepared
+    raise ValueError(f"unmapped terminal Statcast events: {unknown}")
+ValueError: unmapped terminal Statcast events: ['double_play']

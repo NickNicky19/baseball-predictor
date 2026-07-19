@@ -1,0 +1,32 @@
+{
+  "schema_version": "shared-pa-canonical-build-failure-v1",
+  "status": "FAILED_CLOSED_ON_UNMAPPED_EVENT",
+  "betting_authorized": false,
+  "confirmation_2025_read": false,
+  "may_2026_read": false,
+  "production_modified": false,
+  "started_at_approximately_utc": "2026-07-19T12:43:18Z",
+  "failed_at_utc": "2026-07-19T12:43:20.2819708Z",
+  "source_commit_before_uncommitted_canonical_files": "368d964f465e29b3711ae6ba8d203c660b0ada94",
+  "runtime_file_hashes": {
+    "config/shared_pa_runtime_feature_contract.json": "288430d4fa396daadc676e210e89ac12a7af9415ab0f0832524bcdf80f7982d2",
+    "scripts/build_shared_pa_canonical_hitter_features.py": "09163aff51f53f79776cfd245ab47878d107404810fc0991ff0c962b67e71b90",
+    "src/features/canonical_pa_features.py": "a5378e8b2d040907e0551093574b6ca3690118b10c25754d667b90d416ea0b37"
+  },
+  "stdout": {
+    "path": "reports/shared_pa_canonical_hitter_build_v1.out.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "reports/shared_pa_canonical_hitter_build_v1.err.txt",
+    "sha256": "c7477a35f25544cbcaa19079f844dea53e34de3efa86a023b3255a7eada335b0",
+    "bytes": 1377
+  },
+  "failure_class": "UNMAPPED_TERMINAL_STATCAST_EVENT",
+  "material_failure": "The locked raw source contained terminal event 'double_play', which was absent from the explicit PA accounting taxonomy. The builder stopped instead of silently assigning it.",
+  "partial_artifact_published": false,
+  "selection_metrics_published": false,
+  "repair_contract": "Audit every distinct 2023-2024 terminal Statcast event and its frequency before adding an exhaustive, factual event taxonomy. Mutation-test the taxonomy, version the build logs, and rerun from the beginning.",
+  "retry_policy": "Do not reuse v1 logs or claim any partial evidence. A v2 build may run only after the full event taxonomy audit is hash-bound and the corrected taxonomy passes offline checks."
+}
