@@ -37,7 +37,7 @@ CHECKS = {
     "execution_product_contracts": ("scripts/check_execution_product_contracts_offline.py", "8/8 checks passed", 8),
     "execution_product_observation": ("scripts/check_execution_product_observation_offline.py", "8/8 checks passed", 8),
     "tracked_secret_scanner": ("scripts/check_tracked_secrets_offline.py", "3/3 checks passed", 3),
-    "release_artifact_preflight": ("scripts/check_release_artifact_preflight_offline.py", "5/5 mutations rejected", 5),
+    "release_artifact_preflight": ("scripts/check_release_artifact_preflight_offline.py", "7/7 mutations rejected", 7),
 }
 
 BOUND_FILES = [

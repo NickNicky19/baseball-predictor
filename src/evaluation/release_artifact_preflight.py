@@ -93,9 +93,37 @@ def validate_hash_bound_runtime_artifacts(*, repo_root: str | Path, config_path:
         expected=base_running.get("pa_distribution_sha256"),
         label="PA distribution",
     )
+
+    settlement_relative = "config/shadow_draftkings_hits_reference_settlement.json"
+    settlement = (root / settlement_relative).resolve()
+    if not settlement.is_file():
+        raise ReleaseArtifactPreflightError(
+            f"reference settlement contract does not exist in release: {settlement_relative}"
+        )
+    try:
+        settlement_payload = _mapping(
+            json.loads(settlement.read_text(encoding="utf-8")),
+            "reference settlement contract",
+        )
+    except (OSError, json.JSONDecodeError) as exc:
+        raise ReleaseArtifactPreflightError(
+            "reference settlement contract is unreadable"
+        ) from exc
+    if settlement_payload.get("schema_version") != "shadow-draftkings-hits-reference-settlement-v1":
+        raise ReleaseArtifactPreflightError("reference settlement contract has an unknown schema")
+    rule_path, rule_hash = _validate_hash_bound_file(
+        root=root,
+        relative=settlement_payload.get("rule_evidence_path"),
+        expected=settlement_payload.get("rule_evidence_sha256"),
+        label="DraftKings settlement-rule evidence",
+    )
     return {
         "kbb_artifact_path": kbb_path,
         "kbb_artifact_sha256": kbb_hash,
         "pa_distribution_path": pa_path,
         "pa_distribution_sha256": pa_hash,
+        "reference_settlement_contract_path": settlement_relative,
+        "reference_settlement_contract_sha256": _sha256(settlement),
+        "settlement_rule_evidence_path": rule_path,
+        "settlement_rule_evidence_sha256": rule_hash,
     }

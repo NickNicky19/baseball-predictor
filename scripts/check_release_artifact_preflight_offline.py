@@ -52,6 +52,20 @@ def main() -> int:
             pa_artifact.read_bytes()
         ).hexdigest()
         config_path = root / "config" / "config.json"
+        settlement = root / "config" / "shadow_draftkings_hits_reference_settlement.json"
+        rule = root / "data" / "rules" / "draftkings.json"
+        rule.parent.mkdir(parents=True, exist_ok=True)
+        rule.write_bytes(b"verified DraftKings rules")
+        settlement.write_text(
+            json.dumps(
+                {
+                    "schema_version": "shadow-draftkings-hits-reference-settlement-v1",
+                    "rule_evidence_path": "data/rules/draftkings.json",
+                    "rule_evidence_sha256": hashlib.sha256(rule.read_bytes()).hexdigest(),
+                }
+            ),
+            encoding="utf-8",
+        )
         config_path.write_text(json.dumps(config), encoding="utf-8")
         validate_hash_bound_runtime_artifacts(repo_root=root, config_path=config_path)
         print("[OK] complete hash-bound release validates")
@@ -73,7 +87,26 @@ def main() -> int:
         pa_artifact.unlink()
         config_path.write_text(json.dumps(config), encoding="utf-8")
         must_fail(root, config_path, "missing PA distribution")
-    print("5/5 mutations rejected")
+        pa_artifact.write_bytes(b"verified pa distribution artifact")
+        config["base_running"]["pa_distribution_sha256"] = hashlib.sha256(
+            pa_artifact.read_bytes()
+        ).hexdigest()
+        settlement.unlink()
+        config_path.write_text(json.dumps(config), encoding="utf-8")
+        must_fail(root, config_path, "missing settlement contract")
+        settlement.write_text(
+            json.dumps(
+                {
+                    "schema_version": "shadow-draftkings-hits-reference-settlement-v1",
+                    "rule_evidence_path": "data/rules/draftkings.json",
+                    "rule_evidence_sha256": hashlib.sha256(rule.read_bytes()).hexdigest(),
+                }
+            ),
+            encoding="utf-8",
+        )
+        rule.unlink()
+        must_fail(root, config_path, "missing settlement-rule evidence")
+    print("7/7 mutations rejected")
     return 0
 
 
