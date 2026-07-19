@@ -1,0 +1,107 @@
+{
+  "schema_version": "shared-pa-cumulative-certified-rejection-v1",
+  "status": "CUMULATIVE_SELECTION_REJECTION_CERTIFIED",
+  "betting_authorized": false,
+  "production_changed": false,
+  "confirmation_2025_opened": false,
+  "may_2026_opened": false,
+  "source_commit": "7cf93f9",
+  "selection_population": {
+    "seasons": [2023, 2024],
+    "scored_rows": 43668,
+    "scored_dates": 183,
+    "strongest_simple": "empirical_bayes_player_rate_pa_200"
+  },
+  "artifacts": {
+    "report": {
+      "path": "data/analysis/shared_pa_foundation_v1/cumulative_selection_v3/selection_report.json",
+      "sha256": "233885c2dd8e88ae3b4d2886b6a625ef8bbe727ec5548dc165609ad8514695d3"
+    },
+    "oof": {
+      "path": "data/analysis/shared_pa_foundation_v1/cumulative_selection_v3/selection_oof.csv",
+      "sha256": "847ab60beddeb03568320366f4af2e485936630fe70900a0866986ec333a7bd9",
+      "bytes": 37908581
+    },
+    "certificate": {
+      "path": "data/analysis/shared_pa_foundation_v1/cumulative_selection_v3/selection_certificate.json",
+      "sha256": "2be8907408ac8c3acde174f3cf855830cc279c596f0bc60db34c8ddc880023cc"
+    }
+  },
+  "certification": {
+    "independent_status": "CUMULATIVE_SELECTION_REJECTION_CERTIFIED",
+    "validator_mutations_passed": 14,
+    "validator_mutations_required": 14,
+    "protocol_checks_passed": 17,
+    "selection_logic_checks_passed": 14,
+    "mechanical_retry_v2_checks_passed": 10,
+    "mechanical_retry_v3_checks_passed": 14
+  },
+  "scores": {
+    "league_rate": {
+      "multiclass_log_loss": 1.5170846385908132,
+      "multiclass_brier": 0.7129123880950143
+    },
+    "strongest_simple": {
+      "multiclass_log_loss": 1.5049497116582167,
+      "multiclass_brier": 0.7082514224627132
+    },
+    "canonical_v1": {
+      "multiclass_log_loss": 1.5039925004041703,
+      "multiclass_brier": 0.7077029817506865
+    },
+    "cumulative_core": {
+      "multiclass_log_loss": 1.5013859320255498,
+      "multiclass_brier": 0.706821538431459
+    }
+  },
+  "paired_candidate_minus_baseline": {
+    "vs_strongest_simple": {
+      "multiclass_log_loss": {
+        "point": -0.003563779632667027,
+        "upper_95": -0.0030313782172864995,
+        "required_below": -0.012134926932596546,
+        "fraction_of_materiality_floor_reached": 0.293679529548224,
+        "passed": false
+      },
+      "multiclass_brier": {
+        "point": -0.0014298840312542615,
+        "upper_95": -0.0012323369478827036,
+        "required_below": -0.004660965632301117,
+        "fraction_of_materiality_floor_reached": 0.30677849700177434,
+        "passed": false
+      }
+    },
+    "vs_canonical_v1": {
+      "multiclass_log_loss": {
+        "point": -0.002606568378620327,
+        "upper_95": -0.002261764771046834,
+        "passed": true
+      },
+      "multiclass_brier": {
+        "point": -0.0008814433192275529,
+        "upper_95": -0.0007390583030521761,
+        "passed": true
+      }
+    }
+  },
+  "decision": {
+    "selection_passed": false,
+    "reason": "The cumulative model improved both proper scores against the simple and canonical comparators with paired strength, but did not clear either predeclared materiality floor against the strongest simple baseline.",
+    "stability_not_opened": true,
+    "context_not_opened": true,
+    "calibration_not_installed": true,
+    "model_not_published": true,
+    "confirmation_2025_must_remain_unread": true
+  },
+  "invalid_attempts": [
+    {
+      "record": "reports/shared_pa_cumulative_selection_v1_INVALID_INCOMPLETE.json",
+      "admissible": false
+    },
+    {
+      "record": "reports/shared_pa_cumulative_selection_v2_INVALID_INCOMPLETE.json",
+      "admissible": false
+    }
+  ],
+  "highest_value_next_action": "On 2024 selection evidence only, independently decompose the certified proper-score improvement by PA outcome class and recompute the derived Hits, HR, and Total Bases diagnostics against both comparators. Use that read-only diagnosis to identify one measured target; do not open 2025, lower the floor, or carry this rejected model forward."
+}
