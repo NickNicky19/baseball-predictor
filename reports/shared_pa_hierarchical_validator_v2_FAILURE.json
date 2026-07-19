@@ -1,0 +1,33 @@
+{
+  "schema_version": "shared-pa-hierarchical-validator-failure-v2",
+  "status": "VALIDATOR_RETRY_SCOPE_FAILURE_RESULT_UNADJUDICATED",
+  "betting_authorized": false,
+  "production_changed": false,
+  "confirmation_2025_opened": false,
+  "may_2026_opened": false,
+  "failure": {
+    "type": "validator_retry_runtime_scope_mismatch",
+    "message": "ValueError: hierarchical runtime changed: scripts/check_shared_pa_hierarchical_selection_validator_mutations.py",
+    "cause": "Retry v2 authorized a validator-only mapping repair, but the validator mutation checker was also changed. The report-bound runtime hash correctly rejected that broader scope.",
+    "model_result_adjudicated": false,
+    "certificate_published": false
+  },
+  "unchanged_complete_selector_artifacts": {
+    "report_sha256": "c97f10adb7b884086e441db9a8d4acf2ba0717bd0da76f551bb431e958a2e38e",
+    "oof_sha256": "6740817ce9f8ae46a54094dea7e424514b5ba89caaeb0cfbd06fb3d85ffe66c7"
+  },
+  "retry_v2": {
+    "path": "config/shared_pa_hierarchical_validator_retry_v2.json",
+    "sha256": "d9c1870bda33def43e0f67341793cd2d15abb2348e7b26e73a9d26c28897258c"
+  },
+  "repaired_validator_sha256": "841be4ffaede62d988bcedf4655460f37775a81a4e07efd0fe9c649748984dbf",
+  "expected_original_mutation_checker_sha256": "f61b9feb66aea5ac4a464090708e5122f22a64a746d943bde70008674b5983b5",
+  "unexpected_changed_mutation_checker_sha256": "1fa8e8a7c5bf09b52403cbedcc5a267245fc52d4f3c41c28b56659280d0a8012",
+  "protected_invariants": {
+    "selector_artifacts_byte_identical": true,
+    "confirmation_2025_unread": true,
+    "may_2026_unread": true,
+    "production_unchanged": true,
+    "betting_unauthorized": true
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "schema_version": "shared-pa-hierarchical-validator-retry-v3",
+  "status": "LOCKED_SCOPE_RESTORATION_BEFORE_CERTIFICATION",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "confirmation_2025_forbidden": true,
+  "may_2026_forbidden": true,
+  "allowed_changes": [
+    "restore_validator_mutation_checker_byte_for_byte_to_report_bound_hash",
+    "teach_certifier_to_bind_retry_v3_after_scope_restoration"
+  ],
+  "required_hashes": {
+    "selector_report": "c97f10adb7b884086e441db9a8d4acf2ba0717bd0da76f551bb431e958a2e38e",
+    "selector_oof": "6740817ce9f8ae46a54094dea7e424514b5ba89caaeb0cfbd06fb3d85ffe66c7",
+    "repaired_validator_before_v3": "841be4ffaede62d988bcedf4655460f37775a81a4e07efd0fe9c649748984dbf",
+    "restored_mutation_checker": "f61b9feb66aea5ac4a464090708e5122f22a64a746d943bde70008674b5983b5"
+  },
+  "failure_v2_record": {
+    "path": "reports/shared_pa_hierarchical_validator_v2_FAILURE.json",
+    "sha256": "b8dbb23c39bb66855d6c86509560cb70ef339b569417228d1092e3b7e6ff3f04"
+  },
+  "forbidden_changes": [
+    "selector", "model", "features", "probabilities", "outcomes", "selection_protocol",
+    "materiality", "market_gates", "stability", "calibration", "report", "oof"
+  ],
+  "post_retry_requirements": {
+    "validator_mapping_round_trip_required": true,
+    "original_mutation_checker_must_pass_unchanged": true,
+    "certificate_atomic": true,
+    "all_prior_failures_preserved": true
+  }
+}
