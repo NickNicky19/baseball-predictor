@@ -109,7 +109,19 @@ def binary_class_metrics(
                 calibrated = np.clip(calibrated, EPSILON, 1.0 - EPSILON)
                 return float(-(positive * np.log(calibrated) + negative * np.log1p(-calibrated)).sum())
 
-            fitted = minimize(objective, x0=np.array([0.0, 1.0]), method="BFGS")
+            def gradient(parameters: np.ndarray) -> np.ndarray:
+                linear = parameters[0] + parameters[1] * model_logit
+                calibrated = 1.0 / (1.0 + np.exp(-np.clip(linear, -40.0, 40.0)))
+                calibrated = np.clip(calibrated, EPSILON, 1.0 - EPSILON)
+                residual = exposure * calibrated - positive
+                return np.asarray([residual.sum(), (residual * model_logit).sum()], dtype=float)
+
+            # Supplying the exact gradient avoids BFGS's finite-difference
+            # precision-loss false failures on rare PA outcomes.  These are
+            # diagnostics only; they never recalibrate model probabilities.
+            fitted = minimize(
+                objective, x0=np.array([0.0, 1.0]), jac=gradient, method="BFGS"
+            )
             if fitted.success and np.isfinite(fitted.x).all():
                 calibration_intercept = float(fitted.x[0])
                 calibration_slope = float(fitted.x[1])

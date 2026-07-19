@@ -60,6 +60,8 @@ def main() -> int:
         probs,
     )
     assert class_metrics["single"]["sufficient_evidence"] is True
+    assert np.isfinite(class_metrics["single"]["calibration_intercept"])
+    assert np.isfinite(class_metrics["single"]["calibration_slope"])
     assert class_metrics["triple"]["sufficient_evidence"] is False
     print("[OK] exact per-class scoring flags degenerate evidence")
     events, labels, weights = weighted_event_rows(frame, ["x"])
