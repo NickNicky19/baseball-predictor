@@ -1,0 +1,85 @@
+{
+  "schema_version": "multi-market-probability-readiness-v1",
+  "status": "READINESS_UPDATED_AFTER_HITS_1_5_REJECTION",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "may_2026_opened": false,
+  "markets_are_not_pooled": true,
+  "evidence": {
+    "cumulative_rejections": {"path": "reports/shared_pa_cumulative_rejection_diagnostic_v1_CERTIFIED.json", "sha256": "2cf2fac038da5344c0a8a31487c20738119487e6cff3ce5701e0c3c7f16e8454"},
+    "open_probability_benchmark": {"path": "reports/open_2026_eb_benchmark_v4_CERTIFIED.json", "sha256": "cd53bee161335ff8bb8a24d241e71bd4e463921003e721eda38365f1d88f3cfa"},
+    "hr_open_gate": {"path": "reports/hr_eb_simplification_open_v1_CERTIFIED.json", "sha256": "558e06f4d181fa12efd1826b0c5d112d127bcc60dbd88c55ff5084ca32f34830"},
+    "hr_2025_confirmation": {"path": "reports/hr_eb_per_pa_2025_confirmation_v2_CERTIFIED.json", "sha256": "009c411ea512b34bf4373fac590b8b41cdcd2e04cf26bb4f91f14bcc9dbe6c63"},
+    "hits_1_5_open_gate": {"path": "reports/hits_1_5_eb_open_v1_CERTIFIED.json", "sha256": "e7708c197558dccfca9169f1bb70482cd0cb1e833a4bc1c64a68ccb532d10d9a"},
+    "other_market_contracts": {"path": "data/analysis/other_market_contracts_v1/report.json", "sha256": "9f9d118790b7aee7001a6e1d336d818382fffdbcc2357ec7defbdbd3756ac26c"},
+    "pitcher_k_readiness": {"path": "reports/pitcher_strikeout_readiness_audit_2026-07-17.md", "sha256": "66b9519c0e25da1bd710367ec1c16fa2f339ecdfe7a32bc3fc0c295188a62b82"}
+  },
+  "market_readiness": {
+    "hits_0_5": {
+      "probability_candidate": "REJECTED",
+      "economic_candidate": "NONE",
+      "production_action": "RETAIN",
+      "next_model_intervention": "NONE_UNTIL_A_NEW_MEASURED_LIMITER_EXISTS",
+      "reason": "Contact, blanket PA, Monte Carlo, simple calibration, opposing-pitcher contact, and shared-rate simplification paths did not satisfy the locked gates."
+    },
+    "hits_1_5": {
+      "probability_candidate": "REJECTED_ON_EXACT_MARKET_GRADEABLE_UNIVERSE",
+      "economic_candidate": "REJECTED",
+      "production_action": "RETAIN",
+      "next_model_intervention": "NONE",
+      "reason": "The broad diagnostic signal did not survive exact DraftKings market-row comparison against immutable production; both chronological blocks were worse on Brier and log loss."
+    },
+    "home_runs_0_5_over": {
+      "per_pa_component": "CONFIRMED_ON_2025",
+      "full_game_probability": "BLOCKED_ON_POINT_IN_TIME_LINEUP_AND_PA_VOLUME",
+      "historical_economics": "BLOCKED",
+      "production_action": "RETAIN",
+      "next_model_intervention": "NONE_UNTIL_VALID_POINT_IN_TIME_VOLUME_EVIDENCE_EXISTS",
+      "reason": "The fitted per-PA HR rate is a verified improvement, but full-game probability and economics cannot inherit that claim."
+    },
+    "total_bases": {
+      "probability_candidate": "READINESS_ONLY",
+      "economic_candidate": "NONE",
+      "production_action": "RETAIN",
+      "next_model_intervention": "NONE",
+      "reason": "TB 3.5 showed player-rate signal but has only one complete DraftKings path; economically relevant TB 1.5 did not support the empirical-Bayes challenger."
+    },
+    "rbi": {
+      "probability_candidate": "NOT_READY",
+      "economic_candidate": "NONE",
+      "production_action": "RETAIN",
+      "next_model_intervention": "BLOCKED_BY_EXACT_OUTCOME_AND_COUPLED_CONTEXT_CONTRACT",
+      "reason": "RBI lacks an exact official outcome branch, canonical market identity, and a validated coupled game/base-state context layer."
+    },
+    "hits_runs_rbi": {
+      "probability_candidate": "NOT_READY",
+      "economic_candidate": "NONE",
+      "production_action": "RETAIN",
+      "next_model_intervention": "BLOCKED_BY_HISTORICAL_PRODUCT_AND_COUPLED_CONTEXT_CONTRACT",
+      "reason": "No matching historical vendor product survived the locked inventory and the current run/RBI context remains approximate."
+    },
+    "pitcher_strikeouts": {
+      "probability_candidate": "NOT_YET_ADJUDICATED",
+      "economic_candidate": "NONE",
+      "production_action": "RETAIN",
+      "historical_draftkings_two_sided_paths": 1948,
+      "next_model_intervention": "OUTCOME_BLIND_HARD_IDENTITY_AND_DUPLICATE_FUNNEL",
+      "reason": "Pitcher K is the only remaining market with substantial two-sided price inventory and an active projection path, but the existing legacy gate silently dropped unmatched keys and cannot be reused."
+    }
+  },
+  "selected_next_action": {
+    "market": "pitcher_strikeouts",
+    "action": "Build and hash-bind the March-April-June DraftKings T-4h/close hard event and pitcher identity funnel without reading May, vendor results, or official outcomes.",
+    "success_condition": "Every one of the 1,948 observed complete paths is assigned exactly one terminal state: hard-mapped unique MARKET_KEY, conflicting duplicate, event-unmapped, pitcher-unmapped, malformed, or another predeclared exclusion.",
+    "failure_condition": "Any silent drop, ambiguous identity arbitration, May access, vendor-result access, duplicate collapse, or inability to reconcile the denominator.",
+    "protected_invariants": [
+      "No model rewrite before the exact scoreable universe exists",
+      "No outcome or economic scoring during identity construction",
+      "No inherited 90-minute freshness claim",
+      "No product pooling",
+      "No production change",
+      "May remains sealed",
+      "No betting authorization"
+    ]
+  }
+}
