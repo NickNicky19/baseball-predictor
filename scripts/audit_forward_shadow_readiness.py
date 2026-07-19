@@ -37,6 +37,7 @@ CHECKS = {
     "execution_product_contracts": ("scripts/check_execution_product_contracts_offline.py", "8/8 checks passed", 8),
     "execution_product_observation": ("scripts/check_execution_product_observation_offline.py", "8/8 checks passed", 8),
     "tracked_secret_scanner": ("scripts/check_tracked_secrets_offline.py", "3/3 checks passed", 3),
+    "release_artifact_preflight": ("scripts/check_release_artifact_preflight_offline.py", "5/5 mutations rejected", 5),
 }
 
 BOUND_FILES = [
@@ -82,6 +83,7 @@ BOUND_FILES = [
     "src/evaluation/execution_product_observation.py",
     "src/data/mlb_api.py",
     "src/utils/provenance.py",
+    "src/evaluation/release_artifact_preflight.py",
     "run_slate.py",
     "run_shadow_primary_collector.py",
     "run_shadow_close_collector.py",
@@ -93,6 +95,8 @@ BOUND_FILES = [
     "scripts/verify_shadow_capture_tree.py",
     "scripts/verify_shadow_lifecycle_tree.py",
     "scripts/check_tracked_secrets.py",
+    "scripts/validate_release_hash_bound_artifacts.py",
+    "scripts/check_release_artifact_preflight_offline.py",
     "deploy/shadow_collector/baseball-shadow-collector.service",
     "deploy/shadow_collector/baseball-shadow-collector.timer",
     "deploy/shadow_collector/windows/Run-LocalOperationalSmoke.ps1",
@@ -162,6 +166,8 @@ def main(argv: list[str] | None = None) -> int:
         or "--date $OfficialDate" not in windows_runner
         or "the runner never rolls into another date" not in windows_runner
         or '$env:PYTHONDONTWRITEBYTECODE = "1"' not in windows_runner
+        or "validate_release_hash_bound_artifacts.py" not in windows_runner
+        or "collector will not start" not in windows_runner
     ):
         raise ValueError(
             "local operational smoke is not fixed to one date or can mutate tracked bytecode"
