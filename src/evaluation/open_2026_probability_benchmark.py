@@ -153,8 +153,8 @@ def rolling_pa_probabilities(
     base = history_counts.copy()
     base["player_id"] = history["player_id"].astype(int).to_numpy()
     grouped = base.groupby("player_id", sort=False)[PA_OUTCOMES].sum()
-    league_counts = grouped.sum(axis=0).to_numpy(float)
-    player_counts = {int(index): row.to_numpy(float) for index, row in grouped.iterrows()}
+    league_counts = grouped.sum(axis=0).to_numpy(float).copy()
+    player_counts = {int(index): row.to_numpy(float).copy() for index, row in grouped.iterrows()}
     league_parts: list[np.ndarray] = []
     eb_parts: list[np.ndarray] = []
     fallback_parts: list[np.ndarray] = []
