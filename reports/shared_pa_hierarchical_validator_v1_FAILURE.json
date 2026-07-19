@@ -1,0 +1,40 @@
+{
+  "schema_version": "shared-pa-hierarchical-validator-failure-v1",
+  "status": "VALIDATOR_MECHANICAL_FAILURE_RESULT_UNADJUDICATED",
+  "betting_authorized": false,
+  "production_changed": false,
+  "confirmation_2025_opened": false,
+  "may_2026_opened": false,
+  "source_commit": "aade7a7c2992b26a2a829d15fdf3ee1ccfb96bd4",
+  "failure": {
+    "type": "validator_oof_outcome_shape_mismatch",
+    "message": "KeyError: 'out_k'",
+    "cause": "The complete selector OOF correctly publishes exhaustive actual_<PA outcome> columns, but validator v1 passed that OOF to a helper requiring raw out_* box-score columns.",
+    "model_result_adjudicated": false,
+    "certificate_published": false
+  },
+  "unchanged_complete_selector_artifacts": {
+    "report": {
+      "path": "data/analysis/shared_pa_foundation_v1/hierarchical_selection_v1/selection_report.json",
+      "sha256": "c97f10adb7b884086e441db9a8d4acf2ba0717bd0da76f551bb431e958a2e38e",
+      "bytes": 22720
+    },
+    "oof": {
+      "path": "data/analysis/shared_pa_foundation_v1/hierarchical_selection_v1/selection_oof.csv",
+      "sha256": "6740817ce9f8ae46a54094dea7e424514b5ba89caaeb0cfbd06fb3d85ffe66c7",
+      "bytes": 30710035
+    }
+  },
+  "failed_validator": {
+    "path": "scripts/validate_shared_pa_hierarchical_selection.py",
+    "sha256": "00f8f45da549f77dfd00a524b2ec131afe57f519c021ad69c895a46e2c8186c5"
+  },
+  "protected_invariants": {
+    "selector_artifacts_must_remain_byte_identical": true,
+    "validator_fix_only": true,
+    "confirmation_2025_unread": true,
+    "may_2026_unread": true,
+    "production_unchanged": true,
+    "betting_unauthorized": true
+  }
+}

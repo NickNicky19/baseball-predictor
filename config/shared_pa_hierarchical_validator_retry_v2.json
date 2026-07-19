@@ -1,0 +1,38 @@
+{
+  "schema_version": "shared-pa-hierarchical-validator-retry-v2",
+  "status": "LOCKED_VALIDATOR_ONLY_RETRY_BEFORE_CERTIFICATION",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "confirmation_2025_forbidden": true,
+  "may_2026_forbidden": true,
+  "selection_report_must_remain_byte_identical": true,
+  "selection_oof_must_remain_byte_identical": true,
+  "failed_validator_record": {
+    "path": "reports/shared_pa_hierarchical_validator_v1_FAILURE.json",
+    "sha256": "457da852d2a8e9cc0686314352452b98be037edd7e668e4f9afb5cd1065e61e9"
+  },
+  "allowed_change": {
+    "id": "reconstruct_raw_outcome_columns_from_exhaustive_actual_pa_classes_inside_validator_only",
+    "exact_mapping": {
+      "out_k": "actual_strikeout",
+      "out_bb": "actual_walk",
+      "out_hits": "actual_single + actual_double + actual_triple + actual_home_run",
+      "out_doubles": "actual_double",
+      "out_triples": "actual_triple",
+      "out_hr": "actual_home_run",
+      "out_ab": "actual_strikeout + actual_single + actual_double + actual_triple + actual_home_run + actual_bip_out",
+      "out_pa": "sum of all eight actual PA classes"
+    },
+    "must_prove_round_trip_outcome_counts_exact": true
+  },
+  "forbidden_changes": [
+    "selector", "model", "features", "probabilities", "outcomes", "protocol",
+    "materiality", "market_gates", "stability", "calibration", "report", "oof"
+  ],
+  "post_retry_requirements": {
+    "independent_full_recomputation": true,
+    "validator_mutations_required": true,
+    "certificate_atomic": true,
+    "no_inference_from_selector_terminal_output": true
+  }
+}
