@@ -128,8 +128,8 @@ def main() -> int:
         raise ValueError("official training outcome source is missing or hash-mismatched")
     history = pd.read_csv(training_path, compression="gzip", nrows=87462)
     required_history = {
-        "season", "game_date", "player_id", "out_k", "out_bb", "out_hbp",
-        "out_hr", "out_3b", "out_2b", "out_1b", "out_bip_out",
+        "season", "game_date", "player_id", "out_pa", "out_ab", "out_hits",
+        "out_doubles", "out_triples", "out_hr", "out_bb", "out_k",
     }
     if not required_history.issubset(history.columns):
         raise ValueError("official training outcome schema changed")
@@ -231,7 +231,7 @@ def main() -> int:
         ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
     ).strip()
     report = finite_or_none({
-        "schema_version": "open-2026-eb-production-benchmark-report-v2",
+        "schema_version": "open-2026-eb-production-benchmark-report-v3",
         "status": "OPEN_2026_EB_PRODUCTION_BENCHMARK_COMPLETE",
         "betting_authorized": False,
         "production_unchanged": True,

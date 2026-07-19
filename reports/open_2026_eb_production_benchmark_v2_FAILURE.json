@@ -1,0 +1,43 @@
+{
+  "schema_version": "open-2026-eb-production-benchmark-failure-v2",
+  "status": "FAILED_CLOSED_BEFORE_ANY_PREDICTION_OR_SCORE",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "may_2026_opened": false,
+  "confirmation_2025_opened": false,
+  "failure": {
+    "exception_type": "ValueError",
+    "message": "official training outcome schema changed",
+    "material_cause": "The retry runner incorrectly required per-class columns out_hbp, out_1b, out_2b, out_3b, and out_bip_out. The certified official player-game source instead exposes out_pa, out_ab, out_hits, out_doubles, out_triples, out_hr, out_bb, and out_k, which the already locked shared-PA outcome contract decomposes exhaustively into strikeout, walk, single, double, triple, home_run, bip_out, and other_non_ab.",
+    "scope_of_authorized_repair": "Replace only the erroneous required-column assertion with the previously locked shared-PA official outcome schema and decomposition. Do not change chronology, rows read, probabilities, prior strength, PA volume, markets, metrics, uncertainty, eligibility, or decision rules.",
+    "predictions_published": false,
+    "scores_published": false,
+    "economic_analysis_run": false
+  },
+  "runtime": {
+    "source_commit": "30f2bfaf54e3e8c0b2c4b17d05704af5a08ba788",
+    "protocol": {
+      "path": "config/open_2026_eb_production_benchmark_protocol_v2.json",
+      "sha256": "2179e1223e0b10498c9316ffae8ec9be38ff293dc004f105f1f68264fdca4afe"
+    },
+    "runner": {
+      "path": "scripts/run_open_2026_eb_production_benchmark.py",
+      "sha256": "31290f9e74735baf42e1ac8656066b69d46bcbad1df5998314635b5d5418867d"
+    },
+    "module": {
+      "path": "src/evaluation/open_2026_probability_benchmark.py",
+      "sha256": "e9b0d847ebc9457de181d51974e3d496c3b332d6c12a5dc4863715bc024e315d"
+    },
+    "source_manifest": {
+      "path": "data/analysis/shared_pa_foundation_v1/open_2026_benchmark_v4/source_manifest.json",
+      "sha256": "ff5d00282b452fa848f76bfc4f5a5ac23ed48eb627c861c26d3420180c288baa"
+    }
+  },
+  "protected_invariants": {
+    "May_2026_remains_sealed": true,
+    "2025_confirmation_remains_unread": true,
+    "production_unchanged": true,
+    "no_prediction_or_score_published": true,
+    "no_betting_authorization": true
+  }
+}

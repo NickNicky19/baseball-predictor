@@ -15,8 +15,8 @@ from src.evaluation.open_2026_benchmark_sources import validate_source_manifest
 from src.learning.shared_pa_model import PA_OUTCOMES, derived_market_probabilities, normalized_counts
 
 
-SCHEMA = "open-2026-eb-production-benchmark-protocol-v2"
-STATUS = "LOCKED_AFTER_SOURCE_REPAIR_BEFORE_OPEN_2026_BENCHMARK_SCORING"
+SCHEMA = "open-2026-eb-production-benchmark-protocol-v3"
+STATUS = "LOCKED_AFTER_OUTCOME_SCHEMA_REPAIR_BEFORE_OPEN_2026_BENCHMARK_SCORING"
 PRODUCTION_MARKETS = ["hits_0.5", "hits_1.5", "home_runs_0.5"]
 TOTAL_BASES_MARKETS = [f"total_bases_{line}" for line in (0.5, 1.5, 2.5, 3.5, 4.5, 5.5)]
 ALL_MARKETS = [*PRODUCTION_MARKETS, *TOTAL_BASES_MARKETS]
@@ -46,6 +46,8 @@ def validate_protocol(payload: dict[str, Any], *, evidence_root: str | Path) -> 
         "input_only_retry": ("config/open_2026_eb_benchmark_source_retry_v2.json", "3690f3ff29a46626d38bfe6ea65947991cf02934d88ab5c411120b5353a7b500"),
         "invalid_source_v2": ("reports/open_2026_benchmark_source_v2_BUILD_FAILURE.json", "b764b24ac6faf5f090c1e86fb5cb2ad070e4ba2691ff10714bf3e550a7ca1307"),
         "invalid_source_v3": ("reports/open_2026_benchmark_source_v3_BUILD_FAILURE.json", "72dadadb93b22ed57704cbca86a1647be42e8c416777eed827de9a8d15e5ad35"),
+        "unchanged_v2_protocol": ("config/open_2026_eb_production_benchmark_protocol_v2.json", "2179e1223e0b10498c9316ffae8ec9be38ff293dc004f105f1f68264fdca4afe"),
+        "v2_failure": ("reports/open_2026_eb_production_benchmark_v2_FAILURE.json", "4809fe8ad1dc354d6031ecb0efb277fe7ecf2842dc62f9552d982d695513de32"),
     }
     actual_supersession = {
         name: (record.get("path"), record.get("sha256"))

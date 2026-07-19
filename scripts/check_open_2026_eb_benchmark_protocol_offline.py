@@ -27,7 +27,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--evidence-root", type=Path, required=True)
     args = parser.parse_args()
-    original = load_protocol(ROOT / "config/open_2026_eb_production_benchmark_protocol_v2.json", evidence_root=args.evidence_root)
+    original = load_protocol(ROOT / "config/open_2026_eb_production_benchmark_protocol_v3.json", evidence_root=args.evidence_root)
     mutations = [
         ("May opened", lambda p: p.update(may_2026_opened=True)),
         ("2025 confirmation opened", lambda p: p.update(confirmation_2025_opened=True)),
@@ -44,12 +44,13 @@ def main() -> int:
         ("mixed result intervention", lambda p: p["decision_contract"].update(weak_or_mixed_result_requires_no_intervention=False)),
         ("betting authorized", lambda p: p.update(betting_authorized=True)),
         ("retry provenance changed", lambda p: p["supersession"]["v1_failure"].update(sha256="0" * 64)),
+        ("schema failure provenance changed", lambda p: p["supersession"]["v2_failure"].update(sha256="0" * 64)),
     ]
     for label, mutate in mutations:
         candidate = copy.deepcopy(original)
         mutate(candidate)
         must_fail(candidate, args.evidence_root, label)
-    print("16/16")
+    print("17/17")
     return 0
 
 
