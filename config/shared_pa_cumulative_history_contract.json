@@ -1,0 +1,71 @@
+{
+  "schema_version": "shared-pa-cumulative-history-contract-v1",
+  "status": "LOCKED_BEFORE_CUMULATIVE_HISTORY_BUILD",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "confirmation_2025_forbidden": true,
+  "may_2026_forbidden": true,
+  "selection_seasons": [2023, 2024],
+  "selection_rows": 87462,
+  "identity_key": ["game_pk", "player_id"],
+  "history_window": {
+    "start_inclusive": "2023-01-01",
+    "end_exclusive": "target official game_date",
+    "same_day_excluded": true,
+    "source_years_allowed": [2023, 2024],
+    "missing_history_remains_missing": true,
+    "league_fallback_imputed": false,
+    "hand_specified_shrinkage_applied": false
+  },
+  "training_source": {
+    "path": "data/analysis/hr_over_contract_v1/pre2026_a3_2_migration_v2/training/training_hitters_2023_2025_statcast.csv.gz",
+    "sha256": "3fc38325007845d6a7a99102274f7e520ed6f4310cc2a3248ebc441afeb814c5",
+    "maximum_rows_read": 87462
+  },
+  "statcast_inventory": {
+    "path": "data/analysis/hitter_skill_contact_audit_v1/statcast_source_inventory.json",
+    "sha256": "54508a45cf1a57cf1d2239ed5c078db5540a93bf3660b62442383786772949d1",
+    "tree_sha256": "7590b8bd3e5e7fdb28792733e0a9df746066925fc7efe48ad7a8cbcd56d1befe"
+  },
+  "event_taxonomy": {
+    "path": "data/analysis/shared_pa_foundation_v1/statcast_event_taxonomy_2023_2024_v2.json",
+    "sha256": "2ebc728ebfc5b4464ef51c50e289d4b18e236f76add3fbe2489fe64a6909d89a",
+    "required_status": "VALID_COMPLETE_TAXONOMY",
+    "selection_files_verified": 1288,
+    "unmapped_events_required": 0
+  },
+  "canonical_transformer": {
+    "path": "src/features/canonical_pa_features.py",
+    "sha256": "faf4d50395a7cb1941d3444c78caae0352ce7606c554f909c7be36a5ee24b3fc",
+    "schema_version": "shared-pa-canonical-statcast-v1",
+    "function": "canonical_profiles_between"
+  },
+  "recent_feature_artifact": {
+    "path": "data/analysis/shared_pa_foundation_v1/canonical_hitter_features_2023_2024.csv.gz",
+    "sha256": "fffee5f9614e76e6847d40db6ba3167673dbffba775bd4884176cf67a63b44d2",
+    "rows": 87462
+  },
+  "recent_feature_certificate": {
+    "path": "data/analysis/shared_pa_foundation_v1/canonical_hitter_features_2023_2024.certificate_v2.json",
+    "sha256": "1927f4c7fea085ce40df4a2459f150de24e644c2a7c5933ca1a74d7b09ae98b4",
+    "required_status": "CANONICAL_HITTER_ARTIFACT_CERTIFIED"
+  },
+  "feature_group": [
+    "history_pitch_count", "history_pa", "history_bip", "history_k_rate",
+    "history_bb_rate", "history_single_rate", "history_double_rate",
+    "history_triple_rate", "history_home_run_rate", "history_bip_out_rate",
+    "history_other_non_ab_rate", "history_xwoba", "history_xba",
+    "history_xslg", "history_avg_exit_velocity", "history_avg_launch_angle",
+    "history_barrel_rate", "history_hard_hit_rate", "history_whiff_rate",
+    "history_chase_rate", "history_contact_rate", "history_swing_rate",
+    "history_zone_rate"
+  ],
+  "protected_invariants": {
+    "raw_rates_and_counts_only": true,
+    "same_transformer_as_recent_window": true,
+    "same_day_excluded": true,
+    "confirmation_2025_unread": true,
+    "may_2026_unread": true,
+    "production_unchanged": true
+  }
+}
