@@ -1,0 +1,762 @@
+{
+  "betting_authorized": false,
+  "contamination": {
+    "affected_dates": [
+      {
+        "affected_player_game_rows": 270,
+        "game_date": "2023-03-30",
+        "non_regular_event_rows": 10327
+      },
+      {
+        "affected_player_game_rows": 90,
+        "game_date": "2023-03-31",
+        "non_regular_event_rows": 3320
+      },
+      {
+        "affected_player_game_rows": 270,
+        "game_date": "2023-04-01",
+        "non_regular_event_rows": 10500
+      },
+      {
+        "affected_player_game_rows": 269,
+        "game_date": "2023-04-02",
+        "non_regular_event_rows": 10363
+      },
+      {
+        "affected_player_game_rows": 269,
+        "game_date": "2023-04-03",
+        "non_regular_event_rows": 10357
+      },
+      {
+        "affected_player_game_rows": 251,
+        "game_date": "2023-04-04",
+        "non_regular_event_rows": 9739
+      },
+      {
+        "affected_player_game_rows": 216,
+        "game_date": "2023-04-05",
+        "non_regular_event_rows": 8223
+      },
+      {
+        "affected_player_game_rows": 107,
+        "game_date": "2023-04-06",
+        "non_regular_event_rows": 4183
+      },
+      {
+        "affected_player_game_rows": 251,
+        "game_date": "2023-04-07",
+        "non_regular_event_rows": 9677
+      },
+      {
+        "affected_player_game_rows": 270,
+        "game_date": "2023-04-08",
+        "non_regular_event_rows": 10447
+      },
+      {
+        "affected_player_game_rows": 269,
+        "game_date": "2023-04-09",
+        "non_regular_event_rows": 10531
+      },
+      {
+        "affected_player_game_rows": 251,
+        "game_date": "2023-04-10",
+        "non_regular_event_rows": 9524
+      },
+      {
+        "affected_player_game_rows": 269,
+        "game_date": "2023-04-11",
+        "non_regular_event_rows": 10357
+      },
+      {
+        "affected_player_game_rows": 269,
+        "game_date": "2023-04-12",
+        "non_regular_event_rows": 10426
+      },
+      {
+        "affected_player_game_rows": 126,
+        "game_date": "2023-04-13",
+        "non_regular_event_rows": 4680
+      },
+      {
+        "affected_player_game_rows": 268,
+        "game_date": "2023-04-14",
+        "non_regular_event_rows": 10115
+      },
+      {
+        "affected_player_game_rows": 268,
+        "game_date": "2023-04-15",
+        "non_regular_event_rows": 10151
+      },
+      {
+        "affected_player_game_rows": 249,
+        "game_date": "2023-04-16",
+        "non_regular_event_rows": 9374
+      },
+      {
+        "affected_player_game_rows": 196,
+        "game_date": "2023-04-17",
+        "non_regular_event_rows": 7060
+      },
+      {
+        "affected_player_game_rows": 304,
+        "game_date": "2023-04-18",
+        "non_regular_event_rows": 10593
+      },
+      {
+        "affected_player_game_rows": 268,
+        "game_date": "2023-04-19",
+        "non_regular_event_rows": 9057
+      },
+      {
+        "affected_player_game_rows": 124,
+        "game_date": "2023-04-20",
+        "non_regular_event_rows": 4041
+      },
+      {
+        "affected_player_game_rows": 248,
+        "game_date": "2023-04-21",
+        "non_regular_event_rows": 7476
+      },
+      {
+        "affected_player_game_rows": 283,
+        "game_date": "2023-04-22",
+        "non_regular_event_rows": 8298
+      },
+      {
+        "affected_player_game_rows": 264,
+        "game_date": "2023-04-23",
+        "non_regular_event_rows": 7467
+      },
+      {
+        "affected_player_game_rows": 194,
+        "game_date": "2023-04-24",
+        "non_regular_event_rows": 5187
+      },
+      {
+        "affected_player_game_rows": 265,
+        "game_date": "2023-04-25",
+        "non_regular_event_rows": 7152
+      },
+      {
+        "affected_player_game_rows": 267,
+        "game_date": "2023-04-26",
+        "non_regular_event_rows": 6827
+      },
+      {
+        "affected_player_game_rows": 191,
+        "game_date": "2023-04-27",
+        "non_regular_event_rows": 4577
+      },
+      {
+        "affected_player_game_rows": 210,
+        "game_date": "2023-04-28",
+        "non_regular_event_rows": 4725
+      },
+      {
+        "affected_player_game_rows": 281,
+        "game_date": "2023-04-29",
+        "non_regular_event_rows": 6052
+      },
+      {
+        "affected_player_game_rows": 244,
+        "game_date": "2023-04-30",
+        "non_regular_event_rows": 4978
+      },
+      {
+        "affected_player_game_rows": 141,
+        "game_date": "2023-05-01",
+        "non_regular_event_rows": 2947
+      },
+      {
+        "affected_player_game_rows": 243,
+        "game_date": "2023-05-02",
+        "non_regular_event_rows": 4649
+      },
+      {
+        "affected_player_game_rows": 278,
+        "game_date": "2023-05-03",
+        "non_regular_event_rows": 4740
+      },
+      {
+        "affected_player_game_rows": 174,
+        "game_date": "2023-05-04",
+        "non_regular_event_rows": 2641
+      },
+      {
+        "affected_player_game_rows": 257,
+        "game_date": "2023-05-05",
+        "non_regular_event_rows": 3650
+      },
+      {
+        "affected_player_game_rows": 257,
+        "game_date": "2023-05-06",
+        "non_regular_event_rows": 3376
+      },
+      {
+        "affected_player_game_rows": 252,
+        "game_date": "2023-05-07",
+        "non_regular_event_rows": 2927
+      },
+      {
+        "affected_player_game_rows": 186,
+        "game_date": "2023-05-08",
+        "non_regular_event_rows": 1884
+      },
+      {
+        "affected_player_game_rows": 247,
+        "game_date": "2023-05-09",
+        "non_regular_event_rows": 2117
+      },
+      {
+        "affected_player_game_rows": 244,
+        "game_date": "2023-05-10",
+        "non_regular_event_rows": 1599
+      },
+      {
+        "affected_player_game_rows": 90,
+        "game_date": "2023-05-11",
+        "non_regular_event_rows": 420
+      },
+      {
+        "affected_player_game_rows": 188,
+        "game_date": "2023-05-12",
+        "non_regular_event_rows": 700
+      },
+      {
+        "affected_player_game_rows": 120,
+        "game_date": "2023-05-13",
+        "non_regular_event_rows": 264
+      },
+      {
+        "affected_player_game_rows": 18,
+        "game_date": "2024-03-20",
+        "non_regular_event_rows": 383
+      },
+      {
+        "affected_player_game_rows": 18,
+        "game_date": "2024-03-21",
+        "non_regular_event_rows": 383
+      },
+      {
+        "affected_player_game_rows": 234,
+        "game_date": "2024-03-28",
+        "non_regular_event_rows": 9117
+      },
+      {
+        "affected_player_game_rows": 180,
+        "game_date": "2024-03-29",
+        "non_regular_event_rows": 7034
+      },
+      {
+        "affected_player_game_rows": 270,
+        "game_date": "2024-03-30",
+        "non_regular_event_rows": 10584
+      },
+      {
+        "affected_player_game_rows": 270,
+        "game_date": "2024-03-31",
+        "non_regular_event_rows": 10622
+      },
+      {
+        "affected_player_game_rows": 252,
+        "game_date": "2024-04-01",
+        "non_regular_event_rows": 9878
+      },
+      {
+        "affected_player_game_rows": 234,
+        "game_date": "2024-04-02",
+        "non_regular_event_rows": 8981
+      },
+      {
+        "affected_player_game_rows": 234,
+        "game_date": "2024-04-03",
+        "non_regular_event_rows": 9047
+      },
+      {
+        "affected_player_game_rows": 108,
+        "game_date": "2024-04-04",
+        "non_regular_event_rows": 4462
+      },
+      {
+        "affected_player_game_rows": 233,
+        "game_date": "2024-04-05",
+        "non_regular_event_rows": 9120
+      },
+      {
+        "affected_player_game_rows": 269,
+        "game_date": "2024-04-06",
+        "non_regular_event_rows": 10562
+      },
+      {
+        "affected_player_game_rows": 250,
+        "game_date": "2024-04-07",
+        "non_regular_event_rows": 9755
+      },
+      {
+        "affected_player_game_rows": 232,
+        "game_date": "2024-04-08",
+        "non_regular_event_rows": 9079
+      },
+      {
+        "affected_player_game_rows": 268,
+        "game_date": "2024-04-09",
+        "non_regular_event_rows": 10444
+      },
+      {
+        "affected_player_game_rows": 232,
+        "game_date": "2024-04-10",
+        "non_regular_event_rows": 8972
+      },
+      {
+        "affected_player_game_rows": 90,
+        "game_date": "2024-04-11",
+        "non_regular_event_rows": 3450
+      },
+      {
+        "affected_player_game_rows": 250,
+        "game_date": "2024-04-12",
+        "non_regular_event_rows": 9628
+      },
+      {
+        "affected_player_game_rows": 305,
+        "game_date": "2024-04-13",
+        "non_regular_event_rows": 11951
+      },
+      {
+        "affected_player_game_rows": 269,
+        "game_date": "2024-04-14",
+        "non_regular_event_rows": 10452
+      },
+      {
+        "affected_player_game_rows": 269,
+        "game_date": "2024-04-15",
+        "non_regular_event_rows": 10518
+      },
+      {
+        "affected_player_game_rows": 252,
+        "game_date": "2024-04-16",
+        "non_regular_event_rows": 9803
+      },
+      {
+        "affected_player_game_rows": 286,
+        "game_date": "2024-04-17",
+        "non_regular_event_rows": 10657
+      },
+      {
+        "affected_player_game_rows": 71,
+        "game_date": "2024-04-18",
+        "non_regular_event_rows": 2788
+      },
+      {
+        "affected_player_game_rows": 250,
+        "game_date": "2024-04-19",
+        "non_regular_event_rows": 8560
+      },
+      {
+        "affected_player_game_rows": 286,
+        "game_date": "2024-04-20",
+        "non_regular_event_rows": 9394
+      },
+      {
+        "affected_player_game_rows": 285,
+        "game_date": "2024-04-21",
+        "non_regular_event_rows": 9156
+      },
+      {
+        "affected_player_game_rows": 196,
+        "game_date": "2024-04-22",
+        "non_regular_event_rows": 5996
+      },
+      {
+        "affected_player_game_rows": 266,
+        "game_date": "2024-04-23",
+        "non_regular_event_rows": 7971
+      },
+      {
+        "affected_player_game_rows": 267,
+        "game_date": "2024-04-24",
+        "non_regular_event_rows": 7591
+      },
+      {
+        "affected_player_game_rows": 177,
+        "game_date": "2024-04-25",
+        "non_regular_event_rows": 4504
+      },
+      {
+        "affected_player_game_rows": 246,
+        "game_date": "2024-04-26",
+        "non_regular_event_rows": 6099
+      },
+      {
+        "affected_player_game_rows": 265,
+        "game_date": "2024-04-27",
+        "non_regular_event_rows": 6131
+      },
+      {
+        "affected_player_game_rows": 264,
+        "game_date": "2024-04-28",
+        "non_regular_event_rows": 5724
+      },
+      {
+        "affected_player_game_rows": 192,
+        "game_date": "2024-04-29",
+        "non_regular_event_rows": 3627
+      },
+      {
+        "affected_player_game_rows": 279,
+        "game_date": "2024-04-30",
+        "non_regular_event_rows": 5262
+      },
+      {
+        "affected_player_game_rows": 261,
+        "game_date": "2024-05-01",
+        "non_regular_event_rows": 4552
+      },
+      {
+        "affected_player_game_rows": 104,
+        "game_date": "2024-05-02",
+        "non_regular_event_rows": 1709
+      },
+      {
+        "affected_player_game_rows": 258,
+        "game_date": "2024-05-03",
+        "non_regular_event_rows": 3580
+      },
+      {
+        "affected_player_game_rows": 254,
+        "game_date": "2024-05-04",
+        "non_regular_event_rows": 3280
+      },
+      {
+        "affected_player_game_rows": 251,
+        "game_date": "2024-05-05",
+        "non_regular_event_rows": 2778
+      },
+      {
+        "affected_player_game_rows": 165,
+        "game_date": "2024-05-06",
+        "non_regular_event_rows": 1589
+      },
+      {
+        "affected_player_game_rows": 247,
+        "game_date": "2024-05-07",
+        "non_regular_event_rows": 1976
+      },
+      {
+        "affected_player_game_rows": 244,
+        "game_date": "2024-05-08",
+        "non_regular_event_rows": 1546
+      },
+      {
+        "affected_player_game_rows": 94,
+        "game_date": "2024-05-09",
+        "non_regular_event_rows": 459
+      },
+      {
+        "affected_player_game_rows": 169,
+        "game_date": "2024-05-10",
+        "non_regular_event_rows": 604
+      },
+      {
+        "affected_player_game_rows": 113,
+        "game_date": "2024-05-11",
+        "non_regular_event_rows": 235
+      },
+      {
+        "affected_player_game_rows": 18,
+        "game_date": "2025-03-18",
+        "non_regular_event_rows": 328
+      },
+      {
+        "affected_player_game_rows": 18,
+        "game_date": "2025-03-19",
+        "non_regular_event_rows": 333
+      },
+      {
+        "affected_player_game_rows": 251,
+        "game_date": "2025-03-27",
+        "non_regular_event_rows": 9847
+      },
+      {
+        "affected_player_game_rows": 162,
+        "game_date": "2025-03-28",
+        "non_regular_event_rows": 6135
+      },
+      {
+        "affected_player_game_rows": 270,
+        "game_date": "2025-03-29",
+        "non_regular_event_rows": 10650
+      },
+      {
+        "affected_player_game_rows": 233,
+        "game_date": "2025-03-30",
+        "non_regular_event_rows": 9180
+      },
+      {
+        "affected_player_game_rows": 251,
+        "game_date": "2025-03-31",
+        "non_regular_event_rows": 9686
+      },
+      {
+        "affected_player_game_rows": 234,
+        "game_date": "2025-04-01",
+        "non_regular_event_rows": 9098
+      },
+      {
+        "affected_player_game_rows": 269,
+        "game_date": "2025-04-02",
+        "non_regular_event_rows": 10383
+      },
+      {
+        "affected_player_game_rows": 89,
+        "game_date": "2025-04-03",
+        "non_regular_event_rows": 3577
+      },
+      {
+        "affected_player_game_rows": 250,
+        "game_date": "2025-04-04",
+        "non_regular_event_rows": 9849
+      },
+      {
+        "affected_player_game_rows": 251,
+        "game_date": "2025-04-05",
+        "non_regular_event_rows": 9773
+      },
+      {
+        "affected_player_game_rows": 268,
+        "game_date": "2025-04-06",
+        "non_regular_event_rows": 10238
+      },
+      {
+        "affected_player_game_rows": 196,
+        "game_date": "2025-04-07",
+        "non_regular_event_rows": 7530
+      },
+      {
+        "affected_player_game_rows": 267,
+        "game_date": "2025-04-08",
+        "non_regular_event_rows": 10326
+      },
+      {
+        "affected_player_game_rows": 267,
+        "game_date": "2025-04-09",
+        "non_regular_event_rows": 10344
+      },
+      {
+        "affected_player_game_rows": 107,
+        "game_date": "2025-04-10",
+        "non_regular_event_rows": 4278
+      },
+      {
+        "affected_player_game_rows": 251,
+        "game_date": "2025-04-11",
+        "non_regular_event_rows": 9762
+      },
+      {
+        "affected_player_game_rows": 267,
+        "game_date": "2025-04-12",
+        "non_regular_event_rows": 10344
+      },
+      {
+        "affected_player_game_rows": 267,
+        "game_date": "2025-04-13",
+        "non_regular_event_rows": 10248
+      },
+      {
+        "affected_player_game_rows": 179,
+        "game_date": "2025-04-14",
+        "non_regular_event_rows": 6746
+      },
+      {
+        "affected_player_game_rows": 268,
+        "game_date": "2025-04-15",
+        "non_regular_event_rows": 10275
+      },
+      {
+        "affected_player_game_rows": 267,
+        "game_date": "2025-04-16",
+        "non_regular_event_rows": 10112
+      },
+      {
+        "affected_player_game_rows": 179,
+        "game_date": "2025-04-17",
+        "non_regular_event_rows": 6989
+      },
+      {
+        "affected_player_game_rows": 246,
+        "game_date": "2025-04-18",
+        "non_regular_event_rows": 8638
+      },
+      {
+        "affected_player_game_rows": 265,
+        "game_date": "2025-04-19",
+        "non_regular_event_rows": 9003
+      },
+      {
+        "affected_player_game_rows": 283,
+        "game_date": "2025-04-20",
+        "non_regular_event_rows": 9224
+      },
+      {
+        "affected_player_game_rows": 141,
+        "game_date": "2025-04-21",
+        "non_regular_event_rows": 4532
+      },
+      {
+        "affected_player_game_rows": 265,
+        "game_date": "2025-04-22",
+        "non_regular_event_rows": 8019
+      },
+      {
+        "affected_player_game_rows": 247,
+        "game_date": "2025-04-23",
+        "non_regular_event_rows": 6945
+      },
+      {
+        "affected_player_game_rows": 160,
+        "game_date": "2025-04-24",
+        "non_regular_event_rows": 4442
+      },
+      {
+        "affected_player_game_rows": 226,
+        "game_date": "2025-04-25",
+        "non_regular_event_rows": 5683
+      },
+      {
+        "affected_player_game_rows": 277,
+        "game_date": "2025-04-26",
+        "non_regular_event_rows": 6489
+      },
+      {
+        "affected_player_game_rows": 280,
+        "game_date": "2025-04-27",
+        "non_regular_event_rows": 6225
+      },
+      {
+        "affected_player_game_rows": 136,
+        "game_date": "2025-04-28",
+        "non_regular_event_rows": 2912
+      },
+      {
+        "affected_player_game_rows": 241,
+        "game_date": "2025-04-29",
+        "non_regular_event_rows": 4750
+      },
+      {
+        "affected_player_game_rows": 274,
+        "game_date": "2025-04-30",
+        "non_regular_event_rows": 4846
+      },
+      {
+        "affected_player_game_rows": 190,
+        "game_date": "2025-05-01",
+        "non_regular_event_rows": 3124
+      },
+      {
+        "affected_player_game_rows": 251,
+        "game_date": "2025-05-02",
+        "non_regular_event_rows": 3625
+      },
+      {
+        "affected_player_game_rows": 235,
+        "game_date": "2025-05-03",
+        "non_regular_event_rows": 2980
+      },
+      {
+        "affected_player_game_rows": 264,
+        "game_date": "2025-05-04",
+        "non_regular_event_rows": 2994
+      },
+      {
+        "affected_player_game_rows": 146,
+        "game_date": "2025-05-05",
+        "non_regular_event_rows": 1340
+      },
+      {
+        "affected_player_game_rows": 242,
+        "game_date": "2025-05-06",
+        "non_regular_event_rows": 1977
+      },
+      {
+        "affected_player_game_rows": 240,
+        "game_date": "2025-05-07",
+        "non_regular_event_rows": 1490
+      },
+      {
+        "affected_player_game_rows": 136,
+        "game_date": "2025-05-08",
+        "non_regular_event_rows": 661
+      },
+      {
+        "affected_player_game_rows": 175,
+        "game_date": "2025-05-09",
+        "non_regular_event_rows": 597
+      },
+      {
+        "affected_player_game_rows": 98,
+        "game_date": "2025-05-10",
+        "non_regular_event_rows": 209
+      }
+    ],
+    "affected_player_game_rows": 30572,
+    "affected_share_of_readable_profiles": 0.23301474062895383,
+    "non_regular_event_rows_in_feature_windows": 884427,
+    "non_regular_game_type_counts_in_feature_windows": {
+      "S": 884427
+    }
+  },
+  "coverage": {
+    "cache_game_type_counts": {
+      "D": 3794,
+      "F": 2027,
+      "L": 2772,
+      "R": 550337,
+      "S": 61041,
+      "W": 1404
+    },
+    "empty_cache_player_ids": [],
+    "missing_cache_player_ids": [],
+    "player_game_rows_with_readable_cache": 131202,
+    "training_player_game_rows": 131202,
+    "unique_player_date_feature_windows": 130131
+  },
+  "decision": {
+    "candidate_refit_permitted": true,
+    "production_change_permitted": false,
+    "reason": "Non-regular Statcast events are demonstrably present in the canonical feature window. A candidate may only filter them by refitting and strictly adjudicating the complete chronological protocol.",
+    "required_next_step_if_affected": [
+      "Freeze a regular-season-only canonical feature contract with source/runtime parity.",
+      "Refit using 2023 only; select only on 2024; keep 2025 as untouched confirmation.",
+      "Require material paired scoring, calibration, discrimination, coverage, and market gates.",
+      "Do not change production unless every predeclared gate passes."
+    ]
+  },
+  "input_contract": {
+    "cache_root": "C:\\Projects\\baseball_predictor\\data\\cache\\statcast",
+    "feature_window": "[target_date-46 days, target_date)",
+    "identity_columns_only": [
+      "game_date",
+      "game_pk",
+      "player_id"
+    ],
+    "raw_columns_only": [
+      "game_date",
+      "game_type",
+      "events"
+    ],
+    "regular_season_game_type": "R",
+    "training_path": "C:\\Projects\\baseball_predictor\\data\\analysis\\hr_over_contract_v1\\pre2026_a3_2_migration_v2\\training\\training_hitters_2023_2025_statcast.csv.gz",
+    "training_sha256": "3fc38325007845d6a7a99102274f7e520ed6f4310cc2a3248ebc441afeb814c5"
+  },
+  "production_changed": false,
+  "schema_version": "shared-pa-nonregular-statcast-audit-v1",
+  "scope": {
+    "market_or_economic_scoring": false,
+    "may_2026_read": false,
+    "model_fit": false,
+    "model_scoring": false,
+    "model_selection": false,
+    "outcome_columns_read": []
+  },
+  "status": "OUTCOME_BLIND_INPUT_CONTAMINATION_MEASURED"
+}

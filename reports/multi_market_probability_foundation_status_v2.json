@@ -1,0 +1,68 @@
+{
+  "schema_version": "multi-market-probability-foundation-status-v2",
+  "status": "ACTIVE_RESEARCH_FOUNDATION_CONSOLIDATED_NOT_BETTABLE",
+  "as_of": "2026-07-19",
+  "betting_authorized": false,
+  "production_changed": false,
+  "previous_consolidation": {
+    "path": "reports/multi_market_probability_foundation_status_v1.json",
+    "sha256": "82965e88eccfa086466944a1412976fcf57bbf4fe049e32aa7301b746e838b53"
+  },
+  "may_2026_scope_incident": {
+    "occurred": true,
+    "record": "reports/pitcher_k_input_audit_v1_INVALIDATED_MAY_ACCESS.json",
+    "future_rule": "May 2026 must not be represented as a new untouched holdout for any candidate created after the incident."
+  },
+  "new_evidence": {
+    "nonregular_statcast_audit": {
+      "path": "reports/shared_pa_nonregular_statcast_audit_v1.json",
+      "sha256": "146b95d30a4f0bdf4dcbd45d321f995478be60d42f19d65c7df6e00e60f03025",
+      "finding": "30,572 of 131,202 regular-season player-game canonical feature windows (23.3%) included 884,427 spring-training Statcast terminal events."
+    },
+    "regular_season_feature_certificate": {
+      "path": "data/analysis/shared_pa_regular_season_v1/selection_features/canonical_hitter_features_2023_2024.certificate.json",
+      "sha256": "dd335d3c1c2bb541c94af220ebdd6a5101d07158bf6858d2eb8772591b447c5d",
+      "status": "CANONICAL_HITTER_ARTIFACT_CERTIFIED"
+    },
+    "regular_season_selection": {
+      "report_path": "data/analysis/shared_pa_regular_season_v1/selection/selection_report.json",
+      "report_sha256": "c36851bacfdfbb047a704c0a5cf5fed970d6e1253510b43ff79839ae8fb12206",
+      "certificate_path": "data/analysis/shared_pa_regular_season_v1/selection/selection_certificate.json",
+      "certificate_sha256": "e65ac18d6e8ecef12b02a7bd19d6c7b14f51752e1674a1d06216ed7f4b94ba31",
+      "status": "CANONICAL_SELECTION_REJECTION_CERTIFIED",
+      "reason": "The regular-season-only candidate improved point estimates versus the strongest simple baseline but did not clear either predeclared materiality floor; its log-loss paired upper bound also crossed zero.",
+      "confirmation_2025_opened": false,
+      "may_2026_opened": false,
+      "production_changed": false
+    }
+  },
+  "repetition_guard": {
+    "forbidden_without_new_measured_limiter": [
+      "re-run the same regular-season-only Statcast filter with a different seed, threshold, feature variant, or policy",
+      "use the small 2024 point improvement to open 2025 confirmation",
+      "promote the regular-season-only candidate into production",
+      "claim that spring-training exclusion improved any individual market or ROI"
+    ]
+  },
+  "per_market_readiness": {
+    "hits": "No production challenger survives. The regular-season-only PA candidate is certified rejected before market-specific evaluation.",
+    "home_runs_over_0_5": "The prior per-PA EB component remains a research component only; this rejected shared candidate does not alter its status.",
+    "total_bases": "No independently surviving coherent PA/full-game engine exists.",
+    "rbi": "Not ready: exact official outcome, canonical identity, settlement, and point-in-time coupled base-state context remain required.",
+    "hits_runs_rbi": "Not ready: matching product, identity, settlement, and point-in-time coupled context remain required.",
+    "pitcher_strikeouts": "Prior fitted challenger remains rejected; only a separately measured calibration limiter can justify a new intervention."
+  },
+  "protected_invariants": {
+    "no_market_or_product_pooling": true,
+    "historical_listed_prices_not_assumed_executable": true,
+    "official_outcomes_not_vendor_results": true,
+    "production_baselines_immutable": true,
+    "v13_failure_record_preserved": true,
+    "no_2025_confirmation_opened_by_rejected_candidate": true,
+    "no_betting_authorization": true
+  },
+  "highest_value_next_action": {
+    "action": "Run an outcome-blind, time-safe canonical-feature age/sample diagnostic to determine whether a specific, reproducible history-availability limiter—not another arbitrary lookback setting—explains the remaining gap.",
+    "must_not_do": "Do not fit another CatBoost, alter the 45-day window, or open 2025 until the diagnostic identifies a materially distinct limiter and a new protocol is mutation-tested."
+  }
+}

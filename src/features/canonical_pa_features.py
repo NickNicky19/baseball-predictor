@@ -96,6 +96,7 @@ def canonical_profile(
     entity_column: str,
     entity_id: int,
     prefix: str,
+    allowed_game_types: frozenset[str] | None = None,
 ) -> dict[str, Any]:
     """Aggregate one hitter or pitcher using only pitches before target_date.
 
@@ -114,6 +115,7 @@ def canonical_profile(
         entity_column=entity_column,
         entity_id=entity_id,
         prefix=prefix,
+        allowed_game_types=allowed_game_types,
     )
 
 
@@ -124,6 +126,7 @@ def canonical_profiles(
     entity_column: str,
     entity_id: int,
     prefix: str,
+    allowed_game_types: frozenset[str] | None = None,
 ) -> list[dict[str, Any]]:
     """Build multiple dates while parsing and validating one raw frame once."""
     if len(target_dates) != len(set(target_dates)):
@@ -136,6 +139,7 @@ def canonical_profiles(
             entity_column=entity_column,
             entity_id=entity_id,
             prefix=prefix,
+            allowed_game_types=allowed_game_types,
         )
         for target in target_dates
     ]
@@ -148,6 +152,7 @@ def _canonical_profile_prepared(
     entity_column: str,
     entity_id: int,
     prefix: str,
+    allowed_game_types: frozenset[str] | None = None,
 ) -> dict[str, Any]:
     if entity_column not in {"batter", "pitcher"}:
         raise ValueError("canonical entity_column must be batter or pitcher")
@@ -160,6 +165,17 @@ def _canonical_profile_prepared(
         & work["_canonical_game_date"].ge(start)
         & work["_canonical_game_date"].lt(end)
     ].copy()
+    if allowed_game_types is not None:
+        if not allowed_game_types or not all(
+            isinstance(value, str) and value for value in allowed_game_types
+        ):
+            raise ValueError("allowed_game_types must contain nonempty strings")
+        if "game_type" not in work.columns:
+            raise ValueError("game_type is required when a game-type policy is enabled")
+        game_types = work["game_type"].astype("string")
+        if game_types.isna().any() or game_types.str.len().eq(0).any():
+            raise ValueError("game_type is missing when a game-type policy is enabled")
+        work = work.loc[game_types.isin(sorted(allowed_game_types))].copy()
 
     event = work["events"].astype("string")
     observed_terminal = work.loc[event.notna()].copy()

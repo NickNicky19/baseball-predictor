@@ -40,7 +40,11 @@ def canonical_json(value: Any) -> str:
 
 def load_contract(path: Path, evidence_root: Path) -> dict[str, Any]:
     contract = json.loads(path.read_text(encoding="utf-8"))
-    if contract.get("status") != "LOCKED_BEFORE_CANONICAL_SELECTION_ARTIFACT":
+    status = contract.get("status")
+    if status not in {
+        "LOCKED_BEFORE_CANONICAL_SELECTION_ARTIFACT",
+        "LOCKED_BEFORE_REGULAR_SEASON_CANONICAL_SELECTION_ARTIFACT",
+    }:
         raise ValueError("canonical feature contract is not locked")
     if contract.get("selection_seasons") != [2023, 2024]:
         raise ValueError("canonical selection seasons changed")
@@ -65,6 +69,21 @@ def load_contract(path: Path, evidence_root: Path) -> dict[str, Any]:
         raise ValueError("canonical event taxonomy contains unmapped events")
     if taxonomy_payload.get("confirmation_2025_read") or taxonomy_payload.get("may_2026_read"):
         raise ValueError("canonical event taxonomy crossed a protected evidence boundary")
+    if status == "LOCKED_BEFORE_REGULAR_SEASON_CANONICAL_SELECTION_ARTIFACT":
+        basis = contract.get("measured_basis", {}).get("audit", {})
+        audit_path = ROOT / str(basis.get("path", ""))
+        if not audit_path.is_file() or sha256(audit_path) != basis.get("sha256"):
+            raise ValueError("regular-season candidate contamination audit hash changed")
+        audit = json.loads(audit_path.read_text(encoding="utf-8"))
+        if audit.get("status") != "OUTCOME_BLIND_INPUT_CONTAMINATION_MEASURED":
+            raise ValueError("regular-season candidate contamination audit status changed")
+        measured = audit.get("contamination", {})
+        for field in ("affected_player_game_rows", "non_regular_event_rows_in_feature_windows"):
+            if int(measured.get(field, -1)) != int(basis.get(field, -2)):
+                raise ValueError(f"regular-season candidate contamination audit changed: {field}")
+        policy = contract.get("canonical_transformer", {}).get("game_type_policy")
+        if policy != {"mode": "regular_season_only", "allowed_game_types": ["R"], "unknown_or_missing": "fail_closed"}:
+            raise ValueError("regular-season candidate game-type policy changed")
     return contract
 
 
@@ -112,11 +131,14 @@ def empty_raw_frame() -> pd.DataFrame:
     return pd.DataFrame(columns=sorted(REQUIRED_RAW_COLUMNS))
 
 
-def read_player_cache(path: Path) -> pd.DataFrame:
+def read_player_cache(path: Path, *, require_game_type: bool) -> pd.DataFrame:
+    columns = set(REQUIRED_RAW_COLUMNS)
+    if require_game_type:
+        columns.add("game_type")
     try:
         return pd.read_csv(
             path,
-            usecols=lambda column: column in REQUIRED_RAW_COLUMNS,
+            usecols=lambda column: column in columns,
             low_memory=False,
         )
     except EmptyDataError:
@@ -148,6 +170,15 @@ def build(evidence_root: Path, out_dir: Path, contract_path: Path) -> dict[str, 
     inventory_path = evidence_root / contract["statcast_inventory"]["path"]
     targets = load_targets(source, contract)
     inventory, inventory_full = load_inventory(inventory_path, contract)
+    game_type_policy = contract["canonical_transformer"].get("game_type_policy")
+    allowed_game_types: frozenset[str] | None = None
+    if game_type_policy is not None:
+        if game_type_policy.get("unknown_or_missing") != "fail_closed":
+            raise ValueError("canonical game-type policy must fail closed")
+        values = game_type_policy.get("allowed_game_types")
+        if not isinstance(values, list) or not values or not all(isinstance(value, str) and value for value in values):
+            raise ValueError("canonical game-type policy is invalid")
+        allowed_game_types = frozenset(values)
     feature_rows: list[dict[str, Any]] = []
     verified_sources: list[dict[str, Any]] = []
     missing_cache_groups = 0
@@ -165,7 +196,7 @@ def build(evidence_root: Path, out_dir: Path, contract_path: Path) -> dict[str, 
             path = evidence_root / relative
             if not path.exists() or sha256(path) != record["sha256"]:
                 raise ValueError(f"canonical player cache hash changed: {relative}")
-            raw = read_player_cache(path)
+            raw = read_player_cache(path, require_game_type=allowed_game_types is not None)
             verified_sources.append({
                 "path": relative,
                 "bytes": int(record["bytes"]),
@@ -180,6 +211,7 @@ def build(evidence_root: Path, out_dir: Path, contract_path: Path) -> dict[str, 
             entity_column="batter",
             entity_id=player_id,
             prefix="hitter",
+            allowed_game_types=allowed_game_types,
         )
         by_date = {item["target_date"]: item for item in profiles}
         for _, target in group.iterrows():
@@ -224,6 +256,7 @@ def build(evidence_root: Path, out_dir: Path, contract_path: Path) -> dict[str, 
         "confirmation_2025_read": False,
         "may_2026_read": False,
         "canonical_transformer_schema": SCHEMA_VERSION,
+        "game_type_policy": game_type_policy,
         "contract": {
             "path": str(contract_path.relative_to(ROOT)).replace("\\", "/"),
             "sha256": sha256(contract_path),
