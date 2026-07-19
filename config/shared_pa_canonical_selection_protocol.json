@@ -1,0 +1,154 @@
+{
+  "schema_version": "shared-pa-canonical-selection-protocol-v1",
+  "status": "LOCKED_BEFORE_2023_2024_CANONICAL_SELECTION",
+  "betting_authorized": false,
+  "production_unchanged": true,
+  "confirmation_2025_forbidden_during_selection": true,
+  "may_2026_forbidden": true,
+  "identity_key": ["game_pk", "player_id"],
+  "chronology": {
+    "initial_fit": [2023],
+    "rolling_selection": [2024],
+    "confirmation_open_once_only_after_selection_pass": [2025],
+    "forbidden": ["2026-05"]
+  },
+  "inputs": {
+    "official_outcomes": {
+      "path": "data/analysis/hr_over_contract_v1/pre2026_a3_2_migration_v2/training/training_hitters_2023_2025_statcast.csv.gz",
+      "sha256": "3fc38325007845d6a7a99102274f7e520ed6f4310cc2a3248ebc441afeb814c5",
+      "maximum_rows_read": 87462
+    },
+    "canonical_features": {
+      "path": "data/analysis/shared_pa_foundation_v1/canonical_hitter_features_2023_2024.csv.gz",
+      "sha256": "fffee5f9614e76e6847d40db6ba3167673dbffba775bd4884176cf67a63b44d2",
+      "rows": 87462
+    },
+    "canonical_manifest": {
+      "path": "data/analysis/shared_pa_foundation_v1/canonical_hitter_features_2023_2024.manifest.json",
+      "sha256": "c587c88b894f61f055964c72188e694b45393bfbb52d09e5462d5333169bbdee"
+    },
+    "canonical_certificate": {
+      "path": "data/analysis/shared_pa_foundation_v1/canonical_hitter_features_2023_2024.certificate_v2.json",
+      "sha256": "1927f4c7fea085ce40df4a2459f150de24e644c2a7c5933ca1a74d7b09ae98b4",
+      "required_status": "CANONICAL_HITTER_ARTIFACT_CERTIFIED"
+    },
+    "runtime_feature_contract": {
+      "path": "config/shared_pa_runtime_feature_contract.json",
+      "sha256": "f4027b757784d022c6d7f27108355bc4a10be12a24df432929680b5b54c76ede"
+    },
+    "pa_distribution": {
+      "path": "data/analysis/hr_over_contract_v1/pre2026_a3_2_migration_v2/pa_distribution_fit_2023_2024.json",
+      "sha256": "d61818e0fd4cfb70e40fdb240dc372ee5872b43263157ca1b23ee30cb3983570"
+    }
+  },
+  "outcome_classes": [
+    "strikeout", "walk", "single", "double", "triple", "home_run",
+    "bip_out", "other_non_ab"
+  ],
+  "feature_variants": [
+    {
+      "id": "canonical_hitter_46d",
+      "groups": ["canonical_hitter_46d"]
+    },
+    {
+      "id": "canonical_hitter_46d_context",
+      "groups": ["canonical_hitter_46d", "raw_pregame_context_safe"]
+    }
+  ],
+  "feature_groups": {
+    "canonical_hitter_46d": [
+      "hitter_pitch_count", "hitter_pa", "hitter_bip", "hitter_k_rate",
+      "hitter_bb_rate", "hitter_single_rate", "hitter_double_rate",
+      "hitter_triple_rate", "hitter_home_run_rate", "hitter_bip_out_rate",
+      "hitter_other_non_ab_rate", "hitter_xwoba", "hitter_xba",
+      "hitter_xslg", "hitter_avg_exit_velocity", "hitter_avg_launch_angle",
+      "hitter_barrel_rate", "hitter_hard_hit_rate", "hitter_whiff_rate",
+      "hitter_chase_rate", "hitter_contact_rate", "hitter_swing_rate",
+      "hitter_zone_rate"
+    ],
+    "raw_pregame_context_safe": ["bats", "is_home", "venue"]
+  },
+  "forbidden_classifier_features": [
+    "season", "game_date", "game_pk", "player_id", "player_name",
+    "lineup_slot", "opp_sp_id", "opp_sp_name", "opp_sp_throws",
+    "opp_sp_source", "platoon_adv", "park_hits_factor", "park_hr_factor",
+    "park_runs_factor", "weather_temp", "weather_wind", "weather_is_dome",
+    "umpire_id", "pit_avg", "pit_obp", "pit_slg", "recent_avg",
+    "recent_obp", "recent_slg", "roll15_xwoba", "roll30_xwoba",
+    "out_pa", "out_ab", "out_hits", "out_doubles", "out_triples",
+    "out_hr", "out_rbi", "out_runs", "out_bb", "out_k"
+  ],
+  "opposing_pitcher_quarantine": {
+    "classifier_allowed": false,
+    "reason": "Open-2026 reconstructed snapshots contain confirmed postgame starter identity; T-4h opposing-pitcher identity parity is not certified."
+  },
+  "selection_folds": [
+    ["2024-03-28", "2024-06-30"],
+    ["2024-07-01", "2024-07-31"],
+    ["2024-08-01", "2024-08-31"],
+    ["2024-09-01", "2024-09-30"]
+  ],
+  "simple_baseline_selection": {
+    "selection_eligible": ["league_rate", "empirical_bayes_player_rate"],
+    "diagnostic_only": ["lineup_slot_rate"],
+    "empirical_bayes_prior_strength_pa_grid": [50, 100, 200, 400],
+    "selection_metric": "multiclass_log_loss",
+    "tie_breaker": "multiclass_brier"
+  },
+  "model_family": {
+    "kind": "catboost_multiclass",
+    "loss": "MultiClass",
+    "random_seed": 260719,
+    "stability_audit_seeds": [260720, 260721],
+    "bounded_grid": {
+      "depth": [4, 6],
+      "l2_leaf_reg": [3, 10],
+      "learning_rate": [0.03],
+      "iterations_max": [1200],
+      "early_stopping_rounds": [100]
+    },
+    "inner_early_stopping": {
+      "holdout_tail_official_dates": 28,
+      "selection_only": true
+    }
+  },
+  "required_metrics": {
+    "pa_primary": ["multiclass_log_loss", "multiclass_brier"],
+    "bootstrap_draws": 10000,
+    "bootstrap_seed": 260719,
+    "uncertainty_unit": "official_game_date"
+  },
+  "materiality": {
+    "primary_metrics": ["multiclass_log_loss", "multiclass_brier"],
+    "uncertainty_unit": "official_game_date",
+    "bootstrap_draws": 10000,
+    "bootstrap_seed": 260719,
+    "complexity_benefit_floor": "For each metric, max(0, league-rate loss minus strongest-simple loss). The candidate-vs-strongest-simple point improvement and entire paired 95% interval must exceed that empirical floor.",
+    "primary_seed_must_clear_floor": true,
+    "all_stability_seeds_must_improve_both_scores": true,
+    "context_variant_requires_paired_interval_upper_below_zero_for_both_scores": true,
+    "no_feature_variant_may_reduce_coverage": true
+  },
+  "calibration": {
+    "method": "single_temperature_multiclass",
+    "cross_fitted_on_prior_oof_folds_only": true,
+    "first_fold_temperature": 1.0,
+    "log_temperature_bounds": [-2.0, 2.0],
+    "install_only_if_both_scores_and_paired_intervals_improve": true
+  },
+  "derived_market_diagnostics": {
+    "selection_only_not_a_promotion_gate": true,
+    "markets": [
+      "hits_0.5", "hits_1.5", "home_runs_0.5",
+      "total_bases_0.5", "total_bases_1.5", "total_bases_2.5",
+      "total_bases_3.5", "total_bases_4.5", "total_bases_5.5"
+    ],
+    "confirmation_gate_must_be_locked_before_2025_is_opened": true
+  },
+  "selection_output": {
+    "confirmation_2025_must_remain_unread_on_rejection": true,
+    "May_2026_must_remain_unread": true,
+    "production_must_remain_unchanged": true,
+    "betting_authorized": false
+  }
+}
