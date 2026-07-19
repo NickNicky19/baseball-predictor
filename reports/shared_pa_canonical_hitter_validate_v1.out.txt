@@ -1,0 +1,4 @@
+CANONICAL HITTER ARTIFACT CERTIFIED
+rows: 87462
+games: 4859
+zero_pa_feature_rows: 399
