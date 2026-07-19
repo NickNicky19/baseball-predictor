@@ -1,6 +1,6 @@
 {
   "betting_authorized": false,
-  "built_at_utc": "2026-07-19T11:53:35.788194+00:00",
+  "built_at_utc": "2026-07-19T11:57:21.746552+00:00",
   "confirmation_2025_outcomes_summarized": false,
   "date_max": "2025-09-28",
   "date_min": "2023-03-30",
@@ -9,7 +9,6 @@
     "bats": 0.0,
     "has_prior_data": 0.0,
     "is_home": 0.0,
-    "lineup_slot": 0.0,
     "opp_sp_bb9": 0.0,
     "opp_sp_gs": 0.0,
     "opp_sp_hr9": 0.0,
@@ -70,10 +69,15 @@
     "player_id"
   ],
   "may_2026_read": false,
+  "opposing_starter_source_counts": {
+    "actual_starter": 72,
+    "probable": 131130
+  },
   "outcome_accounting_valid": true,
+  "postgame_opposing_starter_rows": 72,
   "protocol": {
     "path": "config/shared_pa_benchmark_protocol.json",
-    "sha256": "45284821e794f1b11ac9d9219146b18c5175ffa2c7f1f9000bdc69f028ef0526"
+    "sha256": "89f31fcc696ee7dd8ac16857cf81e52dc9bfc08bfd1a03643cf2f528f6887d78"
   },
   "rows": 131202,
   "rows_by_season": {

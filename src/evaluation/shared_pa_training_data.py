@@ -14,6 +14,36 @@ OUTCOME_COLUMNS = [
 ]
 
 
+def sanitize_point_in_time_features(
+    frame: pd.DataFrame,
+    protocol: dict[str, Any],
+) -> tuple[pd.DataFrame, dict[str, Any]]:
+    """Remove feature values that were available only after the game began."""
+    contract = protocol["historical_feature_sanitization"]
+    sources = set(contract["postgame_only_opposing_pitcher_sources"])
+    if "opp_sp_source" not in frame:
+        raise ValueError("opposing-starter provenance is missing")
+    output = frame.copy()
+    mask = output["opp_sp_source"].astype(str).isin(sources)
+    nullified = list(contract["nullified_columns"])
+    missing = sorted(set(nullified) - set(output.columns))
+    if missing:
+        raise ValueError(f"postgame pitcher sanitization columns missing: {missing}")
+    output.loc[mask, nullified] = pd.NA
+    output.loc[mask, "opp_sp_source"] = contract["replacement_source"]
+    if mask.any():
+        if output.loc[mask, nullified].notna().any().any():
+            raise ValueError("postgame opposing-pitcher features survived sanitization")
+        if not output.loc[mask, "opp_sp_source"].eq(contract["replacement_source"]).all():
+            raise ValueError("postgame opposing-pitcher provenance survived sanitization")
+    return output, {
+        "rows_sanitized": int(mask.sum()),
+        "source_values_removed": sorted(sources),
+        "replacement_source": contract["replacement_source"],
+        "nullified_columns": nullified,
+    }
+
+
 def outcome_counts(frame: pd.DataFrame) -> pd.DataFrame:
     """Return exhaustive mutually exclusive PA counts for each player-game."""
     out = pd.DataFrame(index=frame.index)
@@ -115,6 +145,11 @@ def validate_hitter_frame(frame: pd.DataFrame, protocol: dict[str, Any]) -> dict
         "hitters_per_game": 18,
         "outcome_accounting_valid": True,
         "feature_missing_rate": missingness,
+        "opposing_starter_source_counts": {
+            str(key): int(value)
+            for key, value in frame["opp_sp_source"].value_counts(dropna=False).items()
+        },
+        "postgame_opposing_starter_rows": int(frame["opp_sp_source"].astype(str).eq("actual_starter").sum()),
         "confirmation_2025_outcomes_summarized": False,
         "may_2026_read": False,
         "betting_authorized": False,

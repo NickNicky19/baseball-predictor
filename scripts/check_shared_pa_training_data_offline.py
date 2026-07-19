@@ -13,7 +13,10 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from src.evaluation.shared_pa_training_data import validate_hitter_frame  # noqa: E402
+from src.evaluation.shared_pa_training_data import (  # noqa: E402
+    sanitize_point_in_time_features,
+    validate_hitter_frame,
+)
 
 
 def main() -> int:
@@ -31,6 +34,7 @@ def main() -> int:
             "out_pa": 4, "out_ab": 3, "out_hits": 1, "out_doubles": 0,
             "out_triples": 0, "out_hr": 0, "out_rbi": 0, "out_runs": 0,
             "out_bb": 1, "out_k": 1,
+            "opp_sp_source": "probable", "opp_sp_throws": "R",
         })
         rows.append(row)
     # Include all required seasons without changing the 18-hitter game invariant.
@@ -39,6 +43,17 @@ def main() -> int:
     original = pd.DataFrame(rows)
     validate_hitter_frame(original, protocol)
     print("[OK] valid corrected synthetic rows")
+
+    postgame = original.copy(deep=True)
+    postgame.loc[postgame.index[0], "opp_sp_source"] = "actual_starter"
+    postgame.loc[postgame.index[0], "opp_sp_k9"] = 9
+    postgame.loc[postgame.index[0], "platoon_adv"] = 1
+    sanitized, sanitation = sanitize_point_in_time_features(postgame, protocol)
+    assert sanitation["rows_sanitized"] == 1
+    assert sanitized.loc[sanitized.index[0], "opp_sp_source"] == "unavailable_historical"
+    assert pd.isna(sanitized.loc[sanitized.index[0], "opp_sp_k9"])
+    assert pd.isna(sanitized.loc[sanitized.index[0], "platoon_adv"])
+    print("[OK] postgame opposing-starter identity and derived features are masked")
 
     mutations = [
         ("old schema", lambda d: d.__setitem__("builder_schema", "a3.1")),
@@ -70,7 +85,7 @@ def main() -> int:
         print("[OK] MUTATION incomplete PA accounting fails")
     else:
         raise AssertionError("mutation unexpectedly passed: incomplete PA accounting")
-    print("6/6")
+    print("7/7")
     return 0
 
 

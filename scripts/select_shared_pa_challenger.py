@@ -28,7 +28,11 @@ if str(ROOT) not in sys.path:
 
 from src.evaluation.multi_market_foundation import PA_OUTCOMES, sha256  # noqa: E402
 from src.evaluation.shared_pa_benchmark_protocol import load_protocol  # noqa: E402
-from src.evaluation.shared_pa_training_data import feature_columns, outcome_counts  # noqa: E402
+from src.evaluation.shared_pa_training_data import (  # noqa: E402
+    feature_columns,
+    outcome_counts,
+    sanitize_point_in_time_features,
+)
 from src.learning.shared_pa_model import (  # noqa: E402
     fit_catboost,
     fit_rate_baseline,
@@ -270,6 +274,7 @@ def main() -> int:
     if sha256(source) != source_record["sha256"]:
         raise ValueError("corrected hitter source hash changed")
     frame = load_selection_rows(source, protocol)
+    frame, sanitization_report = sanitize_point_in_time_features(frame, protocol)
 
     simple_report, best_simple, simple_validation = evaluate_simple_baselines(frame, protocol)
     variants = [item["id"] for item in protocol["sequential_feature_variants"]]
@@ -374,6 +379,7 @@ def main() -> int:
         "selection_seasons": [2023, 2024],
         "source_commit": source_commit,
         "source": source_record,
+        "historical_feature_sanitization": sanitization_report,
         "protocol": {"path": str(protocol_path.relative_to(ROOT)).replace("\\", "/"), "sha256": sha256(protocol_path)},
         "runtime": {
             "python": platform.python_version(),

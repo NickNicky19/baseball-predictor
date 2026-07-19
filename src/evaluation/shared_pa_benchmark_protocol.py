@@ -90,8 +90,22 @@ def validate_protocol(payload: dict[str, Any], *, evidence_root: str | Path) -> 
     if not outcomes.issubset(forbidden) or not {"game_pk", "player_id", "player_name"}.issubset(forbidden):
         raise ValueError("outcome or identity leakage is not fully forbidden")
     quarantined = set(payload.get("quarantined_until_availability_proven") or [])
-    if quarantined != {"umpire_id", "umpire_resolved", "weather_temp", "weather_wind", "weather_resolved"}:
+    if quarantined != {"umpire_id", "umpire_resolved", "weather_temp", "weather_wind", "weather_resolved", "lineup_slot"}:
         raise ValueError("unproven point-in-time features left quarantine")
+    expected_sanitization = {
+        "postgame_only_opposing_pitcher_sources": ["actual_starter"],
+        "replacement_source": "unavailable_historical",
+        "nullified_columns": [
+            "opp_sp_throws", "opp_sp_ip", "opp_sp_k9", "opp_sp_bb9", "opp_sp_hr9",
+            "opp_sp_gs", "opp_sp_recent_ip", "opp_sp_recent_k9", "opp_sp_recent_bb9",
+            "opp_sp_recent_hr9", "platoon_adv",
+        ],
+        "lineup_slot_classifier_feature_forbidden": True,
+        "lineup_slot_allowed_for_pa_volume_fit": True,
+        "derived_market_confirmation_requires_point_in_time_reconstructed_slot": True,
+    }
+    if payload.get("historical_feature_sanitization") != expected_sanitization:
+        raise ValueError("historical postgame-feature sanitization changed")
 
     variants = payload.get("sequential_feature_variants")
     if not isinstance(variants, list) or [item.get("id") for item in variants] != [
@@ -100,6 +114,14 @@ def validate_protocol(payload: dict[str, Any], *, evidence_root: str | Path) -> 
         raise ValueError("feature-selection sequence changed")
     if any(item.get("selection_data") != "2024_rolling_origin_only" for item in variants):
         raise ValueError("feature variant can see confirmation data")
+    all_classifier_features = {
+        column
+        for item in variants
+        for group in item["groups"]
+        for column in (payload.get("feature_group_contract") or {}).get(group, [])
+    }
+    if "lineup_slot" in all_classifier_features:
+        raise ValueError("official lineup slot entered the PA classifier")
 
     baselines = payload.get("required_baselines")
     if baselines != [

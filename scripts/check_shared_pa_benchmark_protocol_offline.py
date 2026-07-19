@@ -37,6 +37,8 @@ def main() -> int:
         ("realized PA class removed", lambda p: p["outcome_classes"].remove("other_non_ab")),
         ("hits leakage", lambda p: p["forbidden_features"].remove("out_hits")),
         ("weather unquarantined", lambda p: p["quarantined_until_availability_proven"].remove("weather_temp")),
+        ("official lineup slot admitted", lambda p: p["quarantined_until_availability_proven"].remove("lineup_slot")),
+        ("postgame starter admitted", lambda p: p["historical_feature_sanitization"].update(postgame_only_opposing_pitcher_sources=[])),
         ("variant sees confirmation", lambda p: p["sequential_feature_variants"][0].update(selection_data="2025")),
         ("simple baseline removed", lambda p: p["required_baselines"].remove("league_rate")),
         ("confirmation fold", lambda p: p["selection_folds"].append(["2025-01-01", "2025-12-31"])),
@@ -56,7 +58,7 @@ def main() -> int:
         candidate = copy.deepcopy(original)
         mutate(candidate)
         must_fail(candidate, args.evidence_root, label)
-    print("21/21")
+    print("23/23")
     return 0
 
 

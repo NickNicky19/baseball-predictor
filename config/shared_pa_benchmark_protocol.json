@@ -44,8 +44,21 @@
     "out_bb", "out_k"
   ],
   "quarantined_until_availability_proven": [
-    "umpire_id", "umpire_resolved", "weather_temp", "weather_wind", "weather_resolved"
+    "umpire_id", "umpire_resolved", "weather_temp", "weather_wind", "weather_resolved",
+    "lineup_slot"
   ],
+  "historical_feature_sanitization": {
+    "postgame_only_opposing_pitcher_sources": ["actual_starter"],
+    "replacement_source": "unavailable_historical",
+    "nullified_columns": [
+      "opp_sp_throws", "opp_sp_ip", "opp_sp_k9", "opp_sp_bb9", "opp_sp_hr9",
+      "opp_sp_gs", "opp_sp_recent_ip", "opp_sp_recent_k9", "opp_sp_recent_bb9",
+      "opp_sp_recent_hr9", "platoon_adv"
+    ],
+    "lineup_slot_classifier_feature_forbidden": true,
+    "lineup_slot_allowed_for_pa_volume_fit": true,
+    "derived_market_confirmation_requires_point_in_time_reconstructed_slot": true
+  },
   "model_family": {
     "kind": "catboost_multiclass",
     "reason": "One coherent nonlinear probability model with native missing and categorical handling; no separate market-specific regressions.",
@@ -106,7 +119,7 @@
       "opp_sp_recent_bb9", "opp_sp_recent_hr9"
     ],
     "pregame_context": [
-      "lineup_slot", "bats", "platoon_adv", "is_home", "venue"
+      "bats", "platoon_adv", "is_home", "venue"
     ]
   },
   "required_baselines": [
