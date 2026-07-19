@@ -1,0 +1,38 @@
+{
+  "schema_version": "hr-full-game-forward-target-plan-contract-v1",
+  "status": "PREREGISTERED_NOT_DEPLOYED",
+  "purpose": "Supplement the immutable HR full-game forward-input contract with an exhaustive, pre-horizon target plan. This closes the expected-target coverage boundary before any forward HR collection can be evaluated.",
+  "base_input_contract": {
+    "path": "config/hr_full_game_forward_input_contract_v1.json",
+    "sha256": "17d8214ac76cd84c8c6198295ba528a44fe7c26ab74bfce14f9b943ad114e63c"
+  },
+  "betting_authorized": false,
+  "economic_evidence_eligible": false,
+  "may_2026_eligible_as_untouched_holdout": false,
+  "separate_from_running_v13_operational_smoke": true,
+  "target_plan": {
+    "schema_version": "hr-full-game-forward-target-plan-v1",
+    "must_be_created_no_later_than": "each target's T-4h horizon",
+    "required_plan_fields": [
+      "plan_id", "plan_receipt_utc", "base_contract_sha256", "collector_code_sha256",
+      "runtime_manifest_sha256", "targets"
+    ],
+    "required_target_fields": [
+      "mlb_game_pk", "player_id", "official_start_utc", "hard_model_key",
+      "target_horizon_utc", "source_observation_utc"
+    ],
+    "hard_target_format": "{mlb_game_pk}:{player_id}:home_runs:0.5:over",
+    "targets_must_be_unique": true,
+    "all_planned_targets_require_one_terminal_ledger_record": true,
+    "unplanned_terminal_records_forbidden": true
+  },
+  "forbidden": [
+    "historical backfill", "post-horizon target insertion", "using a v13 row", "May 2026 holdout use",
+    "economic evaluation", "betting authorization", "silent target intersection"
+  ],
+  "required_mutations": [
+    "target plan receipt after any target horizon", "target source observation after its horizon",
+    "duplicate hard target", "mismatched hard target identity", "missing planned terminal record",
+    "unplanned terminal record", "base-contract hash drift", "v13 merge", "May re-enabled"
+  ]
+}
