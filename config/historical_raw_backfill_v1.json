@@ -1,0 +1,34 @@
+{
+  "schema_version": "historical-raw-backfill-contract-v1",
+  "purpose": [
+    "feature_repair",
+    "source_audit",
+    "pre_2026_chronological_model_development"
+  ],
+  "sealed_intervals": [
+    {
+      "start": "2026-05-01",
+      "end": "2026-05-31",
+      "rule": "NO_FETCH_NO_READ_NO_PARSE_NO_WRITE"
+    }
+  ],
+  "forbidden_artifact_classes": [
+    "t4_starter_receipt",
+    "live_lineup",
+    "historical_price",
+    "executable_availability",
+    "decision_time_prediction",
+    "settlement",
+    "execution_observation"
+  ],
+  "season_2026": {
+    "mode": "POINT_IN_TIME_INPUTS_ONLY",
+    "outcome_fields": "EXCLUDED_FROM_REPAIR_WORKFLOW",
+    "permitted_intervals": [
+      ["2026-01-01", "2026-04-30"],
+      ["2026-06-01", "2026-07-21"]
+    ]
+  },
+  "prospective_evidence_rule": "PERMANENTLY_MISSING_OR_RESEARCH_ONLY_NEVER_BACKFILLED",
+  "authorization": "RESEARCH_ONLY_NO_BETTING"
+}

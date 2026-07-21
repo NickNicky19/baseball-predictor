@@ -13,8 +13,10 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
+from src.data.statcast_integrity import derive_batted_ball_evidence
 
-SCHEMA_VERSION = "shared-pa-canonical-statcast-v1"
+
+SCHEMA_VERSION = "shared-pa-canonical-statcast-v2"
 FETCH_LOOKBACK_DAYS = 45
 # The existing Savant request uses start=end-45 with both dates inclusive and
 # end=target-1, so the exact half-open feature window is [target-46, target).
@@ -57,7 +59,8 @@ PROFILE_FIELDS = (
     "pitch_count", "pa", "bip", "k_rate", "bb_rate", "single_rate",
     "double_rate", "triple_rate", "home_run_rate", "bip_out_rate",
     "other_non_ab_rate", "xwoba", "xba", "xslg", "avg_exit_velocity",
-    "avg_launch_angle", "barrel_rate", "hard_hit_rate", "whiff_rate",
+    "avg_launch_angle", "batted_ball_denominator", "barrel_count",
+    "hard_hit_count", "barrel_rate", "hard_hit_rate", "whiff_rate",
     "chase_rate", "contact_rate", "swing_rate", "zone_rate",
 )
 
@@ -219,10 +222,7 @@ def _canonical_profile_prepared(
     zone = pd.to_numeric(work["zone"], errors="coerce")
     outside = zone.isin([11, 12, 13, 14])
     in_zone = zone.between(1, 9)
-    exit_velocity = pd.to_numeric(bip["launch_speed"], errors="coerce")
-    speed_angle = pd.to_numeric(bip["launch_speed_angle"], errors="coerce")
-    measured_ev = exit_velocity.notna()
-    classified_barrel = speed_angle.notna()
+    batted_ball_evidence = derive_batted_ball_evidence(bip)
 
     values: dict[str, Any] = {
         "pitch_count": int(len(work)),
@@ -234,8 +234,13 @@ def _canonical_profile_prepared(
         "xslg": _mean(bip, "estimated_slg_using_speedangle"),
         "avg_exit_velocity": _mean(bip, "launch_speed"),
         "avg_launch_angle": _mean(bip, "launch_angle"),
-        "barrel_rate": _rate(int(speed_angle.eq(6).sum()), int(classified_barrel.sum())),
-        "hard_hit_rate": _rate(int(exit_velocity[measured_ev].ge(95.0).sum()), int(measured_ev.sum())),
+        "batted_ball_denominator": (
+            None if batted_ball_evidence is None else batted_ball_evidence.measured_batted_balls
+        ),
+        "barrel_count": None if batted_ball_evidence is None else batted_ball_evidence.barrel_count,
+        "hard_hit_count": None if batted_ball_evidence is None else batted_ball_evidence.hard_hit_count,
+        "barrel_rate": None if batted_ball_evidence is None else batted_ball_evidence.barrel_rate,
+        "hard_hit_rate": None if batted_ball_evidence is None else batted_ball_evidence.hard_hit_rate,
         "whiff_rate": _rate(int(whiffs.sum()), int(swings.sum())),
         "chase_rate": _rate(int((outside & swings).sum()), int(outside.sum())),
         "contact_rate": _rate(int((swings & ~whiffs).sum()), int(swings.sum())),

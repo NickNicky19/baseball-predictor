@@ -156,6 +156,10 @@ class StatcastDistributionProfile:
     barrel_rate: float = 0.085
     hard_hit_rate: float = 0.39
     sample_bip: int = 0
+    batted_ball_denominator: Optional[int] = None
+    barrel_count: Optional[int] = None
+    hard_hit_count: Optional[int] = None
+    batted_ball_rate_definition: Optional[str] = None
 
     def quality_score(self) -> float:
         """Composite batted-ball quality in [0, ~1] from distribution features."""
@@ -181,6 +185,10 @@ class StatcastProfile:
     barrel_rate: Optional[float] = None
     sweet_spot_rate: Optional[float] = None
     hard_hit_rate: Optional[float] = None
+    batted_ball_denominator: Optional[int] = None
+    barrel_count: Optional[int] = None
+    hard_hit_count: Optional[int] = None
+    batted_ball_rate_definition: Optional[str] = None
     avg_exit_velocity: Optional[float] = None
     avg_launch_angle: Optional[float] = None
     chase_rate: Optional[float] = None

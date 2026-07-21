@@ -12,6 +12,7 @@ from src.data.statcast_batted_ball_rates import (
     barrel_rate as derive_barrel_rate,
     hard_hit_rate as derive_hard_hit_rate,
 )
+from src.data.statcast_integrity import derive_batted_ball_evidence, validate_rate_pair
 from src.models.dataclasses import StatcastDistributionProfile, StatcastProfile
 
 
@@ -59,21 +60,19 @@ class StatcastDistributionBuilder:
         la_std = float(launch_angle.std(ddof=0)) if len(launch_angle) > 1 else 18.0
         max_ev = float(launch_speed.max()) if not launch_speed.empty else 105.0
 
-        barrel_rate = (
-            derive_barrel_rate(group)
-            if self.derive_batted_ball_rates
-            else _rate_from_column(group, "barrel")
-        )
+        evidence = derive_batted_ball_evidence(group)
+        barrel_rate = evidence.barrel_rate if evidence is not None else None
         if barrel_rate is None:
             barrel_rate = 0.085
         sweet_spot = _sweet_spot_rate(group)
-        hard_hit = (
-            derive_hard_hit_rate(group)
-            if self.derive_batted_ball_rates
-            else _hard_hit_rate(group, launch_speed)
-        )
+        hard_hit = evidence.hard_hit_rate if evidence is not None else None
         if hard_hit is None:
             hard_hit = 0.39
+        validate_rate_pair(
+            barrel_rate,
+            hard_hit,
+            context="StatcastDistributionProfile",
+        )
 
         return StatcastDistributionProfile(
             launch_angle_mean=la_mean,
@@ -85,6 +84,14 @@ class StatcastDistributionBuilder:
             barrel_rate=barrel_rate,
             hard_hit_rate=hard_hit,
             sample_bip=sample_bip,
+            batted_ball_denominator=(
+                evidence.measured_batted_balls if evidence is not None else None
+            ),
+            barrel_count=evidence.barrel_count if evidence is not None else None,
+            hard_hit_count=evidence.hard_hit_count if evidence is not None else None,
+            batted_ball_rate_definition=(
+                evidence.classification if evidence is not None else None
+            ),
         )
 
 

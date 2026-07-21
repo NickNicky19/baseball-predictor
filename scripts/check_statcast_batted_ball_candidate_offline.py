@@ -50,13 +50,14 @@ def main() -> int:
 
     disabled = SavantClient(min_pa=1)
     disabled_profiles = disabled.build_hitter_profiles_from_statcast(frame)
-    _assert_close(disabled_profiles[101].barrel_rate, 0.085)
-    _assert_close(disabled_profiles[101].hard_hit_rate, 0.39)
-    print("[OK] disabled core path retains the exact league fallbacks")
+    _assert_close(disabled_profiles[101].barrel_rate, 2 / 8)
+    _assert_close(disabled_profiles[101].hard_hit_rate, 3 / 8)
+    print("[OK] source-truth repair is active independently of the rejected candidate flag")
 
     disabled_dist = StatcastDistributionBuilder().build_from_statcast_df(frame)
-    _assert_close(disabled_dist[101].barrel_rate, 0.085)
-    print("[OK] disabled distribution path retains the exact barrel fallback")
+    _assert_close(disabled_dist[101].barrel_rate, 2 / 8)
+    _assert_close(disabled_dist[101].hard_hit_rate, 3 / 8)
+    print("[OK] distribution path shares the repaired count-bearing rates")
 
     enabled = SavantClient(min_pa=1, derive_batted_ball_rates=True)
     enabled_profiles = enabled.build_hitter_profiles_from_statcast(frame)
@@ -65,7 +66,7 @@ def main() -> int:
     _assert_close(enabled_profiles[202].barrel_rate, 4 / 8)
     _assert_close(enabled_profiles[202].hard_hit_rate, 1.0)
     assert enabled_profiles[101].barrel_rate != enabled_profiles[202].barrel_rate
-    print("[OK] enabled core path derives non-degenerate player rates")
+    print("[OK] legacy flag remains numerically consistent with source truth")
 
     enabled_dist = StatcastDistributionBuilder(
         derive_batted_ball_rates=True
@@ -87,18 +88,18 @@ def main() -> int:
 
     explicit = frame.iloc[:4].copy()
     explicit["barrel"] = [0, 0, 0, 0]
-    _assert_close(barrel_rate(explicit), 0.0)
-    print("[OK] explicit barrel classification overrides bucket derivation")
+    _assert_close(barrel_rate(explicit), 2 / 4)
+    print("[OK] sparse/contradictory barrel aggregate cannot override raw bucket evidence")
 
     fallback = frame.iloc[:4].drop(columns=["launch_speed_angle"]).copy()
-    assert barrel_rate(fallback) is not None
-    print("[OK] EV/launch-angle fallback remains available")
+    assert barrel_rate(fallback) is None
+    print("[OK] missing authoritative barrel classification stays unavailable")
 
     engine = StatcastFeatureEngine(min_pa=1, derive_batted_ball_rates=True)
     engine_profiles = engine.build_profiles_from_statcast_df(frame)
     _assert_close(engine_profiles[101].barrel_rate, 2 / 8)
     _assert_close(engine_profiles[101].distribution.barrel_rate, 2 / 8)
-    print("[OK] production feature engine threads the candidate flag")
+    print("[OK] feature engine and distribution serialize one repaired definition")
 
     frozen_factory = FeatureFactory(config={})
     candidate_factory = FeatureFactory(
@@ -108,7 +109,8 @@ def main() -> int:
     assert frozen_factory.statcast_engine.derive_batted_ball_rates is False
     assert candidate_factory.derive_batted_ball_rates is True
     assert candidate_factory.statcast_engine.derive_batted_ball_rates is True
-    print("[OK] absent/false config is frozen; explicit true reaches runtime")
+    assert frozen_factory.derive_batted_ball_rates is False
+    print("[OK] rejected flag identity is preserved while source truth no longer depends on it")
 
     print("9/9")
     return 0

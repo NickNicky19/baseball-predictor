@@ -1,0 +1,707 @@
+{
+  "artifacts": [
+    {
+      "bytes": 271,
+      "path": "batter_batted_ball_features_2026-03-25.csv",
+      "rows": 0,
+      "sha256": "a3e92559f12b87ef3f88e555e9fa1c80576f9d5036c564b7b7f6882c913fdce5",
+      "target_date": "2026-03-25"
+    },
+    {
+      "bytes": 4357,
+      "path": "batter_batted_ball_features_2026-03-26.csv",
+      "rows": 18,
+      "sha256": "6fafaf2b00db130de9d8b5ca9e3e7844451d160321ccc764dd3385a7bf3b9d67",
+      "target_date": "2026-03-26"
+    },
+    {
+      "bytes": 49815,
+      "path": "batter_batted_ball_features_2026-03-27.csv",
+      "rows": 223,
+      "sha256": "73f9900e547a7f2d4af19685ea37db42d8798f1169764b1d751a3c9fd215e4fa",
+      "target_date": "2026-03-27"
+    },
+    {
+      "bytes": 65758,
+      "path": "batter_batted_ball_features_2026-03-28.csv",
+      "rows": 292,
+      "sha256": "990873e250365d3fc051cef302508819889106aa3b287e42e6e613a78bea9f8c",
+      "target_date": "2026-03-28"
+    },
+    {
+      "bytes": 78551,
+      "path": "batter_batted_ball_features_2026-03-29.csv",
+      "rows": 335,
+      "sha256": "79b8ae1781296e5c2c976dcf6578bed9bccab02027290b33d31817a6312c593f",
+      "target_date": "2026-03-29"
+    },
+    {
+      "bytes": 85831,
+      "path": "batter_batted_ball_features_2026-03-30.csv",
+      "rows": 362,
+      "sha256": "b77feb22509a779a8e26601e7dfd654bea532beb6d76c96748d9ec398a3387f0",
+      "target_date": "2026-03-30"
+    },
+    {
+      "bytes": 91534,
+      "path": "batter_batted_ball_features_2026-03-31.csv",
+      "rows": 371,
+      "sha256": "1273f46b55a38f784f371abccb75eaa624c2d5a658ff78bcf8a9d8bad6ea45ec",
+      "target_date": "2026-03-31"
+    },
+    {
+      "bytes": 94112,
+      "path": "batter_batted_ball_features_2026-04-01.csv",
+      "rows": 375,
+      "sha256": "f1dbbb8ae6872d38653cdffdf4fe54d63feb9b7c3528aeb55432c2b299947e25",
+      "target_date": "2026-04-01"
+    },
+    {
+      "bytes": 96714,
+      "path": "batter_batted_ball_features_2026-04-02.csv",
+      "rows": 384,
+      "sha256": "cc62fb642b2e53957748aeda402956905606e449d565ef29bec18fd8856da9a9",
+      "target_date": "2026-04-02"
+    },
+    {
+      "bytes": 97437,
+      "path": "batter_batted_ball_features_2026-04-03.csv",
+      "rows": 385,
+      "sha256": "946cc873a8085439f0caaffd7cbbe4b1d27ca62d8b964dbda92c759071a356f7",
+      "target_date": "2026-04-03"
+    },
+    {
+      "bytes": 100178,
+      "path": "batter_batted_ball_features_2026-04-04.csv",
+      "rows": 390,
+      "sha256": "906fc7908fd9c0a346f75519ea2b9100dc576cd31cfd19c927aafc971c900a16",
+      "target_date": "2026-04-04"
+    },
+    {
+      "bytes": 101120,
+      "path": "batter_batted_ball_features_2026-04-05.csv",
+      "rows": 392,
+      "sha256": "40cff39fd9595861a2e3df6de40ad06f3c29f0be51c035f39b366b1d868f044d",
+      "target_date": "2026-04-05"
+    },
+    {
+      "bytes": 102965,
+      "path": "batter_batted_ball_features_2026-04-06.csv",
+      "rows": 396,
+      "sha256": "5a3fe87f4708eff278d2b2e1541b628f061352fa5a9028abbd25ec0bd7f66adb",
+      "target_date": "2026-04-06"
+    },
+    {
+      "bytes": 104408,
+      "path": "batter_batted_ball_features_2026-04-07.csv",
+      "rows": 398,
+      "sha256": "4462f9298bd9e0f785c71a7fb9c556e533a98490259d8f153b9fd7a04fd30df6",
+      "target_date": "2026-04-07"
+    },
+    {
+      "bytes": 106135,
+      "path": "batter_batted_ball_features_2026-04-08.csv",
+      "rows": 402,
+      "sha256": "1bcbfedcc98ae9725c6a7a6904c95fcdf0d34a055140e6bd2a796f4de909e67c",
+      "target_date": "2026-04-08"
+    },
+    {
+      "bytes": 107846,
+      "path": "batter_batted_ball_features_2026-04-09.csv",
+      "rows": 406,
+      "sha256": "676beb605f22d259ceff2602c168f978c0c527eda5a74af856cd10398c3ed4af",
+      "target_date": "2026-04-09"
+    },
+    {
+      "bytes": 108295,
+      "path": "batter_batted_ball_features_2026-04-10.csv",
+      "rows": 407,
+      "sha256": "4167d17a67d1b040e5774883c17b5aa277172ca839626feab2aa86a6afe0a1ba",
+      "target_date": "2026-04-10"
+    },
+    {
+      "bytes": 109501,
+      "path": "batter_batted_ball_features_2026-04-11.csv",
+      "rows": 410,
+      "sha256": "13a4e120bf201976ba0b75be6b6ad5f2957e6833000c62a9ad2c8c1441e63002",
+      "target_date": "2026-04-11"
+    },
+    {
+      "bytes": 110732,
+      "path": "batter_batted_ball_features_2026-04-12.csv",
+      "rows": 413,
+      "sha256": "8657463ec2bf99d27973f6ba824f8c0b044aaff8094e0837ff470ffaebfb4cfc",
+      "target_date": "2026-04-12"
+    },
+    {
+      "bytes": 110701,
+      "path": "batter_batted_ball_features_2026-04-13.csv",
+      "rows": 414,
+      "sha256": "4aae0ac9fa73240a86760cbf2965842272894b926bf24e9bb2e7c184b6232afe",
+      "target_date": "2026-04-13"
+    },
+    {
+      "bytes": 112324,
+      "path": "batter_batted_ball_features_2026-04-14.csv",
+      "rows": 416,
+      "sha256": "d60a3aa6618cb60475761deb35e452e769591af586049dbfb0169f70f84e66ec",
+      "target_date": "2026-04-14"
+    },
+    {
+      "bytes": 113384,
+      "path": "batter_batted_ball_features_2026-04-15.csv",
+      "rows": 420,
+      "sha256": "8f7bfab51dd7466724a915671934a9ebcac10a66a76368529eafc463d167250c",
+      "target_date": "2026-04-15"
+    },
+    {
+      "bytes": 115198,
+      "path": "batter_batted_ball_features_2026-04-16.csv",
+      "rows": 427,
+      "sha256": "eb39edd0db3710ddc2495d69e3cef9e945e8d4b4ac6bd863b8003a01c622beb3",
+      "target_date": "2026-04-16"
+    },
+    {
+      "bytes": 115487,
+      "path": "batter_batted_ball_features_2026-04-17.csv",
+      "rows": 428,
+      "sha256": "2888aef809261f33f9d3bb689b8120f15518dcacc1f5844efd35a7f35dee6015",
+      "target_date": "2026-04-17"
+    },
+    {
+      "bytes": 116467,
+      "path": "batter_batted_ball_features_2026-04-18.csv",
+      "rows": 429,
+      "sha256": "e89521ae3f3fc6a2db4b4b597845f7cb6dd73ae1c75be3e48ffa4dd486263ce3",
+      "target_date": "2026-04-18"
+    },
+    {
+      "bytes": 117369,
+      "path": "batter_batted_ball_features_2026-04-19.csv",
+      "rows": 432,
+      "sha256": "609a1b609bcd52a13412b5cd18c3e12799cf4426fb19e130615ba486ad74e4c6",
+      "target_date": "2026-04-19"
+    },
+    {
+      "bytes": 118667,
+      "path": "batter_batted_ball_features_2026-04-20.csv",
+      "rows": 435,
+      "sha256": "043a8abd1389dce24d172740707a44271267a3980fc9c59a1dbb86db1b15556c",
+      "target_date": "2026-04-20"
+    },
+    {
+      "bytes": 118894,
+      "path": "batter_batted_ball_features_2026-04-21.csv",
+      "rows": 435,
+      "sha256": "1b32642e8b029ce366320200c31edd87c2153362e3534f856cb60a95aca5fc8d",
+      "target_date": "2026-04-21"
+    },
+    {
+      "bytes": 118028,
+      "path": "batter_batted_ball_features_2026-04-22.csv",
+      "rows": 435,
+      "sha256": "5c2b3ebbea20b0b67e60a5dd48b6e3c7161ee11eb5334e2f670b4a81b651c6d0",
+      "target_date": "2026-04-22"
+    },
+    {
+      "bytes": 119820,
+      "path": "batter_batted_ball_features_2026-04-23.csv",
+      "rows": 436,
+      "sha256": "f1c8f0aaafe93d3e26a22d8d64c6ef6352016b743a14b3a94dbc89f523d8de5a",
+      "target_date": "2026-04-23"
+    },
+    {
+      "bytes": 120104,
+      "path": "batter_batted_ball_features_2026-04-24.csv",
+      "rows": 439,
+      "sha256": "4b31e1f93c99f143dc1fd6388e3917445a76e46b4d7aa081d25428bb73e77165",
+      "target_date": "2026-04-24"
+    },
+    {
+      "bytes": 121414,
+      "path": "batter_batted_ball_features_2026-04-25.csv",
+      "rows": 442,
+      "sha256": "18d4d2d10acf6a8b31b34430d503c0e4031cd919c6ecc0697f23a801be11d6a0",
+      "target_date": "2026-04-25"
+    },
+    {
+      "bytes": 121358,
+      "path": "batter_batted_ball_features_2026-04-26.csv",
+      "rows": 445,
+      "sha256": "5328c20d045bc50cb6d12d51ffb62430f081c962cd009a7cc41ba335bbdeea3b",
+      "target_date": "2026-04-26"
+    },
+    {
+      "bytes": 122596,
+      "path": "batter_batted_ball_features_2026-04-27.csv",
+      "rows": 448,
+      "sha256": "9ca5955f30d456ba047d7d221b2b14e68aab5fa978e4171d30f1f132a7b6aaef",
+      "target_date": "2026-04-27"
+    },
+    {
+      "bytes": 123266,
+      "path": "batter_batted_ball_features_2026-04-28.csv",
+      "rows": 449,
+      "sha256": "d355f7c8534d5557daaa9d683b10a12d87742742010e51ac858ed2aea243b0ae",
+      "target_date": "2026-04-28"
+    },
+    {
+      "bytes": 124506,
+      "path": "batter_batted_ball_features_2026-04-29.csv",
+      "rows": 453,
+      "sha256": "b3e77c46e1e9bad0951751f8fdf13a94b43b6f18ca4af8014d7ec3ffa166586c",
+      "target_date": "2026-04-29"
+    },
+    {
+      "bytes": 125067,
+      "path": "batter_batted_ball_features_2026-04-30.csv",
+      "rows": 455,
+      "sha256": "e1ccf1a663e7b329d74605784f6ca630653eb2c6439fc1408e59dd0f492e19b5",
+      "target_date": "2026-04-30"
+    },
+    {
+      "bytes": 112144,
+      "path": "batter_batted_ball_features_2026-06-01.csv",
+      "rows": 422,
+      "sha256": "4ffb83d9d3977cc34bc605968ebed287386ce67097c5cec5eb62c9014b7adb4b",
+      "target_date": "2026-06-01"
+    },
+    {
+      "bytes": 118183,
+      "path": "batter_batted_ball_features_2026-06-02.csv",
+      "rows": 451,
+      "sha256": "14eee5ff64d3fb8632d639d06e4c6ba23d3f8a4c5d9e2c467e578e931ba0862f",
+      "target_date": "2026-06-02"
+    },
+    {
+      "bytes": 121992,
+      "path": "batter_batted_ball_features_2026-06-03.csv",
+      "rows": 467,
+      "sha256": "63b3012a75946e503a0b5b030dad409b2e320106987967f22ce123f30bf669aa",
+      "target_date": "2026-06-03"
+    },
+    {
+      "bytes": 124840,
+      "path": "batter_batted_ball_features_2026-06-04.csv",
+      "rows": 480,
+      "sha256": "8058bdb166f6ecd5b5da3a094f87148b0d636e86a2a6b237a2a0ebe490234f55",
+      "target_date": "2026-06-04"
+    },
+    {
+      "bytes": 125476,
+      "path": "batter_batted_ball_features_2026-06-05.csv",
+      "rows": 482,
+      "sha256": "0f9f38d27dd926d8c95cae3c52bae725df12e39203315f1d117d8b00c1b2b0dc",
+      "target_date": "2026-06-05"
+    },
+    {
+      "bytes": 126531,
+      "path": "batter_batted_ball_features_2026-06-06.csv",
+      "rows": 488,
+      "sha256": "a349820a448b66c699861fb3f18aef7d62bc6850ca33852bd53fd09495d3e86a",
+      "target_date": "2026-06-06"
+    },
+    {
+      "bytes": 127706,
+      "path": "batter_batted_ball_features_2026-06-07.csv",
+      "rows": 488,
+      "sha256": "c93095b39303468b72c00ecd965555a7e334c5e6421af84146d806d44c478847",
+      "target_date": "2026-06-07"
+    },
+    {
+      "bytes": 127974,
+      "path": "batter_batted_ball_features_2026-06-08.csv",
+      "rows": 489,
+      "sha256": "36c09aaf28e2711eb4de5ea904ab27790927f02a63b436a8bcb3c55946d454e3",
+      "target_date": "2026-06-08"
+    },
+    {
+      "bytes": 128819,
+      "path": "batter_batted_ball_features_2026-06-09.csv",
+      "rows": 491,
+      "sha256": "5e025958ab14d4952980320cba108b41881d86f47f0d32c98b7aa0dc33a24f8a",
+      "target_date": "2026-06-09"
+    },
+    {
+      "bytes": 129042,
+      "path": "batter_batted_ball_features_2026-06-10.csv",
+      "rows": 495,
+      "sha256": "49a3f9b02352201f3a18a8957143cd34efc10bcaf439ec00c026e43b23e272c2",
+      "target_date": "2026-06-10"
+    },
+    {
+      "bytes": 129252,
+      "path": "batter_batted_ball_features_2026-06-11.csv",
+      "rows": 496,
+      "sha256": "5a497876086a532d90f32379f67261832b8e6d8f366c781db8dc6911efc635c5",
+      "target_date": "2026-06-11"
+    },
+    {
+      "bytes": 127064,
+      "path": "batter_batted_ball_features_2026-06-12.csv",
+      "rows": 489,
+      "sha256": "aecfd8ee5c11aad257de700b7e62c44cab1bed84f9efcaed0f46a5982b7bdef2",
+      "target_date": "2026-06-12"
+    },
+    {
+      "bytes": 128184,
+      "path": "batter_batted_ball_features_2026-06-13.csv",
+      "rows": 492,
+      "sha256": "89c16d873ea974abfa606c6791935d14f1a043fa178b1462a6b58f6f23129fcb",
+      "target_date": "2026-06-13"
+    },
+    {
+      "bytes": 126500,
+      "path": "batter_batted_ball_features_2026-06-14.csv",
+      "rows": 483,
+      "sha256": "be472ec5ff092bd898bc54f2391db5819f50abb8b573c62f80178c3fc60ebe09",
+      "target_date": "2026-06-14"
+    },
+    {
+      "bytes": 119416,
+      "path": "batter_batted_ball_features_2026-06-15.csv",
+      "rows": 459,
+      "sha256": "e46f4c0b29c634b38abc384055bf426cc6cda2d080ebb6396122e61fe8096345",
+      "target_date": "2026-06-15"
+    },
+    {
+      "bytes": 114595,
+      "path": "batter_batted_ball_features_2026-06-16.csv",
+      "rows": 435,
+      "sha256": "90bb13a7edcb41bdb04fc24abd8be2cd21b8f033c814af919700b12e521eed48",
+      "target_date": "2026-06-16"
+    },
+    {
+      "bytes": 117204,
+      "path": "batter_batted_ball_features_2026-06-17.csv",
+      "rows": 441,
+      "sha256": "c147fb28023d5f1fc8e04956e34381658d7776fa288c831384a7f08394d47678",
+      "target_date": "2026-06-17"
+    },
+    {
+      "bytes": 118621,
+      "path": "batter_batted_ball_features_2026-06-18.csv",
+      "rows": 448,
+      "sha256": "431f9ed2702521612d40d732fadb232d2cf1d77d8ffb78b1bc1137ab9d8e4bb0",
+      "target_date": "2026-06-18"
+    },
+    {
+      "bytes": 119685,
+      "path": "batter_batted_ball_features_2026-06-19.csv",
+      "rows": 451,
+      "sha256": "78723e4c9d5ae6e52e6d9d8142e42ebbb679c55ad5886b1b24f3bc033dcbb261",
+      "target_date": "2026-06-19"
+    },
+    {
+      "bytes": 120372,
+      "path": "batter_batted_ball_features_2026-06-20.csv",
+      "rows": 454,
+      "sha256": "7e223558c436b0b17f7cf26f22790144af2ff70afca4f21c2a1d587ba3964a63",
+      "target_date": "2026-06-20"
+    },
+    {
+      "bytes": 121549,
+      "path": "batter_batted_ball_features_2026-06-21.csv",
+      "rows": 457,
+      "sha256": "9763cdbe2319ce9cdc68466a49edf46f67aeaa22843e733653eb33ec4b8b2bce",
+      "target_date": "2026-06-21"
+    },
+    {
+      "bytes": 123123,
+      "path": "batter_batted_ball_features_2026-06-22.csv",
+      "rows": 461,
+      "sha256": "07ad0c6532454ac69f3a665788c0c28568b7af6c584adde001f9d4dec32e62a4",
+      "target_date": "2026-06-22"
+    },
+    {
+      "bytes": 124109,
+      "path": "batter_batted_ball_features_2026-06-23.csv",
+      "rows": 463,
+      "sha256": "83ea74d15b18bfe7b8633b0af0f0adca418f03acde10275fa3f135c2ac6261f8",
+      "target_date": "2026-06-23"
+    },
+    {
+      "bytes": 125237,
+      "path": "batter_batted_ball_features_2026-06-24.csv",
+      "rows": 466,
+      "sha256": "4b0601fc4e7d8e30f96aa85080bae04214d6767b02a296a8b3f51ca539ebb818",
+      "target_date": "2026-06-24"
+    },
+    {
+      "bytes": 126196,
+      "path": "batter_batted_ball_features_2026-06-25.csv",
+      "rows": 469,
+      "sha256": "bf706c26e03e061620bfeba426128613bd730be7ecb4011bd1a825049eee93da",
+      "target_date": "2026-06-25"
+    },
+    {
+      "bytes": 126634,
+      "path": "batter_batted_ball_features_2026-06-26.csv",
+      "rows": 470,
+      "sha256": "a54ba2a2afd93d174d5756e7328162e5ba3563dba23709f3f31daabb6346248d",
+      "target_date": "2026-06-26"
+    },
+    {
+      "bytes": 127710,
+      "path": "batter_batted_ball_features_2026-06-27.csv",
+      "rows": 476,
+      "sha256": "39863abc8103461d692daaf692d7e25fa69fef0dd3f51f4177d45d1155d18586",
+      "target_date": "2026-06-27"
+    },
+    {
+      "bytes": 128607,
+      "path": "batter_batted_ball_features_2026-06-28.csv",
+      "rows": 477,
+      "sha256": "6dc5d0fdf050b4049911c172d5491184af6c6a213623592d7be8d106e7094512",
+      "target_date": "2026-06-28"
+    },
+    {
+      "bytes": 130206,
+      "path": "batter_batted_ball_features_2026-06-29.csv",
+      "rows": 482,
+      "sha256": "3607ce58fe13da695cc8c3263f43117c98ccafc291937eeb3433df0df487c334",
+      "target_date": "2026-06-29"
+    },
+    {
+      "bytes": 131332,
+      "path": "batter_batted_ball_features_2026-06-30.csv",
+      "rows": 487,
+      "sha256": "4dc7d38962ae5301bb508362a58257917b2939a65d0689dcb76cb2ddfcaa28c1",
+      "target_date": "2026-06-30"
+    },
+    {
+      "bytes": 131523,
+      "path": "batter_batted_ball_features_2026-07-01.csv",
+      "rows": 487,
+      "sha256": "d6a469aeb67333229d86056572e7d09ceea27e39e0d631da71b2b105cd069bd6",
+      "target_date": "2026-07-01"
+    },
+    {
+      "bytes": 131891,
+      "path": "batter_batted_ball_features_2026-07-02.csv",
+      "rows": 489,
+      "sha256": "2a9cbab9f9a63d583957eab8e215bee9505461e18a35d47f2785f77142028fcc",
+      "target_date": "2026-07-02"
+    },
+    {
+      "bytes": 132266,
+      "path": "batter_batted_ball_features_2026-07-03.csv",
+      "rows": 490,
+      "sha256": "4a5dd60b68bf3c79a04bef3f995f92f4d81391c67821d622fd74f746b0dbf550",
+      "target_date": "2026-07-03"
+    },
+    {
+      "bytes": 133097,
+      "path": "batter_batted_ball_features_2026-07-04.csv",
+      "rows": 490,
+      "sha256": "1b3f4a23ea88f2e5fd21f3edf20ef4b133fc4432bf32c9a54719e1c0b57395ff",
+      "target_date": "2026-07-04"
+    },
+    {
+      "bytes": 133226,
+      "path": "batter_batted_ball_features_2026-07-05.csv",
+      "rows": 490,
+      "sha256": "dedc076124ae34e8bb155e572858c0d164a588ef764b5b2b265982ad1630bbda",
+      "target_date": "2026-07-05"
+    },
+    {
+      "bytes": 134526,
+      "path": "batter_batted_ball_features_2026-07-06.csv",
+      "rows": 493,
+      "sha256": "bb035540b52e0440571021dba6bcb11f2b1f888da5d2677d0bec24953d79d449",
+      "target_date": "2026-07-06"
+    },
+    {
+      "bytes": 134771,
+      "path": "batter_batted_ball_features_2026-07-07.csv",
+      "rows": 495,
+      "sha256": "479acab42dbc576c677e24bc9fd53d87bbb6178ca65fbbed5252712b177723f6",
+      "target_date": "2026-07-07"
+    },
+    {
+      "bytes": 136940,
+      "path": "batter_batted_ball_features_2026-07-08.csv",
+      "rows": 501,
+      "sha256": "ad5ed26bc0296b06313df34a1e5da3ee1a4fe4acd9485f3376f2fe175cd61069",
+      "target_date": "2026-07-08"
+    },
+    {
+      "bytes": 137287,
+      "path": "batter_batted_ball_features_2026-07-09.csv",
+      "rows": 503,
+      "sha256": "9ff27b8fb405516a0357dc9595886a090d52b1931d042ac9d22972097bafeb61",
+      "target_date": "2026-07-09"
+    },
+    {
+      "bytes": 137138,
+      "path": "batter_batted_ball_features_2026-07-10.csv",
+      "rows": 505,
+      "sha256": "16475c7995c8d393aa958e216c1892e31c5d0b7e8c79e279837bf8d2f9e9eb96",
+      "target_date": "2026-07-10"
+    },
+    {
+      "bytes": 138504,
+      "path": "batter_batted_ball_features_2026-07-11.csv",
+      "rows": 509,
+      "sha256": "114ba23a4a350c32d092a196ca66db5fddc9f41e0c6f003072940fa4cb5c6e33",
+      "target_date": "2026-07-11"
+    },
+    {
+      "bytes": 139057,
+      "path": "batter_batted_ball_features_2026-07-12.csv",
+      "rows": 510,
+      "sha256": "f47ee7ada2c6a11d02ee113787d2a425ff2283c3f3ba85fd748f6cca8f6721e5",
+      "target_date": "2026-07-12"
+    },
+    {
+      "bytes": 139010,
+      "path": "batter_batted_ball_features_2026-07-13.csv",
+      "rows": 513,
+      "sha256": "e5cd241e028d3d3bc3d6df46a83fbabc4bc707926a25719bf8310f763626ee68",
+      "target_date": "2026-07-13"
+    },
+    {
+      "bytes": 139010,
+      "path": "batter_batted_ball_features_2026-07-14.csv",
+      "rows": 513,
+      "sha256": "9c4689181ddc15b83fc189cf1e56e7fdf205386da8a75355d3f014f822e0e6a4",
+      "target_date": "2026-07-14"
+    },
+    {
+      "bytes": 139010,
+      "path": "batter_batted_ball_features_2026-07-15.csv",
+      "rows": 513,
+      "sha256": "674fdb2048872e965cca15dd9c401fe1a12e1679ed5deeffa097f488e8fdc7ae",
+      "target_date": "2026-07-15"
+    },
+    {
+      "bytes": 139010,
+      "path": "batter_batted_ball_features_2026-07-16.csv",
+      "rows": 513,
+      "sha256": "bc7fa4060a5ad20f4d20caf8f5d143bf5914285dd9a6b289a6a65235b02efb4f",
+      "target_date": "2026-07-16"
+    },
+    {
+      "bytes": 139043,
+      "path": "batter_batted_ball_features_2026-07-17.csv",
+      "rows": 513,
+      "sha256": "d6e041decd0fbd211c8bb2e5a5dd3c47dc102382706730302cac79e629b35a39",
+      "target_date": "2026-07-17"
+    },
+    {
+      "bytes": 140087,
+      "path": "batter_batted_ball_features_2026-07-18.csv",
+      "rows": 515,
+      "sha256": "b1b3317b89aa977da808de393eb5c3ebdc49a8c273927db325d8dd709e3746e1",
+      "target_date": "2026-07-18"
+    },
+    {
+      "bytes": 140032,
+      "path": "batter_batted_ball_features_2026-07-19.csv",
+      "rows": 514,
+      "sha256": "0ad41d23bc672c8990767a42885d127761fc89db0cdbf3faa23c631304e8234c",
+      "target_date": "2026-07-19"
+    },
+    {
+      "bytes": 140433,
+      "path": "batter_batted_ball_features_2026-07-20.csv",
+      "rows": 515,
+      "sha256": "b9c7b60a3c1efa5b69ee80edbaeeb52659eac19a8b7f42174add10e8bd3e8eb9",
+      "target_date": "2026-07-20"
+    },
+    {
+      "bytes": 140412,
+      "path": "batter_batted_ball_features_2026-07-21.csv",
+      "rows": 514,
+      "sha256": "94db400e14e5f6339545b26699cfe30fa6323074b15dd445fdd1605dece9c58f",
+      "target_date": "2026-07-21"
+    }
+  ],
+  "authorization": "RESEARCH_ONLY_NO_BETTING",
+  "bindings": {
+    "integrity_code_sha256": "fad152c8abc92892949344421a3fba26067bf95e8fe1ea9367af259586786b15",
+    "runner_sha256": "0921d3d6f306370c66fa69d9384e9508f72f781c1bc8421025920c0b9c750cb9"
+  },
+  "classification": "INTEGRITY_REPAIR_RESEARCH_CANDIDATE_NOT_PROMOTED",
+  "generated_at_utc": "2026-07-21T22:58:22.124334+00:00",
+  "lookback_calendar_days": 46,
+  "schema_version": "repaired-batter-batted-ball-features-v3",
+  "sealed_month_rule": "MAY_2026_NO_FETCH_NO_READ_NO_PARSE_NO_WRITE",
+  "selection_rule": "ALL_PLAYERS_WITH_STRICTLY_PRIOR_PERMISSIBLE_HISTORY_NOT_TARGET_DAY_PARTICIPANTS",
+  "source_manifests": [
+    {
+      "artifact_sha256": "a8c8c4a72ba8b598eb35372564b6840f2d2d34d8d01b01a4a7d3f228cbe7a98f",
+      "path": "statcast_inputs_2026-03-25_2026-03-31.manifest.json",
+      "sha256": "020f80f1b15470d6a2ea9bfab0045e6f6012a4abb95cc23ebf9e58e7c15277bb"
+    },
+    {
+      "artifact_sha256": "61ffc670c2a75e75a33491255533b60379cf47cb20061e9aeb78016564a2b54f",
+      "path": "statcast_inputs_2026-04-01_2026-04-07.manifest.json",
+      "sha256": "93716e811931240610df251843a4d706b1de1834331a95976997468f4c49d100"
+    },
+    {
+      "artifact_sha256": "2ea916eb59cb0d4b90cdfa8ba12b390e7fb075ac6bfa8209f494315e1d721295",
+      "path": "statcast_inputs_2026-04-08_2026-04-14.manifest.json",
+      "sha256": "8bd97874d3f5a7a772053a5a4af1641713bd9d004923263fab66338fc7020072"
+    },
+    {
+      "artifact_sha256": "0cb523f456bd38f69c3d187fe936655144e489924bfbfe357a9e8c24f5074797",
+      "path": "statcast_inputs_2026-04-15_2026-04-21.manifest.json",
+      "sha256": "4b249c3ebe9c97adc914c2d40372b6de77673fe946a695b727a1ff7602d616f5"
+    },
+    {
+      "artifact_sha256": "956617415086644faa2adb4a8c2da0c7c9d92a094a8008e5415199231c11c050",
+      "path": "statcast_inputs_2026-04-22_2026-04-28.manifest.json",
+      "sha256": "b93110aea35a995efafa433848d371dc57016652c08b2a35ddbadb4421e35c91"
+    },
+    {
+      "artifact_sha256": "0c16147f13ccf226c94f2d7d7d5db2a19b87723a28d925cbee66933653604cb0",
+      "path": "statcast_inputs_2026-04-29_2026-04-30.manifest.json",
+      "sha256": "df4fab79d23bc8295de72cbdf3cf085aba2d1c168bb9786515a7628eee13f477"
+    },
+    {
+      "artifact_sha256": "e3b8b036398c3c52d87bf43603ce440bf6c631fd1e0016076bf969a19a40e2ae",
+      "path": "statcast_inputs_2026-06-01_2026-06-07.manifest.json",
+      "sha256": "2eaef811abf8365bbe3cfe139a090c31a8259eeaf5cd0ef338dee878d887e195"
+    },
+    {
+      "artifact_sha256": "407e27fde4a23f4c597af04b7b4921db08a61169a8518d828c10bf214d0950e4",
+      "path": "statcast_inputs_2026-06-08_2026-06-14.manifest.json",
+      "sha256": "284fd579f75a82b5d869eb24156b0e00809a320a4d623071aa595b697d4a9065"
+    },
+    {
+      "artifact_sha256": "a880bfc8a39ece5805f69b725f0c4c3ed3a06c03cd82d1437a98a30892ce8f63",
+      "path": "statcast_inputs_2026-06-15_2026-06-21.manifest.json",
+      "sha256": "a4e1ba6d9a83c6883c398557cb7ed90a2afc52668ce21793e39286852bdb265e"
+    },
+    {
+      "artifact_sha256": "a73f66dba4b767e060f1114ae8a16108578799377ec1a36a730f227972956737",
+      "path": "statcast_inputs_2026-06-22_2026-06-28.manifest.json",
+      "sha256": "cab26155d1c8b583b5c9c73814e3aaf49d0089c3676e1253ac25bd4cc418b604"
+    },
+    {
+      "artifact_sha256": "e56923491aea7abcc8c64d6167e4da452c7d4f888930329fd7d0f2374439d6b4",
+      "path": "statcast_inputs_2026-06-29_2026-07-05.manifest.json",
+      "sha256": "eb1a6f33cb9e2e4c3a19342426520bafc23430d34cdeeec4efdc441d34550b6a"
+    },
+    {
+      "artifact_sha256": "53c6e5192eadcc8115dee6b0a5c4c0471868d22eeb06eedac83faf8415530399",
+      "path": "statcast_inputs_2026-07-06_2026-07-12.manifest.json",
+      "sha256": "60bc110796a70e9027533b38a13fc26481648a7d3c1cf3f27f9a4fae88a6fb37"
+    },
+    {
+      "artifact_sha256": "358970c1174ca80203df8453eec20205ca5e53d47d24bf0d3baa1c6d0b2a4b02",
+      "path": "statcast_inputs_2026-07-13_2026-07-19.manifest.json",
+      "sha256": "877760ab9423325df3682e7079280703afea23add148cd76de65f260797d34e1"
+    },
+    {
+      "artifact_sha256": "6f1db1809391a2616b506458fc56bb103437b3ee09b2be882b7a23b770f8c0de",
+      "path": "statcast_inputs_2026-07-20_2026-07-21.manifest.json",
+      "sha256": "1bc11e6e9c8fb0948ae09b874e6112bc39da42bed2ba1aea4f3c3a8ac1cc35d6"
+    }
+  ],
+  "window": {
+    "end": "2026-07-21",
+    "start": "2026-03-25"
+  }
+}

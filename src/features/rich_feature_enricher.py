@@ -20,6 +20,7 @@ from src.features.ml.statcast_features import StatcastFeatureEngineer
 from src.features.ml.context_features import ContextFeatureEngineer
 from src.features.ml.rolling_features import RollingFeatureEngineer
 from src.models.dataclasses import StatcastProfile
+from src.data.statcast_integrity import validate_rate_pair
 
 
 class RichFeatureEnricher:
@@ -59,6 +60,11 @@ class RichFeatureEnricher:
             point-in-time stats provider. Optional until historical per-game
             data is wired in; fields stay None when absent.
         """
+        validate_rate_pair(
+            profile.barrel_rate,
+            profile.hard_hit_rate,
+            context=f"RichFeatureEnricher[{profile.player_id}]",
+        )
         input_data: dict[str, Any] = {
             **data,
             # Full StatcastProfile pass-through (was: only 6 fields)
@@ -83,4 +89,3 @@ class RichFeatureEnricher:
             input_data.update(rolling)
 
         return self.pipeline.compute(input_data)
-

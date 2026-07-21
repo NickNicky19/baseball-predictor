@@ -1,0 +1,52 @@
+{
+  "artifact": {
+    "bytes": 3232616,
+    "path": "statcast_inputs_2026-06-29_2026-07-05.csv",
+    "sha256": "e56923491aea7abcc8c64d6167e4da452c7d4f888930329fd7d0f2374439d6b4"
+  },
+  "authorization": "RESEARCH_ONLY_NO_BETTING",
+  "bindings": {
+    "config_sha256": "ebb5ecd2f2d0b6a38fb930a2f08e179de82b9e6959a728602cd81e18fc6382b4",
+    "contract_code_sha256": "9e64b183c703336e097ca5732a0351124b46bc8be51f3133f3aaf5a6283622b6",
+    "runner_sha256": "17c38fc85770fc1757c161f16af284fe0eea8f9257be4af243693655e569821e"
+  },
+  "columns": [
+    "pitch_type",
+    "game_date",
+    "release_speed",
+    "batter",
+    "pitcher",
+    "description",
+    "zone",
+    "stand",
+    "p_throws",
+    "type",
+    "pfx_x",
+    "pfx_z",
+    "plate_x",
+    "plate_z",
+    "sv_id",
+    "launch_speed",
+    "launch_angle",
+    "estimated_ba_using_speedangle",
+    "estimated_woba_using_speedangle",
+    "launch_speed_angle",
+    "at_bat_number",
+    "pitch_number",
+    "estimated_slg_using_speedangle"
+  ],
+  "evidence_class": "HISTORICAL_RECONSTRUCTED_INPUT_ONLY_NONPROSPECTIVE",
+  "generated_at_utc": "2026-07-21T22:53:08.174154+00:00",
+  "outcome_fields": "EXCLUDED",
+  "query": {
+    "end": "2026-07-05",
+    "start": "2026-06-29"
+  },
+  "schema_version": "permissible-statcast-input-backfill-v2",
+  "sealed_month_rule": "MAY_2026_NO_FETCH_NO_READ_NO_PARSE_NO_WRITE",
+  "statistics": {
+    "measured_batted_balls": 4843,
+    "players": 400,
+    "rows": 27810
+  }
+}

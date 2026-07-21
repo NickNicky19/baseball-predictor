@@ -58,6 +58,7 @@ def test_hr_prob_uses_distribution_profile():
         sample_pa=200,
         xwoba=0.360,
         barrel_rate=0.12,
+        hard_hit_rate=0.48,
         distribution=dist,
     )
     rates_plain = sim.expected_rates(statcast=StatcastProfile(player_id=1, player_name="Avg", sample_pa=100))

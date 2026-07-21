@@ -37,6 +37,7 @@ from dataclasses import asdict, dataclass
 from typing import TYPE_CHECKING, Optional, Any
 
 from src.evaluation.hits_contact_adapter import consume_fitted_contact_xba
+from src.data.statcast_integrity import validate_profile_and_rich_features
 from src.models.dataclasses import LeagueBaselines, PAOutcome, StatcastProfile
 
 if TYPE_CHECKING:
@@ -498,6 +499,13 @@ class HybridPASimulator:
         cfg = self.config
         lg = self.league
         rich = rich or {}
+
+        if statcast is not None:
+            validate_profile_and_rich_features(
+                statcast,
+                rich,
+                context=f"HybridPASimulator[{statcast.player_id}]",
+            )
 
         def _pick(key: str, statcast_value: Optional[float], league_value: float) -> float:
             """Prefer rich value, then statcast profile, then league anchor."""

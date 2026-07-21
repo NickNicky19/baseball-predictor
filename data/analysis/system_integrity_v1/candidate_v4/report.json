@@ -1,0 +1,245 @@
+{
+  "authorization": "RESEARCH_ONLY_NO_BETTING",
+  "bindings": {
+    "code": {
+      "scripts/backfill_permissible_statcast_inputs.py": "17c38fc85770fc1757c161f16af284fe0eea8f9257be4af243693655e569821e",
+      "scripts/build_repaired_batted_ball_features.py": "0921d3d6f306370c66fa69d9384e9508f72f781c1bc8421025920c0b9c750cb9",
+      "scripts/build_system_integrity_candidate_report.py": "94e7103059e6f31a9b7ec60f5c38dae10e368c73d4773fe0d4d45900504d0ee5",
+      "src/data/historical_backfill_contract.py": "9e64b183c703336e097ca5732a0351124b46bc8be51f3133f3aaf5a6283622b6",
+      "src/data/savant.py": "969d14480c0394bc604365a37f265a0aecc42d6253fbe132eff4e324c9cbb1b7",
+      "src/data/statcast_batted_ball_rates.py": "f4ee3147c63c61b119487f5f0bd7948176793fad33ebd22deeb3ef81ef50a162",
+      "src/data/statcast_distributions.py": "94ec0581ffe39e0cd0c885d1165ac653c2d236951b20aab6b0106d3e64b9b1f8",
+      "src/data/statcast_integrity.py": "fad152c8abc92892949344421a3fba26067bf95e8fe1ea9367af259586786b15",
+      "src/features/canonical_cumulative_pa_features.py": "836cd02924dfe772bf16c9ad438fe9e23fda2be368470c5a474106f041db3bd3",
+      "src/features/canonical_pa_features.py": "95eb512254a7294baacc5ad3fb63cd414d321a1ae121441afea7b3525b5e4730",
+      "src/features/direct_batter_pa_history.py": "783b8c6dbbec9875ad4937ba530bcae347b29b3e03f681fac0d0b4507a163d82",
+      "src/features/feature_store.py": "b498c64a231cf141efdf8444ff10b03147f29fce39c580443a2a1fa1dcc8abee",
+      "src/features/rich_feature_enricher.py": "c8f9ac9a968cc7968c27274e422bfe14d309ab4ed3d137cb511cd7e3b47658e1",
+      "src/simulation/pa_simulator.py": "7f39ee7828112557f1200d30bafbb45694c079a1ee35742b58dd02055ea6fd4b"
+    },
+    "config": {
+      "config/historical_raw_backfill_v1.json": "ebb5ecd2f2d0b6a38fb930a2f08e179de82b9e6959a728602cd81e18fc6382b4"
+    },
+    "feature_manifest_sha256": "31fca5f7ca1c61028e63760a5fa974f37ed31218674160628b03809822155b88",
+    "source_manifest_set": [
+      {
+        "artifact_sha256": "a8c8c4a72ba8b598eb35372564b6840f2d2d34d8d01b01a4a7d3f228cbe7a98f",
+        "manifest": "statcast_inputs_2026-03-25_2026-03-31.manifest.json",
+        "manifest_sha256": "020f80f1b15470d6a2ea9bfab0045e6f6012a4abb95cc23ebf9e58e7c15277bb"
+      },
+      {
+        "artifact_sha256": "61ffc670c2a75e75a33491255533b60379cf47cb20061e9aeb78016564a2b54f",
+        "manifest": "statcast_inputs_2026-04-01_2026-04-07.manifest.json",
+        "manifest_sha256": "93716e811931240610df251843a4d706b1de1834331a95976997468f4c49d100"
+      },
+      {
+        "artifact_sha256": "2ea916eb59cb0d4b90cdfa8ba12b390e7fb075ac6bfa8209f494315e1d721295",
+        "manifest": "statcast_inputs_2026-04-08_2026-04-14.manifest.json",
+        "manifest_sha256": "8bd97874d3f5a7a772053a5a4af1641713bd9d004923263fab66338fc7020072"
+      },
+      {
+        "artifact_sha256": "0cb523f456bd38f69c3d187fe936655144e489924bfbfe357a9e8c24f5074797",
+        "manifest": "statcast_inputs_2026-04-15_2026-04-21.manifest.json",
+        "manifest_sha256": "4b249c3ebe9c97adc914c2d40372b6de77673fe946a695b727a1ff7602d616f5"
+      },
+      {
+        "artifact_sha256": "956617415086644faa2adb4a8c2da0c7c9d92a094a8008e5415199231c11c050",
+        "manifest": "statcast_inputs_2026-04-22_2026-04-28.manifest.json",
+        "manifest_sha256": "b93110aea35a995efafa433848d371dc57016652c08b2a35ddbadb4421e35c91"
+      },
+      {
+        "artifact_sha256": "0c16147f13ccf226c94f2d7d7d5db2a19b87723a28d925cbee66933653604cb0",
+        "manifest": "statcast_inputs_2026-04-29_2026-04-30.manifest.json",
+        "manifest_sha256": "df4fab79d23bc8295de72cbdf3cf085aba2d1c168bb9786515a7628eee13f477"
+      },
+      {
+        "artifact_sha256": "e3b8b036398c3c52d87bf43603ce440bf6c631fd1e0016076bf969a19a40e2ae",
+        "manifest": "statcast_inputs_2026-06-01_2026-06-07.manifest.json",
+        "manifest_sha256": "2eaef811abf8365bbe3cfe139a090c31a8259eeaf5cd0ef338dee878d887e195"
+      },
+      {
+        "artifact_sha256": "407e27fde4a23f4c597af04b7b4921db08a61169a8518d828c10bf214d0950e4",
+        "manifest": "statcast_inputs_2026-06-08_2026-06-14.manifest.json",
+        "manifest_sha256": "284fd579f75a82b5d869eb24156b0e00809a320a4d623071aa595b697d4a9065"
+      },
+      {
+        "artifact_sha256": "a880bfc8a39ece5805f69b725f0c4c3ed3a06c03cd82d1437a98a30892ce8f63",
+        "manifest": "statcast_inputs_2026-06-15_2026-06-21.manifest.json",
+        "manifest_sha256": "a4e1ba6d9a83c6883c398557cb7ed90a2afc52668ce21793e39286852bdb265e"
+      },
+      {
+        "artifact_sha256": "a73f66dba4b767e060f1114ae8a16108578799377ec1a36a730f227972956737",
+        "manifest": "statcast_inputs_2026-06-22_2026-06-28.manifest.json",
+        "manifest_sha256": "cab26155d1c8b583b5c9c73814e3aaf49d0089c3676e1253ac25bd4cc418b604"
+      },
+      {
+        "artifact_sha256": "e56923491aea7abcc8c64d6167e4da452c7d4f888930329fd7d0f2374439d6b4",
+        "manifest": "statcast_inputs_2026-06-29_2026-07-05.manifest.json",
+        "manifest_sha256": "eb1a6f33cb9e2e4c3a19342426520bafc23430d34cdeeec4efdc441d34550b6a"
+      },
+      {
+        "artifact_sha256": "53c6e5192eadcc8115dee6b0a5c4c0471868d22eeb06eedac83faf8415530399",
+        "manifest": "statcast_inputs_2026-07-06_2026-07-12.manifest.json",
+        "manifest_sha256": "60bc110796a70e9027533b38a13fc26481648a7d3c1cf3f27f9a4fae88a6fb37"
+      },
+      {
+        "artifact_sha256": "358970c1174ca80203df8453eec20205ca5e53d47d24bf0d3baa1c6d0b2a4b02",
+        "manifest": "statcast_inputs_2026-07-13_2026-07-19.manifest.json",
+        "manifest_sha256": "877760ab9423325df3682e7079280703afea23add148cd76de65f260797d34e1"
+      },
+      {
+        "artifact_sha256": "6f1db1809391a2616b506458fc56bb103437b3ee09b2be882b7a23b770f8c0de",
+        "manifest": "statcast_inputs_2026-07-20_2026-07-21.manifest.json",
+        "manifest_sha256": "1bc11e6e9c8fb0948ae09b874e6112bc39da42bed2ba1aea4f3c3a8ac1cc35d6"
+      }
+    ],
+    "tests": {
+      "tests/test_permissible_statcast_backfill.py": "4db9040ebc7a4fffd69633505fd32a28564be991baced7d93b39d3935c1b2e5c",
+      "tests/test_phase9.py": "57aaf2cc46ff2bc7eb29e7b9727e01051a7d06683e21d698f2891f7d473aa9f6",
+      "tests/test_repaired_batted_ball_feature_builder.py": "1cf405f893f627745d40d2a3218ff124cb344627e0edfff2e5f9392436d6bab9",
+      "tests/test_statcast_integrity_repair.py": "eb89e2bb5bbb01d8b8017a441abadcb792afea5f7d88ad05f0898f63b72e66c4"
+    }
+  },
+  "candidate_id": "statcast-integrity-v3-7db213dfacc6f820",
+  "candidate_sha256": "7db213dfacc6f8201f29730e9550e07a982a3b558fade79a3e73d9228970d163",
+  "classification": "INTEGRITY_REPAIR_AND_RESEARCH_CANDIDATE_NOT_PROMOTED",
+  "evaluation": {
+    "brier": "NOT_RUN_SOURCE_REPAIR_ONLY",
+    "calibration": "NOT_RUN_SOURCE_REPAIR_ONLY",
+    "coverage": "INPUT_FEATURE_COVERAGE_ONLY_NOT_MARKET_COVERAGE",
+    "discrimination": "NOT_RUN_SOURCE_REPAIR_ONLY",
+    "log_loss": "NOT_RUN_SOURCE_REPAIR_ONLY",
+    "market_behavior": "NOT_RUN_NO_EXECUTABLE_PRICE_CLAIM",
+    "uncertainty": "NOT_RUN_SOURCE_REPAIR_ONLY"
+  },
+  "feature_reconstruction": {
+    "manifest_sha256": "31fca5f7ca1c61028e63760a5fa974f37ed31218674160628b03809822155b88",
+    "maximum_target": "2026-07-21",
+    "minimum_target": "2026-03-25",
+    "rows": 38891,
+    "target_dates": 88
+  },
+  "generated_at_utc": "2026-07-21T22:59:33.144670+00:00",
+  "highest_value_next_action": "Bind the repaired count-bearing features into an isolated HR-first probability candidate, audit every active formula/override for duplicate or unsafe consumption, then fit on 2023 and select once on 2024 without opening May or reusing spent HR confirmation.",
+  "incident": {
+    "preserved_archive": {
+      "barrel_rate": 0.5,
+      "consumed_by_rich_features": true,
+      "hard_hit_rate": 0.094,
+      "path": "C:\\Projects\\baseball_predictor\\data\\features\\2026-07-21\\bundles.json",
+      "player_id": 680757,
+      "sha256": "edbfabdc97255515f87dc3ab4683530101753f10f44f47b9b953b4285351064b"
+    },
+    "rejected_artifacts_preserved": [
+      "raw_2026_inputs_v1",
+      "repaired_batted_ball_features_v1",
+      "repaired_batted_ball_features_v2"
+    ],
+    "repaired_numeric_identity": {
+      "barrel_count": 0,
+      "barrel_rate": 0.0,
+      "batted_ball_denominator": 98,
+      "hard_hit_count": 10,
+      "hard_hit_rate": 0.1020408163265306,
+      "max_source_date": "2026-07-20",
+      "player_id": 680757,
+      "target_date": "2026-07-21"
+    },
+    "root_causes": [
+      "sparse barrel and hard_hit columns were averaged over incompatible populations",
+      "foul-contact launch speed was eligible for a reconstructed BBE denominator",
+      "Statcast player_name identified the pitcher and was attached to a batter ID in rejected v1"
+    ]
+  },
+  "promotion": false,
+  "prospective_evidence": "NOT_BACKFILLED",
+  "schema_version": "mlb-system-integrity-candidate-v1",
+  "sealed_month": "MAY_2026_NOT_FETCHED_NOT_READ_NOT_PARSED_NOT_WRITTEN",
+  "source_backfill": {
+    "bindings": [
+      {
+        "artifact_sha256": "a8c8c4a72ba8b598eb35372564b6840f2d2d34d8d01b01a4a7d3f228cbe7a98f",
+        "manifest": "statcast_inputs_2026-03-25_2026-03-31.manifest.json",
+        "manifest_sha256": "020f80f1b15470d6a2ea9bfab0045e6f6012a4abb95cc23ebf9e58e7c15277bb"
+      },
+      {
+        "artifact_sha256": "61ffc670c2a75e75a33491255533b60379cf47cb20061e9aeb78016564a2b54f",
+        "manifest": "statcast_inputs_2026-04-01_2026-04-07.manifest.json",
+        "manifest_sha256": "93716e811931240610df251843a4d706b1de1834331a95976997468f4c49d100"
+      },
+      {
+        "artifact_sha256": "2ea916eb59cb0d4b90cdfa8ba12b390e7fb075ac6bfa8209f494315e1d721295",
+        "manifest": "statcast_inputs_2026-04-08_2026-04-14.manifest.json",
+        "manifest_sha256": "8bd97874d3f5a7a772053a5a4af1641713bd9d004923263fab66338fc7020072"
+      },
+      {
+        "artifact_sha256": "0cb523f456bd38f69c3d187fe936655144e489924bfbfe357a9e8c24f5074797",
+        "manifest": "statcast_inputs_2026-04-15_2026-04-21.manifest.json",
+        "manifest_sha256": "4b249c3ebe9c97adc914c2d40372b6de77673fe946a695b727a1ff7602d616f5"
+      },
+      {
+        "artifact_sha256": "956617415086644faa2adb4a8c2da0c7c9d92a094a8008e5415199231c11c050",
+        "manifest": "statcast_inputs_2026-04-22_2026-04-28.manifest.json",
+        "manifest_sha256": "b93110aea35a995efafa433848d371dc57016652c08b2a35ddbadb4421e35c91"
+      },
+      {
+        "artifact_sha256": "0c16147f13ccf226c94f2d7d7d5db2a19b87723a28d925cbee66933653604cb0",
+        "manifest": "statcast_inputs_2026-04-29_2026-04-30.manifest.json",
+        "manifest_sha256": "df4fab79d23bc8295de72cbdf3cf085aba2d1c168bb9786515a7628eee13f477"
+      },
+      {
+        "artifact_sha256": "e3b8b036398c3c52d87bf43603ce440bf6c631fd1e0016076bf969a19a40e2ae",
+        "manifest": "statcast_inputs_2026-06-01_2026-06-07.manifest.json",
+        "manifest_sha256": "2eaef811abf8365bbe3cfe139a090c31a8259eeaf5cd0ef338dee878d887e195"
+      },
+      {
+        "artifact_sha256": "407e27fde4a23f4c597af04b7b4921db08a61169a8518d828c10bf214d0950e4",
+        "manifest": "statcast_inputs_2026-06-08_2026-06-14.manifest.json",
+        "manifest_sha256": "284fd579f75a82b5d869eb24156b0e00809a320a4d623071aa595b697d4a9065"
+      },
+      {
+        "artifact_sha256": "a880bfc8a39ece5805f69b725f0c4c3ed3a06c03cd82d1437a98a30892ce8f63",
+        "manifest": "statcast_inputs_2026-06-15_2026-06-21.manifest.json",
+        "manifest_sha256": "a4e1ba6d9a83c6883c398557cb7ed90a2afc52668ce21793e39286852bdb265e"
+      },
+      {
+        "artifact_sha256": "a73f66dba4b767e060f1114ae8a16108578799377ec1a36a730f227972956737",
+        "manifest": "statcast_inputs_2026-06-22_2026-06-28.manifest.json",
+        "manifest_sha256": "cab26155d1c8b583b5c9c73814e3aaf49d0089c3676e1253ac25bd4cc418b604"
+      },
+      {
+        "artifact_sha256": "e56923491aea7abcc8c64d6167e4da452c7d4f888930329fd7d0f2374439d6b4",
+        "manifest": "statcast_inputs_2026-06-29_2026-07-05.manifest.json",
+        "manifest_sha256": "eb1a6f33cb9e2e4c3a19342426520bafc23430d34cdeeec4efdc441d34550b6a"
+      },
+      {
+        "artifact_sha256": "53c6e5192eadcc8115dee6b0a5c4c0471868d22eeb06eedac83faf8415530399",
+        "manifest": "statcast_inputs_2026-07-06_2026-07-12.manifest.json",
+        "manifest_sha256": "60bc110796a70e9027533b38a13fc26481648a7d3c1cf3f27f9a4fae88a6fb37"
+      },
+      {
+        "artifact_sha256": "358970c1174ca80203df8453eec20205ca5e53d47d24bf0d3baa1c6d0b2a4b02",
+        "manifest": "statcast_inputs_2026-07-13_2026-07-19.manifest.json",
+        "manifest_sha256": "877760ab9423325df3682e7079280703afea23add148cd76de65f260797d34e1"
+      },
+      {
+        "artifact_sha256": "6f1db1809391a2616b506458fc56bb103437b3ee09b2be882b7a23b770f8c0de",
+        "manifest": "statcast_inputs_2026-07-20_2026-07-21.manifest.json",
+        "manifest_sha256": "1bc11e6e9c8fb0948ae09b874e6112bc39da42bed2ba1aea4f3c3a8ac1cc35d6"
+      }
+    ],
+    "chunks": 14,
+    "measured_batted_balls": 55400,
+    "rows": 322042
+  },
+  "tests": {
+    "focused_mutation_suite": {
+      "failed": 0,
+      "passed": 15
+    },
+    "full_suite": {
+      "failed": 0,
+      "passed": 132
+    }
+  }
+}

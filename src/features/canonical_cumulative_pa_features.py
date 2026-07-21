@@ -13,6 +13,8 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
+from src.data.statcast_integrity import derive_batted_ball_evidence
+
 from src.features.canonical_pa_features import (
     BIP_OUT_EVENTS,
     HIT_EVENTS,
@@ -29,7 +31,7 @@ from src.features.canonical_pa_features import (
 )
 
 
-SCHEMA_VERSION = "shared-pa-canonical-cumulative-statcast-v1"
+SCHEMA_VERSION = "shared-pa-canonical-cumulative-statcast-v2"
 
 
 def expected_cache_groups(
@@ -150,10 +152,7 @@ def _profile(
     zone = pd.to_numeric(work["zone"], errors="coerce")
     outside = zone.isin([11, 12, 13, 14])
     in_zone = zone.between(1, 9)
-    exit_velocity = pd.to_numeric(bip["launch_speed"], errors="coerce")
-    speed_angle = pd.to_numeric(bip["launch_speed_angle"], errors="coerce")
-    measured_ev = exit_velocity.notna()
-    classified_barrel = speed_angle.notna()
+    batted_ball_evidence = derive_batted_ball_evidence(bip)
 
     values: dict[str, Any] = {
         "pitch_count": int(len(work)),
@@ -165,8 +164,13 @@ def _profile(
         "xslg": _mean(bip, "estimated_slg_using_speedangle"),
         "avg_exit_velocity": _mean(bip, "launch_speed"),
         "avg_launch_angle": _mean(bip, "launch_angle"),
-        "barrel_rate": _rate(int(speed_angle.eq(6).sum()), int(classified_barrel.sum())),
-        "hard_hit_rate": _rate(int(exit_velocity[measured_ev].ge(95.0).sum()), int(measured_ev.sum())),
+        "batted_ball_denominator": (
+            None if batted_ball_evidence is None else batted_ball_evidence.measured_batted_balls
+        ),
+        "barrel_count": None if batted_ball_evidence is None else batted_ball_evidence.barrel_count,
+        "hard_hit_count": None if batted_ball_evidence is None else batted_ball_evidence.hard_hit_count,
+        "barrel_rate": None if batted_ball_evidence is None else batted_ball_evidence.barrel_rate,
+        "hard_hit_rate": None if batted_ball_evidence is None else batted_ball_evidence.hard_hit_rate,
         "whiff_rate": _rate(int(whiffs.sum()), int(swings.sum())),
         "chase_rate": _rate(int((outside & swings).sum()), int(outside.sum())),
         "contact_rate": _rate(int((swings & ~whiffs).sum()), int(swings.sum())),

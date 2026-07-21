@@ -33,6 +33,7 @@ from src.models.dataclasses import (
 )
 from src.utils.logging import get_logger
 from src.utils.provenance import sha256_file
+from src.data.statcast_integrity import validate_profile_and_rich_features
 
 logger = get_logger(__name__)
 
@@ -212,11 +213,16 @@ class FeatureStore:
 
 
 def bundle_to_dict(bundle: PlayerFeatureBundle) -> dict[str, Any]:
+    validate_profile_and_rich_features(
+        bundle.statcast,
+        bundle.rich_features,
+        context=f"FeatureStore.serialize[{bundle.hitter.player.mlb_id}]",
+    )
     return _to_plain(asdict(bundle))
 
 
 def bundle_from_dict(data: dict[str, Any]) -> PlayerFeatureBundle:
-    return PlayerFeatureBundle(
+    bundle = PlayerFeatureBundle(
         hitter=_hitter_from_dict(data["hitter"]),
         statcast=_statcast_from_dict(data["statcast"]),
         park=ParkFactors(**data["park"]),
@@ -229,6 +235,12 @@ def bundle_from_dict(data: dict[str, Any]) -> PlayerFeatureBundle:
         features=_feature_vector_from_dict(data.get("features")),
         metadata=dict(data.get("metadata", {})),
     )
+    validate_profile_and_rich_features(
+        bundle.statcast,
+        bundle.rich_features,
+        context=f"FeatureStore.deserialize[{bundle.hitter.player.mlb_id}]",
+    )
+    return bundle
 
 
 def bundles_to_dataframe(bundles: list[PlayerFeatureBundle]) -> pd.DataFrame:

@@ -18,6 +18,7 @@ from src.data.statcast_batted_ball_rates import (
     barrel_rate as derive_barrel_rate,
     hard_hit_rate as derive_hard_hit_rate,
 )
+from src.data.statcast_integrity import derive_batted_ball_evidence, validate_rate_pair
 from src.models.dataclasses import LeagueBaselines, PitcherStatcastProfile, StatcastProfile
 from src.utils.logging import get_logger
 
@@ -157,6 +158,11 @@ class SavantClient:
 
     def apply_league_fallback(self, profile: StatcastProfile) -> StatcastProfile:
         """Fill any missing metric with the corresponding league baseline."""
+        validate_rate_pair(
+            profile.barrel_rate,
+            profile.hard_hit_rate,
+            context=f"StatcastProfile[{profile.player_id}] before fallback",
+        )
         lg = self.league
         return replace(
             profile,
@@ -216,16 +222,22 @@ class SavantClient:
                 return None
             return _normalize_rate(val)
 
-        barrel = _rate("barrel")
-        hard_hit = _rate("hard_hit")
-        if self.derive_batted_ball_rates:
-            if "launch_speed" in group.columns:
-                speed = pd.to_numeric(group["launch_speed"], errors="coerce")
-                batted_balls = group[speed.notna() & (speed > 0)]
-            else:
-                batted_balls = group.iloc[0:0]
-            barrel = derive_barrel_rate(batted_balls)
-            hard_hit = derive_hard_hit_rate(batted_balls)
+        # Sparse source-level ``barrel``/``hard_hit`` columns do not establish
+        # compatible denominators.  Prefer a single count-bearing derivation
+        # whenever raw batted-ball evidence is available, regardless of the
+        # legacy candidate flag.  The flag remains only for version identity.
+        evidence = derive_batted_ball_evidence(group)
+        if evidence is not None:
+            barrel = evidence.barrel_rate
+            hard_hit = evidence.hard_hit_rate
+        else:
+            barrel = _rate("barrel")
+            hard_hit = _rate("hard_hit")
+            validate_rate_pair(
+                barrel,
+                hard_hit,
+                context=f"Savant aggregate fallback[{player_id}]",
+            )
 
         return StatcastProfile(
             player_id=player_id,
@@ -237,6 +249,14 @@ class SavantClient:
             barrel_rate=barrel,
             sweet_spot_rate=_rate("sweet_spot_percent") if "sweet_spot_percent" in group.columns else None,
             hard_hit_rate=hard_hit,
+            batted_ball_denominator=(
+                evidence.measured_batted_balls if evidence is not None else None
+            ),
+            barrel_count=evidence.barrel_count if evidence is not None else None,
+            hard_hit_count=evidence.hard_hit_count if evidence is not None else None,
+            batted_ball_rate_definition=(
+                evidence.classification if evidence is not None else None
+            ),
             avg_exit_velocity=_mean("launch_speed"),
             avg_launch_angle=_mean("launch_angle"),
             whiff_rate=self._compute_whiff_rate(group),
@@ -272,6 +292,11 @@ class SavantClient:
                 contact_rate=_normalize_rate(_safe_float(row.get("contact_percent"))),
                 swing_rate=_normalize_rate(_safe_float(row.get("swing_percent"))),
                 zone_rate=_normalize_rate(_safe_float(row.get("zone_percent"))),
+            )
+            validate_rate_pair(
+                profile.barrel_rate,
+                profile.hard_hit_rate,
+                context=f"player-level Savant CSV[{player_id}]",
             )
             profiles[player_id] = self.apply_league_fallback(profile)
         return profiles

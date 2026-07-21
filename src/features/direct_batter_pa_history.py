@@ -13,6 +13,8 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
+from src.data.statcast_integrity import derive_batted_ball_evidence
+
 
 OUTCOMES = (
     "strikeout", "walk", "single", "double", "triple", "home_run",
@@ -125,9 +127,22 @@ def history_features(prepared: pd.DataFrame, *, player_id: int, target_date: str
     result["history_bip"] = int(len(bip))
     result.update(_moments(ev, "history_exit_velocity"))
     result.update(_moments(la, "history_launch_angle"))
-    bucket = pd.to_numeric(bip["launch_speed_angle"], errors="coerce")
-    result["history_barrel_rate"] = _rate(int(bucket.eq(6).sum()), int(bucket.notna().sum()))
-    result["history_hard_hit_rate"] = _rate(int((pd.to_numeric(bip["launch_speed"], errors="coerce") >= 95).sum()), int(pd.to_numeric(bip["launch_speed"], errors="coerce").notna().sum()))
+    batted_ball_evidence = derive_batted_ball_evidence(bip)
+    result["history_batted_ball_denominator"] = (
+        None if batted_ball_evidence is None else batted_ball_evidence.measured_batted_balls
+    )
+    result["history_barrel_count"] = (
+        None if batted_ball_evidence is None else batted_ball_evidence.barrel_count
+    )
+    result["history_hard_hit_count"] = (
+        None if batted_ball_evidence is None else batted_ball_evidence.hard_hit_count
+    )
+    result["history_barrel_rate"] = (
+        None if batted_ball_evidence is None else batted_ball_evidence.barrel_rate
+    )
+    result["history_hard_hit_rate"] = (
+        None if batted_ball_evidence is None else batted_ball_evidence.hard_hit_rate
+    )
     for column, name in (
         ("release_speed", "release_speed"), ("pfx_x", "pfx_x"), ("pfx_z", "pfx_z"),
         ("plate_x", "plate_x"), ("plate_z", "plate_z"),
