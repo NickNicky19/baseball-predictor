@@ -53,16 +53,16 @@ def atomic(path: Path, payload: bytes) -> None:
 def _component(frame: pd.DataFrame, probabilities: np.ndarray, name: str) -> tuple[np.ndarray, np.ndarray]:
     counts = outcome_counts(frame).loc[:, PA_OUTCOMES].to_numpy(float)
     index = {value: i for i, value in enumerate(PA_OUTCOMES)}
-    if name == "hits":
+    if name == "hits_pa_event":
         members = [index[x] for x in ("single", "double", "triple", "home_run")]
         positive = counts[:, members].sum(axis=1)
         p = probabilities[:, members].sum(axis=1)
         return np.column_stack([counts.sum(axis=1) - positive, positive]), np.column_stack([1.0 - p, p])
-    if name == "hr_over_0_5":
+    if name == "hr_pa_event":
         positive = counts[:, index["home_run"]]
         p = probabilities[:, index["home_run"]]
         return np.column_stack([counts.sum(axis=1) - positive, positive]), np.column_stack([1.0 - p, p])
-    if name == "total_bases":
+    if name == "total_bases_pa_event":
         zero = counts[:, [index[x] for x in ("strikeout", "walk", "bip_out", "other_non_ab")]].sum(axis=1)
         return (
             np.column_stack([zero, counts[:, index["single"]], counts[:, index["double"]], counts[:, index["triple"]], counts[:, index["home_run"]]]),
@@ -152,7 +152,11 @@ def run(*, panel: Path, manifest: Path, protocol: Path, report: Path, prediction
         raise ValueError("direct batter panel timing contract did not pass")
     if source_manifest.get("output", {}).get("sha256") != sha256_file(panel):
         raise ValueError("direct batter panel hash mismatch")
-    if contract.get("status") not in {"LOCKED_BEFORE_DIRECT_BATTER_PA_BUILD_OR_2024_SELECTION", "LOCKED_BEFORE_REPAIRED_BUILD_OR_2024_RESELECTION"}:
+    if contract.get("status") not in {
+        "LOCKED_BEFORE_DIRECT_BATTER_PA_BUILD_OR_2024_SELECTION",
+        "LOCKED_BEFORE_REPAIRED_BUILD_OR_2024_RESELECTION",
+        "LOCKED_BEFORE_SOURCE_TRUTH_BUILD_OR_2024_SELECTION",
+    }:
         raise ValueError("direct batter protocol is not locked")
     frame = pd.read_csv(panel, low_memory=False)
     raw_targets = frame[[f"target_{name}" for name in PA_OUTCOMES]].rename(columns={f"target_{name}": name for name in PA_OUTCOMES}).astype(int)
@@ -180,10 +184,16 @@ def run(*, panel: Path, manifest: Path, protocol: Path, report: Path, prediction
     p_candidate = candidate.predict_proba(frame.loc[select])
     baseline_model = fit_rate_baseline(frame.loc[fit], kind="empirical_bayes_player_rate", prior_strength_pa=200.0)
     p_baseline, fallback = baseline_model.predict(frame.loc[select])
+    league_model = fit_rate_baseline(frame.loc[fit], kind="league_rate")
+    p_league, _ = league_model.predict(frame.loc[select])
     selection = frame.loc[select].reset_index(drop=True)
     counts = outcome_counts(selection)
     overall = {}
-    comparator_probabilities = {"empirical_bayes_player_rate_pa_200": p_baseline, "all_prior_core": p_core}
+    comparator_probabilities = {
+        "league_rate_2023": p_league,
+        "empirical_bayes_player_rate_pa_200": p_baseline,
+        "all_prior_core": p_core,
+    }
     candidate_scores = proper_scores(counts, p_candidate)
     material_all = True
     for name, probability in comparator_probabilities.items():
@@ -199,7 +209,11 @@ def run(*, panel: Path, manifest: Path, protocol: Path, report: Path, prediction
             material_all = material_all and gates[metric]["passed"]
         overall[name] = {"scores": scores, "intervals": intervals, "materiality": gates}
     components: dict[str, Any] = {}
-    for component in ("hits", "hr_over_0_5", "total_bases"):
+    # These are PA-foundation diagnostics, not game-market probabilities.
+    # Turning P(HR|PA) into P(HR>=1|game), or the hit/TB analogues, requires
+    # a separately contracted pregame PA-volume distribution. Realized game
+    # PA is an outcome and is forbidden as a prediction-time input.
+    for component in ("hits_pa_event", "hr_pa_event", "total_bases_pa_event"):
         component_counts, candidate_p = _component(selection, p_candidate, component)
         row: dict[str, Any] = {"candidate": _scores(component_counts, candidate_p), "candidate_calibration": _calibration(component_counts, candidate_p), "comparators": {}}
         eligible_component = True
@@ -216,26 +230,65 @@ def run(*, panel: Path, manifest: Path, protocol: Path, report: Path, prediction
             eligible_component = eligible_component and auc_noninferior
             row["comparators"][name] = {"scores": comparator_scores, "calibration": _calibration(component_counts, comparator_p), "paired_interval": interval, "materiality": gates, "auc_noninferior_point": auc_noninferior}
         row["selection_eligible"] = bool(eligible_component)
+        row["scope"] = "PA_OUTCOME_FOUNDATION_ONLY"
+        row["market_probability_valid"] = False
         components[component] = row
     prediction_frame = selection[["game_pk", "player_id", "game_date"]].copy()
-    for label, probability in (("candidate", p_candidate), ("core", p_core), ("simple", p_baseline)):
+    for label, probability in (("candidate", p_candidate), ("core", p_core), ("simple", p_baseline), ("league", p_league)):
         for index, outcome in enumerate(PA_OUTCOMES): prediction_frame[f"{label}_{outcome}"] = probability[:, index]
     atomic(predictions, prediction_frame.to_csv(index=False, lineterminator="\n").encode("utf-8"))
     result: dict[str, Any] = {
-        "schema_version": "direct-batter-pa-selection-report-v1",
+        "schema_version": "direct-batter-pa-selection-report-v3",
+        "candidate_id": contract.get("candidate", {}).get("id"),
         "status": "SELECTION_PASSED_REQUIRES_FRESH_CONFIRMATION" if material_all and any(v["selection_eligible"] for v in components.values()) else "SELECTION_REJECTED_NO_CANDIDATE",
         "inputs": {"panel": {"path": str(panel), "sha256": sha256_file(panel), "rows": len(frame)}, "manifest_sha256": sha256_file(manifest), "protocol_sha256": sha256_file(protocol)},
         "chronology": {"fit_year": 2023, "selection_year": 2024, "confirmation_opened": False, "spent_2025_hr_reused": False, "may_2026_opened": False},
         "population": {"fit_rows": int(fit.sum()), "selection_rows": int(select.sum()), "zero_pa_rows_excluded_as_ineligible": int((~eligible).sum()), "coverage_loss_eligible_rows": 0, "simple_unseen_player_fraction": float(fallback.mean())},
         "features": {"core": core_features, "candidate": candidate_features, "forbidden_context_present": False},
         "model": {"params": PARAMS, "seed": SEED},
+        "identity_hashes": {
+            "config": {str(protocol): sha256_file(protocol)},
+            "data": {
+                str(panel): sha256_file(panel),
+                str(manifest): sha256_file(manifest),
+            },
+            "code": {
+                "scripts/build_direct_batter_pa_panel.py": sha256_file(ROOT / "scripts/build_direct_batter_pa_panel.py"),
+                "scripts/validate_direct_batter_pa_panel.py": sha256_file(ROOT / "scripts/validate_direct_batter_pa_panel.py"),
+                "scripts/select_direct_batter_pa_foundation.py": sha256_file(Path(__file__)),
+                "src/features/direct_batter_pa_history.py": sha256_file(ROOT / "src/features/direct_batter_pa_history.py"),
+                "src/data/statcast_integrity.py": sha256_file(ROOT / "src/data/statcast_integrity.py"),
+                "src/features/ml/feature_pipeline.py": sha256_file(ROOT / "src/features/ml/feature_pipeline.py"),
+                "src/simulation/pa_simulator.py": sha256_file(ROOT / "src/simulation/pa_simulator.py"),
+            },
+            "tests": {
+                "tests/test_probability_consumption_integrity.py": sha256_file(ROOT / "tests/test_probability_consumption_integrity.py"),
+                "tests/test_direct_batter_pa_history.py": sha256_file(ROOT / "tests/test_direct_batter_pa_history.py"),
+                "tests/test_build_direct_batter_pa_panel.py": sha256_file(ROOT / "tests/test_build_direct_batter_pa_panel.py"),
+                "tests/test_direct_batter_pa_protocol.py": sha256_file(ROOT / "tests/test_direct_batter_pa_protocol.py"),
+                "tests/test_select_direct_batter_pa_foundation.py": sha256_file(ROOT / "tests/test_select_direct_batter_pa_foundation.py"),
+            },
+        },
         "candidate_scores": candidate_scores,
         "overall_comparators": overall,
         "foundation_materiality_passed": bool(material_all),
         "components": components,
         "predictions": {"path": str(predictions), "sha256": sha256_file(predictions), "rows": len(prediction_frame)},
         "calibration_note": "One-vs-rest weighted logistic calibration intercept/slope are diagnostics only; no post-selection recalibration was fitted. Fresh confirmation must predeclare uncertainty gates before promotion.",
-        "full_game_market_blocker": "No component can advance a Hits, HR-over-0.5, or Total-Bases market without separately receipt-proven pregame PA volume and fresh untouched confirmation.",
+        "required_hr_comparators": {
+            "league_rate": "evaluated",
+            "time_safe_empirical_bayes_player_rate": "evaluated",
+            "frozen_production_simulator": "not_yet_identity_aligned_to_this_panel",
+            "valid_market_implied_where_available": "not_available_as_verified_point_in_time_executable_evidence",
+            "hr_market_gate_passed": False,
+        },
+        "market_scope": {
+            "hits": "blocked_pending_locked_point_in_time_PA_volume_and_market_line_contract",
+            "hr_over_0_5": "blocked_pending_locked_point_in_time_PA_volume",
+            "total_bases": "blocked_pending_locked_point_in_time_PA_volume_and_market_line_contract",
+            "realized_PA_used_as_prediction_input": False,
+        },
+        "full_game_market_blocker": "The scored components are PA-foundation diagnostics only. No Hits, HR-over-0.5, or Total-Bases market probability exists without a separately locked point-in-time PA-volume layer, aligned frozen-simulator comparator, and fresh untouched confirmation.",
         "production_changed": False, "betting_authorized": False,
         "script_sha256": sha256_file(Path(__file__)),
     }

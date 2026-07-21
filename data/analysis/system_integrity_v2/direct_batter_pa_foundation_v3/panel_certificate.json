@@ -1,0 +1,31 @@
+{
+  "manifest": {
+    "path": "data\\analysis\\system_integrity_v2\\direct_batter_pa_foundation_v3\\panel_manifest.json",
+    "sha256": "673ece8b9a26733ad4c8bf0b95fb15f6b32849e7a37c9b2fcb7f0734dcb4030f"
+  },
+  "panel": {
+    "path": "data\\analysis\\system_integrity_v2\\direct_batter_pa_foundation_v3\\panel_2023_2024.csv.gz",
+    "rows": 87462,
+    "sha256": "1638ee336833ae6cb3ba580eafe2800a8f4a6c609719fe88df7481c71e0f2fb1"
+  },
+  "protected_invariants": {
+    "betting_authorized": false,
+    "confirmation_2025_opened": false,
+    "may_2026_opened": false,
+    "pitcher_matchup_features": false,
+    "production_changed": false
+  },
+  "schema_version": "direct-batter-pa-panel-certificate-v1",
+  "status": "DIRECT_BATTER_PA_PANEL_CERTIFIED_RESEARCH_ONLY",
+  "validation": {
+    "chronology_violations": 0,
+    "feature_columns": 55,
+    "fit_rows_2023": 43740,
+    "identity_duplicates": 0,
+    "probability_consumer_raw_truth_parity": true,
+    "raw_files_rehashed": 1291,
+    "selection_rows_2024": 43722,
+    "zero_pa_rows": 31
+  },
+  "validator_sha256": "c7f58b61714fece13288f049a8c5ccc79f78461e3858823ca436b0f40d92675e"
+}

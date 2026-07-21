@@ -158,7 +158,11 @@ def build(*, official: Path, raw_root: Path, protocol: Path, output: Path, manif
     if output.exists() or manifest.exists():
         raise FileExistsError("refusing to overwrite direct batter PA evidence")
     contract = json.loads(protocol.read_text(encoding="utf-8"))
-    if contract.get("status") not in {"LOCKED_BEFORE_DIRECT_BATTER_PA_BUILD_OR_2024_SELECTION", "LOCKED_BEFORE_REPAIRED_BUILD_OR_2024_RESELECTION"}:
+    if contract.get("status") not in {
+        "LOCKED_BEFORE_DIRECT_BATTER_PA_BUILD_OR_2024_SELECTION",
+        "LOCKED_BEFORE_REPAIRED_BUILD_OR_2024_RESELECTION",
+        "LOCKED_BEFORE_SOURCE_TRUTH_BUILD_OR_2024_SELECTION",
+    }:
         raise ValueError("direct batter protocol is not locked")
     targets = load_targets(official, maximum_rows=maximum_rows)
     feature_rows: list[dict[str, Any]] = []
@@ -206,7 +210,13 @@ def build(*, official: Path, raw_root: Path, protocol: Path, output: Path, manif
         zipped.write(merged.to_csv(index=False, lineterminator="\n").encode("utf-8"))
     atomic_bytes(output, buffer.getvalue())
     payload: dict[str, Any] = {
-        "schema_version": "direct-batter-pa-panel-manifest-v2" if contract.get("schema_version", "").endswith("v2") else "direct-batter-pa-panel-manifest-v1",
+        "schema_version": (
+            "direct-batter-pa-panel-manifest-v3"
+            if contract.get("schema_version", "").endswith("v3")
+            else "direct-batter-pa-panel-manifest-v2"
+            if contract.get("schema_version", "").endswith("v2")
+            else "direct-batter-pa-panel-manifest-v1"
+        ),
         "status": "DIRECT_BATTER_PA_TIMING_CONTRACT_PASSED_RESEARCH_ONLY",
         "protocol": {"path": str(protocol), "sha256": sha256_file(protocol)},
         "official": {"path": str(official), "sha256": sha256_file(official), "maximum_rows_read": maximum_rows},

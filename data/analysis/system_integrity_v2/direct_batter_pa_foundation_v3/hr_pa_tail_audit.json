@@ -1,0 +1,215 @@
+{
+  "betting_authorized": false,
+  "confirmation_2025_opened": false,
+  "gate_effect": "none; thresholds were not locked in the candidate protocol and cannot rescue or promote the candidate",
+  "inputs": {
+    "panel_sha256": "1638ee336833ae6cb3ba580eafe2800a8f4a6c609719fe88df7481c71e0f2fb1",
+    "predictions_sha256": "29353af5b6765072eb86467e8fedd8b06f8167c80c64fbc37b7ff2a456b613d2",
+    "selection_report_sha256": "dcd1079f3728387b1993db4d05ce450a948356b110558e4268304364c670dfba"
+  },
+  "may_2026_opened": false,
+  "models": {
+    "candidate": {
+      "fixed_probability_bins": [
+        {
+          "lower": 0.0,
+          "observed": 0.006134969325153374,
+          "observed_minus_predicted": -0.0035089002852326965,
+          "pa": 163,
+          "predicted": 0.009643869610386071,
+          "rows": 46,
+          "upper": 0.01
+        },
+        {
+          "lower": 0.01,
+          "observed": 0.016773476327491498,
+          "observed_minus_predicted": 0.0006301634197301668,
+          "pa": 30584,
+          "predicted": 0.01614331290776133,
+          "rows": 8045,
+          "upper": 0.02
+        },
+        {
+          "lower": 0.02,
+          "observed": 0.024591250970956557,
+          "observed_minus_predicted": -0.0004490796755513525,
+          "pa": 52783,
+          "predicted": 0.02504033064650791,
+          "rows": 13402,
+          "upper": 0.03
+        },
+        {
+          "lower": 0.03,
+          "observed": 0.03577808654227868,
+          "observed_minus_predicted": -0.0023747899141624215,
+          "pa": 80608,
+          "predicted": 0.0381528764564411,
+          "rows": 19540,
+          "upper": 0.05
+        },
+        {
+          "lower": 0.05,
+          "observed": 0.05308023552157483,
+          "observed_minus_predicted": -0.003024360916384916,
+          "pa": 11379,
+          "predicted": 0.056104596437959744,
+          "rows": 2660,
+          "upper": 0.075
+        },
+        {
+          "lower": 0.075,
+          "observed": 0.05263157894736842,
+          "observed_minus_predicted": -0.02354685450725355,
+          "pa": 57,
+          "predicted": 0.07617843345462197,
+          "rows": 12,
+          "upper": 0.1
+        }
+      ],
+      "top_decile": {
+        "observed": 0.04892818863879957,
+        "observed_minus_predicted": -0.004260538214309419,
+        "pa": 18660,
+        "predicted": 0.05318872685310899,
+        "rows": 4371,
+        "threshold_from_predictions_only": 0.04714329700007676
+      }
+    },
+    "core": {
+      "fixed_probability_bins": [
+        {
+          "lower": 0.01,
+          "observed": 0.012167727442905278,
+          "observed_minus_predicted": -0.004653243686796291,
+          "pa": 16026,
+          "predicted": 0.01682097112970157,
+          "rows": 4220,
+          "upper": 0.02
+        },
+        {
+          "lower": 0.02,
+          "observed": 0.022218002278769463,
+          "observed_minus_predicted": -0.0034158945739724556,
+          "pa": 47394,
+          "predicted": 0.02563389685274192,
+          "rows": 12217,
+          "upper": 0.03
+        },
+        {
+          "lower": 0.03,
+          "observed": 0.03381260355978406,
+          "observed_minus_predicted": -0.004656089381471738,
+          "pa": 93545,
+          "predicted": 0.0384686929412558,
+          "rows": 22895,
+          "upper": 0.05
+        },
+        {
+          "lower": 0.05,
+          "observed": 0.04745003822212515,
+          "observed_minus_predicted": -0.008421007906770792,
+          "pa": 18314,
+          "predicted": 0.05587104612889594,
+          "rows": 4307,
+          "upper": 0.075
+        },
+        {
+          "lower": 0.075,
+          "observed": 0.07796610169491526,
+          "observed_minus_predicted": -0.0022324270803290996,
+          "pa": 295,
+          "predicted": 0.08019852877524436,
+          "rows": 66,
+          "upper": 0.1
+        }
+      ],
+      "top_decile": {
+        "observed": 0.047951833136221915,
+        "observed_minus_predicted": -0.008307218377810704,
+        "pa": 18602,
+        "predicted": 0.05625905151403262,
+        "rows": 4371,
+        "threshold_from_predictions_only": 0.05000703714462878
+      }
+    },
+    "league": {
+      "fixed_probability_bins": [
+        {
+          "lower": 0.03,
+          "observed": 0.030203788715869092,
+          "observed_minus_predicted": -0.0019472500707649089,
+          "pa": 175574,
+          "predicted": 0.032151038786634,
+          "rows": 43705,
+          "upper": 0.05
+        }
+      ],
+      "top_decile": {
+        "observed": 0.030203788715869092,
+        "observed_minus_predicted": -0.0019472500707649089,
+        "pa": 175574,
+        "predicted": 0.032151038786634,
+        "rows": 43705,
+        "threshold_from_predictions_only": 0.032151038786634
+      }
+    },
+    "simple": {
+      "fixed_probability_bins": [
+        {
+          "lower": 0.01,
+          "observed": 0.018251591164357917,
+          "observed_minus_predicted": 0.0006133249419604282,
+          "pa": 10684,
+          "predicted": 0.01763826622239749,
+          "rows": 2707,
+          "upper": 0.02
+        },
+        {
+          "lower": 0.02,
+          "observed": 0.02286263570566948,
+          "observed_minus_predicted": -0.0026086719277491795,
+          "pa": 53056,
+          "predicted": 0.02547130763341866,
+          "rows": 13521,
+          "upper": 0.03
+        },
+        {
+          "lower": 0.03,
+          "observed": 0.03316889263225444,
+          "observed_minus_predicted": -0.003012624616678977,
+          "pa": 99732,
+          "predicted": 0.03618151724893342,
+          "rows": 24622,
+          "upper": 0.05
+        },
+        {
+          "lower": 0.05,
+          "observed": 0.04850437944141464,
+          "observed_minus_predicted": -0.008200587771343623,
+          "pa": 12102,
+          "predicted": 0.056704967212758264,
+          "rows": 2855,
+          "upper": 0.075
+        }
+      ],
+      "top_decile": {
+        "observed": 0.04481792717086835,
+        "observed_minus_predicted": -0.008766510120670437,
+        "pa": 18564,
+        "predicted": 0.053584437291538785,
+        "rows": 4404,
+        "threshold_from_predictions_only": 0.0458490787875893
+      }
+    }
+  },
+  "population": {
+    "hr": 5303,
+    "pa": 175574,
+    "rows": 43705
+  },
+  "production_changed": false,
+  "schema_version": "direct-batter-hr-pa-tail-audit-v1",
+  "scope": "PA-level HR event calibration; not HR-over-0.5 game-market calibration",
+  "script_sha256": "9bd519e48457c2025d4218ecf9f236d62e61e495bfa96d088d41a2b3c1e87004",
+  "status": "DESCRIPTIVE_ONLY_SELECTION_REMAINS_REJECTED"
+}

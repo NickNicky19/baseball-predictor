@@ -20,7 +20,7 @@ def frame() -> pd.DataFrame:
 
 def test_components_preserve_exposure() -> None:
     p = np.tile(np.array([[.25, .05, .20, .10, .01, .04, .30, .05]]), (5, 1))
-    for name in ("hits", "hr_over_0_5", "total_bases"):
+    for name in ("hits_pa_event", "hr_pa_event", "total_bases_pa_event"):
         counts, probability = _component(frame(), p, name)
         assert counts.sum() == 20
         assert np.allclose(probability.sum(axis=1), 1)

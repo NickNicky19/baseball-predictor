@@ -1,0 +1,822 @@
+{
+  "betting_authorized": false,
+  "calibration_note": "One-vs-rest weighted logistic calibration intercept/slope are diagnostics only; no post-selection recalibration was fitted. Fresh confirmation must predeclare uncertainty gates before promotion.",
+  "candidate_id": "direct_batter_all_prior_regular_season_v3_source_truth_repair",
+  "candidate_scores": {
+    "multiclass_brier": 0.7078496691884838,
+    "multiclass_log_loss": 1.5045210221369534
+  },
+  "chronology": {
+    "confirmation_opened": false,
+    "fit_year": 2023,
+    "may_2026_opened": false,
+    "selection_year": 2024,
+    "spent_2025_hr_reused": false
+  },
+  "components": {
+    "hits_pa_event": {
+      "candidate": {
+        "auc": 0.5219033340511172,
+        "brier": 0.34236272369079784,
+        "log_loss": 0.5260050366910762,
+        "mean_expected_class": 0.21436353028307395,
+        "mean_observed_class": 0.21930923713078246
+      },
+      "candidate_calibration": {
+        "1": {
+          "converged": true,
+          "intercept": -0.5874566289366729,
+          "slope": 0.524033217723797
+        }
+      },
+      "comparators": {
+        "all_prior_core": {
+          "auc_noninferior_point": false,
+          "calibration": {
+            "1": {
+              "converged": true,
+              "intercept": -0.332145297986359,
+              "slope": 0.7617267447860916
+            }
+          },
+          "materiality": {
+            "brier": {
+              "passed": false,
+              "required_below": -0.003421434163226576
+            },
+            "log_loss": {
+              "passed": false,
+              "required_below": -0.005255995489446741
+            }
+          },
+          "paired_interval": {
+            "brier": {
+              "lower": 5.7040036882867335e-05,
+              "point": 0.00021930736814029244,
+              "upper": 0.0003717146831116752
+            },
+            "dates": 185,
+            "draws": 2000,
+            "log_loss": {
+              "lower": 0.00015762520266740374,
+              "point": 0.0004054877464021598,
+              "upper": 0.0006525460328518712
+            }
+          },
+          "scores": {
+            "auc": 0.5238478051628696,
+            "brier": 0.3421434163226576,
+            "log_loss": 0.5255995489446741,
+            "mean_expected_class": 0.22616921231400897,
+            "mean_observed_class": 0.21930923713078246
+          }
+        },
+        "empirical_bayes_player_rate_pa_200": {
+          "auc_noninferior_point": true,
+          "calibration": {
+            "1": {
+              "converged": true,
+              "intercept": -0.4887385165585031,
+              "slope": 0.630084280648847
+            }
+          },
+          "materiality": {
+            "brier": {
+              "passed": false,
+              "required_below": -0.003423290933545583
+            },
+            "log_loss": {
+              "passed": false,
+              "required_below": -0.0052589197754309615
+            }
+          },
+          "paired_interval": {
+            "brier": {
+              "lower": -0.00015587824417214176,
+              "point": 3.36303362395901e-05,
+              "upper": 0.00020771227443696686
+            },
+            "dates": 185,
+            "draws": 2000,
+            "log_loss": {
+              "lower": -0.00017267558583815905,
+              "point": 0.00011305914798006125,
+              "upper": 0.0004071399719809521
+            }
+          },
+          "scores": {
+            "auc": 0.5182952514182433,
+            "brier": 0.3423290933545583,
+            "log_loss": 0.5258919775430961,
+            "mean_expected_class": 0.224703297375097,
+            "mean_observed_class": 0.21930923713078246
+          }
+        },
+        "league_rate_2023": {
+          "auc_noninferior_point": true,
+          "calibration": {
+            "1": {
+              "converged": false,
+              "intercept": 0.13232664128746846,
+              "slope": 1.1221668273173424
+            }
+          },
+          "materiality": {
+            "brier": {
+              "passed": false,
+              "required_below": -0.0034244984470587145
+            },
+            "log_loss": {
+              "passed": false,
+              "required_below": -0.005260677316137719
+            }
+          },
+          "paired_interval": {
+            "brier": {
+              "lower": -0.0002788287015794623,
+              "point": -8.712101507351051e-05,
+              "upper": 0.00011039082569444479
+            },
+            "dates": 185,
+            "draws": 2000,
+            "log_loss": {
+              "lower": -0.00035605291129897827,
+              "point": -6.269492269574488e-05,
+              "upper": 0.00024520877997756264
+            }
+          },
+          "scores": {
+            "auc": 0.5,
+            "brier": 0.3424498447058714,
+            "log_loss": 0.526067731613772,
+            "mean_expected_class": 0.2228059088395608,
+            "mean_observed_class": 0.21930923713078246
+          }
+        }
+      },
+      "market_probability_valid": false,
+      "scope": "PA_OUTCOME_FOUNDATION_ONLY",
+      "selection_eligible": false
+    },
+    "hr_pa_event": {
+      "candidate": {
+        "auc": 0.5964397800782381,
+        "brier": 0.0583858394499848,
+        "log_loss": 0.13375740320391333,
+        "mean_expected_class": 0.031526229647939684,
+        "mean_observed_class": 0.030203788715869092
+      },
+      "candidate_calibration": {
+        "1": {
+          "converged": true,
+          "intercept": -0.35426129589383576,
+          "slope": 0.9078774810169598
+        }
+      },
+      "comparators": {
+        "all_prior_core": {
+          "auc_noninferior_point": false,
+          "calibration": {
+            "1": {
+              "converged": true,
+              "intercept": 0.046376157551144215,
+              "slope": 1.0602944866083794
+            }
+          },
+          "materiality": {
+            "brier": {
+              "passed": false,
+              "required_below": -0.0005841419906013961
+            },
+            "log_loss": {
+              "passed": false,
+              "required_below": -0.001339366131436889
+            }
+          },
+          "paired_interval": {
+            "brier": {
+              "lower": -4.602731009006798e-05,
+              "point": -2.8359610154795907e-05,
+              "upper": -1.1254723180516288e-05
+            },
+            "dates": 185,
+            "draws": 2000,
+            "log_loss": {
+              "lower": -0.00032072288121578427,
+              "point": -0.0001792099397755981,
+              "upper": -3.654527777210168e-05
+            }
+          },
+          "scores": {
+            "auc": 0.5992225958864104,
+            "brier": 0.05841419906013961,
+            "log_loss": 0.1339366131436889,
+            "mean_expected_class": 0.03491348705814373,
+            "mean_observed_class": 0.030203788715869092
+          }
+        },
+        "empirical_bayes_player_rate_pa_200": {
+          "auc_noninferior_point": true,
+          "calibration": {
+            "1": {
+              "converged": true,
+              "intercept": -0.33964847805167975,
+              "slope": 0.9277535989348392
+            }
+          },
+          "materiality": {
+            "brier": {
+              "passed": false,
+              "required_below": -0.0005847254127917655
+            },
+            "log_loss": {
+              "passed": false,
+              "required_below": -0.0013449303629326107
+            }
+          },
+          "paired_interval": {
+            "brier": {
+              "lower": -0.00011030718252786447,
+              "point": -8.670182919175068e-05,
+              "upper": -6.30161119025792e-05
+            },
+            "dates": 185,
+            "draws": 2000,
+            "log_loss": {
+              "lower": -0.000930801894104394,
+              "point": -0.000735633089347758,
+              "upper": -0.0005408674830545415
+            }
+          },
+          "scores": {
+            "auc": 0.5780503442398182,
+            "brier": 0.05847254127917655,
+            "log_loss": 0.13449303629326106,
+            "mean_expected_class": 0.03323129578182527,
+            "mean_observed_class": 0.030203788715869092
+          }
+        },
+        "league_rate_2023": {
+          "auc_noninferior_point": true,
+          "calibration": {
+            "1": {
+              "converged": false,
+              "intercept": -1.4188398962935778,
+              "slope": 0.6022028586544506
+            }
+          },
+          "materiality": {
+            "brier": {
+              "passed": false,
+              "required_below": -0.0005859062329182861
+            },
+            "log_loss": {
+              "passed": true,
+              "required_below": -0.0013551199959653505
+            }
+          },
+          "paired_interval": {
+            "brier": {
+              "lower": -0.00024310519538702364,
+              "point": -0.00020478384184379757,
+              "upper": -0.00016538885844366374
+            },
+            "dates": 185,
+            "draws": 2000,
+            "log_loss": {
+              "lower": -0.002067892383891861,
+              "point": -0.0017545963926217298,
+              "upper": -0.0014481894857808209
+            }
+          },
+          "scores": {
+            "auc": 0.5,
+            "brier": 0.058590623291828604,
+            "log_loss": 0.13551199959653504,
+            "mean_expected_class": 0.03215103878663401,
+            "mean_observed_class": 0.030203788715869092
+          }
+        }
+      },
+      "market_probability_valid": false,
+      "scope": "PA_OUTCOME_FOUNDATION_ONLY",
+      "selection_eligible": false
+    },
+    "total_bases_pa_event": {
+      "candidate": {
+        "auc": 0.5432242992642895,
+        "brier": 0.36715998241690245,
+        "log_loss": 0.7309181968724109,
+        "mean_expected_class": 0.363642405117297,
+        "mean_observed_class": 0.3602697438117261
+      },
+      "candidate_calibration": {
+        "0": {
+          "converged": true,
+          "intercept": 0.5874566289366736,
+          "slope": 0.5240332177237965
+        },
+        "1": {
+          "converged": true,
+          "intercept": -0.3250152260219235,
+          "slope": 0.7842288270434422
+        },
+        "2": {
+          "converged": true,
+          "intercept": -2.3643435454943202,
+          "slope": 0.24178826181742444
+        },
+        "3": {
+          "converged": true,
+          "intercept": -3.335380731756362,
+          "slope": 0.42195685256189647
+        },
+        "4": {
+          "converged": true,
+          "intercept": -0.35426129589383576,
+          "slope": 0.9078774810169598
+        }
+      },
+      "comparators": {
+        "all_prior_core": {
+          "auc_noninferior_point": false,
+          "calibration": {
+            "0": {
+              "converged": true,
+              "intercept": 0.3321452979863544,
+              "slope": 0.7617267447860954
+            },
+            "1": {
+              "converged": true,
+              "intercept": -0.26190861538588467,
+              "slope": 0.8399495791797527
+            },
+            "2": {
+              "converged": true,
+              "intercept": -1.7411836902688562,
+              "slope": 0.45181026069627067
+            },
+            "3": {
+              "converged": true,
+              "intercept": -2.1271153626496804,
+              "slope": 0.6649023209935458
+            },
+            "4": {
+              "converged": true,
+              "intercept": 0.046376157551144215,
+              "slope": 1.0602944866083794
+            }
+          },
+          "materiality": {
+            "brier": {
+              "passed": false,
+              "required_below": -0.003669767193787561
+            },
+            "log_loss": {
+              "passed": false,
+              "required_below": -0.00730642336336936
+            }
+          },
+          "paired_interval": {
+            "brier": {
+              "lower": 6.459681397755012e-05,
+              "point": 0.0001832630381463955,
+              "upper": 0.00029435586073561825
+            },
+            "dates": 185,
+            "draws": 2000,
+            "log_loss": {
+              "lower": -2.3427180613779942e-05,
+              "point": 0.00027586053547494645,
+              "upper": 0.0005713222350592697
+            }
+          },
+          "scores": {
+            "auc": 0.5507498271024749,
+            "brier": 0.3669767193787561,
+            "log_loss": 0.730642336336936,
+            "mean_expected_class": 0.38887883982568555,
+            "mean_observed_class": 0.3602697438117261
+          }
+        },
+        "empirical_bayes_player_rate_pa_200": {
+          "auc_noninferior_point": false,
+          "calibration": {
+            "0": {
+              "converged": true,
+              "intercept": 0.48873851655850414,
+              "slope": 0.630084280648846
+            },
+            "1": {
+              "converged": true,
+              "intercept": -0.2769640002399988,
+              "slope": 0.842319805373763
+            },
+            "2": {
+              "converged": true,
+              "intercept": -2.4300500682101216,
+              "slope": 0.22287250213139187
+            },
+            "3": {
+              "converged": true,
+              "intercept": -2.0003068602810377,
+              "slope": 0.6369015159826239
+            },
+            "4": {
+              "converged": true,
+              "intercept": -0.33964847805167975,
+              "slope": 0.9277535989348392
+            }
+          },
+          "materiality": {
+            "brier": {
+              "passed": false,
+              "required_below": -0.003671649035494923
+            },
+            "log_loss": {
+              "passed": false,
+              "required_below": -0.007311624374960711
+            }
+          },
+          "paired_interval": {
+            "brier": {
+              "lower": -0.00013710586123699182,
+              "point": -4.921132589777942e-06,
+              "upper": 0.0001281837669023766
+            },
+            "dates": 185,
+            "draws": 2000,
+            "log_loss": {
+              "lower": -0.0006469871040465469,
+              "point": -0.00024424062366020253,
+              "upper": 0.0001854763607228956
+            }
+          },
+          "scores": {
+            "auc": 0.5490426946208965,
+            "brier": 0.36716490354949227,
+            "log_loss": 0.7311624374960711,
+            "mean_expected_class": 0.37797775722721677,
+            "mean_observed_class": 0.3602697438117261
+          }
+        },
+        "league_rate_2023": {
+          "auc_noninferior_point": true,
+          "calibration": {
+            "0": {
+              "converged": false,
+              "intercept": -0.1514359067577757,
+              "slope": 1.1374617147795776
+            },
+            "1": {
+              "converged": false,
+              "intercept": -0.005232076518642168,
+              "slope": 0.9934831598267039
+            },
+            "2": {
+              "converged": false,
+              "intercept": 0.1048601456584832,
+              "slope": 1.052049931168254
+            },
+            "3": {
+              "converged": false,
+              "intercept": 0.1375451591527377,
+              "slope": 1.028166983472983
+            },
+            "4": {
+              "converged": false,
+              "intercept": -1.4188398962935778,
+              "slope": 0.6022028586544506
+            }
+          },
+          "materiality": {
+            "brier": {
+              "passed": false,
+              "required_below": -0.0036746459290756014
+            },
+            "log_loss": {
+              "passed": false,
+              "required_below": -0.007327842833505563
+            }
+          },
+          "paired_interval": {
+            "brier": {
+              "lower": -0.00045464338710688633,
+              "point": -0.0003046104906576943,
+              "upper": -0.0001477567633493572
+            },
+            "dates": 185,
+            "draws": 2000,
+            "log_loss": {
+              "lower": -0.002387065446536194,
+              "point": -0.0018660864781454396,
+              "upper": -0.001363810536169611
+            }
+          },
+          "scores": {
+            "auc": 0.5,
+            "brier": 0.3674645929075601,
+            "log_loss": 0.7327842833505563,
+            "mean_expected_class": 0.3720221637908659,
+            "mean_observed_class": 0.3602697438117261
+          }
+        }
+      },
+      "market_probability_valid": false,
+      "scope": "PA_OUTCOME_FOUNDATION_ONLY",
+      "selection_eligible": false
+    }
+  },
+  "features": {
+    "candidate": [
+      "player_id",
+      "history_pitch_count",
+      "history_pa",
+      "history_strikeout_count",
+      "history_strikeout_rate",
+      "history_walk_count",
+      "history_walk_rate",
+      "history_single_count",
+      "history_single_rate",
+      "history_double_count",
+      "history_double_rate",
+      "history_triple_count",
+      "history_triple_rate",
+      "history_home_run_count",
+      "history_home_run_rate",
+      "history_bip_out_count",
+      "history_bip_out_rate",
+      "history_other_non_ab_count",
+      "history_other_non_ab_rate",
+      "history_pa_age_days_mean",
+      "history_pa_age_days_sd",
+      "history_swing_rate",
+      "history_whiff_rate",
+      "history_chase_rate",
+      "history_zone_rate",
+      "history_bip",
+      "history_exit_velocity_mean",
+      "history_exit_velocity_sd",
+      "history_launch_angle_mean",
+      "history_launch_angle_sd",
+      "history_batted_ball_denominator",
+      "history_barrel_count",
+      "history_hard_hit_count",
+      "history_barrel_rate",
+      "history_hard_hit_rate",
+      "history_release_speed_mean",
+      "history_release_speed_sd",
+      "history_pfx_x_mean",
+      "history_pfx_x_sd",
+      "history_pfx_z_mean",
+      "history_pfx_z_sd",
+      "history_plate_x_mean",
+      "history_plate_x_sd",
+      "history_plate_z_mean",
+      "history_plate_z_sd",
+      "history_distinct_pitch_types",
+      "history_pitch_type_entropy",
+      "days_since_strikeout",
+      "days_since_walk",
+      "days_since_single",
+      "days_since_double",
+      "days_since_triple",
+      "days_since_home_run",
+      "days_since_bip_out",
+      "days_since_other_non_ab",
+      "days_since_pa"
+    ],
+    "core": [
+      "history_pitch_count",
+      "history_pa",
+      "history_strikeout_count",
+      "history_strikeout_rate",
+      "history_walk_count",
+      "history_walk_rate",
+      "history_single_count",
+      "history_single_rate",
+      "history_double_count",
+      "history_double_rate",
+      "history_triple_count",
+      "history_triple_rate",
+      "history_home_run_count",
+      "history_home_run_rate",
+      "history_bip_out_count",
+      "history_bip_out_rate",
+      "history_other_non_ab_count",
+      "history_other_non_ab_rate",
+      "history_swing_rate",
+      "history_whiff_rate",
+      "history_chase_rate",
+      "history_zone_rate",
+      "history_bip",
+      "history_exit_velocity_mean",
+      "history_exit_velocity_sd",
+      "history_launch_angle_mean",
+      "history_launch_angle_sd",
+      "history_batted_ball_denominator",
+      "history_barrel_count",
+      "history_hard_hit_count",
+      "history_barrel_rate",
+      "history_hard_hit_rate",
+      "history_release_speed_mean",
+      "history_release_speed_sd",
+      "history_pfx_x_mean",
+      "history_pfx_x_sd",
+      "history_pfx_z_mean",
+      "history_pfx_z_sd",
+      "history_plate_x_mean",
+      "history_plate_x_sd",
+      "history_plate_z_mean",
+      "history_plate_z_sd",
+      "history_distinct_pitch_types",
+      "history_pitch_type_entropy"
+    ],
+    "forbidden_context_present": false
+  },
+  "foundation_materiality_passed": false,
+  "full_game_market_blocker": "The scored components are PA-foundation diagnostics only. No Hits, HR-over-0.5, or Total-Bases market probability exists without a separately locked point-in-time PA-volume layer, aligned frozen-simulator comparator, and fresh untouched confirmation.",
+  "identity_hashes": {
+    "code": {
+      "scripts/build_direct_batter_pa_panel.py": "978c12c7a82c52f926039ebd963751f082011e390ad5101069b8a0b8e8842453",
+      "scripts/select_direct_batter_pa_foundation.py": "e671ecc79de6dee44d270613581e8ee24369fe8768a86b2204b47d62400f3b80",
+      "scripts/validate_direct_batter_pa_panel.py": "c7f58b61714fece13288f049a8c5ccc79f78461e3858823ca436b0f40d92675e",
+      "src/data/statcast_integrity.py": "fad152c8abc92892949344421a3fba26067bf95e8fe1ea9367af259586786b15",
+      "src/features/direct_batter_pa_history.py": "783b8c6dbbec9875ad4937ba530bcae347b29b3e03f681fac0d0b4507a163d82",
+      "src/features/ml/feature_pipeline.py": "6ef40f19cec9a9031901d919bdd775331efd6eee332943bff612aeca9f342a69",
+      "src/simulation/pa_simulator.py": "c8832f17dbc5328ac52be8fc6fb37b12b0664ba0e782baabc1eec6986d4e8a4f"
+    },
+    "config": {
+      "config\\direct_batter_pa_foundation_v3.json": "efda4db5e21abfaa3d702418667709e4c1d53256838fa9abaedc610dd8e75e61"
+    },
+    "data": {
+      "data\\analysis\\system_integrity_v2\\direct_batter_pa_foundation_v3\\panel_2023_2024.csv.gz": "1638ee336833ae6cb3ba580eafe2800a8f4a6c609719fe88df7481c71e0f2fb1",
+      "data\\analysis\\system_integrity_v2\\direct_batter_pa_foundation_v3\\panel_manifest.json": "673ece8b9a26733ad4c8bf0b95fb15f6b32849e7a37c9b2fcb7f0734dcb4030f"
+    },
+    "tests": {
+      "tests/test_build_direct_batter_pa_panel.py": "c12b2651d08cc039062c8ceb8fb47367471cc254b717bd4b0212fda21233fb8b",
+      "tests/test_direct_batter_pa_history.py": "fc48621815da44d7754e1555d7a07ee0494ac0fd6c0db7eda69727e70e4bdd31",
+      "tests/test_direct_batter_pa_protocol.py": "886f04c09f8de64693ed889be1da4f4d3d04698f5901b8c0096bd28d2542363b",
+      "tests/test_probability_consumption_integrity.py": "061060da6c6e1c92a612580ae675ce100d17625f42d49162c944ac67329847c1",
+      "tests/test_select_direct_batter_pa_foundation.py": "7b21a18b7d54f108029af27626338f19316b888aeb1f85e94beb74e1c843a510"
+    }
+  },
+  "inputs": {
+    "manifest_sha256": "673ece8b9a26733ad4c8bf0b95fb15f6b32849e7a37c9b2fcb7f0734dcb4030f",
+    "panel": {
+      "path": "data\\analysis\\system_integrity_v2\\direct_batter_pa_foundation_v3\\panel_2023_2024.csv.gz",
+      "rows": 87431,
+      "sha256": "1638ee336833ae6cb3ba580eafe2800a8f4a6c609719fe88df7481c71e0f2fb1"
+    },
+    "protocol_sha256": "efda4db5e21abfaa3d702418667709e4c1d53256838fa9abaedc610dd8e75e61"
+  },
+  "market_scope": {
+    "hits": "blocked_pending_locked_point_in_time_PA_volume_and_market_line_contract",
+    "hr_over_0_5": "blocked_pending_locked_point_in_time_PA_volume",
+    "realized_PA_used_as_prediction_input": false,
+    "total_bases": "blocked_pending_locked_point_in_time_PA_volume_and_market_line_contract"
+  },
+  "model": {
+    "params": {
+      "depth": 4,
+      "iterations": 1200,
+      "l2_leaf_reg": 10.0,
+      "learning_rate": 0.03,
+      "thread_count": 2
+    },
+    "seed": 20260721
+  },
+  "overall_comparators": {
+    "all_prior_core": {
+      "intervals": {
+        "brier": {
+          "dates": 185,
+          "draws": 2000,
+          "lower": -0.00024055677959593556,
+          "point": -7.51959476042104e-05,
+          "upper": 6.56027511805346e-05
+        },
+        "log_loss": {
+          "dates": 185,
+          "draws": 2000,
+          "lower": -0.0005833068947656,
+          "point": -0.00016155198295508735,
+          "upper": 0.00024341870027608193
+        }
+      },
+      "materiality": {
+        "brier": {
+          "passed": false,
+          "point": -7.51959476042104e-05,
+          "required_below": -0.00707924865136088,
+          "upper": 6.56027511805346e-05
+        },
+        "log_loss": {
+          "passed": false,
+          "point": -0.00016155198295508735,
+          "required_below": -0.015046825741199088,
+          "upper": 0.00024341870027608193
+        }
+      },
+      "scores": {
+        "multiclass_brier": 0.707924865136088,
+        "multiclass_log_loss": 1.5046825741199088
+      }
+    },
+    "empirical_bayes_player_rate_pa_200": {
+      "intervals": {
+        "brier": {
+          "dates": 185,
+          "draws": 2000,
+          "lower": -0.0012472379362422033,
+          "point": -0.0010296059644986533,
+          "upper": -0.0008242985241693265
+        },
+        "log_loss": {
+          "dates": 185,
+          "draws": 2000,
+          "lower": -0.002888606300549199,
+          "point": -0.0022325774601071407,
+          "upper": -0.0016000335604265134
+        }
+      },
+      "materiality": {
+        "brier": {
+          "passed": false,
+          "point": -0.0010296059644986533,
+          "required_below": -0.0070887927515298245,
+          "upper": -0.0008242985241693265
+        },
+        "log_loss": {
+          "passed": false,
+          "point": -0.0022325774601071407,
+          "required_below": -0.015067535995970606,
+          "upper": -0.0016000335604265134
+        }
+      },
+      "scores": {
+        "multiclass_brier": 0.7088792751529824,
+        "multiclass_log_loss": 1.5067535995970607
+      }
+    },
+    "league_rate_2023": {
+      "intervals": {
+        "brier": {
+          "dates": 185,
+          "draws": 2000,
+          "lower": -0.005520095920162913,
+          "point": -0.005125337168789334,
+          "upper": -0.004750259380066811
+        },
+        "log_loss": {
+          "dates": 185,
+          "draws": 2000,
+          "lower": -0.013696153612436129,
+          "point": -0.012738523285874631,
+          "upper": -0.011853139910182046
+        }
+      },
+      "materiality": {
+        "brier": {
+          "passed": false,
+          "point": -0.005125337168789334,
+          "required_below": -0.007129750063572731,
+          "upper": -0.004750259380066811
+        },
+        "log_loss": {
+          "passed": false,
+          "point": -0.012738523285874631,
+          "required_below": -0.015172595454228277,
+          "upper": -0.011853139910182046
+        }
+      },
+      "scores": {
+        "multiclass_brier": 0.7129750063572731,
+        "multiclass_log_loss": 1.5172595454228277
+      }
+    }
+  },
+  "population": {
+    "coverage_loss_eligible_rows": 0,
+    "fit_rows": 43726,
+    "selection_rows": 43705,
+    "simple_unseen_player_fraction": 0.08637455668687793,
+    "zero_pa_rows_excluded_as_ineligible": 31
+  },
+  "predictions": {
+    "path": "data\\analysis\\system_integrity_v2\\direct_batter_pa_foundation_v3\\selection_predictions.csv",
+    "rows": 43705,
+    "sha256": "29353af5b6765072eb86467e8fedd8b06f8167c80c64fbc37b7ff2a456b613d2"
+  },
+  "production_changed": false,
+  "required_hr_comparators": {
+    "frozen_production_simulator": "not_yet_identity_aligned_to_this_panel",
+    "hr_market_gate_passed": false,
+    "league_rate": "evaluated",
+    "time_safe_empirical_bayes_player_rate": "evaluated",
+    "valid_market_implied_where_available": "not_available_as_verified_point_in_time_executable_evidence"
+  },
+  "schema_version": "direct-batter-pa-selection-report-v3",
+  "script_sha256": "e671ecc79de6dee44d270613581e8ee24369fe8768a86b2204b47d62400f3b80",
+  "status": "SELECTION_REJECTED_NO_CANDIDATE"
+}

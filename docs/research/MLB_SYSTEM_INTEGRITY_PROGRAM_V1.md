@@ -48,8 +48,8 @@ outcome/result columns. Exact machine-readable scope is in
 | SI-006 | P1 | Missing Statcast fields can silently become league averages; fetch failures can return an empty frame. | Hits, HR, TB | Make source/fallback status explicit and quarantine silent source loss; never disguise failure as player evidence. Pending. | Integrity repair |
 | SI-007 | P1 | Rich features override scalar fields independently without stored count/denominator lineage. | Hits, HR, TB | Bind effective values to source/count/denominator/window; reject contradictory partial overrides. Partial invariant implemented. | Integrity repair |
 | SI-008 | P1 | Pitcher fields can affect probabilities without a receipt-proven pregame starter identity in historical candidates. | Hits, HR, TB | Exclude pitcher block unless receipt contract passes. Existing block retained; full consumer audit pending. | Governance/integrity |
-| SI-009 | P1 | Active PA formulas contain multiple hand-specified scaling and interaction paths that may double count the same batter quality. | HR first; Hits/TB | Trace every term and run locked ablation/monotonicity/simulation-consistency diagnostics only after source repair. Pending. | Research candidate audit |
-| SI-010 | P1 | Some invalid K/BB inputs are converted to NaN and routed into a legacy path rather than failing closed. | Hits, HR, TB | Separate legitimate missingness from invalid values; mutation-test the consumer. Pending. | Integrity repair |
+| SI-009 | P1 | The frozen HR formula consumes barrel signal in `H_power`, consumes it again through xSLG, then adds a distribution quality score containing barrel/hard-hit and a further EV/launch-angle term. These are hand-specified, overlapping paths. | HR first; Hits/TB through the shared simulator | Frozen formula retained only as comparator. The repaired challenger is a locked fitted batter-only PA model; no coefficient tuning or claim that the legacy formula was repaired. | Research candidate audit |
+| SI-010 | P1 | Invalid K/BB inputs were converted to NaN and routed into the legacy path, contrary to the comment claiming the defect was visible. | Hits, HR, TB | Invalid/nonfinite/out-of-range values now raise; legitimate missing recent rates retain the predeclared season substitution; missing season rates fail when the fitted path is enabled. Regression and mutation tests pass. | Integrity repair |
 | SI-011 | P1 | Feature artifacts do not uniformly persist raw counts, denominators, fallback reasons, and source hashes. | Hits, HR, TB | Versioned lineage schema and reconstruction manifest. Pending. | Integrity repair |
 | SI-012 | P1 | Scheduled collection lacks one hash-bound local supervisor with immutable health/missed records. | Prospective research operations | Task Scheduler publisher/collector/watchdog/report design; isolated dry run only. Pending. | Automation hardening |
 | SI-013 | P2 | Output corrections and market policy are separate consumers that can obscure whether probability changes came from data, model, or policy. | Separate markets | Complete consumption map, model-version binding, and no post-outcome policy mutation. Pending. | Systems audit |
@@ -57,6 +57,29 @@ outcome/result columns. Exact machine-readable scope is in
 | SI-015 | P0 | Contact speed is present on some foul pitches; the first reconstructed denominator treated every measured contact as BBE. | Barrel/hard-hit counts and EV summaries | BBE restricted to `type == X`; foul mutation passes; rejected v1 preserved; v3 rebuilt. Complete. | Integrity repair |
 | SI-016 | P0 | Empty feature dates serialized as zero-byte CSVs with no columns, defeating deterministic schema validation. | Historical feature artifacts and consumers | Rejected/preserved feature v2; header-only schema artifacts implemented and mutation-tested; v3 rebuilt. Complete. | Integrity repair |
 | SI-017 | P2 | The first v3 report labeled its candidate ID `v2` and omitted the report-builder hash. | Candidate identity/provenance | Rejected report preserved; builder now self-bound and candidate correctly labeled. Complete. | Provenance repair |
+| SI-018 | P0 | `FeaturePipeline.compute` caught every engineer exception and returned a partial feature dictionary; downstream rich/scalar/league precedence could therefore hide a crash as ordinary fallback. | Hits, HR, TB | Pipeline now fails closed on engineer failure, non-dictionary output, and duplicate feature ownership. Regression and override-mutation tests pass. | Integrity repair |
+| SI-019 | P0 | The frozen pitcher HR/9 term had reversed monotonic direction: a higher HR/9 reduced hitter HR probability. | HR; shared simulator | Historical sign is explicitly isolated as `legacy_frozen`; corrected direction is separately selectable and monotonicity-tested. Batter-only v3 excludes the pitcher block. No pitcher candidate may advance without T-4 identity evidence. | Integrity repair/research candidate boundary |
+| SI-020 | P0 | The v2 selector called per-PA HR scoring `HR over 0.5` and similarly treated hit/TB PA outcomes as game-market probabilities. A full-game probability requires a point-in-time PA-volume distribution. | Hits, HR over 0.5, Total Bases | v3 labels these PA-foundation diagnostics only and records every market as blocked. Realized game PA is forbidden as a prediction input. | Evaluation-boundary repair |
+
+## HR probability-consumption audit
+
+The frozen simulator path is:
+`FeatureFactory/RichFeatureEnricher -> PropEngine -> ProbabilityEngine ->
+HybridPASimulator -> GameSimulator -> MonteCarlo`. Within the HR logit,
+barrel-derived `H_power` is combined with xSLG and barrel boosts; xwOBA,
+hard-hit rate, and rolling xwOBA enter `H_quality`; the optional distribution
+then adds another composite quality score and another exit-velocity/launch-angle
+term. This is not an admissible repaired challenger because the effects are
+overlapping and hand-specified. It remains hash-preserved as a comparator.
+
+The source-truth v3 challenger is batter-only and fitted with locked parameters
+on 2023, with one selection on 2024. It excludes every pitcher feature and
+cannot produce a game-market probability until a separately contracted
+point-in-time PA-volume layer is available. The v3 selector evaluates a 2023
+league-rate baseline, a time-safe 200-PA empirical-Bayes player baseline, and
+an all-prior fitted core comparator. HR promotion additionally remains blocked
+until the frozen simulator can be identity-aligned and valid point-in-time
+market evidence exists where available.
 
 ## 2026 input-repair milestone
 
@@ -70,6 +93,21 @@ mutation tests pass 15/15.
 
 This milestone is not a probability, calibration, ROI, market, or promotion
 result. The frozen baseline remains in force and betting remains unauthorized.
+
+## Direct batter PA v3 adjudication
+
+Candidate `direct_batter_all_prior_regular_season_v3_source_truth_repair` was
+built from 87,462 certified 2023/2024 player-game rows after the shared BBE
+denominator and consumer repairs. The single locked 2024 selection rejected
+all three PA foundations. HR proper scores improved slightly against the
+league-rate, time-safe EB player-rate, and all-prior fitted-core comparators,
+but failed the 1% materiality gates and lost AUC to the fitted core (0.59644
+versus 0.59922). Hits and Total Bases also failed. These are PA diagnostics,
+not full-game market probabilities. The frozen simulator is not yet
+identity-aligned, verified point-in-time market evidence is unavailable, and
+the point-in-time PA-volume layer is missing. Full tests pass 148/148. Exact
+metrics, uncertainty intervals, hashes, and the next action are in
+`data/analysis/system_integrity_v2/direct_batter_pa_foundation_v3/report.md`.
 
 ## Promotion boundary
 

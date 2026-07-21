@@ -12,6 +12,10 @@ from typing import Any
 from src.features.ml.base import BaseFeatureEngineer
 
 
+class FeaturePipelineError(RuntimeError):
+    """Raised when a feature block cannot be produced truthfully."""
+
+
 class FeaturePipeline:
     """
     Combines multiple BaseFeatureEngineer classes into one clean interface.
@@ -24,14 +28,32 @@ class FeaturePipeline:
         self.engineers.append(engineer)
 
     def compute(self, data: dict[str, Any]) -> dict[str, Any]:
-        """Run all engineers and merge results."""
+        """Run all engineers and merge results, failing closed on any defect.
+
+        Returning partial features makes downstream fallback indistinguishable
+        from legitimate missingness. Duplicate ownership is also rejected so
+        update order can never decide which value reaches a probability.
+        """
         all_features: dict[str, Any] = {}
         for engineer in self.engineers:
             try:
                 features = engineer.compute(data)
-                all_features.update(features)
             except Exception as e:
-                print(f"[FeaturePipeline] Warning: {engineer.name} failed → {e}")
+                raise FeaturePipelineError(
+                    f"feature engineer {engineer.name!r} failed; no partial "
+                    "feature set was returned"
+                ) from e
+            if not isinstance(features, dict):
+                raise FeaturePipelineError(
+                    f"feature engineer {engineer.name!r} returned "
+                    f"{type(features).__name__}, expected dict"
+                )
+            overlap = sorted(set(all_features).intersection(features))
+            if overlap:
+                raise FeaturePipelineError(
+                    f"duplicate feature ownership from {engineer.name!r}: {overlap}"
+                )
+            all_features.update(features)
         return all_features
 
     def get_all_feature_names(self) -> list[str]:

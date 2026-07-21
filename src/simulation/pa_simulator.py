@@ -70,6 +70,11 @@ class PASimulatorConfig:
     hr_handedness: float = 0.15
     hr_quality: float = 0.16
 
+    # Frozen production historically applied the pitcher HR/9 term with the
+    # wrong sign. Preserve it only as an explicit comparator. Repaired
+    # research candidates must select ``corrected`` or omit pitcher HR/9.
+    pitcher_hr9_effect_mode: str = "legacy_frozen"
+
     # Latent skill scaling
     contact_scale: float = 8.0
     power_scale: float = 2.7
@@ -314,6 +319,12 @@ class HybridPASimulator:
                     "use_fitted_kbb is enabled without artifact-loaded "
                     f"coefficients: {missing}"
                 )
+        if self.config.pitcher_hr9_effect_mode not in {
+            "legacy_frozen", "corrected"
+        }:
+            raise ValueError(
+                "pitcher_hr9_effect_mode must be 'legacy_frozen' or 'corrected'"
+            )
         self.rng = random.Random(random_seed)
 
     # ------------------------------------------------------------------
@@ -578,26 +589,22 @@ class HybridPASimulator:
         # NaN when absent -> _calculate_k_bb_probs takes the LEGACY H_contact
         # path, byte-identically. Nothing changes unless BOTH use_fitted_kbb is
         # on AND the rates are present.
-        def _rate01(v: Any) -> float:
-            """A rate, or NaN. NEVER a fabricated default.
-
-            A value outside [0, 1] is not a rate. We return NaN rather than
-            clamp it, so the caller falls back to the legacy path and the
-            failure is VISIBLE -- a silently coerced 1.4 would produce a
-            confident, wrong K probability.
-            """
+        def _rate01(v: Any, name: str) -> float:
+            """Return a valid rate, NaN only when absent, and reject corruption."""
+            if v is None or (isinstance(v, str) and not v.strip()):
+                return float("nan")
             try:
                 f = float(v)
             except (TypeError, ValueError):
-                return float("nan")
-            if not (0.0 <= f <= 1.0) or math.isnan(f):
-                return float("nan")
+                raise ValueError(f"{name} must be numeric or absent; got {v!r}")
+            if not math.isfinite(f) or not (0.0 <= f <= 1.0):
+                raise ValueError(f"{name} must be finite and in [0, 1]; got {v!r}")
             return f
 
-        k_season = _rate01(getattr(statcast, "k_rate", None)) if statcast else float("nan")
-        bb_season = _rate01(getattr(statcast, "bb_rate", None)) if statcast else float("nan")
-        k_recent = _rate01(getattr(statcast, "k_rate_recent", None)) if statcast else float("nan")
-        bb_recent = _rate01(getattr(statcast, "bb_rate_recent", None)) if statcast else float("nan")
+        k_season = _rate01(getattr(statcast, "k_rate", None), "k_rate") if statcast else float("nan")
+        bb_season = _rate01(getattr(statcast, "bb_rate", None), "bb_rate") if statcast else float("nan")
+        k_recent = _rate01(getattr(statcast, "k_rate_recent", None), "k_rate_recent") if statcast else float("nan")
+        bb_recent = _rate01(getattr(statcast, "bb_rate_recent", None), "bb_rate_recent") if statcast else float("nan")
 
         # A missing RECENT rate falls back to the SEASON rate. That is not a
         # fudge and it is not arbitrary: the fitted model is
@@ -611,6 +618,19 @@ class HybridPASimulator:
             k_recent = k_season
         if math.isnan(bb_recent):
             bb_recent = bb_season
+
+        if self.config.use_fitted_kbb:
+            missing = [
+                name for name, value in (
+                    ("k_rate", k_season), ("bb_rate", bb_season),
+                    ("k_rate_recent", k_recent), ("bb_rate_recent", bb_recent),
+                ) if math.isnan(value)
+            ]
+            if missing:
+                raise ValueError(
+                    "fitted K/BB path requires hitter season rates; missing "
+                    f"or unavailable: {missing}"
+                )
 
         return {
             "H_contact": h_contact,
@@ -672,6 +692,10 @@ class HybridPASimulator:
                                      or math.isnan(p_k))
         have_bb = use_fitted and not (math.isnan(b_s) or math.isnan(b_r)
                                       or math.isnan(p_bb))
+        if use_fitted and not (have_k and have_bb):
+            raise ValueError(
+                "fitted K/BB probability consumption received incomplete rates"
+            )
 
         if have_k:
             k_logit = (
@@ -736,7 +760,12 @@ class HybridPASimulator:
             pitcher_hr_skill = (pitcher_hr_per_9 - self.league.hr_per_9) / max(
                 self.league.hr_per_9, 0.5
             )
-            hr_logit -= cfg.hr_pitcher_miss * pitcher_hr_skill
+            if cfg.pitcher_hr9_effect_mode == "corrected":
+                hr_logit += cfg.hr_pitcher_miss * pitcher_hr_skill
+            else:
+                # Frozen comparator behavior. New research candidates may not
+                # claim this as a repaired pitcher-matchup feature.
+                hr_logit -= cfg.hr_pitcher_miss * pitcher_hr_skill
 
         dist = statcast.distribution if statcast and statcast.distribution else None
         if dist and dist.sample_bip > 0:

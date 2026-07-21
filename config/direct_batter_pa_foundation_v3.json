@@ -1,0 +1,83 @@
+{
+  "schema_version": "direct-batter-pa-foundation-protocol-v3",
+  "status": "LOCKED_BEFORE_SOURCE_TRUTH_BUILD_OR_2024_SELECTION",
+  "locked_date": "2026-07-21",
+  "research_only": true,
+  "betting_authorized": false,
+  "production_changed": false,
+  "single_intervention": {
+    "name": "shared_batted_ball_denominator_and_probability_consumption_integrity_repair",
+    "changes": [
+      "barrel and hard-hit counts share measured in-play exit-velocity denominator",
+      "count and denominator lineage enter the reconstructed feature panel",
+      "invalid rich-feature overrides and partial feature-pipeline output fail closed",
+      "invalid fitted K/BB rates fail closed rather than selecting the legacy formula",
+      "per-PA diagnostics cannot be labeled as full-game market probabilities"
+    ],
+    "prohibited": [
+      "coefficient adjustment",
+      "threshold tuning",
+      "league-value substitution for invalid player evidence",
+      "opposing pitcher without a receipt-proven pregame identity",
+      "realized target-game PA as a prediction input"
+    ]
+  },
+  "chronology": {
+    "fit_year": 2023,
+    "selection_year": 2024,
+    "selection_runs": 1,
+    "confirmation_years_opened": [],
+    "spent_hr_confirmation_year": 2025,
+    "forbidden_dates": ["2026-05"],
+    "feature_source_rule": "regular-season source rows with game_date strictly before target game_date"
+  },
+  "candidate": {
+    "id": "direct_batter_all_prior_regular_season_v3_source_truth_repair",
+    "model": {
+      "kind": "CatBoost MultiClass",
+      "loss": "MultiClass",
+      "random_seed": 20260721,
+      "thread_count": 2,
+      "params": {
+        "depth": 4,
+        "iterations": 1200,
+        "l2_leaf_reg": 10.0,
+        "learning_rate": 0.03
+      }
+    },
+    "forbidden_inputs": [
+      "opposing pitcher",
+      "probable or actual starter",
+      "lineup slot as model feature",
+      "team",
+      "opponent",
+      "venue",
+      "park",
+      "weather",
+      "umpire",
+      "current-game state",
+      "market price",
+      "policy threshold"
+    ]
+  },
+  "selection_gates": {
+    "coverage_loss_allowed": 0,
+    "materiality": "candidate-minus-each-comparator point and date-block 95% upper bound must each be below negative 1% of comparator Brier and log loss",
+    "auc": "candidate point estimate must be noninferior separately for each PA foundation outcome",
+    "comparators": [
+      "2023 league rate",
+      "time-safe empirical-Bayes player rate with 200-PA prior",
+      "all-prior core fitted comparator"
+    ],
+    "market_promotion": "forbidden: PA diagnostics are not game-market probabilities; aligned frozen simulator, point-in-time PA volume, valid market evidence where available, and fresh untouched confirmation remain required"
+  },
+  "protected_invariants": {
+    "may_2026_sealed": true,
+    "spent_2025_hr_not_independent_confirmation": true,
+    "historical_prices_not_executable": true,
+    "operational_smoke_permanently_non_economic": true,
+    "existing_rejections_preserved": true,
+    "july_22_pitcher_collector_untouched": true,
+    "no_betting_authorization": true
+  }
+}

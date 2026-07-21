@@ -39,6 +39,42 @@ def atomic_json(path: Path, value: dict[str, Any]) -> None:
         raise
 
 
+def validate_batted_ball_lineage(frame: pd.DataFrame) -> None:
+    """Prove serialized direct-history counts, denominator, and rates agree."""
+    columns = [
+        "history_batted_ball_denominator", "history_barrel_count",
+        "history_hard_hit_count", "history_barrel_rate", "history_hard_hit_rate",
+    ]
+    if missing := sorted(set(columns).difference(frame.columns)):
+        raise ValueError(f"batted-ball lineage columns missing: {missing}")
+    try:
+        values = frame[columns].apply(pd.to_numeric, errors="raise")
+    except (TypeError, ValueError) as exc:
+        raise ValueError("batted-ball lineage contains nonnumeric values") from exc
+    partial = values.notna().any(axis=1) & ~values.notna().all(axis=1)
+    if partial.any():
+        raise ValueError("partial batted-ball count/rate lineage")
+    present = values.notna().all(axis=1)
+    if not present.any():
+        raise ValueError("batted-ball count/rate lineage has no measured rows")
+    measured = values.loc[present]
+    denominator = measured["history_batted_ball_denominator"]
+    barrels = measured["history_barrel_count"]
+    hard_hits = measured["history_hard_hit_count"]
+    if (denominator <= 0).any() or (barrels < 0).any() or (hard_hits < 0).any():
+        raise ValueError("invalid batted-ball counts or denominator")
+    if not denominator.mod(1).eq(0).all() or not barrels.mod(1).eq(0).all() or not hard_hits.mod(1).eq(0).all():
+        raise ValueError("batted-ball counts and denominator must be integers")
+    if (barrels > hard_hits).any() or (hard_hits > denominator).any():
+        raise ValueError("impossible batted-ball count ordering")
+    expected_barrel = barrels / denominator
+    expected_hard_hit = hard_hits / denominator
+    if not (measured["history_barrel_rate"] - expected_barrel).abs().le(1e-12).all():
+        raise ValueError("barrel count/rate serialization mismatch")
+    if not (measured["history_hard_hit_rate"] - expected_hard_hit).abs().le(1e-12).all():
+        raise ValueError("hard-hit count/rate serialization mismatch")
+
+
 def validate(*, panel: Path, manifest: Path, raw_root: Path, certificate: Path) -> dict[str, Any]:
     source = json.loads(manifest.read_text(encoding="utf-8"))
     if source.get("status") != "DIRECT_BATTER_PA_TIMING_CONTRACT_PASSED_RESEARCH_ONLY":
@@ -78,6 +114,7 @@ def validate(*, panel: Path, manifest: Path, raw_root: Path, certificate: Path) 
     history_columns = [column for column in frame.columns if column.startswith("history_") or column.startswith("days_since_")]
     if not history_columns:
         raise ValueError("direct batter feature set is empty")
+    validate_batted_ball_lineage(frame)
     result = {
         "schema_version": "direct-batter-pa-panel-certificate-v1",
         "status": "DIRECT_BATTER_PA_PANEL_CERTIFIED_RESEARCH_ONLY",

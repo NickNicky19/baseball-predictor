@@ -4,6 +4,7 @@ import pandas as pd
 import pytest
 
 from scripts.build_direct_batter_pa_panel import apply_raw_outcome_truth, outcome_counts, raw_terminal_outcome_counts
+from scripts.validate_direct_batter_pa_panel import validate_batted_ball_lineage
 
 
 def test_official_outcome_decomposition() -> None:
@@ -50,3 +51,32 @@ def test_duplicate_terminal_pa_mutation_fails_closed() -> None:
     ])
     with pytest.raises(ValueError, match="duplicated"):
         raw_terminal_outcome_counts(raw, player_id=7)
+
+
+def test_serialized_batted_ball_lineage_accepts_shared_denominator() -> None:
+    validate_batted_ball_lineage(pd.DataFrame([{
+        "history_batted_ball_denominator": 100,
+        "history_barrel_count": 8,
+        "history_hard_hit_count": 42,
+        "history_barrel_rate": 0.08,
+        "history_hard_hit_rate": 0.42,
+    }]))
+
+
+@pytest.mark.parametrize("mutation, match", [
+    ({"history_barrel_count": 50}, "count ordering"),
+    ({"history_barrel_rate": 0.50}, "barrel count/rate"),
+    ({"history_hard_hit_rate": None}, "partial"),
+    ({"history_hard_hit_rate": "bad"}, "nonnumeric"),
+])
+def test_serialized_batted_ball_lineage_mutations_fail_closed(mutation, match) -> None:
+    row = {
+        "history_batted_ball_denominator": 100,
+        "history_barrel_count": 8,
+        "history_hard_hit_count": 42,
+        "history_barrel_rate": 0.08,
+        "history_hard_hit_rate": 0.42,
+    }
+    row.update(mutation)
+    with pytest.raises(ValueError, match=match):
+        validate_batted_ball_lineage(pd.DataFrame([row]))
