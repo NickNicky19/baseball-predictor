@@ -1,5 +1,61 @@
 PROJECT_CONTEXT.md — v17 (master roadmap) — paste into any new chat
 
+===============================================================================
+CURRENT HANDOFF ADDENDUM (2026-07-21) — SUPERSEDES OLDER HEADLINES ON CONFLICT
+
+Absolute rules: research only; no betting authorization; May 2026 sealed;
+never lower the +0.10 capture lower-bound gate; never treat historical prices
+as executable; never use postgame facts as pregame features; never pool markets
+or products; never fabricate a fallback.
+
+Current main checkout: C:\Projects\baseball_predictor on branch
+codex/hits-forward-evidence-release at commit 0406acf. Its supported daily
+command is `python run_slate.py --date YYYY-MM-DD --config config/config.kbb.json`.
+This runs the frozen K/BB baseline for Hits, HR-related hitter projections, HRR,
+and pitcher strikeouts. It deliberately excludes exploratory/rejected HR work.
+Never use `--apply-corrections` in the frozen evidence period; manual runs must
+use a separate `--archive-dir`.
+
+2026-07-21 HR research is isolated in
+C:\Projects\baseball_predictor\.codex-provenance-foundation on branch
+codex/pregame-provenance-foundation (commits 074ffdb, 17d331f, af14620,
+5f921b1). It is not production code. The strictly-prior 30/120-day Statcast HR
+challenger showed only small 2025 simple-baseline gains (Brier about -0.000230,
+log loss about -0.001475), below its predeclared materiality gate; it is
+rejected and its 2025 confirmation cannot be reused as independent proof.
+
+Current readiness: about 5/10 overall; Hits about 5/10 and still below the
+locked +0.10 capture lower-bound gate (candidate lower bound about +0.0503);
+HR over 0.5 about 3/10. No policy qualifies and no market is authorized.
+
+The current highest-value direction is a shared fitted batter PA-outcome
+foundation for Hits, HR over 0.5, and Total Bases, adjudicated separately.
+Batter-only features may proceed only when their timing contract passes.
+Pitcher-matchup features require receipt-proven probable-starter identity; if
+unavailable, exclude that block rather than using a guessed or actual postgame
+starter. RBI/HRR require a separate point-in-time run-context layer.
+
+Fit on 2023 and select on 2024. Do not reuse spent confirmation data as new
+independent proof. Fresh untouched confirmation or forward evidence is required
+for a new candidate. No hand-tuned baseball coefficient, multiplier, or
+performance threshold may be introduced.
+
+The local 2023-2025 Statcast cache has 2,145,072 regular-season pitch rows,
+710,217 EV/LA batted-ball rows, 371,987 spray-coordinate-ready rows (52.38% of
+BBE), and 1,302 distinct pitchers with complete pitch context. This is enough
+for research foundations, not proof of a blanket spray feature or a pregame
+pitcher-matchup model.
+
+Operational smoke/collector evidence is separate and permanently non-economic
+unless a clean authorized economic era is created. Do not backfill missed
+prospective observations. Missed days may be reconstructed only as labelled
+historical research with predictions hash-locked before official outcomes; they
+cannot count as executable-price, forward ROI, or authorization evidence.
+
+Formal goal status in the app is BLOCKED for the previous broad multi-market
+goal. Do not falsely mark it complete. Desired replacement: shared batter
+PA-outcome foundation with the batter-only/probable-starter fail-closed rule.
+
 Keep this file in the repo. Start a FRESH chat per task, upload this (plus the
 repo/zip if code work is needed), and say which roadmap item to work on.
 Update "Current status" and check off roadmap items as they complete.
