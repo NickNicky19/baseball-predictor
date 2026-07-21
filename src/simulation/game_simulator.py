@@ -90,6 +90,8 @@ that is training on the test set.
 from __future__ import annotations
 
 import json
+import hashlib
+import math
 import random
 from dataclasses import dataclass
 from pathlib import Path
@@ -244,8 +246,10 @@ class GameSimulator:
         # supplies base_running.pa_distribution_path -- the same
         # degenerate-when-absent contract as lambda/gamma and B4's role_innings.
         if pa_distribution is None and config:
+            base_running = (config.get("base_running", {}) or {})
             pa_distribution = self._load_pa_distribution(
-                (config.get("base_running", {}) or {}).get("pa_distribution_path")
+                base_running.get("pa_distribution_path"),
+                expected_sha256=base_running.get("pa_distribution_sha256"),
             )
         self._pa_dist_states, self._pa_dist_weights = self._prepare_pa_dist(
             pa_distribution
@@ -387,20 +391,29 @@ class GameSimulator:
         return max(0, base)
 
     @staticmethod
-    def _load_pa_distribution(path: Optional[str]) -> Optional[dict[int, dict[int, float]]]:
+    def _load_pa_distribution(
+        path: Optional[str], expected_sha256: Optional[str] = None
+    ) -> Optional[dict[int, dict[int, float]]]:
         """Load the fitted PA distribution artifact, or None.
 
-        A MISSING file returns None (legacy path -- inert). A file that EXISTS
-        but is malformed RAISES: a silently-ignored broken fit would leave the
-        simulator on the legacy path while the config says otherwise, and the
-        gate would read 'no drift' and call it a tie. That is the exact
-        failure mode B4's config-threading bug produced. Fail loudly.
+        An absent config key selects the legacy path. Once a path is declared,
+        a missing, malformed, or hash-mismatched artifact is a hard failure: a
+        configured fitted distribution must never silently become legacy.
         """
         if not path:
             return None
         p = Path(path)
         if not p.exists():
-            return None
+            raise ValueError(f"configured PA distribution does not exist: {p}")
+        if expected_sha256 is not None:
+            expected = str(expected_sha256).strip().lower()
+            if len(expected) != 64 or any(ch not in "0123456789abcdef" for ch in expected):
+                raise ValueError("base_running.pa_distribution_sha256 is not a SHA-256 hash")
+            actual = hashlib.sha256(p.read_bytes()).hexdigest()
+            if actual != expected:
+                raise ValueError(
+                    f"PA distribution hash mismatch for {p}: expected {expected}, got {actual}"
+                )
         raw = json.loads(p.read_text(encoding="utf-8-sig"))
         by_slot = raw.get("by_lineup_slot")
         if not by_slot:
@@ -410,31 +423,85 @@ class GameSimulator:
                 f"the simulator would run pre-fix while the config claims "
                 f"otherwise."
             )
+        if not isinstance(by_slot, dict):
+            raise ValueError(f"{p} 'by_lineup_slot' must be an object")
         out: dict[int, dict[int, float]] = {}
-        for slot, dist in by_slot.items():
-            out[int(slot)] = {int(k): float(v) for k, v in dist.items()}
+        for raw_slot, raw_dist in by_slot.items():
+            try:
+                slot = int(raw_slot)
+            except (TypeError, ValueError) as exc:
+                raise ValueError(f"invalid lineup-slot key in {p}: {raw_slot!r}") from exc
+            if str(slot) != str(raw_slot).strip() or slot not in range(1, 10):
+                raise ValueError(f"invalid lineup-slot key in {p}: {raw_slot!r}")
+            if slot in out:
+                raise ValueError(f"duplicate normalized lineup-slot key in {p}: {raw_slot!r}")
+            if not isinstance(raw_dist, dict) or not raw_dist:
+                raise ValueError(f"PA distribution for lineup_slot {slot} is empty or malformed")
+            parsed: dict[int, float] = {}
+            for raw_pa, raw_weight in raw_dist.items():
+                try:
+                    pa = int(raw_pa)
+                    weight = float(raw_weight)
+                except (TypeError, ValueError) as exc:
+                    raise ValueError(
+                        f"invalid PA state/weight for lineup_slot {slot}: "
+                        f"{raw_pa!r}={raw_weight!r}"
+                    ) from exc
+                if str(pa) != str(raw_pa).strip() or pa < 0:
+                    raise ValueError(f"invalid PA state for lineup_slot {slot}: {raw_pa!r}")
+                if pa in parsed:
+                    raise ValueError(
+                        f"duplicate normalized PA state for lineup_slot {slot}: {raw_pa!r}"
+                    )
+                parsed[pa] = weight
+            out[slot] = parsed
+        expected_slots = set(range(1, 10))
+        if set(out) != expected_slots:
+            missing = sorted(expected_slots - set(out))
+            extra = sorted(set(out) - expected_slots)
+            raise ValueError(
+                f"configured PA distribution must cover lineup slots 1-9; "
+                f"missing={missing}, extra={extra}"
+            )
         return out
 
     @staticmethod
     def _prepare_pa_dist(
         dist: Optional[dict[int, dict[int, float]]]
     ) -> tuple[dict[int, list[int]], dict[int, list[float]]]:
-        """Normalise the fitted distribution into rng.choices-ready lists."""
+        """Validate and prepare a fitted distribution for ``rng.choices``.
+
+        Fitted probabilities are evidence, not arbitrary sampling weights.  A
+        negative, non-finite, or non-normalised artifact therefore fails closed
+        instead of being clipped or silently repaired at runtime.
+        """
         if not dist:
             return {}, {}
         states: dict[int, list[int]] = {}
         weights: dict[int, list[float]] = {}
         for slot, d in dist.items():
             ks = sorted(d)
-            ws = [max(0.0, float(d[k])) for k in ks]
+            ws = [float(d[k]) for k in ks]
+            if any(not math.isfinite(w) for w in ws):
+                raise ValueError(
+                    f"PA distribution for lineup_slot {slot} has a non-finite probability"
+                )
+            if any(w < 0.0 for w in ws):
+                raise ValueError(
+                    f"PA distribution for lineup_slot {slot} has a negative probability"
+                )
             total = sum(ws)
             if total <= 0:
                 raise ValueError(
                     f"PA distribution for lineup_slot {slot} has zero total "
                     f"weight -- refusing to sample from it."
                 )
+            if not math.isclose(total, 1.0, rel_tol=0.0, abs_tol=1e-9):
+                raise ValueError(
+                    f"PA distribution for lineup_slot {slot} sums to {total!r}, not 1.0"
+                )
             states[int(slot)] = [int(k) for k in ks]
-            weights[int(slot)] = [w / total for w in ws]
+            weights[int(slot)] = ws
         return states, weights
 
     def _sample_base_state(self) -> tuple[int, int, int]:

@@ -89,13 +89,13 @@ jobs:
             echo "Grading single date ${DATE}"
             python run_record_outcomes.py \
               --date "${DATE}" \
-              --config config/config.json \
+              --config config/config.kbb.json \
               --verbose
           else
             echo "Backfilling the last ${DAYS} day(s)"
             python run_record_outcomes.py \
               --backfill-days "${DAYS}" \
-              --config config/config.json \
+              --config config/config.kbb.json \
               --verbose
           fi
 

@@ -399,6 +399,23 @@ class DailyPredictor:
                 "Found %d authorized market signals and %d out-of-scope research signals for %s",
                 authorized, len(value_plays) - authorized, game_date,
             )
+
+        unresolved_hr_players = {
+            projection.player_name
+            for projection in hitter_projections
+            if projection.category == "home_runs"
+            and "opposing_pitcher_hr9_direction_unqualified"
+            in projection.input_health_flags
+        }
+        for edge in value_plays:
+            if edge.category == "home_runs" and edge.player_name in unresolved_hr_players:
+                edge.actionable = False
+                edge.kelly_fraction = 0.0
+                edge.market_status = "RESEARCH_ONLY"
+                edge.notes.append(
+                    "HR authorization blocked: opposing-pitcher HR/9 direction "
+                    "is unresolved and the isolated correction failed its gate"
+                )
         return value_plays
 
     def _prepare_corrections(self, use_corrections: bool) -> bool:

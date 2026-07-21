@@ -1,0 +1,54 @@
+{
+  "_comment": "FINAL K/BB model. Hitter season + hitter recent + PITCHER, fitted JOINTLY by binomial GLM on starter-games, temporal split, scored out-of-sample. The pitcher is IN the fit, not added on top -- an earlier hitter-only fit had its intercept absorb the average pitcher effect, and bolting a pitcher term onto it DOUBLE-COUNTED him (it produced K=0.1785 against a realized 0.2221). UNITS: pitcher_*_pct is per BATTER FACED (0-100), converted from the training set's per-9 rates with the SAME formula the model uses (PA = IP * 4.2). The simulator must feed the SAME quantity. CANDIDATE -- promotion goes through the gate.",
+  "provenance": {
+    "source": "data/training/training_hitters_2023_2026.csv.gz",
+    "source_sha256": "c4a78972f0a79447e8b37c341fb5a76d8ca13fa7ca7613d8fafbf303b9b0efaf",
+    "fitted_at_utc": "2026-07-15T08:17:46+00:00",
+    "split_date": "2025-06-01",
+    "data_before_exclusive": "2026-01-01",
+    "n_rows": 94816,
+    "fit_universe_date_min": "2023-04-11",
+    "fit_universe_date_max": "2025-09-28",
+    "train_date_min": "2023-04-11",
+    "train_date_max": "2025-05-31",
+    "validation_date_min": "2025-06-01",
+    "validation_date_max": "2025-09-28",
+    "k9_to_pct": 2.645502645502645
+  },
+  "fits": {
+    "K": {
+      "intercept": -2.6908280787404513,
+      "hitter_season": 3.951218879092181,
+      "hitter_recent": 0.33609571647821673,
+      "pitcher": 0.021021344087198076,
+      "recent_share_of_hitter_signal": 0.07839306143418233,
+      "ll": -26665.966800330883,
+      "ll_const": -27484.89952442238,
+      "ll_gain": 818.9327240914972,
+      "n_train": 71943,
+      "n_test": 22873,
+      "mean_hitter_season": 0.2188501731844749,
+      "mean_hitter_recent": 0.21913542632429825,
+      "mean_pitcher": 22.080276077373657,
+      "fitted_at_means": 0.2161414406824398,
+      "realized_league": 0.22088210014614104
+    },
+    "BB": {
+      "intercept": -3.2626210124070734,
+      "hitter_season": 5.510170922403332,
+      "hitter_recent": 1.3417130541085533,
+      "pitcher": 0.03050039565276,
+      "recent_share_of_hitter_signal": 0.19581666279054308,
+      "ll": -16445.068222131333,
+      "ll_const": -16753.99470024465,
+      "ll_gain": 308.926478113317,
+      "n_train": 71943,
+      "n_test": 22873,
+      "mean_hitter_season": 0.08623167559970538,
+      "mean_hitter_recent": 0.08438037482946996,
+      "mean_pitcher": 8.046218902151386,
+      "fitted_at_means": 0.0809995784677859,
+      "realized_league": 0.08322387633356883
+    }
+  }
+}

@@ -220,6 +220,25 @@ class OutcomeRecorder:
         rows: list[dict[str, Any]] = []
         skipped = 0
         existing = self._load_existing_keys()
+        provenance = prediction.prediction_provenance
+        if provenance is None:
+            raise RetrainError(
+                "Prediction archive lacks decision-time prediction_provenance; "
+                "old archives cannot be assigned a model identity during grading"
+            )
+        archived_version = str(provenance.get("model_version", "")).strip()
+        if not archived_version:
+            raise RetrainError(
+                "Prediction provenance is present but lacks model_version; "
+                "refusing to stamp outcomes from the grading-time config"
+            )
+        if archived_version != self._model_version:
+            raise RetrainError(
+                "Prediction-time model_version differs from the outcome-recorder "
+                f"config ({archived_version} != {self._model_version}); use the "
+                "exact prediction config and never relabel an archived model"
+            )
+        recorded_model_version = archived_version
 
         for projection in prediction.hitter_projections + prediction.pitcher_projections:
             if projection.mlb_game_pk is None:
@@ -247,7 +266,7 @@ class OutcomeRecorder:
                 "predicted_value": projection.projected_value,
                 "actual_value": round(actual, 3),
                 "confidence": projection.confidence,
-                "model_version": self._model_version,
+                "model_version": recorded_model_version,
             }
             row.update(self._actual_detail_fields(projection, hitting, pitching))
             rows.append(row)

@@ -84,8 +84,22 @@ Thumbs.db
 !/data/learning/
 /data/learning/*
 !/data/learning/prediction_outcomes.csv
+!/data/learning/k_bb_pre2026.json
 !/data/learning/predictions/
 !/data/learning/predictions/*
+!/data/analysis/
+/data/analysis/*
+!/data/analysis/market_policy_hits_2026/
+/data/analysis/market_policy_hits_2026/*
+!/data/analysis/market_policy_hits_2026/draftkings_baseball_rules_evidence_2026-07-14.json
+!/data/market/
+/data/market/*
+!/data/market/v3/
+/data/market/v3/*
+!/data/market/v3/base_rule_strict_hits_manifest.json
+!/data/market/v3/policy_fit_mar_may_canonical/
+/data/market/v3/policy_fit_mar_may_canonical/*
+!/data/market/v3/policy_fit_mar_may_canonical/hits_policy_source_uncensored_original_starter_fit_mar_apr_manifest.json
 !/data/predictions/
 !/data/predictions/*
 # A3 training set: track only the small manifests; shards, assembled

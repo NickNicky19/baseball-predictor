@@ -45,22 +45,28 @@ before writing the read side; do not assume the shape)
      It loads as None. That is correct and expected; callers that need raw
      samples must re-simulate, not read the archive.
 
-KNOWN REMAINING GAP (stated, not silently ignored -- rule 9):
-  `outcome_probs` (OutcomeProbabilities) is on PropProjection but is NEVER
-  SERIALIZED by _projection_to_dict. So it CANNOT be restored here -- there is
-  nothing on disk to restore. This fix does not pretend otherwise; it leaves
-  outcome_probs=None and this note. Fixing that requires changing the WRITE
-  side too, which would change the archive format.
+CURRENT FORMAT:
+  New archives persist `outcome_probs` as well as the simulation distribution.
+  Old archives remain readable and load that field as None because the missing
+  decision-time distribution must never be reconstructed after the fact.
 """
 
 from __future__ import annotations
 
 import json
+import math
+import os
+import tempfile
 from dataclasses import asdict
 from pathlib import Path
 from typing import Any, Optional
 
-from src.models.dataclasses import DailyPrediction, MonteCarloResult, PropProjection
+from src.models.dataclasses import (
+    DailyPrediction,
+    MonteCarloResult,
+    OutcomeProbabilities,
+    PropProjection,
+)
 from src.utils.errors import ConfigError
 from src.utils.logging import get_logger
 
@@ -87,10 +93,24 @@ class PredictionArchive:
         )
 
     def save(self, prediction: DailyPrediction) -> Path:
-        """Persist a DailyPrediction snapshot."""
+        """Persist a DailyPrediction snapshot without exposing a partial file."""
         self.archive_dir.mkdir(parents=True, exist_ok=True)
         path = self.archive_dir / f"predictions_{prediction.game_date.isoformat()}.json"
-        path.write_text(json.dumps(prediction.to_dict(), indent=2), encoding="utf-8")
+        payload = json.dumps(prediction.to_dict(), indent=2)
+        fd, temporary_name = tempfile.mkstemp(
+            dir=path.parent,
+            prefix=f".{path.name}.",
+            suffix=".tmp",
+        )
+        try:
+            with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as handle:
+                handle.write(payload)
+                handle.flush()
+                os.fsync(handle.fileno())
+            os.replace(temporary_name, path)
+        finally:
+            if os.path.exists(temporary_name):
+                os.unlink(temporary_name)
         logger.info("Archived predictions for %s to %s", prediction.game_date, path.name)
         return path
 
@@ -148,19 +168,29 @@ def _thresholds_to_float_keys(raw: Any) -> dict[float, float]:
     float(k) first). A str key silently misses EVERY lookup -- the block would
     be present but dead, which is worse than absent because it looks fine.
 
-    A key that cannot be parsed as a float is DROPPED with a warning, never
-    coerced to a guess.
+    Any malformed, duplicate-after-normalization, or out-of-range entry is a
+    hard failure.  A partial probability map is not the recorded distribution.
     """
-    if not isinstance(raw, dict):
-        return {}
+    if not isinstance(raw, dict) or not raw:
+        raise ConfigError("Archive p_ge_threshold must be a non-empty object")
     out: dict[float, float] = {}
     for k, v in raw.items():
         try:
-            out[float(k)] = float(v)
-        except (TypeError, ValueError):
-            logger.warning(
-                "Archive: dropping un-parseable p_ge_threshold entry %r: %r", k, v
+            threshold = float(k)
+            probability = float(v)
+        except (TypeError, ValueError) as exc:
+            raise ConfigError(
+                f"Archive p_ge_threshold contains an unparseable entry {k!r}: {v!r}"
+            ) from exc
+        if not (math.isfinite(threshold) and math.isfinite(probability)):
+            raise ConfigError("Archive p_ge_threshold contains a non-finite value")
+        if not 0.0 <= probability <= 1.0:
+            raise ConfigError("Archive p_ge_threshold probability is outside [0, 1]")
+        if threshold in out:
+            raise ConfigError(
+                f"Archive p_ge_threshold repeats normalized threshold {threshold}"
             )
+        out[threshold] = probability
     return out
 
 
@@ -177,28 +207,65 @@ def _dict_to_simulation(
     """
     if not raw:
         return None
+    required = ("n_sims", "mean", "median", "p10", "p90", "p_ge_threshold")
+    if not isinstance(raw, dict):
+        raise ConfigError(f"Archive simulation block for category={category!r} is not an object")
+    missing = [name for name in required if name not in raw]
+    if missing:
+        raise ConfigError(
+            f"Archive simulation block for category={category!r} missing fields: {missing}"
+        )
     try:
-        return MonteCarloResult(
-            n_sims=int(raw.get("n_sims", 0)),
+        result = MonteCarloResult(
+            n_sims=int(raw["n_sims"]),
             category=category,               # not in the block; from the parent
-            mean=float(raw.get("mean", 0.0)),
-            median=float(raw.get("median", 0.0)),
-            p10=float(raw.get("p10", 0.0)),
-            p90=float(raw.get("p90", 0.0)),
-            p_ge_threshold=_thresholds_to_float_keys(raw.get("p_ge_threshold")),
+            mean=float(raw["mean"]),
+            median=float(raw["median"]),
+            p10=float(raw["p10"]),
+            p90=float(raw["p90"]),
+            p_ge_threshold=_thresholds_to_float_keys(raw["p_ge_threshold"]),
             per_game_samples=None,
         )
     except (TypeError, ValueError) as exc:
-        # A malformed block must not kill a whole day's load. Degrade to None
-        # (the pre-fix behaviour) and say so LOUDLY, rather than crash.
-        logger.warning(
-            "Archive: simulation block for category=%s is malformed (%s); "
-            "loading it as None. Downstream P(over) will fall back to a normal "
-            "approximation.",
-            category,
-            exc,
-        )
+        raise ConfigError(
+            f"Archive simulation block for category={category!r} is malformed; "
+            "refusing to replace the recorded distribution with an approximation"
+        ) from exc
+    moments = (result.mean, result.median, result.p10, result.p90)
+    if result.n_sims < 0 or any(not math.isfinite(value) for value in moments):
+        raise ConfigError("Archive simulation block has negative n_sims or non-finite moments")
+    if not result.p10 <= result.median <= result.p90:
+        raise ConfigError("Archive simulation quantiles are not ordered p10 <= median <= p90")
+    return result
+
+
+def _dict_to_outcome_probabilities(raw: Any) -> Optional[OutcomeProbabilities]:
+    """Restore a recorded PA distribution; never infer one for old archives."""
+
+    if raw is None:
         return None
+    if not isinstance(raw, dict):
+        raise ConfigError("Archive outcome_probs must be an object or null")
+    required = (
+        "strikeout",
+        "walk",
+        "home_run",
+        "single",
+        "double",
+        "triple",
+        "out_on_bip",
+    )
+    missing = [name for name in required if name not in raw]
+    if missing:
+        raise ConfigError(f"Archive outcome_probs missing fields: {missing}")
+    try:
+        probs = OutcomeProbabilities(**{name: float(raw[name]) for name in required})
+    except (TypeError, ValueError) as exc:
+        raise ConfigError("Archive outcome_probs contains a non-numeric value") from exc
+    values = [getattr(probs, name) for name in required]
+    if any(not (0.0 <= value <= 1.0) for value in values) or not probs.is_valid(1e-9):
+        raise ConfigError("Archive outcome_probs is outside [0, 1] or does not sum to 1")
+    return probs
 
 
 def _dict_to_projection(data: dict[str, Any]) -> PropProjection:
@@ -213,10 +280,7 @@ def _dict_to_projection(data: dict[str, Any]) -> PropProjection:
         # THE FIX. Was: simulation=None (unconditionally, discarding the block
         # that is right there on disk).
         simulation=_dict_to_simulation(data.get("simulation"), category),
-        # outcome_probs is NOT serialized by _projection_to_dict, so there is
-        # nothing on disk to restore. Left None deliberately; see the module
-        # docstring. Restoring it requires a WRITE-side change.
-        outcome_probs=None,
+        outcome_probs=_dict_to_outcome_probabilities(data.get("outcome_probs")),
         team=str(data.get("team", "")),
         opponent=str(data.get("opponent", "")),
         opposing_pitcher=str(data.get("opposing_pitcher", "")),

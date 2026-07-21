@@ -68,6 +68,11 @@ class PASimulatorConfig:
     hr_form: float = 0.28
     hr_handedness: float = 0.15
     hr_quality: float = 0.16
+    # Candidate-only correction for a measured direction bug.  The legacy
+    # expression subtracts the opposing pitcher's HR/9 deviation, so a pitcher
+    # who allows more home runs mechanically lowers the hitter's HR chance.
+    # False preserves the frozen path exactly; true changes only that sign.
+    correct_pitcher_hr9_direction: bool = False
 
     # Latent skill scaling
     contact_scale: float = 8.0
@@ -728,7 +733,8 @@ class HybridPASimulator:
             pitcher_hr_skill = (pitcher_hr_per_9 - self.league.hr_per_9) / max(
                 self.league.hr_per_9, 0.5
             )
-            hr_logit -= cfg.hr_pitcher_miss * pitcher_hr_skill
+            direction = 1.0 if cfg.correct_pitcher_hr9_direction else -1.0
+            hr_logit += direction * cfg.hr_pitcher_miss * pitcher_hr_skill
 
         dist = statcast.distribution if statcast and statcast.distribution else None
         if dist and dist.sample_bip > 0:

@@ -19,6 +19,7 @@ from src.models.dataclasses import (
     PropProjection,
     StatcastProfile,
 )
+from src.evaluation.market_output_policy import ApprovedMarket, MarketOutputPolicy
 from src.prediction import DailyPredictor, PropEngine
 from src.simulation.game_simulator import GameSimulatorInput
 
@@ -255,6 +256,57 @@ def test_predict_with_inline_odds():
     )
     assert len(result.value_plays) == 1
     assert result.value_plays[0].edge_pct != 0
+
+
+def test_unqualified_hr9_direction_blocks_even_authorized_hr_policy():
+    predictor = _fast_predictor()
+    projection = PropProjection(
+        player_id=1,
+        player_name="Test Player",
+        category="home_runs",
+        game_date="2026-07-01",
+        projected_value=0.25,
+        confidence=0.75,
+        simulation=MonteCarloResult(
+            n_sims=100,
+            category="home_runs",
+            mean=0.25,
+            median=0.0,
+            p10=0.0,
+            p90=1.0,
+            p_ge_threshold={1.0: 0.25},
+        ),
+        input_health_flags=("opposing_pitcher_hr9_direction_unqualified",),
+    )
+    odds = [
+        OddsLine(
+            player_name="Test Player",
+            category="home_runs",
+            line=0.5,
+            over_odds_american=400,
+            under_odds_american=-500,
+            sportsbook="draftkings",
+        )
+    ]
+    policy = MarketOutputPolicy(
+        status="BETTING_AUTHORIZED",
+        actionable=True,
+        policy_path="test",
+        policy_sha256="a" * 64,
+        reason="test fixture",
+        approved_markets=(
+            ApprovedMarket("draftkings", "home_runs", frozenset({"over"}), "b" * 64),
+        ),
+    )
+
+    edges = predictor._compute_value_plays(
+        [projection], [], "2026-07-01", True, odds, 1.0, policy
+    )
+
+    assert len(edges) == 1
+    assert edges[0].actionable is False
+    assert edges[0].kelly_fraction == 0.0
+    assert any("HR authorization blocked" in note for note in edges[0].notes)
 
 
 def test_daily_prediction_to_dict():

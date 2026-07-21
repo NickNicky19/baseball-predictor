@@ -39,6 +39,10 @@ MODEL_CONFIG_KEYS: tuple[str, ...] = (
     "base_running",
     "pitcher_regression",
     "simulation",
+    # HybridPASimulator coefficients and hash-bound fitted artifacts directly
+    # change every hitter probability.  Omitting this block made the frozen
+    # and K/BB research models share an identity despite different outputs.
+    "pa_simulator",
     "feature_factory",
     "fantasy_scoring",
     # Candidate-only until its own hard-keyed market gate promotes it.  The

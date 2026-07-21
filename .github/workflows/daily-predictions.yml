@@ -61,7 +61,7 @@ jobs:
         env:
           PYTHONPATH: .
         run: |
-          python run_slate.py --date "${{ steps.date.outputs.slate }}"
+          python run_slate.py --date "${{ steps.date.outputs.slate }}" --config config/config.kbb.json
 
       # if: always() — RUN EVEN IF THE PREDICT STEP FAILED.
       #

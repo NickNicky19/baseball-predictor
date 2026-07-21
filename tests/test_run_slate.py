@@ -15,6 +15,7 @@ def test_automation_persists_features_and_decision_time_provenance(monkeypatch):
 
     class PredictorBoundary:
         def __init__(self, config_path=None):
+            seen["config_path"] = Path(config_path)
             self.mlb_api = object()
 
         def predict(self, *args, **kwargs):
@@ -35,6 +36,7 @@ def test_automation_persists_features_and_decision_time_provenance(monkeypatch):
     monkeypatch.setattr(run_slate, "DailyPredictor", PredictorBoundary)
 
     assert run_slate.main(["--date", "2026-07-14"]) == run_slate.EXIT_OK
+    assert seen["config_path"] == Path("config/config.kbb.json")
     assert seen["kwargs"]["persist_features"] is True
     assert seen["kwargs"]["capture_prediction_provenance"] is True
 

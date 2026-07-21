@@ -266,7 +266,8 @@
       "triple": 0.56,
       "home_run": 1.0
     },
-    "pa_distribution_path": "data/learning/pa_distribution.json"
+    "pa_distribution_path": "data/learning/pa_distribution.json",
+    "pa_distribution_sha256": "c2af0a73fdadd78b762a2da4effc10b3befc6d197eb61fef723504ad3b8c7f4d"
   },
   "odds": {
     "enabled": false,

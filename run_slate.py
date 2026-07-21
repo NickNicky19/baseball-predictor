@@ -23,6 +23,9 @@ the promotion gate (discipline #4) is cleared.
 Usage:
     python run_slate.py --date 2026-07-08
     python run_slate.py                      # today (US slate date)
+
+The default is the current K/BB research baseline.  This does not authorize
+betting; the market-output policy remains fail closed.
 """
 
 from __future__ import annotations
@@ -44,6 +47,7 @@ from src.utils.logging import setup_logging
 # change this to match so automation and manual runs never drift.
 HITTER_CATEGORIES: tuple[PropCategory, ...] = ("hits", "hrr", "home_runs")  # type: ignore[assignment]
 INCLUDE_PITCHERS: bool = True  # strikeouts
+DEFAULT_RESEARCH_CONFIG = Path("config/config.kbb.json")
 
 EXIT_OK = 0
 EXIT_ERROR = 1
@@ -67,7 +71,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--config",
         metavar="PATH",
-        help="Path to config.json (default: config/config.json)",
+        help="Path to model config (default: config/config.kbb.json, current research baseline)",
     )
     parser.add_argument(
         "--archive-dir",
@@ -109,7 +113,7 @@ def main(argv: list[str] | None = None) -> int:
     log = logging.getLogger("run_slate")
 
     try:
-        config_path = Path(args.config) if args.config else None
+        config_path = Path(args.config) if args.config else DEFAULT_RESEARCH_CONFIG
         predictor = DailyPredictor(config_path=config_path)
         archive_dir = (
             Path(args.archive_dir).resolve()

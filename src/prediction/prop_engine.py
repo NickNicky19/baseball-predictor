@@ -53,7 +53,10 @@ from src.evaluation.output_safeguards import OutputSafeguards
 from src.simulation.game_simulator import GameSimulator, GameSimulatorInput
 from src.simulation.monte_carlo import FantasyScoring, MonteCarloEngine
 from src.simulation.pa_simulator import HybridPASimulator, PASimulatorConfig
-from src.simulation.probability_engine import ProbabilityEngine
+from src.simulation.probability_engine import (
+    ProbabilityEngine,
+    normalize_matchup_multipliers,
+)
 from src.utils.logging import get_logger
 
 logger = get_logger(__name__)
@@ -265,7 +268,12 @@ class PropEngine:
         if pa_config is not None:
             self._pa_config = pa_config
         elif league_baselines is not None:
-            self._pa_config = PASimulatorConfig.from_league(self.league)
+            # Re-derive league-centred defaults, then re-apply the complete
+            # effective config (including the hash-bound fitted K/BB artifact).
+            # Calling ``from_league`` directly here silently disabled every
+            # configured PA override after DailyPredictor recalibrated the
+            # contact-conditional league baselines from the current snapshot.
+            self._pa_config = self._build_pa_config()
 
         self.monte_carlo = self._build_monte_carlo()
         self.probability_engine = ProbabilityEngine(
@@ -412,6 +420,19 @@ class PropEngine:
         from src.evaluation.prediction_health import health_for_bundle
 
         input_health = health_for_bundle(bundle)
+        health_flags = input_health.flags
+        if (
+            bundle.pitcher_statcast is not None
+            and bundle.pitcher_statcast.hr_per_9 is not None
+            and not self._pa_config.correct_pitcher_hr9_direction
+        ):
+            # The legacy coefficient has a measured reverse direction and its
+            # isolated sign correction failed the open-data gate. Preserve the
+            # frozen probability, but make the unresolved defect impossible to
+            # hide in archives, coverage funnels, or a future authorization.
+            health_flags = health_flags + (
+                "opposing_pitcher_hr9_direction_unqualified",
+            )
 
         sim_input = self._bundle_to_sim_input(bundle, rich_features=rich_features)
         projections: list[PropProjection] = []
@@ -442,7 +463,7 @@ class PropEngine:
                 opposing_pitcher=bundle.hitter.opposing_pitcher_name,
                 lineup_status=bundle.hitter.game.lineup_status,
                 mlb_game_pk=bundle.hitter.game.game_pk,
-                input_health_flags=input_health.flags,
+                input_health_flags=health_flags,
             )
 
             # Apply output safeguards
@@ -593,9 +614,11 @@ class PropEngine:
         def _clamp(x: float, lo: float, hi: float) -> float:
             return max(lo, min(hi, x))
 
-        bvp_ops = _clamp(bundle.matchup.bvp_ops_factor, 0.80, 1.25)
-        bvp_hr = _clamp(bundle.matchup.bvp_hr_factor, 0.70, 1.40)
-        form_mult = _clamp(bundle.matchup.recent_form_multiplier, 0.85, 1.18)
+        bvp_ops, bvp_hr, form_mult = normalize_matchup_multipliers(
+            bvp_ops_factor=bundle.matchup.bvp_ops_factor,
+            bvp_hr_factor=bundle.matchup.bvp_hr_factor,
+            recent_form_multiplier=bundle.matchup.recent_form_multiplier,
+        )
 
         # The fitted PA artifact is conditional on batting-order slot.  Passing
         # None silently takes GameSimulator's legacy floor/floor+1 path even
