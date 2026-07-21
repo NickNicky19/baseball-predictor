@@ -75,6 +75,22 @@ def main() -> int:
     check(second.entry_target_at_utc == "2026-07-16T20:40:00Z",
           "UTC midnight game remains on its official MLB slate date")
 
+    adjacent = schedule() + [
+        {"gamePk": 903, "officialDate": "2026-07-17", "gameDate": "2026-07-17T17:10:00Z"}
+    ]
+    adjacent_plan = plan_from_schedule(
+        official_game_date="2026-07-16", entry_hours=4,
+        policy_sha256="b" * 64, schedule_snapshot=adjacent,
+    )
+    check(
+        {target.mlb_game_pk for target in adjacent_plan.targets} == {901, 902},
+        "adjacent-date schedule record is not relabeled into the requested slate",
+    )
+    check(
+        adjacent_plan.schedule_snapshot_sha256 != plan.schedule_snapshot_sha256,
+        "excluded adjacent-date record remains visible in the hash-bound source snapshot",
+    )
+
     moved = schedule()
     moved[0]["gameDate"] = "2026-07-17T00:10:00Z"
     moved_plan = plan_from_schedule(

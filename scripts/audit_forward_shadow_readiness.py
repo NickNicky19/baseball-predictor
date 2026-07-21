@@ -15,7 +15,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 
 CHECKS = {
-    "capture_plan": ("scripts/check_shadow_capture_plan_offline.py", "15/15 checks passed", 15),
+    "capture_plan": ("scripts/check_shadow_capture_plan_offline.py", "17/17 checks passed", 17),
     "prediction_snapshot": ("scripts/check_shadow_prediction_snapshot_offline.py", "6/6", 6),
     "ledger": ("scripts/check_shadow_ledger_offline.py", "17/17 checks passed", 17),
     "ledger_report": ("scripts/check_shadow_ledger_report_offline.py", "3/3 checks passed", 3),
