@@ -1,0 +1,40 @@
+{
+  "schema_version": "shared-pa-next-action-admissibility-contract-v1",
+  "status": "READ_ONLY_ADMISSIBILITY_AUDIT_LOCKED",
+  "as_of_utc": "2026-07-21T22:00:00Z",
+  "research_only": true,
+  "betting_authorized": false,
+  "protected": {
+    "may_2026_sealed": true,
+    "spent_2025_hr_not_reusable": true,
+    "operational_smoke_non_economic": true,
+    "collector_runtime_must_not_be_started_or_modified": true,
+    "historical_starters_must_not_be_backfilled": true
+  },
+  "required_rejections": [
+    {"id": "direct_batter_v2", "path": "reports/direct_batter_pa_foundation_v2_CERTIFIED_REJECTION.json", "status": "REPAIRED_DIRECT_BATTER_PA_FOUNDATION_REJECTED_NO_MARKET_ELIGIBLE"},
+    {"id": "cumulative", "path": "reports/shared_pa_cumulative_selection_v3_CERTIFIED_REJECTION.json", "status": "CUMULATIVE_SELECTION_REJECTION_CERTIFIED"},
+    {"id": "hierarchical", "path": "reports/shared_pa_hierarchical_selection_v1_CERTIFIED_REJECTION.json", "status": "HIERARCHICAL_SELECTION_REJECTION_CERTIFIED"},
+    {"id": "calibration_oracle", "path": "reports/shared_pa_classwise_calibration_oracle_v1.json", "status": "ORACLE_FAMILY_NOT_ELIGIBLE_FOR_CHALLENGER"}
+  ],
+  "receipt_attempts": [
+    {
+      "id": "collector_runtime_6383",
+      "plan_sha256": "e19a18800c5335dc0b454f53d2feaf4130eca0a845fa0ee41a911c01d7383b3b",
+      "manifest_sha256": "3da4b6b07f9a65ea6822f295eb3940d18568446e57c6f8991ec0ea02ade53054",
+      "terminal_index_sha256": "a353ab8ff0ac83f6ed7682da540f7912f1ef6a76209c47c15f5dfefbe3daa9d8"
+    },
+    {
+      "id": "collector_runtime_e02d",
+      "plan_sha256": "e3be0d8a08d0bdc13d9332605e686f4c9cfc8b47679caee5028ab9889a64f6b1",
+      "manifest_sha256": "debe378ef88bc448e530b846951c9826b08d0b6586013f63a336320fa405a00e",
+      "terminal_index_sha256": "a353ab8ff0ac83f6ed7682da540f7912f1ef6a76209c47c15f5dfefbe3daa9d8"
+    }
+  ],
+  "admissibility": {
+    "pitcher_block_pass": "Every plan target has a terminal append-only receipt captured no later than its T-minus-4 deadline, with nonempty identity payload and a valid hash chain.",
+    "empty_or_plan_only_ledger": "fail",
+    "past_target_without_receipt": "permanently missed; never backfill",
+    "new_batter_candidate": "requires a genuinely fresh untouched confirmation period; 2024 and spent 2025 HR cannot be reused"
+  }
+}

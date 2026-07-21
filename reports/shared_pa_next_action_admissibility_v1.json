@@ -1,0 +1,74 @@
+{
+  "batter_only_next_candidate_permitted_on_spent_outcomes": false,
+  "betting_authorized": false,
+  "confirmation_2025_reused": false,
+  "contract": {
+    "path": "config\\shared_pa_next_action_admissibility_v1.json",
+    "sha256": "0ab8a6a8635079d98e7ba187bb73affd59f46c6fd3bcb8dcb1079bb7723b2a4a"
+  },
+  "highest_value_next_action": "On a future untouched regular-season slate, capture and certify complete T-minus-4 probable-starter receipts under the released lifecycle. Do not backfill July 20.",
+  "may_2026_opened": false,
+  "measured_limiter": "All adjudicated batter-only families miss materiality; the only unadjudicated measured input family lacks prospective identity receipts.",
+  "operational_smoke_used": false,
+  "pitcher_identity_contract_passed": false,
+  "production_changed": false,
+  "receipt_attempts": [
+    {
+      "hashes": {
+        "manifest": "3da4b6b07f9a65ea6822f295eb3940d18568446e57c6f8991ec0ea02ade53054",
+        "plan": "e19a18800c5335dc0b454f53d2feaf4130eca0a845fa0ee41a911c01d7383b3b",
+        "terminal_index": "a353ab8ff0ac83f6ed7682da540f7912f1ef6a76209c47c15f5dfefbe3daa9d8"
+      },
+      "id": "collector_runtime_6383",
+      "past_targets": 15,
+      "permanently_missed_targets": 15,
+      "receipt_complete": false,
+      "records": 0,
+      "targets": 15,
+      "terminal_targets": 0
+    },
+    {
+      "hashes": {
+        "manifest": "debe378ef88bc448e530b846951c9826b08d0b6586013f63a336320fa405a00e",
+        "plan": "e3be0d8a08d0bdc13d9332605e686f4c9cfc8b47679caee5028ab9889a64f6b1",
+        "terminal_index": "a353ab8ff0ac83f6ed7682da540f7912f1ef6a76209c47c15f5dfefbe3daa9d8"
+      },
+      "id": "collector_runtime_e02d",
+      "past_targets": 15,
+      "permanently_missed_targets": 15,
+      "receipt_complete": false,
+      "records": 0,
+      "targets": 15,
+      "terminal_targets": 0
+    }
+  ],
+  "rejected_families": [
+    {
+      "id": "direct_batter_v2",
+      "path": "reports/direct_batter_pa_foundation_v2_CERTIFIED_REJECTION.json",
+      "sha256": "6b94bac94b735c9cfb527b42c0cf06d16f0ae96f6a3b9552ab7c1c8a5e619b90",
+      "status": "REPAIRED_DIRECT_BATTER_PA_FOUNDATION_REJECTED_NO_MARKET_ELIGIBLE"
+    },
+    {
+      "id": "cumulative",
+      "path": "reports/shared_pa_cumulative_selection_v3_CERTIFIED_REJECTION.json",
+      "sha256": "4177bebc02c1c41843ac4d6b2e5c4117fbd835dab66e6ea02d1e71a08731c300",
+      "status": "CUMULATIVE_SELECTION_REJECTION_CERTIFIED"
+    },
+    {
+      "id": "hierarchical",
+      "path": "reports/shared_pa_hierarchical_selection_v1_CERTIFIED_REJECTION.json",
+      "sha256": "234db075629a79404f161edf2396f302accde66dbb73ce6cc00dea0f442d38a8",
+      "status": "HIERARCHICAL_SELECTION_REJECTION_CERTIFIED"
+    },
+    {
+      "id": "calibration_oracle",
+      "path": "reports/shared_pa_classwise_calibration_oracle_v1.json",
+      "sha256": "556ff548b5f607ee19318169861d13dc62857da391c6ee18abd99e302b8b0117",
+      "status": "ORACLE_FAMILY_NOT_ELIGIBLE_FOR_CHALLENGER"
+    }
+  ],
+  "schema_version": "shared-pa-next-action-admissibility-audit-v1",
+  "script_sha256": "8e7736f639956c28eced698e52998360d768121eb6e68ea391dabd493572c62a",
+  "status": "NO_ADMISSIBLE_NEW_CANDIDATE_FRESH_EVIDENCE_REQUIRED"
+}

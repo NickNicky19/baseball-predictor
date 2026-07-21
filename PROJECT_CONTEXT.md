@@ -1,6 +1,37 @@
 PROJECT_CONTEXT.md — v17 (master roadmap) — paste into any new chat
 
 ===============================================================================
+AUTHORITATIVE NEXT-ACTION AUDIT (2026-07-21) - FRESH RECEIPTS REQUIRED
+
+After the repaired direct-batter v2 rejection, the remaining admissible research
+path was audited without starting or modifying a collector. The cumulative,
+hierarchical, direct-batter, and calibration-oracle batter-only families are all
+bound to their preserved rejection records. Reusing 2024, spent 2025 HR, or May
+2026 for a new candidate is forbidden.
+
+Two existing July 20 T-minus-4 pitcher-context attempts were independently
+hashed. Each planned 15 targets, but each append-only ledger has zero records and
+an empty terminal index. All 15 deadlines are past. The attempts therefore do
+not provide receipt-proven starter identity and may never be backfilled. Pitcher
+features remain excluded. Operational smoke remains permanently non-economic.
+
+  admissibility report:
+    reports/shared_pa_next_action_admissibility_v1.json
+  report sha256:
+    fd03645d2a12bf5b3d26a9a3516cdbd860aced27699d443bb6cf38707866ea5d
+  audit contract sha256:
+    0ab8a6a8635079d98e7ba187bb73affd59f46c6fd3bcb8dcb1079bb7723b2a4a
+  auditor sha256:
+    8e7736f639956c28eced698e52998360d768121eb6e68ea391dabd493572c62a
+  mutation-test sha256:
+    db734c5410d39167ed82696790b42656906138ef113b8a4690dd16010319ceab
+
+Status: `NO_ADMISSIBLE_NEW_CANDIDATE_FRESH_EVIDENCE_REQUIRED`. No market is
+eligible and betting remains unauthorized. The single highest-value next action
+is a future untouched regular-season slate with complete, certified T-minus-4
+probable-starter receipts under the released lifecycle. Do not backfill July 20.
+
+===============================================================================
 AUTHORITATIVE REPAIR ADDENDUM (2026-07-21) - DIRECT BATTER PA V2 REJECTED
 
 This addendum supersedes the Direct Batter PA V1 addendum immediately below,
