@@ -1,0 +1,59 @@
+{
+  "schema_version": "direct-batter-pa-foundation-certified-rejection-v2",
+  "status": "REPAIRED_DIRECT_BATTER_PA_FOUNDATION_REJECTED_NO_MARKET_ELIGIBLE",
+  "as_of": "2026-07-21",
+  "research_branch": "codex/direct-batter-pa-foundation-v1",
+  "base_commit": "70449da0daf501240dcba1ab9019add2319781fd",
+  "betting_authorized": false,
+  "production_changed": false,
+  "integrity_repair": {
+    "defect": "V1 stored raw-reconciled target_* fields but the probability selector consumed inherited out_* aggregates. Game 746942/player 643376 had four raw terminal PAs and zero inherited exposure.",
+    "repair": "Unique regular-season raw terminal PA events now construct target_* and every consumed out_* aggregate.",
+    "repaired_identity": {"game_pk": 746942, "player_id": 643376, "old_pa": 0, "new_pa": 4, "single": 1, "strikeout": 1, "bip_out": 2},
+    "fail_closed": ["unique terminal PA identity", "known game types and events", "raw class denominator equals terminal PA count", "consumed outcomes equal raw truth"],
+    "remaining_mismatches": 0,
+    "source_truth_audit_sha256": "5af519963034d6b8edf3b447160d97db6556429415b5962f4541fca44f3249f4"
+  },
+  "chronology": {"fit_year": 2023, "selection_year": 2024, "confirmation_2025_opened": false, "spent_2025_hr_reused": false, "may_2026_opened": false},
+  "panel": {
+    "rows": 87462, "fit_rows_2023": 43740, "selection_rows_2024": 43722, "eligible_selection_rows": 43705,
+    "zero_pa_rows": 31, "raw_files_rehashed": 1291, "feature_columns": 52, "chronology_violations": 0,
+    "identity_duplicates": 0, "coverage_loss": 0, "probability_consumer_raw_truth_parity": true,
+    "sha256": "faaf76b07373526b3435e43469e017825c08726953f0610404708e383879207a",
+    "manifest_sha256": "ba18d64222e40b24c58e54cb178cec5312fe34c9217016e6ee880757bd0c6cc7",
+    "certificate_sha256": "810c59e927560b0cd5bde5e0fa0470eafdf1db5ec32af7e22c3e388fcb0aee04"
+  },
+  "selection": {
+    "status": "SELECTION_REJECTED_NO_CANDIDATE", "candidate_multiclass_brier": 0.7077563611032703,
+    "candidate_multiclass_log_loss": 1.5040236529583977, "foundation_materiality_passed": false,
+    "report_sha256": "456d5d72cce48179b39f5f01d491b7de0540f01fd7c34f66805a801c88018bc6",
+    "predictions_sha256": "26175721791cad5ab6ea59e358488ad5fe1d9381a13d8835a06af15f76ddccd0",
+    "certificate_sha256": "5e53d20f136c9132b1564326102562e44fef632ade2dbe47b95c3bd1f799de54",
+    "rejection_sha256": "2dcf5cf4e3502eb3bb0f789c094611a9dd73fb36f224fcdd1f374fc386c0ffee"
+  },
+  "markets": {
+    "hits": {"eligible": false, "brier": 0.34236354239099576, "log_loss": 0.5260001767454848, "auc": 0.5224403103537862, "reason": "Worse proper scores and AUC than the all-prior core."},
+    "hr_over_0_5": {"eligible": false, "brier": 0.05838546487195963, "log_loss": 0.13373415396949348, "auc": 0.5963034121800221, "calibration_intercept": -0.27092124534914147, "calibration_slope": 0.925389684253918, "high_tail_predicted": 0.052118036104820346, "high_tail_observed": 0.04747567073498575, "league_brier_materiality_passed": false, "league_log_loss_materiality_passed": true, "player_eb_brier_materiality_passed": false, "player_eb_log_loss_materiality_passed": false, "core_auc": 0.599630703398683, "required_comparator_audit_sha256": "f2c65f63ca91260f59a7119f8062aca79967d5b7861922d7559c89a5dce687e3"},
+    "total_bases": {"eligible": false, "brier": 0.36717180705804797, "log_loss": 0.7307385552863839, "auc": 0.547150514613141, "reason": "Worse than the core; Brier uncertainty crosses zero versus EB and AUC trails both controls."}
+  },
+  "market_behavior": {
+    "frozen_production_simulator": "not reached after upstream HR failure and without receipt-proven pregame PA volume",
+    "valid_market_implied_probability": "not available; no hash-bound executable pregame HR price join exists",
+    "historical_prices_executable": false
+  },
+  "implementation_hashes": {
+    "protocol": "c4f49d9fee2eecbea93066f6065971e0a2646ceb1519076c0c3cb3aa2a2f3950",
+    "history_transformer": "df272a72ab935974024618c4091d3cbe1063459beaeba688351d7a60a63656ec",
+    "shared_pa_model": "e9caf0fd47b10a6d59939f44394ed66c8f59e22f69918992b2b33365f0df9383",
+    "panel_builder": "bf3232f1214b8bca28bed385b9346446e5b0e24ad58b0c36a82e5b55051c26be",
+    "panel_validator": "65e075090b83db82a81cf2dfd90838cfaa71219a7e5fbfb8c8a5dec17bfd08a2",
+    "selector": "eecde243269d5804b745a2fe7d6482e1d047781962b9b2e1d9aea5ff31cb9a6b",
+    "selection_certifier": "44000b125d368f4cc55da80cc71de3f038659a945825d745d8f2eb0e03179b9c",
+    "source_truth_auditor": "f18406e4668c1584366038776cd3ccdb9e4765677f71300eb8a5ad80a669f3c4",
+    "hr_comparator_auditor": "2fa738d5e7cf8b5fe731aa6724cbd9e96b19f5af09c5ad59d721c9efc104889c"
+  },
+  "test_hashes": {"history": "fc48621815da44d7754e1555d7a07ee0494ac0fd6c0db7eda69727e70e4bdd31", "builder_repair": "2371afd2b2f2f824715a7b963950cabef10465abc26bd68946302cd75fec926b", "selector": "3ec020955d066c4d673bc3c6f04bbbbfe7fe1ea6a974f1458a5aee9dc56cbcb0", "protocol": "bbf7d789f7237c9e57fd260a722d311311b193cb7cdd00ba8bbe5e7395efe63b", "source_truth": "f519ed21a009796bcf836b5ec700b677b22e42c14c42d264d74196ab9684f7e4", "hr_tail": "45fd7071332d9110fce3c7156cfc498714f9d8ae12af985dea62464a42e906eb"},
+  "tests": {"passed": 15, "failed": 0, "old_failure_repaired": true, "duplicate_identity_mutation_rejected": true, "wrong_denominator_mutation_detected": true},
+  "pitcher_matchup": {"starter_identity_receipt_contract_passed": false, "decision": "EXCLUDE_NO_GUESSED_OR_POSTGAME_STARTER"},
+  "highest_value_next_action": "Collect and certify fresh prospective T-minus-4 probable-starter receipts under the existing exact identity lifecycle; do not backfill."
+}

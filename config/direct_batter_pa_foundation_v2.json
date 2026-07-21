@@ -1,0 +1,38 @@
+{
+  "schema_version": "direct-batter-pa-foundation-protocol-v2",
+  "status": "LOCKED_BEFORE_REPAIRED_BUILD_OR_2024_RESELECTION",
+  "research_only": true,
+  "betting_authorized": false,
+  "production_changed": false,
+  "repair": {
+    "defect": "The v1 panel retained inherited official out_* aggregates as probability-consumer targets. One suspended-game cross-team player identity had four raw terminal PAs but zero inherited exposure.",
+    "source_of_truth": "Unique regular-season raw terminal PA events keyed by game_pk, batter, and at_bat_number",
+    "fail_closed": [
+      "reject missing or duplicate terminal PA identity",
+      "reject unknown game types or terminal events",
+      "require raw class counts to sum to terminal PA count",
+      "require consumed out_* decomposition to equal raw target_* classes exactly"
+    ]
+  },
+  "chronology": {
+    "fit_year": 2023,
+    "selection_year": 2024,
+    "confirmation_years_opened": [],
+    "spent_hr_confirmation_year": 2025,
+    "forbidden_dates": ["2026-05"],
+    "feature_source_rule": "regular-season pitches with source_game_date strictly before target_game_date"
+  },
+  "candidate": {
+    "id": "direct_batter_all_prior_regular_season_v2_raw_truth_repair",
+    "model_and_features_unchanged_from_v1": true,
+    "model": {"kind": "CatBoost MultiClass", "loss": "MultiClass", "random_seed": 20260721, "thread_count": 2, "params": {"depth": 4, "iterations": 1200, "l2_leaf_reg": 10.0, "learning_rate": 0.03}},
+    "forbidden_inputs": ["opposing pitcher", "probable or actual starter", "lineup slot", "team", "opponent", "venue", "park", "weather", "umpire", "current-game state", "market price", "policy threshold"]
+  },
+  "selection_gates": {
+    "coverage_loss_allowed": 0,
+    "materiality": "candidate-minus-strongest-comparator point and date-block 95% upper bound must each be below negative 1% of comparator Brier and log loss",
+    "auc": "candidate point estimate must be noninferior separately for Hits, HR, and Total Bases",
+    "promotion": "fresh untouched confirmation is required after selection; 2024 cannot authorize promotion"
+  },
+  "protected_invariants": {"may_2026_sealed": true, "spent_2025_hr_not_independent_confirmation": true, "historical_prices_not_executable": true, "operational_smoke_permanently_non_economic": true, "existing_rejections_preserved": true, "no_betting_authorization": true}
+}

@@ -1,5 +1,105 @@
 PROJECT_CONTEXT.md — v17 (master roadmap) — paste into any new chat
 
+===============================================================================
+AUTHORITATIVE REPAIR ADDENDUM (2026-07-21) - DIRECT BATTER PA V2 REJECTED
+
+This addendum supersedes the Direct Batter PA V1 addendum immediately below,
+while preserving v1 as an immutable rejected-candidate record. Research remains
+non-operational: no betting authorization, no production change, May 2026 sealed,
+2025 HR confirmation not reopened/reused, and no collector or operational-smoke
+runtime touched.
+
+The source-truth audit found a real defect. V1 stored raw-reconciled `target_*`
+fields but the probability path consumed inherited `out_*` fields. Suspended game
+746942/player 643376 had four raw terminal PAs (single, strikeout, two BIP outs)
+but zero inherited exposure. V2 repairs the true source: unique regular-season
+raw terminal PA events construct both target classes and consumed aggregates.
+It fails closed on unknown events/game types, missing or duplicate terminal-PA
+identity, denominator imbalance, and any consumer/raw-truth disagreement.
+
+The rebuilt v2 panel preserves all 87,462 identities and 52 batter-only feature
+columns. Independent validation rehashed 1,291 raw files and found zero remaining
+source mismatches, chronology violations, identity duplicates, or eligible-row
+coverage loss, with exact probability-consumer parity. The false zero-PA count
+fell from 32 to 31. Fit remained 2023 and selection remained 2024 only.
+
+V2 remains `SELECTION_REJECTED_NO_CANDIDATE`. Candidate multiclass Brier/log loss
+are 0.70775636 / 1.50402365. Hits, HR over 0.5, and Total Bases separately fail.
+HR Brier/log loss/AUC are 0.05838546 / 0.13373415 / 0.59630341. It misses the
+league-rate Brier materiality gate, both player-EB 1% proper-score gates, and the
+all-prior core AUC (0.59963070). The high-probability tail predicts 5.2118% versus
+4.7476% observed. Frozen-simulator comparison is not reached after upstream
+failure and without receipt-proven pregame PA volume. No hash-bound executable
+HR price join exists, so historical prices remain non-executable.
+
+  committed v2 rejection summary:
+    reports/direct_batter_pa_foundation_v2_CERTIFIED_REJECTION.json
+  panel sha256:
+    faaf76b07373526b3435e43469e017825c08726953f0610404708e383879207a
+  source-truth audit sha256:
+    5af519963034d6b8edf3b447160d97db6556429415b5962f4541fca44f3249f4
+  selection report sha256:
+    456d5d72cce48179b39f5f01d491b7de0540f01fd7c34f66805a801c88018bc6
+  selection certificate sha256:
+    5e53d20f136c9132b1564326102562e44fef632ade2dbe47b95c3bd1f799de54
+  HR required-comparator audit sha256:
+    f2c65f63ca91260f59a7119f8062aca79967d5b7861922d7559c89a5dce687e3
+
+Pitcher-matchup inputs remain excluded because no completed certified T-minus-4
+probable-starter receipt lifecycle exists. The single highest-value next action
+is to collect and certify fresh prospective T-minus-4 starter receipts under the
+existing exact-identity lifecycle; never guess or backfill the starter.
+
+===============================================================================
+CURRENT RESEARCH ADDENDUM (2026-07-21) — DIRECT BATTER PA V1 REJECTED
+
+The authoritative 2026-07-21 handoff rules remain in force: research only; no
+betting authorization; May 2026 sealed; frozen production and every prior
+rejection preserved; historical prices are not executable; markets/products
+remain separate; operational smoke remains permanently non-economic.
+
+Research is isolated in `C:\Projects\baseball_predictor\.codex-direct-batter-pa-v1`
+on branch `codex/direct-batter-pa-foundation-v1`, based on committed probability-
+foundation lineage `70449da`. It did not touch production or collector runtime.
+
+The distinct direct batter-only PA candidate used all-prior regular-season PA
+outcomes, recency, plate-discipline, contact-quality, pitch-shape summaries,
+and batter identity. Opposing pitcher/starter, lineup slot, team/opponent,
+venue/park, weather, umpire, market, and policy inputs were excluded. Every
+feature source date was strictly before its target game; 1,291 raw files were
+independently rehashed. The certified panel had 87,462 player-games, 52 feature
+columns, zero chronology violations, zero identity duplicates, and no eligible-
+row coverage loss. Fit was 2023 and selection was opened once on 2024. The
+spent 2025 HR confirmation was not reused and May 2026 was not opened.
+
+Result: `SELECTION_REJECTED_NO_CANDIDATE`. Candidate multiclass Brier/log loss
+were 0.70775755 / 1.50402857. The all-prior core was better at 0.70750268 /
+1.50347683, with both paired candidate-minus-core 95% intervals wholly above
+zero. Improvements versus empirical Bayes were real but far below the locked
+1% materiality floors. Hits, HR over 0.5, and Total Bases each failed their
+separate gates. No confirmation, full-game model, policy, production, market,
+or betting step follows.
+
+  committed rejection summary:
+    reports/direct_batter_pa_foundation_v1_CERTIFIED_REJECTION.json
+  panel sha256:
+    bdf7913b889f3e26528d636deed6241feafe8ee97fc318be43c40ca0939b97d5
+  panel certificate sha256:
+    ed3c3bc165cf5bf68a205bb040657b8c72c05e96a69d3857993fcb906a5d73b2
+  selection report sha256:
+    daa046513c3f6230c5004d5a9dac00fd8c13f477ac5ca8e3d528c6ba27c687c2
+  selection certificate sha256:
+    2c5fa00d187fede999ca8ab72e0f021a2bf4d380f3b2b6edaed5ca6dc2a881e5
+  rejection record sha256:
+    83faffeee29bea634af41b4eab05fea50fc7a2692064c6674712fe099623cf52
+
+Pitcher-matchup work remains excluded. The future-only T-minus-4 runtime
+contract exists, but no completed certified probable-starter receipt lifecycle
+was found. Never guess or backfill starters. The single highest-value next
+action is to collect and certify fresh prospective T-minus-4 probable-starter
+receipts under the exact identity lifecycle; only then predeclare one pitcher-
+matchup candidate.
+
 Keep this file in the repo. Start a FRESH chat per task, upload this (plus the
 repo/zip if code work is needed), and say which roadmap item to work on.
 Update "Current status" and check off roadmap items as they complete.

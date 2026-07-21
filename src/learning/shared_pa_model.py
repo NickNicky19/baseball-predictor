@@ -294,13 +294,20 @@ def fit_catboost(
     seed: int,
     validation_frame: pd.DataFrame | None = None,
     early_stopping_rounds: int | None = None,
+    categorical_features: list[str] | None = None,
 ) -> SharedPACatBoost:
     from catboost import CatBoostClassifier, Pool
 
-    categorical = [
-        column for column in features
-        if column in {"bats", "opp_sp_throws", "opp_sp_source", "venue"}
-    ]
+    if categorical_features is None:
+        categorical = [
+            column for column in features
+            if column in {"bats", "opp_sp_throws", "opp_sp_source", "venue"}
+        ]
+    else:
+        categorical = list(categorical_features)
+        unknown = sorted(set(categorical).difference(features))
+        if unknown or len(categorical) != len(set(categorical)):
+            raise ValueError(f"invalid explicit categorical feature contract: {unknown}")
     events, labels, weights = weighted_event_rows(frame, features)
     for column in categorical:
         events[column] = events[column].astype("object").where(events[column].notna(), "__NA__").astype(str)

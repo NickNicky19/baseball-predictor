@@ -1,0 +1,76 @@
+{
+  "schema_version": "direct-batter-pa-foundation-protocol-v1",
+  "status": "LOCKED_BEFORE_DIRECT_BATTER_PA_BUILD_OR_2024_SELECTION",
+  "research_only": true,
+  "betting_authorized": false,
+  "production_changed": false,
+  "chronology": {
+    "fit_year": 2023,
+    "selection_year": 2024,
+    "confirmation_years_opened": [],
+    "spent_hr_confirmation_year": 2025,
+    "forbidden_dates": ["2026-05"],
+    "feature_source_rule": "regular-season pitches with source_game_date strictly before target_game_date"
+  },
+  "candidate": {
+    "id": "direct_batter_all_prior_regular_season_v1",
+    "classifier_inputs": [
+      "player_id",
+      "all-prior regular-season PA outcome counts and rates",
+      "days since prior PA and outcome-class events",
+      "prior-event age moments",
+      "all-prior plate-discipline counts and rates",
+      "all-prior contact-quality moments",
+      "all-prior pitch-shape moments and pitch-type entropy"
+    ],
+    "forbidden_inputs": [
+      "opposing pitcher", "probable or actual starter", "lineup slot",
+      "team", "opponent", "venue", "park", "weather", "umpire",
+      "current-game state", "market price", "policy threshold"
+    ],
+    "model": {
+      "kind": "CatBoost MultiClass",
+      "loss": "MultiClass",
+      "random_seed": 20260721,
+      "thread_count": 2,
+      "params_inherited_without_new_search": {
+        "depth": 4,
+        "iterations": 1200,
+        "l2_leaf_reg": 10.0,
+        "learning_rate": 0.03
+      }
+    }
+  },
+  "outcomes": [
+    "strikeout", "walk", "single", "double", "triple", "home_run",
+    "bip_out", "other_non_ab"
+  ],
+  "comparators": [
+    "2023-fit empirical_bayes_player_rate_pa_200",
+    "2023-fit all-prior regular-season core without player identity or recency moments"
+  ],
+  "selection_gates": {
+    "coverage_loss_allowed": 0,
+    "materiality": "candidate-minus-strongest-comparator point and date-block 95% upper bound must each be below negative 1% of comparator Brier and log loss",
+    "selection_calibration_diagnostic": "report one-vs-rest calibration intercept and slope without post-selection fitting",
+    "selection_discrimination_diagnostic": "candidate AUC must be noninferior at the point estimate",
+    "promotion_calibration_and_discrimination": "fresh untouched confirmation must predeclare and pass date-block uncertainty for calibration and AUC; 2024 selection cannot satisfy this promotion gate",
+    "identity": "unique game_pk plus player_id",
+    "chronology": "maximum contributing source date strictly precedes target date",
+    "fallback": "no league-value feature imputation and no missing-source substitution"
+  },
+  "separate_components": {
+    "hits": "per-PA P(single or double or triple or home_run)",
+    "hr_over_0_5": "per-PA P(home_run); full-game market advancement requires separately proven pregame PA volume",
+    "total_bases": "per-PA distribution over 0,1,2,3,4 total bases; full-game market advancement requires separately proven pregame PA volume",
+    "one_component_cannot_rescue_another": true
+  },
+  "protected_invariants": {
+    "may_2026_sealed": true,
+    "spent_2025_hr_not_independent_confirmation": true,
+    "historical_prices_not_executable": true,
+    "operational_smoke_permanently_non_economic": true,
+    "existing_rejections_preserved": true,
+    "no_betting_authorization": true
+  }
+}
