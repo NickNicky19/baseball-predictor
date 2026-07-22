@@ -25,7 +25,7 @@ outcome/result columns. Exact machine-readable scope is in
 | Direct/canonical PA history | `src/features/direct_batter_pa_history.py`, `src/features/canonical_pa_features.py`, `src/features/canonical_cumulative_pa_features.py` | Strict prior dates; terminal-event accounting; count/rate denominators | Hits, HR, TB research |
 | Scalar profile and fallback | `src/data/savant.py`, `src/models/dataclasses.py` | Missingness and fallback provenance must remain explicit | Hits, HR, TB |
 | Context and rich features | `src/features/feature_factory.py`, `src/features/rich_feature_enricher.py`, `src/features/ml/feature_pipeline.py` | Per-field source, override order, units, sample size, target cutoff | Hits, HR, TB |
-| Pitcher matchup | `src/features/matchup_intelligence.py`, `src/simulation/probability_engine.py` | Receipt-proven probable starter only; otherwise block/exclude pitcher block | Hits, HR, TB |
+| Pitcher matchup | `src/features/pitcher_matchup_gate.py`, `src/features/feature_factory.py`, `src/simulation/probability_engine.py`, `src/prediction/prop_engine.py` | Receipt-proven probable starter plus hash-bound point-in-time profile only; otherwise neutral exclusion of the entire pitcher/BvP/platoon block | Hits, HR, TB |
 | Effective PA inputs | `src/simulation/pa_simulator.py::_build_latent_profile` | Rich > scalar > league precedence must validate the effective pair | Hits, HR, TB |
 | PA outcome probabilities | `src/simulation/pa_simulator.py` | K/BB/HR/BIP formulas; sum-to-one; no duplicated effects; fitted-artifact binding | Hits, HR, TB |
 | Per-game PA count | `src/simulation/game_simulator.py` | Lineup-slot distribution artifact and target-time lineup provenance | Hits, HR, TB |
@@ -47,7 +47,7 @@ outcome/result columns. Exact machine-readable scope is in
 | SI-005 | P0 | Direct batter history repeats the mismatched barrel/hard-hit denominators. | Shared batter PA candidate | Direct history now emits common counts/denominator/rates. Pre-2026 reconstruction/evaluation pending. | Integrity repair/new candidate |
 | SI-006 | P1 | Missing Statcast fields could silently become league averages; unavailable, failed, empty, or schema-drifted fetches could become an empty player pool and then league profiles. | Hits, HR, TB | Complete in `statcast_source_truth_integrity_v1`: source loss/schema drift now terminates; May is rejected before a source call; every valid-source league substitution carries field-level lineage through serialization and input-health reporting; contradictory lineage fails at the probability-consumption validator. No valid-source probability formula changed and no historical outcome was opened. | Integrity repair |
 | SI-007 | P1 | Rich features overrode scalar fields independently without stored identity, cutoff, source hash, count, denominator, fallback, or value lineage. | Hits, HR, TB | Complete for every rich field consumed by the shared PA probability path in `rich_feature_lineage_integrity_v1`: direct Statcast copies must equal the hash-bound profile; contact-adapter and active rolling overrides require their own lineage; missing, contradictory, post-cutoff, cross-player, rehashed-value, and denominator mutations fail at serialization and probability consumption. | Integrity repair |
-| SI-008 | P1 | Pitcher fields can affect probabilities without a receipt-proven pregame starter identity in historical candidates. | Hits, HR, TB | Exclude pitcher block unless receipt contract passes. Existing block retained; full consumer audit pending. | Governance/integrity |
+| SI-008 | P1 | Pitcher K/BB/HR, BvP, and platoon fields could affect both explicit and simulated probabilities whenever a bundle carried a pitcher, without a receipt-proven pregame starter identity or point-in-time profile lineage. | Hits, HR, TB | Complete in `pitcher_receipt_consumption_integrity_v1`: new candidates select `receipt_required_or_exclude`; missing receipts or certified profiles neutralize the entire pitcher/BvP/platoon block, while contradictory receipts, identities, timestamps, counts, denominators, dates, months, or hashes terminate. Frozen production remains byte-compatible only under explicit `legacy_frozen`. | Governance/integrity repair |
 | SI-009 | P1 | The frozen HR formula consumes barrel signal in `H_power`, consumes it again through xSLG, then adds a distribution quality score containing barrel/hard-hit and a further EV/launch-angle term. These are hand-specified, overlapping paths. | HR first; Hits/TB through the shared simulator | Frozen formula retained only as comparator. The repaired challenger is a locked fitted batter-only PA model; no coefficient tuning or claim that the legacy formula was repaired. | Research candidate audit |
 | SI-010 | P1 | Invalid K/BB inputs were converted to NaN and routed into the legacy path, contrary to the comment claiming the defect was visible. | Hits, HR, TB | Invalid/nonfinite/out-of-range values now raise; legitimate missing recent rates retain the predeclared season substitution; missing season rates fail when the fitted path is enabled. Regression and mutation tests pass. | Integrity repair |
 | SI-011 | P1 | Feature artifacts did not uniformly persist raw counts, denominators, fallback reasons, and source hashes. | Hits, HR, TB | Statcast profile sources, every probability-consumed rich override, and strict point-in-time hitter K/BB now persist and validate this lineage through feature-store round trips and health reports. Non-rich context, pitcher, and market-input blocks remain separately governed and are not certified by this repair. Partial program completion; shared batter probability inputs covered. | Integrity repair |
@@ -127,6 +127,27 @@ component survived. No 2024, 2025 confirmation, May 2026, or market evidence
 was opened. The source-truth repair remains; no probability model is promoted.
 Exact metrics and hashes are in
 `data/analysis/system_integrity_v2/direct_batter_pa_development_2023_v1/report.md`.
+
+## Pitcher receipt-consumption repair
+
+The strict shared PA consumer now joins probable starters by official MLB game
+PK and home/away side, avoiding false joins between full schedule team names
+and abbreviated player-team identities. A valid T-minus-4 authorization binds
+the capture target, plan, source context, capture time, game/date/side, hitter
+identity, and expected opposing pitcher. Pitcher K, BB, and HR/9 enter either
+probability path only when a separate strictly pregame profile proves exact
+counts, denominators, values, dates, source rows, and hashes while excluding
+May 2026. BvP and platoon remain neutral because their own point-in-time
+lineage is not yet certified.
+
+Missing future receipts are terminal records for evidence coverage but are a
+neutral pitcher-block exclusion for batter-only modeling; they are never
+backfilled. Present-but-contradictory evidence fails closed. The feature
+factory no longer calls the legacy current pitcher-stat path in strict mode,
+and input-health reports expose the exact receipt/profile status. This is an
+integrity repair only: no historical outcomes, May data, prices, spent
+confirmation evidence, or operational collector runtime were touched; no
+market performance or betting claim is made.
 
 ## Promotion boundary
 

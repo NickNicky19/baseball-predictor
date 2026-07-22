@@ -1,0 +1,89 @@
+{
+  "schema_version": "pitcher-receipt-consumption-certified-repair-v1",
+  "candidate_id": "pitcher_receipt_consumption_integrity_v1-383850ac7c2cf358",
+  "status": "CERTIFIED_INTEGRITY_REPAIR_NO_MODEL_PROMOTION",
+  "classification": "integrity_repair_only_not_a_performance_candidate",
+  "parent_commit": "390c95c9d71a605cc7659e9819f828db9f4460e6",
+  "finding": {
+    "register_id": "SI-008",
+    "root_cause": "Both explicit and Monte Carlo PA probability consumers trusted any pitcher profile, BvP factor, platoon value, or opposing-pitcher identity present in a feature bundle. FeatureFactory populated that bundle from the current schedule/legacy pitching-stat path without a T-minus-4 receipt or strict point-in-time profile lineage.",
+    "affected_scope": [
+      "hits",
+      "home_runs_over_0_5",
+      "total_bases"
+    ],
+    "repair": "A shared consumer gate now requires a hash-bound T-minus-4 probable-starter authorization and separately hash-bound strictly pregame pitcher profile. Missing evidence neutralizes the entire pitcher/BvP/platoon block; contradictory evidence terminates. The feature factory does not call the legacy pitcher-stat or matchup-intelligence path in strict mode. Explicit and simulated probabilities call the same resolver.",
+    "production_baseline": "The default legacy_frozen mode preserves the frozen comparator. New candidates must explicitly select receipt_required_or_exclude.",
+    "historical_reconstruction": "None. No permissible historical artifact can manufacture a prospective starter receipt; missing receipts remain permanently missing.",
+    "promotion": "No model promotion and no betting authorization."
+  },
+  "proof": {
+    "focused_tests": "18 passed",
+    "full_tests": "230 passed",
+    "diff_check": "passed",
+    "regressions": [
+      "frozen legacy pitcher consumption remains exact",
+      "strict missing receipt ignores malicious pitcher/BvP/platoon values",
+      "strict receipt without certified profile excludes the block",
+      "valid receipt plus exact profile consumes K/BB/HR identically in both probability paths",
+      "FeatureFactory erases guessed or postgame opposing-pitcher identity when receipt evidence is absent",
+      "May 2026 terminates before any strict feature-provider call",
+      "input-health output records exact pitcher receipt/profile status"
+    ],
+    "mutations": [
+      "starter identity without authorization rehash",
+      "capture after T-minus-4",
+      "cross-pitcher profile identity",
+      "same-day source cutoff",
+      "sealed May source month",
+      "K numerator",
+      "K denominator",
+      "K value hash",
+      "unknown identity mode"
+    ]
+  },
+  "hashes": {
+    "config_sha256": {
+      "config/pitcher_receipt_consumption_integrity_v1.json": "383850ac7c2cf3586aaaa289682a9267054f214406fa6a4a6537046dc65aa9f0"
+    },
+    "data_sha256": {
+      "canonical_empty_data_manifest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "note": "Hashes UTF-8 canonical [] because this integrity repair read no historical, May, outcome, price, or prospective evidence artifact."
+    },
+    "feature_sha256": {
+      "src/features/pitcher_matchup_gate.py": "edfb05ee9a98757e7d2bf84ba582ce11e9529b337e0c62a8e30656a2eecd7f1c",
+      "src/features/feature_factory.py": "f9182b5c6c27936cefea2a8c3111c2e76c8a755fb0e035b1e8786f3b7ce1cda0"
+    },
+    "code_sha256": {
+      "src/evaluation/forward_pitcher_context.py": "a6c4845fbea2ea8fa7b88d85feb96d8fc38516e8a8391fda61429a8ceccb3b6a",
+      "src/evaluation/shadow_capture_plan.py": "323b1a79845c8edde451696ea36849ed54efa0422474984f30824a8993688104",
+      "src/evaluation/prediction_health.py": "5f2baa72d37367bda42cad4fcdd056fce78ab889ea914603182ae98489bcc158",
+      "src/models/dataclasses.py": "a018fc153b1a4618184c84280f81b7963fbd2402e5f1e1c93e2635b5f89dd36e",
+      "src/simulation/pa_simulator.py": "7ab45a884d81bb2cc2ffbca05f6279604137e42c5808a13595af8ca89db57369",
+      "src/simulation/probability_engine.py": "fac75defd9986a86317ecd8b8632e194d8d1de9dd832c8428fe012d75cdb2afe",
+      "src/prediction/prop_engine.py": "edb0c2f6a0c439b7cf6ce2d1124b5ced6df0577ed1dc68e5edf94f858630bf5b"
+    },
+    "test_sha256": {
+      "tests/test_pitcher_receipt_consumption.py": "09f40392ae533995cc9c2498d0fc73b530ac32864b681f552905be7f5acba61c"
+    },
+    "program_register_sha256": {
+      "docs/research/MLB_SYSTEM_INTEGRITY_PROGRAM_V1.md": "a7cbd209b31b005e5384e96a4e1dccf1a5c345849378203528f02d1fec7db7c5"
+    }
+  },
+  "protected_boundaries": {
+    "may_2026_read_or_written": false,
+    "historical_outcomes_opened": false,
+    "spent_2024_or_2025_evidence_reused": false,
+    "prospective_receipts_backfilled": false,
+    "operational_smoke_or_collector_modified": false,
+    "prices_treated_as_executable": false,
+    "market_performance_claimed": false,
+    "betting_authorized": false
+  },
+  "market_adjudication": {
+    "hits": "INTEGRITY_REPAIR_ONLY_RETAIN_FROZEN_BASELINE",
+    "home_runs_over_0_5": "INTEGRITY_REPAIR_ONLY_RETAIN_FROZEN_BASELINE",
+    "total_bases": "INTEGRITY_REPAIR_ONLY_RETAIN_FROZEN_BASELINE"
+  },
+  "single_highest_value_next_action": "Deploy and independently verify the future-only AWS T-minus-4 probable-starter receipt collector, then accumulate fresh immutable starter receipts. The strict consumer is now ready, but no pitcher-matchup model may be fit, scored, promoted, or economically interpreted until those fresh receipts exist."
+}

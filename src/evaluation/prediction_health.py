@@ -26,7 +26,7 @@ from src.data.statcast_integrity import (
 )
 
 
-HEALTH_SCHEMA_VERSION = "prediction-input-health-v2"
+HEALTH_SCHEMA_VERSION = "prediction-input-health-v3"
 
 
 @dataclass(frozen=True)
@@ -60,6 +60,7 @@ class PredictionInputHealth:
     opposing_pitcher_k_rate_present: bool
     opposing_pitcher_bb_rate_present: bool
     opposing_pitcher_hr_rate_present: bool
+    pitcher_matchup_status: str
     rich_features_payload_present: bool
     rich_feature_lineage_present: bool
     rich_probability_lineage_complete: bool
@@ -131,6 +132,16 @@ def health_for_bundle(bundle: PlayerFeatureBundle) -> PredictionInputHealth:
     pitcher_payload_present = pitcher is not None
     pitcher_sample_pa = int(pitcher.sample_pa) if pitcher is not None else 0
     pitcher_profile_present = pitcher_payload_present and pitcher_sample_pa > 0
+    pitcher_matchup_status = str(
+        bundle.metadata.get("pitcher_matchup_status", "legacy_unverified")
+    )
+    if pitcher_matchup_status not in {
+        "legacy_unverified",
+        "excluded_missing_receipt",
+        "excluded_profile_unavailable",
+        "receipt_and_profile_verified",
+    }:
+        pitcher_matchup_status = "invalid_status"
 
     flags: list[str] = [f"lineup_{bundle.hitter.game.lineup_status}"]
     if slot_is_valid:
@@ -164,6 +175,7 @@ def health_for_bundle(bundle: PlayerFeatureBundle) -> PredictionInputHealth:
         if hitter_rate_lineage_complete
         else "hitter_rate_lineage_unavailable"
     )
+    flags.append(f"pitcher_matchup_{pitcher_matchup_status}")
 
     if not pitcher_payload_present:
         flags.extend(
@@ -234,6 +246,7 @@ def health_for_bundle(bundle: PlayerFeatureBundle) -> PredictionInputHealth:
         opposing_pitcher_hr_rate_present=bool(
             pitcher_profile_present and pitcher and pitcher.hr_per_9 is not None
         ),
+        pitcher_matchup_status=pitcher_matchup_status,
         rich_features_payload_present=rich_features_payload_present,
         rich_feature_lineage_present=rich_feature_lineage_present,
         rich_probability_lineage_complete=rich_probability_lineage_complete,

@@ -50,6 +50,7 @@ from src.models.dataclasses import (
     PropProjection,
 )
 from src.evaluation.output_safeguards import OutputSafeguards
+from src.features.pitcher_matchup_gate import resolve_pitcher_probability_inputs
 from src.simulation.game_simulator import GameSimulator, GameSimulatorInput
 from src.simulation.monte_carlo import FantasyScoring, MonteCarloEngine
 from src.simulation.pa_simulator import HybridPASimulator, PASimulatorConfig
@@ -569,17 +570,11 @@ class PropEngine:
         rich_features: Optional[dict] = None,
     ) -> GameSimulatorInput:
         """Build simulation input, including rich features when available."""
-        pitcher_k = self.league.k_pct
-        pitcher_bb = self.league.bb_pct
-
-        if bundle.pitcher_statcast and bundle.pitcher_statcast.k_rate is not None:
-            pitcher_k = bundle.pitcher_statcast.k_rate * 100.0
-        if bundle.pitcher_statcast and bundle.pitcher_statcast.bb_rate is not None:
-            pitcher_bb = bundle.pitcher_statcast.bb_rate * 100.0
-
-        pitcher_hr_per_9 = None
-        if bundle.pitcher_statcast and bundle.pitcher_statcast.hr_per_9 is not None:
-            pitcher_hr_per_9 = bundle.pitcher_statcast.hr_per_9
+        pitcher = resolve_pitcher_probability_inputs(
+            bundle,
+            mode=self.pa_config.pitcher_context_identity_mode,
+            league=self.league,
+        )
 
         weather_hr = float(bundle.metadata.get("weather_hr_factor", 1.0))
         umpire_k_bias = 0.0
@@ -594,8 +589,8 @@ class PropEngine:
         def _clamp(x: float, lo: float, hi: float) -> float:
             return max(lo, min(hi, x))
 
-        bvp_ops = _clamp(bundle.matchup.bvp_ops_factor, 0.80, 1.25)
-        bvp_hr = _clamp(bundle.matchup.bvp_hr_factor, 0.70, 1.40)
+        bvp_ops = _clamp(pitcher.bvp_ops_factor, 0.80, 1.25)
+        bvp_hr = _clamp(pitcher.bvp_hr_factor, 0.70, 1.40)
         form_mult = _clamp(bundle.matchup.recent_form_multiplier, 0.85, 1.18)
 
         # The fitted PA artifact is conditional on batting-order slot.  Passing
@@ -611,18 +606,18 @@ class PropEngine:
         return GameSimulatorInput(
             expected_pa=bundle.expected_pa,
             lineup_slot=slot,
-            pitcher_k_pct=pitcher_k,
-            pitcher_bb_pct=pitcher_bb,
+            pitcher_k_pct=pitcher.pitcher_k_pct,
+            pitcher_bb_pct=pitcher.pitcher_bb_pct,
             park_hr_factor=bundle.park.hr_factor,
             park_hits_factor=bundle.park.hits_factor,
             weather_hr_factor=weather_hr,
             umpire_k_bias=umpire_k_bias,
-            handedness_advantage=bundle.matchup.platoon_advantage,
+            handedness_advantage=pitcher.handedness_advantage,
             recent_form_mult=form_mult,
             bvp_ops_factor=bvp_ops,
             bvp_hr_factor=bvp_hr,
             statcast=bundle.statcast,
-            pitcher_hr_per_9=pitcher_hr_per_9,
+            pitcher_hr_per_9=pitcher.pitcher_hr_per_9,
             rich_features=rich_features,
         )
 

@@ -51,6 +51,11 @@ if TYPE_CHECKING:
 class PASimulatorConfig:
     """Configurable coefficients for the hybrid PA simulator."""
 
+    # Frozen production retains its historical unverified pitcher path only as
+    # a comparator.  Every new candidate must require a receipt-bound probable
+    # starter or exclude the entire pitcher block.
+    pitcher_context_identity_mode: str = "legacy_frozen"
+
     # K rate logit
     k_intercept: float = 0.16
     k_pitcher_miss: float = 1.10
