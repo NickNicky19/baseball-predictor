@@ -132,7 +132,7 @@ def main() -> int:
                 type(self).constructed += 1
                 raise AssertionError("legacy plan builder must not construct MLB client for sealed May")
 
-        with patch.object(legacy_plan_builder, "MLBStatsAPI", ProbeAPI):
+        with patch.object(legacy_plan_builder, "mlb_api_factory", ProbeAPI):
             assert legacy_plan_builder.main([
                 "--date", "2026-05-15", "--out", str(base / "forbidden.plan.json"),
             ]) == 2 and ProbeAPI.constructed == 0
