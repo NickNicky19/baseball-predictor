@@ -12,9 +12,10 @@ injected.
 from __future__ import annotations
 
 from dataclasses import replace
+from datetime import date
 
 from pathlib import Path
-from typing import Any, Optional, Protocol
+from typing import Any, Mapping, Optional, Protocol
 
 from src.data.injury_client import InjuryClient
 from src.data.mlb_api import MLBStatsAPI
@@ -25,6 +26,13 @@ from src.evaluation.park_factor_estimator import ParkFactorEstimator, ParkFactor
 from src.features.feature_vector import FeatureVectorBuilder
 from src.features.lineup_intelligence import LineupIntelligence
 from src.features.matchup_intelligence import MatchupIntelligence
+from src.features.pitcher_matchup_gate import (
+    LEGACY_MODE,
+    STRICT_MODE,
+    PitcherMatchupAuthorization,
+    validate_mode,
+    validate_pitcher_profile_lineage,
+)
 from src.features.legacy_statcast_features import StatcastFeatureEngine
 from src.features.rich_feature_enricher import RichFeatureEnricher
 from src.data.statcast_integrity import (
@@ -34,6 +42,7 @@ from src.data.statcast_integrity import (
 from src.models.dataclasses import (
     HitterGameContext,
     LeagueBaselines,
+    MatchupContext,
     ParkFactors,
     PitcherStatcastProfile,
     PlayerFeatureBundle,
@@ -60,6 +69,24 @@ class RollingStatsProvider(Protocol):
         ...
 
 
+class PitcherAuthorizationProvider(Protocol):
+    """Future-only provider of validated T-minus-4 starter authorizations."""
+
+    def authorization_for(
+        self, hitter: HitterGameContext, game_date: str
+    ) -> PitcherMatchupAuthorization | Mapping[str, Any] | None:
+        ...
+
+
+class CertifiedPitcherProfileProvider(Protocol):
+    """Point-in-time profile provider with exact count/date/source lineage."""
+
+    def profile_for(
+        self, authorization: PitcherMatchupAuthorization
+    ) -> tuple[PitcherStatcastProfile, Mapping[str, Any]] | None:
+        ...
+
+
 class FeatureFactory:
     """
     Assembles PlayerFeatureBundle rows with rich features and matchup context.
@@ -81,6 +108,8 @@ class FeatureFactory:
         park_estimator: Optional[ParkFactorEstimator] = None,
         estimated_park_factors: Optional[dict[str, ParkFactors]] = None,
         rolling_stats_provider: Optional[RollingStatsProvider] = None,
+        pitcher_authorization_provider: Optional[PitcherAuthorizationProvider] = None,
+        certified_pitcher_profile_provider: Optional[CertifiedPitcherProfileProvider] = None,
     ):
         self.config = config or {}
         self.league = league_baselines or LeagueBaselines.from_config(self.config)
@@ -128,6 +157,13 @@ class FeatureFactory:
         # Rich feature layer + optional leakage-safe rolling stats source.
         self.rich_feature_enricher = RichFeatureEnricher()
         self.rolling_stats_provider = rolling_stats_provider
+        self.pitcher_authorization_provider = pitcher_authorization_provider
+        self.certified_pitcher_profile_provider = certified_pitcher_profile_provider
+        self.pitcher_context_identity_mode = validate_mode(
+            (self.config.get("pa_simulator") or {}).get(
+                "pitcher_context_identity_mode", LEGACY_MODE
+            )
+        )
 
         if self.matchup_intelligence is None and isinstance(self.mlb_api, MLBStatsAPI):
             self.matchup_intelligence = MatchupIntelligence.from_config(
@@ -158,6 +194,13 @@ class FeatureFactory:
         savant_csv_path: Optional[str] = None,
     ) -> list[PlayerFeatureBundle]:
         """Build enriched feature bundles for all active hitters on a slate."""
+        target_date = date.fromisoformat(game_date)
+        if (
+            self.pitcher_context_identity_mode == STRICT_MODE
+            and target_date.year == 2026
+            and target_date.month == 5
+        ):
+            raise ValueError("May 2026 is sealed; refusing all strict feature-source access")
         if hitters is None:
             if self.mlb_api is None:
                 raise ValueError("mlb_api required when hitters are not provided")
@@ -182,7 +225,13 @@ class FeatureFactory:
                 continue
 
             statcast = profiles[hitter.player.mlb_id]
-            pitcher_statcast = self._resolve_opposing_pitcher_statcast(hitter)
+            pitcher_metadata: dict[str, Any] = {}
+            if self.pitcher_context_identity_mode == STRICT_MODE:
+                hitter, pitcher_statcast, pitcher_metadata = self._strict_pitcher_inputs(
+                    hitter, game_date
+                )
+            else:
+                pitcher_statcast = self._resolve_opposing_pitcher_statcast(hitter)
             weather = self.weather_client.get_weather_for_game(
                 hitter.game.game_pk,
                 hitter.game.venue,
@@ -198,10 +247,14 @@ class FeatureFactory:
                 statcast=statcast,
                 park=park,
                 weather=weather,
-                matchup=self.matchup_intelligence.build_matchup_context(
-                    hitter,
-                    pitcher_statcast=pitcher_statcast,
-                    hitter_statcast=statcast,
+                matchup=(
+                    MatchupContext()
+                    if self.pitcher_context_identity_mode == STRICT_MODE
+                    else self.matchup_intelligence.build_matchup_context(
+                        hitter,
+                        pitcher_statcast=pitcher_statcast,
+                        hitter_statcast=statcast,
+                    )
                 ),
                 umpire=umpire,
                 injury=injury,
@@ -210,10 +263,15 @@ class FeatureFactory:
                 metadata={
                     "lineup_status": hitter.game.lineup_status,
                     "weather_hr_factor": weather_hr,
+                    **pitcher_metadata,
                 },
             )
 
-            enriched = self.matchup_intelligence.apply_to_bundle(base_bundle)
+            enriched = (
+                base_bundle
+                if self.pitcher_context_identity_mode == STRICT_MODE
+                else self.matchup_intelligence.apply_to_bundle(base_bundle)
+            )
             season_hitting, recent_hitting, hitter_rate_lineage = self._hitting_stats(
                 hitter.player.mlb_id, game_date
             )
@@ -418,6 +476,64 @@ class FeatureFactory:
             hr_per_9=hr_per_9,
             sample_pa=int(recent.innings_pitched * 4.2),
         )
+
+    def _strict_pitcher_inputs(
+        self, hitter: HitterGameContext, game_date: str
+    ) -> tuple[HitterGameContext, Optional[PitcherStatcastProfile], dict[str, Any]]:
+        """Resolve only receipt-proven identity and certified pregame rates.
+
+        Missing evidence is an explicit neutral exclusion.  Present-but-
+        contradictory evidence raises; no guessed/actual starter or legacy
+        current-season API fallback is allowed to reach the probability path.
+        """
+        provider = self.pitcher_authorization_provider
+        raw = provider.authorization_for(hitter, game_date) if provider is not None else None
+        if raw is None:
+            sanitized = replace(
+                hitter,
+                opposing_pitcher_id=None,
+                opposing_pitcher_name="",
+                opposing_pitcher_throws="U",
+            )
+            return sanitized, None, {"pitcher_matchup_status": "excluded_missing_receipt"}
+
+        authorization = (
+            raw
+            if isinstance(raw, PitcherMatchupAuthorization)
+            else PitcherMatchupAuthorization.from_mapping(raw)
+        )
+        authorization.validate_hitter(hitter)
+        sanitized = replace(
+            hitter,
+            opposing_pitcher_id=authorization.expected_pitcher_id,
+            opposing_pitcher_name="",
+            opposing_pitcher_throws="U",
+        )
+        metadata: dict[str, Any] = {
+            "pitcher_matchup_authorization": authorization.to_dict(),
+            "pitcher_matchup_status": "excluded_profile_unavailable",
+        }
+        profile_provider = self.certified_pitcher_profile_provider
+        supplied = profile_provider.profile_for(authorization) if profile_provider is not None else None
+        if supplied is None:
+            return sanitized, None, metadata
+        if not isinstance(supplied, tuple) or len(supplied) != 2:
+            raise ValueError("certified pitcher provider must return (profile, lineage)")
+        profile, lineage = supplied
+        if not isinstance(profile, PitcherStatcastProfile) or not isinstance(lineage, Mapping):
+            raise ValueError("certified pitcher provider returned invalid types")
+        validate_pitcher_profile_lineage(
+            profile=profile,
+            lineage=lineage,
+            authorization=authorization,
+        )
+        metadata.update(
+            {
+                "pitcher_profile_lineage": dict(lineage),
+                "pitcher_matchup_status": "receipt_and_profile_verified",
+            }
+        )
+        return sanitized, profile, metadata
 
     def _attach_hitter_rates(self, bundle, season, recent, lineage=None):
         """Put the hitter's OWN season/recent K and BB rates on his StatcastProfile.

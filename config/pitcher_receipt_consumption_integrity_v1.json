@@ -1,0 +1,71 @@
+{
+  "schema_version": "pitcher-receipt-consumption-integrity-repair-v1",
+  "candidate_id": "pitcher_receipt_consumption_integrity_v1",
+  "classification": "integrity_repair_only_not_a_performance_candidate",
+  "status": "REPAIR_IMPLEMENTED_PENDING_HASH_CERTIFICATION",
+  "affected_markets": [
+    "hits",
+    "home_runs_over_0_5",
+    "total_bases"
+  ],
+  "new_candidate_requirement": {
+    "pa_simulator.pitcher_context_identity_mode": "receipt_required_or_exclude",
+    "missing_receipt": "exclude_entire_pitcher_bvp_platoon_block",
+    "receipt_without_certified_profile": "exclude_entire_pitcher_bvp_platoon_block",
+    "contradictory_or_tampered_evidence": "fail_closed",
+    "bvp_and_platoon": "neutral_until_separately_point_in_time_certified"
+  },
+  "frozen_comparator": {
+    "pa_simulator.pitcher_context_identity_mode": "legacy_frozen",
+    "numeric_behavior": "preserved_only_as_frozen_comparator"
+  },
+  "required_authorization_bindings": [
+    "capture_target_sha256",
+    "capture_plan_sha256",
+    "forward_pitcher_context_sha256",
+    "captured_at_or_before_t_minus_4",
+    "mlb_game_pk",
+    "official_game_date",
+    "home_away_side",
+    "hitter_game_and_team_identity",
+    "expected_opposing_pitcher_mlb_id"
+  ],
+  "required_profile_lineage": [
+    "pitcher_mlb_id",
+    "strictly_prior_cutoff_and_max_game_date",
+    "source_row_and_date_set_hashes",
+    "source_months_excluding_2026_05",
+    "k_bb_hr_numerators_denominators_values_and_hashes"
+  ],
+  "protected_boundaries": {
+    "may_2026": "not_read_not_fetched_not_parsed_not_written",
+    "historical_outcomes_opened": false,
+    "2024_selection_reused": false,
+    "2025_hr_confirmation_reused": false,
+    "prospective_evidence_reconstructed": false,
+    "operational_smoke_modified": false,
+    "protected_pitcher_collector_modified": false,
+    "production_probability_changed": false,
+    "betting_authorized": false
+  },
+  "evaluation_boundary": {
+    "historical_rescore": "not_run_integrity_repair_only",
+    "hits": "no_performance_claim_no_promotion",
+    "home_runs_over_0_5": "no_performance_claim_no_promotion",
+    "total_bases": "no_performance_claim_no_promotion",
+    "frozen_baseline": "retained",
+    "fresh_receipts_and_independent_evidence_required": true
+  },
+  "mutation_requirements": [
+    "starter_identity_or_authorization_hash",
+    "capture_timestamp_after_t_minus_4",
+    "cross_game_cross_date_cross_side_or_cross_hitter_identity",
+    "profile_pitcher_identity",
+    "same_day_or_future_source_cutoff",
+    "sealed_may_source_month",
+    "k_bb_hr_count_or_denominator",
+    "feature_value_or_source_hash",
+    "missing_receipt_with_malicious_pitcher_payload",
+    "unknown_identity_mode"
+  ]
+}

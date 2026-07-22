@@ -22,6 +22,7 @@ from src.models.dataclasses import (
     OutcomeProbabilities,
     PlayerFeatureBundle,
 )
+from src.features.pitcher_matchup_gate import resolve_pitcher_probability_inputs
 from src.simulation.pa_simulator import HybridPASimulator, PASimulatorConfig
 
 
@@ -74,30 +75,25 @@ class ProbabilityEngine:
         """
         rich = rich_features if rich_features is not None else (bundle.rich_features or {})
 
-        pitcher_k = self.league.k_pct
-        pitcher_bb = self.league.bb_pct
-        pitcher_hr_per_9: Optional[float] = None
-        if bundle.pitcher_statcast is not None:
-            if bundle.pitcher_statcast.k_rate is not None:
-                pitcher_k = bundle.pitcher_statcast.k_rate * 100.0
-            if bundle.pitcher_statcast.bb_rate is not None:
-                pitcher_bb = bundle.pitcher_statcast.bb_rate * 100.0
-            if bundle.pitcher_statcast.hr_per_9 is not None:
-                pitcher_hr_per_9 = bundle.pitcher_statcast.hr_per_9
+        pitcher = resolve_pitcher_probability_inputs(
+            bundle,
+            mode=self.pa_config.pitcher_context_identity_mode,
+            league=self.league,
+        )
 
         weather_hr = float(bundle.metadata.get("weather_hr_factor", 1.0))
         umpire_k_bias = bundle.umpire.k_bias if bundle.umpire else 0.0
 
         probs = self.pa_simulator.expected_outcome_probabilities(
-            pitcher_k_pct=pitcher_k + umpire_k_bias,
-            pitcher_bb_pct=pitcher_bb,
-            pitcher_hr_per_9=pitcher_hr_per_9,
+            pitcher_k_pct=pitcher.pitcher_k_pct + umpire_k_bias,
+            pitcher_bb_pct=pitcher.pitcher_bb_pct,
+            pitcher_hr_per_9=pitcher.pitcher_hr_per_9,
             park_hr_factor=bundle.park.hr_factor * weather_hr,
             park_hits_factor=bundle.park.hits_factor,
-            handedness_advantage=bundle.matchup.platoon_advantage,
+            handedness_advantage=pitcher.handedness_advantage,
             recent_form_mult=bundle.matchup.recent_form_multiplier,
-            bvp_ops_factor=bundle.matchup.bvp_ops_factor,
-            bvp_hr_factor=bundle.matchup.bvp_hr_factor,
+            bvp_ops_factor=pitcher.bvp_ops_factor,
+            bvp_hr_factor=pitcher.bvp_hr_factor,
             statcast=bundle.statcast,
             rich_features=rich,
         )
@@ -111,4 +107,3 @@ class ProbabilityEngine:
             triple=probs["triple"],
             out_on_bip=probs["out_on_bip"],
         )
-
