@@ -257,6 +257,7 @@ def main() -> int:
         assert "/opt/baseball-predictor-pitcher-receipts" in installer
         assert "^[0-9a-f]{40}$" in installer
         assert "github_host_key_sha256=\"6233fddbb0a29afc8c4e8c699733c1a188c3a41f2fb63a2640653dc4aea624ce\"" in installer
+        assert 'env GIT_SSH_COMMAND="$ssh_command" \\\n    git -C "$temporary/repo" checkout --detach "$commit"' in installer
         assert "run_slate.py" not in installer and "odds-api" not in installer.lower()
         known_hosts = (ROOT / "deploy/forward_pitcher_receipts/github.com_known_hosts").read_bytes()
         assert hashlib.sha256(known_hosts).hexdigest() == "6233fddbb0a29afc8c4e8c699733c1a188c3a41f2fb63a2640653dc4aea624ce"
