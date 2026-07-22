@@ -12,8 +12,6 @@ permissions:
 jobs:
   readiness:
     runs-on: ubuntu-latest
-    env:
-      PYBASEBALL_CACHE: ${{ runner.temp }}/pybaseball-cache
     steps:
       - name: Check out source
         uses: actions/checkout@v5
@@ -34,5 +32,7 @@ jobs:
 
       - name: Run full offline forward-shadow readiness audit
         run: |
+          export PYBASEBALL_CACHE="$RUNNER_TEMP/pybaseball-cache"
+          mkdir -p "$PYBASEBALL_CACHE"
           python scripts/audit_forward_shadow_readiness.py \
             --out "$RUNNER_TEMP/forward-shadow-readiness.json"

@@ -41,6 +41,7 @@ class ShadowVerifierWorkflowTests(unittest.TestCase):
         workflow = PREFLIGHT_WORKFLOW_PATH.read_text(encoding="utf-8")
         self.assertIn('"on":', workflow)
         self.assertIn("pull_request:", workflow)
-        self.assertIn("PYBASEBALL_CACHE", workflow)
+        self.assertIn('export PYBASEBALL_CACHE="$RUNNER_TEMP/pybaseball-cache"', workflow)
+        self.assertNotIn("${{ runner.temp }}", workflow)
         self.assertIn("tests.test_shadow_verifier_workflow", workflow)
         self.assertIn("scripts/audit_forward_shadow_readiness.py", workflow)
