@@ -215,6 +215,10 @@ class StatcastProfile:
     # profiles, while source-built profiles must be marked by SavantClient.
     source_status: str = "unverified"
     fallback_fields: tuple[str, ...] = ()
+    source_hash: Optional[str] = None
+    source_max_game_date: Optional[str] = None
+    source_cutoff_date: Optional[str] = None
+    field_lineage: dict[str, dict[str, Any]] = field(default_factory=dict)
 
     def has_advanced_data(self) -> bool:
         return self.sample_pa > 0 and self.xwoba is not None

@@ -8,7 +8,7 @@ refuses target-date Statcast rows rather than silently filtering leakage.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import date
+from datetime import date, timedelta
 import hashlib
 import json
 from pathlib import Path
@@ -184,7 +184,7 @@ def build_contact_adapter_evidence(
         raise ValueError("Statcast estimated BA lies outside [0,1]")
     frame = frame.loc[frame["batter"].isin(active) & frame["xba"].notna()].copy()
 
-    raw: dict[int, tuple[int, float, str, str]] = {}
+    raw: dict[int, tuple[int, float, str, str, str]] = {}
     for player_id, group in frame.groupby("batter", sort=True):
         dates = sorted(group["game_date"].unique())
         selected_dates = dates[-settings.window_games :]
@@ -198,6 +198,7 @@ def build_contact_adapter_evidence(
             player_xba,
             selected_dates[0].isoformat(),
             selected_dates[-1].isoformat(),
+            _contact_source_hash(selected),
         )
 
     total_bip = sum(values[0] for values in raw.values())
@@ -230,7 +231,7 @@ def build_contact_adapter_evidence(
                 "player_bip": values[0],
             }
             continue
-        bip, raw_xba, first_date, last_date = values
+        bip, raw_xba, first_date, last_date, source_hash = values
         fitted = (
             bip * raw_xba + settings.prior_strength_bip * anchor
         ) / (bip + settings.prior_strength_bip)
@@ -248,10 +249,33 @@ def build_contact_adapter_evidence(
             "fitted_contact_xba": float(fitted),
             "first_evidence_date": first_date,
             "last_evidence_date": last_date,
+            "target_date": target.isoformat(),
+            "source_cutoff_date": (target - timedelta(days=1)).isoformat(),
+            "source_hash": source_hash,
+            "selection_evidence_sha256": settings.selection_evidence_sha256,
         }
     if set(evidence) != set(active):
         raise RuntimeError("contact adapter failed exhaustive active-player accounting")
     return evidence
+
+
+def _contact_source_hash(frame: pd.DataFrame) -> str:
+    rows = []
+    for row in frame.loc[:, ["batter", "game_date", "xba"]].to_dict(
+        orient="records"
+    ):
+        rows.append(
+            json.dumps(
+                {
+                    "batter": int(row["batter"]),
+                    "game_date": row["game_date"].isoformat(),
+                    "xba": float(row["xba"]),
+                },
+                sort_keys=True,
+                separators=(",", ":"),
+            )
+        )
+    return hashlib.sha256(("[" + ",".join(sorted(rows)) + "]").encode()).hexdigest()
 
 
 def consume_fitted_contact_xba(

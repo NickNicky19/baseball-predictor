@@ -25,11 +25,16 @@ one API call per player, not one per date.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from datetime import date, datetime
+from dataclasses import asdict, dataclass
+from datetime import date, datetime, timedelta
+import hashlib
+import json
 from typing import Any, Optional
 
 from src.data.mlb_api import HittingStatsSnapshot, PitchingStatsSnapshot, MLBStatsAPI
+from src.data.historical_backfill_contract import assert_not_may_2026
+from src.data.statcast_integrity import sha256_feature_value
+from src.utils.errors import DataFetchError
 from src.utils.logging import get_logger
 
 logger = get_logger(__name__)
@@ -144,6 +149,90 @@ class PointInTimeStats:
                     out[f"{prefix}_babip"] = max(0.0, (hits - hr)) / bip
         return out
 
+    def get_hitting_stats_with_lineage(
+        self,
+        player_id: int,
+        as_of_date: str,
+        recent_games: int = 15,
+    ) -> tuple[HittingStatsSnapshot, HittingStatsSnapshot, dict[str, Any]]:
+        """Return strict prior-game snapshots plus count/hash/date lineage."""
+        target = assert_not_may_2026(
+            as_of_date, context="point-in-time hitter-rate target"
+        )
+        rows = self._rows_before(self._hitting_log(player_id), as_of_date)
+        recent_rows = rows[-recent_games:]
+        season = self._aggregate_hitting(rows)
+        recent = (
+            self._aggregate_hitting(recent_rows)
+            if recent_rows
+            else HittingStatsSnapshot()
+        )
+        cutoff = (target - timedelta(days=1)).isoformat()
+        source_max = rows[-1].game_date if rows else None
+
+        def entry(
+            *,
+            field_name: str,
+            value: Optional[float],
+            source_rows: list[GameLogRow],
+            sample_pa: int,
+            fallback_reason: Optional[str] = None,
+        ) -> dict[str, Any]:
+            return {
+                "source": "mlb_game_log_point_in_time",
+                "player_id": int(player_id),
+                "target_date": target.isoformat(),
+                "source_cutoff_date": cutoff,
+                "source_max_game_date": (
+                    source_rows[-1].game_date if source_rows else None
+                ),
+                "source_hash": _game_log_rows_sha256(source_rows),
+                "sample_count": int(sample_pa),
+                "denominator": int(sample_pa),
+                "numerator": _rate_numerator(field_name, source_rows),
+                "fallback_reason": fallback_reason,
+                "value_sha256": sha256_feature_value(value),
+            }
+
+        fields = {
+            "k_rate": entry(
+                field_name="k_rate",
+                value=season.k_rate,
+                source_rows=rows,
+                sample_pa=season.pa,
+                fallback_reason=None if season.k_rate is not None else "no_prior_player_pa",
+            ),
+            "bb_rate": entry(
+                field_name="bb_rate",
+                value=season.bb_rate,
+                source_rows=rows,
+                sample_pa=season.pa,
+                fallback_reason=None if season.bb_rate is not None else "no_prior_player_pa",
+            ),
+            "k_rate_recent": entry(
+                field_name="k_rate_recent",
+                value=recent.k_rate,
+                source_rows=recent_rows,
+                sample_pa=recent.pa,
+                fallback_reason=None if recent.k_rate is not None else "no_prior_recent_pa",
+            ),
+            "bb_rate_recent": entry(
+                field_name="bb_rate_recent",
+                value=recent.bb_rate,
+                source_rows=recent_rows,
+                sample_pa=recent.pa,
+                fallback_reason=None if recent.bb_rate is not None else "no_prior_recent_pa",
+            ),
+        }
+        return season, recent, {
+            "schema_version": "hitter-rate-lineage-v1",
+            "player_id": int(player_id),
+            "target_date": target.isoformat(),
+            "source_cutoff_date": cutoff,
+            "source_max_game_date": source_max,
+            "fields": fields,
+        }
+
     def clear_cache(self) -> None:
         self._hitting_logs.clear()
         self._pitching_logs.clear()
@@ -172,16 +261,35 @@ class PointInTimeStats:
         try:
             data = self.mlb_api._get(url, params=params)
         except Exception as exc:  # DataFetchError or network issues
-            logger.warning("Game log fetch failed for %s (%s): %s", player_id, group, exc)
-            return []
+            raise DataFetchError(
+                f"point-in-time game log fetch failed for {player_id} ({group})"
+            ) from exc
 
+        if not isinstance(data, dict) or not isinstance(data.get("stats"), list):
+            raise DataFetchError(
+                f"point-in-time game log schema drift for {player_id} ({group})"
+            )
         rows: list[GameLogRow] = []
-        for block in data.get("stats", []):
-            for split in block.get("splits", []):
-                stat = split.get("stat", {}) or {}
+        for block in data["stats"]:
+            if not isinstance(block, dict) or not isinstance(
+                block.get("splits"), list
+            ):
+                raise DataFetchError(
+                    f"point-in-time game log block is malformed for {player_id} ({group})"
+                )
+            for split in block["splits"]:
+                if not isinstance(split, dict) or not isinstance(
+                    split.get("stat"), dict
+                ):
+                    raise DataFetchError(
+                        f"point-in-time game log split is malformed for {player_id} ({group})"
+                    )
+                stat = split["stat"]
                 game_date = str(split.get("date", ""))
                 if not game_date:
-                    continue
+                    raise DataFetchError(
+                        f"point-in-time game log date is missing for {player_id} ({group})"
+                    )
                 if group == "hitting":
                     rows.append(
                         GameLogRow(
@@ -294,6 +402,23 @@ class PointInTimeStats:
             games=len(rows),
             games_started=sum(r.games_started for r in rows),
         )
+
+
+def _game_log_rows_sha256(rows: list[GameLogRow]) -> str:
+    payload = json.dumps(
+        [asdict(row) for row in rows],
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def _rate_numerator(field_name: str, rows: list[GameLogRow]) -> int:
+    if field_name in {"k_rate", "k_rate_recent"}:
+        return sum(row.strikeouts for row in rows)
+    if field_name in {"bb_rate", "bb_rate_recent"}:
+        return sum(row.walks for row in rows)
+    raise ValueError(f"unknown hitter rate field: {field_name}")
 
 
 def _int(value: Any) -> int:

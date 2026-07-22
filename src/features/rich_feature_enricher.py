@@ -20,7 +20,14 @@ from src.features.ml.statcast_features import StatcastFeatureEngineer
 from src.features.ml.context_features import ContextFeatureEngineer
 from src.features.ml.rolling_features import RollingFeatureEngineer
 from src.models.dataclasses import StatcastProfile
-from src.data.statcast_integrity import validate_rate_pair
+from src.data.statcast_integrity import (
+    RICH_FEATURE_LINEAGE_KEY,
+    RICH_FEATURE_LINEAGE_SCHEMA,
+    RICH_PROFILE_OVERRIDE_FIELDS,
+    StatcastIntegrityError,
+    sha256_feature_value,
+    validate_rate_pair,
+)
 
 
 class RichFeatureEnricher:
@@ -88,4 +95,86 @@ class RichFeatureEnricher:
         if rolling:
             input_data.update(rolling)
 
-        return self.pipeline.compute(input_data)
+        features = self.pipeline.compute(input_data)
+        if profile.source_status == "unverified":
+            return features
+        target_date = data.get("game_date")
+        if not isinstance(target_date, str) or not target_date:
+            raise StatcastIntegrityError(
+                "source-built rich features require an explicit target date"
+            )
+        if not profile.source_cutoff_date:
+            raise StatcastIntegrityError(
+                "source-built rich features require a bound source cutoff"
+            )
+        if profile.source_status != "league_fallback" and not profile.source_hash:
+            raise StatcastIntegrityError(
+                "source-built rich features require an immutable source hash"
+            )
+
+        lineage_fields: dict[str, Any] = {}
+        for field in sorted(RICH_PROFILE_OVERRIDE_FIELDS):
+            value = features.get(field)
+            if value is None:
+                continue
+            fallback_reason: Optional[str] = None
+            if profile.source_status == "league_fallback":
+                fallback_reason = "player_missing_from_valid_source"
+            elif field in profile.fallback_fields:
+                fallback_reason = "source_field_missing_league_substitution"
+            denominator = None
+            numerator = None
+            if field in {"barrel_rate", "hard_hit_rate"} and fallback_reason is None:
+                denominator = profile.batted_ball_denominator
+                numerator = (
+                    profile.barrel_count
+                    if field == "barrel_rate"
+                    else profile.hard_hit_count
+                )
+            lineage_fields[field] = {
+                "source": (
+                    "league_baseline"
+                    if profile.source_status == "league_fallback"
+                    else "statcast_profile"
+                ),
+                "player_id": profile.player_id,
+                "target_date": target_date,
+                "source_cutoff_date": profile.source_cutoff_date,
+                "source_max_game_date": profile.source_max_game_date,
+                "source_hash": profile.source_hash,
+                "sample_count": profile.sample_pa,
+                "denominator": denominator,
+                "numerator": numerator,
+                "fallback_reason": fallback_reason,
+                "value_sha256": sha256_feature_value(value),
+            }
+
+        if features.get("roll15_xwoba") is not None and float(
+            features.get("recent_pa_15") or 0.0
+        ) > 0.0:
+            rolling_lineage = (
+                rolling.get(RICH_FEATURE_LINEAGE_KEY)
+                if isinstance(rolling, dict)
+                else None
+            )
+            rolling_fields = (
+                rolling_lineage.get("fields")
+                if isinstance(rolling_lineage, dict)
+                else None
+            )
+            if not isinstance(rolling_fields, dict):
+                raise StatcastIntegrityError(
+                    "rolling xwOBA cannot enter probabilities without source lineage"
+                )
+            for field in ("roll15_xwoba", "recent_pa_15"):
+                if field not in rolling_fields:
+                    raise StatcastIntegrityError(
+                        f"rolling probability feature lacks lineage: {field}"
+                    )
+                lineage_fields[field] = dict(rolling_fields[field])
+
+        features[RICH_FEATURE_LINEAGE_KEY] = {
+            "schema_version": RICH_FEATURE_LINEAGE_SCHEMA,
+            "fields": lineage_fields,
+        }
+        return features

@@ -10,6 +10,8 @@ from __future__ import annotations
 
 from dataclasses import replace
 from datetime import date, timedelta
+import hashlib
+import json
 from pathlib import Path
 from typing import Any, Optional
 
@@ -155,6 +157,13 @@ class SavantClient:
             player_id = int(batter_id)
             name = str(group["player_name"].iloc[0]) if "player_name" in group.columns else ""
             profile = self._aggregate_hitter_group(group, player_id, name)
+            source_max_game_date = _max_game_date(group)
+            profile = replace(
+                profile,
+                source_hash=_canonical_frame_sha256(group),
+                source_max_game_date=source_max_game_date,
+                source_cutoff_date=source_max_game_date,
+            )
             profiles[player_id] = self.apply_league_fallback(profile)
         return profiles
 
@@ -356,6 +365,7 @@ class SavantClient:
                 contact_rate=_normalize_rate(_safe_float(row.get("contact_percent"))),
                 swing_rate=_normalize_rate(_safe_float(row.get("swing_percent"))),
                 zone_rate=_normalize_rate(_safe_float(row.get("zone_percent"))),
+                source_hash=_canonical_frame_sha256(pd.DataFrame([row])),
             )
             validate_rate_pair(
                 profile.barrel_rate,
@@ -419,6 +429,44 @@ class SavantClient:
             return None
         in_zone = group["zone"].between(1, 9)
         return float(in_zone.sum() / len(group)) if len(group) else None
+
+
+def _canonical_frame_sha256(frame: pd.DataFrame) -> str:
+    """Hash the exact source rows consumed, independent of row/column order."""
+    if not isinstance(frame, pd.DataFrame) or frame.empty:
+        raise DataFetchError("cannot hash an empty Statcast source frame")
+    ordered = frame.reindex(sorted(frame.columns, key=str), axis=1)
+    records: list[str] = []
+    for record in ordered.to_dict(orient="records"):
+        normalized = {
+            str(key): _canonical_scalar(value) for key, value in record.items()
+        }
+        records.append(
+            json.dumps(normalized, sort_keys=True, separators=(",", ":"))
+        )
+    payload = "[" + ",".join(sorted(records)) + "]"
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def _canonical_scalar(value: Any) -> Any:
+    if value is None or bool(pd.isna(value)):
+        return None
+    if isinstance(value, pd.Timestamp):
+        return value.isoformat()
+    if hasattr(value, "item"):
+        value = value.item()
+    if isinstance(value, (str, int, float, bool)):
+        return value
+    return str(value)
+
+
+def _max_game_date(frame: pd.DataFrame) -> Optional[str]:
+    if "game_date" not in frame.columns:
+        return None
+    parsed = pd.to_datetime(frame["game_date"], errors="coerce")
+    if parsed.isna().any() or parsed.empty:
+        raise DataFetchError("Statcast source contains an invalid game_date")
+    return parsed.max().date().isoformat()
 
 
 def _normalize_rate(value: Optional[float]) -> Optional[float]:
