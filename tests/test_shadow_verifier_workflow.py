@@ -4,6 +4,7 @@ import unittest
 
 WORKFLOW_PATH = Path(__file__).parents[1] / ".github" / "workflows" / "shadow-evidence-verifier.yml"
 READINESS_AUDIT_PATH = Path(__file__).parents[1] / "scripts" / "audit_forward_shadow_readiness.py"
+PREFLIGHT_WORKFLOW_PATH = Path(__file__).parents[1] / ".github" / "workflows" / "forward-shadow-preflight.yml"
 READ_ONLY_PROOF = '"${SSH[@]}" "$PRIMARY_USER@$PRIMARY_HOST" "test -r \'$PRIMARY_ROOT\' && ! test -w \'$PRIMARY_ROOT\'"'
 
 
@@ -34,3 +35,11 @@ class ShadowVerifierWorkflowTests(unittest.TestCase):
         self.assertIn("test -r '$PRIMARY_ROOT' && ! test -w '$PRIMARY_ROOT'", audit)
         self.assertIn("live_configuration_verified_by_offline_audit", audit)
         self.assertIn("require a separate live deployment receipt", audit)
+        self.assertIn("GitHub pull-request preflight does not run the full forward-shadow readiness boundary", audit)
+
+    def test_pull_request_preflight_runs_the_full_readiness_audit(self) -> None:
+        workflow = PREFLIGHT_WORKFLOW_PATH.read_text(encoding="utf-8")
+        self.assertIn("pull_request:", workflow)
+        self.assertIn("PYBASEBALL_CACHE", workflow)
+        self.assertIn("tests.test_shadow_verifier_workflow", workflow)
+        self.assertIn("scripts/audit_forward_shadow_readiness.py", workflow)

@@ -43,6 +43,7 @@ BOUND_FILES = [
     ".gitattributes",
     ".gitignore",
     ".github/workflows/daily-predictions.yml",
+    ".github/workflows/forward-shadow-preflight.yml",
     ".github/workflows/shadow-evidence-verifier.yml",
     "config/forward_shadow_deployment_protocol.json",
     "config/forward_shadow_evidence_boundary.json",
@@ -157,6 +158,14 @@ def main(argv: list[str] | None = None) -> int:
         or "--evidence-scope evidence/evidence_scope.json" not in verifier_workflow
     ):
         raise ValueError("GitHub verifier is not bound to the immutable evidence scope")
+    preflight_workflow = (ROOT / ".github/workflows/forward-shadow-preflight.yml").read_text(encoding="utf-8")
+    if (
+        "pull_request:" not in preflight_workflow
+        or "PYBASEBALL_CACHE" not in preflight_workflow
+        or "tests.test_shadow_verifier_workflow" not in preflight_workflow
+        or "scripts/audit_forward_shadow_readiness.py" not in preflight_workflow
+    ):
+        raise ValueError("GitHub pull-request preflight does not run the full forward-shadow readiness boundary")
 
     windows_runner = (
         ROOT / "deploy/shadow_collector/windows/Run-LocalOperationalSmoke.ps1"
