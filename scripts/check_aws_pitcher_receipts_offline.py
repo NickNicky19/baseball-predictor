@@ -17,6 +17,7 @@ if str(ROOT) not in sys.path:
 import scripts.build_aws_pitcher_receipt_plan as aws_plan_builder
 from scripts.build_aws_pitcher_receipt_plan import AWSReceiptPlanError, AWSReceiptPlanTooLateError, build_plan
 from scripts.report_aws_pitcher_receipt_health import build_report, main as health_main
+import scripts.run_aws_pitcher_receipt_plan_for_today as aws_today_runner
 from scripts.run_aws_pitcher_receipt_tick import AWSReceiptTickError, run_all
 from scripts.verify_aws_pitcher_receipt_tree import verify_tree
 import scripts.build_forward_pitcher_context_plan as legacy_plan_builder
@@ -157,6 +158,18 @@ def main() -> int:
                 "--receipt-dir", str(receipts), "--runtime", str(runtime()),
             ]) == 3
         print("[OK] MUTATION late deployment date has a distinct fail-closed service status")
+
+        today_args = [
+            "--plan-dir", str(plans), "--receipt-dir", str(receipts),
+            "--runtime", str(runtime()),
+        ]
+        with patch.object(aws_today_runner, "build_plan", side_effect=AWSReceiptPlanTooLateError("late")):
+            assert aws_today_runner.main(today_args) == 3
+        print("[OK] today service preserves the explicit late-deployment status for systemd")
+
+        with patch.object(aws_today_runner, "build_plan", side_effect=AWSReceiptPlanError("source invalid")):
+            assert aws_today_runner.main(today_args) == 2
+        print("[OK] MUTATION non-late plan failure cannot activate the deployment deferral")
 
         with patch("scripts.run_aws_pitcher_receipt_tick.fetcher", fake_fetcher):
             tick = run_all(
@@ -300,7 +313,7 @@ def main() -> int:
         plan_path.write_bytes(original)
         print("[OK] MUTATION conflicting plan retry fails without replacing the published plan")
 
-    print("17/17")
+    print("19/19")
     return 0
 
 

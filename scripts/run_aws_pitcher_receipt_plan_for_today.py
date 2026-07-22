@@ -13,7 +13,11 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.build_aws_pitcher_receipt_plan import AWSReceiptPlanError, build_plan
+from scripts.build_aws_pitcher_receipt_plan import (
+    AWSReceiptPlanError,
+    AWSReceiptPlanTooLateError,
+    build_plan,
+)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -32,6 +36,12 @@ def main(argv: list[str] | None = None) -> int:
             receipt_dir=args.receipt_dir,
             runtime_path=args.runtime,
         ), sort_keys=True))
+    except AWSReceiptPlanTooLateError as exc:
+        # The exact status is part of the deployment boundary: the installer
+        # may defer a genuinely late plan until the next non-persistent timer
+        # boundary, but must still reject every other failure.
+        print(f"[FAIL] {type(exc).__name__}: {exc}", file=sys.stderr)
+        return 3
     except (OSError, ValueError, RuntimeError, AWSReceiptPlanError) as exc:
         print(f"[FAIL] {type(exc).__name__}: {exc}", file=sys.stderr)
         return 2
