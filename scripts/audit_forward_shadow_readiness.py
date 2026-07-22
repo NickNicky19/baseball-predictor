@@ -148,6 +148,11 @@ def main(argv: list[str] | None = None) -> int:
     if "NEVER fetches" not in verifier_workflow or "NOT the primary T-4h" not in verifier_workflow:
         raise ValueError("GitHub verifier no longer declares its independent non-primary role")
     if (
+        "Prove primary identity cannot write evidence" not in verifier_workflow
+        or "test -r '$PRIMARY_ROOT' && ! test -w '$PRIMARY_ROOT'" not in verifier_workflow
+    ):
+        raise ValueError("GitHub verifier does not prove that its primary identity is read-only")
+    if (
         "$PRIMARY_ROOT/evidence_scope.json" not in verifier_workflow
         or "--evidence-scope evidence/evidence_scope.json" not in verifier_workflow
     ):
@@ -210,7 +215,7 @@ def main(argv: list[str] | None = None) -> int:
             "github_is_primary_collector": False,
             "durable_external_primary_collector_deployed": False,
             "github_independent_verifier_implemented": True,
-            "github_independent_verifier_configured": False,
+            "github_independent_verifier_live_configuration_verified_by_offline_audit": False,
             "research_entry_ledger_commit_implemented": True,
             "prestart_reference_capture_implemented": True,
             "official_mlb_outcome_resolution_implemented": True,
@@ -250,8 +255,7 @@ def main(argv: list[str] | None = None) -> int:
             "v11 permanently failed event identity and cannot be retried, backfilled, or certified",
             "the incompatible successor operational smoke has not yet completed",
             "no durable always-on per-game T-4h primary collector is deployed",
-            "no external host or provider plan has been explicitly selected and authorized",
-            "GitHub read-only evidence SSH variables/secrets are not configured",
+            "external host, provider-plan, and GitHub verifier configuration are not attested by this offline audit; require a separate live deployment receipt",
             "no successful complete future T-4h/prestart/official lifecycle has yet been captured operationally",
             "no exact executable execution-product prices, accepted entries, fills, or settlements have been captured",
             "Onyx, Novig, Chalkboard, and PrizePicks each remain blocked on separate primary rules/account/payout/executability evidence",

@@ -3,6 +3,7 @@ import unittest
 
 
 WORKFLOW_PATH = Path(__file__).parents[1] / ".github" / "workflows" / "shadow-evidence-verifier.yml"
+READINESS_AUDIT_PATH = Path(__file__).parents[1] / "scripts" / "audit_forward_shadow_readiness.py"
 READ_ONLY_PROOF = '"${SSH[@]}" "$PRIMARY_USER@$PRIMARY_HOST" "test -r \'$PRIMARY_ROOT\' && ! test -w \'$PRIMARY_ROOT\'"'
 
 
@@ -26,3 +27,10 @@ class ShadowVerifierWorkflowTests(unittest.TestCase):
         )
         with self.assertRaises(AssertionError):
             assert_read_only_proof(mutated)
+
+    def test_readiness_audit_binds_the_read_only_proof(self) -> None:
+        audit = READINESS_AUDIT_PATH.read_text(encoding="utf-8")
+        self.assertIn("GitHub verifier does not prove that its primary identity is read-only", audit)
+        self.assertIn("test -r '$PRIMARY_ROOT' && ! test -w '$PRIMARY_ROOT'", audit)
+        self.assertIn("live_configuration_verified_by_offline_audit", audit)
+        self.assertIn("require a separate live deployment receipt", audit)
