@@ -1,0 +1,78 @@
+{
+  "schema_version": "pa-volume-chronology-integrity-protocol-v1",
+  "status": "LOCKED_BEFORE_2024_REPAIR_EVALUATION",
+  "candidate_id": "pa_volume_2023_only_v1",
+  "research_only": true,
+  "betting_authorized": false,
+  "production_changed": false,
+  "chronology": {
+    "fit_season": 2023,
+    "selection_season": 2024,
+    "selection_runs": 1,
+    "confirmation_seasons_opened": [],
+    "spent_hr_confirmation_year": 2025,
+    "may_2026_forbidden": true
+  },
+  "source_projection": {
+    "columns": ["game_date", "game_pk", "player_id", "lineup_slot", "out_pa"],
+    "fit_population": "all 18 original sequence-zero starters per regular-season game",
+    "zero_pa_rows": "retained as truthful support, never deleted or clipped",
+    "later_season_reader": "stop before projecting any 2025 outcome field"
+  },
+  "base_running": {
+    "pa_volume_identity_mode": "receipt_required_or_pooled",
+    "pa_distribution_path": "data/analysis/system_integrity_v2/pa_volume_chronology_v1/pa_distribution_fit_2023.json",
+    "pa_distribution_sha256": "7ffd6a8fecb1c4f8aed1966c234a61499050346f87f884f731c440daca793c90"
+  },
+  "historical_2024_input_rule": {
+    "t_minus_4_lineup_receipts_available": false,
+    "official_target_game_lineup_slot_as_prediction_input": false,
+    "candidate_pa_distribution": "2023 pooled distribution for every row",
+    "confirmed_slot_distribution": "not scored without prospective receipt evidence"
+  },
+  "per_pa_probability": {
+    "candidate": "time-safe multinomial empirical-Bayes player history",
+    "prior_strength_pa": 200,
+    "prior": "2023 league outcome distribution",
+    "2024_update": "strictly earlier game dates only",
+    "same_day_outcomes": "forbidden"
+  },
+  "market_definitions": {
+    "hits_over_0_5": "P(game hits >= 1)",
+    "home_runs_over_0_5": "P(game home runs >= 1)",
+    "total_bases_over_0_5": "P(game total bases >= 1)",
+    "total_bases_over_1_5": "P(game total bases >= 2)",
+    "zero_pa_treatment": "truthful player-game outcome retained; this is probability-foundation scoring, not sportsbook settlement grading"
+  },
+  "comparators": {
+    "league_rate": "2023 league PA distribution plus 2023 league per-PA outcome rates",
+    "player_historical_rate": "time-safe 200-PA empirical-Bayes player rate plus frozen legacy two-point PA volume at 4.05 PA",
+    "frozen_production_simulator": "required before promotion; unavailable as an identity-aligned 2024 comparator",
+    "valid_market_implied": "required where available; no timestamp-certified executable 2024 prices exist"
+  },
+  "selection_gates": {
+    "coverage_loss_allowed": 0,
+    "proper_score_materiality": "candidate-minus-each available comparator point and paired date-block 95% upper bound must each be below negative 1% of comparator Brier and log loss",
+    "discrimination": "candidate AUC must be noninferior for each market",
+    "calibration": "candidate 10-equal-count-bin ECE and calibration-in-the-large absolute error must each be noninferior",
+    "high_probability_tail": "top candidate-prediction decile fixed before scoring; candidate absolute observed-minus-predicted error must be noninferior",
+    "uncertainty": {
+      "method": "paired game-date block bootstrap",
+      "draws": 5000,
+      "seed": 20260722,
+      "interval": "two-sided 95 percent"
+    },
+    "market_independence": true,
+    "all_required_comparators_must_exist_before_promotion": true
+  },
+  "protected_invariants": {
+    "may_2026_sealed": true,
+    "spent_2025_hr_not_reused": true,
+    "historical_prices_not_executable": true,
+    "operational_smoke_permanently_non_economic": true,
+    "existing_rejections_preserved": true,
+    "july_22_pitcher_collector_untouched": true,
+    "no_post_hoc_thresholds": true,
+    "no_betting_authorization": true
+  }
+}

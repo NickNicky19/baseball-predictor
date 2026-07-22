@@ -1,0 +1,495 @@
+{
+  "all_available_comparator_gates_pass": false,
+  "artifact_sha256": "7ffd6a8fecb1c4f8aed1966c234a61499050346f87f884f731c440daca793c90",
+  "candidate_id": "pa_volume_2023_only_v1",
+  "chronology": {
+    "2025_confirmation_opened": false,
+    "fit_year": 2023,
+    "may_2026_read": false,
+    "selection_runs": 1,
+    "selection_year": 2024
+  },
+  "classification": "integrity_repair_and_single_locked_2024_selection",
+  "historical_lineup_slot_consumed_as_prediction_input": false,
+  "market_reports": {
+    "hits_over_0_5": {
+      "available_comparator_gates_pass": false,
+      "candidate_tail_rows": 4373,
+      "candidate_tail_threshold": 0.6734486911513379,
+      "comparisons": {
+        "league_rate": {
+          "gates": {
+            "auc_noninferior": true,
+            "brier_material": false,
+            "calibration_in_the_large_noninferior": false,
+            "ece_noninferior": false,
+            "high_probability_tail_noninferior": true,
+            "log_loss_material": false
+          },
+          "paired_candidate_minus_comparator": {
+            "brier": {
+              "date_blocks": 185,
+              "draws": 5000,
+              "lower": -0.0016386959243077546,
+              "point": -0.001367334340059733,
+              "seed": 20260722,
+              "upper": -0.001083520426695855
+            },
+            "log_loss": {
+              "date_blocks": 185,
+              "draws": 5000,
+              "lower": -0.0035199640073401914,
+              "point": -0.002915228363431329,
+              "seed": 20260723,
+              "upper": -0.0022910225617562697
+            }
+          },
+          "passes_all": false
+        },
+        "player_historical_rate_with_legacy_pa_volume": {
+          "gates": {
+            "auc_noninferior": false,
+            "brier_material": false,
+            "calibration_in_the_large_noninferior": true,
+            "ece_noninferior": true,
+            "high_probability_tail_noninferior": true,
+            "log_loss_material": false
+          },
+          "paired_candidate_minus_comparator": {
+            "brier": {
+              "date_blocks": 185,
+              "draws": 5000,
+              "lower": -0.00040775339595607474,
+              "point": -0.0003338682301794555,
+              "seed": 20260732,
+              "upper": -0.0002578458535964805
+            },
+            "log_loss": {
+              "date_blocks": 185,
+              "draws": 5000,
+              "lower": -0.0008829063951342657,
+              "point": -0.0007211544052112502,
+              "seed": 20260733,
+              "upper": -0.000557379078215063
+            }
+          },
+          "passes_all": false
+        }
+      },
+      "coverage_loss": 0,
+      "frozen_production_simulator_comparator": "MISSING_IDENTITY_ALIGNED_2024_PROBABILITIES",
+      "metrics": {
+        "candidate_2023_pooled_pa_plus_time_safe_player_eb": {
+          "auc": 0.5460469359811098,
+          "brier": 0.23646563770225543,
+          "calibration_in_the_large_abs": 0.021315071732094015,
+          "ece_10_equal_count": 0.021315071732094057,
+          "high_probability_tail_abs_error": 0.00642549691243699,
+          "high_probability_tail_mean_probability": 0.6901666357187485,
+          "high_probability_tail_observed_rate": 0.6837411388063115,
+          "high_probability_tail_rows": 4373,
+          "log_loss": 0.6657378152181215,
+          "mean_probability": 0.6334554129790635,
+          "observed_rate": 0.6121403412469695,
+          "rows": 43722
+        },
+        "league_rate": {
+          "auc": 0.5,
+          "brier": 0.23783297204231513,
+          "calibration_in_the_large_abs": 0.02020960606498501,
+          "ece_10_equal_count": 0.020209606064984884,
+          "high_probability_tail_abs_error": 0.051391191494357114,
+          "high_probability_tail_mean_probability": 0.6323499473119544,
+          "high_probability_tail_observed_rate": 0.6837411388063115,
+          "high_probability_tail_rows": 4373,
+          "log_loss": 0.668653043581553,
+          "mean_probability": 0.6323499473119545,
+          "observed_rate": 0.6121403412469695,
+          "rows": 43722
+        },
+        "player_historical_rate_with_legacy_pa_volume": {
+          "auc": 0.5460469392860652,
+          "brier": 0.2367995059324348,
+          "calibration_in_the_large_abs": 0.028204679363500573,
+          "ece_10_equal_count": 0.028204679363500598,
+          "high_probability_tail_abs_error": 0.014475541553178761,
+          "high_probability_tail_mean_probability": 0.6982166803594902,
+          "high_probability_tail_observed_rate": 0.6837411388063115,
+          "high_probability_tail_rows": 4373,
+          "log_loss": 0.6664589696233327,
+          "mean_probability": 0.64034502061047,
+          "observed_rate": 0.6121403412469695,
+          "rows": 43722
+        }
+      },
+      "promotion_gate": "FAIL_MISSING_REQUIRED_COMPARATORS_AND_FRESH_CONFIRMATION",
+      "rows": 43722,
+      "valid_market_implied_comparator": "UNAVAILABLE_NO_TIMESTAMP_CERTIFIED_EXECUTABLE_2024_PRICES"
+    },
+    "home_runs_over_0_5": {
+      "available_comparator_gates_pass": false,
+      "candidate_tail_rows": 4373,
+      "candidate_tail_threshold": 0.17299675783214388,
+      "comparisons": {
+        "league_rate": {
+          "gates": {
+            "auc_noninferior": true,
+            "brier_material": true,
+            "calibration_in_the_large_noninferior": true,
+            "ece_noninferior": true,
+            "high_probability_tail_noninferior": true,
+            "log_loss_material": true
+          },
+          "paired_candidate_minus_comparator": {
+            "brier": {
+              "date_blocks": 185,
+              "draws": 5000,
+              "lower": -0.0015201708579712105,
+              "point": -0.0012991380057679486,
+              "seed": 20260822,
+              "upper": -0.0010721161358169568
+            },
+            "log_loss": {
+              "date_blocks": 185,
+              "draws": 5000,
+              "lower": -0.007284226695403424,
+              "point": -0.006342264715139608,
+              "seed": 20260823,
+              "upper": -0.005412587542575548
+            }
+          },
+          "passes_all": true
+        },
+        "player_historical_rate_with_legacy_pa_volume": {
+          "gates": {
+            "auc_noninferior": true,
+            "brier_material": false,
+            "calibration_in_the_large_noninferior": true,
+            "ece_noninferior": true,
+            "high_probability_tail_noninferior": true,
+            "log_loss_material": false
+          },
+          "paired_candidate_minus_comparator": {
+            "brier": {
+              "date_blocks": 185,
+              "draws": 5000,
+              "lower": -7.158483947741324e-06,
+              "point": -4.776293367180451e-06,
+              "seed": 20260832,
+              "upper": -2.376349529279642e-06
+            },
+            "log_loss": {
+              "date_blocks": 185,
+              "draws": 5000,
+              "lower": -2.8807814681058285e-05,
+              "point": -2.0296792970964865e-05,
+              "seed": 20260833,
+              "upper": -1.1461833288476787e-05
+            }
+          },
+          "passes_all": false
+        }
+      },
+      "coverage_loss": 0,
+      "frozen_production_simulator_comparator": "MISSING_IDENTITY_ALIGNED_2024_PROBABILITIES",
+      "metrics": {
+        "candidate_2023_pooled_pa_plus_time_safe_player_eb": {
+          "auc": 0.5986019623849563,
+          "brier": 0.09977686583056092,
+          "calibration_in_the_large_abs": 0.00957231328462417,
+          "ece_10_equal_count": 0.00957231328462418,
+          "high_probability_tail_abs_error": 0.016219075723975823,
+          "high_probability_tail_mean_probability": 0.19595838512255803,
+          "high_probability_tail_observed_rate": 0.1797393093985822,
+          "high_probability_tail_rows": 4373,
+          "log_loss": 0.34884273345305067,
+          "mean_probability": 0.12354239699534189,
+          "observed_rate": 0.11397008371071772,
+          "rows": 43722
+        },
+        "league_rate": {
+          "auc": 0.5,
+          "brier": 0.10107600383632889,
+          "calibration_in_the_large_abs": 0.009751928354903738,
+          "ece_10_equal_count": 0.010537561514329488,
+          "high_probability_tail_abs_error": 0.05601729733296075,
+          "high_probability_tail_mean_probability": 0.12372201206562146,
+          "high_probability_tail_observed_rate": 0.1797393093985822,
+          "high_probability_tail_rows": 4373,
+          "log_loss": 0.35518499816819027,
+          "mean_probability": 0.12372201206562146,
+          "observed_rate": 0.11397008371071772,
+          "rows": 43722
+        },
+        "player_historical_rate_with_legacy_pa_volume": {
+          "auc": 0.5986019623849563,
+          "brier": 0.09978164212392811,
+          "calibration_in_the_large_abs": 0.009818012932753764,
+          "ece_10_equal_count": 0.009818012932753771,
+          "high_probability_tail_abs_error": 0.01683823316138197,
+          "high_probability_tail_mean_probability": 0.19657754255996418,
+          "high_probability_tail_observed_rate": 0.1797393093985822,
+          "high_probability_tail_rows": 4373,
+          "log_loss": 0.3488630302460217,
+          "mean_probability": 0.12378809664347148,
+          "observed_rate": 0.11397008371071772,
+          "rows": 43722
+        }
+      },
+      "promotion_gate": "FAIL_MISSING_REQUIRED_COMPARATORS_AND_FRESH_CONFIRMATION",
+      "rows": 43722,
+      "valid_market_implied_comparator": "UNAVAILABLE_NO_TIMESTAMP_CERTIFIED_EXECUTABLE_2024_PRICES"
+    },
+    "total_bases_over_0_5": {
+      "available_comparator_gates_pass": false,
+      "candidate_tail_rows": 4373,
+      "candidate_tail_threshold": 0.6734486911513377,
+      "comparisons": {
+        "league_rate": {
+          "gates": {
+            "auc_noninferior": true,
+            "brier_material": false,
+            "calibration_in_the_large_noninferior": false,
+            "ece_noninferior": false,
+            "high_probability_tail_noninferior": true,
+            "log_loss_material": false
+          },
+          "paired_candidate_minus_comparator": {
+            "brier": {
+              "date_blocks": 185,
+              "draws": 5000,
+              "lower": -0.001644179138455098,
+              "point": -0.0013673343400597232,
+              "seed": 20260922,
+              "upper": -0.0010878759062548323
+            },
+            "log_loss": {
+              "date_blocks": 185,
+              "draws": 5000,
+              "lower": -0.0035215931113821157,
+              "point": -0.0029152283634312584,
+              "seed": 20260923,
+              "upper": -0.002316971488100772
+            }
+          },
+          "passes_all": false
+        },
+        "player_historical_rate_with_legacy_pa_volume": {
+          "gates": {
+            "auc_noninferior": false,
+            "brier_material": false,
+            "calibration_in_the_large_noninferior": true,
+            "ece_noninferior": true,
+            "high_probability_tail_noninferior": true,
+            "log_loss_material": false
+          },
+          "paired_candidate_minus_comparator": {
+            "brier": {
+              "date_blocks": 185,
+              "draws": 5000,
+              "lower": -0.00040976519539727153,
+              "point": -0.00033386823017945446,
+              "seed": 20260932,
+              "upper": -0.0002621323962610411
+            },
+            "log_loss": {
+              "date_blocks": 185,
+              "draws": 5000,
+              "lower": -0.0008835638033454149,
+              "point": -0.0007211544052112492,
+              "seed": 20260933,
+              "upper": -0.0005590106296130302
+            }
+          },
+          "passes_all": false
+        }
+      },
+      "coverage_loss": 0,
+      "frozen_production_simulator_comparator": "MISSING_IDENTITY_ALIGNED_2024_PROBABILITIES",
+      "metrics": {
+        "candidate_2023_pooled_pa_plus_time_safe_player_eb": {
+          "auc": 0.5460467828515081,
+          "brier": 0.23646563770225543,
+          "calibration_in_the_large_abs": 0.021315071732094015,
+          "ece_10_equal_count": 0.02131507173209405,
+          "high_probability_tail_abs_error": 0.00642549691243699,
+          "high_probability_tail_mean_probability": 0.6901666357187485,
+          "high_probability_tail_observed_rate": 0.6837411388063115,
+          "high_probability_tail_rows": 4373,
+          "log_loss": 0.6657378152181215,
+          "mean_probability": 0.6334554129790635,
+          "observed_rate": 0.6121403412469695,
+          "rows": 43722
+        },
+        "league_rate": {
+          "auc": 0.5,
+          "brier": 0.23783297204231513,
+          "calibration_in_the_large_abs": 0.020209606064984786,
+          "ece_10_equal_count": 0.020209606064984884,
+          "high_probability_tail_abs_error": 0.051391191494357114,
+          "high_probability_tail_mean_probability": 0.6323499473119544,
+          "high_probability_tail_observed_rate": 0.6837411388063115,
+          "high_probability_tail_rows": 4373,
+          "log_loss": 0.6686530435815528,
+          "mean_probability": 0.6323499473119543,
+          "observed_rate": 0.6121403412469695,
+          "rows": 43722
+        },
+        "player_historical_rate_with_legacy_pa_volume": {
+          "auc": 0.5460468974232964,
+          "brier": 0.23679950593243485,
+          "calibration_in_the_large_abs": 0.028204679363500573,
+          "ece_10_equal_count": 0.02820467936350058,
+          "high_probability_tail_abs_error": 0.014475541553178761,
+          "high_probability_tail_mean_probability": 0.6982166803594902,
+          "high_probability_tail_observed_rate": 0.6837411388063115,
+          "high_probability_tail_rows": 4373,
+          "log_loss": 0.6664589696233327,
+          "mean_probability": 0.64034502061047,
+          "observed_rate": 0.6121403412469695,
+          "rows": 43722
+        }
+      },
+      "promotion_gate": "FAIL_MISSING_REQUIRED_COMPARATORS_AND_FRESH_CONFIRMATION",
+      "rows": 43722,
+      "valid_market_implied_comparator": "UNAVAILABLE_NO_TIMESTAMP_CERTIFIED_EXECUTABLE_2024_PRICES"
+    },
+    "total_bases_over_1_5": {
+      "available_comparator_gates_pass": false,
+      "candidate_tail_rows": 4373,
+      "candidate_tail_threshold": 0.4178922998818951,
+      "comparisons": {
+        "league_rate": {
+          "gates": {
+            "auc_noninferior": true,
+            "brier_material": false,
+            "calibration_in_the_large_noninferior": false,
+            "ece_noninferior": false,
+            "high_probability_tail_noninferior": true,
+            "log_loss_material": false
+          },
+          "paired_candidate_minus_comparator": {
+            "brier": {
+              "date_blocks": 185,
+              "draws": 5000,
+              "lower": -0.0018210243097462936,
+              "point": -0.0015234943265226256,
+              "seed": 20261022,
+              "upper": -0.0012278864010002687
+            },
+            "log_loss": {
+              "date_blocks": 185,
+              "draws": 5000,
+              "lower": -0.003935495714890481,
+              "point": -0.003295376670921116,
+              "seed": 20261023,
+              "upper": -0.002672128183536556
+            }
+          },
+          "passes_all": false
+        },
+        "player_historical_rate_with_legacy_pa_volume": {
+          "gates": {
+            "auc_noninferior": true,
+            "brier_material": false,
+            "calibration_in_the_large_noninferior": true,
+            "ece_noninferior": true,
+            "high_probability_tail_noninferior": true,
+            "log_loss_material": false
+          },
+          "paired_candidate_minus_comparator": {
+            "brier": {
+              "date_blocks": 185,
+              "draws": 5000,
+              "lower": -7.813513298535914e-05,
+              "point": -6.002355624158212e-05,
+              "seed": 20261032,
+              "upper": -4.2317313046187397e-05
+            },
+            "log_loss": {
+              "date_blocks": 185,
+              "draws": 5000,
+              "lower": -0.00016757043732351046,
+              "point": -0.00012890396184114472,
+              "seed": 20261033,
+              "upper": -8.998899462854014e-05
+            }
+          },
+          "passes_all": false
+        }
+      },
+      "coverage_loss": 0,
+      "frozen_production_simulator_comparator": "MISSING_IDENTITY_ALIGNED_2024_PROBABILITIES",
+      "metrics": {
+        "candidate_2023_pooled_pa_plus_time_safe_player_eb": {
+          "auc": 0.5494221330929465,
+          "brier": 0.22725692882901063,
+          "calibration_in_the_large_abs": 0.020505408700818073,
+          "ece_10_equal_count": 0.020505408700818094,
+          "high_probability_tail_abs_error": 0.002586189235505576,
+          "high_probability_tail_mean_probability": 0.43524111720257624,
+          "high_probability_tail_observed_rate": 0.43265492796707067,
+          "high_probability_tail_rows": 4373,
+          "log_loss": 0.6468243116017336,
+          "mean_probability": 0.373645704204226,
+          "observed_rate": 0.3531402955034079,
+          "rows": 43722
+        },
+        "league_rate": {
+          "auc": 0.5,
+          "brier": 0.2287804231555332,
+          "calibration_in_the_large_abs": 0.018660009655935672,
+          "ece_10_equal_count": 0.018660009655935637,
+          "high_probability_tail_abs_error": 0.06085462280772719,
+          "high_probability_tail_mean_probability": 0.3718003051593435,
+          "high_probability_tail_observed_rate": 0.43265492796707067,
+          "high_probability_tail_rows": 4373,
+          "log_loss": 0.6501196882726546,
+          "mean_probability": 0.3718003051593436,
+          "observed_rate": 0.3531402955034079,
+          "rows": 43722
+        },
+        "player_historical_rate_with_legacy_pa_volume": {
+          "auc": 0.5494217117260544,
+          "brier": 0.2273169523852522,
+          "calibration_in_the_large_abs": 0.022122951633834542,
+          "ece_10_equal_count": 0.02212295163383457,
+          "high_probability_tail_abs_error": 0.005406640294130183,
+          "high_probability_tail_mean_probability": 0.43806156826120085,
+          "high_probability_tail_observed_rate": 0.43265492796707067,
+          "high_probability_tail_rows": 4373,
+          "log_loss": 0.6469532155635748,
+          "mean_probability": 0.37526324713724246,
+          "observed_rate": 0.3531402955034079,
+          "rows": 43722
+        }
+      },
+      "promotion_gate": "FAIL_MISSING_REQUIRED_COMPARATORS_AND_FRESH_CONFIRMATION",
+      "rows": 43722,
+      "valid_market_implied_comparator": "UNAVAILABLE_NO_TIMESTAMP_CERTIFIED_EXECUTABLE_2024_PRICES"
+    }
+  },
+  "pa_volume_consumed": "2023 pooled empirical distribution for every 2024 row",
+  "promotion_decision": "RETAIN_FROZEN_BASELINE_NO_BETTING_AUTHORIZATION",
+  "protocol_sha256": "d6b1035d924f61ea3a98e8f08fbb82e795d40b2e3cda442dacbd1ebb860c9733",
+  "required_promotion_evidence": {
+    "fresh_untouched_confirmation_or_prospective_replication": false,
+    "identity_aligned_frozen_simulator": false,
+    "receipt_proven_lineup_slot_evidence": false,
+    "valid_market_implied_where_available": false
+  },
+  "schema_version": "pa-volume-chronology-adjudication-v1",
+  "single_highest_value_next_action": "Deploy the future-only AWS T-minus-4 receipt collector and extend its immutable target evidence to the already-preregistered lineup/PA-volume boundary; do not backfill missing receipts or reopen 2024/2025/May.",
+  "source": {
+    "games_2023": 2430,
+    "games_2024": 2429,
+    "path": "C:\\Projects\\baseball_predictor\\data\\analysis\\hr_over_contract_v1\\pre2026_a3_2_migration_v2\\training\\training_hitters_2023_2025_statcast.csv.gz",
+    "projected_2023_2024_sha256": "99a38a3dced0cc85f2a3bf59c9e1e03973128c0474421b856c419862af1e0019",
+    "rows_2023": 43740,
+    "rows_2024": 43722,
+    "sha256": "3fc38325007845d6a7a99102274f7e520ed6f4310cc2a3248ebc441afeb814c5",
+    "zero_pa_rows_2023": 14,
+    "zero_pa_rows_2024": 18
+  },
+  "status": "CERTIFIED_SELECTION_REJECTION"
+}
