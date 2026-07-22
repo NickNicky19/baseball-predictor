@@ -26,6 +26,7 @@ and falls back to the actual starter (source is recorded per row).
 from __future__ import annotations
 
 import json
+import time
 from collections import Counter
 from dataclasses import dataclass, field
 from datetime import date, timedelta
@@ -45,7 +46,7 @@ from src.utils.logging import get_logger
 
 logger = get_logger(__name__)
 
-BUILDER_SCHEMA = "a3.1"
+BUILDER_SCHEMA = "a3.2"
 
 # Generous windows; the gameType == "R" filter is the real gate.
 SEASON_WINDOWS: dict[int, tuple[str, str]] = {
@@ -178,10 +179,12 @@ class TrainingSetBuilder:
                 result.skipped_non_regular += 1
                 continue
             status = game.get("status", {})
-            if not (
-                status.get("abstractGameState") == "Final"
-                or status.get("codedGameState") == "F"
-            ):
+            # MLB can label a rain-postponed schedule entry "abstract final"
+            # even though its coded state is D and the same game_pk will later
+            # appear on its rescheduled date as the actual final game.  Only F
+            # is the completed box score that belongs in training; accepting
+            # the abstract state duplicates one game_pk across two dates.
+            if status.get("codedGameState") != "F":
                 result.skipped_not_final += 1
                 continue
 
@@ -192,6 +195,22 @@ class TrainingSetBuilder:
             except Exception as exc:
                 logger.warning("Feed unavailable for game %s: %s", game.get("gamePk"), exc)
                 result.resolution["feed_failed"] += 1
+                continue
+
+            # A completed suspended game can also appear on the calendar day
+            # it resumed, even though MLB keeps its official record under the
+            # original officialDate.  Retain exactly that canonical date.  It
+            # gives one stable (game_pk, game_date) identity without guessing
+            # from teams or start times.
+            official_date = (
+                feed.get("gameData", {}).get("datetime", {}).get("officialDate")
+                or game.get("officialDate")
+            )
+            if not official_date:
+                result.resolution["official_date_missing"] += 1
+                continue
+            if str(official_date) != game_date:
+                result.resolution["skipped_noncanonical_game_date"] += 1
                 continue
 
             h_rows, p_rows = self._rows_for_game(game_date, game, feed, result.resolution)
@@ -215,11 +234,34 @@ class TrainingSetBuilder:
         for kind in ("hitters", "pitchers"):
             frames = []
             for season in seasons:
-                for shard in sorted((out_dir / str(season)).glob(f"{kind}_*.csv")):
+                shards = sorted((out_dir / str(season)).glob(f"{kind}_*.csv"))
+                # Hitter A4 artifacts live beside raw A3 shards.  Raw assembly
+                # must never sweep them in as a second copy of every game.
+                if kind == "hitters":
+                    shards = [p for p in shards if not p.stem.endswith("_statcast")]
+                for shard in shards:
                     frames.append(pd.read_csv(shard))
             target = out_dir / f"training_{kind}_{span}.csv.gz"
             if frames:
-                pd.concat(frames, ignore_index=True).to_csv(target, index=False)
+                combined = pd.concat(frames, ignore_index=True)
+                if combined["game_pk"].isna().any():
+                    raise ValueError(f"{kind} training assembly has null game_pk values")
+                bad_game_dates = combined.groupby("game_pk")["game_date"].nunique()
+                bad_game_dates = bad_game_dates[bad_game_dates > 1]
+                if not bad_game_dates.empty:
+                    raise ValueError(
+                        f"{kind} training assembly maps {len(bad_game_dates)} game_pk values "
+                        f"to multiple game_date values; examples:\n"
+                        f"{bad_game_dates.head(20).to_string()}"
+                    )
+                duplicate_rows = combined.duplicated(["game_pk", "player_id"], keep=False)
+                if duplicate_rows.any():
+                    raise ValueError(
+                        f"{kind} training assembly has {int(duplicate_rows.sum())} duplicate "
+                        f"(game_pk, player_id) rows; examples:\n"
+                        f"{combined.loc[duplicate_rows, ['game_date', 'game_pk', 'player_id']].head(20).to_string(index=False)}"
+                    )
+                combined.to_csv(target, index=False)
                 outputs[kind] = target
         return outputs
 
@@ -250,6 +292,9 @@ class TrainingSetBuilder:
 
         hitter_rows: list[dict[str, Any]] = []
         pitcher_rows: list[dict[str, Any]] = []
+        original_orders = self.api.completed_game_original_batting_order_from_feed(
+            game_pk, feed
+        )
 
         for side, team, opp, is_home in (
             ("away", away_name, home_name, 0),
@@ -257,11 +302,8 @@ class TrainingSetBuilder:
         ):
             opp_side = "home" if side == "away" else "away"
             players = box_teams.get(side, {}).get("players", {}) or {}
-            order = [int(pid) for pid in (box_teams.get(side, {}).get("battingOrder") or []) if pid][:9]
-            if len(order) < 9:
-                resolution["lineup_missing_team"] += 1
-            else:
-                resolution["lineup_confirmed_team"] += 1
+            order = original_orders[side]
+            resolution["lineup_original_starter_sequence_team"] += 1
 
             opp_sp_id, opp_sp_source = self._opposing_sp(
                 game, opp_side, starters[opp_side], resolution
@@ -530,8 +572,14 @@ class TrainingSetBuilder:
     def _write_shard(
         self, kind: str, game_date: str, columns: list[str], rows: list[dict[str, Any]]
     ) -> None:
-        if not rows:
-            return
+        """Publish a shard, including an explicit empty shard.
+
+        A date can become empty when MLB corrects a postponed or suspended
+        game's canonical date.  Leaving a previous non-empty file in place
+        would silently reintroduce that stale game during assembly, so an
+        empty result must replace any existing shard just like a non-empty
+        result.
+        """
         import csv
 
         path = self._shard_dir / f"{kind}_{game_date}.csv"
@@ -563,7 +611,18 @@ class TrainingSetBuilder:
         self.manifest["resolution"] = dict(totals)
         tmp = self._manifest_path.with_suffix(".tmp")
         tmp.write_text(json.dumps(self.manifest, indent=2), encoding="utf-8")
-        tmp.replace(self._manifest_path)
+        # Antivirus/indexing can briefly hold a just-written manifest on
+        # Windows.  Keep the atomic replacement contract, but retry the same
+        # complete temp file rather than abandoning an otherwise valid shard
+        # set part-way through a season rebuild.
+        for attempt in range(5):
+            try:
+                tmp.replace(self._manifest_path)
+                break
+            except PermissionError:
+                if attempt == 4:
+                    raise
+                time.sleep(0.2 * (attempt + 1))
 
 
 def season_dates(season: int, start: Optional[str] = None, end: Optional[str] = None) -> list[str]:

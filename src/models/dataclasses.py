@@ -85,9 +85,16 @@ class LeagueBaselines:
 # ---------------------------------------------------------------------------
 
 
-Handedness = Literal["L", "R", "S"]
+Handedness = Literal["L", "R", "S", "U"]
 LineupStatus = Literal["confirmed", "projected", "unknown"]
-PropCategory = Literal["hits", "hrr", "home_runs", "fantasy", "strikeouts"]
+PropCategory = Literal[
+    "hits",
+    "hrr",
+    "home_runs",
+    "fantasy",
+    "strikeouts",
+    "total_bases",
+]
 
 
 @dataclass(frozen=True)
@@ -95,8 +102,8 @@ class PlayerIdentity:
     mlb_id: int
     name: str
     team: str
-    bats: Handedness = "R"
-    throws: Handedness = "R"
+    bats: Handedness = "U"
+    throws: Handedness = "U"
 
 
 @dataclass(frozen=True)
@@ -116,7 +123,7 @@ class HitterGameContext:
     lineup_slot: int
     opposing_pitcher_id: Optional[int] = None
     opposing_pitcher_name: str = ""
-    opposing_pitcher_throws: Handedness = "R"
+    opposing_pitcher_throws: Handedness = "U"
 
 
 @dataclass
@@ -183,6 +190,17 @@ class StatcastProfile:
     zone_rate: Optional[float] = None
     k_rate: Optional[float] = None
     bb_rate: Optional[float] = None
+    # RECENT (lastXGames) K/BB rates. ADDITIVE -- default None, so an existing
+    # caller that does not set them is unaffected and the simulator's fitted
+    # K/BB path stays inert.
+    #
+    # These exist because the FITTED K/BB model is a BLEND of season-to-date and
+    # recent form, and the blend BEAT season-alone out-of-sample by +174 logL (K)
+    # and +47 (BB) on 141,731 starter-games. Season is stable but STALE (it
+    # includes April, when the hitter may have been a different player); recent is
+    # current but NOISY (51 PA vs 208). The data chose the blend.
+    k_rate_recent: Optional[float] = None
+    bb_rate_recent: Optional[float] = None
     distribution: Optional[StatcastDistributionProfile] = None
 
     def has_advanced_data(self) -> bool:
@@ -400,6 +418,11 @@ class GameSimulationResult:
     def hrr(self) -> int:
         return self.hits + self.runs + self.rbi
 
+    @property
+    def total_bases(self) -> int:
+        """Official batting total bases: 1B + 2*2B + 3*3B + 4*HR."""
+        return self.singles + 2 * self.doubles + 3 * self.triples + 4 * self.home_runs
+
 
 @dataclass
 class MonteCarloResult:
@@ -442,6 +465,13 @@ class PropProjection:
     opponent: str = ""
     opposing_pitcher: str = ""
     lineup_status: LineupStatus = "unknown"
+    # MLB's stable game identity.  Optional only so generic/live callers that
+    # construct projections without a historical game context remain compatible.
+    # Historical scoring requires this to be populated.
+    mlb_game_pk: Optional[int] = None
+    # Observable feature/fallback facts, copied from the exact bundle consumed
+    # by the hitter simulator.  This is intentionally not a confidence score.
+    input_health_flags: tuple[str, ...] = ()
 
 
 @dataclass
@@ -473,7 +503,17 @@ class EdgeResult:
     model_prob_side: float = 0.0       # model prob on the edge side
     fair_prob_side: float = 0.0        # no-vig implied prob on the edge side
     payout_odds_american: int = 0      # odds you'd actually bet at (the edge side)
+    # Expected PROFIT per unit at the actual posted price.  This is distinct
+    # from the de-vigged model-vs-market gap used for capture measurement.
+    expected_profit_per_unit: float = 0.0
+    sportsbook: str = ""               # price venue; required for scoped authorization
     kelly_fraction: float = 0.0        # fractional-Kelly stake (bankroll fraction)
+    # A research signal is not a betting instruction.  The daily pipeline
+    # pins these fields to the market-policy artifact before anything reaches
+    # the CLI, archive, or GUI.  Defaults fail closed for manually constructed
+    # legacy results too.
+    actionable: bool = False
+    market_status: str = "RESEARCH_ONLY"
     notes: list[str] = field(default_factory=list)
 
 
@@ -483,6 +523,13 @@ class DailyPrediction:
     hitter_projections: list[PropProjection] = field(default_factory=list)
     pitcher_projections: list[PropProjection] = field(default_factory=list)
     value_plays: list[EdgeResult] = field(default_factory=list)
+    market_status: str = "RESEARCH_ONLY"
+    market_policy_sha256: Optional[str] = None
+    market_policy_reason: str = "No market authorization was evaluated."
+    # Optional because older archives predate the hard-keyed forward-shadow
+    # contract. A missing record is deliberately NOT reconstructed later: a
+    # ledger needs decision-time provenance, not a hash of today's code.
+    prediction_provenance: Optional[dict[str, Any]] = None
 
     def to_dict(self) -> dict[str, Any]:
         """Serialize prediction output for JSON export."""
@@ -491,11 +538,16 @@ class DailyPrediction:
             "hitter_projections": [_projection_to_dict(p) for p in self.hitter_projections],
             "pitcher_projections": [_projection_to_dict(p) for p in self.pitcher_projections],
             "value_plays": [_edge_to_dict(e) for e in self.value_plays],
+            "market_status": self.market_status,
+            "market_policy_sha256": self.market_policy_sha256,
+            "market_policy_reason": self.market_policy_reason,
+            "prediction_provenance": self.prediction_provenance,
         }
 
 
 def _projection_to_dict(projection: PropProjection) -> dict[str, Any]:
     sim = projection.simulation
+    probs = projection.outcome_probs
     return {
         "player_id": projection.player_id,
         "player_name": projection.player_name,
@@ -507,6 +559,8 @@ def _projection_to_dict(projection: PropProjection) -> dict[str, Any]:
         "opponent": projection.opponent,
         "opposing_pitcher": projection.opposing_pitcher,
         "lineup_status": projection.lineup_status,
+        "mlb_game_pk": projection.mlb_game_pk,
+        "input_health_flags": list(projection.input_health_flags),
         "simulation": {
             "n_sims": sim.n_sims,
             "mean": sim.mean,
@@ -516,6 +570,17 @@ def _projection_to_dict(projection: PropProjection) -> dict[str, Any]:
             "p_ge_threshold": dict(sim.p_ge_threshold),
         }
         if sim
+        else None,
+        "outcome_probs": {
+            "strikeout": probs.strikeout,
+            "walk": probs.walk,
+            "home_run": probs.home_run,
+            "single": probs.single,
+            "double": probs.double,
+            "triple": probs.triple,
+            "out_on_bip": probs.out_on_bip,
+        }
+        if probs
         else None,
     }
 
@@ -529,7 +594,10 @@ def _edge_to_dict(edge: EdgeResult) -> dict[str, Any]:
         "implied_prob_over": edge.implied_prob_over,
         "model_prob_over": edge.model_prob_over,
         "edge_pct": edge.edge_pct,
+        "sportsbook": edge.sportsbook,
         "recommendation": edge.recommendation.value,
         "confidence": edge.confidence,
+        "actionable": edge.actionable,
+        "market_status": edge.market_status,
         "notes": edge.notes,
     }

@@ -50,11 +50,12 @@ no simulator distribution (project_pitcher_strikeouts returns
 simulation=None) — the K half of gate #4(b) is deferred to B3.
 
 sim_probs.csv REQUIRED columns:
-    player_id, game_date, category, line, sim_p_over
+    mlb_game_pk, player_id, game_date, category, line, sim_p_over
 """
 from __future__ import annotations
 import argparse, json, os, sys
 import numpy as np, pandas as pd
+from src.evaluation.identity_keys import MODEL_KEY, require_unique
 try:
     from src.learning import gbm_calibrator as gc
 except ImportError:
@@ -63,6 +64,8 @@ except ImportError:
 
 def _load_pairs(path):
     df = pd.read_csv(path); df["game_date"] = pd.to_datetime(df["game_date"])
+    if "mlb_game_pk" not in df.columns:
+        raise ValueError(f"{path}: historical gate pairs require mlb_game_pk")
     return df[df["game_date"] >= "2024-01-01"].copy()
 
 
@@ -76,6 +79,7 @@ def emit(args):
         for L in gc.STANDARD_LINES[cat]:
             p = cal.prob_over(sub.predicted_value.values, L)
             out.append(pd.DataFrame(dict(
+                mlb_game_pk=sub.mlb_game_pk.values,
                 player_id=sub.player_id.values,
                 game_date=sub.game_date.dt.strftime("%Y-%m-%d").values,
                 category=cat, line=L,
@@ -85,6 +89,7 @@ def emit(args):
                 over_outcome=(sub.actual_value.values >= L).astype(int),
             )))
     res = pd.concat(out, ignore_index=True)
+    require_unique(res, MODEL_KEY, "deployed GBM probability export")
     res.to_csv(args.out, index=False)
     print(f"wrote {len(res)} deployed-GBM P(over) rows -> {args.out}")
     print(res.groupby('category').size().to_string())
@@ -137,11 +142,13 @@ def _maybe_plot(m, out_png):
 def compare(args):
     gbm = pd.read_csv(args.gbm)
     sim = pd.read_csv(args.sim)
-    key = ["player_id", "game_date", "category", "line"]
+    key = MODEL_KEY
     for c in key:
         if c not in sim.columns:
             sys.exit(f"sim file missing required column: {c}")
-    m = gbm.merge(sim[key + ["sim_p_over"]], on=key, how="inner")
+    require_unique(gbm, key, "GBM probabilities")
+    require_unique(sim, key, "simulator probabilities")
+    m = gbm.merge(sim[key + ["sim_p_over"]], on=key, how="inner", validate="one_to_one")
     if len(m) == 0:
         sys.exit("no matched rows — check keys (player_id/game_date/category/line).")
     rng = np.random.default_rng(args.seed)

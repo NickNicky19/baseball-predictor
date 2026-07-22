@@ -4,7 +4,7 @@ split by DATE (never randomly), and expose clean feature matrices.
 
 Design contracts (kept deliberately in lock-step with the rest of the repo):
 
-- PROVENANCE GATE (discipline #5). The loader asserts builder_schema=='a3.1'
+- PROVENANCE GATE (discipline #5). The loader asserts builder_schema=='a3.2'
   on both hitter and pitcher frames, and roller_schema=='a4.1' on the HITTER
   frame only (A4 is a hitter batted-ball signal; run_build_statcast_features
   never touches pitchers). A half-built or un-enriched set must fail loudly
@@ -45,7 +45,10 @@ from typing import Any, Iterable, Optional
 import numpy as np
 import pandas as pd
 
-BUILDER_SCHEMA = "a3.1"
+# a3.1 derives lineup identity from final batting-order occupants and can
+# misclassify both substitutes and replaced original starters.  A GBM trained
+# on that population is not a valid challenger for the production simulator.
+BUILDER_SCHEMA = "a3.2"
 ROLLER_SCHEMA = "a4.1"
 
 # Categories that have a simulator baseline (via A2 run_reconstruct_date) and
@@ -77,7 +80,9 @@ _PITCHER_NON_FEATURES = {
 # listed is treated as numeric. (LightGBM path label-encodes these; see trainer.)
 HITTER_CATEGORICAL = [
     "team", "opponent", "venue", "bats",
-    "opp_sp_throws", "opp_sp_source",
+    # Provider/player IDs are labels, never ordinal quantities.  Treating an
+    # opposing-pitcher ID as a number lets a tree learn arbitrary ID cut points.
+    "opp_sp_id", "opp_sp_throws", "opp_sp_source",
     "umpire_id",
 ]
 PITCHER_CATEGORICAL = [
@@ -130,8 +135,8 @@ class CategoryData:
     X_holdout: pd.DataFrame
     y_holdout: np.ndarray
     # Identity carried alongside holdout rows so predictions can be emitted as
-    # PropProjection objects keyed (player_id, game_date, category).
-    holdout_ids: pd.DataFrame  # columns: player_id, player_name, game_date, team, opponent
+    # PropProjection objects keyed by the originating MLB game.
+    holdout_ids: pd.DataFrame  # includes game_pk, player_id, player_name, game_date
     split_date: str
 
     def summary(self) -> dict[str, Any]:
@@ -186,6 +191,18 @@ def assert_schema(df: pd.DataFrame, *, kind: str) -> None:
                 "feature columns — enrichment looks incomplete."
             )
 
+        # A completed-game actual starter is post-game knowledge. The shared
+        # challenger may use a pregame probable pitcher or an explicit missing
+        # state, but it must never silently train on realized starter identity.
+        if "opp_sp_source" in df.columns:
+            forbidden = df["opp_sp_source"].astype(str).eq("actual_starter")
+            if forbidden.any():
+                raise ValueError(
+                    "hitter frame contains opp_sp_source='actual_starter' "
+                    f"on {int(forbidden.sum())} rows â€” post-game pitcher "
+                    "knowledge is forbidden in a point-in-time challenger."
+                )
+
 
 # ---------------------------------------------------------------------------
 # Target derivation (mirrors compute_actual_value EXACTLY)
@@ -198,6 +215,14 @@ def derive_target(df: pd.DataFrame, category: str, fw: FantasyWeights) -> np.nda
         return _num(df["out_hits"])
     if category == "home_runs":
         return _num(df["out_hr"])
+    if category == "total_bases":
+        # 1B + 2*2B + 3*3B + 4*HR, simplified using hits = 1B+2B+3B+HR.
+        return (
+            _num(df["out_hits"])
+            + _num(df["out_doubles"])
+            + 2.0 * _num(df["out_triples"])
+            + 3.0 * _num(df["out_hr"])
+        )
     if category == "hrr":
         return _num(df["out_hits"]) + _num(df["out_runs"]) + _num(df["out_rbi"])
     if category == "strikeouts":
@@ -272,6 +297,8 @@ def build_category_data(
     """
     if "game_date" not in df.columns:
         raise ValueError("frame missing game_date; cannot do a temporal split.")
+    if "game_pk" not in df.columns:
+        raise ValueError("frame missing game_pk; cannot emit game-keyed holdout predictions.")
 
     work = df
     # Optionally drop rows with no prior data (has_prior_data == 0): these are
@@ -292,7 +319,7 @@ def build_category_data(
     train_mask = (gd < split_date).to_numpy()
     holdout_mask = ~train_mask
 
-    id_cols = [c for c in ("player_id", "player_name", "game_date", "team", "opponent")
+    id_cols = [c for c in ("game_pk", "player_id", "player_name", "game_date", "team", "opponent")
                if c in work.columns]
     holdout_ids = work.loc[holdout_mask, id_cols].reset_index(drop=True)
 

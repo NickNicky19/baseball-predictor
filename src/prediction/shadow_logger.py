@@ -1,5 +1,5 @@
 """
-Shadow play logger.
+Legacy shadow-play logger.
 
 During the data-collection window the edge engine runs in READ-ONLY shadow
 mode: every day it records the value plays it *would* have recommended, but
@@ -7,11 +7,10 @@ nothing is bet. This builds a dated, append-only record so that once outcomes
 are known, the would-be plays can be graded — an independent check on the
 betting logic, separate from projection calibration.
 
-It writes one row per value play to data/learning/shadow_plays.csv with the
-fields needed to grade later: date, player, category, line, edge side, model
-vs fair probability, edge %, Kelly stake, odds, and confidence. Grading (did
-the play win, what was the ROI) happens later against the outcomes recorder;
-this module only records intent.
+This CSV is a name-keyed watch trail only. It lacks game/player identity,
+quote timestamps, source hashes, closes, and void status, so it must never be
+used as CLV/capture evidence. The evaluable replacement is
+``src.evaluation.shadow_ledger.ForwardShadowLedger``.
 """
 
 from __future__ import annotations
@@ -46,7 +45,7 @@ SHADOW_FIELDS = [
 
 
 class ShadowPlayLogger:
-    """Appends daily would-be value plays to a CSV (read-only shadow record)."""
+    """Append a legacy, non-evaluable name-keyed watch trail."""
 
     def __init__(self, path: str | Path = "data/learning/shadow_plays.csv"):
         self.path = Path(path)
@@ -62,6 +61,11 @@ class ShadowPlayLogger:
         if not plays:
             logger.info("No shadow plays to log for %s", game_date)
             return 0
+
+        logger.warning(
+            "ShadowPlayLogger writes a legacy name-keyed watch CSV, not a hard-keyed "
+            "forward ledger. Do not use %s for CLV/capture evidence.", self.path
+        )
 
         self.path.parent.mkdir(parents=True, exist_ok=True)
         new_file = not self.path.exists()

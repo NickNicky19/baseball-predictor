@@ -133,12 +133,21 @@ def run_backfill(
         try:
             report = recorder.record_for_date(game_date)
         except RetrainError as exc:
-            # No archive: the slate was never predicted, or the predict job's
-            # commit never landed. Expected in a rolling window.
-            n_missing += 1
-            reports.append({"game_date": game_date, "status": "no_archive",
+            if str(exc).startswith("No archived predictions"):
+                # No archive: the slate was never predicted, or the predict
+                # job's commit never landed. Expected in a rolling window.
+                n_missing += 1
+                reports.append({"game_date": game_date, "status": "no_archive",
+                                "detail": str(exc)})
+                log.info("%s: no archive -- nothing to grade (skipped)", game_date)
+                continue
+            # A present archive that violates provenance/identity is a material
+            # failure, not an ordinary missing slate. Continue other dates but
+            # fail the workflow so the quarantine cannot pass unnoticed.
+            n_failed += 1
+            reports.append({"game_date": game_date, "status": "ineligible_archive",
                             "detail": str(exc)})
-            log.info("%s: no archive -- nothing to grade (skipped)", game_date)
+            log.error("%s: INELIGIBLE ARCHIVE -- %s", game_date, exc)
             continue
         except Exception as exc:  # noqa: BLE001 — one bad date must not kill the rest
             n_failed += 1

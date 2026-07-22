@@ -147,9 +147,16 @@ class OddsAPIProvider(OddsProvider):
 
                 for player_key, (point, over_odds) in over_by_player.items():
                     under = under_by_player.get(player_key)
-                    under_odds = under[1] if under and abs(under[0] - point) < 0.01 else 0
-                    if over_odds == 0:
+                    # A de-vigged probability requires two real prices at the
+                    # same line.  Copying the over price into a missing under
+                    # manufactures a market, which can create a false edge and
+                    # invalid forward-ledger evidence.  One-sided products
+                    # (notably many HR props) are intentionally absent here;
+                    # they need a separately validated one-sided evaluator.
+                    if (over_odds == 0 or under is None
+                            or abs(under[0] - point) >= 0.01 or under[1] == 0):
                         continue
+                    under_odds = under[1]
                     display_name = self._title_case_player(player_key)
                     lines.append(
                         OddsLine(
@@ -157,7 +164,7 @@ class OddsAPIProvider(OddsProvider):
                             category=category,
                             line=point,
                             over_odds_american=over_odds,
-                            under_odds_american=under_odds or over_odds,
+                            under_odds_american=under_odds,
                             sportsbook=book_title,
                         )
                     )

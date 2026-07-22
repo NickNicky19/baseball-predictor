@@ -113,6 +113,36 @@ class HittingStatsSnapshot:
     strikeouts: int = 0
     games: int = 0
 
+    @property
+    def k_rate(self) -> Optional[float]:
+        """Strikeouts per plate appearance, as a FRACTION (0-1), or None.
+
+        The MLB API gives PA directly, so no ab+bb approximation is needed (that
+        would miss HBP and sacrifices, ~1.5% of PA).
+
+        WHY THIS EXISTS: PitchingStatsSnapshot has had a k_pct property since the
+        beginning; HittingStatsSnapshot never did. So a hitter's OWN strikeout
+        rate -- the single strongest predictor of his next-game strikeouts,
+        MEASURED at +2059 log-likelihood over a constant on 141,731 starter-games
+        -- was fetched on every slate, handed to the GBM feature vector, and
+        DROPPED before it ever reached the simulator.
+
+        The simulator therefore had no direct K signal and fell back to
+        `contact_rate`, a per-swing whiff PROXY that is mis-centred (+0.52) and
+        over-scaled (1.7x the fitted relationship). That is the root cause of the
+        model's -23.6% strikeout error.
+        """
+        if self.pa <= 0:
+            return None
+        return self.strikeouts / self.pa
+
+    @property
+    def bb_rate(self) -> Optional[float]:
+        """Walks per plate appearance, as a FRACTION (0-1), or None."""
+        if self.pa <= 0:
+            return None
+        return self.walks / self.pa
+
 
 @dataclass(frozen=True)
 class PitchingStatsSnapshot:
@@ -180,6 +210,12 @@ class MLBStatsAPI:
             max_retries=max_retries, backoff_factor=backoff_factor
         )
         self._schedule_cache = TTLCache[list[dict[str, Any]]](cache_ttl_seconds)
+        # The schedule endpoint can list a postponed/suspended game on more
+        # than one calendar date.  The game feed's officialDate is the
+        # canonical date, so keep its short-lived response available to every
+        # consumer that needs to verify game identity (lineups, actuals, and
+        # contexts) without issuing multiple identical feed requests.
+        self._game_feed_cache = TTLCache[dict[str, Any]](cache_ttl_seconds)
         self._hitters_cache = TTLCache[list[HitterGameContext]](cache_ttl_seconds)
         self._pitchers_cache = TTLCache[list[PitcherGameContext]](cache_ttl_seconds)
         self._player_cache = TTLCache[dict[str, Any]](cache_ttl_seconds)
@@ -224,11 +260,79 @@ class MLBStatsAPI:
         self._schedule_cache.set(cache_key, games)
         return games
 
+    def _get_game_feed(self, game_pk: int) -> dict[str, Any]:
+        """Return the live feed for one game from a short-lived local cache."""
+        cache_key = str(int(game_pk))
+        cached = self._game_feed_cache.get(cache_key)
+        if cached is not None:
+            return cached
+        feed = self._get(f"{self.FEED_URL}/game/{int(game_pk)}/feed/live")
+        self._game_feed_cache.set(cache_key, feed)
+        return feed
+
+    @staticmethod
+    def _feed_official_date(feed: dict[str, Any]) -> Optional[str]:
+        """Return MLB's canonical official date from a game feed, if present."""
+        value = feed.get("gameData", {}).get("datetime", {}).get("officialDate")
+        return str(value) if value else None
+
+    def _canonical_games_for_date(
+        self,
+        game_date: str,
+        *,
+        require_coded_final: bool = False,
+        include_lineups: bool = False,
+        allowed_game_types: Optional[set[str] | frozenset[str]] = None,
+    ) -> list[dict[str, Any]]:
+        """Return schedule games whose feed officialDate is exactly ``game_date``.
+
+        MLB may repeat a game_pk on its original and rescheduled/resumed
+        schedule dates.  Calendar membership is therefore not an identity.
+        The feed's officialDate is.  Historical actuals additionally require
+        codedGameState ``F``; abstractGameState "Final" is insufficient.
+        Missing feed dates fail closed by exclusion rather than assigning a
+        date from the schedule entry.
+        """
+        canonical: list[dict[str, Any]] = []
+        for game in self.get_schedule(game_date, include_lineups=include_lineups):
+            game_type = game.get("gameType")
+            # Preserve the generic/live default: callers that do not name a
+            # product receive every MLB schedule game. Historical research can
+            # bind itself to the regular-season training product. Missing type
+            # is retained to match the training builder's compatibility rule.
+            if (
+                allowed_game_types is not None
+                and game_type is not None
+                and str(game_type) not in allowed_game_types
+            ):
+                continue
+            if require_coded_final and game.get("status", {}).get("codedGameState") != "F":
+                continue
+            game_pk = int(game["gamePk"])
+            try:
+                official_date = self._feed_official_date(self._get_game_feed(game_pk))
+            except DataFetchError:
+                raise
+            except Exception as exc:
+                raise DataFetchError(
+                    f"Failed to load canonical officialDate for game_pk={game_pk}"
+                ) from exc
+            if official_date == game_date:
+                canonical.append(game)
+            else:
+                logger.info(
+                    "Skipping game %s from requested date %s: feed officialDate=%s",
+                    game_pk,
+                    game_date,
+                    official_date or "missing",
+                )
+        return canonical
+
     def get_game_contexts(self, game_date: Optional[str] = None) -> list[GameContext]:
         """Return one GameContext per scheduled game (home and away perspectives)."""
         game_date = game_date or date.today().isoformat()
         contexts: list[GameContext] = []
-        for game in self.get_schedule(game_date):
+        for game in self._canonical_games_for_date(game_date):
             game_pk = int(game["gamePk"])
             venue = game.get("venue", {}).get("name", "Unknown")
             away = game["teams"]["away"]["team"]["name"]
@@ -258,7 +362,7 @@ class MLBStatsAPI:
     def get_batting_order(self, game_pk: int) -> dict[str, list[int]]:
         """Return away/home batting orders as lists of MLB player IDs (slots 1–9)."""
         try:
-            feed = self._get(f"{self.FEED_URL}/game/{game_pk}/feed/live")
+            feed = self._get_game_feed(game_pk)
         except requests.HTTPError:
             logger.warning("Live feed unavailable for game_pk=%s", game_pk)
             return {"away": [], "home": []}
@@ -270,6 +374,231 @@ class MLBStatsAPI:
             player_ids = [int(pid) for pid in raw_order if pid]
             result[side] = player_ids[:9]
         return result
+
+    def get_completed_game_batting_roles(self, game_pk: int) -> dict[int, dict[str, Any]]:
+        """Return original starter/substitute roles from a completed box score.
+
+        ``teams[side].battingOrder`` is the *current/final* occupant of each
+        lineup slot. It can therefore name a substitute instead of the player
+        who started. The per-player ``battingOrder`` code retains the sequence:
+        ``200`` is the original slot-2 starter, while ``201``/``202`` are later
+        occupants. Historical settlement must use that sequence, never the
+        final nine-player list used by the live-lineup helper above.
+        """
+        feed = self._get_game_feed(game_pk)
+        return self.completed_game_batting_roles_from_feed(game_pk, feed)
+
+    def get_completed_game_feed(self, game_pk: int) -> dict[str, Any]:
+        """Return one official MLB feed only when its coded state is Final.
+
+        This postgame-only boundary lets settlement evidence derive game
+        completion, original roles, and official box-score stats from the same
+        retained source object instead of mixing independently fetched views.
+        """
+
+        feed = self._get_game_feed(game_pk)
+        coded = feed.get("gameData", {}).get("status", {}).get("codedGameState")
+        if coded != "F":
+            raise DataFetchError(f"game_pk={game_pk}: official feed is not coded final")
+        return feed
+
+    @staticmethod
+    def _completed_game_batting_role_records_from_feed(
+        game_pk: int, feed: dict[str, Any]
+    ) -> list[tuple[int, dict[str, Any]]]:
+        """Parse team-scoped batting roles without collapsing player identity.
+
+        A suspended game can contain the same player on both teams (MLB game
+        746942 is the real example). The team/slot records are therefore the
+        canonical intermediate representation. A mapping keyed only by
+        ``player_id`` cannot represent that game without dropping one role.
+        """
+        teams = feed.get("liveData", {}).get("boxscore", {}).get("teams", {})
+        records: list[tuple[int, dict[str, Any]]] = []
+        starters_by_slot: dict[tuple[str, int], int] = {}
+        for side in ("away", "home"):
+            players = teams.get(side, {}).get("players", {}) or {}
+            for player_key, player_data in players.items():
+                raw = player_data.get("battingOrder")
+                if raw is None:
+                    continue
+                token = str(raw).strip()
+                if not token.isdigit():
+                    raise DataFetchError(
+                        f"game_pk={game_pk}: invalid battingOrder {raw!r} for {player_key}"
+                    )
+                order = int(token)
+                slot, sequence = divmod(order, 100)
+                if not 1 <= slot <= 9:
+                    raise DataFetchError(
+                        f"game_pk={game_pk}: battingOrder {raw!r} has invalid slot"
+                    )
+                player_id = int(str(player_key).replace("ID", ""))
+                is_starter = sequence == 0
+                slot_key = (side, slot)
+                if is_starter and slot_key in starters_by_slot:
+                    raise DataFetchError(
+                        f"game_pk={game_pk}: multiple original starters in {side} slot {slot}"
+                    )
+                if is_starter:
+                    starters_by_slot[slot_key] = player_id
+                records.append((player_id, {
+                    "team_side": side,
+                    "lineup_slot": slot,
+                    "lineup_sequence": sequence,
+                    "is_starter": is_starter,
+                }))
+
+        replacement_slots = {
+            (str(role["team_side"]), int(role["lineup_slot"]))
+            for _, role in records
+            if int(role["lineup_sequence"]) > 0
+        }
+        for _, role in records:
+            role["starter_replaced_in_slot"] = bool(
+                role["is_starter"]
+                and (str(role["team_side"]), int(role["lineup_slot"]))
+                in replacement_slots
+            )
+        return records
+
+    @classmethod
+    def completed_game_batting_roles_from_feed(
+        cls, game_pk: int, feed: dict[str, Any]
+    ) -> dict[int, dict[str, Any]]:
+        """Return player-keyed roles when that projection is unambiguous."""
+        roles: dict[int, dict[str, Any]] = {}
+        for player_id, role in cls._completed_game_batting_role_records_from_feed(
+            game_pk, feed
+        ):
+            if player_id in roles:
+                prior = roles[player_id]
+                raise DataFetchError(
+                    f"game_pk={game_pk}: player_id={player_id} has multiple batting "
+                    f"roles ({prior['team_side']} {prior['lineup_slot']}{prior['lineup_sequence']} "
+                    f"and {role['team_side']} {role['lineup_slot']}{role['lineup_sequence']}); "
+                    "player-keyed role projection is ambiguous"
+                )
+            roles[player_id] = role
+        return roles
+
+    @staticmethod
+    def _original_batting_order_from_roles(
+        game_pk: int,
+        roles: dict[int, dict[str, Any]] | list[tuple[int, dict[str, Any]]],
+    ) -> dict[str, list[int]]:
+        role_records = list(roles.items()) if isinstance(roles, dict) else roles
+        orders: dict[str, list[int]] = {}
+        for side in ("away", "home"):
+            by_slot: dict[int, int] = {}
+            for player_id, role in role_records:
+                if str(role["team_side"]) != side or not bool(role["is_starter"]):
+                    continue
+                slot = int(role["lineup_slot"])
+                if slot in by_slot:
+                    raise DataFetchError(
+                        f"game_pk={game_pk}: multiple original starters in {side} slot {slot}"
+                    )
+                by_slot[slot] = int(player_id)
+            expected_slots = set(range(1, 10))
+            if set(by_slot) != expected_slots:
+                missing = sorted(expected_slots - set(by_slot))
+                extra = sorted(set(by_slot) - expected_slots)
+                raise DataFetchError(
+                    f"game_pk={game_pk}: incomplete original {side} batting order; "
+                    f"missing_slots={missing}, extra_slots={extra}"
+                )
+            orders[side] = [by_slot[slot] for slot in range(1, 10)]
+        return orders
+
+    @classmethod
+    def completed_game_original_batting_order_from_feed(
+        cls, game_pk: int, feed: dict[str, Any]
+    ) -> dict[str, list[int]]:
+        """Return original batting orders without fetching the feed a second time."""
+        roles = cls._completed_game_batting_role_records_from_feed(game_pk, feed)
+        return cls._original_batting_order_from_roles(game_pk, roles)
+
+    def get_completed_game_original_batting_order(
+        self, game_pk: int
+    ) -> dict[str, list[int]]:
+        """Return the eighteen original starters from a completed game.
+
+        This is intentionally separate from :meth:`get_batting_order`, which
+        serves the live slate and therefore returns the current occupants of
+        the nine lineup slots. On a completed feed those occupants can be
+        substitutes. Historical reconstruction needs the players who actually
+        started, recovered from the per-player batting-order sequence code.
+
+        Missing or duplicate starter slots are a hard failure. Falling back to
+        the final order would silently change the model population and make a
+        market-coverage gate incapable of seeing the identity bug.
+        """
+        feed = self._get_game_feed(game_pk)
+        return self.completed_game_original_batting_order_from_feed(game_pk, feed)
+
+    def get_completed_hitters_for_date(
+        self, game_date: Optional[str] = None
+    ) -> list[HitterGameContext]:
+        """Return only original starters for a completed historical slate.
+
+        This method is postgame-only and must never be used by live prediction:
+        the original starters are outcome-time facts. Historical reconstruction
+        may use them to reproduce the population that actually started, while
+        all player statistics remain point-in-time through ``AsOfMLBAPI``.
+        """
+        game_date = game_date or date.today().isoformat()
+        cache_key = f"{game_date}:completed-original-starters"
+        cached = self._hitters_cache.get(cache_key)
+        if cached is not None:
+            return cached
+
+        games = self._canonical_games_for_date(game_date, include_lineups=False)
+        hitters: list[HitterGameContext] = []
+        for game in games:
+            game_pk = int(game["gamePk"])
+            venue = game.get("venue", {}).get("name", "Unknown")
+            orders = self.get_completed_game_original_batting_order(game_pk)
+            away_name = game["teams"]["away"]["team"]["name"]
+            home_name = game["teams"]["home"]["team"]["name"]
+
+            for side, team_name, opp_name, is_home in (
+                ("away", away_name, home_name, False),
+                ("home", home_name, away_name, True),
+            ):
+                opp_side = "home" if side == "away" else "away"
+                opp_probable = game["teams"][opp_side].get("probablePitcher") or {}
+                built = self._hitters_from_order(
+                    order=orders[side],
+                    lineup_status="confirmed",
+                    game_pk=game_pk,
+                    game_date=game_date,
+                    venue=venue,
+                    team_name=team_name,
+                    opp_name=opp_name,
+                    is_home=is_home,
+                    opp_probable=opp_probable,
+                    fail_on_error=True,
+                )
+                if len(built) != 9:
+                    raise DataFetchError(
+                        f"game_pk={game_pk}: historical {side} starter provider "
+                        f"built {len(built)} hitters, expected 9"
+                    )
+                hitters.extend(built)
+
+        expected = 18 * len(games)
+        if len(hitters) != expected:
+            raise DataFetchError(
+                f"{game_date}: historical original-starter provider built "
+                f"{len(hitters)} hitters across {len(games)} games, expected {expected}"
+            )
+        self._hitters_cache.set(cache_key, hitters)
+        logger.info(
+            "Loaded %d completed-game original starters for %s across %d games",
+            len(hitters), game_date, len(games),
+        )
+        return hitters
 
     def get_player_raw(self, player_id: int) -> dict[str, Any]:
         """Fetch raw MLB people endpoint payload for a player."""
@@ -289,8 +618,8 @@ class MLBStatsAPI:
             mlb_id=player_id,
             name=info.get("fullName", "Unknown"),
             team=team,
-            bats=_normalize_hand(info.get("batHand", {}).get("code", "R")),
-            throws=_normalize_hand(info.get("pitchHand", {}).get("code", "R")),
+            bats=_normalize_hand((info.get("batSide") or {}).get("code")),
+            throws=_normalize_hand((info.get("pitchHand") or {}).get("code")),
         )
 
     def get_hitting_stats(
@@ -430,7 +759,12 @@ class MLBStatsAPI:
         if cached is not None:
             return cached
 
-        games = self.get_schedule(game_date, include_lineups=include_projected)
+        # The full schedule response is needed here because it carries the
+        # optional projected-lineup hydrate.  Canonicalize each candidate
+        # against its game feed before it can become a player-game row.
+        games = self._canonical_games_for_date(
+            game_date, include_lineups=include_projected
+        )
         hitters: list[HitterGameContext] = []
         teams_total = 0
         teams_skipped = 0
@@ -535,9 +869,25 @@ class MLBStatsAPI:
         opp_name: str,
         is_home: bool,
         opp_probable: dict[str, Any],
+        fail_on_error: bool = False,
     ) -> list[HitterGameContext]:
         """Build HitterGameContext rows from a batting order list."""
         hitters: list[HitterGameContext] = []
+        opposing_pitcher_id = opp_probable.get("id")
+        opposing_pitcher_throws = _normalize_hand(
+            (opp_probable.get("pitchHand") or {}).get("code")
+        )
+        if opposing_pitcher_throws == "U" and opposing_pitcher_id:
+            try:
+                opposing_pitcher_throws = self.get_player_identity(
+                    int(opposing_pitcher_id)
+                ).throws
+            except Exception as exc:
+                logger.debug(
+                    "Could not hydrate probable-pitcher handedness for %s: %s",
+                    opposing_pitcher_id,
+                    exc,
+                )
         for slot, player_id in enumerate(order, start=1):
             try:
                 identity = self.get_player_identity(player_id, team=team_name)
@@ -554,14 +904,17 @@ class MLBStatsAPI:
                         player=identity,
                         game=game_ctx,
                         lineup_slot=slot,
-                        opposing_pitcher_id=opp_probable.get("id"),
+                        opposing_pitcher_id=opposing_pitcher_id,
                         opposing_pitcher_name=opp_probable.get("fullName", ""),
-                        opposing_pitcher_throws=_normalize_hand(
-                            (opp_probable.get("pitchHand") or {}).get("code", "R")
-                        ),
+                        opposing_pitcher_throws=opposing_pitcher_throws,
                     )
                 )
             except Exception as exc:
+                if fail_on_error:
+                    raise DataFetchError(
+                        f"game_pk={game_pk}: failed to build hitter {player_id} "
+                        f"from the declared batting order"
+                    ) from exc
                 logger.debug("Skipping hitter %s: %s", player_id, exc)
         return hitters
 
@@ -579,7 +932,7 @@ class MLBStatsAPI:
             return cached
 
         pitchers: list[PitcherGameContext] = []
-        for game in self.get_schedule(game_date):
+        for game in self._canonical_games_for_date(game_date):
             game_pk = int(game["gamePk"])
             venue = game.get("venue", {}).get("name", "Unknown")
             away_name = game["teams"]["away"]["team"]["name"]
@@ -622,12 +975,12 @@ class MLBStatsAPI:
     def get_final_game_pks(self, game_date: Optional[str] = None) -> list[int]:
         """Return game_pk values for completed games on a date."""
         game_date = game_date or date.today().isoformat()
-        finals: list[int] = []
-        for game in self.get_schedule(game_date):
-            status = game.get("status", {})
-            if status.get("abstractGameState") == "Final" or status.get("codedGameState") == "F":
-                finals.append(int(game["gamePk"]))
-        return finals
+        return [
+            int(game["gamePk"])
+            for game in self._canonical_games_for_date(
+                game_date, require_coded_final=True
+            )
+        ]
 
     def get_game_boxscore_stats(
         self, game_pk: int
@@ -638,11 +991,19 @@ class MLBStatsAPI:
         Stats reflect that single game only (not season totals).
         """
         try:
-            feed = self._get(f"{self.FEED_URL}/game/{game_pk}/feed/live")
+            feed = self._get_game_feed(game_pk)
         except DataFetchError:
             raise
         except Exception as exc:
             raise DataFetchError(f"Failed to load boxscore for game_pk={game_pk}") from exc
+
+        return self.game_boxscore_stats_from_feed(feed)
+
+    @staticmethod
+    def game_boxscore_stats_from_feed(
+        feed: dict[str, Any],
+    ) -> tuple[dict[int, HittingStatsSnapshot], dict[int, PitchingStatsSnapshot]]:
+        """Parse official single-game stats from an already retained MLB feed."""
 
         teams = feed.get("liveData", {}).get("boxscore", {}).get("teams", {})
         hitting: dict[int, HittingStatsSnapshot] = {}
@@ -677,13 +1038,31 @@ class MLBStatsAPI:
 
         return all_hitting, all_pitching
 
+    def get_actuals_by_game_for_date(
+        self, game_date: Optional[str] = None
+    ) -> dict[int, tuple[dict[int, HittingStatsSnapshot], dict[int, PitchingStatsSnapshot]]]:
+        """Return final-game actuals at their native game grain.
+
+        Do not use the date aggregate for historical reconstruction: ``dict.update``
+        necessarily overwrites a player's first doubleheader appearance with the
+        second.  The legacy aggregate remains only for compatibility with generic
+        consumers that do not score historical player-game rows.
+        """
+        game_date = game_date or date.today().isoformat()
+        return {
+            game_pk: self.get_game_boxscore_stats(game_pk)
+            for game_pk in self.get_final_game_pks(game_date)
+        }
+
     def clear_cache(self, game_date: Optional[str] = None) -> None:
         """Invalidate cached schedule/lineup data for a date."""
         game_date = game_date or date.today().isoformat()
         self._schedule_cache.delete(game_date)
         self._schedule_cache.delete(f"{game_date}:lineups")
+        self._game_feed_cache.clear()
         self._hitters_cache.delete(self._hitters_cache_key(game_date, False))
         self._hitters_cache.delete(self._hitters_cache_key(game_date, True))
+        self._hitters_cache.delete(f"{game_date}:completed-original-starters")
         self._pitchers_cache.delete(game_date)
 
     def _get(self, url: str, params: Optional[dict[str, Any]] = None) -> Any:
@@ -737,11 +1116,11 @@ def _projected_order_from_game(game: dict[str, Any], side: Literal["away", "home
     return order[:9]
 
 
-def _normalize_hand(code: str) -> Handedness:
-    code = (code or "R").upper()
-    if code in ("L", "R", "S"):
+def _normalize_hand(code: Any) -> Handedness:
+    code = str(code or "U").upper()
+    if code in ("L", "R", "S", "U"):
         return code  # type: ignore[return-value]
-    return "R"
+    return "U"
 
 
 def _safe_float(value: Any, default: float = 0.0) -> float:

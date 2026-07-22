@@ -1,0 +1,37 @@
+{
+  "schema_version": "execution-product-public-rules-observation-v1",
+  "product": "onyx",
+  "observed_at_utc": "2026-07-17T00:00:00Z",
+  "observation_method": "read-only manual review of public official product pages; normalized facts, not a raw-page capture",
+  "status": "PARTIAL_PUBLIC_RULES_ONLY",
+  "betting_authorized": false,
+  "jurisdiction_context": "Harris County, Texas, user-declared",
+  "official_sources": [
+    {
+      "url": "https://www.onyxodds.com/sports-prediction-rules",
+      "title": "Sports Prediction Rules",
+      "effective_date": "2026-05-06"
+    },
+    {
+      "url": "https://onyxodds.zendesk.com/hc/en-us/articles/41477734557851-Where-Can-I-Use-Onyx",
+      "title": "Where Can I Use Onyx?",
+      "page_updated_date": "2025-09-26"
+    }
+  ],
+  "observed_public_facts": [
+    "The public availability page lists Texas and an age threshold of 18 or older, subject to location verification.",
+    "Baseball player selections are No Action when the player does not start.",
+    "A starting player's final game statistics apply even if substituted or injured later.",
+    "Baseball settlement is stated to use official league results; the general rules say official corrections within 24 hours may be honored.",
+    "Payout uses the odds at submission, while minimums, maximums, odds, acceptance, limits, and voids can change or be controlled by Onyx."
+  ],
+  "not_proven": [
+    "current account eligibility or geolocation acceptance for this user",
+    "account-visible MLB Hits availability",
+    "exact currency, redemption value, fees, minimum, maximum, price, or payout at entry",
+    "submit-ability, accepted amount, receipt, settlement, or actual returned value",
+    "that public platform availability is legal advice or an independent legal determination"
+  ],
+  "automation_restriction": "No automated product access is authorized by this observation. Use only an approved API/export or user-provided account-visible evidence.",
+  "cross_product_inheritance_permitted": false
+}

@@ -15,7 +15,10 @@ import tempfile
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE))
+# This harness imports the root-level CLI.  Add the repository boundary, not
+# the scripts directory itself; otherwise it only works when PYTHONPATH happens
+# to be set by the caller and its "run from anywhere" claim is false.
+sys.path.insert(0, str(HERE.parent))
 import run_shadow_compare as sc  # noqa: E402
 
 PASS = 0

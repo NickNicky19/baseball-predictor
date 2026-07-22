@@ -8,14 +8,14 @@ from src.simulation.pa_simulator import PASimulatorConfig
 
 def _sample_pairs():
     projections = [
-        PropProjection(1, "A", "hrr", "2026-06-25", 2.0, 0.7),
-        PropProjection(2, "B", "hrr", "2026-06-25", 1.5, 0.65),
-        PropProjection(3, "C", "hits", "2026-06-25", 1.2, 0.6),
+        PropProjection(1, "A", "hrr", "2026-06-25", 2.0, 0.7, mlb_game_pk=101),
+        PropProjection(2, "B", "hrr", "2026-06-25", 1.5, 0.65, mlb_game_pk=102),
+        PropProjection(3, "C", "hits", "2026-06-25", 1.2, 0.6, mlb_game_pk=103),
     ]
     outcomes = [
-        OutcomeRecord(1, "A", "2026-06-25", "hrr", 2.3),
-        OutcomeRecord(2, "B", "2026-06-25", "hrr", 1.4),
-        OutcomeRecord(3, "C", "2026-06-25", "hits", 1.0),
+        OutcomeRecord(1, "A", "2026-06-25", "hrr", 2.3, mlb_game_pk=101),
+        OutcomeRecord(2, "B", "2026-06-25", "hrr", 1.4, mlb_game_pk=102),
+        OutcomeRecord(3, "C", "2026-06-25", "hits", 1.0, mlb_game_pk=103),
     ]
     return projections, outcomes
 

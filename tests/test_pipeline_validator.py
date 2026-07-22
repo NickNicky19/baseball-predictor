@@ -13,9 +13,9 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 def test_validate_from_pairs_csv(tmp_path):
     pairs_path = tmp_path / "pairs.csv"
     pairs_path.write_text(
-        "player_id,player_name,game_date,category,predicted_value,actual_value,confidence\n"
-        "1,Player A,2026-06-25,hrr,2.0,1.8,0.7\n"
-        "1,Player A,2026-06-25,hits,1.1,1.0,0.65\n",
+        "mlb_game_pk,player_id,player_name,game_date,category,predicted_value,actual_value,confidence\n"
+        "12345,1,Player A,2026-06-25,hrr,2.0,1.8,0.7\n"
+        "12345,1,Player A,2026-06-25,hits,1.1,1.0,0.65\n",
         encoding="utf-8",
     )
 
@@ -25,8 +25,8 @@ def test_validate_from_pairs_csv(tmp_path):
         DailyPrediction(
             game_date=date(2026, 6, 25),
             hitter_projections=[
-                PropProjection(1, "Player A", "hrr", "2026-06-25", 2.0, 0.7),
-                PropProjection(1, "Player A", "hits", "2026-06-25", 1.1, 0.65),
+                PropProjection(1, "Player A", "hrr", "2026-06-25", 2.0, 0.7, mlb_game_pk=12345),
+                PropProjection(1, "Player A", "hits", "2026-06-25", 1.1, 0.65, mlb_game_pk=12345),
             ],
         )
     )

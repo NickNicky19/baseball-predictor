@@ -6,9 +6,9 @@ Joins a day's prediction file (data/learning/predictions/predictions_<date>.json
 the frozen-simulator output that runs live today) to a day's logged odds
 (data/lines/lines_<date>.csv from run_log_lines.py), and prints, per game and
 per player prop, the model's P(over threshold) beside the de-vigged DraftKings
-probability, sorted by disagreement. Also writes a dated comparison CSV so the
-rows can be GRADED against real outcomes later (that grading is the C4/CLV
-evidence; this tool only produces the pre-game snapshot).
+probability, sorted by disagreement. It writes a dated NAME-KEYED watch CSV,
+not a gradeable CLV record; only the hard-keyed forward ledger may be used for
+capture evidence.
 
 WHAT THIS IS -- and, more importantly, WHAT IT IS NOT:
 
@@ -39,7 +39,8 @@ no model row, and -- with --show-dropped -- exactly who, so a name-alignment
 gap can never masquerade as "those players had no line."
 
 READ-ONLY: reads the two inputs, writes only the comparison CSV under --out.
-Never touches config.json, never predicts, never forks model_version.
+Never touches config.json, never predicts, never forks model_version. Do not
+upgrade this file into evidence with a later name join.
 
 Usage:
     python run_shadow_compare.py --date 2026-07-10
@@ -307,21 +308,24 @@ def main(argv=None) -> int:
         print("  (re-run with --show-dropped to see exactly who -- a name-alignment gap")
         print("   hides here; do not assume these players simply had no line.)")
 
-    # Write the gradeable snapshot.
+    # Explicitly label this output as name-keyed watch material. It lacks the
+    # hard identity/provenance a forward CLV ledger requires.
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with out_path.open("w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=[
-            "date", "game", "player", "category", "line",
+            "record_type", "date", "game", "player", "category", "line",
             "model_p_over", "market_p_over_devig", "gap",
             "over_price", "under_price", "confidence",
         ])
         w.writeheader()
         for r in matched:
-            row = {"date": args.date, **r}
+            row = {"record_type": "watch_only_name_keyed", "date": args.date, **r}
             w.writerow(row)
     print(f"\nwrote {out_path}  ({len(matched)} rows)")
-    print("Next: grade these against real outcomes tomorrow -- that is the C4/CLV")
-    print("evidence. This snapshot alone is a hypothesis log, never a betting slip.")
+    print("This is a NAME-KEYED watch snapshot, not CLV/capture evidence.")
+    print("Use run_shadow_ledger.py with hard keys, selected-side policy hashes, and")
+    print("tamper-evident source provenance for the forward ledger. This comparison")
+    print("remains a hypothesis log, never a bet.")
     return 0
 
 

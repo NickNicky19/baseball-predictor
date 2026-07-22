@@ -1,0 +1,77 @@
+{
+  "schema_version": "forward-shadow-operational-smoke-preflight-v5",
+  "built_at_utc": "2026-07-18T10:47:31Z",
+  "status": "READY_FOR_ROTATED_CREDENTIAL_AND_USER_START",
+  "research_only": true,
+  "betting_authorized": false,
+  "live_request_made": false,
+  "operational_smoke_started": false,
+  "economic_evidence_eligible": false,
+  "source_commit": "580f1a732cf19f83bcd2e248e6483bde57eddcf8",
+  "readiness": {
+    "path": "reports/forward_shadow_readiness_v21.json",
+    "sha256": "8cf95ee00fe783da6529690e02323794ea8b1e4403e2a0f29aaaae73c4d10d90",
+    "guards_passed": 209,
+    "guards_expected": 209
+  },
+  "evidence_scope": {
+    "path": "data/learning/shadow/operational_smoke_v10/evidence_scope.json",
+    "file_sha256": "766e6c9a53ee3b5e0b78f3e0348eeff00877d08f8973592dd7c05010b90c9f4a",
+    "scope_sha256": "613fe0a20ec4ca55a27d747c2d1381976002cc8240fac5964da2e1647fa89025",
+    "mode": "operational_smoke",
+    "economic_evidence_eligible": false
+  },
+  "runtime_manifest": {
+    "path": "data/learning/shadow/operational_smoke_v10/runtime_manifest.json",
+    "file_sha256": "6c28bfe72b1eb4a366c63d13ed460ef59ff8bd7cb8aa3fb86909b900b24860ab",
+    "fingerprint_sha256": "55747f459e86f04740ca74f75750b5d9ab140582f5b3f54619a0f314357c5b94",
+    "python": "CPython 3.14.6",
+    "platform": "Windows 11 AMD64",
+    "installed_distribution_count": 114,
+    "contains_secrets": false
+  },
+  "local_runner": {
+    "path": "deploy/shadow_collector/windows/Run-LocalOperationalSmoke.ps1",
+    "sha256": "d686fe28096002668a5a9a628abb7fbff56166a8d135c10345276ec1d7a1c300",
+    "credential_input": "hidden SecureString prompt",
+    "credential_transport": "child-process environment only",
+    "credential_persisted": false,
+    "scope_validation_before_api_initialization": true,
+    "runtime_validation_before_prompt": true,
+    "prediction_archive_outside_release_checkout": true,
+    "durable_forward_primary": false
+  },
+  "verified_preflight": [
+    "current operational-smoke scope validates and is permanently non-economic",
+    "the systemd collector tick validates service-root evidence scope and runtime before MLB client initialization",
+    "missing evidence scope and runtime-manifest rejection mutations stop before schedule, model, or provider work",
+    "collector prediction preparation writes its rich working archive under the service root rather than the Git-tracked daily archive path",
+    "the external archive redirect preserves the prediction call and decision-time provenance capture",
+    "the scope binds the exact Python executable, platform, OpenSSL, and installed distribution inventory",
+    "runtime or package drift is rejected before credential entry or a provider request",
+    "the runtime manifest uses an exact secret-free schema and internal content hash",
+    "scope and runtime-manifest publication are crash-atomic",
+    "local runner accepts the operational-smoke scope using the exact frozen runtime",
+    "mutation to forward_evidence scope is rejected",
+    "the smoke certificate rejects a lifecycle from another evidence scope",
+    "the smoke certificate rejects a lifecycle whose official date differs from the capture plan",
+    "the smoke certificate rejects an economic or forward-evidence lifecycle",
+    "economic-era validation rejects a different running commit or any nonignored worktree drift",
+    "portable LF checkout normalization is bound by the readiness certificate",
+    "tracked-source credential scan passes without exposing values"
+  ],
+  "required_user_actions": [
+    "rotate the previously exposed odds-provider credential in the provider dashboard",
+    "do not paste the replacement credential into chat, source, a command line, or a report",
+    "start the v10 local smoke runner from an ordinary PowerShell window using its hidden prompt and the frozen Python runtime",
+    "keep the PowerShell window open and the computer awake through prestart and official settlement"
+  ],
+  "still_blocked_after_smoke": [
+    "clean scoped source release and immutable forward-evidence scope",
+    "durable always-on external primary collector",
+    "GitHub read-only verifier credentials and host-key pinning",
+    "account-visible product evidence for Onyx, Novig, Chalkboard, and PrizePicks",
+    "56 complete future official-date blocks before the first economic look"
+  ],
+  "interpretation": "This preflight proves only that the local excluded smoke is ready to start after credential rotation and that scope, runtime, clean-checkout archive, and exact lifecycle-certificate boundaries fail closed. It does not prove live reliability, executability, profitability, settlement agreement, or betting authorization."
+}

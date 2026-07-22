@@ -1,0 +1,38 @@
+{
+  "schema_version": "execution-product-public-rules-observation-v1",
+  "product": "novig",
+  "observed_at_utc": "2026-07-17T00:00:00Z",
+  "observation_method": "read-only manual review of public official product pages; normalized facts, not a raw-page capture",
+  "status": "PARTIAL_PUBLIC_RULES_ONLY",
+  "betting_authorized": false,
+  "jurisdiction_context": "Harris County, Texas, user-declared",
+  "official_sources": [
+    {
+      "url": "https://support.novig.us/en/articles/10336088-where-can-i-play-novig",
+      "title": "Where Can I Play Novig?",
+      "effective_date": null
+    },
+    {
+      "url": "https://support.novig.us/en/articles/9612523-market-rules",
+      "title": "Market Rules",
+      "effective_date": null
+    }
+  ],
+  "observed_public_facts": [
+    "The public availability page lists Texas and requires users to be 21 or older and physically located in an eligible jurisdiction.",
+    "An order can be matched against an internal market maker or another user; a price move can lead to a partial match or cancellation depending on liquidity.",
+    "Displayed odds are not a fill; requested price, matched price, matched amount, unfilled amount, and liquidity must be retained separately.",
+    "Baseball batter props are void if the player is not in the starting batting lineup or fails to record a plate appearance.",
+    "Player props use a third-party box score that may differ from official league corrections, and Novig states that props may be re-graded."
+  ],
+  "not_proven": [
+    "current account eligibility or geolocation acceptance for this user",
+    "account-visible MLB Hits availability and exact market identity",
+    "displayed bid, ask, requested price, actual matched price, matched amount, unfilled amount, liquidity, or fees",
+    "submit-ability, receipt, product settlement, or actual returned value",
+    "the exact third-party scoring feed and correction window for the observed order",
+    "that public platform availability is legal advice or an independent legal determination"
+  ],
+  "automation_restriction": "No automated product access is authorized by this observation. Use only an approved API/export or user-provided account-visible evidence.",
+  "cross_product_inheritance_permitted": false
+}

@@ -1,0 +1,44 @@
+* text=auto
+.gitattributes text eol=lf
+.gitignore text eol=lf
+
+*.py text eol=lf
+*.pyi text eol=lf
+*.ps1 text eol=lf
+*.json text eol=lf
+*.jsonl text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.csv text eol=lf
+*.sql text eol=lf
+*.service text eol=lf
+*.timer text eol=lf
+*.example text eol=lf
+
+*.parquet binary
+*.duckdb binary
+*.sqlite binary
+*.db binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.pdf binary
+*.zip binary
+
+# These two manifests are pre-existing hash-bound evidence. Preserve their
+# exact bytes across clean checkouts; newline normalization would invalidate
+# the locked SHA-256 boundary without changing their JSON meaning.
+data/market/v3/base_rule_strict_hits_manifest.json -text
+data/market/v3/policy_fit_mar_may_canonical/hits_policy_source_uncensored_original_starter_fit_mar_apr_manifest.json -text
+
+# Legacy tracked outcome fixtures were committed with CRLF bytes. They are
+# runtime-inert but must not make a fresh Windows evidence checkout appear
+# dirty merely because the global CSV rule normalizes future files to LF.
+data/learning/prediction_outcomes.csv -text
+data/predictions/preds_2026-07-05.csv -text
+data/predictions/preds_2026-07-06.csv -text
+data/predictions/preds_2026-07-07.csv -text
+data/predictions/preds_2026-07-08.csv -text

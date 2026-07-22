@@ -1,0 +1,151 @@
+name: Forward Shadow Evidence Verifier
+
+on:
+  schedule:
+    # Independent hourly accountability check. This workflow NEVER fetches
+    # replacement odds and is NOT the primary T-4h collector.
+    - cron: "17 * * * *"
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Official MLB date (YYYY-MM-DD); blank uses US Eastern today"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+concurrency:
+  group: shadow-evidence-verifier
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out verifier source
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install project dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Refuse tracked credentials
+        run: python scripts/check_tracked_secrets.py
+
+      - name: Resolve official date
+        id: date
+        shell: bash
+        run: |
+          if [ -n "${{ github.event.inputs.date }}" ]; then
+            DATE="${{ github.event.inputs.date }}"
+          else
+            DATE="$(TZ=America/New_York date +%F)"
+          fi
+          if [[ ! "$DATE" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+            echo "Invalid official date" >&2
+            exit 2
+          fi
+          echo "date=$DATE" >> "$GITHUB_OUTPUT"
+
+      - name: Validate read-only primary connection contract
+        shell: bash
+        env:
+          PRIMARY_HOST: ${{ vars.SHADOW_PRIMARY_HOST }}
+          PRIMARY_USER: ${{ vars.SHADOW_PRIMARY_USER }}
+          PRIMARY_ROOT: ${{ vars.SHADOW_PRIMARY_ROOT }}
+          PRIMARY_KEY: ${{ secrets.SHADOW_PRIMARY_SSH_KEY }}
+          PRIMARY_KNOWN_HOSTS: ${{ secrets.SHADOW_PRIMARY_KNOWN_HOSTS }}
+        run: |
+          test -n "$PRIMARY_HOST" || { echo "SHADOW_PRIMARY_HOST is not configured" >&2; exit 2; }
+          test -n "$PRIMARY_USER" || { echo "SHADOW_PRIMARY_USER is not configured" >&2; exit 2; }
+          test -n "$PRIMARY_ROOT" || { echo "SHADOW_PRIMARY_ROOT is not configured" >&2; exit 2; }
+          test -n "$PRIMARY_KEY" || { echo "SHADOW_PRIMARY_SSH_KEY is not configured" >&2; exit 2; }
+          test -n "$PRIMARY_KNOWN_HOSTS" || { echo "SHADOW_PRIMARY_KNOWN_HOSTS is not configured" >&2; exit 2; }
+          [[ "$PRIMARY_HOST" =~ ^[A-Za-z0-9.-]+$ ]] || { echo "Invalid primary host" >&2; exit 2; }
+          [[ "$PRIMARY_USER" =~ ^[A-Za-z0-9._-]+$ ]] || { echo "Invalid primary user" >&2; exit 2; }
+          [[ "$PRIMARY_ROOT" =~ ^/[A-Za-z0-9._/-]+$ ]] || { echo "Invalid primary root" >&2; exit 2; }
+
+      - name: Configure read-only primary identity
+        shell: bash
+        env:
+          PRIMARY_KEY: ${{ secrets.SHADOW_PRIMARY_SSH_KEY }}
+          PRIMARY_KNOWN_HOSTS: ${{ secrets.SHADOW_PRIMARY_KNOWN_HOSTS }}
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$PRIMARY_KEY" > ~/.ssh/shadow_readonly
+          chmod 600 ~/.ssh/shadow_readonly
+          printf '%s\n' "$PRIMARY_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Prove primary identity cannot write evidence
+        shell: bash
+        env:
+          PRIMARY_HOST: ${{ vars.SHADOW_PRIMARY_HOST }}
+          PRIMARY_USER: ${{ vars.SHADOW_PRIMARY_USER }}
+          PRIMARY_ROOT: ${{ vars.SHADOW_PRIMARY_ROOT }}
+        run: |
+          SSH=(ssh -q -i ~/.ssh/shadow_readonly -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes)
+          "${SSH[@]}" "$PRIMARY_USER@$PRIMARY_HOST" "test -r '$PRIMARY_ROOT' && ! test -w '$PRIMARY_ROOT'"
+
+      - name: Fetch the synchronized evidence copy
+        shell: bash
+        env:
+          PRIMARY_HOST: ${{ vars.SHADOW_PRIMARY_HOST }}
+          PRIMARY_USER: ${{ vars.SHADOW_PRIMARY_USER }}
+          PRIMARY_ROOT: ${{ vars.SHADOW_PRIMARY_ROOT }}
+          OFFICIAL_DATE: ${{ steps.date.outputs.date }}
+        run: |
+          install -d evidence/plans evidence/live evidence/lifecycle evidence/close evidence/official evidence/ledger
+          SCP=(scp -q -i ~/.ssh/shadow_readonly -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes)
+          "${SCP[@]}" -r "$PRIMARY_USER@$PRIMARY_HOST:$PRIMARY_ROOT/plans/$OFFICIAL_DATE" evidence/plans/
+          "${SCP[@]}" -r "$PRIMARY_USER@$PRIMARY_HOST:$PRIMARY_ROOT/live/$OFFICIAL_DATE" evidence/live/
+          "${SCP[@]}" -r "$PRIMARY_USER@$PRIMARY_HOST:$PRIMARY_ROOT/lifecycle/$OFFICIAL_DATE" evidence/lifecycle/
+          "${SCP[@]}" -r "$PRIMARY_USER@$PRIMARY_HOST:$PRIMARY_ROOT/close/$OFFICIAL_DATE" evidence/close/
+          "${SCP[@]}" -r "$PRIMARY_USER@$PRIMARY_HOST:$PRIMARY_ROOT/official/$OFFICIAL_DATE" evidence/official/
+          "${SCP[@]}" "$PRIMARY_USER@$PRIMARY_HOST:$PRIMARY_ROOT/ledger/forward_ledger.jsonl" evidence/ledger/
+          "${SCP[@]}" "$PRIMARY_USER@$PRIMARY_HOST:$PRIMARY_ROOT/evidence_scope.json" evidence/
+
+      - name: Remove ephemeral primary identity
+        if: always()
+        shell: bash
+        run: rm -f ~/.ssh/shadow_readonly
+
+      - name: Verify due targets and every retained hash
+        id: verifier
+        continue-on-error: true
+        env:
+          OFFICIAL_DATE: ${{ steps.date.outputs.date }}
+        run: |
+          python scripts/verify_shadow_lifecycle_tree.py \
+            --plan evidence/plans/$OFFICIAL_DATE/plan.json \
+            --live-root evidence/live \
+            --lifecycle-root evidence/lifecycle \
+            --close-root evidence/close \
+            --official-root evidence/official \
+            --ledger evidence/ledger/forward_ledger.jsonl \
+            --evidence-scope evidence/evidence_scope.json \
+            --out evidence/verification_report.json
+
+      - name: Retain GitHub audit copy
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: shadow-evidence-${{ steps.date.outputs.date }}-${{ github.run_id }}
+          path: evidence/
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Alert on missing, failed, late, or tampered evidence
+        if: always() && steps.verifier.outcome != 'success'
+        run: |
+          echo "Independent forward-shadow verification failed." >&2
+          echo "No replacement odds were fetched and no success was inferred." >&2
+          exit 1

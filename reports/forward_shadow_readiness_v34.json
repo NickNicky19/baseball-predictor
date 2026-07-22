@@ -1,0 +1,251 @@
+{
+  "betting_authorized": false,
+  "blockers": [
+    "v11 permanently failed event identity and cannot be retried, backfilled, or certified",
+    "the incompatible successor operational smoke has not yet completed",
+    "no durable always-on per-game T-4h primary collector is deployed",
+    "external host, provider-plan, and GitHub verifier configuration are not attested by this offline audit; require a separate live deployment receipt",
+    "no successful complete future T-4h/prestart/official lifecycle has yet been captured operationally",
+    "no exact executable execution-product prices, accepted entries, fills, or settlements have been captured",
+    "Onyx, Novig, Chalkboard, and PrizePicks each remain blocked on separate primary rules/account/payout/executability evidence",
+    "no market-specific forward capture interval can yet be calculated"
+  ],
+  "bound_files": {
+    ".gitattributes": "379d3b89dc0044668b1562f126d71106bd108126c6ab497f7a2ac90f28dcc200",
+    ".github/workflows/daily-predictions.yml": "8f15a112b62f2c385ede54d6732d20dedde64efed3cd3eed40778bd8e8100a27",
+    ".github/workflows/forward-shadow-preflight.yml": "ecad0c10564018e1c2854cc9795e1d3a78435cc92895288e5899ad13f85d1d2c",
+    ".github/workflows/shadow-evidence-verifier.yml": "7f22ecf8d8905ef3c21237588dce5a50e840fe7998983d0a03694b60c851dc88",
+    ".gitignore": "f94123cf480a7ec3b0010f3ef30051826d360289bcaaa8d55dd0bd5678df2b93",
+    "config/config.kbb.json": "ff65d440b7571aa490300b26b1cf8a6271c5979e564c1a74d1d0988a0b743bad",
+    "config/forward_shadow_deployment_protocol.json": "9fe3939378276337d800e4e6f3a986d6d3833ee7b65508e022c5782d95165b00",
+    "config/forward_shadow_evidence_boundary.json": "3a68c32e32ea3479b7b567ae195bf76a0c2b7eadb97bc0910e999c7ad9beaecf",
+    "config/hits_execution_product_contracts.json": "2176655f236649852de70f2ac7bad639876db64b8a3a5f612aae8ced34aea3fd",
+    "config/shadow_collector_runtime.json": "feadad6c1bd9952f01773533131401e18c93610603da94dfda2b023bc58a0739",
+    "config/shadow_draftkings_hits_reference_settlement.json": "eaa51805a8bf702b1255734c30a2f767706a9a7404bab922b1e5685e182ac491",
+    "config/shadow_hits_research_policy.json": "6383ce1e4f8ce9c0c3dff1e4666cd335c21f6d55348d5ddaafc52a26bb8d71b9",
+    "data/analysis/forward_shadow_adapter_v1/protocol.json": "6713c2ee99c3cb02dea3c043419a6ac9dbf130776cc6e398a2f763dea35596f1",
+    "data/evidence/execution_products/chalkboard_public_rules_observation_2026-07-17.json": "040efa29660fddb9d21cdd7d1b0ee18c74179287bd1f59438cbbadb061e2d3f4",
+    "data/evidence/execution_products/novig_public_rules_observation_2026-07-17.json": "17c6bea31eb201b450aa8c692e8f8da20d3093290f97ada3bddbec781a5130c8",
+    "data/evidence/execution_products/onyx_public_rules_observation_2026-07-17.json": "8370950090a3fc8fa67157bfe0a72e5baeec4805c1e082b3ff4092323916116b",
+    "data/evidence/execution_products/prizepicks_public_rules_observation_2026-07-17.json": "a249e3e6ff3d3edda438f80a2793ba24f06df6cf597a211b597fe5ca79a9109d",
+    "deploy/shadow_collector/baseball-shadow-collector.service": "67e5b9c400ac9ada6c2b9c0f863c09de2082cb2bec8f7ed0f24999a5335d9119",
+    "deploy/shadow_collector/baseball-shadow-collector.timer": "e8344ed996c25b1256c4cbf783d4dce7ba681d2ec79a0e381463682e242ce2a9",
+    "deploy/shadow_collector/windows/Run-LocalOperationalSmoke.ps1": "23c27bfcbd8d72d900d03c7f4a04d40e266df8e714470723d975a506a606275d",
+    "reports/v11_event_identity_offset_diagnostic_2026-07-18.json": "053b8b2e2227fd9baeef45277a1550157d5020714f4751cc1f7d8b3fb754f795",
+    "requirements.txt": "d815c10261635e34a2bca28fc91ae8d3eb70511314c68b93bea336150e05b19d",
+    "run_shadow_close_collector.py": "291f2ffc057e089b0a913fa459f2373e09eae8fa0f265081c47aeff9128a7e7c",
+    "run_shadow_collector_tick.py": "ef2a75c1bb6e1dd22900db646fd7ffe08722cce595c5457908e52a2e2b347e78",
+    "run_shadow_ledger.py": "6be51458b77e2c108af79ac0d345111cbfe8d96af9eccd7dcd83907dfa02e227",
+    "run_shadow_ledger_report.py": "9efeff1c351dd6c4fea6f98e44102ae5b95a0454dbbc98b46209938099423ed0",
+    "run_shadow_official_settlement.py": "a2226c7ba9c6fd42ffcf75bb12ce071daf3c941b4ac947199ec123f67cd53ea8",
+    "run_shadow_primary_collector.py": "1038c18474b9503ead7dd8bcafd40a7197a1913be0b728f41ca66ea6a8402658",
+    "run_shadow_target_capture.py": "71546fa3689c115388ac93d420636fafe161669e7b6c53a460b224916a5232ad",
+    "run_slate.py": "9df11d6c9dbf3b55d2c280470d14e5eb363c694c5d28ddc9ca454eeea47ef609",
+    "scripts/audit_forward_shadow_readiness.py": "3d2da94bd3178ed7ac77b765a918790bafefe9c23218f6a58b226b7f89724455",
+    "scripts/audit_shadow_capture_plan.py": "d201a791da8a6d6f04fdffa7c3fa76cfb1cc12d676957c1287facef727b8f007",
+    "scripts/build_shadow_capture_plan.py": "94707a41c1fc2c2b823913fb3866c8ee406943cadcf42e385a992ef09abfd605",
+    "scripts/certify_forward_operational_smoke.py": "65c8cf894638ec2ac4208a81bc50636e1cd6ce4a6d14e116530b46af8ae4d38f",
+    "scripts/check_tracked_secrets.py": "9433c860c36bdb5cfa4d79515036ca937428e87ed121bc17344dc9a976d2d047",
+    "scripts/prepare_forward_evidence_scope.py": "2955add9a3f321ac92d408cfbe7ce3c35e7c537efa3bd847471b766adc02924b",
+    "scripts/validate_execution_product_observation.py": "0ef128aea7b13c23bc9aa0034f561b73a911d1044690c09055f4d30fb5c9d80f",
+    "scripts/verify_shadow_capture_tree.py": "a2bc9f3da2bb1731703016e1f46024500c8f2b5c0c51cfe6143d0b6d4be3d25c",
+    "scripts/verify_shadow_lifecycle_tree.py": "78d52c5c095d89d4cef3e6cd7f14adbaf9683bd2443dec0ba9857ca6e5327653",
+    "src/data/mlb_api.py": "89d89232e7c1932ea913652bc4f5ec0e288ede1be4bd045547a88ec6edaf2270",
+    "src/evaluation/__init__.py": "8370f884317b213bcc31cc884355aa4805a5e8014ed0c18cd05e3db742711819",
+    "src/evaluation/execution_product_contracts.py": "6660f3eb4711520b2d8ae8814d7da0d03022adc0345e2d66209d9b8005bedf70",
+    "src/evaluation/execution_product_observation.py": "dc8aa38e9464c15094d31015812d3e10c6cc1cd5aef4a6e9e9d6f154f9f0a5a8",
+    "src/evaluation/forward_evidence_boundary.py": "98f1b8c7b82eea64211fb908274e7059a029d501b72e900ded1271fd4c60f65c",
+    "src/evaluation/forward_evidence_era.py": "723227a5478428706c9d2f1a5ea0f07d65617e2155e335e3bbe2f60f64fefab3",
+    "src/evaluation/live_market_identity.py": "ecf3d6138842e188fd82594e8b18a2142d6cac13790e1589dbba0d56251f1b9e",
+    "src/evaluation/market_economics.py": "036be6bfbc86f9bece12483540047919bb7cd6dffed6097184634cad1a9281cb",
+    "src/evaluation/official_game_completion.py": "35de1cabfd7eb09da1d3d9cbbd541c03d8b022c73598fac24c58c61c11044a50",
+    "src/evaluation/shadow_capture_plan.py": "3a8f624540ee5a7b0729ee2c5eff97b1396650e6418161eeda7d02bdf6e99bab",
+    "src/evaluation/shadow_ledger.py": "e0147f0d510453359e549b7107f4ac9c6aa0ee6b0488ca9d9ff2be5048268488",
+    "src/evaluation/shadow_lifecycle.py": "7120cf3386ca735d264a76de6cffd4b5d36b67168d53a6dee558c66efa87b9c5",
+    "src/evaluation/shadow_live_provider.py": "67fd25044c3dadad5bf9399286091d036a65b0d75aa27e4faad35ddba5f59c29",
+    "src/evaluation/shadow_official_hits.py": "5b24ebaffedca50afc76c661daa3665f84034b17e4dc249ccc96a3d9f20b3f84",
+    "src/evaluation/shadow_prediction_snapshot.py": "a362df4b13ff9c70da87d248ea27c45806c9e1a8272a1cc584f8a6dff38f431e",
+    "src/evaluation/shadow_provider_adapter.py": "b1967e851efd67219274a8e2c1214998fb3f74d39860500b6ea2f631cb884e6c",
+    "src/evaluation/shadow_target_capture.py": "0a129e6395109be16b528b29f99147977d8023df3f95b9e80564a2a85adf45eb",
+    "src/features/feature_factory.py": "f7428ae6bdb81909268bcf6c8aa111f43aa4eac617e29eecefe9d15c7f275724",
+    "src/utils/provenance.py": "5a8ea1f880e15cb64dfa4f288b5a2d0cd2b54217eb62c58d4dbd9b111ace7390"
+  },
+  "built_at_utc": "2026-07-22T03:45:56+00:00",
+  "capture_timing": {
+    "durable_external_primary_collector_deployed": false,
+    "event_identity_v2_mutation_tested": true,
+    "github_backup_cron": "0 20 * * *",
+    "github_independent_verifier_implemented": true,
+    "github_independent_verifier_live_configuration_verified_by_offline_audit": false,
+    "github_is_primary_collector": false,
+    "official_mlb_outcome_resolution_implemented": true,
+    "prestart_reference_capture_implemented": true,
+    "research_entry_ledger_commit_implemented": true,
+    "target": "per-game T-4h derived from official start time",
+    "v11_permanently_failed_and_excluded": true,
+    "void_and_unscored_funnels_implemented": true
+  },
+  "execution_products": {
+    "chalkboard_ready": false,
+    "contract_path": "config/hits_execution_product_contracts.json",
+    "contract_sha256": "2176655f236649852de70f2ac7bad639876db64b8a3a5f612aae8ced34aea3fd",
+    "draftkings_role": "reference_market_only_not_execution",
+    "novig_ready": false,
+    "onyx_ready": false,
+    "prizepicks_ready": false
+  },
+  "forward_evidence": {
+    "capture_measurable": false,
+    "graded_forward_entries": 0,
+    "ledger_exists": false,
+    "ledger_path": "data/learning/shadow/service/ledger/forward_ledger.jsonl",
+    "ledger_rows": 0
+  },
+  "guard_checks": {
+    "capture_plan": {
+      "checks_passed": 17,
+      "expected_marker": "17/17 checks passed",
+      "path": "scripts/check_shadow_capture_plan_offline.py",
+      "sha256": "4ae33c2e81a02652e93d5bd6fad7585d0006c06b61f0f655b89ec7b4c626291b"
+    },
+    "collector_tick": {
+      "checks_passed": 24,
+      "expected_marker": "24/24 checks passed",
+      "path": "scripts/check_shadow_collector_tick_offline.py",
+      "sha256": "1e87e29d23480d856f0d16d485ea9b76a5e401c852491db95adba8e9ab6d510e"
+    },
+    "evaluation_import_boundary": {
+      "checks_passed": 3,
+      "expected_marker": "3/3 checks passed",
+      "path": "scripts/check_evaluation_import_boundary_offline.py",
+      "sha256": "f3f73060a5451fb3c21ae909a743b8b8568b90b9e3100d21853fd2970aae33f8"
+    },
+    "execution_product_contracts": {
+      "checks_passed": 8,
+      "expected_marker": "8/8 checks passed",
+      "path": "scripts/check_execution_product_contracts_offline.py",
+      "sha256": "a046b4469fe3504f70bd28e31471cccd6ce6005c2dd1771fe89c0cd9e0388ae6"
+    },
+    "execution_product_observation": {
+      "checks_passed": 8,
+      "expected_marker": "8/8 checks passed",
+      "path": "scripts/check_execution_product_observation_offline.py",
+      "sha256": "959b5883d65ee0bb334947344e8cba98a94b8484b244b622992db2436bc9f68a"
+    },
+    "failure_lifecycle": {
+      "checks_passed": 2,
+      "expected_marker": "2/2 checks passed",
+      "path": "scripts/check_shadow_failure_lifecycle_offline.py",
+      "sha256": "02d6c03050b102a8025f20bf76ccb1433c79d8f65862f98150424c897db300bb"
+    },
+    "forward_evidence_boundary": {
+      "checks_passed": 7,
+      "expected_marker": "7/7 checks passed",
+      "path": "scripts/check_forward_evidence_boundary_offline.py",
+      "sha256": "89bc8c30e99f3b91da3d3dbd682c163e45592d2e1589c94dc8f81cc292198f3e"
+    },
+    "forward_evidence_era": {
+      "checks_passed": 28,
+      "expected_marker": "28/28 checks passed",
+      "path": "scripts/check_forward_evidence_era_offline.py",
+      "sha256": "ca5c5104acfdf4b543da84b0734246ac747dacede37f1ac32c96ccbae4860266"
+    },
+    "independent_lifecycle_tree": {
+      "checks_passed": 6,
+      "expected_marker": "6/6 checks passed",
+      "path": "scripts/check_shadow_lifecycle_tree_offline.py",
+      "sha256": "559b2296828b41ae05cbcc4724b7c5f4b7d27f0782420f9cd909880ce20a2ccd"
+    },
+    "ledger": {
+      "checks_passed": 17,
+      "expected_marker": "17/17 checks passed",
+      "path": "scripts/check_shadow_ledger_offline.py",
+      "sha256": "c25a09ecc4d039bac4ea39bdda102d86e6bffd03520a46e9dcc01be14e5721e6"
+    },
+    "ledger_report": {
+      "checks_passed": 3,
+      "expected_marker": "3/3 checks passed",
+      "path": "scripts/check_shadow_ledger_report_offline.py",
+      "sha256": "e402d1e625fb5213cab1916599f39abcdf6bb448a7c78b0959241a68da68c71a"
+    },
+    "live_identity": {
+      "checks_passed": 7,
+      "expected_marker": "7/7",
+      "path": "scripts/check_live_market_identity_offline.py",
+      "sha256": "e6c3bc41981fd0254a11cbf9843dcc46cbac99781ab57ab3d6ad3a8b840f7da9"
+    },
+    "live_provider": {
+      "checks_passed": 18,
+      "expected_marker": "18/18 checks passed",
+      "path": "scripts/check_shadow_live_provider_offline.py",
+      "sha256": "f16f4e59a5ebc5d4f6faec476c4817a2b285ad5df02ab8d70d6c2345dada7738"
+    },
+    "official_hits_rules": {
+      "checks_passed": 10,
+      "expected_marker": "10/10 checks passed",
+      "path": "scripts/check_shadow_official_hits_offline.py",
+      "sha256": "173bececf842a5abc28b2e7925bd65d6252c128968856c9a5095573d0f2556e9"
+    },
+    "official_settlement_worker": {
+      "checks_passed": 5,
+      "expected_marker": "5/5 checks passed",
+      "path": "scripts/check_shadow_official_settlement_worker.py",
+      "sha256": "aaa13011eb3dee78ec1b18dc495b07133a0c45dedf056f022ed4697f49d6535c"
+    },
+    "prediction_snapshot": {
+      "checks_passed": 6,
+      "expected_marker": "6/6",
+      "path": "scripts/check_shadow_prediction_snapshot_offline.py",
+      "sha256": "954d7aa1f9fd5fd5909e1e522ad3fd24f7010c5e91f020867084ff1add5d8adb"
+    },
+    "prestart_reference": {
+      "checks_passed": 6,
+      "expected_marker": "6/6 checks passed",
+      "path": "scripts/check_shadow_close_collector_offline.py",
+      "sha256": "e1c5c7827c7fc033a17b0459f21a01dbf045364b9e44f826cb7a0a10eae82163"
+    },
+    "primary_collector": {
+      "checks_passed": 14,
+      "expected_marker": "14/14 checks passed",
+      "path": "scripts/check_shadow_primary_collector_offline.py",
+      "sha256": "2a6c57ed4144a175cf861219ac24156cc8f7055115420a91a7f4bb1c2a0a150c"
+    },
+    "provider_adapter_e2e": {
+      "checks_passed": 14,
+      "expected_marker": "14/14 checks passed",
+      "path": "scripts/check_shadow_provider_adapter_e2e.py",
+      "sha256": "8e5dac563f39e6957bc3f201626bab4ccbc419b7ff3195340b26a22d07f78fec"
+    },
+    "research_selection_policy": {
+      "checks_passed": 7,
+      "expected_marker": "7/7 checks passed",
+      "path": "scripts/check_shadow_research_selection_policy_offline.py",
+      "sha256": "eacd15391417ecaca5f67a0e83e66836232667673e40e6d73b56688bec6a8d7d"
+    },
+    "target_capture": {
+      "checks_passed": 12,
+      "expected_marker": "12/12",
+      "path": "scripts/check_shadow_target_capture_offline.py",
+      "sha256": "f6a750342d61efb8f4d6616dcc38694efdd3e63f70bb2095897beb5d00163aa1"
+    },
+    "tracked_secret_scanner": {
+      "checks_passed": 3,
+      "expected_marker": "3/3 checks passed",
+      "path": "scripts/check_tracked_secrets_offline.py",
+      "sha256": "bfae5a68c110fc1f28cf9c7883b43cdd6c9dd3d9a21d9b82f3a3dcdc5b57af2c"
+    }
+  },
+  "guard_checks_passed": 225,
+  "interpretation": "The fail-closed T-4h entry, research selection ledger commit, exact prestart reference, official MLB outcome, modeled DraftKings reference settlement, void/unscored, one-minute service state machine, independent GitHub lifecycle verifier, event-identity v2, and product-separation guards pass locally. The first real v11 attempt is permanently failed and excluded; its outcome-blind diagnostic binds the incompatible successor. The successor is locally ready, not deployed. GitHub remains a verifier and backup, never the primary collector. No prospective performance or executability claim exists yet.",
+  "operational_identity": {
+    "provider_and_official_start_times_retained_separately": true,
+    "successor_max_event_start_delta_seconds": 60,
+    "successor_smoke_completed": false,
+    "time_delta_used_for_selection": false,
+    "v11_diagnostic_path": "reports/v11_event_identity_offset_diagnostic_2026-07-18.json",
+    "v11_diagnostic_sha256": "053b8b2e2227fd9baeef45277a1550157d5020714f4751cc1f7d8b3fb754f795",
+    "v11_status": "PERMANENT_SOURCE_ERROR_NOT_CERTIFIABLE"
+  },
+  "schema_version": "forward-shadow-readiness-audit-v2",
+  "status": "FULL_LOCAL_LIFECYCLE_GUARDS_VALID_PRIMARY_COLLECTOR_NOT_DEPLOYED_NO_FORWARD_EVIDENCE"
+}

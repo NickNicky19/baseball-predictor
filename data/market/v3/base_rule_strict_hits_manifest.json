@@ -1,0 +1,68 @@
+{
+  "_comment": "Research-only strict hits universe. It uses fresh two-sided price availability and DraftKings' published BASE pregame hitter rule (official starter plus >=1 PA), not SmartStake result settlement. Conditional Early Exit eligibility is intentionally not inferred.",
+  "built_at_utc": "2026-07-13T21:57:52+00:00",
+  "selection_rule": "dk_base_pregame_starter_and_pa_v1",
+  "months": [
+    "2026-06"
+  ],
+  "book": "draftkings",
+  "entry_hours": 4,
+  "max_quote_age": 90,
+  "markets": [
+    "hits"
+  ],
+  "hashes": {
+    "code": "4d795c082fe65b40",
+    "policy": "219d84020958494d",
+    "crosswalk": "25cbaa70de1e46bc",
+    "fragments": "58432206818a10ee",
+    "eligibility": "67bb714733a00787",
+    "artifact": "f3d166cecd3dfd28"
+  },
+  "funnel": {
+    "two_sided_quote_pairs": 6461,
+    "vendor_settlement_present": 5569,
+    "vendor_settlement_absent": 892,
+    "fresh_quote_pairs": 4219,
+    "crosswalk_unmapped": 431,
+    "hard_mapped": 3788,
+    "official_role_unresolved": 2,
+    "official_role_resolved": 3786,
+    "base_rule_void": 598,
+    "base_rule_gradeable": 3188,
+    "duplicate_rows_excluded": 168,
+    "duplicate_keys_excluded": 84,
+    "strict_unique": 3020
+  },
+  "official_date_universe": [
+    "2026-06-01",
+    "2026-06-02",
+    "2026-06-03",
+    "2026-06-04",
+    "2026-06-05",
+    "2026-06-06",
+    "2026-06-07",
+    "2026-06-08",
+    "2026-06-09",
+    "2026-06-10",
+    "2026-06-11",
+    "2026-06-12",
+    "2026-06-13",
+    "2026-06-14",
+    "2026-06-15",
+    "2026-06-16",
+    "2026-06-17",
+    "2026-06-18",
+    "2026-06-19"
+  ],
+  "policy_research_only": true,
+  "policy_unapproved": [
+    "base_pregame_hitter_eligibility_rule",
+    "book",
+    "entry_hours",
+    "max_quote_age",
+    "min_bets_for_capture",
+    "min_edge",
+    "settlement_presence_rule"
+  ]
+}

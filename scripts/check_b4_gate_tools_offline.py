@@ -123,14 +123,14 @@ def synth(n_dates=30, rows_per_date=40, seed=11, bias=0.15):
             pid += 1
             p = r.uniform(0.25, 0.75)
             over = r.random() < p
-            recs.append(dict(player_id=pid, game_date=date, category="strikeouts",
+            recs.append(dict(mlb_game_pk=100000 + pid, player_id=pid, game_date=date, category="strikeouts",
                              line=5.5, p_true=p,
                              p_frozen=float(np.clip(p + bias, 0.01, 0.99))))
-            outs.append(dict(player_id=pid, game_date=date, category="strikeouts",
+            outs.append(dict(mlb_game_pk=100000 + pid, player_id=pid, game_date=date, category="strikeouts",
                              actual_value=6 if over else 4))
     df = pd.DataFrame(recs)
-    frozen = df[["player_id", "game_date", "category", "line"]].assign(sim_p_over=df.p_frozen)
-    candidate = df[["player_id", "game_date", "category", "line"]].assign(sim_p_over=df.p_true)
+    frozen = df[["mlb_game_pk", "player_id", "game_date", "category", "line"]].assign(sim_p_over=df.p_frozen)
+    candidate = df[["mlb_game_pk", "player_id", "game_date", "category", "line"]].assign(sim_p_over=df.p_true)
     return frozen, candidate, pd.DataFrame(outs).rename(columns={"actual_value": "actual"})
 
 frozen, candidate, outcomes = synth()
@@ -153,10 +153,10 @@ check("V2 identical probs: drift is exactly zero",
       float(drift_tie["mean_abs_dp"].iloc[0]) == 0.0)
 
 # ceil(line) convention: integer line 2.0 -> over means actual >= 2 (NOT > 2).
-tiny_keys = dict(player_id=[1, 2, 3, 4], game_date=["d1", "d1", "d2", "d2"],
+tiny_keys = dict(mlb_game_pk=[1, 2, 3, 4], player_id=[1, 2, 3, 4], game_date=["d1", "d1", "d2", "d2"],
                  category=["hits"] * 4, line=[2.0] * 4)
 tiny = pd.DataFrame(dict(**tiny_keys, sim_p_over=[0.5] * 4))
-tiny_out = pd.DataFrame(dict(player_id=[1, 2, 3, 4], game_date=["d1", "d1", "d2", "d2"],
+tiny_out = pd.DataFrame(dict(mlb_game_pk=[1, 2, 3, 4], player_id=[1, 2, 3, 4], game_date=["d1", "d1", "d2", "d2"],
                              category=["hits"] * 4, actual=[2, 1, 2, 1]))
 m_tiny, _ = verdict.compare(tiny, tiny.copy(), tiny_out, "sim_p_over", b=100, seed=1)
 check("V3 over-threshold uses ceil(line): actual==2 is over for line 2.0",
@@ -174,7 +174,7 @@ check("V5 bootstrap deterministic under seed",
 
 # ---------------------------------------------------------------- GROUP E
 tmp = Path(tempfile.mkdtemp())
-hit = pd.DataFrame(dict(player_id=[9001, 9002, 9001, 9002],
+hit = pd.DataFrame(dict(mlb_game_pk=[9001, 9002, 9011, 9012], player_id=[9001, 9002, 9001, 9002],
                         game_date=["2024-05-01x0", "2024-05-01x0", "2024-05-02x1", "2024-05-02x1"],
                         category=["hits"] * 4, line=[1.5] * 4,
                         sim_p_over=[0.4, 0.6, 0.5, 0.3]))

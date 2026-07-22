@@ -122,12 +122,16 @@ class OutcomeRetrainer:
         outcomes: list[OutcomeRecord],
     ) -> int:
         """Align and store prediction-outcome pairs. Returns count ingested."""
+        if any(p.mlb_game_pk is None for p in projections) or any(
+            o.mlb_game_pk is None for o in outcomes
+        ):
+            raise ValueError("Outcome retraining requires non-null mlb_game_pk for historical pairs.")
         outcome_index = {
-            (o.player_id, o.game_date, o.category): o for o in outcomes
+            (o.mlb_game_pk, o.player_id, o.category): o for o in outcomes
         }
         ingested = 0
         for proj in projections:
-            key = (proj.player_id, proj.game_date, proj.category)
+            key = (proj.mlb_game_pk, proj.player_id, proj.category)
             outcome = outcome_index.get(key)
             if outcome is None:
                 continue
@@ -139,9 +143,9 @@ class OutcomeRetrainer:
     def ingest_from_dataframe(self, df: pd.DataFrame) -> int:
         """
         Ingest from a flat DataFrame with columns:
-        player_id, player_name, game_date, category, predicted_value, actual_value
+        mlb_game_pk, player_id, player_name, game_date, category, predicted_value, actual_value
         """
-        required = {"player_id", "game_date", "category", "predicted_value", "actual_value"}
+        required = {"mlb_game_pk", "player_id", "game_date", "category", "predicted_value", "actual_value"}
         missing = required - set(df.columns)
         if missing:
             raise ValueError(f"DataFrame missing columns: {missing}")
@@ -159,6 +163,7 @@ class OutcomeRetrainer:
                     game_date=str(row["game_date"]),
                     projected_value=float(row["predicted_value"]),
                     confidence=float(row.get("confidence", 0.5)),
+                    mlb_game_pk=int(row["mlb_game_pk"]),
                 )
             )
             outcomes.append(
@@ -168,6 +173,7 @@ class OutcomeRetrainer:
                     game_date=str(row["game_date"]),
                     category=category,
                     actual_value=float(row["actual_value"]),
+                    mlb_game_pk=int(row["mlb_game_pk"]),
                 )
             )
         return self.ingest(projections, outcomes)
@@ -230,6 +236,7 @@ class OutcomeRetrainer:
         for pair in self._pairs:
             rows.append(
                 {
+                    "mlb_game_pk": pair.projection.mlb_game_pk,
                     "player_id": pair.projection.player_id,
                     "player_name": pair.projection.player_name,
                     "game_date": pair.projection.game_date,

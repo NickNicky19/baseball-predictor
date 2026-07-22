@@ -29,6 +29,7 @@ from src.models.dataclasses import (
     PropCategory,
 )
 from src.simulation.game_simulator import GameSimulator, GameSimulatorInput
+from src.models.total_bases_contract import TOTAL_BASES_THRESHOLDS
 
 
 @dataclass(frozen=True)
@@ -70,6 +71,9 @@ class MonteCarloEngine:
         "home_runs": [1.0],
         "fantasy": [5.0, 10.0],
         "strikeouts": [5.0, 6.0],
+        # Candidate-only.  This observed market interface is documented in
+        # total_bases_contract; it is not a fitted model parameter.
+        "total_bases": list(TOTAL_BASES_THRESHOLDS),
     }
 
     def __init__(
@@ -136,6 +140,8 @@ class MonteCarloEngine:
             return self._fantasy_points(result)
         if category == "strikeouts":
             return float(result.strikeouts)
+        if category == "total_bases":
+            return float(result.total_bases)
         return float(result.hrr)
 
     def _fantasy_points(self, result: GameSimulationResult) -> float:

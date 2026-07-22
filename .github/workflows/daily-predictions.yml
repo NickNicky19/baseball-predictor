@@ -1,7 +1,12 @@
-name: Daily Predictions
+name: Daily Prediction Archive
 on:
   schedule:
-    - cron: "0 20 * * *"   # 20:00 UTC = 4:00 PM Eastern (good time for confirmed lineups)
+    # Best-effort daily prediction archive. This is NOT the primary T-4h
+    # market collector: one fixed time cannot be four hours before every
+    # staggered first pitch, and GitHub cron does not provide a hard execution
+    # guarantee. The future external shadow collector owns per-game timing;
+    # this workflow preserves model-side evidence and provides a durable backup.
+    - cron: "0 20 * * *"   # 20:00 UTC = 4:00 PM Eastern
   workflow_dispatch:
     inputs:
       date:
@@ -43,6 +48,9 @@ jobs:
       # data/learning/predictions/predictions_<date>.json (with per-row
       # simulation blocks). Do NOT swap this back to run_daily.py: that CLI
       # is single-category (default hrr) and drops the simulation data.
+      # It also persists the consumed feature bundles plus their manifest. That
+      # evidence is committed below so factual fallback/input-health rates can
+      # be audited later. No prediction math changes when it is saved.
       #
       # The MLB client now retries 429/5xx with exponential backoff at the
       # transport layer (mlb_api._build_session), so the transient timeout that
@@ -53,7 +61,7 @@ jobs:
         env:
           PYTHONPATH: .
         run: |
-          python run_slate.py --date "${{ steps.date.outputs.slate }}"
+          python run_slate.py --date "${{ steps.date.outputs.slate }}" --config config/config.kbb.json
 
       # if: always() — RUN EVEN IF THE PREDICT STEP FAILED.
       #
@@ -74,8 +82,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          # The rich per-date archive the outcome recorder later grades.
-          git add data/learning/predictions/ || true
+          # The rich per-date archive plus the exact persisted feature bundles.
+          # Do not commit an archive while discarding the feature provenance
+          # needed to audit its input-health labels later.
+          git add data/learning/predictions/ data/features/ || true
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else

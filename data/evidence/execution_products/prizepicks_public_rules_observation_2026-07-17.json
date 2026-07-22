@@ -1,0 +1,62 @@
+{
+  "schema_version": "execution-product-public-rules-observation-v1",
+  "product": "prizepicks",
+  "observed_at_utc": "2026-07-17T00:00:00Z",
+  "observation_method": "read-only manual review of public official product pages plus hashes of user-supplied rule/scoring evidence; normalized facts, not a raw-page capture",
+  "status": "PARTIAL_PUBLIC_RULES_ONLY",
+  "betting_authorized": false,
+  "jurisdiction_context": "Harris County, Texas, user-declared",
+  "official_sources": [
+    {
+      "url": "https://www.prizepicks.com/help-center/eligibility",
+      "title": "Eligibility",
+      "page_updated_date": "2026-07-16"
+    },
+    {
+      "url": "https://www.prizepicks.com/help-center/payouts",
+      "title": "Payouts",
+      "effective_date": null
+    },
+    {
+      "url": "https://www.prizepicks.com/help-center/dnps-reboots-and-ties",
+      "title": "DNPs, Reboots, and Ties",
+      "page_updated_date": "2026-06-04"
+    },
+    {
+      "url": "https://www.prizepicks.com/reboots",
+      "title": "Reboots",
+      "effective_date": null
+    },
+    {
+      "url": "https://www.prizepicks.com/help-center/official-scoring-providers",
+      "title": "Official Scoring",
+      "page_updated_date": "2026-05-16"
+    }
+  ],
+  "user_supplied_evidence_hashes": [
+    {
+      "description": "PrizePicks DNP/Reboot rules text",
+      "sha256": "7432b69f2a210d23f3b855a48acf15ca0a64f2d828c531c5ec3e3c1001b80c04"
+    },
+    {
+      "description": "PrizePicks MLB scoring/activity text",
+      "sha256": "d1eb481b0ae90eefb5a93fe9429cee686669fb4534762eaee52dbf3f530d640a"
+    }
+  ],
+  "observed_public_facts": [
+    "The public eligibility page lists Texas Player Picks access for users 18 or older, subject to account and physical-location requirements.",
+    "Player Picks are complete multi-leg lineups; payout is the exact value shown on the details screen and can differ by lineup, projection type, promotions, and other disclosed factors.",
+    "DNP and Reboot selections reduce or revert the complete lineup, and ties have separate complete-lineup effects.",
+    "For full-game MLB batter More selections, the public Reboot page states that a batter leaving after two plate appearances or fewer may qualify; Less selections are treated differently and can still win.",
+    "PrizePicks uses official or named third-party scoring partners and generally does not apply later stat corrections after settlement except discretionary correction of clear platform errors."
+  ],
+  "not_proven": [
+    "current account eligibility or geolocation acceptance for this user",
+    "account-visible MLB Hits projection, More/Less availability, complete lineup, exact multiplier, fees, or correlation constraints",
+    "submit-ability, accepted lineup receipt, final DNP/Reboot classification, settlement, or actual returned value",
+    "that the public generic rules override a specific in-app contest/details-screen rule",
+    "that public platform availability is legal advice or an independent legal determination"
+  ],
+  "automation_restriction": "No automated product access is authorized by this observation. Use only an approved API/export or user-provided account-visible evidence.",
+  "cross_product_inheritance_permitted": false
+}

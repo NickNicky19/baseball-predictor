@@ -39,8 +39,15 @@ MODEL_CONFIG_KEYS: tuple[str, ...] = (
     "base_running",
     "pitcher_regression",
     "simulation",
+    # HybridPASimulator coefficients and hash-bound fitted artifacts directly
+    # change every hitter probability.  Omitting this block made the frozen
+    # and K/BB research models share an identity despite different outputs.
+    "pa_simulator",
     "feature_factory",
     "fantasy_scoring",
+    # Candidate-only until its own hard-keyed market gate promotes it.  The
+    # contract changes emitted probability support, so it must fork version.
+    "total_bases",
     # B4: role-aware expected_innings shapes the pitcher K point estimate, so
     # its block must be in the allowlist for enabling it to fork model_version.
     "role_innings",

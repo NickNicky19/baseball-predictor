@@ -65,8 +65,19 @@ def enrich_file(src: Path, roller: StatcastRoller, overwrite: bool, log) -> Path
         return out
     df = pd.read_csv(src)
     if df.empty:
-        log.info("Skip (empty): %s", src.name)
-        return None
+        # Empty canonical raw shards are meaningful: a previously listed
+        # postponed/suspended date may have been corrected to another date.
+        # With --overwrite, replace any older enriched shard too; otherwise
+        # stale rows could bypass the raw identity correction at assembly.
+        enriched = df.copy()
+        for column in rolling_feature_columns(roller.config.windows):
+            enriched[column] = pd.Series(dtype="float64")
+        enriched["roller_schema"] = pd.Series(dtype="object")
+        tmp = out.with_suffix(out.suffix + ".tmp")
+        enriched.to_csv(tmp, index=False)
+        tmp.replace(out)
+        log.info("%s -> %s (empty canonical shard)", src.name, out.name)
+        return out
     enriched = enrich_frame(df, roller)
     tmp = out.with_suffix(out.suffix + ".tmp")
     enriched.to_csv(tmp, index=False)

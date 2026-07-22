@@ -1,0 +1,20 @@
+{
+  "schema_version": "shadow-research-selection-policy-v1",
+  "policy_id": "draftkings-hits-t4h-max-positive-posted-ev-v1",
+  "status": "RESEARCH_ONLY",
+  "betting_authorized": false,
+  "sportsbook": "draftkings",
+  "category": "hits",
+  "entry_hours": 4,
+  "selection_mode": "max_positive_posted_ev",
+  "selection_side": null,
+  "minimum_edge": null,
+  "maximum_quote_age": null,
+  "interpretation": "Collect every hard-resolved two-sided DraftKings Hits quote at T-4h. A ledger entry is created only for the model side with the larger strictly positive posted-price expected profit and positive de-vigged edge. No hand-picked minimum edge, confidence score, or staking rule is applied. This is prospective research only.",
+  "limitations": [
+    "T-4h is a locked collection horizon, not yet a proven optimal execution time",
+    "historical timestamps do not establish executability; only this prospective collector can add that evidence",
+    "the policy cannot authorize betting even if a point estimate is positive",
+    "May 2026 remains sealed"
+  ]
+}

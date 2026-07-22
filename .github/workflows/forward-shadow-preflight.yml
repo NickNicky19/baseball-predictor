@@ -1,0 +1,38 @@
+name: Forward Shadow Preflight
+
+"on":
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  readiness:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install declared dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Verify read-only verifier regression checks
+        run: python -m unittest tests.test_shadow_verifier_workflow -v
+
+      - name: Run full offline forward-shadow readiness audit
+        run: |
+          export PYBASEBALL_CACHE="$RUNNER_TEMP/pybaseball-cache"
+          mkdir -p "$PYBASEBALL_CACHE"
+          python scripts/audit_forward_shadow_readiness.py \
+            --out "$RUNNER_TEMP/forward-shadow-readiness.json"

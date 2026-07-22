@@ -1,0 +1,77 @@
+{
+  "schema_version": "forward-shadow-evidence-boundary-v1",
+  "status": "LOCKED_BEFORE_FORWARD_EVIDENCE_ERA",
+  "betting_authorized": false,
+  "scope": {
+    "reference_sportsbook": "draftkings",
+    "category": "hits",
+    "entry_horizon": "T-4h",
+    "model_arm": "config.kbb.hits",
+    "execution_products_evaluated_separately": [
+      "onyx",
+      "novig",
+      "chalkboard",
+      "prizepicks"
+    ]
+  },
+  "open_data_derivation": {
+    "method": "Require the first prospective economic look to contain at least as many complete independent official-date blocks as the entire certified open regular-season Hits evidence available when this boundary was locked.",
+    "march_april_manifest": {
+      "path": "data/market/v3/policy_fit_mar_may_canonical/hits_policy_source_uncensored_original_starter_fit_mar_apr_manifest.json",
+      "sha256": "9cb95a47e174579e407c9b386c9d7a745ac55126166f25ddcc8a83debf68d712",
+      "official_dates": 37
+    },
+    "june_manifest": {
+      "path": "data/market/v3/base_rule_strict_hits_manifest.json",
+      "sha256": "2143950453746a69b331e33b5725f5573b0aa1529429b93de393a30a5eb2e33c",
+      "official_dates": 19
+    },
+    "may_2026_used": false,
+    "union_official_dates": 56
+  },
+  "first_economic_look_boundary": {
+    "minimum_complete_official_date_blocks": 56,
+    "operational_smoke_counts": false,
+    "a_date_block_is_complete_only_if": [
+      "the date belongs to one frozen evidence era",
+      "every scheduled T-4h target has a verified terminal entry receipt",
+      "no target on the date has source_error, missing, late, tampered, or conflicting entry evidence",
+      "every captured market has a verified exact prestart reference or an explicit non-applicable no-market disposition",
+      "every selected research entry has one official MLB final-feed-backed graded, void, or unscored resolution",
+      "the independent lifecycle verifier passes for the date"
+    ],
+    "incomplete_dates": "retained permanently in the operational exclusion funnel and never silently removed; they do not count toward the 56 complete blocks",
+    "outcomes_before_boundary": "official outcomes and settlements may be collected and hash-verified, but capture, ROI, calibration, subgroup, and economic summaries must not be produced or inspected",
+    "season_end_fallback": "If the regular season ends before 56 complete blocks, publish an underpowered descriptive report labeled insufficient evidence; do not authorize wagering."
+  },
+  "locked_first_look_evaluation": {
+    "bootstrap_unit": "official_game_date",
+    "bootstrap_draws": 20000,
+    "bootstrap_seed": 7,
+    "capture_lower_95_bound_strictly_greater_than": 0.1,
+    "net_roi_lower_95_bound_strictly_greater_than": 0.0,
+    "market_and_product_pooling_permitted": false,
+    "line_level_results_required": true,
+    "void_and_unscored_entries_excluded_from_economic_denominators_but_reported_in_the_funnel": true,
+    "point_estimates_alone_can_authorize": false
+  },
+  "era_reset_triggers": [
+    "model source or model version changes",
+    "effective configuration changes",
+    "selection policy changes",
+    "provider or reference sportsbook contract changes",
+    "runtime timing changes",
+    "settlement contract changes",
+    "identity, schema, ledger, or evaluation logic changes",
+    "any input or bound-file hash changes"
+  ],
+  "protected_invariants": [
+    "May 2026 remains sealed",
+    "the operational smoke is permanently excluded",
+    "no missed observation is backfilled",
+    "no vendor result grades an entry",
+    "DraftKings is reference-only in the declared Texas context",
+    "each execution product requires its own legal, account, price or payout, acceptance, settlement, return, and uncertainty evidence",
+    "the +0.10 capture lower-bound gate and positive net-ROI lower-bound gate are not lowered"
+  ]
+}

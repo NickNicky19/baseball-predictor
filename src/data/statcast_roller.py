@@ -40,6 +40,11 @@ from typing import Any, Optional
 
 import pandas as pd
 
+from src.data.statcast_batted_ball_rates import (
+    barrel_rate as derive_barrel_rate,
+    hard_hit_rate as derive_hard_hit_rate,
+)
+
 from src.utils.logging import get_logger
 
 logger = get_logger(__name__)
@@ -300,13 +305,8 @@ def _whiff_rate(df: pd.DataFrame) -> Any:
 
 def _hardhit_rate(bip: pd.DataFrame) -> Any:
     """Hard-hit = batted balls at >= 95 mph exit velocity, over all BiP."""
-    if "launch_speed" not in bip.columns or bip.empty:
-        return ""
-    ev = pd.to_numeric(bip["launch_speed"], errors="coerce")
-    valid = ev.notna().sum()
-    if valid == 0:
-        return ""
-    return round(float((ev >= 95).sum() / valid), 4)
+    value = derive_hard_hit_rate(bip)
+    return "" if value is None else round(value, 4)
 
 
 def _barrel_rate(bip: pd.DataFrame) -> Any:
@@ -317,26 +317,5 @@ def _barrel_rate(bip: pd.DataFrame) -> Any:
     (EV >= 98 with a launch-angle band that widens with EV) when neither
     Statcast field is available.
     """
-    if bip.empty:
-        return ""
-    n = len(bip)
-    if "barrel" in bip.columns:
-        b = pd.to_numeric(bip["barrel"], errors="coerce")
-        if b.notna().any():
-            return round(float(b.fillna(0).astype(bool).sum() / n), 4)
-    if "launch_speed_angle" in bip.columns:
-        lsa = pd.to_numeric(bip["launch_speed_angle"], errors="coerce")
-        if lsa.notna().any():
-            return round(float((lsa == 6).sum() / n), 4)
-    # Approximation from EV + launch angle.
-    if "launch_speed" in bip.columns and "launch_angle" in bip.columns:
-        ev = pd.to_numeric(bip["launch_speed"], errors="coerce")
-        la = pd.to_numeric(bip["launch_angle"], errors="coerce")
-        valid = ev.notna() & la.notna()
-        if valid.sum() == 0:
-            return ""
-        # Public barrel approx: EV >= 98 and launch angle roughly 26-30 deg,
-        # widening with EV. A compact, standard approximation:
-        barrel = valid & (ev >= 98) & (la >= 26 - (ev - 98) * 1.0) & (la <= 30 + (ev - 98) * 1.0)
-        return round(float(barrel.sum() / valid.sum()), 4)
-    return ""
+    value = derive_barrel_rate(bip)
+    return "" if value is None else round(value, 4)

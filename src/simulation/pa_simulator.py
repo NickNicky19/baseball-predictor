@@ -36,6 +36,7 @@ import random
 from dataclasses import asdict, dataclass
 from typing import TYPE_CHECKING, Optional, Any
 
+from src.evaluation.hits_contact_adapter import consume_fitted_contact_xba
 from src.models.dataclasses import LeagueBaselines, PAOutcome, StatcastProfile
 
 if TYPE_CHECKING:
@@ -67,6 +68,11 @@ class PASimulatorConfig:
     hr_form: float = 0.28
     hr_handedness: float = 0.15
     hr_quality: float = 0.16
+    # Candidate-only correction for a measured direction bug.  The legacy
+    # expression subtracts the opposing pitcher's HR/9 deviation, so a pitcher
+    # who allows more home runs mechanically lowers the hitter's HR chance.
+    # False preserves the frozen path exactly; true changes only that sign.
+    correct_pitcher_hr9_direction: bool = False
 
     # Latent skill scaling
     contact_scale: float = 8.0
@@ -96,6 +102,83 @@ class PASimulatorConfig:
     # Self-calibration lever for the hits category (learning layer tunes THIS,
     # replacing the four interacting weight fields it used to touch).
     hit_rate_scale: float = 1.0
+
+    # ========================================================================
+    # FITTED K/BB MODEL — the hitter's OWN strikeout and walk rates
+    # ========================================================================
+    # ABSENT / False -> the legacy H_contact path, BYTE-IDENTICAL. Threading this
+    # through is INERT until a config sets pa_simulator.use_fitted_kbb.
+    #
+    # THE BUG THIS REPLACES (all measured, none assumed):
+    #
+    #   StatcastProfile.k_rate was NEVER POPULATED. Savant's pull filters to
+    #   `events.notna()` -- BATTED BALLS. A strikeout is not a batted ball, so K
+    #   is unobtainable there. Every hitter fell back to the league constant:
+    #   MEASURED sd = 0.0000 across 270 hitters.
+    #
+    #   So the K logit had no direct signal and used `contact_rate`, a per-swing
+    #   whiff PROXY. And league.contact_rate (0.7550) is the average over ALL
+    #   batters, while the model runs on STARTING LINEUPS, which average 0.8178.
+    #   H_contact therefore centres on +0.52 instead of 0, and
+    #   k_hitter_contact (-1.05) turns that into -0.55 logits FOR EVERY HITTER.
+    #
+    #   Result (trace_k_bb_logits.py, logit partitioned EXACTLY -- a logit is a
+    #   sum, so the attribution is arithmetic, not an estimate):
+    #       k_hitter_contact carried 89.9% of the shift off the intercept
+    #       a league-average starter produced K = 0.1365 vs a realized 0.2221
+    #       the K floor then bound on 46.3% of the slate, HIDING how bad it was
+    #       bip_prob was inflated 9.9%
+    #       -> which carried 91.7% of the model's ENTIRE hits excess
+    #          (trace_hit_rate.py, reconciled to -0.00036)
+    #
+    #   And it broke the RANKING: sd(H_contact) = 0.62 meant contact rate
+    #   DOMINATED the K logit, so a high-contact rookie outranked Murakami in
+    #   production.
+    #
+    # THE FIT (scripts/fit_k_bb_final.py -- binomial GLM, temporal split,
+    # scored out-of-sample). ALL COEFFICIENTS FITTED (rule 2):
+    #
+    # Coefficients are intentionally NOT embedded here. The production bridge
+    # loads them from a hash-verified artifact when use_fitted_kbb is true.
+    # This prevents documentation, runtime defaults, and the recorded fit from
+    # becoming three different coefficient sources.
+    #
+    # Exact row counts, date bounds, calibration, and held-out log-likelihood
+    # gains live in the bound artifact rather than in this source comment.
+    #
+    # *** THE PITCHER IS IN THE FIT, NOT ADDED ON TOP. ***
+    #   An earlier attempt fitted a HITTER-ONLY model and then added a pitcher
+    #   term to the logit. That DOUBLE-COUNTS the pitcher: the GLM was fitted on
+    #   real games against real pitchers, so its intercept ALREADY ABSORBS the
+    #   average pitcher effect. It produced K = 0.1785 against a realized 0.2221
+    #   and was caught by the calibration gate. Validated on synthetic data: a
+    #   bolted-on pitcher term produces an error of +0.155 where the tolerance
+    #   is 0.005.
+    #
+    # *** UNITS. *** pitcher_*_pct is per BATTER FACED, 0-100 -- the SAME
+    #   quantity expected_outcome_probabilities already receives as
+    #   pitcher_k_pct. It is NOT P_miss and NOT K/9. The fit converted the
+    #   training set's per-9 rates with the SAME formula the model uses
+    #   (PA = IP * 4.2), so the coefficient transfers EXACTLY, with zero
+    #   transformations in between. A coefficient fitted on K/9 and applied to
+    #   K% would be wrong by a factor of 2.6 -- silently.
+    #
+    # *** RECENT FORM IS SMALL, AND THE FIT SAYS SO. ***
+    #   The bound artifact reports its exact share of the hitter signal. An
+    #   earlier HITTER-ONLY fit found "the blend beats season-alone by +174
+    #   logL" -- that was an ARTEFACT of the missing pitcher term. `recent` was
+    #   standing in for variance the PITCHER explains. season and recent are
+    #   ~0.98 correlated. The term is kept because it is fitted and costs
+    #   nothing, but it is not a meaningful signal and is not claimed as one.
+    use_fitted_kbb: bool = False
+    kbb_k_intercept: Optional[float] = None
+    kbb_k_hitter_season: Optional[float] = None
+    kbb_k_hitter_recent: Optional[float] = None
+    kbb_k_pitcher: Optional[float] = None
+    kbb_bb_intercept: Optional[float] = None
+    kbb_bb_hitter_season: Optional[float] = None
+    kbb_bb_hitter_recent: Optional[float] = None
+    kbb_bb_pitcher: Optional[float] = None
 
     # XBH mix among non-HR hits: league base shares (measured league values,
     # ~74% singles / 23.5% doubles / 2.5% triples of non-HR hits) tilted by
@@ -221,6 +304,20 @@ class HybridPASimulator:
     ):
         self.league = league_baselines or LeagueBaselines()
         self.config = config or PASimulatorConfig.from_league(self.league)
+        if self.config.use_fitted_kbb:
+            names = (
+                "kbb_k_intercept", "kbb_k_hitter_season",
+                "kbb_k_hitter_recent", "kbb_k_pitcher",
+                "kbb_bb_intercept", "kbb_bb_hitter_season",
+                "kbb_bb_hitter_recent", "kbb_bb_pitcher",
+            )
+            missing = [name for name in names
+                       if getattr(self.config, name) is None]
+            if missing:
+                raise ValueError(
+                    "use_fitted_kbb is enabled without artifact-loaded "
+                    f"coefficients: {missing}"
+                )
         self.rng = random.Random(random_seed)
 
     # ------------------------------------------------------------------
@@ -466,7 +563,51 @@ class HybridPASimulator:
         # contact-conditional baseline (empirical-Bayes weight).
         sample_pa = float(statcast.sample_pa) if statcast and statcast.sample_pa else 0.0
         weight = sample_pa / (sample_pa + max(cfg.xba_shrinkage_pa, 1.0))
-        xba_shrunk = weight * xba + (1.0 - weight) * lg.xba_on_contact
+        legacy_xba_shrunk = weight * xba + (1.0 - weight) * lg.xba_on_contact
+        xba_shrunk = consume_fitted_contact_xba(
+            fitted_contact_xba=rich.get("contact_xba_fitted"),
+            legacy_xba_shrunk=legacy_xba_shrunk,
+        )
+
+        # ------------------------------------------------------------------
+        # The hitter's OWN K/BB rates, for the FITTED path.
+        # ------------------------------------------------------------------
+        # NaN when absent -> _calculate_k_bb_probs takes the LEGACY H_contact
+        # path, byte-identically. Nothing changes unless BOTH use_fitted_kbb is
+        # on AND the rates are present.
+        def _rate01(v: Any) -> float:
+            """A rate, or NaN. NEVER a fabricated default.
+
+            A value outside [0, 1] is not a rate. We return NaN rather than
+            clamp it, so the caller falls back to the legacy path and the
+            failure is VISIBLE -- a silently coerced 1.4 would produce a
+            confident, wrong K probability.
+            """
+            try:
+                f = float(v)
+            except (TypeError, ValueError):
+                return float("nan")
+            if not (0.0 <= f <= 1.0) or math.isnan(f):
+                return float("nan")
+            return f
+
+        k_season = _rate01(getattr(statcast, "k_rate", None)) if statcast else float("nan")
+        bb_season = _rate01(getattr(statcast, "bb_rate", None)) if statcast else float("nan")
+        k_recent = _rate01(getattr(statcast, "k_rate_recent", None)) if statcast else float("nan")
+        bb_recent = _rate01(getattr(statcast, "bb_rate_recent", None)) if statcast else float("nan")
+
+        # A missing RECENT rate falls back to the SEASON rate. That is not a
+        # fudge and it is not arbitrary: the fitted model is
+        #     a + b_s*season + b_r*recent
+        # so setting recent := season gives  a + (b_s + b_r)*season -- a
+        # well-defined single-predictor model with the SAME intercept. DROPPING
+        # the recent term instead would silently shift the intercept and
+        # mis-calibrate. And since b_r carries only 8% of the hitter signal
+        # (measured), the substitution is nearly free.
+        if math.isnan(k_recent):
+            k_recent = k_season
+        if math.isnan(bb_recent):
+            bb_recent = bb_season
 
         return {
             "H_contact": h_contact,
@@ -478,25 +619,88 @@ class HybridPASimulator:
             "form": form_effect,
             "handedness": handedness,
             "xba_contact": xba_shrunk,
+            # FITTED-path inputs. The pitcher rates are the RAW percentages
+            # (0-100) the caller passed in -- the SAME quantity the fit used.
+            # NOT P_miss (a scaled latent) and NOT K/9.
+            "k_season": k_season,
+            "k_recent": k_recent,
+            "bb_season": bb_season,
+            "bb_recent": bb_recent,
+            "pitcher_k_pct": float(pitcher_k_pct),
+            "pitcher_bb_pct": float(pitcher_bb_pct),
         }
 
     def _calculate_k_bb_probs(self, latent: dict[str, float]) -> tuple[float, float]:
+        """P(strikeout) and P(walk) for one plate appearance.
+
+        FITTED PATH  (use_fitted_kbb AND the hitter's own rates are present):
+
+            logit(K)  = kbb_k_intercept
+                      + kbb_k_hitter_season  * k_season
+                      + kbb_k_hitter_recent  * k_recent
+                      + kbb_k_pitcher        * pitcher_k_pct
+            logit(BB) = kbb_bb_intercept
+                      + kbb_bb_hitter_season * bb_season
+                      + kbb_bb_hitter_recent * bb_recent
+                      + kbb_bb_pitcher       * pitcher_bb_pct
+
+        The pitcher is IN the fitted coefficients -- NOT added on top of a
+        hitter-only model, which would double-count him (the GLM's intercept
+        already absorbs the average pitcher). See the note on PASimulatorConfig.
+
+        NOTE what the fitted path does NOT use: H_contact, P_miss, form,
+        H_quality, handedness. It is a REPLACEMENT, not an adjustment. Those
+        latents remain for the HR model and for the legacy path.
+
+        LEGACY PATH: the original H_contact formula, BYTE-IDENTICAL.
+        """
         cfg = self.config
-        k_logit = (
-            cfg.k_intercept
-            + cfg.k_pitcher_miss * latent["P_miss"]
-            + cfg.k_hitter_contact * latent["H_contact"]
-            + cfg.k_form * latent["form"]
-            + cfg.k_quality * latent["H_quality"]
-        )
+
+        use_fitted = bool(getattr(cfg, "use_fitted_kbb", False))
+
+        k_s = latent.get("k_season", float("nan"))
+        k_r = latent.get("k_recent", float("nan"))
+        b_s = latent.get("bb_season", float("nan"))
+        b_r = latent.get("bb_recent", float("nan"))
+        p_k = latent.get("pitcher_k_pct", float("nan"))
+        p_bb = latent.get("pitcher_bb_pct", float("nan"))
+
+        have_k = use_fitted and not (math.isnan(k_s) or math.isnan(k_r)
+                                     or math.isnan(p_k))
+        have_bb = use_fitted and not (math.isnan(b_s) or math.isnan(b_r)
+                                      or math.isnan(p_bb))
+
+        if have_k:
+            k_logit = (
+                cfg.kbb_k_intercept
+                + cfg.kbb_k_hitter_season * k_s
+                + cfg.kbb_k_hitter_recent * k_r
+                + cfg.kbb_k_pitcher * p_k
+            )
+        else:
+            k_logit = (
+                cfg.k_intercept
+                + cfg.k_pitcher_miss * latent["P_miss"]
+                + cfg.k_hitter_contact * latent["H_contact"]
+                + cfg.k_form * latent["form"]
+                + cfg.k_quality * latent["H_quality"]
+            )
         k_prob = self._clamp(self._sigmoid(k_logit), cfg.k_min, cfg.k_max)
 
-        bb_logit = (
-            cfg.bb_intercept
-            + cfg.bb_pitcher_control * latent["P_control"]
-            + cfg.bb_hitter_contact * latent["H_contact"]
-            + cfg.bb_handedness * latent["handedness"]
-        )
+        if have_bb:
+            bb_logit = (
+                cfg.kbb_bb_intercept
+                + cfg.kbb_bb_hitter_season * b_s
+                + cfg.kbb_bb_hitter_recent * b_r
+                + cfg.kbb_bb_pitcher * p_bb
+            )
+        else:
+            bb_logit = (
+                cfg.bb_intercept
+                + cfg.bb_pitcher_control * latent["P_control"]
+                + cfg.bb_hitter_contact * latent["H_contact"]
+                + cfg.bb_handedness * latent["handedness"]
+            )
         bb_prob = self._clamp(self._sigmoid(bb_logit), cfg.bb_min, cfg.bb_max)
         return k_prob, bb_prob
 
@@ -529,7 +733,8 @@ class HybridPASimulator:
             pitcher_hr_skill = (pitcher_hr_per_9 - self.league.hr_per_9) / max(
                 self.league.hr_per_9, 0.5
             )
-            hr_logit -= cfg.hr_pitcher_miss * pitcher_hr_skill
+            direction = 1.0 if cfg.correct_pitcher_hr9_direction else -1.0
+            hr_logit += direction * cfg.hr_pitcher_miss * pitcher_hr_skill
 
         dist = statcast.distribution if statcast and statcast.distribution else None
         if dist and dist.sample_bip > 0:
@@ -652,4 +857,3 @@ def _logit(p: float) -> float:
 
 # Backward compatibility
 HybridPASimulatorV2 = HybridPASimulator
-

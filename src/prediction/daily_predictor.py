@@ -9,6 +9,7 @@ prediction logic is testable without live API calls.
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone
 from datetime import date
 from pathlib import Path
 from typing import Any, Optional
@@ -22,6 +23,7 @@ from src.data.savant import SavantClient
 from src.data.umpire_client import UmpireClient
 from src.data.weather_client import WeatherClient
 from src.evaluation.park_factor_estimator import ParkFactorEstimator, ParkFactorSettings
+from src.evaluation.market_output_policy import MarketOutputPolicy, load_market_output_policy
 from src.learning.outcome_recorder import OutcomeRecorder
 from src.features.feature_factory import FeatureFactory
 from src.features.feature_store import FeatureStore
@@ -47,6 +49,8 @@ from src.prediction.edge_calculator import EdgeCalculator
 from src.prediction.prop_engine import PropEngine
 from src.utils.errors import ConfigError, DataFetchError, OddsLoadError, PredictionPipelineError
 from src.utils.logging import get_logger
+from src.utils.model_version import model_version
+from src.utils.provenance import code_provenance, sha256_json
 
 logger = get_logger(__name__)
 
@@ -77,8 +81,10 @@ class DailyPredictor:
         injury_client: Optional[InjuryClient] = None,
         feature_factory: Optional[FeatureFactory] = None,
     ):
+        self._config_supplied_directly = config is not None
         self.config = config or self._load_config(config_path)
         self.config_path = config_path
+        self.project_root = Path(__file__).resolve().parents[2]
         self.league = league_baselines or LeagueBaselines.from_config(self.config)
         season = int(self.config.get("season", self.league.season))
 
@@ -88,6 +94,7 @@ class DailyPredictor:
         self.mlb_api = mlb_api or MLBStatsAPI(season=season, config=self.config)
         self.statcast_engine = statcast_engine or StatcastFeatureEngine(
             league_baselines=self.league,
+            config=self.config,
         )
         self.prop_engine = prop_engine or PropEngine(
             league_baselines=self.league,
@@ -131,6 +138,7 @@ class DailyPredictor:
         include_pitchers: bool = True,
         persist_features: bool = False,
         archive_predictions: Optional[bool] = None,
+        capture_prediction_provenance: bool = False,
         apply_corrections: Optional[bool] = None,
         include_edges: Optional[bool] = None,
         odds_lines: Optional[list[OddsLine]] = None,
@@ -168,6 +176,7 @@ class DailyPredictor:
         )
 
         try:
+            market_policy = load_market_output_policy(self.project_root, self.config)
             correction_ctx = self._prepare_corrections(use_corrections)
 
             bundles = self.build_feature_bundles(
@@ -189,7 +198,18 @@ class DailyPredictor:
                 self.prop_engine.configure_simulation(league_baselines=calibrated_league)
 
             if persist_features and bundles:
-                self.feature_store.save(bundles, game_date)
+                self.feature_store.save(
+                    bundles,
+                    game_date,
+                    provenance=self._feature_provenance(
+                        game_date=game_date,
+                        hitter_categories=hitter_categories,
+                        include_pitchers=include_pitchers,
+                        corrections_active=correction_ctx,
+                        edges_requested=compute_edges,
+                        use_projected_lineups=use_projected_lineups,
+                    ),
+                )
 
             hitter_projections: list[PropProjection] = []
             for bundle in bundles:
@@ -216,6 +236,7 @@ class DailyPredictor:
                 compute_edges,
                 odds_lines,
                 min_edge_pct,
+                market_policy,
             )
 
             result = DailyPrediction(
@@ -223,6 +244,21 @@ class DailyPredictor:
                 hitter_projections=hitter_projections,
                 pitcher_projections=pitcher_projections,
                 value_plays=value_plays,
+                market_status=market_policy.status,
+                market_policy_sha256=market_policy.policy_sha256,
+                market_policy_reason=market_policy.reason,
+                prediction_provenance=(
+                    self._prediction_provenance(
+                        game_date=game_date,
+                        hitter_categories=hitter_categories,
+                        include_pitchers=include_pitchers,
+                        corrections_active=bool(correction_ctx),
+                        edges_requested=compute_edges,
+                        use_projected_lineups=use_projected_lineups,
+                    )
+                    if capture_prediction_provenance
+                    else None
+                ),
             )
 
             should_archive = (
@@ -300,6 +336,7 @@ class DailyPredictor:
         compute_edges: bool,
         odds_lines: Optional[list[OddsLine]],
         min_edge_pct: Optional[float],
+        market_policy: MarketOutputPolicy,
     ) -> list[EdgeResult]:
         if not compute_edges:
             return []
@@ -327,7 +364,58 @@ class DailyPredictor:
             lines,
             min_edge_pct=min_edge,
         )
-        logger.info("Found %d value plays for %s", len(value_plays), game_date)
+        if not market_policy.actionable:
+            for edge in value_plays:
+                edge.actionable = False
+                edge.market_status = market_policy.status
+                # The legacy Kelly calculation is a research ranking only until
+                # the policy has earned authorization.  Do not serialize a
+                # number that looks like a stake recommendation.
+                edge.kelly_fraction = 0.0
+                edge.notes.append(
+                    f"{market_policy.status}: research signal only; no staking authorization "
+                    f"({market_policy.reason})"
+                )
+            logger.info(
+                "Found %d research market signals for %s; policy blocks betting (%s)",
+                len(value_plays),
+                game_date,
+                market_policy.reason,
+            )
+        else:
+            for edge in value_plays:
+                edge.actionable = market_policy.authorizes(
+                    edge.sportsbook, str(edge.category), edge.edge_side
+                )
+                edge.market_status = market_policy.status
+                if not edge.actionable:
+                    edge.kelly_fraction = 0.0
+                    edge.notes.append(
+                        "BETTING_AUTHORIZED policy does not authorize this exact "
+                        f"market scope ({edge.sportsbook}/{edge.category}/{edge.edge_side})"
+                    )
+            authorized = sum(edge.actionable for edge in value_plays)
+            logger.info(
+                "Found %d authorized market signals and %d out-of-scope research signals for %s",
+                authorized, len(value_plays) - authorized, game_date,
+            )
+
+        unresolved_hr_players = {
+            projection.player_name
+            for projection in hitter_projections
+            if projection.category == "home_runs"
+            and "opposing_pitcher_hr9_direction_unqualified"
+            in projection.input_health_flags
+        }
+        for edge in value_plays:
+            if edge.category == "home_runs" and edge.player_name in unresolved_hr_players:
+                edge.actionable = False
+                edge.kelly_fraction = 0.0
+                edge.market_status = "RESEARCH_ONLY"
+                edge.notes.append(
+                    "HR authorization blocked: opposing-pitcher HR/9 direction "
+                    "is unresolved and the isolated correction failed its gate"
+                )
         return value_plays
 
     def _prepare_corrections(self, use_corrections: bool) -> bool:
@@ -368,6 +456,78 @@ class DailyPredictor:
         self._savant_client.league = league
         self.lineup_intelligence.league = league
         self.feature_factory.sync_league(league)
+
+    def _feature_provenance(
+        self,
+        *,
+        game_date: str,
+        hitter_categories: Optional[tuple[PropCategory, ...]],
+        include_pitchers: bool,
+        corrections_active: bool,
+        edges_requested: bool,
+        use_projected_lineups: bool,
+    ) -> dict[str, Any]:
+        """Evidence accompanying a persisted feature snapshot, never an input.
+
+        The configuration hash covers the complete effective configuration;
+        ``model_version`` separately identifies the documented output-affecting
+        config subset.  Git provenance records dirty/untracked work too, so a
+        clean commit label cannot disguise local source changes.
+        """
+
+        root = Path(__file__).resolve().parents[2]
+        config_source: str | None = None
+        if self.config_path:
+            config_source = str(Path(self.config_path).resolve())
+        elif not self._config_supplied_directly:
+            default_config = root / "config" / "config.json"
+            if default_config.is_file():
+                config_source = str(default_config.resolve())
+        return {
+            "schema_version": "daily-feature-provenance-v1",
+            "captured_at_utc": datetime.now(timezone.utc).isoformat(),
+            "model_version": model_version(self.config),
+            "effective_config_sha256": sha256_json(self.config),
+            "config_source_path": config_source,
+            "code": code_provenance(root),
+            "run_options": {
+                "game_date": game_date,
+                "hitter_categories": list(hitter_categories or ()),
+                "include_pitchers": include_pitchers,
+                "corrections_active": corrections_active,
+                "edges_requested": edges_requested,
+                "use_projected_lineups": use_projected_lineups,
+            },
+        }
+
+    def _prediction_provenance(
+        self,
+        *,
+        game_date: str,
+        hitter_categories: Optional[tuple[PropCategory, ...]],
+        include_pitchers: bool,
+        corrections_active: bool,
+        edges_requested: bool,
+        use_projected_lineups: bool,
+    ) -> dict[str, Any]:
+        """Decision-time provenance for a potential forward-shadow archive.
+
+        This is intentionally opt-in because recording a full repository state
+        can be expensive on a dirty local worktree. Full-slate automation opts
+        in. A future shadow adapter must reject an archive without this record,
+        never recreate provenance after a game has started.
+        """
+
+        payload = self._feature_provenance(
+            game_date=game_date,
+            hitter_categories=hitter_categories,
+            include_pitchers=include_pitchers,
+            corrections_active=corrections_active,
+            edges_requested=edges_requested,
+            use_projected_lineups=use_projected_lineups,
+        )
+        payload["schema_version"] = "daily-prediction-provenance-v1"
+        return payload
 
     def rank_hitter_projections(
         self,

@@ -23,6 +23,9 @@ the promotion gate (discipline #4) is cleared.
 Usage:
     python run_slate.py --date 2026-07-08
     python run_slate.py                      # today (US slate date)
+
+The default is the current K/BB research baseline.  This does not authorize
+betting; the market-output policy remains fail closed.
 """
 
 from __future__ import annotations
@@ -34,6 +37,7 @@ from datetime import date
 from pathlib import Path
 
 from src.models.dataclasses import PropCategory
+from src.learning.prediction_archive import PredictionArchive
 from src.prediction import DailyPredictor
 from src.utils.errors import ConfigError, DataFetchError, PredictorError
 from src.utils.logging import setup_logging
@@ -43,6 +47,7 @@ from src.utils.logging import setup_logging
 # change this to match so automation and manual runs never drift.
 HITTER_CATEGORIES: tuple[PropCategory, ...] = ("hits", "hrr", "home_runs")  # type: ignore[assignment]
 INCLUDE_PITCHERS: bool = True  # strikeouts
+DEFAULT_RESEARCH_CONFIG = Path("config/config.kbb.json")
 
 EXIT_OK = 0
 EXIT_ERROR = 1
@@ -66,7 +71,16 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--config",
         metavar="PATH",
-        help="Path to config.json (default: config/config.json)",
+        help="Path to model config (default: config/config.kbb.json, current research baseline)",
+    )
+    parser.add_argument(
+        "--archive-dir",
+        metavar="PATH",
+        help=(
+            "Write the rich prediction archive to this directory without changing "
+            "model configuration or prediction provenance. The forward collector "
+            "uses a directory outside its clean release checkout."
+        ),
     )
     parser.add_argument(
         "--include-projected-lineups",
@@ -99,8 +113,18 @@ def main(argv: list[str] | None = None) -> int:
     log = logging.getLogger("run_slate")
 
     try:
-        config_path = Path(args.config) if args.config else None
+        config_path = Path(args.config) if args.config else DEFAULT_RESEARCH_CONFIG
         predictor = DailyPredictor(config_path=config_path)
+        archive_dir = (
+            Path(args.archive_dir).resolve()
+            if args.archive_dir
+            else Path("data/learning/predictions")
+        )
+        if args.archive_dir:
+            predictor.outcome_recorder.archive = PredictionArchive(
+                archive_dir=str(archive_dir),
+                project_root=Path.cwd(),
+            )
 
         if args.refresh:
             predictor.mlb_api.clear_cache(args.date)
@@ -112,6 +136,15 @@ def main(argv: list[str] | None = None) -> int:
             args.date,
             hitter_categories=HITTER_CATEGORIES,
             include_pitchers=INCLUDE_PITCHERS,
+            # Persist the exact feature bundles as well as the prediction
+            # archive. This makes factual fallback rates auditable per slate;
+            # it does not change any feature, probability, or simulation seed.
+            persist_features=True,
+            # The automation archive is the candidate source for future
+            # hard-keyed shadow entries, so record decision-time code/config
+            # provenance now. Archives without it are deliberately ineligible
+            # for forward-shadow evidence.
+            capture_prediction_provenance=True,
             apply_corrections=True if args.apply_corrections else None,
             use_projected_lineups=args.include_projected_lineups,
         )
@@ -130,9 +163,10 @@ def main(argv: list[str] | None = None) -> int:
             f"Slate {args.date}: {n_hit} hitter + {n_pit} pitcher projections "
             f"across {cats}."
         )
+        print(f"Archive: {archive_dir / f'predictions_{args.date}.json'} (includes simulation blocks).")
         print(
-            f"Archive: data/learning/predictions/predictions_{args.date}.json "
-            f"(includes simulation blocks)."
+            f"Feature snapshot: data/features/{args.date}/ "
+            "(manifest-verified input-health evidence)."
         )
         return EXIT_OK
 

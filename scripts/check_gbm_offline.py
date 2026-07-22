@@ -5,7 +5,7 @@ catboost/lightgbm and NO network, on a tiny synthetic fixture. Run this FIRST
 (discipline: validate offline harness, then real smoke test, then commit).
 
 Checks:
-  1. Schema gate accepts a3.1/a4.1 and REJECTS mismatches / missing roller.
+  1. Schema gate accepts a3.2/a4.1 and REJECTS mismatches / missing roller.
   2. Targets exactly equal outcome_recorder.compute_actual_value (incl. fantasy
      from config weights, incl. the singles = hits - 2b - 3b - hr formula).
   3. Temporal split never puts a holdout date into train (no leakage), and the
@@ -51,6 +51,8 @@ def ref_actual(row, cat, fw):
         return float(h)
     if cat == "home_runs":
         return float(hr)
+    if cat == "total_bases":
+        return float(h + d + 2 * t + 3 * hr)
     if cat == "hrr":
         return float(h + row["out_runs"] + row["out_rbi"])
     if cat == "strikeouts":
@@ -67,7 +69,7 @@ def make_hitters(n=40):
     rng = np.random.default_rng(7)
     dates = pd.date_range("2024-04-01", periods=n, freq="D").strftime("%Y-%m-%d")
     df = pd.DataFrame({
-        "builder_schema": "a3.1", "roller_schema": "a4.1",
+        "builder_schema": "a3.2", "roller_schema": "a4.1",
         "season": 2024, "game_date": dates,
         "game_pk": range(n), "player_id": rng.integers(1000, 1100, n),
         "player_name": [f"P{i}" for i in range(n)],
@@ -79,7 +81,7 @@ def make_hitters(n=40):
         "pit_avg": rng.uniform(.2, .32, n), "pit_obp": rng.uniform(.28, .4, n),
         "pit_slg": rng.uniform(.35, .55, n),
         "opp_sp_throws": rng.choice(["L", "R"], n),
-        "opp_sp_source": rng.choice(["probable", "actual_starter"], n),
+        "opp_sp_source": "probable",
         "opp_sp_k9": rng.uniform(6, 12, n),
         "umpire_id": rng.choice([101, 102, 103], n),
         "platoon_adv": rng.integers(0, 2, n),
@@ -105,7 +107,7 @@ def make_pitchers(n=20):
     rng = np.random.default_rng(11)
     dates = pd.date_range("2024-04-01", periods=n, freq="D").strftime("%Y-%m-%d")
     return pd.DataFrame({
-        "builder_schema": "a3.1", "season": 2024, "game_date": dates,
+        "builder_schema": "a3.2", "season": 2024, "game_date": dates,
         "game_pk": range(n), "player_id": rng.integers(2000, 2100, n),
         "player_name": [f"SP{i}" for i in range(n)],
         "team": rng.choice(["NYY", "BOS"], n), "opponent": rng.choice(["NYY", "BOS"], n),
@@ -124,9 +126,9 @@ def main() -> int:
     # 1. Schema gate
     try:
         assert_schema(hitters, kind="hitter"); assert_schema(pitchers, kind="pitcher")
-        check("schema gate accepts valid a3.1/a4.1", True)
+        check("schema gate accepts valid a3.2/a4.1", True)
     except Exception as e:
-        check("schema gate accepts valid a3.1/a4.1", False, str(e))
+        check("schema gate accepts valid a3.2/a4.1", False, str(e))
 
     bad = hitters.drop(columns=["roller_schema"])
     try:
@@ -140,6 +142,14 @@ def main() -> int:
     except ValueError:
         check("schema gate rejects wrong builder", True)
 
+    leaked = hitters.copy()
+    leaked.loc[0, "opp_sp_source"] = "actual_starter"
+    try:
+        assert_schema(leaked, kind="hitter")
+        check("schema gate rejects post-game opposing starter", False)
+    except ValueError:
+        check("schema gate rejects post-game opposing starter", True)
+
     # pitcher frame must NOT require roller (A4 is hitter-only)
     try:
         assert_schema(pitchers, kind="pitcher")
@@ -148,7 +158,7 @@ def main() -> int:
         check("pitcher gate does not require roller", False, str(e))
 
     # 2. Targets match compute_actual_value exactly
-    for cat in ("hits", "home_runs", "hrr", "fantasy"):
+    for cat in ("hits", "home_runs", "total_bases", "hrr", "fantasy"):
         got = derive_target(hitters, cat, fw)
         want = np.array([ref_actual(r, cat, fw) for _, r in hitters.iterrows()])
         check(f"target '{cat}' == compute_actual_value", np.allclose(got, want),
@@ -190,12 +200,16 @@ def main() -> int:
     base_projs, cand_projs, outs = [], [], []
     rng = np.random.default_rng(3)
     for i in range(30):
-        pid, gd = 5000 + i, "2024-09-01"
+        pid, game_pk, gd = 5000 + i, 900000 + i, "2024-09-01"
         for c in cats:
             actual = float(rng.integers(0, 3))
-            outs.append(OutcomeRecord(pid, f"X{i}", gd, c, actual))
-            base_projs.append(PropProjection(pid, f"X{i}", c, gd, actual + 0.9, 0.0))
-            cand_projs.append(PropProjection(pid, f"X{i}", c, gd, actual + 0.3, 0.0))  # better
+            outs.append(OutcomeRecord(pid, f"X{i}", gd, c, actual, mlb_game_pk=game_pk))
+            base_projs.append(
+                PropProjection(pid, f"X{i}", c, gd, actual + 0.9, 0.0, mlb_game_pk=game_pk)
+            )
+            cand_projs.append(
+                PropProjection(pid, f"X{i}", c, gd, actual + 0.3, 0.0, mlb_game_pk=game_pk)
+            )  # better
     b_rep, c_rep, comparison = score_reports(base_projs, cand_projs, outs, cats, engine)
     try:
         compared = assert_comparable(comparison, cats, baseline=b_rep, candidate=c_rep)

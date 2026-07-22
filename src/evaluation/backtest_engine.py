@@ -31,6 +31,9 @@ class OutcomeRecord:
     game_date: str
     category: PropCategory
     actual_value: float
+    # Optional for generic/live objects only. Historical evaluation refuses a
+    # missing value before it can collapse a doubleheader by player/date.
+    mlb_game_pk: Optional[int] = None
 
 
 @dataclass(frozen=True)
@@ -102,6 +105,10 @@ class BacktestEngine:
         "fantasy": 0.15,
         "strikeouts": 0.20,
     }
+    # Candidate-only categories have their own gates. They may be reported
+    # individually, but must never enter an aggregate score by a silent
+    # fallback weight that could hide a losing market.
+    CANDIDATE_ONLY_CATEGORIES = frozenset({"total_bases"})
 
     def evaluate_predictions(
         self,
@@ -110,11 +117,12 @@ class BacktestEngine:
         categories: Optional[tuple[PropCategory, ...]] = None,
     ) -> BacktestReport:
         """Match predictions to outcomes and compute per-category metrics."""
+        self._require_historical_identity(projections, outcomes)
         outcome_index = {
-            (o.player_id, o.game_date, o.category): o.actual_value for o in outcomes
+            (o.mlb_game_pk, o.player_id, o.category): o.actual_value for o in outcomes
         }
         pred_index = {
-            (p.player_id, p.game_date, p.category): p.projected_value for p in projections
+            (p.mlb_game_pk, p.player_id, p.category): p.projected_value for p in projections
         }
 
         cats = categories or tuple(self._unique_categories(projections, outcomes))
@@ -171,6 +179,14 @@ class BacktestEngine:
 
     def combined_score(self, report: BacktestReport) -> float:
         """Weighted MAE across categories (lower is better)."""
+        candidate_only = sorted(
+            set(report.metrics_by_category) & self.CANDIDATE_ONLY_CATEGORIES
+        )
+        if candidate_only:
+            raise ValueError(
+                "Aggregate BacktestEngine score cannot include unpromoted candidate "
+                f"market(s) {candidate_only}; report their gate separately."
+            )
         score = 0.0
         weight_sum = 0.0
         for category, metrics in report.metrics_by_category.items():
@@ -202,8 +218,8 @@ class BacktestEngine:
     @staticmethod
     def _collect_pairs(
         category: PropCategory,
-        pred_index: dict[tuple[int, str, PropCategory], float],
-        outcome_index: dict[tuple[int, str, PropCategory], float],
+        pred_index: dict[tuple[int, int, PropCategory], float],
+        outcome_index: dict[tuple[int, int, PropCategory], float],
     ) -> list[tuple[float, float]]:
         pairs: list[tuple[float, float]] = []
         for key, predicted in pred_index.items():
@@ -213,6 +229,28 @@ class BacktestEngine:
             if actual is not None:
                 pairs.append((predicted, actual))
         return pairs
+
+    @staticmethod
+    def _require_historical_identity(
+        projections: list[PropProjection], outcomes: list[OutcomeRecord]
+    ) -> None:
+        """Keep generic dataclasses backward-compatible, never historical joins."""
+        missing_predictions = [p for p in projections if p.mlb_game_pk is None]
+        missing_outcomes = [o for o in outcomes if o.mlb_game_pk is None]
+        if missing_predictions or missing_outcomes:
+            raise ValueError(
+                "Historical BacktestEngine scoring requires non-null mlb_game_pk "
+                f"(missing projections={len(missing_predictions)}, "
+                f"outcomes={len(missing_outcomes)})."
+            )
+        for label, rows in (("projections", projections), ("outcomes", outcomes)):
+            keys = [(row.mlb_game_pk, row.player_id, row.category) for row in rows]
+            if len(keys) != len(set(keys)):
+                raise ValueError(
+                    f"Historical BacktestEngine scoring requires unique "
+                    f"(mlb_game_pk, player_id, category) {label}; refusing to "
+                    "silently overwrite duplicate records."
+                )
 
     @staticmethod
     def _compute_metrics(category: PropCategory, pairs: list[tuple[float, float]]) -> BacktestMetrics:

@@ -25,17 +25,20 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import pandas as pd
 
 from src.data.http_cache import RateLimiter
+from src.data.mlb_api import MLBStatsAPI
 from src.data.point_in_time import PointInTimeStats
 from src.learning.retrain_runner import RetrainRunner
 from src.learning.training_set_builder import (
     CachedMLBAPI,
     TrainingSetBuilder,
 )
+from src.utils.errors import DataFetchError
 
 SEASON = 2025
 DATE1, DATE2 = "2025-06-15", "2025-06-16"
 AWAY = list(range(1001, 1010))
 HOME = list(range(2001, 2010))
+AWAY_SUB = 1099
 AWAY_SP, HOME_SP = 9001, 9002
 
 PASS = 0
@@ -88,12 +91,18 @@ def pitching_log(pid: int) -> dict:
     splits = [
         {
             "date": f"2025-06-{d:02d}",
-            "stat": {"inningsPitched": "6.0", "strikeOuts": 7, "baseOnBalls": 2, "homeRuns": 1},
+            "stat": {
+                "inningsPitched": "6.0",
+                "strikeOuts": 7,
+                "baseOnBalls": 2,
+                "homeRuns": 1,
+                "gamesStarted": 1,
+            },
         }
         for d in (1, 4, 7, 10, 13)
     ]
-    splits.append({"date": DATE1, "stat": {"inningsPitched": "9.0", "strikeOuts": 12, "baseOnBalls": 0, "homeRuns": 0}})
-    splits.append({"date": DATE2, "stat": {"inningsPitched": "8.0", "strikeOuts": 13, "baseOnBalls": 1, "homeRuns": 0}})
+    splits.append({"date": DATE1, "stat": {"inningsPitched": "9.0", "strikeOuts": 12, "baseOnBalls": 0, "homeRuns": 0, "gamesStarted": 1}})
+    splits.append({"date": DATE2, "stat": {"inningsPitched": "8.0", "strikeOuts": 13, "baseOnBalls": 1, "homeRuns": 0, "gamesStarted": 1}})
     return {"stats": [{"splits": splits}]}
 
 
@@ -129,6 +138,7 @@ def schedule(date_str: str) -> dict:
 
 
 def feed(game_pk: int) -> dict:
+    official_date = DATE1 if game_pk == 100 else DATE2
     def batting(i: int) -> dict:
         return {"stats": {"batting": {
             "plateAppearances": 4, "atBats": 4, "hits": 1 + (i % 2),
@@ -138,14 +148,23 @@ def feed(game_pk: int) -> dict:
 
     away_players = {f"ID{pid}": batting(i) for i, pid in enumerate(AWAY)}
     home_players = {f"ID{pid}": batting(i) for i, pid in enumerate(HOME)}
+    for slot, pid in enumerate(AWAY, start=1):
+        away_players[f"ID{pid}"]["battingOrder"] = f"{slot}00"
+    for slot, pid in enumerate(HOME, start=1):
+        home_players[f"ID{pid}"]["battingOrder"] = f"{slot}00"
+    away_players[f"ID{AWAY_SUB}"] = batting(99)
+    away_players[f"ID{AWAY_SUB}"]["battingOrder"] = "101"
     away_players[f"ID{AWAY_SP}"] = {"stats": {"pitching": {"inningsPitched": "6.0", "strikeOuts": 8, "baseOnBalls": 1, "homeRuns": 1}}}
     home_players[f"ID{HOME_SP}"] = {"stats": {"pitching": {"inningsPitched": "5.0", "strikeOuts": 4, "baseOnBalls": 3, "homeRuns": 2}}}
     return {
-        "gameData": {"weather": {"condition": "Sunny", "temp": "85", "wind": "10 mph, Out To CF"}},
+        "gameData": {
+            "datetime": {"officialDate": official_date},
+            "weather": {"condition": "Sunny", "temp": "85", "wind": "10 mph, Out To CF"},
+        },
         "liveData": {"boxscore": {
             "officials": [{"officialType": "Home Plate", "official": {"id": 501, "fullName": "Test Ump"}}],
             "teams": {
-                "away": {"battingOrder": AWAY, "pitchers": [AWAY_SP, 9101], "players": away_players},
+                "away": {"battingOrder": [AWAY_SUB, *AWAY[1:]], "pitchers": [AWAY_SP, 9101], "players": away_players},
                 "home": {"battingOrder": HOME, "pitchers": [HOME_SP, 9102], "players": home_players},
             },
         }},
@@ -155,7 +174,7 @@ def feed(game_pk: int) -> dict:
 def person(pid: int) -> dict:
     bats = "L" if pid == 1001 else "R"
     throws = "L" if pid == HOME_SP else "R"
-    return {"people": [{"fullName": f"Player {pid}", "batHand": {"code": bats}, "pitchHand": {"code": throws}}]}
+    return {"people": [{"fullName": f"Player {pid}", "batSide": {"code": bats}, "pitchHand": {"code": throws}}]}
 
 
 class FixtureAPI(CachedMLBAPI):
@@ -197,6 +216,45 @@ def main() -> int:
         return TrainingSetBuilder(api, pit, config, out_dir=out_dir)
 
     try:
+        print("DUAL-TEAM IDENTITY CANARY")
+        dual_player = 643376
+        dual_away = {
+            f"ID{100 + slot}": {"battingOrder": f"{slot}00"}
+            for slot in range(1, 10)
+        }
+        dual_away.pop("ID107")
+        dual_away[f"ID{dual_player}"] = {"battingOrder": "700"}
+        dual_home = {
+            f"ID{200 + slot}": {"battingOrder": f"{slot}00"}
+            for slot in range(1, 10)
+        }
+        dual_home[f"ID{dual_player}"] = {"battingOrder": "701"}
+        dual_feed = {"liveData": {"boxscore": {"teams": {
+            "away": {"players": dual_away},
+            "home": {"players": dual_home},
+        }}}}
+        dual_order = MLBStatsAPI.completed_game_original_batting_order_from_feed(
+            746942, dual_feed
+        )
+        check(
+            "dual-team player remains the away slot-7 original starter",
+            dual_order["away"][6] == dual_player,
+        )
+        check(
+            "dual-team player does not alter the home original starters",
+            dual_order["home"] == list(range(201, 210)),
+        )
+        try:
+            MLBStatsAPI.completed_game_batting_roles_from_feed(746942, dual_feed)
+        except DataFetchError as exc:
+            ambiguous_failed = "player-keyed role projection is ambiguous" in str(exc)
+        else:
+            ambiguous_failed = False
+        check(
+            "mutation: player-keyed dual-team role projection hard-fails",
+            ambiguous_failed,
+        )
+
         print("BUILD — two dates, mixed game types")
         b = make_builder()
         results = b.build_dates([DATE1, DATE2])
@@ -205,6 +263,12 @@ def main() -> int:
         check("date1: spring game skipped", r1.skipped_non_regular == 1, f"got {r1.skipped_non_regular}")
         check("date1: live game skipped", r1.skipped_not_final == 1, f"got {r1.skipped_not_final}")
         check("date1: 18 hitter rows", r1.hitter_rows == 18, f"got {r1.hitter_rows}")
+        h1_ids = set(pd.read_csv(out_dir / str(SEASON) / f"hitters_{DATE1}.csv").player_id)
+        check(
+            "date1: original starter retained and final substitute excluded",
+            AWAY[0] in h1_ids and AWAY_SUB not in h1_ids,
+            f"starter={AWAY[0] in h1_ids} substitute={AWAY_SUB in h1_ids}",
+        )
         check("date1: 2 pitcher rows (actual starters)", r1.pitcher_rows == 2, f"got {r1.pitcher_rows}")
         check("date2: rows built without probables", r2.hitter_rows == 18 and r2.pitcher_rows == 2)
 
@@ -252,12 +316,20 @@ def main() -> int:
         check("rebuild run served entirely from disk cache", FixtureAPI.network_calls == calls_after_first, f"{FixtureAPI.network_calls} vs {calls_after_first}")
 
         print("\nASSEMBLY")
+        # A corrected postponed/suspended-game date can produce zero rows on a
+        # shard that was previously non-empty.  The empty write must replace
+        # it, otherwise assembly silently restores the stale player-game rows.
+        stale_date = "2025-06-17"
+        b3._write_shard("hitters", stale_date, list(h1.columns), [h1.iloc[0].to_dict()])
+        b3._write_shard("hitters", stale_date, list(h1.columns), [])
+        stale = pd.read_csv(out_dir / str(SEASON) / f"hitters_{stale_date}.csv")
+        check("empty shard overwrites prior stale rows", stale.empty, f"got {len(stale)} rows")
         outputs = b3.assemble([SEASON])
         hit = pd.read_csv(outputs["hitters"])
         pit_df = pd.read_csv(outputs["pitchers"])
         check("assembled hitters: 36 rows, gz-readable", len(hit) == 36 and str(outputs["hitters"]).endswith(".csv.gz"), f"got {len(hit)}")
         check("assembled pitchers: 4 rows", len(pit_df) == 4, f"got {len(pit_df)}")
-        check("builder_schema stamped on every row", set(hit.builder_schema) == {"a3.1"})
+        check("builder_schema stamped on every row", set(hit.builder_schema) == {"a3.2"})
 
         print(f"\n{PASS} passed, {FAIL} failed")
         return 0 if FAIL == 0 else 1

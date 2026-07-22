@@ -1,0 +1,53 @@
+{
+  "schema_version": "forward-shadow-operational-smoke-preflight-v1",
+  "built_at_utc": "2026-07-18T04:27:20Z",
+  "status": "READY_FOR_ROTATED_CREDENTIAL_AND_USER_START",
+  "research_only": true,
+  "betting_authorized": false,
+  "live_request_made": false,
+  "operational_smoke_started": false,
+  "economic_evidence_eligible": false,
+  "readiness": {
+    "path": "reports/forward_shadow_readiness_v17.json",
+    "sha256": "aee44086e26a761cdfe3b2746abfdea526b351afd468198e9c19e4b768ea546a",
+    "guards_passed": 195,
+    "guards_expected": 195
+  },
+  "evidence_scope": {
+    "path": "data/learning/shadow/operational_smoke_v6/evidence_scope.json",
+    "file_sha256": "d5c303e7effae1749f7dd506b215791fc2729c1818bd7de1ac6dbc9a2c1d55c6",
+    "scope_sha256": "7c636bf27be733a7147d962a0b5990eab2ef0e28e601e67fc48129334a9e977d",
+    "mode": "operational_smoke",
+    "economic_evidence_eligible": false
+  },
+  "local_runner": {
+    "path": "deploy/shadow_collector/windows/Run-LocalOperationalSmoke.ps1",
+    "sha256": "660156dea9c689098703bb4261a14a69bd3c900c9dfd81a230271aeab3741690",
+    "credential_input": "hidden SecureString prompt",
+    "credential_transport": "child-process environment only",
+    "credential_persisted": false,
+    "durable_forward_primary": false
+  },
+  "verified_preflight": [
+    "current operational-smoke scope validates and is permanently non-economic",
+    "local runner accepts the operational-smoke scope",
+    "mutation to forward_evidence scope is rejected",
+    "economic-era validation rejects a different running commit or any nonignored worktree drift",
+    "portable LF checkout normalization is bound by the readiness certificate",
+    "tracked-source credential scan passes without exposing values"
+  ],
+  "required_user_actions": [
+    "rotate the previously exposed odds-provider credential in the provider dashboard",
+    "do not paste the replacement credential into chat, source, a command line, or a report",
+    "start the local smoke runner from an ordinary PowerShell window using its hidden prompt",
+    "keep the PowerShell window open and the computer awake through prestart and official settlement"
+  ],
+  "still_blocked_after_smoke": [
+    "clean scoped source release and immutable forward-evidence scope",
+    "durable always-on external primary collector",
+    "GitHub read-only verifier credentials and host-key pinning",
+    "account-visible product evidence for Onyx, Novig, Chalkboard, and PrizePicks",
+    "56 complete future official-date blocks before the first economic look"
+  ],
+  "interpretation": "This preflight proves only that the local excluded smoke is ready to start after credential rotation. It does not prove live reliability, executability, profitability, settlement agreement, or betting authorization."
+}

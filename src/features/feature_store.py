@@ -7,6 +7,7 @@ Supports JSON (full fidelity) and Parquet (flattened + round-trip JSON column).
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone
 from dataclasses import asdict
 from datetime import date
 from enum import Enum
@@ -25,13 +26,21 @@ from src.models.dataclasses import (
     PitcherStatcastProfile,
     PlayerFeatureBundle,
     PlayerIdentity,
+    StatcastDistributionProfile,
     StatcastProfile,
     UmpireContext,
     WeatherContext,
 )
 from src.utils.logging import get_logger
+from src.utils.provenance import sha256_file
 
 logger = get_logger(__name__)
+
+FEATURE_MANIFEST_SCHEMA_VERSION = "feature-bundle-manifest-v1"
+
+
+class FeatureManifestError(ValueError):
+    """Raised when a persisted feature-bundle manifest is missing or tampered."""
 
 
 class FeatureStore:
@@ -53,8 +62,14 @@ class FeatureStore:
         game_date: str,
         write_json: bool = True,
         write_parquet: bool = True,
+        provenance: Optional[dict[str, Any]] = None,
     ) -> dict[str, Path]:
-        """Save bundles for a date in JSON and/or Parquet format."""
+        """Save bundles and a content-hashed provenance manifest for a date.
+
+        The manifest is written only after every requested bundle artifact has
+        been successfully written.  It describes the exact files produced by
+        this save call; it does not alter any feature values.
+        """
         out_dir = self.root / game_date
         out_dir.mkdir(parents=True, exist_ok=True)
         written: dict[str, Path] = {}
@@ -72,6 +87,15 @@ class FeatureStore:
             df.to_parquet(parquet_path, index=False)
             written["parquet"] = parquet_path
             logger.info("Saved %d bundles to %s", len(bundles), parquet_path)
+
+        manifest_path = self._write_manifest(
+            out_dir=out_dir,
+            game_date=game_date,
+            bundle_count=len(bundles),
+            artifacts=written,
+            provenance=provenance,
+        )
+        written["manifest"] = manifest_path
 
         return written
 
@@ -103,6 +127,83 @@ class FeatureStore:
     def exists(self, game_date: str) -> bool:
         out_dir = self.root / game_date
         return (out_dir / "bundles.json").exists() or (out_dir / "bundles.parquet").exists()
+
+    def manifest_path(self, game_date: str) -> Path:
+        return self.root / game_date / "manifest.json"
+
+    def verify_manifest(self, game_date: str) -> dict[str, Any] | None:
+        """Verify a saved manifest's exact artifact hashes.
+
+        ``None`` means this is a legacy snapshot from before manifests existed;
+        callers must label it as such rather than infer provenance.  A present
+        but malformed/tampered manifest is a hard failure.
+        """
+
+        path = self.manifest_path(game_date)
+        if not path.exists():
+            return None
+        try:
+            manifest = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            raise FeatureManifestError(f"Invalid feature manifest: {path}") from exc
+
+        if manifest.get("schema_version") != FEATURE_MANIFEST_SCHEMA_VERSION:
+            raise FeatureManifestError(
+                f"Unknown feature manifest schema in {path}: {manifest.get('schema_version')!r}"
+            )
+        if manifest.get("game_date") != game_date:
+            raise FeatureManifestError(
+                f"Feature manifest date mismatch: requested {game_date}, "
+                f"manifest says {manifest.get('game_date')!r}"
+            )
+        artifacts = manifest.get("artifacts")
+        if not isinstance(artifacts, dict) or not artifacts:
+            raise FeatureManifestError(f"Feature manifest has no artifacts: {path}")
+
+        for name, evidence in artifacts.items():
+            if not isinstance(evidence, dict):
+                raise FeatureManifestError(f"Feature manifest artifact {name!r} is malformed")
+            rel = evidence.get("path")
+            expected = evidence.get("sha256")
+            if not isinstance(rel, str) or not isinstance(expected, str):
+                raise FeatureManifestError(f"Feature manifest artifact {name!r} lacks path/hash")
+            candidate = path.parent / rel
+            if not candidate.is_file():
+                raise FeatureManifestError(f"Feature artifact missing: {candidate}")
+            actual = sha256_file(candidate)
+            if actual != expected:
+                raise FeatureManifestError(
+                    f"Feature artifact hash mismatch for {candidate}: expected {expected}, got {actual}"
+                )
+        return manifest
+
+    def _write_manifest(
+        self,
+        *,
+        out_dir: Path,
+        game_date: str,
+        bundle_count: int,
+        artifacts: dict[str, Path],
+        provenance: Optional[dict[str, Any]],
+    ) -> Path:
+        evidence = {
+            name: {"path": path.name, "sha256": sha256_file(path), "bytes": path.stat().st_size}
+            for name, path in sorted(artifacts.items())
+        }
+        manifest = {
+            "schema_version": FEATURE_MANIFEST_SCHEMA_VERSION,
+            "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+            "game_date": game_date,
+            "bundle_count": bundle_count,
+            "artifacts": evidence,
+            "provenance": provenance if provenance is not None else {"status": "not_supplied"},
+        }
+        path = out_dir / "manifest.json"
+        tmp = path.with_suffix(".json.tmp")
+        tmp.write_text(json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8")
+        tmp.replace(path)
+        logger.info("Saved verified feature manifest to %s", path)
+        return path
 
 
 # ---------------------------------------------------------------------------
@@ -169,12 +270,16 @@ def _hitter_from_dict(data: dict[str, Any]) -> HitterGameContext:
         lineup_slot=int(data["lineup_slot"]),
         opposing_pitcher_id=data.get("opposing_pitcher_id"),
         opposing_pitcher_name=data.get("opposing_pitcher_name", ""),
-        opposing_pitcher_throws=data.get("opposing_pitcher_throws", "R"),
+        opposing_pitcher_throws=data.get("opposing_pitcher_throws", "U"),
     )
 
 
 def _statcast_from_dict(data: dict[str, Any]) -> StatcastProfile:
-    return StatcastProfile(**data)
+    payload = dict(data)
+    distribution = payload.get("distribution")
+    if isinstance(distribution, dict):
+        payload["distribution"] = StatcastDistributionProfile(**distribution)
+    return StatcastProfile(**payload)
 
 
 def _umpire_from_dict(data: Optional[dict[str, Any]]) -> Optional[UmpireContext]:

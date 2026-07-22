@@ -11,6 +11,7 @@ import numpy as np
 
 from src.evaluation.backtest_engine import OutcomeRecord
 from src.models.dataclasses import PropProjection
+from src.models.total_bases_contract import over_threshold_for_half_point_line
 
 
 @dataclass
@@ -56,6 +57,14 @@ class CalibrationTracker:
         threshold: float,
         n_bins: int = 10,
     ) -> CalibrationReport:
+        try:
+            event_threshold = over_threshold_for_half_point_line(threshold)
+        except ValueError as exc:
+            raise ValueError(
+                "CalibrationTracker evaluates binary half-point markets only; "
+                "integer/push lines need a separate settlement contract"
+            ) from exc
+
         outcome_index = {
             (o.player_id, o.game_date, o.category): o.actual_value for o in outcomes
         }
@@ -71,12 +80,16 @@ class CalibrationTracker:
             if actual is None or proj.simulation is None:
                 continue
 
-            model_prob = proj.simulation.p_ge_threshold.get(threshold)
+            model_prob = proj.simulation.p_ge_threshold.get(event_threshold)
             if model_prob is None:
-                model_prob = 1.0 if proj.projected_value >= threshold else 0.0
+                raise ValueError(
+                    f"{category} projection for player {proj.player_id} on "
+                    f"{proj.game_date} lacks exact P(actual >= {event_threshold:g}) "
+                    f"for market line {threshold}; refusing a point-estimate fallback"
+                )
 
             probs.append(float(model_prob))
-            observed.append(1.0 if actual >= threshold else 0.0)
+            observed.append(1.0 if actual >= event_threshold else 0.0)
 
         if not probs:
             return CalibrationReport(category=category, brier_score=0.0, expected_calibration_error=0.0)

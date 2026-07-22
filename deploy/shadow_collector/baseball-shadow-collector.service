@@ -1,0 +1,26 @@
+[Unit]
+Description=Research-only MLB T-4h forward-shadow collector tick
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=baseball-shadow
+Group=baseball-shadow
+WorkingDirectory=/opt/baseball_predictor
+EnvironmentFile=/etc/baseball-shadow/odds-api.env
+Environment=PYTHONPATH=/opt/baseball_predictor
+ExecStart=/opt/baseball_predictor/.venv/bin/python /opt/baseball_predictor/run_shadow_collector_tick.py --service-root /srv/baseball-shadow --policy /opt/baseball_predictor/config/shadow_hits_research_policy.json --runtime /opt/baseball_predictor/config/shadow_collector_runtime.json --model-config /opt/baseball_predictor/config/config.kbb.json
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ReadWritePaths=/srv/baseball-shadow /opt/baseball_predictor/data
+RestrictSUIDSGID=true
+LockPersonality=true
+CapabilityBoundingSet=
+UMask=0027
+
+[Install]
+WantedBy=multi-user.target

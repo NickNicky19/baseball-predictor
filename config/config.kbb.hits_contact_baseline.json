@@ -1,0 +1,395 @@
+{
+  "base_running": {
+    "_comment": "League base-running params + the FITTED plate-appearance distribution. pa_distribution_path points at the artifact produced by scripts/fit_pa_distribution.py -- an EMPIRICAL P(pa | lineup_slot) fitted from >=16,818 training rows per slot. This is a FIT (rule 2), not a structural placeholder. It replaces _sample_pa_count's floor/floor+1 two-point draw, which produced EXACTLY ZERO games at pa<=2 (10.1% of reality) and ZERO at pa=6 (1.7%). MEASURED to remove +0.0339 of the +0.0890 P(hits>=1) bias on DK-gradeable rows. ABSENT -> the simulator is BYTE-IDENTICAL to pre-fix (verified: 3 seeds x 40k games, incl. under the live config and with lineup_slot set). base_state_mix_rate / run_traffic_boost are NOT set here -- the HRR gate FAILED and they are not promoted; see config.hrr.json.",
+    "p_score_from_base": {
+      "double": 0.4,
+      "home_run": 1,
+      "single": 0.28,
+      "triple": 0.56,
+      "walk": 0.27
+    },
+    "pa_distribution_path": "data\\learning\\pa_distribution_pre2026.json"
+  },
+  "calibration": {
+    "bias_shrinkage": 0.4,
+    "coefficient_shrinkage": 0.3,
+    "league_shrinkage": 0.35,
+    "min_pa_for_rate_calibration": 200,
+    "min_samples_per_category": 25,
+    "pa_intercept_shrinkage": 0.25
+  },
+  "edge": {
+    "default_spreads": {
+      "fantasy": 4,
+      "hits": 0.9,
+      "home_runs": 0.45,
+      "hrr": 1.6,
+      "strikeouts": 1.8
+    },
+    "lean_edge_pct": 4,
+    "min_confidence": 0.45,
+    "strong_edge_pct": 8
+  },
+  "fantasy_scoring": {
+    "double": 5,
+    "hit_by_pitch": 2,
+    "home_run": 10,
+    "rbi": 2,
+    "run": 2,
+    "single": 3,
+    "stolen_base": 5,
+    "triple": 8,
+    "walk": 2
+  },
+  "feature_factory": {
+    "include_distribution_percentiles": true,
+    "interaction_order": 2,
+    "max_interaction_features": 120
+  },
+  "league_avg": {
+    "avg": 0.248,
+    "era": 4.2,
+    "hits_per_9": 8.5,
+    "hr_per_9": 1.1,
+    "k_per_9": 8.8,
+    "obp": 0.32,
+    "runs_per_game": 0.47,
+    "slg": 0.41,
+    "whip": 1.28,
+    "xba_on_contact": 0.32,
+    "xslg_on_contact": 0.62,
+    "xwoba_on_contact": 0.37
+  },
+  "learning": {
+    "apply_corrections": false,
+    "apply_model_parameters": true,
+    "apply_projection_offsets": true,
+    "correction_state_path": "data/learning/bias_corrections.json"
+  },
+  "lineup_intelligence": {
+    "certainty_scores": {
+      "confirmed": 1,
+      "projected": 0.78,
+      "unknown": 0.62
+    },
+    "confidence_scale": {
+      "confirmed": 1,
+      "projected": 0.88,
+      "unknown": 0.75
+    },
+    "expected_pa_scale": {
+      "confirmed": 1,
+      "projected": 0.94,
+      "unknown": 0.88
+    },
+    "min_order_length_confirmed": 9,
+    "min_order_length_projected": 7,
+    "simulation_n_sims_scale": {
+      "confirmed": 1,
+      "projected": 0.9,
+      "unknown": 0.82
+    },
+    "use_simulation_slot_pa": true,
+    "use_slot_pa_factors": true,
+    "variance_inflation": {
+      "confirmed": 1,
+      "projected": 1.12,
+      "unknown": 1.25
+    }
+  },
+  "odds": {
+    "enabled": false,
+    "file": {
+      "csv_path": "data/odds/lines.csv",
+      "date_pattern": "lines_%Y-%m-%d.csv",
+      "json_path": "",
+      "require_file": false
+    },
+    "min_edge_pct": 4,
+    "odds_api": {
+      "api_key": "",
+      "api_key_env": "ODDS_API_KEY",
+      "bookmaker": "draftkings",
+      "enabled": false,
+      "market_category_map": {
+        "batter_hits": "hits",
+        "batter_home_runs": "home_runs",
+        "pitcher_strikeouts": "strikeouts"
+      },
+      "markets": [
+        "batter_hits",
+        "batter_home_runs",
+        "pitcher_strikeouts"
+      ],
+      "regions": "us",
+      "sport_key": "baseball_mlb",
+      "timeout_seconds": 25
+    },
+    "prefer_source": "api",
+    "require_any_source": false,
+    "sources": [
+      "file"
+    ]
+  },
+  "outcome_recording": {
+    "archive_on_predict": true,
+    "enabled": true,
+    "pairs_csv_path": "data/learning/prediction_outcomes.csv",
+    "predictions_dir": "data/learning/predictions",
+    "require_final_games": true
+  },
+  "pa_simulator": {
+    "_comment_kbb": "FITTED K/BB model. The simulator predicted strikeouts from `contact_rate`, a per-swing whiff PROXY -- because StatcastProfile.k_rate was NEVER POPULATED (Savant's pull filters to batted balls; a strikeout is not one). MEASURED: sd = 0.0000 across 270 hitters. And league.contact_rate (0.7550) is the average over ALL batters while the model runs on STARTING LINEUPS (0.8178), so H_contact centres on +0.52 and k_hitter_contact (-1.05) turns that into -0.55 logits for EVERY hitter. A league-average starter produced K = 0.1365 against a realized 0.2198; the K floor then bound on 46.3% of the slate, hiding it; bip_prob was inflated 9.9% -- which carried 91.7% of the model's ENTIRE hits excess. The fitted model uses the hitter's OWN season/recent K and BB rates, which were ALREADY being fetched on every slate and handed only to the GBM. Coefficients are loaded only from the hash-bound artifact generated by scripts/fit_k_bb_final.py. Its complete fit/validation universe ends 2025-09-28; out-of-sample gains are +818.9 logL (K) and +308.9 (BB) over a constant. The PITCHER IS IN THE FIT, not added on top. ABSENT -> the simulator is BYTE-IDENTICAL to pre-fix.",
+    "kbb_artifact_path": "data/learning/k_bb_pre2026.json",
+    "kbb_artifact_sha256": "a6448d39d9ce1f0666b9656e848e10ac5ab2c9518a0bbff8eadeb753c2d08cc1",
+    "use_fitted_kbb": true
+  },
+  "park_factors": {
+    "American Family Field": {
+      "hits": 0.99,
+      "hr": 1.08,
+      "runs": 1.02
+    },
+    "Angel Stadium": {
+      "hits": 0.98,
+      "hr": 1.02,
+      "runs": 0.98
+    },
+    "Busch Stadium": {
+      "hits": 0.98,
+      "hr": 0.9,
+      "runs": 0.95
+    },
+    "Camden Yards": {
+      "hits": 0.98,
+      "hr": 0.95,
+      "runs": 0.97
+    },
+    "Chase Field": {
+      "hits": 1.03,
+      "hr": 1,
+      "runs": 1.03
+    },
+    "Citi Field": {
+      "hits": 0.97,
+      "hr": 0.98,
+      "runs": 0.95
+    },
+    "Citizens Bank Park": {
+      "hits": 1,
+      "hr": 1.12,
+      "runs": 1.04
+    },
+    "Comerica Park": {
+      "hits": 0.99,
+      "hr": 0.92,
+      "runs": 0.96
+    },
+    "Coors Field": {
+      "hits": 1.12,
+      "hr": 1.25,
+      "runs": 1.18
+    },
+    "Daikin Park": {
+      "hits": 0.99,
+      "hr": 1.06,
+      "runs": 1.01
+    },
+    "Dodger Stadium": {
+      "hits": 0.97,
+      "hr": 1.08,
+      "runs": 0.99
+    },
+    "Fenway Park": {
+      "hits": 1.05,
+      "hr": 1.02,
+      "runs": 1.06
+    },
+    "George M. Steinbrenner Field": {
+      "hits": 1,
+      "hr": 1.1,
+      "runs": 1.04
+    },
+    "Globe Life Field": {
+      "hits": 0.99,
+      "hr": 1,
+      "runs": 0.98
+    },
+    "Great American Ball Park": {
+      "hits": 1.03,
+      "hr": 1.18,
+      "runs": 1.08
+    },
+    "Guaranteed Rate Field": {
+      "hits": 1,
+      "hr": 1.1,
+      "runs": 1.03
+    },
+    "Kauffman Stadium": {
+      "hits": 1.03,
+      "hr": 0.88,
+      "runs": 0.99
+    },
+    "Minute Maid Park": {
+      "hits": 0.99,
+      "hr": 1.06,
+      "runs": 1.01
+    },
+    "Nationals Park": {
+      "hits": 1,
+      "hr": 1.02,
+      "runs": 1
+    },
+    "Oracle Park": {
+      "hits": 0.95,
+      "hr": 0.82,
+      "runs": 0.9
+    },
+    "PNC Park": {
+      "hits": 1,
+      "hr": 0.88,
+      "runs": 0.96
+    },
+    "Petco Park": {
+      "hits": 0.96,
+      "hr": 0.9,
+      "runs": 0.93
+    },
+    "Progressive Field": {
+      "hits": 1,
+      "hr": 0.95,
+      "runs": 0.99
+    },
+    "Rate Field": {
+      "hits": 1,
+      "hr": 1.1,
+      "runs": 1.03
+    },
+    "Rogers Centre": {
+      "hits": 1,
+      "hr": 1.05,
+      "runs": 1.01
+    },
+    "Sutter Health Park": {
+      "hits": 1.02,
+      "hr": 1.02,
+      "runs": 1.02
+    },
+    "T-Mobile Park": {
+      "hits": 0.93,
+      "hr": 0.94,
+      "runs": 0.9
+    },
+    "Target Field": {
+      "hits": 0.99,
+      "hr": 0.97,
+      "runs": 0.98
+    },
+    "Tropicana Field": {
+      "hits": 0.97,
+      "hr": 0.95,
+      "runs": 0.95
+    },
+    "Truist Park": {
+      "hits": 1,
+      "hr": 1.04,
+      "runs": 1.01
+    },
+    "Wrigley Field": {
+      "hits": 1,
+      "hr": 0.98,
+      "runs": 1
+    },
+    "Yankee Stadium": {
+      "hits": 0.98,
+      "hr": 1.15,
+      "runs": 1.08
+    },
+    "_comment": "Static approximate multi-year factors (hits/hr/runs vs league=1.0). These are fallback priors only — ParkFactorEstimator blends empirical venue factors over them as pairs data accumulates (see estimation_* settings). All 30 venues covered so no park silently defaults to neutral.",
+    "blend_with_static": 0.5,
+    "estimation_mode": "static",
+    "estimation_shrinkage": 0.35,
+    "loanDepot park": {
+      "hits": 0.98,
+      "hr": 0.92,
+      "runs": 0.94
+    },
+    "min_games": 8
+  },
+  "pitcher_matchup": {
+    "league_weight": 0.1,
+    "min_bvp_pa": 8,
+    "min_platoon_pa": 15,
+    "platoon_ip_target": 25,
+    "platoon_weight": 0.25,
+    "recent_form_exponent": 0.35,
+    "recent_ip_target": 20,
+    "recent_weight": 0.35,
+    "season_weight": 0.3
+  },
+  "pitcher_regression": {
+    "league_k9_blend": 0.25,
+    "season_k9_blend": 0.75
+  },
+  "recency": {
+    "max_boost": 0.12,
+    "max_penalty": 0.1,
+    "min_recent_pa": 20,
+    "target_pa": 80
+  },
+  "retraining": {
+    "auto_enable_corrections": false,
+    "lookback_days": 30,
+    "min_pairs": 25,
+    "output_state_path": "data/learning/bias_corrections.json",
+    "pairs_csv_path": "data/learning/prediction_outcomes.csv",
+    "retrain_result_path": "data/learning/latest_retrain_result.json",
+    "save_retrain_result": true
+  },
+  "role_innings": {
+    "bulk_innings": 3.5,
+    "default_innings": 5.5,
+    "enabled": true,
+    "min_games_for_role": 3,
+    "opener_innings": 2.6,
+    "opener_max_ratio": 0.2,
+    "starter_ip_ceil": 7,
+    "starter_ip_floor": 4,
+    "starter_min_ratio": 0.8
+  },
+  "savant": {
+    "blend_daily": 0.3,
+    "blend_savant": 0.7,
+    "csv_path": "data/savant/stats.csv",
+    "odds_pdf": "data/odds/odds.pdf"
+  },
+  "season": 2026,
+  "simulation": {
+    "n_sims": 8000,
+    "random_seed": 17
+  },
+  "simulation_slot_pa": {
+    "1": 1.117,
+    "2": 1.085,
+    "3": 1.068,
+    "4": 1.029,
+    "5": 1,
+    "6": 0.964,
+    "7": 0.947,
+    "8": 0.932,
+    "9": 0.951,
+    "shrinkage": 0.4,
+    "use_empirical_prior": true
+  },
+  "validation": {
+    "champion_improvement_threshold": 0.02,
+    "min_fold_samples": 20,
+    "overshoot_margin": 1.75,
+    "test_window_days": 7,
+    "walk_forward_folds": 5
+  },
+  "weights": {
+    "recent": 0.65,
+    "season": 0.35
+  }
+}

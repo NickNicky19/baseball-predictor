@@ -10,6 +10,10 @@ from typing import Any, Optional
 from src.models.dataclasses import EdgeResult
 
 
+class LegacyROISimulatorError(RuntimeError):
+    """Raised when legacy flat-stake ROI is requested without an explicit opt-in."""
+
+
 @dataclass
 class ROISimulationResult:
     n_bets: int
@@ -20,6 +24,7 @@ class ROISimulationResult:
     hit_rate: float
     avg_edge_pct: float
     notes: str = ""
+    status: str = "RESEARCH_ONLY"
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -31,6 +36,7 @@ class ROISimulationResult:
             "hit_rate": round(self.hit_rate, 4),
             "avg_edge_pct": round(self.avg_edge_pct, 2),
             "notes": self.notes,
+            "status": self.status,
         }
 
 
@@ -38,20 +44,33 @@ class ROISimulationResult:
 class ROISimulationReport:
     results_by_category: dict[str, ROISimulationResult] = field(default_factory=dict)
     overall: Optional[ROISimulationResult] = None
+    status: str = "RESEARCH_ONLY"
+    reason: str = (
+        "Legacy name-keyed, flat-stake ROI is not a valid market evaluation or betting result."
+    )
 
     def to_dict(self) -> dict[str, Any]:
         return {
             "overall": self.overall.to_dict() if self.overall else None,
             "by_category": {k: v.to_dict() for k, v in self.results_by_category.items()},
+            "status": self.status,
+            "reason": self.reason,
         }
 
 
 class ROISimulator:
-    """Flat-stake ROI simulation on value plays with standard -110 vig assumption."""
+    """Explicitly opted-in flat-stake legacy research only."""
 
-    def __init__(self, flat_stake: float = 100.0, default_vig: int = -110):
+    def __init__(
+        self,
+        flat_stake: float = 100.0,
+        default_vig: int = -110,
+        *,
+        allow_legacy_research: bool = False,
+    ):
         self.flat_stake = flat_stake
         self.default_vig = default_vig
+        self.allow_legacy_research = allow_legacy_research
 
     def simulate(
         self,
@@ -62,7 +81,13 @@ class ROISimulator:
         """
         outcomes: (player_name, category) → actual value for settlement.
         """
-        filtered = [v for v in value_plays if v.edge_pct >= min_edge_pct]
+        if not self.allow_legacy_research:
+            raise LegacyROISimulatorError(
+                "Legacy ROI is disabled by default: it is name-keyed, flat-stake, and "
+                "does not use a valid market/void/staking contract. Use the hard-keyed "
+                "market A/B or forward shadow ledger instead."
+            )
+        filtered = [v for v in value_plays if abs(v.edge_pct) >= min_edge_pct]
         by_cat: dict[str, list[EdgeResult]] = {}
         for play in filtered:
             by_cat.setdefault(play.category, []).append(play)
@@ -93,7 +118,7 @@ class ROISimulator:
                 roi_pct=(all_returned - all_staked) / all_staked * 100.0,
                 hit_rate=all_wins / all_bets,
                 avg_edge_pct=sum(all_edges) / len(all_edges),
-                notes="Overall simulated flat-stake ROI",
+                notes="Legacy flat-stake research ROI; not an authorization or market result",
             )
 
         return ROISimulationReport(results_by_category=cat_results, overall=overall)
@@ -133,7 +158,10 @@ class ROISimulator:
             roi_pct=roi,
             hit_rate=wins / n_bets if n_bets else 0.0,
             avg_edge_pct=sum(p.edge_pct for p in plays) / len(plays) if plays else 0.0,
-            notes=f"Simulated {n_bets} flat-stake bets at vig {self.default_vig}",
+            notes=(
+                f"Legacy research: simulated {n_bets} flat-stake bets at assumed vig "
+                f"{self.default_vig}; not market evidence"
+            ),
         )
 
     @staticmethod
