@@ -19,6 +19,31 @@ class StatcastIntegrityError(ValueError):
     """Raised when batted-ball evidence is contradictory or unprovable."""
 
 
+_VALID_SOURCE_STATUSES = {
+    "unverified",
+    "observed",
+    "partial_league_fallback",
+    "league_fallback",
+}
+
+STATCAST_LEAGUE_FALLBACK_FIELDS = frozenset(
+    {
+        "xwoba",
+        "xslg",
+        "barrel_rate",
+        "sweet_spot_rate",
+        "hard_hit_rate",
+        "chase_rate",
+        "contact_rate",
+        "whiff_rate",
+        "swing_rate",
+        "zone_rate",
+        "k_rate",
+        "bb_rate",
+    }
+)
+
+
 @dataclass(frozen=True)
 class BattedBallEvidence:
     measured_batted_balls: int
@@ -121,6 +146,47 @@ def validate_profile_and_rich_features(
     context: str,
 ) -> None:
     """Validate both profile values and the effective rich-feature overrides."""
+
+    source_status = getattr(profile, "source_status", "unverified")
+    fallback_fields = tuple(getattr(profile, "fallback_fields", ()) or ())
+    if source_status not in _VALID_SOURCE_STATUSES:
+        raise StatcastIntegrityError(
+            f"{context}.statcast: invalid source_status {source_status!r}"
+        )
+    if len(fallback_fields) != len(set(fallback_fields)) or any(
+        not isinstance(field, str) or not field for field in fallback_fields
+    ):
+        raise StatcastIntegrityError(
+            f"{context}.statcast: invalid fallback field lineage"
+        )
+    unknown_fallback_fields = sorted(
+        set(fallback_fields).difference(STATCAST_LEAGUE_FALLBACK_FIELDS)
+    )
+    if unknown_fallback_fields:
+        raise StatcastIntegrityError(
+            f"{context}.statcast: unknown fallback fields {unknown_fallback_fields}"
+        )
+    sample_pa = getattr(profile, "sample_pa", 0)
+    if source_status == "observed" and fallback_fields:
+        raise StatcastIntegrityError(
+            f"{context}.statcast: observed profile cannot carry fallback fields"
+        )
+    if source_status == "partial_league_fallback" and (
+        sample_pa <= 0 or not fallback_fields
+    ):
+        raise StatcastIntegrityError(
+            f"{context}.statcast: invalid partial fallback lineage"
+        )
+    if source_status == "league_fallback" and (
+        sample_pa != 0 or not fallback_fields
+    ):
+        raise StatcastIntegrityError(
+            f"{context}.statcast: invalid league fallback lineage"
+        )
+    if source_status == "unverified" and fallback_fields:
+        raise StatcastIntegrityError(
+            f"{context}.statcast: unverified profile cannot claim fallback lineage"
+        )
 
     validate_rate_pair(
         getattr(profile, "barrel_rate", None),

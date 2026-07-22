@@ -2,7 +2,8 @@
 Baseball Savant / Statcast data client.
 
 Loads Statcast metrics from pybaseball or a local Savant CSV export and
-produces StatcastProfile objects. Missing values fall back to LeagueBaselines.
+produces StatcastProfile objects. Any league substitution is bound to explicit
+field-level lineage on the profile consumed downstream.
 """
 
 from __future__ import annotations
@@ -18,11 +19,32 @@ from src.data.statcast_batted_ball_rates import (
     barrel_rate as derive_barrel_rate,
     hard_hit_rate as derive_hard_hit_rate,
 )
-from src.data.statcast_integrity import derive_batted_ball_evidence, validate_rate_pair
+from src.data.statcast_integrity import (
+    STATCAST_LEAGUE_FALLBACK_FIELDS,
+    derive_batted_ball_evidence,
+    validate_rate_pair,
+)
 from src.models.dataclasses import LeagueBaselines, PitcherStatcastProfile, StatcastProfile
+from src.utils.errors import DataFetchError
 from src.utils.logging import get_logger
 
 logger = get_logger(__name__)
+
+
+_REQUIRED_PITCH_LEVEL_COLUMNS = {
+    "batter",
+    "game_date",
+    "events",
+    "type",
+    "description",
+    "zone",
+    "launch_speed",
+    "launch_angle",
+    "launch_speed_angle",
+    "estimated_woba_using_speedangle",
+    "estimated_ba_using_speedangle",
+    "estimated_slg_using_speedangle",
+}
 
 try:
     import pybaseball as pyb
@@ -58,39 +80,65 @@ class SavantClient:
         lookback_days: Optional[int] = None,
     ) -> pd.DataFrame:
         """Fetch raw Statcast pitch-level data for a date range."""
-        if pyb is None:
-            logger.warning("pybaseball not installed; Statcast fetch unavailable.")
-            return pd.DataFrame()
-
         end = date.fromisoformat(end_date or date.today().isoformat())
-        days = lookback_days or self.lookback_days
+        days = self.lookback_days if lookback_days is None else lookback_days
+        if isinstance(days, bool) or not isinstance(days, int) or days <= 0:
+            raise ValueError("Statcast lookback_days must be a positive integer")
         start = end - timedelta(days=days)
+        sealed_start = date(2026, 5, 1)
+        sealed_end = date(2026, 5, 31)
+        if start <= sealed_end and end >= sealed_start:
+            raise DataFetchError(
+                "Statcast request intersects sealed May 2026; source access refused"
+            )
+        if pyb is None:
+            raise DataFetchError(
+                "Statcast source unavailable: pybaseball is not installed"
+            )
 
         logger.info("Fetching Statcast %s to %s", start.isoformat(), end.isoformat())
         try:
             df = pyb.statcast(start_dt=start.isoformat(), end_dt=end.isoformat())
         except Exception as exc:
-            logger.error("Statcast fetch failed: %s", exc)
-            return pd.DataFrame()
+            raise DataFetchError(
+                f"Statcast source request failed for {start.isoformat()} through "
+                f"{end.isoformat()}"
+            ) from exc
 
-        if df is None or df.empty:
-            return pd.DataFrame()
+        if not isinstance(df, pd.DataFrame):
+            raise DataFetchError("Statcast source returned a non-tabular payload")
+        if df.empty:
+            raise DataFetchError(
+                f"Statcast source returned no rows for {start.isoformat()} through "
+                f"{end.isoformat()}"
+            )
+        identity_fields = {"batter", "game_date"}
+        missing = sorted(identity_fields.difference(df.columns))
+        if missing:
+            raise DataFetchError(f"Statcast source is missing identity fields: {missing}")
+        missing = sorted(_REQUIRED_PITCH_LEVEL_COLUMNS.difference(df.columns))
+        if missing:
+            raise DataFetchError(f"Statcast source is missing required fields: {missing}")
         return df
 
     def load_savant_csv(self, csv_path: str | Path) -> pd.DataFrame:
         """Load a Baseball Savant CSV export."""
         path = Path(csv_path)
         if not path.exists():
-            logger.warning("Savant CSV not found: %s", path)
-            return pd.DataFrame()
-        return pd.read_csv(path)
+            raise DataFetchError(f"Savant CSV source does not exist: {path}")
+        frame = pd.read_csv(path)
+        if frame.empty:
+            raise DataFetchError(f"Savant CSV source is empty: {path}")
+        return frame
 
     def build_hitter_profiles_from_statcast(
         self, statcast_df: pd.DataFrame
     ) -> dict[int, StatcastProfile]:
         """Aggregate pitch-level Statcast data into per-batter profiles."""
-        if statcast_df.empty or "batter" not in statcast_df.columns:
-            return {}
+        if not isinstance(statcast_df, pd.DataFrame) or statcast_df.empty:
+            raise DataFetchError("cannot build hitter profiles from an empty Statcast source")
+        if "batter" not in statcast_df.columns:
+            raise DataFetchError("Statcast hitter source is missing batter identity")
 
         df = statcast_df.copy()
         if "events" in df.columns:
@@ -154,16 +202,30 @@ class SavantClient:
             zone_rate=lg.zone_rate,
             k_rate=lg.k_pct / 100.0,
             bb_rate=lg.bb_pct / 100.0,
+            source_status="league_fallback",
+            fallback_fields=tuple(sorted(STATCAST_LEAGUE_FALLBACK_FIELDS)),
         )
 
     def apply_league_fallback(self, profile: StatcastProfile) -> StatcastProfile:
-        """Fill any missing metric with the corresponding league baseline."""
+        """Fill missing metrics while binding every substitution to the profile."""
         validate_rate_pair(
             profile.barrel_rate,
             profile.hard_hit_rate,
             context=f"StatcastProfile[{profile.player_id}] before fallback",
         )
         lg = self.league
+        newly_fallback = {
+            field
+            for field in STATCAST_LEAGUE_FALLBACK_FIELDS
+            if getattr(profile, field) is None
+        }
+        fallback_fields = tuple(sorted(set(profile.fallback_fields) | newly_fallback))
+        if profile.sample_pa <= 0:
+            source_status = "league_fallback"
+        elif fallback_fields:
+            source_status = "partial_league_fallback"
+        else:
+            source_status = "observed"
         return replace(
             profile,
             xwoba=profile.xwoba if profile.xwoba is not None else lg.xwoba,
@@ -184,6 +246,8 @@ class SavantClient:
             zone_rate=profile.zone_rate if profile.zone_rate is not None else lg.zone_rate,
             k_rate=profile.k_rate if profile.k_rate is not None else lg.k_pct / 100.0,
             bb_rate=profile.bb_rate if profile.bb_rate is not None else lg.bb_pct / 100.0,
+            source_status=source_status,
+            fallback_fields=fallback_fields,
         )
 
     def build_pitcher_profile_from_rates(
@@ -271,7 +335,7 @@ class SavantClient:
         id_col = _first_present(df.columns, ["player_id", "batter", "id"])
         name_col = _first_present(df.columns, ["player_name", "last_name, first_name", "name"])
         if id_col is None:
-            return {}
+            raise DataFetchError("player-level Savant CSV is missing player identity")
 
         profiles: dict[int, StatcastProfile] = {}
         for _, row in df.iterrows():

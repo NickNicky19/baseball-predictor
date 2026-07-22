@@ -43,6 +43,8 @@ class PredictionInputHealth:
     expected_pa: float
     statcast_sample_pa: int
     hitter_has_advanced_statcast: bool
+    hitter_statcast_source_status: str
+    hitter_statcast_fallback_fields: tuple[str, ...]
     opposing_pitcher_id: int | None
     opposing_pitcher_payload_present: bool
     opposing_pitcher_sample_pa: int
@@ -111,6 +113,10 @@ def health_for_bundle(bundle: PlayerFeatureBundle) -> PredictionInputHealth:
         flags.append("hitter_advanced_statcast")
     else:
         flags.append("hitter_statcast_league_fallback")
+    source_status = bundle.statcast.source_status
+    fallback_fields = tuple(bundle.statcast.fallback_fields)
+    flags.append(f"hitter_statcast_source_{source_status}")
+    flags.extend(f"hitter_statcast_fallback_{field}" for field in fallback_fields)
 
     if not pitcher_payload_present:
         flags.extend(
@@ -159,6 +165,8 @@ def health_for_bundle(bundle: PlayerFeatureBundle) -> PredictionInputHealth:
         expected_pa=bundle.expected_pa,
         statcast_sample_pa=bundle.statcast.sample_pa,
         hitter_has_advanced_statcast=has_advanced_statcast,
+        hitter_statcast_source_status=source_status,
+        hitter_statcast_fallback_fields=fallback_fields,
         opposing_pitcher_id=bundle.hitter.opposing_pitcher_id,
         opposing_pitcher_payload_present=pitcher_payload_present,
         opposing_pitcher_sample_pa=pitcher_sample_pa,

@@ -288,6 +288,8 @@ def _hitter_from_dict(data: dict[str, Any]) -> HitterGameContext:
 
 def _statcast_from_dict(data: dict[str, Any]) -> StatcastProfile:
     payload = dict(data)
+    if "fallback_fields" in payload:
+        payload["fallback_fields"] = tuple(payload["fallback_fields"] or ())
     distribution = payload.get("distribution")
     if isinstance(distribution, dict):
         payload["distribution"] = StatcastDistributionProfile(**distribution)

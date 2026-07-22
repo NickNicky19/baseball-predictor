@@ -210,6 +210,11 @@ class StatcastProfile:
     k_rate_recent: Optional[float] = None
     bb_rate_recent: Optional[float] = None
     distribution: Optional[StatcastDistributionProfile] = None
+    # Source/fallback lineage is carried with the exact values consumed by the
+    # simulator.  ``unverified`` preserves compatibility for frozen/synthetic
+    # profiles, while source-built profiles must be marked by SavantClient.
+    source_status: str = "unverified"
+    fallback_fields: tuple[str, ...] = ()
 
     def has_advanced_data(self) -> bool:
         return self.sample_pa > 0 and self.xwoba is not None

@@ -1,0 +1,121 @@
+{
+  "schema_version": "statcast-source-truth-integrity-repair-v1",
+  "candidate_id": "statcast_source_truth_integrity_v1",
+  "candidate_class": "integrity_repair_only",
+  "status": "CERTIFIED_INTEGRITY_REPAIR_NO_MODEL_PROMOTION",
+  "base_commit": "3e3f80d0439f4e1283646c5665d3cf5a3da815ec",
+  "research_only": true,
+  "betting_authorized": false,
+  "production_changed": false,
+  "defect": {
+    "register_id": "SI-006",
+    "root_cause": "The Statcast client converted an unavailable dependency or transport exception to an empty DataFrame. The feature engine interpreted that empty result as an empty player pool and constructed league-average hitter profiles. Separately, field-level league substitutions were not carried with the values consumed downstream.",
+    "affected_scope": [
+      "hits",
+      "hr_over_0_5",
+      "total_bases"
+    ],
+    "old_failure": "Source loss and source-field loss could be indistinguishable from legitimate player-level fallback evidence.",
+    "repair": "Unavailable, failed, non-tabular, empty, identity-deficient, or required-column-deficient Statcast payloads now terminate before feature construction. Requests intersecting May 2026 terminate before a source call. Valid-source player/field substitutions retain exact field-level fallback lineage through feature serialization and input-health reporting. Contradictory lineage terminates at the shared probability-input validator."
+  },
+  "boundaries": {
+    "may_2026_opened": false,
+    "historical_outcomes_opened": false,
+    "2024_selection_reused": false,
+    "2025_hr_confirmation_reused": false,
+    "prospective_evidence_backfilled": false,
+    "operational_smoke_touched": false,
+    "pitcher_context_collector_touched": false,
+    "prices_treated_as_executable": false
+  },
+  "reconstruction": {
+    "historical_data_artifact": null,
+    "historical_feature_artifact": null,
+    "required": false,
+    "reason": "The repair changes failure handling and provenance only. Valid source-derived feature values and probability coefficients are unchanged, so rebuilding historical features would create no truthful new model evidence and could improperly reuse spent outcomes."
+  },
+  "chronological_evaluation": {
+    "fit_2023": "not_run_integrity_only_no_model_fit",
+    "select_2024": "not_run_2024_already_spent_and_valid_path_probabilities_unchanged",
+    "hits": {
+      "calibration": "no_claim",
+      "brier_score": "no_claim",
+      "log_loss": "no_claim",
+      "discrimination": "no_claim",
+      "coverage": "source-failure_rows_now_terminal_not_predicted",
+      "uncertainty": "no_claim",
+      "market_behavior": "no_probability_emitted_from_silent_source_loss"
+    },
+    "hr_over_0_5": {
+      "league_rate_baseline": "not_reused_no_model_candidate",
+      "time_safe_player_rate_baseline": "not_reused_no_model_candidate",
+      "frozen_simulator": "retained_unchanged",
+      "valid_market_implied_probability": "not_reused_no_executable_price_claim",
+      "calibration": "no_claim",
+      "high_probability_tail": "no_claim",
+      "brier_score": "no_claim",
+      "log_loss": "no_claim",
+      "discrimination": "no_claim",
+      "coverage": "source-failure_rows_now_terminal_not_predicted",
+      "uncertainty": "no_claim",
+      "market_behavior": "no_probability_emitted_from_silent_source_loss"
+    },
+    "total_bases": {
+      "calibration": "no_claim",
+      "brier_score": "no_claim",
+      "log_loss": "no_claim",
+      "discrimination": "no_claim",
+      "coverage": "source-failure_rows_now_terminal_not_predicted",
+      "uncertainty": "no_claim",
+      "market_behavior": "no_probability_emitted_from_silent_source_loss"
+    }
+  },
+  "verification": {
+    "full_pytest": "173 passed in 6.63s",
+    "focused_pytest": "51 passed in 4.82s",
+    "statcast_asof_boundary": "7/7",
+    "statcast_batted_ball_candidate": "9/9",
+    "prediction_input_health": "22/22",
+    "diff_check": "passed",
+    "mutation_proof": [
+      "transport exception cannot become an empty player pool",
+      "empty, non-tabular, identity-deficient, and required-column-deficient payloads terminate",
+      "May-intersecting requests terminate before source/dependency access",
+      "fallback lineage survives feature-store round trip",
+      "a league fallback mutated to claim observed status terminates at consumption"
+    ],
+    "valid_input_non_regression": "Valid Statcast fixtures preserve measured batter identity, xwOBA/xBA/xSLG, shared barrel/hard-hit counts and rates, distribution attachment, and downstream simulation tests."
+  },
+  "hashes": {
+    "config": {
+      "path": "config/statcast_source_truth_integrity_v1.json",
+      "sha256": "13acbd1363c76f0e3534f1beed14e4e15c6d368b8470f52f5a97112aaa7d99be"
+    },
+    "code": {
+      "src/data/savant.py": "2c60c076958e58ed0a448bfe5e8dec954c9724c420f5e2f437f22867acf46731",
+      "src/data/statcast_integrity.py": "6c3f501f594e9a7306922ff0bddf09c9a81dd212b3bf51e836202d04433bd937",
+      "src/models/dataclasses.py": "5b440f1464eb0ddc282701531f27f396cc0f3733520ea7c00d517d45ed97f0b6",
+      "src/features/legacy_statcast_features.py": "d7c5dfe53331c399a8b2cb618d49e9a94d8e12031e4205f7d06a7ab38650c7a9",
+      "src/features/feature_store.py": "b5d75bf0c5e7907d68bba2f52bc7eebde0e0d7e8f6193e503d65bae0c353bd4f",
+      "src/evaluation/prediction_health.py": "8a1f5694e9116e768e30c652504f10a028d36d0037f877e57d714416a960fe8f"
+    },
+    "tests": {
+      "tests/test_statcast_source_fail_closed.py": "25138689ca9b521de8ffefdc8571db4a3311e12cc09889cb94eca6fb27a2da26",
+      "tests/test_statcast_integrity_repair.py": "eb89e2bb5bbb01d8b8017a441abadcb792afea5f7d88ad05f0898f63b72e66c4",
+      "tests/test_probability_consumption_integrity.py": "061060da6c6e1c92a612580ae675ce100d17625f42d49162c944ac67329847c1",
+      "scripts/check_statcast_asof_boundary_offline.py": "b2a458489003e0d855f797ad5956e5a8b85fe1c1ace0566b664d50724253a6e1",
+      "scripts/check_statcast_batted_ball_candidate_offline.py": "d1da47cadd15f9740eb584ecb5b0e649281938fa75fb610e024537eb69720220",
+      "scripts/check_prediction_input_health_offline.py": "d62e3f9d69e904977ad53c3b1606b80509f1e92135a666cbeba3380a1bf418ba"
+    },
+    "data": null,
+    "features": null,
+    "data_feature_hash_reason": "No permissible data or feature artifact was read or rebuilt for this integrity-only repair."
+  },
+  "promotion": {
+    "integrity_repair_accepted": true,
+    "model_candidate_promoted": false,
+    "frozen_baseline_retained": true,
+    "reason": "Integrity correctness is proven, but no fresh independent performance evidence exists and no proper-score improvement is claimed."
+  },
+  "single_highest_value_next_action": "Complete SI-007/SI-011 by binding every rich-feature override that reaches the shared PA probability path to source, player identity, pregame cutoff, sample count, denominator, fallback reason, and immutable source hash; reject contradictory or lineage-free overrides before any fresh model candidate is fitted."
+}
