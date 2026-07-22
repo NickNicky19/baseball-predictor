@@ -197,6 +197,13 @@ class DailyPredictor:
                 self.league = calibrated_league
                 self.prop_engine.configure_simulation(league_baselines=calibrated_league)
 
+            # Learned model-parameter corrections are consumed exactly once,
+            # after the point-in-time source layer has established its league
+            # anchors.  Applying them before feature construction allowed the
+            # Statcast refresh above to overwrite or discard an active state.
+            if correction_ctx:
+                self._apply_model_corrections()
+
             if persist_features and bundles:
                 self.feature_store.save(
                     bundles,
@@ -308,12 +315,7 @@ class DailyPredictor:
     def enable_corrections(self, load_state: bool = True) -> None:
         """Explicitly enable learned corrections for subsequent predict() calls."""
         if load_state:
-            loaded = self.correction_manager.load_state_if_exists()
-            if not loaded:
-                logger.warning(
-                    "Corrections enabled but no state file at %s",
-                    self.correction_manager.settings.state_path,
-                )
+            self.correction_manager.require_active_state()
         self.correction_manager.enable()
 
     def disable_corrections(self) -> None:
@@ -403,23 +405,20 @@ class DailyPredictor:
 
     def _prepare_corrections(self, use_corrections: bool) -> bool:
         """
-        Optionally apply model-parameter corrections before simulation.
+        Validate an explicitly requested correction state before source work.
 
-        Returns True when output projection corrections should also be applied.
+        The state is applied only after source-derived league anchors are
+        established. Returns True when that later application is required.
         """
         if not use_corrections:
             return False
 
-        if not self.correction_manager.corrector.is_active():
-            if not self.correction_manager.load_state_if_exists():
-                logger.info(
-                    "Corrections requested but no active state at %s; running without corrections",
-                    self.correction_manager.settings.state_path,
-                )
-                return False
+        self.correction_manager.require_active_state()
 
-        if not self.correction_manager.corrector.is_active():
-            return False
+        return True
+
+    def _apply_model_corrections(self) -> None:
+        """Apply one validated correction state to the final source anchors."""
 
         pa_config = self.prop_engine.pa_config
         effective_league, _ = self.correction_manager.prepare(
@@ -429,7 +428,6 @@ class DailyPredictor:
             force=True,
         )
         self._sync_league_context(effective_league)
-        return True
 
     def _sync_league_context(self, league: LeagueBaselines) -> None:
         """Keep feature/statcast layers aligned with corrected league baselines."""
@@ -466,11 +464,24 @@ class DailyPredictor:
             default_config = root / "config" / "config.json"
             if default_config.is_file():
                 config_source = str(default_config.resolve())
+        correction_identity = (
+            self.correction_manager.correction_identity()
+            if corrections_active
+            else None
+        )
+        correction_digest = (
+            correction_identity["effective_state_sha256"]
+            if correction_identity is not None
+            else None
+        )
         return {
             "schema_version": "daily-feature-provenance-v1",
             "captured_at_utc": datetime.now(timezone.utc).isoformat(),
-            "model_version": model_version(self.config),
+            "model_version": model_version(
+                self.config, correction_state_sha256=correction_digest
+            ),
             "effective_config_sha256": sha256_json(self.config),
+            "correction_identity": correction_identity,
             "config_source_path": config_source,
             "code": code_provenance(root),
             "run_options": {

@@ -1,0 +1,113 @@
+{
+  "schema_version": "probability-consumption-identity-certified-repair-v1",
+  "candidate_id": "probability_consumption_identity_integrity_v1",
+  "status": "CERTIFIED_INTEGRITY_REPAIR_NO_MODEL_PROMOTION",
+  "classification": "integrity_repair_only_not_a_performance_candidate",
+  "parent_commit": "c6f6ba2c38c600237ac9e16ac3ba8990981e1776",
+  "findings": [
+    {
+      "register_id": "SI-013",
+      "root_cause": "Correction-state consumption and market authorization were recorded through separate incomplete identities, obscuring whether an output change came from model parameters or policy.",
+      "repair": "Correction source and canonical effective-state hashes now fork model identity and are archived separately from the market-policy hash. Policy remains incapable of changing a probability or rescuing another market."
+    },
+    {
+      "register_id": "SI-023",
+      "root_cause": "model_version omitted the output-affecting pa_simulator block and active correction-state identity.",
+      "repair": "The complete pa_simulator block and, when active, the validated canonical correction-state SHA-256 are consumed by model_version."
+    },
+    {
+      "register_id": "SI-024",
+      "root_cause": "A source-derived league-anchor refresh rebuilt PASimulatorConfig from league defaults and silently discarded configured probability overrides; corrections applied before the refresh could also be overwritten.",
+      "repair": "League reconfiguration re-consumes the exact pa_simulator config. Corrections validate before source work and apply once after point-in-time league anchors are established."
+    },
+    {
+      "register_id": "SI-025",
+      "root_cause": "Missing, corrupt, inactive, malformed, unknown, nonfinite, and unconsumed correction state could silently degrade to the frozen model. Output offsets changed a displayed mean without changing its distribution and hand-rebuilt projections lost probability, identity, and health fields.",
+      "repair": "Strict schema, field, type, range, source-hash, effective-hash, active-state, and consumption validation is terminal. Probability-incoherent output offsets are forbidden. Low-level replacement preserves every dataclass field."
+    }
+  ],
+  "protected_boundaries": {
+    "may_2026_opened": false,
+    "historical_outcomes_opened": false,
+    "2024_selection_reused": false,
+    "2025_hr_confirmation_reused": false,
+    "prospective_evidence_reconstructed": false,
+    "operational_smoke_modified": false,
+    "protected_pitcher_collector_modified": false,
+    "production_changed": false,
+    "betting_authorized": false
+  },
+  "artifact_rebuild": {
+    "raw_data": "not_required_no_source_rows_changed",
+    "features": "not_required_no_valid_feature_value_changed",
+    "predictions": "not_backfilled_or_reconstructed",
+    "outcomes": "not_read",
+    "reason": "This repair corrects identity and fail-closed consumption. It does not create a new probability candidate and the frozen valid path is inactive for every repaired branch."
+  },
+  "frozen_production_non_regression": {
+    "config_path": "config/config.json",
+    "config_sha256": "77c029297b514e3df652bb447d90e58906e954c64dcd039d78537b9e59870436",
+    "pa_simulator_block_present": false,
+    "corrections_enabled": false,
+    "model_version_before_equivalent": "a4c2abaf7a3e",
+    "model_version_after": "a4c2abaf7a3e",
+    "probability_formula_or_coefficient_changed": false,
+    "interpretation": "The frozen production path does not enter any repaired correction or configured-override branch; its model identity remains exactly unchanged."
+  },
+  "separate_market_adjudication": {
+    "hits": {
+      "historical_rescore_run": false,
+      "performance_claim": false,
+      "promotion": false,
+      "reason": "No valid probability changed; 2024 selection evidence is spent."
+    },
+    "home_runs_over_0_5": {
+      "historical_rescore_run": false,
+      "performance_claim": false,
+      "promotion": false,
+      "required_comparators_reopened": false,
+      "reason": "No valid probability changed; 2024 selection and 2025 HR confirmation cannot be reused as fresh proof."
+    },
+    "total_bases": {
+      "historical_rescore_run": false,
+      "performance_claim": false,
+      "promotion": false,
+      "reason": "No valid probability changed; 2024 selection evidence is spent."
+    }
+  },
+  "test_evidence": {
+    "full_suite": "212 passed in 6.54s",
+    "focused_suite": "26 passed in 4.88s, including the override-preservation case",
+    "mutation_classes": [
+      "unknown pa_simulator field",
+      "missing requested correction artifact",
+      "corrupt requested correction artifact",
+      "unknown correction-state root key",
+      "NaN confidence",
+      "out-of-range confidence",
+      "unknown league field",
+      "unknown PA field",
+      "unknown market category",
+      "negative sample size",
+      "unconsumed parameter override",
+      "probability-incoherent output offset",
+      "league-anchor refresh with an active pa_simulator override",
+      "invalid correction-state identity hash"
+    ],
+    "diff_check": "passed"
+  },
+  "hashes": {
+    "config/probability_consumption_identity_integrity_v1.json": "ed1376d5f65581b1ece8f8b38fd1fe97af2d97723877a70f434e6577e897034e",
+    "docs/research/MLB_SYSTEM_INTEGRITY_PROGRAM_V1.md": "974c969672064e274aa2f316d84b4474ab010bdf497ab35b1fc9f019bb468196",
+    "src/utils/model_version.py": "09b15c83788776c0eca41536af107b327035ee818cb0d7d46feba99cdfaa49b1",
+    "src/learning/bias_corrector.py": "57068d8c00b3f69457142f270f620111702fd736e37fca3fc7d793d41e5e9541",
+    "src/prediction/correction_manager.py": "dfd3b57e145a02d4d3e121d2b279c23125532e869805c5dd1bfcd8e461345433",
+    "src/prediction/daily_predictor.py": "a4479bce89950ce7cfcdf517dda78d972bc46ec75b5ed445852f4715899c31c1",
+    "src/prediction/prop_engine.py": "91bf71b4c79f7e4b7f9c170c427d3ca6ebd93d991b04511b1ac8caf68e4ea862",
+    "tests/test_probability_identity_integrity.py": "04d2a931f72b5f809ba12f74d5601466623628b838a3f94c4346f6fd3a6b45b5",
+    "tests/test_correction_manager.py": "4d4b3dd03d7d95601a182d661feefa283858771b71064096fdc6bf8bbfd5c1b6",
+    "tests/test_daily_predictor.py": "e5fbf01e50ae00fb643352c1e3cd25964260084c7bda9bc21a52479f4fa4d862"
+  },
+  "promotion_decision": "RETAIN_FROZEN_BASELINE",
+  "single_highest_value_next_action": "Deploy and independently verify the future-only AWS T-minus-4 probable-starter receipt collector. Every adjudicated batter-only family has already failed locked materiality, and no pitcher-matchup candidate is admissible without fresh receipt-proven starter identity."
+}

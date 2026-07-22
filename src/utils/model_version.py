@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from typing import Any
 
 # Config blocks whose values change model output. Keep in sync with config.json.
@@ -39,6 +40,10 @@ MODEL_CONFIG_KEYS: tuple[str, ...] = (
     "base_running",
     "pitcher_regression",
     "simulation",
+    # The live PA simulator consumes this block directly.  Omitting it allowed
+    # fitted K/BB and other probability coefficients to change without forking
+    # the recorded model version.
+    "pa_simulator",
     "feature_factory",
     "fantasy_scoring",
     # Candidate-only until its own hard-keyed market gate promotes it.  The
@@ -49,8 +54,15 @@ MODEL_CONFIG_KEYS: tuple[str, ...] = (
     "role_innings",
 )
 
+_SHA256 = re.compile(r"^[0-9a-f]{64}$")
 
-def model_version(config: dict[str, Any], length: int = 12) -> str:
+
+def model_version(
+    config: dict[str, Any],
+    length: int = 12,
+    *,
+    correction_state_sha256: str | None = None,
+) -> str:
     """Deterministic short hash of the model-relevant config blocks.
 
     Stable across runs (sorted keys, canonical JSON) so the same coefficients
@@ -58,5 +70,10 @@ def model_version(config: dict[str, Any], length: int = 12) -> str:
     older config without a newer block still hashes cleanly.
     """
     subset = {k: config[k] for k in MODEL_CONFIG_KEYS if k in config}
+    if correction_state_sha256 is not None:
+        digest = str(correction_state_sha256).strip().lower()
+        if not _SHA256.fullmatch(digest):
+            raise ValueError("correction_state_sha256 must be a lowercase SHA-256 digest")
+        subset["_correction_state_sha256"] = digest
     canonical = json.dumps(subset, sort_keys=True, separators=(",", ":"), default=str)
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()[:length]

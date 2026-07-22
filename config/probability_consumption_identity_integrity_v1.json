@@ -1,0 +1,51 @@
+{
+  "schema_version": "probability-consumption-identity-integrity-repair-v1",
+  "candidate_id": "probability_consumption_identity_integrity_v1",
+  "classification": "integrity_repair_only_not_a_performance_candidate",
+  "status": "REPAIR_IMPLEMENTED_PENDING_HASH_CERTIFICATION",
+  "affected_markets": [
+    "hits",
+    "home_runs_over_0_5",
+    "total_bases"
+  ],
+  "repairs": [
+    "model identity consumes the complete pa_simulator block",
+    "active correction identity consumes source and canonical effective-state SHA-256",
+    "unknown pa_simulator keys fail closed",
+    "missing, corrupt, inactive, malformed, unknown, nonfinite, or decorative correction state fails closed",
+    "output-only category offsets are rejected as probability-incoherent",
+    "source-derived league reconfiguration re-consumes pa_simulator overrides",
+    "corrections apply exactly once after source-derived league anchors",
+    "low-level projection replacement preserves probabilities, simulation, game identity, and health lineage"
+  ],
+  "protected_boundaries": {
+    "may_2026": "not_read_not_fetched_not_parsed_not_written",
+    "historical_outcomes_opened": false,
+    "2024_selection_reused": false,
+    "2025_hr_confirmation_reused": false,
+    "prospective_evidence_reconstructed": false,
+    "operational_smoke_modified": false,
+    "protected_pitcher_collector_modified": false,
+    "production_probability_changed": false,
+    "betting_authorized": false
+  },
+  "evaluation_boundary": {
+    "historical_rescore": "forbidden_and_not_run_because_the_valid_frozen_path_is_numerically_unchanged_and_selection_evidence_is_spent",
+    "hits": "no_performance_claim_no_promotion",
+    "home_runs_over_0_5": "no_performance_claim_no_promotion",
+    "total_bases": "no_performance_claim_no_promotion",
+    "frozen_baseline": "retained",
+    "fresh_evidence_required": true
+  },
+  "mutation_requirements": [
+    "misspell one pa_simulator field",
+    "remove or corrupt the requested correction artifact",
+    "add an unknown correction-state key",
+    "inject NaN or out-of-range confidence",
+    "inject an unknown market, league field, or PA field",
+    "make a correction present but disabled",
+    "request an output-only category offset",
+    "refresh league anchors while a pa_simulator override is active",
+    "alter the correction hash used by model identity"
+  ]
+}
