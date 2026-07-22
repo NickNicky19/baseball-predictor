@@ -3,7 +3,9 @@ Description=Publish tomorrow's MLB T-4 probable-starter receipt plan before any 
 
 [Timer]
 OnCalendar=*-*-* 00:15:00 America/New_York
-Persistent=true
+# Never catch up a missed daily plan after boot or late deployment. The plan
+# builder independently refuses any date whose first T-4 target is already due.
+Persistent=false
 Unit=baseball-pitcher-receipt-plan.service
 
 [Install]

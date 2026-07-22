@@ -79,7 +79,7 @@ actual_host_key_sha256="$(sha256sum "$release/deploy/forward_pitcher_receipts/gi
 /usr/bin/python3 "$release/scripts/check_forward_pitcher_context_collector_offline.py"
 /usr/bin/python3 "$release/scripts/check_forward_pitcher_context_runtime_offline.py"
 /usr/bin/python3 "$release/scripts/check_aws_pitcher_receipts_offline.py"
-/usr/bin/python3 "$release/scripts/check_tracked_secrets.py"
+sudo -u "$service_user" /usr/bin/python3 "$release/scripts/check_tracked_secrets.py"
 
 if [[ -e "$current" && ! -L "$current" ]]; then
   echo "Current release path exists and is not a symlink" >&2
@@ -98,9 +98,19 @@ do
 done
 
 systemctl daemon-reload
-systemctl start baseball-pitcher-receipt-plan.service
-systemctl start baseball-pitcher-receipt-tick.service
-systemctl start baseball-pitcher-receipt-health.service
+if systemctl start baseball-pitcher-receipt-plan.service; then
+  systemctl start baseball-pitcher-receipt-tick.service
+  systemctl start baseball-pitcher-receipt-health.service
+else
+  initial_plan_status="$(systemctl show baseball-pitcher-receipt-plan.service --property=ExecMainStatus --value)"
+  if [[ "$initial_plan_status" != "3" ]]; then
+    echo "Initial plan service failed for a reason other than the explicit late-deployment boundary" >&2
+    exit 2
+  fi
+  echo "Current official date is already past a T-4 target; no plan was published and no backfill will occur." >&2
+  echo "The non-persistent plan timer will begin with the next 00:15 America/New_York boundary." >&2
+  systemctl reset-failed baseball-pitcher-receipt-plan.service
+fi
 systemctl enable --now \
   baseball-pitcher-receipt-plan.timer \
   baseball-pitcher-receipt-tick.timer \
