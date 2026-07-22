@@ -1,0 +1,106 @@
+{
+  "schema_version": "direct-batter-pa-foundation-certified-rejection-v1",
+  "status": "DIRECT_BATTER_PA_FOUNDATION_REJECTED_NO_MARKET_ELIGIBLE",
+  "as_of": "2026-07-21",
+  "research_branch": "codex/direct-batter-pa-foundation-v1",
+  "base_commit": "70449da0daf501240dcba1ab9019add2319781fd",
+  "betting_authorized": false,
+  "production_changed": false,
+  "chronology": {
+    "fit_year": 2023,
+    "selection_year": 2024,
+    "confirmation_2025_opened": false,
+    "spent_2025_hr_reused": false,
+    "may_2026_opened": false
+  },
+  "panel": {
+    "rows": 87462,
+    "fit_rows_2023": 43740,
+    "selection_rows_2024": 43722,
+    "eligible_selection_rows": 43704,
+    "zero_pa_rows_explicitly_ineligible": 32,
+    "raw_files_rehashed": 1291,
+    "feature_columns": 52,
+    "chronology_violations": 0,
+    "identity_duplicates": 0,
+    "coverage_loss_eligible_rows": 0,
+    "sha256": "bdf7913b889f3e26528d636deed6241feafe8ee97fc318be43c40ca0939b97d5",
+    "manifest_sha256": "f0727b27b0de84728bb0957731a75305017d43a0e760c35823040e417e0c4049",
+    "certificate_sha256": "ed3c3bc165cf5bf68a205bb040657b8c72c05e96a69d3857993fcb906a5d73b2"
+  },
+  "selection": {
+    "candidate": {
+      "multiclass_brier": 0.7077575466310745,
+      "multiclass_log_loss": 1.5040285741191715
+    },
+    "all_prior_core": {
+      "multiclass_brier": 0.7075026830822998,
+      "multiclass_log_loss": 1.503476826156285,
+      "candidate_minus_core_brier": [0.00011474261075168873, 0.000254863548774748, 0.0003881571170204171],
+      "candidate_minus_core_log_loss": [0.00015070338700960632, 0.0005517479628867915, 0.0009489279245920641]
+    },
+    "empirical_bayes_player_rate_pa_200": {
+      "multiclass_brier": 0.7088804565760131,
+      "multiclass_log_loss": 1.5067581761535083,
+      "candidate_minus_simple_brier": [-0.0013610892059212547, -0.0011229099449385734, -0.0009130166231078845],
+      "candidate_minus_simple_log_loss": [-0.0033773942515257734, -0.002729602034336554, -0.0020761714555866126]
+    },
+    "materiality_floor": "negative 1% of comparator score for both paired point and 95% upper bound",
+    "foundation_materiality_passed": false,
+    "report_sha256": "daa046513c3f6230c5004d5a9dac00fd8c13f477ac5ca8e3d528c6ba27c687c2",
+    "predictions_sha256": "c081071845c2b6ae61ef782b8d848795d9cf69edd9605367a42b7940e56b92cd",
+    "certificate_sha256": "2c5fa00d187fede999ca8ab72e0f021a2bf4d380f3b2b6edaed5ca6dc2a881e5",
+    "rejection_record_sha256": "83faffeee29bea634af41b4eab05fea50fc7a2692064c6674712fe099623cf52"
+  },
+  "separate_component_decisions": {
+    "hits": {
+      "eligible": false,
+      "reason": "Candidate proper scores were worse than both controls at the point estimates and AUC was lower than the all-prior core."
+    },
+    "hr_over_0_5": {
+      "eligible": false,
+      "reason": "Gains versus empirical Bayes were below 1%; both proper-score intervals crossed zero versus the stronger all-prior core and AUC was lower than that core."
+    },
+    "total_bases": {
+      "eligible": false,
+      "reason": "Candidate was worse than the all-prior core; Brier uncertainty crossed zero versus empirical Bayes and AUC was lower than both controls."
+    }
+  },
+  "implementation_hashes": {
+    "protocol": "7b7ce519a2c596b1b983f6b615e51c827685c0df76dd4158de5dfe03175d31ba",
+    "history_transformer": "df272a72ab935974024618c4091d3cbe1063459beaeba688351d7a60a63656ec",
+    "panel_builder": "59f7e00b7a9467dd0b293d4e88c168202eb79cdd6ffce61ff9f4b6b671dd21b1",
+    "panel_validator": "3309ec2efebcdff8bce3ce50f26611ad75cef9eb42346a7fdfe485f6bad85eda",
+    "selector": "9c4028bb43b22f9a87caad8f2b814bdb7e3107e509b9159a4279ce0129ea8808",
+    "selection_certifier": "a47e8dfb134ce9dc89fc8d5ef3c9e3ab0a47f64677cf0d8487b93d2a3356aeb0"
+  },
+  "mutation_harness": {
+    "passed": 8,
+    "required": 8,
+    "guards": [
+      "same-day source exclusion",
+      "regular-season-only filtering",
+      "truncated_pa exclusion",
+      "unknown terminal-event failure",
+      "batter identity failure",
+      "2025 selection-year failure",
+      "official PA decomposition failure",
+      "research-only protocol and forbidden-context binding"
+    ]
+  },
+  "pitcher_matchup_adjudication": {
+    "starter_identity_receipt_contract_passed": false,
+    "evidence_found": "runtime contract and future-only collector code, but no completed receipt artifacts or certified lifecycle",
+    "decision": "EXCLUDE_PITCHER_MATCHUP_BLOCK_NO_GUESSED_OR_POSTGAME_STARTER"
+  },
+  "forbidden_rescues": [
+    "reuse 2025 HR confirmation",
+    "open May 2026",
+    "post-hoc calibration or subgroup tuning",
+    "lower materiality or capture gates",
+    "pool markets or products",
+    "backfill or guess probable starters",
+    "install in production or authorize betting"
+  ],
+  "highest_value_next_action": "Collect and certify fresh prospective T-minus-4 probable-starter receipts under the existing exact identity lifecycle. Until that contract passes, keep pitcher-matchup features excluded; do not backfill."
+}

@@ -1,0 +1,12 @@
+[Unit]
+Description=Verify shared batter PA evidence every fifteen minutes
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=15min
+AccuracySec=5s
+Persistent=true
+Unit=baseball-shared-pa-forward-health.service
+
+[Install]
+WantedBy=timers.target

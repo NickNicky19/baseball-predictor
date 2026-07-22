@@ -1,0 +1,187 @@
+{
+  "schema_version": "shared-pa-forward-integrity-and-release-v1",
+  "status": "INTEGRITY_REPAIR_VERIFIED_CONTROL_LOCKED_PROSPECTIVE_EVIDENCE_PENDING",
+  "as_of": "2026-07-22",
+  "candidate_id": "empirical_bayes_player_rate_pa_200_2023_control_v1",
+  "classification": "source-truth repair plus locked prospective control; not a production promotion",
+  "research_source_commit": "5ae5b02cecd21966cd0ec5cbd259c45f34074e4e",
+  "release_base_commit": "e58bec19a1b29618eb0d41f0e3031d9a6a8a7802",
+  "hash_manifest": {
+    "path": "reports/shared_pa_forward_release_v1_hash_manifest.json",
+    "sha256": "d3efb0f3927ac1142ebfea8241d29b5c7525e90067e0c1e125b70a64de2517b3",
+    "verified_file_bindings": 29,
+    "code_sha256": "8b3a713d90f85f03f9f11032e3fc8544494cb64647e6c0f48376bd65eda58489",
+    "configuration_sha256": "c38ad777a1efedf4063aa93517b6adcb66637e06a35b34eeddb971335c03a735",
+    "data_sha256": {
+      "certified_2023_pa_panel": "1638ee336833ae6cb3ba580eafe2800a8f4a6c609719fe88df7481c71e0f2fb1",
+      "pa_volume_fit_2023": "7ffd6a8fecb1c4f8aed1966c234a61499050346f87f884f731c440daca793c90"
+    },
+    "feature_contract_sha256": "4bdf5d6f4db9105770a28e669f61ab7f0aa57ba6d87f09476c0bed721632678c",
+    "tests_sha256": "08b414a36464e4e3d16e0a835dec03727b3b7fae5629e534975810c0d494c814",
+    "deployment_sha256": "5fd99185765c00966b91cfe22303055ddb0b0e858f65138518807eefbaafadbc"
+  },
+  "chronology": {
+    "fit_season": 2023,
+    "single_selection_season": 2024,
+    "fresh_prospective_collection_start_not_yet_certified": true,
+    "confirmation_2025_opened_for_this_candidate": false,
+    "spent_2025_hr_reused": false,
+    "may_2026_fetched_read_parsed_or_written": false,
+    "historical_prospective_receipts_backfilled": false
+  },
+  "shared_probability_definition": {
+    "pa_outcomes": [
+      "strikeout",
+      "walk",
+      "single",
+      "double",
+      "triple",
+      "home_run",
+      "bip_out",
+      "other_non_ab"
+    ],
+    "player_rate": "exact 2023 league-prior empirical-Bayes posterior with the preselected 200-PA strength",
+    "pa_volume": "2023-only realized starter PA distribution; projected lineups consume pooled volume and cannot consume source slot",
+    "hits": "single + double + triple + home_run from the shared PA distribution",
+    "hr_over_0_5": "home_run tail from the shared PA distribution",
+    "total_bases": "exact convolution of 0/1/2/3/4 total bases per PA",
+    "pitcher_inputs": "excluded",
+    "market_policy": "none",
+    "prices": "excluded",
+    "prediction_method": "exact_iid_pa_mixture_v1"
+  },
+  "defect_register": [
+    {
+      "id": "SPAF-001",
+      "root_cause": "The earlier HR forward validator allowed a projected lineup slot to select a slot-specific PA-volume distribution.",
+      "affected_scope": "Any earlier forward HR record whose lineup state was projected but whose PA volume was slot-specific could not prove truthful probability consumption.",
+      "safe_remediation": "Projected lineups now retain source order only as evidence, require effective_lineup_slot=null, and consume the exact locked pooled 2023 PA distribution.",
+      "fail_closed_boundary": "The snapshot validator recomputes the allowed distribution hash for its declared scope.",
+      "regression_mutation_proof": "Projected-slot consumption mutation fails in both the focused tests and the dependency-free release gate.",
+      "historical_reconstruction": "forbidden; preserve prior archives but treat affected records as ineligible for prospective, holdout, promotion, ROI, or betting evidence",
+      "classification": "integrity repair"
+    },
+    {
+      "id": "SPAF-002",
+      "root_cause": "Unrestricted official API responses could carry unapproved schedule or stat fields into retained raw payloads.",
+      "affected_scope": "Pregame raw retention could not prove that target outcomes, result fields, or source drift were absent.",
+      "safe_remediation": "Both official requests now use server-side field allowlists; exact nested input surfaces are validated before retention, and unsafe bodies are not written.",
+      "fail_closed_boundary": "Any extra or missing field produces a terminal source/schema failure without retaining the unsafe body.",
+      "regression_mutation_proof": "Injected game status and split date fields fail; the live official schedule and nine-player stats allowlists passed read-only probes without persisting evidence.",
+      "historical_reconstruction": "none; no prior raw response is rewritten or sanitized after the fact",
+      "classification": "source-level repair"
+    },
+    {
+      "id": "SPAF-003",
+      "root_cause": "HTTP receipt timestamps were rounded down to whole seconds, allowing a subsecond post-horizon completion to appear on time.",
+      "affected_scope": "T-minus-4 chronology at the one-second boundary.",
+      "safe_remediation": "Source and terminal receipt timestamps retain UTC microseconds and are compared before eligibility.",
+      "fail_closed_boundary": "A receipt one microsecond after the horizon is rejected.",
+      "regression_mutation_proof": "Dedicated subsecond post-horizon mutation passes only by rejecting the response.",
+      "historical_reconstruction": "forbidden; older rounded receipts do not become newly eligible",
+      "classification": "timing repair"
+    },
+    {
+      "id": "SPAF-004",
+      "root_cause": "The first runner draft enumerated every plan file, which could open or terminalize old dates.",
+      "affected_scope": "Future-only scope, missed-record semantics, and sealed-May isolation.",
+      "safe_remediation": "The runner and health checker derive one current US Eastern official date and access only that exact filename; May 2026 returns before plan access or artifact creation.",
+      "fail_closed_boundary": "Invalid old and May plan files remain unopened in mutation tests.",
+      "regression_mutation_proof": "Old-plan and May no-access tests pass in both pytest and the AWS dependency-free release gate.",
+      "historical_reconstruction": "none",
+      "classification": "chronology and sealed-boundary repair"
+    },
+    {
+      "id": "SPAF-005",
+      "root_cause": "Format-valid hashes alone did not prove that hard identity, official terminal counts, feature construction, PA volume, and stored market probabilities were the values actually consumed.",
+      "affected_scope": "The full source-to-probability chain for Hits, HR over 0.5, and Total Bases.",
+      "safe_remediation": "The validator and ledger now recompute game/player identity, official PA partitions, empirical-Bayes probabilities, feature hashes, PA-distribution hashes, all three market distributions, raw lineage, plan/runtime/code bindings, and exactly nine-player side identity.",
+      "fail_closed_boundary": "A forged but rehashed official stats response whose counts differ from consumed features is rejected before any raw write.",
+      "regression_mutation_proof": "Identity, count, denominator, fallback, PA distribution, probability, market-tail, raw-lineage, and orphan-raw mutations fail.",
+      "historical_reconstruction": "none; new evidence begins prospectively",
+      "classification": "identity, denominator, feature, and probability-consumption repair"
+    }
+  ],
+  "historical_selection_evidence": {
+    "strongest_surviving_control": "empirical_bayes_player_rate_pa_200",
+    "direct_batter_pa_rejection": {
+      "path": "reports/direct_batter_pa_foundation_v1_CERTIFIED_REJECTION.json",
+      "sha256": "2ad69f03a3f87abc2eaeb2b9b2055779c03ab369c161575aa9633af150ed5b05",
+      "selection_rows_2024": 43722,
+      "eligible_selection_rows": 43704,
+      "candidate_multiclass_brier": 0.7077575466310745,
+      "candidate_multiclass_log_loss": 1.5040285741191715,
+      "empirical_bayes_multiclass_brier": 0.7088804565760131,
+      "empirical_bayes_multiclass_log_loss": 1.5067581761535083,
+      "candidate_materiality_passed": false,
+      "eligible_markets": []
+    },
+    "hierarchical_rejection": {
+      "path": "reports/shared_pa_hierarchical_selection_v1_CERTIFIED_REJECTION.json",
+      "sha256": "234db075629a79404f161edf2396f302accde66dbb73ce6cc00dea0f442d38a8",
+      "selection_rows_2024": 43668,
+      "materiality_fraction_log_loss": 0.11436594245225404,
+      "materiality_fraction_brier": 0.14541524170952705,
+      "eligible_markets": []
+    },
+    "decision": "The locked empirical-Bayes model is a prospective control, not an earned stronger challenger. All more complex shared candidates remain rejected."
+  },
+  "separate_market_gate_status": {
+    "hits": {
+      "integrity_contract": "passed",
+      "fresh_calibration_brier_log_loss_discrimination_coverage_uncertainty": "pending prospective outcomes",
+      "promotion_eligible": false
+    },
+    "hr_over_0_5": {
+      "integrity_contract": "passed",
+      "league_rate_comparison": "pending prospective outcomes",
+      "time_safe_player_rate_comparison": "self/control",
+      "frozen_simulator_comparison": "pending prospective outcomes",
+      "valid_market_implied_comparison": "pending verified price availability",
+      "high_probability_tail_calibration": "pending prospective outcomes",
+      "economic_coherence": "not evaluated without verified executable prices",
+      "promotion_eligible": false
+    },
+    "total_bases": {
+      "integrity_contract": "passed",
+      "fresh_calibration_brier_log_loss_discrimination_coverage_uncertainty": "pending prospective outcomes",
+      "promotion_eligible": false
+    }
+  },
+  "verification": {
+    "focused_pytest": "49 passed",
+    "full_repository_pytest": "174 passed on current main integration",
+    "dependency_free_release_gate": "8/8 passed",
+    "release_hash_manifest": "29/29 file bindings reproduced",
+    "bash_syntax": "install_exact_release.sh passed bash -n",
+    "workflow_yaml": "parsed successfully",
+    "live_official_input_surface_probe": {
+      "classification": "read-only non-evidence transport validation; not T-minus-4 evidence",
+      "date": "2026-07-22",
+      "schedule_safe_projection_sha256": "16638367ed94129e9d9163fd61a46cd5e591bc1203e94c0e38b820406760d398",
+      "schedule_games": 17,
+      "safe_player_stats_responses": 9,
+      "errors": 0,
+      "artifact_retained": false
+    }
+  },
+  "automation": {
+    "aws_role": "primary future-only collector",
+    "github_role": "read-only hourly secondary verifier and 90-day audit artifact",
+    "pitcher_collector_changed_or_restarted": false,
+    "shared_release_root": "/opt/baseball-predictor-shared-pa-forward",
+    "shared_evidence_root": "/srv/baseball-shadow/shared-pa-forward",
+    "pitcher_plan_access": "read-only current-date plan only",
+    "manual_prediction_trigger_included": false,
+    "reason_manual_prediction_trigger_excluded": "This release collects the locked control needed for fresh adjudication; it does not expose the unrepaired production run_slate path as if it were the new foundation."
+  },
+  "promotion_decision": {
+    "integrity_repair_passed": true,
+    "material_probability_improvement_proven": false,
+    "production_changed": false,
+    "frozen_baseline_retained": true,
+    "betting_authorized": false,
+    "reason": "Fresh independent market-separated calibration, proper-score, discrimination, coverage, uncertainty, frozen-model, and valid market evidence does not yet exist."
+  },
+  "single_highest_value_next_action": "Merge and deploy this exact separate release before the next untouched current-date T-minus-4 targets, then collect fresh shared-PA snapshots and adjudicate Hits, HR over 0.5, and Total Bases separately without changing the model or gates."
+}

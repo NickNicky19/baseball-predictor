@@ -1,0 +1,132 @@
+name: AWS Shared PA Forward Verifier
+
+"on":
+  schedule:
+    - cron: "53 * * * *"
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Official MLB date (YYYY-MM-DD); blank uses US Eastern today"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aws-shared-pa-forward-verifier
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out verifier source
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Refuse tracked credentials
+        run: python scripts/check_tracked_secrets.py
+
+      - name: Resolve official date
+        id: date
+        shell: bash
+        run: |
+          if [ -n "${{ github.event.inputs.date }}" ]; then
+            DATE="${{ github.event.inputs.date }}"
+          else
+            DATE="$(TZ=America/New_York date +%F)"
+          fi
+          [[ "$DATE" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || { echo "Invalid official date" >&2; exit 2; }
+          [[ "$DATE" != 2026-05-* ]] || { echo "May 2026 is sealed" >&2; exit 2; }
+          echo "date=$DATE" >> "$GITHUB_OUTPUT"
+
+      - name: Validate read-only primary connection
+        shell: bash
+        env:
+          PRIMARY_HOST: ${{ vars.SHADOW_PRIMARY_HOST }}
+          PRIMARY_USER: ${{ vars.SHADOW_PRIMARY_USER }}
+          PRIMARY_ROOT: ${{ vars.SHADOW_PRIMARY_ROOT }}
+          PRIMARY_KEY: ${{ secrets.SHADOW_PRIMARY_SSH_KEY }}
+          PRIMARY_KNOWN_HOSTS: ${{ secrets.SHADOW_PRIMARY_KNOWN_HOSTS }}
+        run: |
+          test -n "$PRIMARY_HOST" || { echo "SHADOW_PRIMARY_HOST is missing" >&2; exit 2; }
+          test -n "$PRIMARY_USER" || { echo "SHADOW_PRIMARY_USER is missing" >&2; exit 2; }
+          test -n "$PRIMARY_ROOT" || { echo "SHADOW_PRIMARY_ROOT is missing" >&2; exit 2; }
+          test -n "$PRIMARY_KEY" || { echo "SHADOW_PRIMARY_SSH_KEY is missing" >&2; exit 2; }
+          test -n "$PRIMARY_KNOWN_HOSTS" || { echo "SHADOW_PRIMARY_KNOWN_HOSTS is missing" >&2; exit 2; }
+          [[ "$PRIMARY_HOST" =~ ^[A-Za-z0-9.-]+$ ]] || exit 2
+          [[ "$PRIMARY_USER" =~ ^[A-Za-z0-9._-]+$ ]] || exit 2
+          [[ "$PRIMARY_ROOT" =~ ^/[A-Za-z0-9._/-]+$ ]] || exit 2
+
+      - name: Configure read-only SSH identity
+        shell: bash
+        env:
+          PRIMARY_KEY: ${{ secrets.SHADOW_PRIMARY_SSH_KEY }}
+          PRIMARY_KNOWN_HOSTS: ${{ secrets.SHADOW_PRIMARY_KNOWN_HOSTS }}
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$PRIMARY_KEY" > ~/.ssh/shadow_readonly
+          chmod 600 ~/.ssh/shadow_readonly
+          printf '%s\n' "$PRIMARY_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Prove verifier identity is read-only
+        shell: bash
+        env:
+          PRIMARY_HOST: ${{ vars.SHADOW_PRIMARY_HOST }}
+          PRIMARY_USER: ${{ vars.SHADOW_PRIMARY_USER }}
+          PRIMARY_ROOT: ${{ vars.SHADOW_PRIMARY_ROOT }}
+        run: |
+          SSH=(ssh -q -i ~/.ssh/shadow_readonly -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes)
+          "${SSH[@]}" "$PRIMARY_USER@$PRIMARY_HOST" "test -r '$PRIMARY_ROOT/shared-pa-forward' && ! test -w '$PRIMARY_ROOT/shared-pa-forward'"
+
+      - name: Fetch immutable current-date shared PA tree
+        shell: bash
+        env:
+          PRIMARY_HOST: ${{ vars.SHADOW_PRIMARY_HOST }}
+          PRIMARY_USER: ${{ vars.SHADOW_PRIMARY_USER }}
+          PRIMARY_ROOT: ${{ vars.SHADOW_PRIMARY_ROOT }}
+          OFFICIAL_DATE: ${{ steps.date.outputs.date }}
+        run: |
+          install -d evidence/plans evidence/shared-pa-forward/ledgers/$OFFICIAL_DATE
+          SCP=(scp -q -i ~/.ssh/shadow_readonly -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes)
+          "${SCP[@]}" "$PRIMARY_USER@$PRIMARY_HOST:$PRIMARY_ROOT/pitcher-receipts/plans/$OFFICIAL_DATE.plan.json" evidence/plans/
+          PLAN_SHA="$(python -c 'import json,os; print(json.load(open("evidence/plans/" + os.environ["OFFICIAL_DATE"] + ".plan.json"))["plan_sha256"])')"
+          [[ "$PLAN_SHA" =~ ^[0-9a-f]{64}$ ]] || { echo "Invalid plan hash" >&2; exit 2; }
+          "${SCP[@]}" -r "$PRIMARY_USER@$PRIMARY_HOST:$PRIMARY_ROOT/shared-pa-forward/ledgers/$OFFICIAL_DATE/$PLAN_SHA" "evidence/shared-pa-forward/ledgers/$OFFICIAL_DATE/"
+
+      - name: Remove ephemeral SSH identity
+        if: always()
+        run: rm -f ~/.ssh/shadow_readonly
+
+      - name: Independently verify source-to-probability chain
+        id: verifier
+        continue-on-error: true
+        env:
+          OFFICIAL_DATE: ${{ steps.date.outputs.date }}
+        run: |
+          python scripts/verify_aws_shared_pa_forward_tree.py \
+            --evidence-root evidence \
+            --date "$OFFICIAL_DATE" \
+            --out evidence/independent_verification.json
+
+      - name: Retain independent audit copy
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: shared-pa-forward-${{ steps.date.outputs.date }}-${{ github.run_id }}
+          path: evidence/
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Alert on missing, failed, late, altered, or unsafe evidence
+        if: always() && steps.verifier.outcome != 'success'
+        run: |
+          echo "AWS shared PA forward verification failed." >&2
+          echo "No replacement input was fetched and no success was inferred." >&2
+          exit 1

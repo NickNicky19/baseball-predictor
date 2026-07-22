@@ -1,0 +1,121 @@
+{
+  "schema_version": "shared-pa-hierarchical-certified-rejection-v1",
+  "status": "HIERARCHICAL_SELECTION_REJECTION_CERTIFIED",
+  "betting_authorized": false,
+  "production_changed": false,
+  "confirmation_2025_opened": false,
+  "may_2026_opened": false,
+  "selector_source_commit": "aade7a7c2992b26a2a829d15fdf3ee1ccfb96bd4",
+  "final_certifier_commit": "47a4a54",
+  "artifacts": {
+    "protocol": {
+      "root": "code",
+      "path": "config/shared_pa_hierarchical_selection_protocol.json",
+      "sha256": "dadc5ed00e85e5d7faf177fd385eda7313a1f32c9862b5392a23f4fe1526130a"
+    },
+    "report": {
+      "root": "evidence",
+      "path": "data/analysis/shared_pa_foundation_v1/hierarchical_selection_v1/selection_report.json",
+      "sha256": "c97f10adb7b884086e441db9a8d4acf2ba0717bd0da76f551bb431e958a2e38e"
+    },
+    "oof": {
+      "root": "evidence",
+      "path": "data/analysis/shared_pa_foundation_v1/hierarchical_selection_v1/selection_oof.csv",
+      "sha256": "6740817ce9f8ae46a54094dea7e424514b5ba89caaeb0cfbd06fb3d85ffe66c7",
+      "bytes": 30710035
+    },
+    "certificate": {
+      "root": "evidence",
+      "path": "data/analysis/shared_pa_foundation_v1/hierarchical_selection_v1/selection_certificate.json",
+      "sha256": "56aeebee64f842575aff78b4471afa8411cc8a01b0447efbb900d11c5f5f5a31"
+    }
+  },
+  "population": {
+    "rows": 43668,
+    "dates": 183,
+    "seasons": [2024],
+    "coverage_loss": 0
+  },
+  "selected_scores": {
+    "multiclass_log_loss": 1.5035618893029818,
+    "multiclass_brier": 0.7075736470186924
+  },
+  "paired_candidate_minus_comparator": {
+    "vs_strongest_simple": {
+      "multiclass_log_loss": {
+        "point": -0.0013878223552356442,
+        "upper_95": -0.0007012298705235219,
+        "required_below": -0.012134926932596546,
+        "fraction_of_materiality_floor_reached": 0.11436594245225404,
+        "passed": false
+      },
+      "multiclass_brier": {
+        "point": -0.0006777754440208656,
+        "upper_95": -0.0004186705654352143,
+        "required_below": -0.004660965632301117,
+        "fraction_of_materiality_floor_reached": 0.14541524170952705,
+        "passed": false
+      }
+    },
+    "vs_canonical_v1": {
+      "multiclass_log_loss": {
+        "point": -0.00043061110118894493,
+        "upper_95": -0.0002498689548923033,
+        "passed": true
+      },
+      "multiclass_brier": {
+        "point": -0.00012933473199415685,
+        "upper_95": -0.00007621766478822716,
+        "passed": true
+      }
+    }
+  },
+  "market_adjudication": {
+    "evaluated_separately": [
+      "hits_0.5", "hits_1.5", "home_runs_0.5",
+      "total_bases_0.5", "total_bases_1.5", "total_bases_2.5",
+      "total_bases_3.5", "total_bases_4.5", "total_bases_5.5"
+    ],
+    "eligible_for_2025_confirmation": [],
+    "one_market_cannot_validate_another": true
+  },
+  "validator_evidence": {
+    "final_mutations_passed": 16,
+    "final_mutations_required": 16,
+    "failed_attempts_preserved": [
+      {
+        "record": "reports/shared_pa_hierarchical_validator_v1_FAILURE.json",
+        "sha256": "457da852d2a8e9cc0686314352452b98be037edd7e668e4f9afb5cd1065e61e9"
+      },
+      {
+        "record": "reports/shared_pa_hierarchical_validator_v2_FAILURE.json",
+        "sha256": "b8dbb23c39bb66855d6c86509560cb70ef339b569417228d1092e3b7e6ff3f04"
+      }
+    ],
+    "retry_authorizations": [
+      {
+        "path": "config/shared_pa_hierarchical_validator_retry_v2.json",
+        "sha256": "d9c1870bda33def43e0f67341793cd2d15abb2348e7b26e73a9d26c28897258c"
+      },
+      {
+        "path": "config/shared_pa_hierarchical_validator_retry_v3.json",
+        "sha256": "1354e7709a160b34333745c49c3df1ca5f3dce5d8ff054bfaa0a6d02fd21c9b0"
+      }
+    ]
+  },
+  "decision": {
+    "foundation_passed": false,
+    "selection_passed": false,
+    "model_not_published": true,
+    "confirmation_2025_must_remain_unread": true,
+    "reason": "The hierarchy improved both proper scores over canonical v1 with paired strength but cleared only 11.44% and 14.54% of the locked materiality floors versus the strongest empirical-Bayes baseline. No derived market independently cleared both comparators."
+  },
+  "highest_value_next_action": "Stop adding complexity to the rejected shared ML family. Treat empirical_bayes_player_rate_pa_200 as the strongest surviving probability control and benchmark that control directly against immutable production probabilities on open, non-May 2026 Hits, HR, and Total Bases evidence before designing another challenger.",
+  "protected_invariants": {
+    "hierarchical_model_rejected": true,
+    "confirmation_2025_unread": true,
+    "may_2026_unread": true,
+    "production_unchanged": true,
+    "betting_unauthorized": true
+  }
+}

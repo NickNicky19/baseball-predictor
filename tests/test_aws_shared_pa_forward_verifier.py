@@ -1,0 +1,58 @@
+"""Independent AWS copy verifier must never fetch or infer missing evidence."""
+
+from __future__ import annotations
+
+import json
+from datetime import datetime, timezone
+from pathlib import Path
+
+import pytest
+
+from scripts.run_aws_shared_pa_forward_tick import collector_code_sha256, load_runtime
+from scripts.verify_aws_shared_pa_forward_tree import verify_tree
+from src.evaluation.shadow_capture_plan import plan_from_schedule
+from src.evaluation.shared_pa_forward_evidence import load_forward_contract
+from src.evaluation.shared_pa_forward_ledger import SharedPAForwardLedger
+
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_may_rejected_before_opening_invalid_plan(tmp_path: Path) -> None:
+    plan = tmp_path / "plans"
+    plan.mkdir()
+    (plan / "2026-05-12.plan.json").write_bytes(b"must-never-be-opened")
+    with pytest.raises(ValueError, match="May 2026"):
+        verify_tree(
+            evidence_root=tmp_path,
+            official_date="2026-05-12",
+            assessed_at=datetime(2026, 5, 12, tzinfo=timezone.utc),
+        )
+
+
+def test_empty_slate_exact_tree_verifies_without_sources(tmp_path: Path) -> None:
+    plan = plan_from_schedule(
+        official_game_date="2026-07-29",
+        entry_hours=4,
+        policy_sha256="a" * 64,
+        schedule_snapshot=[],
+    )
+    plans = tmp_path / "plans"
+    plans.mkdir()
+    (plans / "2026-07-29.plan.json").write_text(json.dumps(plan.to_dict()), encoding="utf-8")
+    runtime, runtime_sha = load_runtime(ROOT / "config/shared_pa_forward_runtime_v1.json")
+    loaded = load_forward_contract(root=ROOT, contract_path=ROOT / runtime["contract"]["path"])
+    SharedPAForwardLedger(
+        tmp_path / "shared-pa-forward" / "ledgers" / "2026-07-29" / plan.plan_sha256,
+        plan=plan,
+        contract_sha256=loaded["contract_sha256"],
+        runtime_manifest_sha256=runtime_sha,
+        collector_code_sha256=collector_code_sha256(),
+    )
+    report = verify_tree(
+        evidence_root=tmp_path,
+        official_date="2026-07-29",
+        assessed_at=datetime(2026, 7, 29, 12, tzinfo=timezone.utc),
+    )
+    assert report["state"] == "verified"
+    assert report["replacement_data_fetched"] is False

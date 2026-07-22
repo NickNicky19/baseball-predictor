@@ -1,0 +1,24 @@
+[Unit]
+Description=Run one future-only shared batter PA evidence tick (research only)
+Wants=network-online.target
+After=network-online.target baseball-pitcher-receipt-plan.service
+
+[Service]
+Type=oneshot
+User=baseball-shadow
+Group=baseball-shadow
+WorkingDirectory=/opt/baseball-predictor-shared-pa-forward/current
+ExecStart=/usr/bin/python3 /opt/baseball-predictor-shared-pa-forward/current/scripts/run_aws_shared_pa_forward_tick.py --plan-dir /srv/baseball-shadow/pitcher-receipts/plans --ledger-root /srv/baseball-shadow/shared-pa-forward/ledgers --lock-file /srv/baseball-shadow/shared-pa-forward/locks/tick.lock
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadOnlyPaths=/srv/baseball-shadow/pitcher-receipts/plans
+ReadWritePaths=/srv/baseball-shadow/shared-pa-forward
+RestrictSUIDSGID=true
+LockPersonality=true
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+MemoryDenyWriteExecute=true
+UMask=0027
