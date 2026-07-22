@@ -14,7 +14,8 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.build_aws_pitcher_receipt_plan import AWSReceiptPlanError, build_plan
+import scripts.build_aws_pitcher_receipt_plan as aws_plan_builder
+from scripts.build_aws_pitcher_receipt_plan import AWSReceiptPlanError, AWSReceiptPlanTooLateError, build_plan
 from scripts.report_aws_pitcher_receipt_health import build_report, main as health_main
 from scripts.run_aws_pitcher_receipt_tick import AWSReceiptTickError, run_all
 from scripts.verify_aws_pitcher_receipt_tree import verify_tree
@@ -138,11 +139,24 @@ def main() -> int:
             ]) == 2 and ProbeAPI.constructed == 0
         print("[OK] MUTATION legacy plan command rejects May before MLB client construction")
 
-        assert fails(lambda: build_plan(
-            official_date="2026-07-30", plan_dir=plans, receipt_dir=receipts,
-            runtime_path=runtime(), now=at("2026-07-30T19:11:00Z"),
-        ))
+        with patch("scripts.build_aws_pitcher_receipt_plan.fetcher", fake_fetcher):
+            try:
+                build_plan(
+                    official_date="2026-07-30", plan_dir=plans, receipt_dir=receipts,
+                    runtime_path=runtime(), now=at("2026-07-30T19:11:00Z"),
+                )
+            except AWSReceiptPlanTooLateError:
+                pass
+            else:
+                raise AssertionError("post-T-4 plan publication did not use the terminal late-plan state")
         print("[OK] MUTATION post-T-4 plan publication is refused")
+
+        with patch.object(aws_plan_builder, "build_plan", side_effect=AWSReceiptPlanTooLateError("late")):
+            assert aws_plan_builder.main([
+                "--date", "2026-07-30", "--plan-dir", str(plans),
+                "--receipt-dir", str(receipts), "--runtime", str(runtime()),
+            ]) == 3
+        print("[OK] MUTATION late deployment date has a distinct fail-closed service status")
 
         with patch("scripts.run_aws_pitcher_receipt_tick.fetcher", fake_fetcher):
             tick = run_all(
@@ -239,6 +253,8 @@ def main() -> int:
 
         timer = (ROOT / "deploy/forward_pitcher_receipts/baseball-pitcher-receipt-tick.timer").read_text(encoding="utf-8")
         assert "OnUnitActiveSec=15s" in timer and "AccuracySec=1s" in timer
+        plan_timer = (ROOT / "deploy/forward_pitcher_receipts/baseball-pitcher-receipt-plan.timer").read_text(encoding="utf-8")
+        assert "Persistent=false" in plan_timer and "Persistent=true" not in plan_timer
         for service_name in (
             "baseball-pitcher-receipt-plan.service",
             "baseball-pitcher-receipt-tick.service",
@@ -258,6 +274,8 @@ def main() -> int:
         assert "^[0-9a-f]{40}$" in installer
         assert "github_host_key_sha256=\"6233fddbb0a29afc8c4e8c699733c1a188c3a41f2fb63a2640653dc4aea624ce\"" in installer
         assert 'env GIT_SSH_COMMAND="$ssh_command" \\\n    git -C "$temporary/repo" checkout --detach "$commit"' in installer
+        assert 'sudo -u "$service_user" /usr/bin/python3 "$release/scripts/check_tracked_secrets.py"' in installer
+        assert 'ExecMainStatus' in installer and '"$initial_plan_status" != "3"' in installer
         assert "run_slate.py" not in installer and "odds-api" not in installer.lower()
         known_hosts = (ROOT / "deploy/forward_pitcher_receipts/github.com_known_hosts").read_bytes()
         assert hashlib.sha256(known_hosts).hexdigest() == "6233fddbb0a29afc8c4e8c699733c1a188c3a41f2fb63a2640653dc4aea624ce"
@@ -282,7 +300,7 @@ def main() -> int:
         plan_path.write_bytes(original)
         print("[OK] MUTATION conflicting plan retry fails without replacing the published plan")
 
-    print("16/16")
+    print("17/17")
     return 0
 
 

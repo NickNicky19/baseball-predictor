@@ -35,6 +35,10 @@ class AWSReceiptPlanError(ValueError):
     """A plan cannot prove its schedule-source and time boundaries."""
 
 
+class AWSReceiptPlanTooLateError(AWSReceiptPlanError):
+    """The deployment date is already past at least one immutable T-4 target."""
+
+
 def _canonical_bytes(value: Any) -> bytes:
     return (json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True) + "\n").encode("utf-8")
 
@@ -93,7 +97,7 @@ def build_plan(*, official_date: str, plan_dir: Path, receipt_dir: Path, runtime
         <= max(current.astimezone(timezone.utc), received_at)
     ]
     if due:
-        raise AWSReceiptPlanError("refusing to publish a plan after any T-4 target is due")
+        raise AWSReceiptPlanTooLateError("refusing to publish a plan after any T-4 target is due")
     raw_sha = hashlib.sha256(received.body).hexdigest()
     plan_bytes = _canonical_bytes(plan.to_dict())
     receipt = {
@@ -147,6 +151,9 @@ def main(argv: list[str] | None = None) -> int:
             receipt_dir=args.receipt_dir,
             runtime_path=args.runtime,
         ), sort_keys=True))
+    except AWSReceiptPlanTooLateError as exc:
+        print(f"[FAIL] {type(exc).__name__}: {exc}", file=sys.stderr)
+        return 3
     except (OSError, ValueError, RuntimeError, AWSReceiptPlanError) as exc:
         print(f"[FAIL] {type(exc).__name__}: {exc}", file=sys.stderr)
         return 2
