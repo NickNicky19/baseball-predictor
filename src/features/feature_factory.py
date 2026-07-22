@@ -33,6 +33,12 @@ from src.features.pitcher_matchup_gate import (
     validate_mode,
     validate_pitcher_profile_lineage,
 )
+from src.features.pa_volume_gate import (
+    LEGACY_MODE as PA_VOLUME_LEGACY_MODE,
+    STRICT_MODE as PA_VOLUME_STRICT_MODE,
+    PAVolumeAuthorization,
+    validate_mode as validate_pa_volume_mode,
+)
 from src.features.legacy_statcast_features import StatcastFeatureEngine
 from src.features.rich_feature_enricher import RichFeatureEnricher
 from src.data.statcast_integrity import (
@@ -87,6 +93,15 @@ class CertifiedPitcherProfileProvider(Protocol):
         ...
 
 
+class PAVolumeAuthorizationProvider(Protocol):
+    """Future-only provider of T-minus-4 lineup/PA-volume receipts."""
+
+    def authorization_for(
+        self, hitter: HitterGameContext, game_date: str
+    ) -> PAVolumeAuthorization | Mapping[str, Any] | None:
+        ...
+
+
 class FeatureFactory:
     """
     Assembles PlayerFeatureBundle rows with rich features and matchup context.
@@ -110,6 +125,7 @@ class FeatureFactory:
         rolling_stats_provider: Optional[RollingStatsProvider] = None,
         pitcher_authorization_provider: Optional[PitcherAuthorizationProvider] = None,
         certified_pitcher_profile_provider: Optional[CertifiedPitcherProfileProvider] = None,
+        pa_volume_authorization_provider: Optional[PAVolumeAuthorizationProvider] = None,
     ):
         self.config = config or {}
         self.league = league_baselines or LeagueBaselines.from_config(self.config)
@@ -159,9 +175,15 @@ class FeatureFactory:
         self.rolling_stats_provider = rolling_stats_provider
         self.pitcher_authorization_provider = pitcher_authorization_provider
         self.certified_pitcher_profile_provider = certified_pitcher_profile_provider
+        self.pa_volume_authorization_provider = pa_volume_authorization_provider
         self.pitcher_context_identity_mode = validate_mode(
             (self.config.get("pa_simulator") or {}).get(
                 "pitcher_context_identity_mode", LEGACY_MODE
+            )
+        )
+        self.pa_volume_identity_mode = validate_pa_volume_mode(
+            (self.config.get("base_running") or {}).get(
+                "pa_volume_identity_mode", PA_VOLUME_LEGACY_MODE
             )
         )
 
@@ -196,7 +218,10 @@ class FeatureFactory:
         """Build enriched feature bundles for all active hitters on a slate."""
         target_date = date.fromisoformat(game_date)
         if (
-            self.pitcher_context_identity_mode == STRICT_MODE
+            (
+                self.pitcher_context_identity_mode == STRICT_MODE
+                or self.pa_volume_identity_mode == PA_VOLUME_STRICT_MODE
+            )
             and target_date.year == 2026
             and target_date.month == 5
         ):
@@ -232,6 +257,7 @@ class FeatureFactory:
                 )
             else:
                 pitcher_statcast = self._resolve_opposing_pitcher_statcast(hitter)
+            pa_volume_metadata = self._pa_volume_metadata(hitter, game_date)
             weather = self.weather_client.get_weather_for_game(
                 hitter.game.game_pk,
                 hitter.game.venue,
@@ -264,6 +290,7 @@ class FeatureFactory:
                     "lineup_status": hitter.game.lineup_status,
                     "weather_hr_factor": weather_hr,
                     **pitcher_metadata,
+                    **pa_volume_metadata,
                 },
             )
 
@@ -335,7 +362,12 @@ class FeatureFactory:
                 "bvp_hr_factor": enriched.matchup.bvp_hr_factor,
                 "recent_form_mult": enriched.matchup.recent_form_multiplier,
                 # Lineup
-                "lineup_slot": hitter.lineup_slot,
+                "lineup_slot": (
+                    hitter.lineup_slot
+                    if pa_volume_metadata.get("pa_volume_status")
+                    in {"legacy_frozen", "receipt_confirmed_slot"}
+                    else None
+                ),
             }
 
             rolling: Optional[dict[str, Any]] = None
@@ -429,7 +461,18 @@ class FeatureFactory:
                     ),
                 },
             )
-            bundles.append(self.lineup_intelligence.apply_to_bundle(enriched))
+            if (
+                self.pa_volume_identity_mode == PA_VOLUME_STRICT_MODE
+                and pa_volume_metadata.get("pa_volume_status")
+                != "receipt_confirmed_slot"
+            ):
+                # A postgame/final slot may still be present on the schedule
+                # object, but without a T-4 receipt it cannot alter expected PA
+                # or any rich probability input. The strict simulator consumes
+                # the fitted pooled distribution instead.
+                bundles.append(enriched)
+            else:
+                bundles.append(self.lineup_intelligence.apply_to_bundle(enriched))
 
         logger.info("Built %d feature bundles for %s", len(bundles), game_date)
         return bundles
@@ -534,6 +577,36 @@ class FeatureFactory:
             }
         )
         return sanitized, profile, metadata
+
+    def _pa_volume_metadata(
+        self, hitter: HitterGameContext, game_date: str
+    ) -> dict[str, Any]:
+        if self.pa_volume_identity_mode == PA_VOLUME_LEGACY_MODE:
+            return {"pa_volume_status": "legacy_frozen"}
+        provider = self.pa_volume_authorization_provider
+        raw = provider.authorization_for(hitter, game_date) if provider is not None else None
+        if raw is None:
+            return {"pa_volume_status": "pooled_missing_receipt"}
+        authorization = (
+            raw
+            if isinstance(raw, PAVolumeAuthorization)
+            else PAVolumeAuthorization.from_mapping(raw)
+        )
+        authorization.validate_hitter(hitter)
+        status = (
+            "receipt_confirmed_slot"
+            if authorization.lineup_state == "confirmed"
+            else f"pooled_lineup_{authorization.lineup_state}"
+        )
+        if (
+            authorization.lineup_state == "confirmed"
+            and hitter.lineup_slot != authorization.lineup_slot
+        ):
+            raise ValueError("hitter lineup slot contradicts its T-minus-4 receipt")
+        return {
+            "pa_volume_authorization": authorization.to_dict(),
+            "pa_volume_status": status,
+        }
 
     def _attach_hitter_rates(self, bundle, season, recent, lineage=None):
         """Put the hitter's OWN season/recent K and BB rates on his StatcastProfile.

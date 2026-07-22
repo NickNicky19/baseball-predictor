@@ -308,8 +308,6 @@ class FeatureVectorBuilder:
             "ctx_park_hits",
             "ctx_park_runs",
             "ctx_weather_hr",
-            "ctx_lineup_slot",
-            "ctx_expected_pa",
             "ctx_is_home",
         ]
         values["ctx_park_hr"] = round(bundle.park.hr_factor - 1.0, 6)
@@ -318,12 +316,17 @@ class FeatureVectorBuilder:
         values["ctx_weather_hr"] = round(
             float(bundle.metadata.get("weather_hr_factor", 1.0)) - 1.0, 6
         )
-        values["ctx_lineup_slot"] = round(
-            (bundle.hitter.lineup_slot - 5.0) / 4.0, 6
-        )
-        values["ctx_expected_pa"] = round(
-            (bundle.expected_pa - self.league.pa_per_game) / max(self.league.pa_per_game, 1.0), 6
-        )
+        pa_volume_status = str(bundle.metadata.get("pa_volume_status", "legacy_frozen"))
+        if pa_volume_status in {"legacy_frozen", "receipt_confirmed_slot"}:
+            values["ctx_lineup_slot"] = round(
+                (bundle.hitter.lineup_slot - 5.0) / 4.0, 6
+            )
+            values["ctx_expected_pa"] = round(
+                (bundle.expected_pa - self.league.pa_per_game)
+                / max(self.league.pa_per_game, 1.0),
+                6,
+            )
+            keys.extend(("ctx_lineup_slot", "ctx_expected_pa"))
         values["ctx_is_home"] = 1.0 if bundle.hitter.game.is_home else 0.0
         if bundle.umpire:
             values["ctx_umpire_k_bias"] = round(bundle.umpire.k_bias, 6)

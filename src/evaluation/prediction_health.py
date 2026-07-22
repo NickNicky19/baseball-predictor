@@ -26,7 +26,7 @@ from src.data.statcast_integrity import (
 )
 
 
-HEALTH_SCHEMA_VERSION = "prediction-input-health-v3"
+HEALTH_SCHEMA_VERSION = "prediction-input-health-v4"
 
 
 @dataclass(frozen=True)
@@ -47,6 +47,7 @@ class PredictionInputHealth:
     lineup_status: str
     lineup_slot: int | None
     expected_pa: float
+    pa_volume_status: str
     statcast_sample_pa: int
     hitter_has_advanced_statcast: bool
     hitter_statcast_source_status: str
@@ -83,6 +84,16 @@ def health_for_bundle(bundle: PlayerFeatureBundle) -> PredictionInputHealth:
 
     pitcher = bundle.pitcher_statcast
     raw_slot = bundle.hitter.lineup_slot
+    pa_volume_status = str(bundle.metadata.get("pa_volume_status", "legacy_frozen"))
+    allowed_pa_volume_statuses = {
+        "legacy_frozen",
+        "receipt_confirmed_slot",
+        "pooled_missing_receipt",
+        "pooled_lineup_projected",
+        "pooled_lineup_unknown",
+    }
+    if pa_volume_status not in allowed_pa_volume_statuses:
+        pa_volume_status = "invalid_status"
     # This must use the exact coercion contract at PropEngine's simulation
     # boundary.  A health audit that labels ``"3"`` as a legacy fallback while
     # the engine uses slot 3 would be a metric blind to the code path it claims
@@ -90,6 +101,8 @@ def health_for_bundle(bundle: PlayerFeatureBundle) -> PredictionInputHealth:
     try:
         slot = int(raw_slot) if raw_slot is not None and 1 <= int(raw_slot) <= 9 else None
     except (TypeError, ValueError):
+        slot = None
+    if pa_volume_status.startswith("pooled_"):
         slot = None
     slot_is_valid = slot is not None
     has_advanced_statcast = bundle.statcast.has_advanced_data()
@@ -144,7 +157,11 @@ def health_for_bundle(bundle: PlayerFeatureBundle) -> PredictionInputHealth:
         pitcher_matchup_status = "invalid_status"
 
     flags: list[str] = [f"lineup_{bundle.hitter.game.lineup_status}"]
-    if slot_is_valid:
+    if pa_volume_status == "receipt_confirmed_slot" and slot_is_valid:
+        flags.append("receipt_confirmed_lineup_slot_pa")
+    elif pa_volume_status.startswith("pooled_"):
+        flags.append("strict_pooled_pa_volume")
+    elif slot_is_valid:
         flags.append("fitted_lineup_slot_pa")
     else:
         # PropEngine passes None for an invalid slot, which activates its
@@ -176,6 +193,7 @@ def health_for_bundle(bundle: PlayerFeatureBundle) -> PredictionInputHealth:
         else "hitter_rate_lineage_unavailable"
     )
     flags.append(f"pitcher_matchup_{pitcher_matchup_status}")
+    flags.append(f"pa_volume_{pa_volume_status}")
 
     if not pitcher_payload_present:
         flags.extend(
@@ -227,6 +245,7 @@ def health_for_bundle(bundle: PlayerFeatureBundle) -> PredictionInputHealth:
         lineup_status=bundle.hitter.game.lineup_status,
         lineup_slot=slot,
         expected_pa=bundle.expected_pa,
+        pa_volume_status=pa_volume_status,
         statcast_sample_pa=bundle.statcast.sample_pa,
         hitter_has_advanced_statcast=has_advanced_statcast,
         hitter_statcast_source_status=source_status,

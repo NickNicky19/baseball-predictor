@@ -96,6 +96,12 @@ from pathlib import Path
 from typing import Optional, Any
 
 from src.models.dataclasses import StatcastProfile, GameSimulationResult
+from src.features.pa_volume_gate import (
+    LEGACY_MODE as PA_VOLUME_LEGACY_MODE,
+    STRICT_MODE as PA_VOLUME_STRICT_MODE,
+    load_pa_volume_artifact,
+    validate_mode as validate_pa_volume_mode,
+)
 from src.simulation.pa_simulator import HybridPASimulator
 from src.simulation.base_state import BaseState
 
@@ -172,6 +178,10 @@ class GameSimulatorInput:
     # Defaults to None -> _sample_pa_count takes the legacy floor/floor+1 path,
     # byte-identically. An existing caller that does not set it is unaffected.
     lineup_slot: Optional[int] = None
+    # New strict candidates may use a slot only after a hash-bound T-4 receipt.
+    # Otherwise the strict 2023 artifact's pooled distribution is mandatory.
+    pa_volume_status: str = "legacy_frozen"
+    pa_volume_authorization_sha256: Optional[str] = None
 
 
 class GameSimulator:
@@ -243,13 +253,35 @@ class GameSimulator:
         # through is therefore INERT on the frozen/live path until a config
         # supplies base_running.pa_distribution_path -- the same
         # degenerate-when-absent contract as lambda/gamma and B4's role_innings.
-        if pa_distribution is None and config:
+        self.pa_volume_identity_mode = validate_pa_volume_mode(
+            br.get("pa_volume_identity_mode", PA_VOLUME_LEGACY_MODE)
+        )
+        pooled_pa_distribution: Optional[dict[int, float]] = None
+        if self.pa_volume_identity_mode == PA_VOLUME_STRICT_MODE:
+            if pa_distribution is not None:
+                raise ValueError(
+                    "strict PA volume forbids unbound in-memory distributions"
+                )
+            artifact = load_pa_volume_artifact(
+                br.get("pa_distribution_path"),
+                br.get("pa_distribution_sha256"),
+            )
+            pa_distribution = artifact.by_lineup_slot
+            pooled_pa_distribution = artifact.pooled
+        elif pa_distribution is None and config:
             pa_distribution = self._load_pa_distribution(
-                (config.get("base_running", {}) or {}).get("pa_distribution_path")
+                br.get("pa_distribution_path")
             )
         self._pa_dist_states, self._pa_dist_weights = self._prepare_pa_dist(
             pa_distribution
         )
+        if pooled_pa_distribution is None:
+            self._pa_pooled_states, self._pa_pooled_weights = [], []
+        else:
+            self._pa_pooled_states = sorted(pooled_pa_distribution)
+            self._pa_pooled_weights = [
+                pooled_pa_distribution[key] for key in self._pa_pooled_states
+            ]
 
     def seed(self, seed: int) -> None:
         """Reseed both the game-level and PA-level RNGs (reproducibility)."""
@@ -265,7 +297,9 @@ class GameSimulator:
         effective_pitcher_k = sim_input.pitcher_k_pct + sim_input.umpire_k_bias
 
         n_pa = self._sample_pa_count(
-            sim_input.expected_pa, getattr(sim_input, "lineup_slot", None)
+            sim_input.expected_pa,
+            getattr(sim_input, "lineup_slot", None),
+            getattr(sim_input, "pa_volume_status", "legacy_frozen"),
         )
 
         # ONE persistent BaseState for the whole simulated game. This is what
@@ -359,7 +393,12 @@ class GameSimulator:
     # Internals
     # ------------------------------------------------------------------
 
-    def _sample_pa_count(self, expected_pa: float, lineup_slot: Optional[int] = None) -> int:
+    def _sample_pa_count(
+        self,
+        expected_pa: float,
+        lineup_slot: Optional[int] = None,
+        pa_volume_status: str = "legacy_frozen",
+    ) -> int:
         """Plate appearances for one simulated game.
 
         FITTED PATH (lineup_slot known AND a fitted distribution is loaded):
@@ -373,6 +412,35 @@ class GameSimulator:
         rng.random() call, same stream position -- so that a config without
         base_running.pa_distribution_path reproduces the pre-fix model exactly.
         """
+        if self.pa_volume_identity_mode == PA_VOLUME_STRICT_MODE:
+            if pa_volume_status == "receipt_confirmed_slot":
+                if lineup_slot not in self._pa_dist_states:
+                    raise ValueError(
+                        "receipt-confirmed PA volume lacks a valid fitted lineup slot"
+                    )
+                return self.rng.choices(
+                    self._pa_dist_states[lineup_slot],
+                    weights=self._pa_dist_weights[lineup_slot],
+                    k=1,
+                )[0]
+            if pa_volume_status not in {
+                "pooled_missing_receipt",
+                "pooled_lineup_projected",
+                "pooled_lineup_unknown",
+            }:
+                raise ValueError(
+                    "strict PA volume requires a verified slot or an explicit pooled status"
+                )
+            if lineup_slot is not None:
+                raise ValueError("pooled PA volume cannot carry an unverified lineup slot")
+            if not self._pa_pooled_states:
+                raise ValueError("strict PA volume artifact lacks its pooled distribution")
+            return self.rng.choices(
+                self._pa_pooled_states,
+                weights=self._pa_pooled_weights,
+                k=1,
+            )[0]
+
         if self._pa_dist_states and lineup_slot in self._pa_dist_states:
             return self.rng.choices(
                 self._pa_dist_states[lineup_slot],

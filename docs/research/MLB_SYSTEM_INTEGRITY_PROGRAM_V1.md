@@ -59,12 +59,15 @@ outcome/result columns. Exact machine-readable scope is in
 | SI-017 | P2 | The first v3 report labeled its candidate ID `v2` and omitted the report-builder hash. | Candidate identity/provenance | Rejected report preserved; builder now self-bound and candidate correctly labeled. Complete. | Provenance repair |
 | SI-018 | P0 | `FeaturePipeline.compute` caught every engineer exception and returned a partial feature dictionary; downstream rich/scalar/league precedence could therefore hide a crash as ordinary fallback. | Hits, HR, TB | Pipeline now fails closed on engineer failure, non-dictionary output, and duplicate feature ownership. Regression and override-mutation tests pass. | Integrity repair |
 | SI-019 | P0 | The frozen pitcher HR/9 term had reversed monotonic direction: a higher HR/9 reduced hitter HR probability. | HR; shared simulator | Historical sign is explicitly isolated as `legacy_frozen`; corrected direction is separately selectable and monotonicity-tested. Batter-only v3 excludes the pitcher block. No pitcher candidate may advance without T-4 identity evidence. | Integrity repair/research candidate boundary |
-| SI-020 | P0 | The v2 selector called per-PA HR scoring `HR over 0.5` and similarly treated hit/TB PA outcomes as game-market probabilities. A full-game probability requires a point-in-time PA-volume distribution. | Hits, HR over 0.5, Total Bases | v3 labels these PA-foundation diagnostics only and records every market as blocked. Realized game PA is forbidden as a prediction input. | Evaluation-boundary repair |
+| SI-020 | P0 | The v2 selector called per-PA HR scoring `HR over 0.5` and similarly treated hit/TB PA outcomes as game-market probabilities. A full-game probability requires a point-in-time PA-volume distribution. | Hits, HR over 0.5, Total Bases | v3 labels the earlier work as PA-foundation diagnostics. The new strict PA-volume consumer uses a hash-bound 2023 fit and pooled volume when no T-4 lineup receipt exists; official target-game slot and realized PA remain forbidden prediction inputs. Its single 2024 selection was rejected. | Evaluation-boundary repair/rejected candidate |
 | SI-021 | P1 | Barrel rate and hard-hit rate overlap because every barrel is also a hard-hit BBE; exposing both rates can duplicate one contact-quality signal and hides sample exposure. | HR first; Hits/TB shared PA foundation | Implemented mutually exclusive barrels, hard-hit non-barrels, and other measured BBE with counts, one denominator, and measured BBE per PA. Fail-closed mutations pass. The single locked 2023 experiment found no material survivor, so the repair is retained but the representation is rejected as a model upgrade. | Integrity repair/rejected research representation |
 | SI-022 | P0 | The fitted hitter K/BB bridge could consume current season/last-X snapshots during historical reconstruction, overwrite league-fallback values without changing fallback lineage, and provide no source hash or cutoff proof. | Hits, HR, TB | Repaired with an explicit `point_in_time_required` mode backed only by strict prior-game logs, count/rate/source hashes, and per-field lineage. Source loss now terminates. The frozen legacy mode remains byte-compatible only as a comparator; new fitted-K/BB candidates must enable the simulator lineage gate. | Integrity/governance repair |
 | SI-023 | P0 | `model_version` omitted the output-affecting `pa_simulator` block and any active correction-state identity, so fitted K/BB or learned model-parameter changes could retain the same recorded version. | Hits, HR, TB; all archived projections | `pa_simulator` is now version-bound. An active correction forks identity by the canonical effective-state SHA-256 and archives both source and effective hashes. Missing/malformed/inactive states fail closed. | Identity/integrity repair |
 | SI-024 | P0 | Reconfiguring the simulator after source-derived league-anchor refresh rebuilt from league defaults only, silently discarding every `pa_simulator` override; applying corrections before that refresh could also overwrite an active correction. | Hits, HR, TB | League reconfiguration now re-consumes the exact config block. Corrections validate before source work and apply exactly once after point-in-time league anchors are established. Override-preservation regression passes. | Probability-consumption repair |
 | SI-025 | P0 | Correction-state parsing accepted unknown fields, invalid values, and unconsumed overrides; explicit correction requests could silently degrade to the frozen model. Output offsets changed a displayed mean without changing its probability distribution and rebuilt projections while dropping identity/lineage fields. | Hits, HR, TB; simulation consistency and archives | Strict schema/type/range/field validation is terminal. Explicit requests require one active hash-bound artifact. Decorative overrides and output-only offsets are rejected. The low-level copier preserves all fields, but the active daily path permits only coherent pre-simulation model-parameter corrections. | Probability/lineage repair |
+| SI-026 | P0 | The active empirical PA-volume artifact was fitted on 2023 and the designated 2024 selection year together, so 2024 target outcomes entered the fitted distribution. | Full-game Hits, HR over 0.5, Total Bases | Rebuilt as `pa_volume_2023_only_v1` from all 43,740 original-starter rows in 2023. Artifact validation requires fit year 2023, selection year 2024, exact source projection hash, complete slots, and pooled/slot mixture identity. The contaminated artifact remains preserved only as historical evidence. | Chronology/integrity repair |
+| SI-027 | P0 | The legacy PA fitter filtered `out_pa > 0`, silently deleting 14 valid zero-PA 2023 original starters (and 18 in 2024). | Coverage and every full-game tail | Zero PA is now valid distribution support and all 18 original starters per game are retained. Negative or impossible PA remains terminal. Mutation tests prove zero-PA retention. | Source/coverage repair |
+| SI-028 | P0 | `GameSimulator` consumed an unhashed PA-distribution path and silently fell back to the legacy two-point draw when the file was absent; official lineup slot could enter without decision-time receipt evidence. | Full-game Hits, HR over 0.5, Total Bases | New strict mode requires the exact artifact hash, rejects missing/malformed/tampered artifacts, consumes a slot only with a T-4 authorization, and otherwise uses the fitted pooled distribution. Unverified slot and expected-PA fields are removed from the effective feature vector. Frozen behavior remains explicit under `legacy_frozen`. | Probability-consumption/identity repair |
 
 ## HR probability-consumption audit
 
@@ -148,6 +151,31 @@ and input-health reports expose the exact receipt/profile status. This is an
 integrity repair only: no historical outcomes, May data, prices, spent
 confirmation evidence, or operational collector runtime were touched; no
 market performance or betting claim is made.
+
+## PA-volume chronology repair and 2024 selection
+
+The prior PA-volume artifact hash
+`d61818e0fd4cfb70e40fdb240dc372ee5872b43263157ca1b23ee30cb3983570`
+was truthfully rejected as a new-candidate input because it fitted 2023 and
+2024 together and silently removed zero-PA rows. The repaired artifact fits
+2023 only, retains all 43,740 original starters across 2,430 games (including
+14 zero-PA rows), and binds exact source, projected-row, chronology, slot, and
+pooled-mixture identities. Historical 2024 has no T-4 lineup receipts, so the
+single locked selection used the 2023 pooled PA distribution for every row;
+official 2024 lineup slots and realized PA were not prediction inputs.
+
+Across all 43,722 original-starter rows and 2,429 games in 2024, the repaired
+pooled distribution improved each point proper score slightly against the
+same time-safe 200-PA empirical-Bayes player rates with the frozen 4.05-PA
+two-point volume. None was material. Candidate-minus-player-baseline Brier/log
+loss deltas were -0.000334/-0.000721 for Hits over 0.5, -0.0000048/-0.0000203
+for HR over 0.5, -0.000334/-0.000721 for Total Bases over 0.5, and
+-0.000060/-0.000129 for Total Bases over 1.5. Hits and TB over 0.5 also had
+tiny AUC regressions. HR beat the league-rate arm but not the time-safe player
+arm by the predeclared 1% proper-score requirement. Every market was rejected
+independently. The aligned frozen-simulator comparator, timestamp-certified
+market probabilities, T-4 lineup receipts, and fresh prospective confirmation
+also remain missing, so promotion and betting authorization are impossible.
 
 ## Promotion boundary
 

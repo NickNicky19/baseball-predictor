@@ -51,6 +51,7 @@ from src.models.dataclasses import (
 )
 from src.evaluation.output_safeguards import OutputSafeguards
 from src.features.pitcher_matchup_gate import resolve_pitcher_probability_inputs
+from src.features.pa_volume_gate import resolve_pa_volume_inputs
 from src.simulation.game_simulator import GameSimulator, GameSimulatorInput
 from src.simulation.monte_carlo import FantasyScoring, MonteCarloEngine
 from src.simulation.pa_simulator import HybridPASimulator, PASimulatorConfig
@@ -593,19 +594,16 @@ class PropEngine:
         bvp_hr = _clamp(pitcher.bvp_hr_factor, 0.70, 1.40)
         form_mult = _clamp(bundle.matchup.recent_form_multiplier, 0.85, 1.18)
 
-        # The fitted PA artifact is conditional on batting-order slot.  Passing
-        # None silently takes GameSimulator's legacy floor/floor+1 path even
-        # when config claims the fitted distribution is active.  Validate the
-        # boundary here; the offline PA harness mutation-tests this handoff.
-        slot = getattr(bundle.hitter, "lineup_slot", None)
-        try:
-            slot = int(slot) if slot is not None and 1 <= int(slot) <= 9 else None
-        except (TypeError, ValueError):
-            slot = None
+        pa_volume = resolve_pa_volume_inputs(
+            bundle,
+            mode=(self.config.get("base_running") or {}).get(
+                "pa_volume_identity_mode", "legacy_frozen"
+            ),
+        )
 
         return GameSimulatorInput(
             expected_pa=bundle.expected_pa,
-            lineup_slot=slot,
+            lineup_slot=pa_volume.lineup_slot,
             pitcher_k_pct=pitcher.pitcher_k_pct,
             pitcher_bb_pct=pitcher.pitcher_bb_pct,
             park_hr_factor=bundle.park.hr_factor,
@@ -619,6 +617,8 @@ class PropEngine:
             statcast=bundle.statcast,
             pitcher_hr_per_9=pitcher.pitcher_hr_per_9,
             rich_features=rich_features,
+            pa_volume_status=pa_volume.status,
+            pa_volume_authorization_sha256=pa_volume.authorization_sha256,
         )
 
     def _hitter_confidence(self, bundle: PlayerFeatureBundle, mc_result) -> float:

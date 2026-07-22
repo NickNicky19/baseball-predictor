@@ -1,0 +1,91 @@
+{
+  "schema": "pa-volume-chronology-certified-rejection-v1",
+  "generated_at_utc": "2026-07-22T06:44:11.6979206Z",
+  "status": "CERTIFIED_SELECTION_REJECTION",
+  "decision": "RETAIN_FROZEN_BASELINE_NO_BETTING_AUTHORIZATION",
+  "incidents": ["SI-026", "SI-027", "SI-028"],
+  "repair_scope": {
+    "fit_season": 2023,
+    "single_selection_season": 2024,
+    "fit_rows": 43740,
+    "fit_games": 2430,
+    "selection_rows": 43722,
+    "selection_games": 2429,
+    "zero_pa_original_starters_preserved_fit": 14,
+    "zero_pa_original_starters_preserved_selection": 18,
+    "historical_lineup_slot_consumed": false,
+    "pa_volume_source": "2023 pooled original-starter distribution",
+    "may_2026_touched": false
+  },
+  "market_results": {
+    "hits_over_0_5": {
+      "brier_candidate": 0.2364656377,
+      "brier_player_history_comparator": 0.2367995059,
+      "brier_delta": -0.0003338682,
+      "log_loss_candidate": 0.6657378152,
+      "log_loss_player_history_comparator": 0.6664589696,
+      "log_loss_delta": -0.0007211544,
+      "decision": "REJECT_MATERIALITY_AND_DISCRIMINATION_NONREGRESSION"
+    },
+    "hr_over_0_5": {
+      "brier_candidate": 0.09977686583,
+      "brier_player_history_comparator": 0.09978164212,
+      "brier_delta": -0.00000477629,
+      "log_loss_candidate": 0.34884273345,
+      "log_loss_player_history_comparator": 0.34886303025,
+      "log_loss_delta": -0.0000202968,
+      "league_rate_arm_all_gates_passed": true,
+      "decision": "REJECT_MATERIALITY_VERSUS_TIME_SAFE_PLAYER_HISTORY"
+    },
+    "total_bases_over_0_5": {
+      "brier_delta": -0.0003338682,
+      "log_loss_delta": -0.0007211544,
+      "decision": "REJECT_MATERIALITY_AND_DISCRIMINATION_NONREGRESSION"
+    },
+    "total_bases_over_1_5": {
+      "brier_delta": -0.00006002356,
+      "log_loss_delta": -0.00012890396,
+      "decision": "REJECT_MATERIALITY"
+    }
+  },
+  "unavailable_required_comparators": {
+    "frozen_simulator_identity_aligned_2024": "missing",
+    "timestamp_certified_market_implied_2024": "unavailable",
+    "fresh_untouched_or_prospective_evidence": "missing"
+  },
+  "validation": {
+    "focused_tests_passed": 16,
+    "full_tests_passed": 246,
+    "diff_check_passed": true
+  },
+  "hashes_sha256": {
+    "permissible_raw_source": "3fc38325007845d6a7a99102274f7e520ed6f4310cc2a3248ebc441afeb814c5",
+    "fit_input_projection": "9fa2e04373440f069bb9e0d3642bf01ff56c777152f122e9bfed65a2392d0753",
+    "fit_artifact": "7ffd6a8fecb1c4f8aed1966c234a61499050346f87f884f731c440daca793c90",
+    "selection_input_projection": "99a38a3dced0cc85f2a3bf59c9e1e03973128c0474421b856c419862af1e0019",
+    "selection_report": "5439c0e3418d1b50e1c3153e5668b9721fdd01b60986b9358814523a6df9ce3d",
+    "selection_markdown": "d2785288980d106860ad3d30c93728547dc7060548a0ecd940c5a4743a068e9c",
+    "locked_protocol": "d6b1035d924f61ea3a98e8f08fbb82e795d40b2e3cda442dacbd1ebb860c9733",
+    "system_integrity_program": "547ca568eb2f84921a76a443eb6cb6057b296ea456238094006d7679449f405e",
+    "build_script": "76c5f2405af27c5bfb49ddc8030392ea4b11fc01dd4dd8d8d0a1911711678b6a",
+    "adjudication_script": "183bdd18aed9f33ec0ec113df29355b552c0b41f6cb25d0f0cb0db3b7cbb0d6d",
+    "chronology_code": "dd412c5dd86ec328d491bfb7aaf7b093a12684b72ab117b527e9d0afa04556a8",
+    "adjudication_code": "ca061911eb88e95d862e89329db6e052e725bf7d7cdaffcdc4c0ae4376643ec5",
+    "pa_volume_gate": "a259f98c61b58d6df9cd4374037c3dd3b143da7dbc14ead6aa98e77d16d2ca56",
+    "prediction_health": "ddcbb6989c5f3535e411a33ec56627fa37cfd5af2e06282358df7be47ea77295",
+    "feature_factory": "baae3bf325fef253bb580f6ec1ff6c28e284dc280910bd61cab68fb81471c27e",
+    "feature_vector": "5639935de8d15ebee48d25a83a4153595e6b3a7ecbca57cfb5dcfb0ec6fabc4b",
+    "prop_engine": "95d5b890b9d6f527b49b491ecc06359d2a3184431102670490a495d5c5cd419f",
+    "game_simulator": "a191a9f9dfe29c370896a4fe08580b07f86e5e135a5a486f703bf28a3b44c105",
+    "tests": "06938a101ac23c9175f5abbb7ad42408a87b77af64f42fbdf79537fac6a1733e"
+  },
+  "protected_boundaries": {
+    "may_2026": "sealed_and_untouched",
+    "spent_2025_hr_confirmation": "not_inspected_or_reused",
+    "frozen_baselines": "preserved",
+    "operational_smoke": "permanently_non_economic_and_untouched",
+    "prospective_receipts": "not_backfilled",
+    "betting_authorized": false
+  },
+  "single_highest_value_next_action": "Deploy the already-reviewed AWS T-4 receipt automation after exact-head landing authorization, then collect fresh receipt-bound lineup and PA-volume evidence without backfill."
+}
