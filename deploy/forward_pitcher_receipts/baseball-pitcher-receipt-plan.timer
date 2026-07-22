@@ -1,0 +1,10 @@
+[Unit]
+Description=Publish tomorrow's MLB T-4 probable-starter receipt plan before any target is due
+
+[Timer]
+OnCalendar=*-*-* 00:15:00 America/New_York
+Persistent=true
+Unit=baseball-pitcher-receipt-plan.service
+
+[Install]
+WantedBy=timers.target
