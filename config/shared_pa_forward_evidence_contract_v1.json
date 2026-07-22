@@ -1,0 +1,55 @@
+{
+  "schema_version": "shared-pa-forward-evidence-contract-v1",
+  "status": "LOCKED_FORWARD_ONLY_RESEARCH",
+  "purpose": "Collect complete, hash-bound, pregame batter-only PA distributions and internally consistent full-game Hits, HR over 0.5, and Total Bases probabilities for fresh prospective adjudication. This contract is not a model promotion or betting authorization.",
+  "decision_horizon": "T-4h",
+  "markets": [
+    "hits",
+    "home_runs_over_0_5",
+    "total_bases"
+  ],
+  "control": {
+    "path": "config/shared_pa_forward_eb_control_v1.json",
+    "candidate_id": "empirical_bayes_player_rate_pa_200_2023_control_v1",
+    "sha256": "033934ec8dc06bc49d02fd46e223f840ef5cef01bb545c09054fe9b740628c6c"
+  },
+  "pa_volume": {
+    "path": "data/analysis/system_integrity_v2/pa_volume_chronology_v1/pa_distribution_fit_2023.json",
+    "candidate_id": "pa_volume_2023_only_v1",
+    "sha256": "7ffd6a8fecb1c4f8aed1966c234a61499050346f87f884f731c440daca793c90"
+  },
+  "lineup_rule": {
+    "confirmed": "the receipt-proven source slot may select the corresponding locked 2023 slot distribution",
+    "projected": "the source slot is retained as evidence but cannot affect PA volume; use the locked 2023 pooled distribution",
+    "unknown": "publish a permanent terminal lineup-unavailable record; do not fabricate player targets"
+  },
+  "publication": {
+    "append_only": true,
+    "atomic": true,
+    "one_terminal_state_per_game_side": true,
+    "every_complete_side_has_exactly_nine_unique_players": true,
+    "raw_payloads_retained_by_sha256": true,
+    "late_backfill_forbidden": true,
+    "immutable_health_reports": true
+  },
+  "terminal_side_states": [
+    "captured_complete",
+    "lineup_unavailable",
+    "lineup_malformed",
+    "source_error",
+    "missed_before_horizon",
+    "game_identity_ambiguous",
+    "raw_schema_changed"
+  ],
+  "protected_boundaries": {
+    "may_2026_fetch_read_parse_write_forbidden": true,
+    "outcome_fields_forbidden_in_pregame_records": true,
+    "pitcher_block_excluded_until_receipt_contract_passes": true,
+    "prices_and_executability_excluded": true,
+    "operational_smoke_separate_and_non_economic": true,
+    "frozen_production_unchanged": true,
+    "spent_2025_hr_not_new_confirmation": true,
+    "market_pooling_forbidden": true,
+    "betting_authorized": false
+  }
+}

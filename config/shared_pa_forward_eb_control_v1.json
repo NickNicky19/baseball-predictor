@@ -1,0 +1,46 @@
+{
+  "schema_version": "shared-pa-forward-eb-control-v1",
+  "candidate_id": "empirical_bayes_player_rate_pa_200_2023_control_v1",
+  "classification": "locked_control_not_promotion_candidate",
+  "fit_season": 2023,
+  "selection_season": 2024,
+  "prior_strength_pa": 200.0,
+  "outcome_order": [
+    "strikeout",
+    "walk",
+    "single",
+    "double",
+    "triple",
+    "home_run",
+    "bip_out",
+    "other_non_ab"
+  ],
+  "league_prior_counts": {
+    "strikeout": 40005,
+    "walk": 15128,
+    "single": 25128,
+    "double": 7971,
+    "triple": 690,
+    "home_run": 5698,
+    "bip_out": 78930,
+    "other_non_ab": 3676
+  },
+  "league_prior_total_pa": 177226,
+  "source": {
+    "certified_panel_sha256": "1638ee336833ae6cb3ba580eafe2800a8f4a6c609719fe88df7481c71e0f2fb1",
+    "panel_manifest_sha256": "673ece8b9a26733ad4c8bf0b95fb15f6b32849e7a37c9b2fcb7f0734dcb4030f",
+    "protocol_sha256": "efda4db5e21abfaa3d702418667709e4c1d53256838fa9abaedc610dd8e75e61",
+    "rows": 43740,
+    "regular_season_only": true
+  },
+  "boundaries": {
+    "batter_only": true,
+    "pitcher_features_excluded": true,
+    "lineup_slot_not_a_pa_outcome_feature": true,
+    "market_policy_applied": false,
+    "betting_authorized": false,
+    "production_changed": false,
+    "may_2026_forbidden": true,
+    "historical_backfill_forbidden": true
+  }
+}

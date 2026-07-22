@@ -1,0 +1,42 @@
+{
+  "schema_version": "shared-pa-forward-runtime-v1",
+  "scope": "future_only_batter_probability_control",
+  "collector_instance_id": "aws-baseball-shadow-primary-shared-pa-v1",
+  "contract": {
+    "path": "config/shared_pa_forward_evidence_contract_v1.json",
+    "sha256": "b93827a465e5145d1e725f84cbed53d413f0c2e8601e41021221e3d13d079401"
+  },
+  "sources": {
+    "lineup_schedule": {
+      "base_url": "https://statsapi.mlb.com/api/v1/schedule",
+      "sport_id": 1,
+      "hydrate": "team,lineups",
+      "fields": "dates,games,gamePk,officialDate,gameDate,teams,home,away,team,id,name,lineups,homePlayers,awayPlayers"
+    },
+    "player_stats": {
+      "base_url_template": "https://statsapi.mlb.com/api/v1/people/{player_id}",
+      "hydrate_template": "stats(group=[hitting],type=[season],season={season})",
+      "fields": "people,id,stats,group,displayName,type,splits,stat,plateAppearances,atBats,hits,doubles,triples,homeRuns,baseOnBalls,strikeOuts"
+    }
+  },
+  "scheduler": {
+    "entry_hours": 4,
+    "max_early_seconds": 120,
+    "tick_seconds": 60,
+    "request_timeout_seconds": 20,
+    "stats_workers": 12
+  },
+  "invariants": {
+    "read_existing_pitcher_plan_only": true,
+    "separate_ledger_root": true,
+    "retain_raw_responses": true,
+    "outcomes_forbidden": true,
+    "prices_forbidden": true,
+    "pitcher_probability_inputs_forbidden": true,
+    "late_backfill_forbidden": true,
+    "may_2026_forbidden": true,
+    "research_only": true,
+    "betting_authorized": false,
+    "production_changed": false
+  }
+}
