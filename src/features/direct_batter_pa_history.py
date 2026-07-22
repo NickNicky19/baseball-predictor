@@ -56,6 +56,44 @@ def _rate(numerator: int, denominator: int) -> float | None:
     return None if denominator == 0 else float(numerator / denominator)
 
 
+def batted_ball_composition(
+    *, denominator: int | None, barrel_count: int | None,
+    hard_hit_count: int | None, history_pa: int,
+) -> dict[str, int | float | None]:
+    """Return mutually exclusive, count-bearing batted-ball composition."""
+    values = (denominator, barrel_count, hard_hit_count)
+    if all(value is None for value in values):
+        return {
+            "history_hard_hit_non_barrel_count": None,
+            "history_other_measured_bbe_count": None,
+            "history_barrel_share_bbe": None,
+            "history_hard_hit_non_barrel_share_bbe": None,
+            "history_other_measured_bbe_share_bbe": None,
+            "history_measured_bbe_per_pa": None,
+        }
+    if any(value is None for value in values):
+        raise ValueError("partial batted-ball composition counts")
+    if any(not isinstance(value, int) or value < 0 for value in values):
+        raise ValueError("batted-ball composition counts must be nonnegative integers")
+    if not isinstance(history_pa, int) or history_pa < 0:
+        raise ValueError("history_pa must be a nonnegative integer")
+    assert denominator is not None and barrel_count is not None and hard_hit_count is not None
+    if denominator == 0 or barrel_count > hard_hit_count or hard_hit_count > denominator:
+        raise ValueError("impossible batted-ball composition ordering")
+    if denominator > history_pa:
+        raise ValueError("measured BBE denominator exceeds prior PA exposure")
+    hard_hit_non_barrel = hard_hit_count - barrel_count
+    other = denominator - hard_hit_count
+    return {
+        "history_hard_hit_non_barrel_count": hard_hit_non_barrel,
+        "history_other_measured_bbe_count": other,
+        "history_barrel_share_bbe": barrel_count / denominator,
+        "history_hard_hit_non_barrel_share_bbe": hard_hit_non_barrel / denominator,
+        "history_other_measured_bbe_share_bbe": other / denominator,
+        "history_measured_bbe_per_pa": denominator / history_pa if history_pa else None,
+    }
+
+
 def prepare_raw(frame: pd.DataFrame, *, player_id: int) -> pd.DataFrame:
     missing = sorted(REQUIRED_COLUMNS.difference(frame.columns))
     if missing:
@@ -121,7 +159,12 @@ def history_features(prepared: pd.DataFrame, *, player_id: int, target_date: str
         "history_chase_rate": _rate(int((outside & swings).sum()), int(outside.sum())),
         "history_zone_rate": _rate(int(in_zone.sum()), int(zone.notna().sum())),
     })
-    bip = history.loc[history["type"].astype("string").eq("X")]
+    history_events = history["events"].astype("string")
+    bip = history.loc[
+        history["type"].astype("string").eq("X")
+        & history_events.notna()
+        & ~history_events.isin(NON_PA_EVENTS)
+    ]
     ev = _finite(bip["launch_speed"])
     la = _finite(bip["launch_angle"])
     result["history_bip"] = int(len(bip))
@@ -143,6 +186,12 @@ def history_features(prepared: pd.DataFrame, *, player_id: int, target_date: str
     result["history_hard_hit_rate"] = (
         None if batted_ball_evidence is None else batted_ball_evidence.hard_hit_rate
     )
+    result.update(batted_ball_composition(
+        denominator=result["history_batted_ball_denominator"],
+        barrel_count=result["history_barrel_count"],
+        hard_hit_count=result["history_hard_hit_count"],
+        history_pa=pa,
+    ))
     for column, name in (
         ("release_speed", "release_speed"), ("pfx_x", "pfx_x"), ("pfx_z", "pfx_z"),
         ("plate_x", "plate_x"), ("plate_z", "plate_z"),

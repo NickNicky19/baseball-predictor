@@ -1,0 +1,79 @@
+{
+  "schema_version": "direct-batter-pa-2023-development-protocol-v1",
+  "status": "LOCKED_BEFORE_2023_EXTRACTION_OR_FOLD_SCORING",
+  "locked_date": "2026-07-21",
+  "research_only": true,
+  "betting_authorized": false,
+  "production_changed": false,
+  "objective": "Determine whether one non-overlapping, count-bearing batted-ball composition block materially strengthens the shared PA foundation for HR and Hits without reopening spent selection or confirmation evidence.",
+  "evidence_boundary": {
+    "development_years": [2023],
+    "forbidden_for_this_program": [
+      "2024 rows or outcomes",
+      "2025 HR confirmation rows or outcomes",
+      "all May 2026 artifacts",
+      "2026 outcomes",
+      "market prices or execution observations",
+      "opposing pitcher, actual starter, lineup, team, venue, weather, or umpire"
+    ],
+    "source": "first 43740 certified 2023 rows of direct batter PA panel v3; extraction stops after that exact certified count",
+    "feature_cutoff": "source game date strictly before target game date"
+  },
+  "representation": {
+    "old_overlapping_fields_removed": [
+      "history_barrel_count",
+      "history_hard_hit_count",
+      "history_barrel_rate",
+      "history_hard_hit_rate"
+    ],
+    "new_independent_fields": [
+      "history_batted_ball_denominator",
+      "history_hard_hit_non_barrel_count",
+      "history_other_measured_bbe_count",
+      "history_barrel_share_bbe",
+      "history_hard_hit_non_barrel_share_bbe",
+      "history_other_measured_bbe_share_bbe",
+      "history_measured_bbe_per_pa"
+    ],
+    "invariant": "barrel + hard-hit-non-barrel + other measured BBE equals the shared measured-BBE denominator"
+  },
+  "models": {
+    "legacy_overlap_comparator": "same fixed CatBoost candidate feature family used in v3",
+    "composition_candidate": "identical family and model parameters, replacing only overlapping batted-ball fields with the locked independent composition",
+    "simple_comparators": ["league rate", "time-safe empirical-Bayes player rate with 200-PA prior"],
+    "params": {
+      "loss": "MultiClass",
+      "depth": 4,
+      "iterations": 1200,
+      "l2_leaf_reg": 10.0,
+      "learning_rate": 0.03,
+      "thread_count": 2,
+      "random_seed": 20260721
+    }
+  },
+  "chronological_folds": {
+    "algorithm": "sklearn.model_selection.TimeSeriesSplit over sorted unique 2023 game dates",
+    "n_splits": 4,
+    "date_membership_uses_outcomes": false,
+    "training": "expanding dates strictly before validation dates",
+    "selection_uses_2024": false
+  },
+  "gates": {
+    "markets_scored_separately": ["HR PA event", "Hit PA event"],
+    "coverage_loss_allowed": 0,
+    "proper_score_materiality": "aggregate candidate-minus-each comparator point and date-block 95% upper bound must each be below negative 1% of comparator Brier and log loss",
+    "fold_consistency": "candidate Brier and log loss must each improve in every chronological fold versus legacy overlap comparator",
+    "discrimination": "candidate AUC must be noninferior in every fold and aggregate for HR and Hits separately",
+    "candidate_limit": 1,
+    "survivor_status": "development survivor only; must be locked before prospective evidence and cannot be promoted from 2023 folds"
+  },
+  "protected_invariants": {
+    "may_2026_sealed": true,
+    "2024_not_reopened": true,
+    "spent_2025_hr_not_reused": true,
+    "pitcher_block_excluded": true,
+    "operational_smoke_non_economic": true,
+    "july_22_collector_untouched": true,
+    "no_betting_authorization": true
+  }
+}

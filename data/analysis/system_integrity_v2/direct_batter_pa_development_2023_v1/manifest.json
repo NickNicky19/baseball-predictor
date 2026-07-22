@@ -1,0 +1,36 @@
+{
+  "betting_authorized": false,
+  "output": {
+    "path": "data\\analysis\\system_integrity_v2\\direct_batter_pa_development_2023_v1\\panel_2023.csv.gz",
+    "rows": 43740,
+    "sha256": "5e47ee69416d22bfe7eb0b7745abf7ac60cd9fa585c2f0d54aff266fb59ec4f8"
+  },
+  "production_changed": false,
+  "protocol": {
+    "path": "config\\direct_batter_pa_development_2023_v1.json",
+    "sha256": "0133cc6979aa09f441c2230f04c7c0891ed9f18a844eed0798661f43c4985552"
+  },
+  "schema_version": "direct-batter-pa-2023-development-manifest-v1",
+  "script_sha256": "b803a17cf609e65afb69f953f911d7a4805d3f900ed100932209dd304c6d3fcc",
+  "source_certificate": {
+    "path": "data\\analysis\\system_integrity_v2\\direct_batter_pa_foundation_v3\\panel_certificate.json",
+    "sha256": "a4fe34a0ad58bec046c0f00fe8e7029535bd2f9aa02eff391f03304b867cbaaf"
+  },
+  "source_panel": {
+    "path": "data\\analysis\\system_integrity_v2\\direct_batter_pa_foundation_v3\\panel_2023_2024.csv.gz",
+    "rows_consumed": 43740,
+    "sha256": "1638ee336833ae6cb3ba580eafe2800a8f4a6c609719fe88df7481c71e0f2fb1"
+  },
+  "status": "CERTIFIED_2023_ONLY_DEVELOPMENT_RESEARCH_ONLY",
+  "validation": {
+    "2024_rows_parsed": 0,
+    "2025_confirmation_opened": false,
+    "chronology_violations": 0,
+    "composition_columns": 6,
+    "identity_duplicates": 0,
+    "may_2026_opened": false,
+    "years": [
+      2023
+    ]
+  }
+}

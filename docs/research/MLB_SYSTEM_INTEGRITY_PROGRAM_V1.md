@@ -60,6 +60,7 @@ outcome/result columns. Exact machine-readable scope is in
 | SI-018 | P0 | `FeaturePipeline.compute` caught every engineer exception and returned a partial feature dictionary; downstream rich/scalar/league precedence could therefore hide a crash as ordinary fallback. | Hits, HR, TB | Pipeline now fails closed on engineer failure, non-dictionary output, and duplicate feature ownership. Regression and override-mutation tests pass. | Integrity repair |
 | SI-019 | P0 | The frozen pitcher HR/9 term had reversed monotonic direction: a higher HR/9 reduced hitter HR probability. | HR; shared simulator | Historical sign is explicitly isolated as `legacy_frozen`; corrected direction is separately selectable and monotonicity-tested. Batter-only v3 excludes the pitcher block. No pitcher candidate may advance without T-4 identity evidence. | Integrity repair/research candidate boundary |
 | SI-020 | P0 | The v2 selector called per-PA HR scoring `HR over 0.5` and similarly treated hit/TB PA outcomes as game-market probabilities. A full-game probability requires a point-in-time PA-volume distribution. | Hits, HR over 0.5, Total Bases | v3 labels these PA-foundation diagnostics only and records every market as blocked. Realized game PA is forbidden as a prediction input. | Evaluation-boundary repair |
+| SI-021 | P1 | Barrel rate and hard-hit rate overlap because every barrel is also a hard-hit BBE; exposing both rates can duplicate one contact-quality signal and hides sample exposure. | HR first; Hits/TB shared PA foundation | Implemented mutually exclusive barrels, hard-hit non-barrels, and other measured BBE with counts, one denominator, and measured BBE per PA. Fail-closed mutations pass. The single locked 2023 experiment found no material survivor, so the repair is retained but the representation is rejected as a model upgrade. | Integrity repair/rejected research representation |
 
 ## HR probability-consumption audit
 
@@ -108,6 +109,20 @@ identity-aligned, verified point-in-time market evidence is unavailable, and
 the point-in-time PA-volume layer is missing. Full tests pass 148/148. Exact
 metrics, uncertainty intervals, hashes, and the next action are in
 `data/analysis/system_integrity_v2/direct_batter_pa_foundation_v3/report.md`.
+
+## 2023 batted-ball composition development
+
+The single locked internal-development experiment replaced overlapping barrel
+and hard-hit rates with count-bearing, mutually exclusive barrels, hard-hit
+non-barrels, and other measured BBE over one denominator. Across 34,673
+chronological 2023 out-of-fold predictions, Hits improved only trivially and
+uncertainly versus the legacy representation and was worse than the time-safe
+empirical-Bayes comparator. HR was fractionally worse than legacy on Brier,
+log loss, and AUC and failed calibration and fold-consistency gates. Neither
+component survived. No 2024, 2025 confirmation, May 2026, or market evidence
+was opened. The source-truth repair remains; no probability model is promoted.
+Exact metrics and hashes are in
+`data/analysis/system_integrity_v2/direct_batter_pa_development_2023_v1/report.md`.
 
 ## Promotion boundary
 

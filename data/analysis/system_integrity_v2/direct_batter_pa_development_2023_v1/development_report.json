@@ -1,0 +1,726 @@
+{
+  "betting_authorized": false,
+  "chronology": {
+    "2024_opened": false,
+    "2025_confirmation_opened": false,
+    "may_2026_opened": false
+  },
+  "components": {
+    "hits_pa_event": {
+      "all_materiality_and_auc_passed": false,
+      "calibration": {
+        "candidate": {
+          "logistic": {
+            "converged": true,
+            "intercept": -0.7094546431611617,
+            "slope": 0.43144425748069554
+          },
+          "top_decile": {
+            "absolute_gap": 0.02739603706826449,
+            "gap": -0.02739603706826449,
+            "observed": 0.24404801824156663,
+            "pa": 14911,
+            "predicted": 0.2714440553098311,
+            "rows": 3468,
+            "threshold_from_predictions_only": 0.2569491133922401
+          }
+        },
+        "gates": {
+          "intercept": true,
+          "slope": true,
+          "top_decile": true
+        },
+        "legacy": {
+          "logistic": {
+            "converged": true,
+            "intercept": -0.7354948392928974,
+            "slope": 0.41061166240707114
+          },
+          "top_decile": {
+            "absolute_gap": 0.032667573057152594,
+            "gap": -0.032667573057152594,
+            "observed": 0.23779207585506265,
+            "pa": 14765,
+            "predicted": 0.27045964891221524,
+            "rows": 3468,
+            "threshold_from_predictions_only": 0.25622119793980774
+          }
+        },
+        "passed": true
+      },
+      "candidate": {
+        "auc": 0.5195159761089582,
+        "brier": 0.3469746090114045,
+        "log_loss": 0.5312248908594686,
+        "mean_expected_class": 0.2240301588565142,
+        "mean_observed_class": 0.22321498494243955
+      },
+      "comparators": {
+        "eb200": {
+          "auc_noninferior": true,
+          "materiality": {
+            "brier": {
+              "passed": false,
+              "required_below": -0.0034657200255058056
+            },
+            "log_loss": {
+              "passed": false,
+              "required_below": -0.005306481577581037
+            }
+          },
+          "paired_interval": {
+            "brier": {
+              "lower": 0.00019280271748041712,
+              "point": 0.0004026064608238769,
+              "upper": 0.0006205666389708517
+            },
+            "dates": 144,
+            "draws": 2000,
+            "log_loss": {
+              "lower": 0.0002651092070245834,
+              "point": 0.0005767331013648138,
+              "upper": 0.0009020593737784804
+            }
+          },
+          "scores": {
+            "auc": 0.516754024473503,
+            "brier": 0.34657200255058057,
+            "log_loss": 0.5306481577581037,
+            "mean_expected_class": 0.22468506660843204,
+            "mean_observed_class": 0.22321498494243955
+          }
+        },
+        "league": {
+          "auc_noninferior": true,
+          "materiality": {
+            "brier": {
+              "passed": false,
+              "required_below": -0.0034678501419634217
+            },
+            "log_loss": {
+              "passed": false,
+              "required_below": -0.005309541352320664
+            }
+          },
+          "paired_interval": {
+            "brier": {
+              "lower": -2.1578008971948678e-05,
+              "point": 0.00018959481506228938,
+              "upper": 0.0004160817914421346
+            },
+            "dates": 144,
+            "draws": 2000,
+            "log_loss": {
+              "lower": -3.235264932619326e-05,
+              "point": 0.00027075562740216794,
+              "upper": 0.0005775181805584143
+            }
+          },
+          "scores": {
+            "auc": 0.5000240880728088,
+            "brier": 0.34678501419634217,
+            "log_loss": 0.5309541352320664,
+            "mean_expected_class": 0.22206844594045394,
+            "mean_observed_class": 0.22321498494243955
+          }
+        },
+        "legacy": {
+          "auc_noninferior": true,
+          "materiality": {
+            "brier": {
+              "passed": false,
+              "required_below": -0.003470229182692638
+            },
+            "log_loss": {
+              "passed": false,
+              "required_below": -0.005312986499826496
+            }
+          },
+          "paired_interval": {
+            "brier": {
+              "lower": -0.00013215993189884736,
+              "point": -4.8309257859373124e-05,
+              "upper": 3.717564021894129e-05
+            },
+            "dates": 144,
+            "draws": 2000,
+            "log_loss": {
+              "lower": -0.0001848337651935653,
+              "point": -7.375912318089075e-05,
+              "upper": 4.023014031646784e-05
+            }
+          },
+          "scores": {
+            "auc": 0.5185782636417464,
+            "brier": 0.3470229182692638,
+            "log_loss": 0.5312986499826495,
+            "mean_expected_class": 0.22407284062100533,
+            "mean_observed_class": 0.22321498494243955
+          }
+        }
+      },
+      "development_survivor": false,
+      "fold_consistency_passed": false
+    },
+    "hr_pa_event": {
+      "all_materiality_and_auc_passed": false,
+      "calibration": {
+        "candidate": {
+          "logistic": {
+            "converged": true,
+            "intercept": -0.47384926742469813,
+            "slope": 0.8710586507146493
+          },
+          "top_decile": {
+            "absolute_gap": 0.005971088074789611,
+            "gap": -0.005971088074789611,
+            "observed": 0.05248600148417999,
+            "pa": 14823,
+            "predicted": 0.058457089558969604,
+            "rows": 3468,
+            "threshold_from_predictions_only": 0.05017010886593139
+          }
+        },
+        "gates": {
+          "intercept": false,
+          "slope": false,
+          "top_decile": true
+        },
+        "legacy": {
+          "logistic": {
+            "converged": true,
+            "intercept": -0.4373159540752211,
+            "slope": 0.8807965744344984
+          },
+          "top_decile": {
+            "absolute_gap": 0.006470943497940834,
+            "gap": -0.006470943497940834,
+            "observed": 0.05142239340495979,
+            "pa": 14799,
+            "predicted": 0.057893336902900626,
+            "rows": 3468,
+            "threshold_from_predictions_only": 0.04960289993095598
+          }
+        },
+        "passed": false
+      },
+      "candidate": {
+        "auc": 0.590254582752713,
+        "brier": 0.06308505391327981,
+        "log_loss": 0.1424851313394795,
+        "mean_expected_class": 0.03434214683874144,
+        "mean_observed_class": 0.032706587593709285
+      },
+      "comparators": {
+        "eb200": {
+          "auc_noninferior": true,
+          "materiality": {
+            "brier": {
+              "passed": false,
+              "required_below": -0.0006312184977485394
+            },
+            "log_loss": {
+              "passed": false,
+              "required_below": -0.0014284871969260477
+            }
+          },
+          "paired_interval": {
+            "brier": {
+              "lower": -6.80710104079051e-05,
+              "point": -3.679586157412118e-05,
+              "upper": -6.279205358797519e-06
+            },
+            "dates": 144,
+            "draws": 2000,
+            "log_loss": {
+              "lower": -0.0005791504248177747,
+              "point": -0.00036358835312524647,
+              "upper": -0.00011784764009711389
+            }
+          },
+          "scores": {
+            "auc": 0.575392372228188,
+            "brier": 0.06312184977485394,
+            "log_loss": 0.14284871969260476,
+            "mean_expected_class": 0.03192412859120441,
+            "mean_observed_class": 0.032706587593709285
+          }
+        },
+        "league": {
+          "auc_noninferior": true,
+          "materiality": {
+            "brier": {
+              "passed": false,
+              "required_below": -0.0006327912231901777
+            },
+            "log_loss": {
+              "passed": false,
+              "required_below": -0.0014407249461707038
+            }
+          },
+          "paired_interval": {
+            "brier": {
+              "lower": -0.0002422205578978593,
+              "point": -0.0001940684057379571,
+              "upper": -0.00014596762579194633
+            },
+            "dates": 144,
+            "draws": 2000,
+            "log_loss": {
+              "lower": -0.0019138999140484831,
+              "point": -0.0015873632775908774,
+              "upper": -0.0012283404450166766
+            }
+          },
+          "scores": {
+            "auc": 0.5052490487581136,
+            "brier": 0.06327912231901776,
+            "log_loss": 0.1440724946170704,
+            "mean_expected_class": 0.031000658058962696,
+            "mean_observed_class": 0.032706587593709285
+          }
+        },
+        "legacy": {
+          "auc_noninferior": false,
+          "materiality": {
+            "brier": {
+              "passed": false,
+              "required_below": -0.0006308219631316822
+            },
+            "log_loss": {
+              "passed": false,
+              "required_below": -0.0014246898792672359
+            }
+          },
+          "paired_interval": {
+            "brier": {
+              "lower": -6.249796048817279e-06,
+              "point": 2.8576001115880027e-06,
+              "upper": 1.2747745602418597e-05
+            },
+            "dates": 144,
+            "draws": 2000,
+            "log_loss": {
+              "lower": -4.476204742145709e-05,
+              "point": 1.61434127559245e-05,
+              "upper": 8.073286662776823e-05
+            }
+          },
+          "scores": {
+            "auc": 0.5903651626724167,
+            "brier": 0.06308219631316822,
+            "log_loss": 0.14246898792672358,
+            "mean_expected_class": 0.03416884773653639,
+            "mean_observed_class": 0.032706587593709285
+          }
+        }
+      },
+      "development_survivor": false,
+      "fold_consistency_passed": false
+    }
+  },
+  "features": {
+    "composition_candidate": [
+      "player_id",
+      "history_pitch_count",
+      "history_pa",
+      "history_strikeout_count",
+      "history_strikeout_rate",
+      "history_walk_count",
+      "history_walk_rate",
+      "history_single_count",
+      "history_single_rate",
+      "history_double_count",
+      "history_double_rate",
+      "history_triple_count",
+      "history_triple_rate",
+      "history_home_run_count",
+      "history_home_run_rate",
+      "history_bip_out_count",
+      "history_bip_out_rate",
+      "history_other_non_ab_count",
+      "history_other_non_ab_rate",
+      "history_pa_age_days_mean",
+      "history_pa_age_days_sd",
+      "history_swing_rate",
+      "history_whiff_rate",
+      "history_chase_rate",
+      "history_zone_rate",
+      "history_bip",
+      "history_exit_velocity_mean",
+      "history_exit_velocity_sd",
+      "history_launch_angle_mean",
+      "history_launch_angle_sd",
+      "history_batted_ball_denominator",
+      "history_release_speed_mean",
+      "history_release_speed_sd",
+      "history_pfx_x_mean",
+      "history_pfx_x_sd",
+      "history_pfx_z_mean",
+      "history_pfx_z_sd",
+      "history_plate_x_mean",
+      "history_plate_x_sd",
+      "history_plate_z_mean",
+      "history_plate_z_sd",
+      "history_distinct_pitch_types",
+      "history_pitch_type_entropy",
+      "days_since_strikeout",
+      "days_since_walk",
+      "days_since_single",
+      "days_since_double",
+      "days_since_triple",
+      "days_since_home_run",
+      "days_since_bip_out",
+      "days_since_other_non_ab",
+      "days_since_pa",
+      "history_hard_hit_non_barrel_count",
+      "history_other_measured_bbe_count",
+      "history_barrel_share_bbe",
+      "history_hard_hit_non_barrel_share_bbe",
+      "history_other_measured_bbe_share_bbe",
+      "history_measured_bbe_per_pa"
+    ],
+    "legacy_overlap": [
+      "player_id",
+      "history_pitch_count",
+      "history_pa",
+      "history_strikeout_count",
+      "history_strikeout_rate",
+      "history_walk_count",
+      "history_walk_rate",
+      "history_single_count",
+      "history_single_rate",
+      "history_double_count",
+      "history_double_rate",
+      "history_triple_count",
+      "history_triple_rate",
+      "history_home_run_count",
+      "history_home_run_rate",
+      "history_bip_out_count",
+      "history_bip_out_rate",
+      "history_other_non_ab_count",
+      "history_other_non_ab_rate",
+      "history_pa_age_days_mean",
+      "history_pa_age_days_sd",
+      "history_swing_rate",
+      "history_whiff_rate",
+      "history_chase_rate",
+      "history_zone_rate",
+      "history_bip",
+      "history_exit_velocity_mean",
+      "history_exit_velocity_sd",
+      "history_launch_angle_mean",
+      "history_launch_angle_sd",
+      "history_batted_ball_denominator",
+      "history_barrel_count",
+      "history_hard_hit_count",
+      "history_barrel_rate",
+      "history_hard_hit_rate",
+      "history_release_speed_mean",
+      "history_release_speed_sd",
+      "history_pfx_x_mean",
+      "history_pfx_x_sd",
+      "history_pfx_z_mean",
+      "history_pfx_z_sd",
+      "history_plate_x_mean",
+      "history_plate_x_sd",
+      "history_plate_z_mean",
+      "history_plate_z_sd",
+      "history_distinct_pitch_types",
+      "history_pitch_type_entropy",
+      "days_since_strikeout",
+      "days_since_walk",
+      "days_since_single",
+      "days_since_double",
+      "days_since_triple",
+      "days_since_home_run",
+      "days_since_bip_out",
+      "days_since_other_non_ab",
+      "days_since_pa"
+    ]
+  },
+  "folds": [
+    {
+      "components": {
+        "hits_pa_event": {
+          "candidate": {
+            "auc": 0.5127649096915218,
+            "brier": 0.3459789100607246,
+            "log_loss": 0.5302465566091197,
+            "mean_expected_class": 0.22695760655443828,
+            "mean_observed_class": 0.22179388332048317
+          },
+          "gates": {
+            "auc_noninferior": true,
+            "brier_improved": true,
+            "log_loss_improved": true
+          },
+          "legacy_overlap": {
+            "auc": 0.5123751168608413,
+            "brier": 0.3461768548364905,
+            "log_loss": 0.5305174028570412,
+            "mean_expected_class": 0.2296631855389006,
+            "mean_observed_class": 0.22179388332048317
+          },
+          "passed": true
+        },
+        "hr_pa_event": {
+          "candidate": {
+            "auc": 0.5724765321540858,
+            "brier": 0.06004310604333183,
+            "log_loss": 0.13740741679775295,
+            "mean_expected_class": 0.030777712896352907,
+            "mean_observed_class": 0.031040292412690254
+          },
+          "gates": {
+            "auc_noninferior": false,
+            "brier_improved": true,
+            "log_loss_improved": true
+          },
+          "legacy_overlap": {
+            "auc": 0.5743743697145902,
+            "brier": 0.060043149977057134,
+            "log_loss": 0.13742692980277585,
+            "mean_expected_class": 0.030093486218923424,
+            "mean_observed_class": 0.031040292412690254
+          },
+          "passed": false
+        }
+      },
+      "eb_unseen_player_fraction": 0.04841691703258609,
+      "fold": 1,
+      "train_end": "2023-05-06",
+      "train_rows": 9053,
+      "train_start": "2023-03-30",
+      "validation_end": "2023-06-11",
+      "validation_rows": 8654,
+      "validation_start": "2023-05-07"
+    },
+    {
+      "components": {
+        "hits_pa_event": {
+          "candidate": {
+            "auc": 0.5247536693791641,
+            "brier": 0.34736178956847963,
+            "log_loss": 0.5315557851653127,
+            "mean_expected_class": 0.22665414958662036,
+            "mean_observed_class": 0.22383325781603988
+          },
+          "gates": {
+            "auc_noninferior": true,
+            "brier_improved": false,
+            "log_loss_improved": false
+          },
+          "legacy_overlap": {
+            "auc": 0.5232313193412899,
+            "brier": 0.34728312032711695,
+            "log_loss": 0.5314722725623708,
+            "mean_expected_class": 0.22457233627850914,
+            "mean_observed_class": 0.22383325781603988
+          },
+          "passed": false
+        },
+        "hr_pa_event": {
+          "candidate": {
+            "auc": 0.5960103610754227,
+            "brier": 0.06369472592057895,
+            "log_loss": 0.14335958294844647,
+            "mean_expected_class": 0.035022338447245296,
+            "mean_observed_class": 0.03304825555052107
+          },
+          "gates": {
+            "auc_noninferior": false,
+            "brier_improved": false,
+            "log_loss_improved": false
+          },
+          "legacy_overlap": {
+            "auc": 0.5964769934360532,
+            "brier": 0.06368759986191047,
+            "log_loss": 0.1433061177346745,
+            "mean_expected_class": 0.034883640434860766,
+            "mean_observed_class": 0.03304825555052107
+          },
+          "passed": false
+        }
+      },
+      "eb_unseen_player_fraction": 0.04362801377726751,
+      "fold": 2,
+      "train_end": "2023-06-11",
+      "train_rows": 17707,
+      "train_start": "2023-03-30",
+      "validation_end": "2023-07-21",
+      "validation_rows": 8710,
+      "validation_start": "2023-06-12"
+    },
+    {
+      "components": {
+        "hits_pa_event": {
+          "candidate": {
+            "auc": 0.523563083036351,
+            "brier": 0.35005984688741393,
+            "log_loss": 0.5346887287092127,
+            "mean_expected_class": 0.21409924001199135,
+            "mean_observed_class": 0.22619081882285222
+          },
+          "gates": {
+            "auc_noninferior": true,
+            "brier_improved": false,
+            "log_loss_improved": false
+          },
+          "legacy_overlap": {
+            "auc": 0.5232777359709202,
+            "brier": 0.35004995716602966,
+            "log_loss": 0.534672662918569,
+            "mean_expected_class": 0.21375466132739115,
+            "mean_observed_class": 0.22619081882285222
+          },
+          "passed": false
+        },
+        "hr_pa_event": {
+          "candidate": {
+            "auc": 0.5918481961035643,
+            "brier": 0.06615790413571376,
+            "log_loss": 0.14796161404554417,
+            "mean_expected_class": 0.03654542970833485,
+            "mean_observed_class": 0.03436465678514894
+          },
+          "gates": {
+            "auc_noninferior": true,
+            "brier_improved": true,
+            "log_loss_improved": true
+          },
+          "legacy_overlap": {
+            "auc": 0.5912713598293595,
+            "brier": 0.0661709917476914,
+            "log_loss": 0.14802931076447232,
+            "mean_expected_class": 0.036853312875531646,
+            "mean_observed_class": 0.03436465678514894
+          },
+          "passed": true
+        }
+      },
+      "eb_unseen_player_fraction": 0.03506932308050798,
+      "fold": 3,
+      "train_end": "2023-07-21",
+      "train_rows": 26417,
+      "train_start": "2023-03-30",
+      "validation_end": "2023-08-26",
+      "validation_rows": 8583,
+      "validation_start": "2023-07-22"
+    },
+    {
+      "components": {
+        "hits_pa_event": {
+          "candidate": {
+            "auc": 0.5244476369699187,
+            "brier": 0.34454419136891384,
+            "log_loss": 0.5284617059307029,
+            "mean_expected_class": 0.22826571413863478,
+            "mean_observed_class": 0.22108237953935284
+          },
+          "gates": {
+            "auc_noninferior": true,
+            "brier_improved": true,
+            "log_loss_improved": true
+          },
+          "legacy_overlap": {
+            "auc": 0.5241087220340335,
+            "brier": 0.3446282757319528,
+            "log_loss": 0.5285855640167889,
+            "mean_expected_class": 0.22817341036013403,
+            "mean_observed_class": 0.22108237953935284
+          },
+          "passed": true
+        },
+        "hr_pa_event": {
+          "candidate": {
+            "auc": 0.596134084056601,
+            "brier": 0.062469851244281435,
+            "log_loss": 0.14126024674710042,
+            "mean_expected_class": 0.03502749155670081,
+            "mean_observed_class": 0.03238660449342942
+          },
+          "gates": {
+            "auc_noninferior": false,
+            "brier_improved": false,
+            "log_loss_improved": false
+          },
+          "legacy_overlap": {
+            "auc": 0.5977497161290053,
+            "brier": 0.062452724959729755,
+            "log_loss": 0.14116373679394364,
+            "mean_expected_class": 0.034852826370637496,
+            "mean_observed_class": 0.03238660449342942
+          },
+          "passed": false
+        }
+      },
+      "eb_unseen_player_fraction": 0.03667201466880587,
+      "fold": 4,
+      "train_end": "2023-08-26",
+      "train_rows": 35000,
+      "train_start": "2023-03-30",
+      "validation_end": "2023-10-01",
+      "validation_rows": 8726,
+      "validation_start": "2023-08-27"
+    }
+  ],
+  "inputs": {
+    "calibration_gate_sha256": "6af309ff53d94a48b953278f09415f4bd42112e7c73f8fef5618dda35a4cf1cd",
+    "manifest_sha256": "ca6246eeb80ca8e2d11baad1ccffc738778719979efd23dde0d33aaac873d0a3",
+    "panel": {
+      "path": "data\\analysis\\system_integrity_v2\\direct_batter_pa_development_2023_v1\\panel_2023.csv.gz",
+      "rows": 43726,
+      "sha256": "5e47ee69416d22bfe7eb0b7745abf7ac60cd9fa585c2f0d54aff266fb59ec4f8"
+    },
+    "protocol_sha256": "0133cc6979aa09f441c2230f04c7c0891ed9f18a844eed0798661f43c4985552"
+  },
+  "market_passes": {
+    "hits_pa_event": false,
+    "hr_pa_event": false
+  },
+  "model": {
+    "params": {
+      "depth": 4,
+      "iterations": 1200,
+      "l2_leaf_reg": 10.0,
+      "learning_rate": 0.03,
+      "thread_count": 2
+    },
+    "seed": 20260721
+  },
+  "next_boundary": "A survivor may only be locked prospectively; these 2023 folds cannot promote production or authorize a market.",
+  "oof_population": {
+    "coverage_loss": 0,
+    "dates": 144,
+    "rows": 34673
+  },
+  "overall_multiclass": {
+    "candidate": {
+      "multiclass_brier": 0.7153196935093488,
+      "multiclass_log_loss": 1.524074370477544
+    },
+    "eb200": {
+      "multiclass_brier": 0.715301219972431,
+      "multiclass_log_loss": 1.5251099505388734
+    },
+    "league": {
+      "multiclass_brier": 0.719455741048958,
+      "multiclass_log_loss": 1.535435542473561
+    },
+    "legacy": {
+      "multiclass_brier": 0.715419465497726,
+      "multiclass_log_loss": 1.524372120826699
+    }
+  },
+  "predictions": {
+    "path": "data\\analysis\\system_integrity_v2\\direct_batter_pa_development_2023_v1\\oof_predictions.csv",
+    "rows": 34673,
+    "sha256": "f1c41f491cebc8fff343ddbc40f2e5ff0fccc29da42b93a8dd477cfcf854fb5e"
+  },
+  "production_changed": false,
+  "schema_version": "direct-batter-pa-2023-development-report-v1",
+  "scope": "2023 internal chronological development only; not selection, confirmation, market evaluation, or promotion",
+  "script_sha256": "e38d719b48c45710424e4be342dd59ca3516cf830c42fb78c6dabc27f9732b07",
+  "status": "DEVELOPMENT_REJECTED_NO_SURVIVOR"
+}

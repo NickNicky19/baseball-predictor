@@ -1,0 +1,16 @@
+{
+  "schema_version": "direct-batter-pa-2023-calibration-gate-v1",
+  "status": "LOCKED_BEFORE_ANY_2023_FOLD_SCORING",
+  "research_only": true,
+  "betting_authorized": false,
+  "parent_protocol_sha256": "0133cc6979aa09f441c2230f04c7c0891ed9f18a844eed0798661f43c4985552",
+  "markets": ["HR PA event", "Hit PA event"],
+  "aggregate_non_regression": [
+    "absolute calibration intercept must be no larger than legacy overlap comparator",
+    "absolute distance of calibration slope from 1 must be no larger than legacy overlap comparator",
+    "absolute observed-minus-predicted gap in the prediction-defined top decile must be no larger than legacy overlap comparator"
+  ],
+  "top_decile_definition": "probability threshold is the candidate or comparator's own 90th percentile, determined without outcomes; rows at or above threshold are exposure-weighted",
+  "gate_effect": "all three diagnostics must pass separately for HR and Hits; no post-score recalibration or threshold change is allowed",
+  "production_changed": false
+}
