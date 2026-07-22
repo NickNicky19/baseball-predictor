@@ -1,6 +1,43 @@
 PROJECT_CONTEXT.md — v17 (master roadmap) — paste into any new chat
 
 ===============================================================================
+AUTHORITATIVE AWS RECEIPT HARDENING (2026-07-22) - READY, NOT DEPLOYED
+
+The fresh-evidence boundary remains unchanged: all admissible batter-only
+families have spent their 2024 selection and remain rejected, 2025 HR
+confirmation is spent, May 2026 remains sealed, and no missed T-minus-4 receipt
+may be backfilled. A new model candidate is still forbidden until genuinely
+fresh receipt-bound evidence exists.
+
+The AWS T-minus-4 pitcher-receipt release was re-audited before deployment and
+six operational integrity defects were repaired at source. Official no-game
+responses now produce a verified zero-target receipt instead of crashing. A
+plan fetch that completes after T-minus-4 is rejected. The systemd cadence now
+matches the locked 15-second runtime. Source-error and missed terminal states
+are alerts rather than false health successes. An hourly read-only GitHub
+workflow independently replays retained raw schedule bytes through the exact
+plan, source receipt, ledger, and health chain without fetching replacements.
+Deployment is isolated from the full model/odds collector and accepts only an
+exact authorized commit with a pinned GitHub host key and clean-release checks.
+
+Validation passed: AWS regression/mutations 16/16; context 10/10; ledger 7/7;
+collector 6/6; runtime 7/7; combined full pytest 125/125; read-only verifier
+4/4; combined forward-shadow readiness 225/225; Python compile, workflow YAML,
+installer shell syntax, and every certificate-bound SHA-256 passed. No model,
+price, lineup, outcome, settlement, or May artifact was accessed. Local process
+20872 and operational smoke were observed only and remained untouched.
+
+  certified hardening report:
+    reports/aws_pitcher_receipt_automation_hardening_v2.json
+  report sha256:
+    f81e97d4fb3e37b095d3b046b6e92abb8580b8e5a1346e7c1def3181aa86b652
+
+Status: `CERTIFIED_CODE_READY_NOT_DEPLOYED`. Betting remains unauthorized. The
+single highest-value next action is exact-head landing followed by exact-commit
+AWS installation and verification of the first future-only plan/tick/health
+cycle. Do not deploy a moving branch and do not backfill a missed date.
+
+===============================================================================
 CURRENT HANDOFF ADDENDUM (2026-07-21) — SUPERSEDES OLDER HEADLINES ON CONFLICT
 
 Absolute rules: research only; no betting authorization; May 2026 sealed;
@@ -52,9 +89,11 @@ prospective observations. Missed days may be reconstructed only as labelled
 historical research with predictions hash-locked before official outcomes; they
 cannot count as executable-price, forward ROI, or authorization evidence.
 
-Formal goal status in the app is BLOCKED for the previous broad multi-market
-goal. Do not falsely mark it complete. Desired replacement: shared batter
-PA-outcome foundation with the batter-only/probable-starter fail-closed rule.
+Formal goal status in the app is ACTIVE under the strengthened shared batter
+PA-outcome objective. Do not falsely mark it complete; the batter-only and
+probable-starter fail-closed rules remain mandatory.
+
+===============================================================================
 
 Keep this file in the repo. Start a FRESH chat per task, upload this (plus the
 repo/zip if code work is needed), and say which roadmap item to work on.

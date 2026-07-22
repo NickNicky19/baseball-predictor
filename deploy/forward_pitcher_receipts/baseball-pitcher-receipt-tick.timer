@@ -1,0 +1,12 @@
+[Unit]
+Description=Check due T-4 probable-starter receipt targets every minute
+
+[Timer]
+OnBootSec=45s
+OnUnitActiveSec=15s
+AccuracySec=1s
+Persistent=true
+Unit=baseball-pitcher-receipt-tick.service
+
+[Install]
+WantedBy=timers.target

@@ -38,6 +38,17 @@ class ShadowCapturePlanError(ValueError):
     """Raised when expected capture evidence is incomplete or ambiguous."""
 
 
+def assert_capture_date_permitted(value: Any, label: str = "official_game_date") -> str:
+    """Return a canonical capture date or reject the permanently sealed month."""
+    try:
+        parsed = date.fromisoformat(str(value))
+    except (TypeError, ValueError) as exc:
+        raise ShadowCapturePlanError(f"{label} must be YYYY-MM-DD") from exc
+    if parsed.year == 2026 and parsed.month == 5:
+        raise ShadowCapturePlanError("May 2026 is sealed; capture plans are forbidden")
+    return parsed.isoformat()
+
+
 def _canonical_json(value: Mapping[str, Any]) -> str:
     return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
 
@@ -68,10 +79,10 @@ def _utc_dt(value: str) -> datetime:
 
 
 def _iso_date(value: Any, label: str) -> str:
-    try:
-        return date.fromisoformat(str(value)).isoformat()
-    except (TypeError, ValueError) as exc:
-        raise ShadowCapturePlanError(f"{label} must be YYYY-MM-DD") from exc
+    # Keep this boundary at the schedule-plan primitive so a new caller cannot
+    # accidentally fetch, parse, publish, or replay a May capture plan under a
+    # new command name.
+    return assert_capture_date_permitted(value, label)
 
 
 def _positive_int(value: Any, label: str) -> int:

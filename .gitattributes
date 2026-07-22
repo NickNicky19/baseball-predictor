@@ -5,6 +5,7 @@
 *.py text eol=lf
 *.pyi text eol=lf
 *.ps1 text eol=lf
+*.sh text eol=lf
 *.json text eol=lf
 *.jsonl text eol=lf
 *.yml text eol=lf
@@ -17,6 +18,7 @@
 *.service text eol=lf
 *.timer text eol=lf
 *.example text eol=lf
+*known_hosts text eol=lf
 
 *.parquet binary
 *.duckdb binary

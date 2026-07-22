@@ -1,0 +1,21 @@
+[Unit]
+Description=Publish the next official MLB T-4 probable-starter receipt plan (research only)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=baseball-shadow
+Group=baseball-shadow
+WorkingDirectory=/opt/baseball-predictor-pitcher-receipts/current
+ExecStart=/usr/bin/flock -n /srv/baseball-shadow/pitcher-receipts/locks/plan.lock /usr/bin/python3 /opt/baseball-predictor-pitcher-receipts/current/scripts/run_aws_pitcher_receipt_plan_for_today.py --plan-dir /srv/baseball-shadow/pitcher-receipts/plans --receipt-dir /srv/baseball-shadow/pitcher-receipts/plan-receipts
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ReadWritePaths=/srv/baseball-shadow/pitcher-receipts
+RestrictSUIDSGID=true
+LockPersonality=true
+CapabilityBoundingSet=
+UMask=0027
