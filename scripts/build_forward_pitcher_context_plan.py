@@ -13,13 +13,19 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from scripts.run_forward_pitcher_context_collector import load_runtime  # noqa: E402
-from src.data.mlb_api import MLBStatsAPI  # noqa: E402
 from src.evaluation.shadow_capture_plan import (  # noqa: E402
     ShadowCapturePlanError,
     assert_capture_date_permitted,
     canonical_schedule_records,
     plan_from_schedule,
 )
+
+
+def mlb_api_factory():
+    """Load the legacy client only after the sealed-date guard has passed."""
+    from src.data.mlb_api import MLBStatsAPI
+
+    return MLBStatsAPI()
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -32,7 +38,7 @@ def main(argv: list[str] | None = None) -> int:
         # This check must precede client construction or schedule access.
         args.date = assert_capture_date_permitted(args.date)
         runtime, runtime_sha = load_runtime(args.runtime)
-        records = canonical_schedule_records(MLBStatsAPI().get_schedule(args.date))
+        records = canonical_schedule_records(mlb_api_factory().get_schedule(args.date))
         plan = plan_from_schedule(
             official_game_date=args.date,
             entry_hours=runtime["scheduler"]["entry_hours"],
