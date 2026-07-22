@@ -1,0 +1,38 @@
+{
+  "candidate_id": "statcast_source_truth_integrity_v1",
+  "candidate_class": "integrity_repair_only",
+  "research_only": true,
+  "betting_authorized": false,
+  "production_promotion_permitted": false,
+  "source_contract": {
+    "unavailable_dependency": "terminal_error",
+    "transport_failure": "terminal_error",
+    "non_tabular_payload": "terminal_error",
+    "empty_payload": "terminal_error",
+    "missing_identity_columns": "terminal_error",
+    "missing_required_pitch_columns": "terminal_error",
+    "may_2026_intersection": "reject_before_source_call",
+    "unbound_2026_csv_override": "forbidden"
+  },
+  "fallback_contract": {
+    "valid_source_player_missing": "league_fallback_with_explicit_field_lineage",
+    "valid_source_field_missing": "partial_league_fallback_with_explicit_field_lineage",
+    "fetch_failure_may_not_become_player_fallback": true,
+    "lineage_round_trip_required": true,
+    "contradictory_lineage": "terminal_error_at_probability_input_validation"
+  },
+  "model_contract": {
+    "probability_coefficients_changed": false,
+    "thresholds_changed": false,
+    "historical_outcomes_opened": false,
+    "2024_selection_reused": false,
+    "2025_hr_confirmation_reused": false,
+    "may_2026_opened": false,
+    "historical_feature_rebuild_required": false
+  },
+  "markets": [
+    "hits",
+    "hr_over_0_5",
+    "total_bases"
+  ]
+}

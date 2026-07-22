@@ -15,6 +15,7 @@ from typing import Optional
 import pandas as pd
 
 from src.data.savant import SavantClient
+from src.data.historical_backfill_contract import assert_not_may_2026
 from src.data.statcast_distributions import StatcastDistributionBuilder
 from src.evaluation.hits_contact_adapter import (
     HitsContactAdapterSettings,
@@ -138,6 +139,13 @@ class StatcastFeatureEngine:
         profiles: dict[int, StatcastProfile] = {}
 
         target_date = date.fromisoformat(game_date) if game_date else date.today()
+        # The sealed-month boundary must run before a Statcast client, CSV, or
+        # cache is touched.  This is a source-access rule, not a scoring filter.
+        assert_not_may_2026(target_date.isoformat(), context="Statcast target date")
+        if target_date.year == 2026 and savant_csv_path:
+            raise ValueError(
+                "unbound Savant CSV overrides are forbidden for 2026 live/research targets"
+            )
         if self.hits_contact_adapter is not None and game_date is None:
             raise ValueError("hits-contact candidate requires an explicit target date")
         if self.hits_contact_adapter is not None and savant_csv_path:
@@ -237,6 +245,8 @@ class StatcastFeatureEngine:
                     "player_name": profile.player_name,
                     "sample_pa": profile.sample_pa,
                     "has_advanced_data": profile.has_advanced_data(),
+                    "source_status": profile.source_status,
+                    "fallback_fields": "|".join(profile.fallback_fields),
                     "xwoba": profile.xwoba,
                     "xba": profile.xba,
                     "xslg": profile.xslg,
