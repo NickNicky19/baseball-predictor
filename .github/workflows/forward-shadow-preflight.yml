@@ -1,6 +1,6 @@
 name: Forward Shadow Preflight
 
-on:
+"on":
   pull_request:
     branches:
       - main
@@ -36,4 +36,3 @@ jobs:
         run: |
           python scripts/audit_forward_shadow_readiness.py \
             --out "$RUNNER_TEMP/forward-shadow-readiness.json"
-

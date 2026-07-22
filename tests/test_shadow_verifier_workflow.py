@@ -39,6 +39,7 @@ class ShadowVerifierWorkflowTests(unittest.TestCase):
 
     def test_pull_request_preflight_runs_the_full_readiness_audit(self) -> None:
         workflow = PREFLIGHT_WORKFLOW_PATH.read_text(encoding="utf-8")
+        self.assertIn('"on":', workflow)
         self.assertIn("pull_request:", workflow)
         self.assertIn("PYBASEBALL_CACHE", workflow)
         self.assertIn("tests.test_shadow_verifier_workflow", workflow)
