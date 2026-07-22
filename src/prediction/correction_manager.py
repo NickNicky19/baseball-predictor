@@ -9,6 +9,8 @@ Corrections are off by default and must be enabled explicitly.
 from __future__ import annotations
 
 from dataclasses import dataclass
+import hashlib
+import json
 from pathlib import Path
 from typing import Any, Optional
 
@@ -66,6 +68,8 @@ class CorrectionManager:
         self.settings = settings or CorrectionSettings()
         self.project_root = project_root or Path(__file__).resolve().parents[2]
         self._enabled = self.settings.enabled
+        self._loaded_state_path: Optional[Path] = None
+        self._loaded_state_source_sha256: Optional[str] = None
 
     @classmethod
     def from_config(
@@ -75,7 +79,7 @@ class CorrectionManager:
     ) -> CorrectionManager:
         manager = cls(settings=CorrectionSettings.from_config(config), project_root=project_root)
         if manager.settings.enabled:
-            manager.load_state_if_exists()
+            manager.require_active_state()
         return manager
 
     @property
@@ -120,32 +124,70 @@ class CorrectionManager:
         """Load persisted BiasCorrectionState from disk."""
         resolved = self._resolve_path(path or self.settings.state_path)
         if not resolved.exists():
-            logger.warning("Correction state not found: %s", resolved)
-            return False
+            raise FileNotFoundError(f"correction state not found: {resolved}")
+        source_digest = hashlib.sha256(resolved.read_bytes()).hexdigest()
         self.corrector.load(resolved)
+        self.corrector.state.validate()
+        self._loaded_state_path = resolved.resolve()
+        self._loaded_state_source_sha256 = source_digest
         logger.info("Loaded correction state from %s", resolved)
         return True
 
     def load_state_if_exists(self) -> bool:
-        """Load state file only when it exists (non-fatal).
-
-        A missing OR unreadable/corrupt state file both mean the same thing to
-        the pipeline: proceed without corrections. A malformed file must never
-        crash a prediction run, so decode/JSON errors are swallowed with a
-        warning rather than propagated.
-        """
+        """Load an optional state when present; malformed state is terminal."""
         resolved = self._resolve_path(self.settings.state_path)
         if not resolved.exists():
             return False
-        try:
-            return self.load_state(resolved)
-        except (ValueError, OSError) as exc:  # JSONDecodeError is a ValueError
-            logger.warning(
-                "Correction state at %s is unreadable (%s); running without corrections",
-                resolved,
-                exc,
+        return self.load_state(resolved)
+
+    def require_active_state(self) -> dict[str, str]:
+        """Require one valid, active, hash-bound correction state.
+
+        Explicitly requesting corrections must never degrade silently to the
+        frozen model.  Output-level offsets are also rejected: changing only a
+        displayed mean while retaining the original probability distribution
+        is not a coherent probability correction.
+        """
+
+        if not self.corrector.is_active() or self._loaded_state_path is None:
+            self.load_state(self.settings.state_path)
+        self.corrector.state.validate()
+        if not self.corrector.is_active():
+            raise ValueError("corrections requested but the correction state is inactive")
+        has_offsets = bool(self.corrector.state.category_offsets)
+        has_parameter_overrides = bool(
+            self.corrector.state.league_overrides
+            or self.corrector.state.pa_config_overrides
+        )
+        if has_offsets and not self.settings.apply_projection_offsets:
+            raise ValueError(
+                "category offsets are present but apply_projection_offsets is false; "
+                "refusing unconsumed correction provenance"
             )
-            return False
+        if has_parameter_overrides and not self.settings.apply_model_parameters:
+            raise ValueError(
+                "model-parameter overrides are present but apply_model_parameters is false; "
+                "refusing unconsumed correction provenance"
+            )
+        if self.settings.apply_projection_offsets and has_offsets:
+            raise ValueError(
+                "output-level category offsets are not probability-consistent; "
+                "refit a hash-bound model-parameter correction before enabling corrections"
+            )
+        return self.correction_identity()
+
+    def correction_identity(self) -> dict[str, str]:
+        if self._loaded_state_path is None or self._loaded_state_source_sha256 is None:
+            raise ValueError("correction state has not been loaded from a source artifact")
+        self.corrector.state.validate()
+        canonical = json.dumps(
+            self.corrector.state.to_dict(), sort_keys=True, separators=(",", ":")
+        ).encode("utf-8")
+        return {
+            "source_path": str(self._loaded_state_path),
+            "source_sha256": self._loaded_state_source_sha256,
+            "effective_state_sha256": hashlib.sha256(canonical).hexdigest(),
+        }
 
     def save_state(self, path: Optional[str | Path] = None) -> Path:
         """Persist current correction state."""
@@ -168,7 +210,11 @@ class CorrectionManager:
         force: apply when corrector has state even if manager.enabled is False
                (used for per-call apply_corrections on predict()).
         """
-        if not self._should_apply(force) or not self.settings.apply_model_parameters:
+        if not self._should_apply(force):
+            return league, pa_config
+
+        self.require_active_state()
+        if not self.settings.apply_model_parameters:
             return league, pa_config
 
         effective_league = self.corrector.apply_league_baselines(league)
@@ -187,7 +233,10 @@ class CorrectionManager:
         force: bool = False,
     ) -> list[PropProjection]:
         """Apply output-level category bias corrections after simulation."""
-        if not self._should_apply(force) or not self.settings.apply_projection_offsets:
+        if not self._should_apply(force):
+            return projections
+        self.require_active_state()
+        if not self.settings.apply_projection_offsets:
             return projections
         return self.corrector.apply_projections(projections)
 

@@ -6,6 +6,8 @@ from datetime import date
 from pathlib import Path
 from types import SimpleNamespace
 
+import pytest
+
 from src.data.mlb_api import HittingStatsSnapshot, PitchingStatsSnapshot
 from src.data.odds import CompositeOddsProvider, FileOddsSettings, OddsSettings
 from src.models.dataclasses import (
@@ -21,6 +23,7 @@ from src.models.dataclasses import (
 )
 from src.prediction import DailyPredictor, PropEngine
 from src.simulation.game_simulator import GameSimulatorInput
+from src.utils.errors import PredictionPipelineError
 
 FIXTURES = Path(__file__).parent / "fixtures"
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -157,16 +160,16 @@ def test_prediction_provenance_is_explicit_and_serialized():
     assert result.to_dict()["prediction_provenance"] == expected
 
 
-def test_predict_with_corrections_no_state_graceful():
+def test_predict_with_corrections_no_state_fails_closed():
     predictor = _fast_predictor()
-    result = predictor.predict(
-        "2026-07-01",
-        hitter_categories=("hrr",),
-        include_pitchers=False,
-        apply_corrections=True,
-        include_edges=False,
-    )
-    assert len(result.hitter_projections) == 1
+    with pytest.raises(PredictionPipelineError, match="correction state not found"):
+        predictor.predict(
+            "2026-07-01",
+            hitter_categories=("hrr",),
+            include_pitchers=False,
+            apply_corrections=True,
+            include_edges=False,
+        )
 
 
 def test_predict_with_edges():

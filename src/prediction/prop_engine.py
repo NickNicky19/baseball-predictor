@@ -265,7 +265,11 @@ class PropEngine:
         if pa_config is not None:
             self._pa_config = pa_config
         elif league_baselines is not None:
-            self._pa_config = PASimulatorConfig.from_league(self.league)
+            # Rebuild from the new league anchor *and* re-consume the exact
+            # hash-bound config block.  Rebuilding from league alone silently
+            # discarded fitted K/BB and every other pa_simulator override when
+            # the Statcast layer refreshed xwOBA/xSLG anchors.
+            self._pa_config = self._build_pa_config()
 
         self.monte_carlo = self._build_monte_carlo()
         self.probability_engine = ProbabilityEngine(
@@ -305,9 +309,8 @@ class PropEngine:
 
         DEGENERATE WHEN ABSENT: with no `pa_simulator` block, this returns
         exactly PASimulatorConfig.from_league(league) -- byte-identical to the
-        previous behaviour. Unknown keys are IGNORED (a typo must not crash a
-        live slate), but they are LOGGED, because a silently-ignored key is how a
-        config lies to you.
+        previous behaviour. Unknown output-affecting keys fail closed; a typo
+        must not be allowed to create decorative configuration provenance.
         """
         base = PASimulatorConfig.from_league(self.league)
         block = self.config.get("pa_simulator") or {}
@@ -342,11 +345,9 @@ class PropEngine:
                 unknown.append(k)
 
         if unknown:
-            logger.warning(
-                "config['pa_simulator'] has %d key(s) that are not fields of "
-                "PASimulatorConfig and were IGNORED: %s. A silently-ignored key "
-                "is how a config lies to you -- check the spelling.",
-                len(unknown), sorted(unknown),
+            raise ValueError(
+                "config['pa_simulator'] contains unknown probability fields: "
+                f"{sorted(unknown)}"
             )
         if use_fitted_kbb:
             overrides.update(_load_hash_bound_kbb(block))
