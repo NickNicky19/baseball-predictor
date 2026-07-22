@@ -1,0 +1,141 @@
+{
+  "schema_version": "rich-feature-lineage-integrity-repair-v1",
+  "candidate_id": "rich_feature_lineage_integrity_v1",
+  "candidate_class": "integrity_repair_only",
+  "status": "CERTIFIED_SHARED_BATTER_LINEAGE_REPAIR_NO_MODEL_PROMOTION",
+  "base_commit": "2726d8923c0631fcdddf89d774944c90a5de2709",
+  "research_only": true,
+  "betting_authorized": false,
+  "production_probability_changed": false,
+  "defects": [
+    {
+      "register_id": "SI-007",
+      "root_cause": "Probability-consumed rich fields could override the scalar Statcast profile without preserving player identity, target date, source cutoff, source hash, counts, denominator, fallback reason, or a hash of the effective value.",
+      "repair": "Every active shared-PA rich override now carries versioned field lineage. Direct Statcast fields must equal their bound profile values; contact-adapter and active rolling fields require independent lineage. Identity, chronology, source, value, and denominator contradictions terminate at serialization and probability consumption."
+    },
+    {
+      "register_id": "SI-011",
+      "root_cause": "The shared batter feature artifact did not carry source hashes and cutoff lineage uniformly from Statcast rows through effective probability inputs.",
+      "repair": "Statcast profiles now bind the exact consumed rows to an order-invariant SHA-256, source maximum date, and requested cutoff. The fields persist through feature-store serialization and appear in automatic input-health records."
+    },
+    {
+      "register_id": "SI-022",
+      "root_cause": "The fitted hitter K/BB bridge could use current season/last-X snapshots during historical reconstruction, overwrite league fallback values without updating lineage, and silently convert a point-in-time source failure to missing data.",
+      "repair": "A separately selectable point_in_time_required mode now accepts only strict prior-game logs with per-field player/date/hash/count/denominator lineage. Source loss terminates. A simulator gate requires this lineage whenever a new fitted-K/BB candidate elects strict mode. The legacy path remains only as a frozen comparator."
+    }
+  ],
+  "boundaries": {
+    "may_2026_opened": false,
+    "historical_outcomes_opened_for_selection": false,
+    "2024_selection_reused": false,
+    "2025_hr_confirmation_reused": false,
+    "prospective_evidence_backfilled": false,
+    "operational_smoke_touched": false,
+    "pitcher_context_collector_touched": false,
+    "prices_treated_as_executable": false
+  },
+  "reconstruction": {
+    "historical_data_artifact": null,
+    "historical_feature_artifact": null,
+    "required": false,
+    "reason": "This repair adds strict provenance and failure boundaries without changing a valid input value or coefficient. Rebuilding spent historical features would create no independent performance evidence."
+  },
+  "chronological_evaluation": {
+    "fit_2023": "not_run_integrity_only_no_model_fit",
+    "select_2024": "not_run_selection_already_spent_and_valid_path_probabilities_unchanged",
+    "hits": {
+      "calibration": "no_claim",
+      "brier_score": "no_claim",
+      "log_loss": "no_claim",
+      "discrimination": "no_claim",
+      "coverage": "strict_source_failures_and_lineage_free_rows_are_terminal",
+      "uncertainty": "no_claim",
+      "market_behavior": "no_probability_may_consume_a_new_unbound_rich_or_hitter_rate_value"
+    },
+    "hr_over_0_5": {
+      "league_rate_baseline": "not_reused_no_model_candidate",
+      "time_safe_player_rate_baseline": "not_reused_no_model_candidate",
+      "frozen_simulator": "retained_unchanged",
+      "valid_market_implied_probability": "not_reused_no_executable_price_claim",
+      "calibration": "no_claim",
+      "high_probability_tail": "no_claim",
+      "brier_score": "no_claim",
+      "log_loss": "no_claim",
+      "discrimination": "no_claim",
+      "coverage": "strict_source_failures_and_lineage_free_rows_are_terminal",
+      "uncertainty": "no_claim",
+      "market_behavior": "no_probability_may_consume_a_new_unbound_rich_or_hitter_rate_value"
+    },
+    "total_bases": {
+      "calibration": "no_claim",
+      "brier_score": "no_claim",
+      "log_loss": "no_claim",
+      "discrimination": "no_claim",
+      "coverage": "strict_source_failures_and_lineage_free_rows_are_terminal",
+      "uncertainty": "no_claim",
+      "market_behavior": "no_probability_may_consume_a_new_unbound_rich_or_hitter_rate_value"
+    }
+  },
+  "verification": {
+    "full_pytest": "195 passed in 6.87s",
+    "prediction_input_health": "22/22",
+    "statcast_asof_boundary": "7/7",
+    "point_in_time_pitching": "44/44",
+    "point_in_time_role_rows": "33/33",
+    "point_in_time_reconstruction": "30/30",
+    "diff_check": "passed",
+    "mutation_proof": [
+      "row and column order cannot change a Statcast source hash",
+      "a source value mutation changes its source hash",
+      "a rich value mutation cannot retain its old lineage hash",
+      "re-hashing a direct override cannot make it differ from the bound profile",
+      "cross-player, same-day cutoff, source-hash, and denominator mutations terminate",
+      "active rolling xwOBA without source lineage terminates",
+      "hitter K/BB identity, cutoff, source-hash, numerator, and denominator mutations terminate",
+      "point-in-time game-log transport failure cannot become missing player data",
+      "missing or malformed point-in-time game-log schema cannot become an empty valid history",
+      "May is rejected before a point-in-time game-log source call"
+    ],
+    "numeric_non_regression": "For identical valid values, probabilities are exactly equal with lineage enforcement enabled or disabled for both rich Statcast inputs and fitted hitter K/BB inputs."
+  },
+  "hashes": {
+    "config": {
+      "path": "config/rich_feature_lineage_integrity_v1.json",
+      "sha256": "f3fcdda1e1c72641342809437d6cdd80152b773b697ffcbdc6db3117faa898c2"
+    },
+    "code": {
+      "src/models/dataclasses.py": "a018fc153b1a4618184c84280f81b7963fbd2402e5f1e1c93e2635b5f89dd36e",
+      "src/data/savant.py": "a3175ba44c979a73354d32b74cfbc2b2853e9d2e5316ce4f3c58b130b35ce6b1",
+      "src/data/statcast_integrity.py": "4abd8c97af86ec02b1505685028a4821a04c1f2125d7013d93196035052c5fa7",
+      "src/data/point_in_time.py": "a87be4eb22be8ce8f7e7648193cab6d2003183162a186a2174d83a479d750a4b",
+      "src/features/legacy_statcast_features.py": "62981d4ec569a0b44250dc1115b9f0bd4164d4a57288a784a5763bd0e8714f29",
+      "src/features/rich_feature_enricher.py": "94dea0938a00921c629ac91d6bc3020468502f55db81d039064baf39b3898d21",
+      "src/features/feature_factory.py": "1a0f53a1eb4b6063bc15c2a307dc5736a8951de0f2e6b1e9ad53ed8de90b3b23",
+      "src/evaluation/hits_contact_adapter.py": "889213732c740a99de30fcaf49bdd8ff38ba0567f68888f804c764be801677fd",
+      "src/evaluation/prediction_health.py": "edc6b82d940cbbae97bea4be81f4ec1482fbff789b197596235f64f0a4d0e580",
+      "src/simulation/pa_simulator.py": "f6154eef7c228b5b8b0fd2adc300d1bd981bebb0287fa0e9da06f433d26b200d"
+    },
+    "tests": {
+      "tests/test_rich_feature_lineage.py": "dda0615c89c0a47e1ed274a52394cdeb339ce2add165fde7c1251e0f0e4cf08b",
+      "tests/test_hitter_rate_lineage.py": "fb9fc8c575a9ec0263d9c079ed356c652e082e64c11e21f9d2064827487696d4",
+      "tests/test_statcast_source_fail_closed.py": "25138689ca9b521de8ffefdc8571db4a3311e12cc09889cb94eca6fb27a2da26",
+      "tests/test_probability_consumption_integrity.py": "061060da6c6e1c92a612580ae675ce100d17625f42d49162c944ac67329847c1"
+    },
+    "data": null,
+    "features": null,
+    "data_feature_hash_reason": "No model data or feature artifact was rebuilt because no valid-path probability changed."
+  },
+  "promotion": {
+    "integrity_repair_accepted": true,
+    "model_candidate_promoted": false,
+    "frozen_baseline_retained": true,
+    "reason": "Integrity correctness and numerical inertness are proven, but no fresh independent proper-score or market evidence exists."
+  },
+  "remaining_scope": {
+    "shared_batter_probability_lineage": "covered",
+    "non_rich_context_lineage": "not_certified_by_this_repair",
+    "pitcher_matchup_lineage": "blocked_until_receipt_proven_starter_identity",
+    "market_price_execution_lineage": "not_certified_and_not_treated_as_executable"
+  },
+  "single_highest_value_next_action": "Deploy and independently verify the receipt-only AWS T-minus-4 probable-starter collector for the next future slate. It cannot repair missed dates, does not change probabilities, and is required before any pitcher-matchup candidate can be admissible."
+}

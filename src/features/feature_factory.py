@@ -27,6 +27,10 @@ from src.features.lineup_intelligence import LineupIntelligence
 from src.features.matchup_intelligence import MatchupIntelligence
 from src.features.legacy_statcast_features import StatcastFeatureEngine
 from src.features.rich_feature_enricher import RichFeatureEnricher
+from src.data.statcast_integrity import (
+    RICH_FEATURE_LINEAGE_KEY,
+    sha256_feature_value,
+)
 from src.models.dataclasses import (
     HitterGameContext,
     LeagueBaselines,
@@ -85,6 +89,17 @@ class FeatureFactory:
         self.derive_batted_ball_rates = bool(
             feature_config.get("derive_batted_ball_rates", False)
         )
+        self.hitter_rate_source_mode = str(
+            feature_config.get("hitter_rate_source_mode", "legacy_frozen")
+        )
+        if self.hitter_rate_source_mode not in {
+            "legacy_frozen",
+            "point_in_time_required",
+        }:
+            raise ValueError(
+                "feature_factory.hitter_rate_source_mode must be "
+                "'legacy_frozen' or 'point_in_time_required'"
+            )
         self.statcast_engine = statcast_engine or StatcastFeatureEngine(
             league_baselines=self.league,
             derive_batted_ball_rates=self.derive_batted_ball_rates,
@@ -199,7 +214,9 @@ class FeatureFactory:
             )
 
             enriched = self.matchup_intelligence.apply_to_bundle(base_bundle)
-            season_hitting, recent_hitting = self._hitting_stats(hitter.player.mlb_id)
+            season_hitting, recent_hitting, hitter_rate_lineage = self._hitting_stats(
+                hitter.player.mlb_id, game_date
+            )
 
             # ================================================================
             # FEED THE HITTER'S OWN K/BB RATES TO THE SIMULATOR.
@@ -222,7 +239,10 @@ class FeatureFactory:
             # simulator's fitted path stays INERT (it requires BOTH the config
             # flag AND the rates).
             enriched = self._attach_hitter_rates(
-                enriched, season_hitting, recent_hitting
+                enriched,
+                season_hitting,
+                recent_hitting,
+                hitter_rate_lineage,
             )
             statcast = enriched.statcast
 
@@ -301,6 +321,33 @@ class FeatureFactory:
                     rich_features["contact_xba_fitted"] = contact_adapter[
                         "fitted_contact_xba"
                     ]
+                    lineage = rich_features.get(RICH_FEATURE_LINEAGE_KEY)
+                    if not isinstance(lineage, dict) or not isinstance(
+                        lineage.get("fields"), dict
+                    ):
+                        raise ValueError(
+                            "contact adapter cannot enter probabilities without rich lineage"
+                        )
+                    lineage["fields"]["contact_xba_fitted"] = {
+                        "source": "hits_contact_adapter",
+                        "player_id": hitter.player.mlb_id,
+                        "target_date": contact_adapter["target_date"],
+                        "source_cutoff_date": contact_adapter["source_cutoff_date"],
+                        "source_max_game_date": contact_adapter[
+                            "last_evidence_date"
+                        ],
+                        "source_hash": contact_adapter["source_hash"],
+                        "sample_count": int(contact_adapter["player_bip"]),
+                        "denominator": int(contact_adapter["player_bip"]),
+                        "numerator": None,
+                        "fallback_reason": None,
+                        "value_sha256": sha256_feature_value(
+                            rich_features["contact_xba_fitted"]
+                        ),
+                        "selection_evidence_sha256": contact_adapter[
+                            "selection_evidence_sha256"
+                        ],
+                    }
 
             enriched = PlayerFeatureBundle(
                 hitter=enriched.hitter,
@@ -372,8 +419,7 @@ class FeatureFactory:
             sample_pa=int(recent.innings_pitched * 4.2),
         )
 
-    @staticmethod
-    def _attach_hitter_rates(bundle, season, recent):
+    def _attach_hitter_rates(self, bundle, season, recent, lineage=None):
         """Put the hitter's OWN season/recent K and BB rates on his StatcastProfile.
 
         RULE 8 -- what these quantities MEAN:
@@ -394,6 +440,36 @@ class FeatureFactory:
         bb_r = recent.bb_rate if recent is not None else None
         if k_s is None and bb_s is None and k_r is None and bb_r is None:
             return bundle
+        if self.hitter_rate_source_mode == "point_in_time_required":
+            if not isinstance(lineage, dict) or lineage.get(
+                "schema_version"
+            ) != "hitter-rate-lineage-v1":
+                raise ValueError(
+                    "point-in-time hitter rates require bound source lineage"
+                )
+            lineage_fields = lineage.get("fields")
+            if not isinstance(lineage_fields, dict):
+                raise ValueError("point-in-time hitter-rate lineage fields are missing")
+        else:
+            lineage_fields = {}
+
+        field_lineage = dict(bundle.statcast.field_lineage)
+        fallback_fields = set(bundle.statcast.fallback_fields)
+        for field_name, value in (
+            ("k_rate", k_s),
+            ("bb_rate", bb_s),
+            ("k_rate_recent", k_r),
+            ("bb_rate_recent", bb_r),
+        ):
+            if value is None or not lineage_fields:
+                continue
+            entry = lineage_fields.get(field_name)
+            if not isinstance(entry, dict):
+                raise ValueError(
+                    f"point-in-time hitter-rate lineage is missing {field_name}"
+                )
+            field_lineage[field_name] = dict(entry)
+            fallback_fields.discard(field_name)
         return replace(
             bundle,
             statcast=replace(
@@ -402,16 +478,27 @@ class FeatureFactory:
                 bb_rate=bb_s if bb_s is not None else bundle.statcast.bb_rate,
                 k_rate_recent=k_r,
                 bb_rate_recent=bb_r,
+                fallback_fields=tuple(sorted(fallback_fields)),
+                field_lineage=field_lineage,
             ),
         )
 
-    def _hitting_stats(self, player_id: int):
+    def _hitting_stats(self, player_id: int, game_date: str):
+        if self.hitter_rate_source_mode == "point_in_time_required":
+            provider = self.rolling_stats_provider
+            method = getattr(provider, "get_hitting_stats_with_lineage", None)
+            if not callable(method):
+                raise ValueError(
+                    "point-in-time hitter-rate mode requires a provenance-capable provider"
+                )
+            return method(player_id, game_date)
         if self.mlb_api is None:
-            return None, None
+            return None, None, None
         try:
-            return self.mlb_api.get_hitting_stats(player_id)
+            season, recent = self.mlb_api.get_hitting_stats(player_id)
+            return season, recent, None
         except Exception:
-            return None, None
+            return None, None, None
 
     def _park_factors(self, venue: str) -> ParkFactors:
         if self._estimated_park_factors:

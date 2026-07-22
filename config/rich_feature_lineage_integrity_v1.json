@@ -1,0 +1,50 @@
+{
+  "candidate_id": "rich_feature_lineage_integrity_v1",
+  "candidate_class": "integrity_repair_only",
+  "research_only": true,
+  "betting_authorized": false,
+  "production_promotion_permitted": false,
+  "strict_runtime_contract": {
+    "feature_factory.hitter_rate_source_mode": "point_in_time_required",
+    "pa_simulator.require_hitter_rate_lineage": true,
+    "pa_simulator.use_fitted_kbb": "must_be_bound_to_the_existing_hash_verified_artifact_if_enabled",
+    "legacy_frozen_mode": "retained_only_as_comparator"
+  },
+  "rich_probability_fields": [
+    "xwoba",
+    "xslg",
+    "xba",
+    "barrel_rate",
+    "hard_hit_rate",
+    "contact_rate",
+    "roll15_xwoba",
+    "recent_pa_15",
+    "contact_xba_fitted"
+  ],
+  "lineage_requirements": [
+    "player_id",
+    "target_date",
+    "source_cutoff_date",
+    "source_max_game_date",
+    "source_hash",
+    "sample_count",
+    "denominator",
+    "numerator",
+    "fallback_reason",
+    "value_sha256"
+  ],
+  "model_contract": {
+    "probability_coefficients_changed": false,
+    "thresholds_changed": false,
+    "historical_outcomes_opened": false,
+    "2024_selection_reused": false,
+    "2025_hr_confirmation_reused": false,
+    "may_2026_opened": false,
+    "historical_feature_rebuild_required": false
+  },
+  "markets": [
+    "hits",
+    "hr_over_0_5",
+    "total_bases"
+  ]
+}

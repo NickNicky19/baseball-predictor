@@ -156,6 +156,10 @@ class StatcastFeatureEngine:
         statcast_df = self.savant.fetch_statcast_range(end_date=last_completed_date)
         if not statcast_df.empty:
             profiles.update(self.build_profiles_from_statcast_df(statcast_df))
+        profiles = {
+            player_id: replace(profile, source_cutoff_date=last_completed_date)
+            for player_id, profile in profiles.items()
+        }
         self._hits_contact_evidence = {}
         if self.hits_contact_adapter is not None:
             self._hits_contact_evidence = build_contact_adapter_evidence(
@@ -210,6 +214,12 @@ class StatcastFeatureEngine:
         for hitter in hitters:
             player_id = hitter.player.mlb_id
             profile = self.resolve_profile_for_hitter(hitter, pool)
+            if profile.source_status == "league_fallback":
+                target_date = date.fromisoformat(game_date) if game_date else date.today()
+                profile = replace(
+                    profile,
+                    source_cutoff_date=(target_date - timedelta(days=1)).isoformat(),
+                )
             adapter = self._hits_contact_evidence.get(player_id)
             if adapter and adapter["status"] == "adapter_applied":
                 profile = replace(profile, xba=float(adapter["fitted_contact_xba"]))
@@ -247,6 +257,9 @@ class StatcastFeatureEngine:
                     "has_advanced_data": profile.has_advanced_data(),
                     "source_status": profile.source_status,
                     "fallback_fields": "|".join(profile.fallback_fields),
+                    "source_hash": profile.source_hash,
+                    "source_max_game_date": profile.source_max_game_date,
+                    "source_cutoff_date": profile.source_cutoff_date,
                     "xwoba": profile.xwoba,
                     "xba": profile.xba,
                     "xslg": profile.xslg,

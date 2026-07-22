@@ -37,7 +37,10 @@ from dataclasses import asdict, dataclass
 from typing import TYPE_CHECKING, Optional, Any
 
 from src.evaluation.hits_contact_adapter import consume_fitted_contact_xba
-from src.data.statcast_integrity import validate_profile_and_rich_features
+from src.data.statcast_integrity import (
+    validate_hitter_rate_lineage,
+    validate_profile_and_rich_features,
+)
 from src.models.dataclasses import LeagueBaselines, PAOutcome, StatcastProfile
 
 if TYPE_CHECKING:
@@ -172,6 +175,7 @@ class PASimulatorConfig:
     #   ~0.98 correlated. The term is kept because it is fitted and costs
     #   nothing, but it is not a meaningful signal and is not claimed as one.
     use_fitted_kbb: bool = False
+    require_hitter_rate_lineage: bool = False
     kbb_k_intercept: Optional[float] = None
     kbb_k_hitter_season: Optional[float] = None
     kbb_k_hitter_recent: Optional[float] = None
@@ -319,6 +323,10 @@ class HybridPASimulator:
                     "use_fitted_kbb is enabled without artifact-loaded "
                     f"coefficients: {missing}"
                 )
+        if self.config.require_hitter_rate_lineage and not self.config.use_fitted_kbb:
+            raise ValueError(
+                "require_hitter_rate_lineage requires use_fitted_kbb"
+            )
         if self.config.pitcher_hr9_effect_mode not in {
             "legacy_frozen", "corrected"
         }:
@@ -605,6 +613,14 @@ class HybridPASimulator:
         bb_season = _rate01(getattr(statcast, "bb_rate", None), "bb_rate") if statcast else float("nan")
         k_recent = _rate01(getattr(statcast, "k_rate_recent", None), "k_rate_recent") if statcast else float("nan")
         bb_recent = _rate01(getattr(statcast, "bb_rate_recent", None), "bb_rate_recent") if statcast else float("nan")
+
+        if self.config.use_fitted_kbb and self.config.require_hitter_rate_lineage:
+            if statcast is None:
+                raise ValueError("fitted K/BB lineage requires a hitter profile")
+            validate_hitter_rate_lineage(
+                statcast,
+                context=f"HybridPASimulator[{statcast.player_id}].hitter_rates",
+            )
 
         # A missing RECENT rate falls back to the SEASON rate. That is not a
         # fudge and it is not arbitrary: the fitted model is

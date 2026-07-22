@@ -18,6 +18,12 @@ from dataclasses import asdict, dataclass
 from typing import Iterable, Sequence
 
 from src.models.dataclasses import PlayerFeatureBundle, PropCategory
+from src.data.statcast_integrity import (
+    RICH_ADAPTER_PROBABILITY_FIELDS,
+    RICH_FEATURE_LINEAGE_KEY,
+    RICH_PROFILE_OVERRIDE_FIELDS,
+    RICH_ROLLING_PROBABILITY_FIELDS,
+)
 
 
 HEALTH_SCHEMA_VERSION = "prediction-input-health-v2"
@@ -45,6 +51,8 @@ class PredictionInputHealth:
     hitter_has_advanced_statcast: bool
     hitter_statcast_source_status: str
     hitter_statcast_fallback_fields: tuple[str, ...]
+    hitter_rate_lineage_fields: tuple[str, ...]
+    hitter_rate_lineage_complete: bool
     opposing_pitcher_id: int | None
     opposing_pitcher_payload_present: bool
     opposing_pitcher_sample_pa: int
@@ -53,6 +61,8 @@ class PredictionInputHealth:
     opposing_pitcher_bb_rate_present: bool
     opposing_pitcher_hr_rate_present: bool
     rich_features_payload_present: bool
+    rich_feature_lineage_present: bool
+    rich_probability_lineage_complete: bool
     rolling_features_present: bool
     flags: tuple[str, ...]
 
@@ -84,6 +94,28 @@ def health_for_bundle(bundle: PlayerFeatureBundle) -> PredictionInputHealth:
     has_advanced_statcast = bundle.statcast.has_advanced_data()
     rich_features = bundle.metadata.get("rich_features")
     rich_features_payload_present = isinstance(rich_features, dict) and bool(rich_features)
+    lineage = (
+        rich_features.get(RICH_FEATURE_LINEAGE_KEY)
+        if isinstance(rich_features, dict)
+        else None
+    )
+    lineage_fields = lineage.get("fields") if isinstance(lineage, dict) else None
+    rich_feature_lineage_present = isinstance(lineage_fields, dict)
+    active_rich_probability_fields = {
+        field
+        for field in (RICH_PROFILE_OVERRIDE_FIELDS | RICH_ADAPTER_PROBABILITY_FIELDS)
+        if isinstance(rich_features, dict) and rich_features.get(field) is not None
+    }
+    if (
+        isinstance(rich_features, dict)
+        and rich_features.get("roll15_xwoba") is not None
+        and float(rich_features.get("recent_pa_15") or 0.0) > 0.0
+    ):
+        active_rich_probability_fields.update(RICH_ROLLING_PROBABILITY_FIELDS)
+    rich_probability_lineage_complete = bool(
+        rich_feature_lineage_present
+        and active_rich_probability_fields.issubset(lineage_fields)
+    )
     rolling_features_present = bool(
         rich_features_payload_present
         and any(
@@ -115,8 +147,23 @@ def health_for_bundle(bundle: PlayerFeatureBundle) -> PredictionInputHealth:
         flags.append("hitter_statcast_league_fallback")
     source_status = bundle.statcast.source_status
     fallback_fields = tuple(bundle.statcast.fallback_fields)
+    hitter_rate_lineage_fields = tuple(sorted(bundle.statcast.field_lineage))
+    active_hitter_rate_fields = {
+        field
+        for field in ("k_rate", "bb_rate", "k_rate_recent", "bb_rate_recent")
+        if getattr(bundle.statcast, field, None) is not None
+    }
+    hitter_rate_lineage_complete = bool(
+        active_hitter_rate_fields
+        and active_hitter_rate_fields.issubset(bundle.statcast.field_lineage)
+    )
     flags.append(f"hitter_statcast_source_{source_status}")
     flags.extend(f"hitter_statcast_fallback_{field}" for field in fallback_fields)
+    flags.append(
+        "hitter_rate_lineage_complete"
+        if hitter_rate_lineage_complete
+        else "hitter_rate_lineage_unavailable"
+    )
 
     if not pitcher_payload_present:
         flags.extend(
@@ -149,6 +196,11 @@ def health_for_bundle(bundle: PlayerFeatureBundle) -> PredictionInputHealth:
         else "rich_features_payload_missing"
     )
     flags.append(
+        "rich_probability_lineage_complete"
+        if rich_probability_lineage_complete
+        else "rich_probability_lineage_unavailable"
+    )
+    flags.append(
         "rolling_features_observed"
         if rolling_features_present
         else "rolling_features_unavailable"
@@ -167,6 +219,8 @@ def health_for_bundle(bundle: PlayerFeatureBundle) -> PredictionInputHealth:
         hitter_has_advanced_statcast=has_advanced_statcast,
         hitter_statcast_source_status=source_status,
         hitter_statcast_fallback_fields=fallback_fields,
+        hitter_rate_lineage_fields=hitter_rate_lineage_fields,
+        hitter_rate_lineage_complete=hitter_rate_lineage_complete,
         opposing_pitcher_id=bundle.hitter.opposing_pitcher_id,
         opposing_pitcher_payload_present=pitcher_payload_present,
         opposing_pitcher_sample_pa=pitcher_sample_pa,
@@ -181,6 +235,8 @@ def health_for_bundle(bundle: PlayerFeatureBundle) -> PredictionInputHealth:
             pitcher_profile_present and pitcher and pitcher.hr_per_9 is not None
         ),
         rich_features_payload_present=rich_features_payload_present,
+        rich_feature_lineage_present=rich_feature_lineage_present,
+        rich_probability_lineage_complete=rich_probability_lineage_complete,
         rolling_features_present=rolling_features_present,
         flags=tuple(sorted(flags)),
     )

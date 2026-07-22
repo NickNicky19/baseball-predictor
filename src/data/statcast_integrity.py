@@ -9,7 +9,11 @@ relationship is not safe to consume as a probability input.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import date
+import hashlib
+import json
 import math
+import re
 from typing import Any, Mapping, Optional
 
 import pandas as pd
@@ -42,6 +46,22 @@ STATCAST_LEAGUE_FALLBACK_FIELDS = frozenset(
         "bb_rate",
     }
 )
+
+RICH_FEATURE_LINEAGE_KEY = "__lineage__"
+RICH_FEATURE_LINEAGE_SCHEMA = "rich-feature-lineage-v1"
+RICH_PROFILE_OVERRIDE_FIELDS = frozenset(
+    {"xwoba", "xslg", "xba", "barrel_rate", "hard_hit_rate", "contact_rate"}
+)
+RICH_ROLLING_PROBABILITY_FIELDS = frozenset({"roll15_xwoba", "recent_pa_15"})
+RICH_ADAPTER_PROBABILITY_FIELDS = frozenset({"contact_xba_fitted"})
+RICH_PROBABILITY_FIELDS = frozenset(
+    RICH_PROFILE_OVERRIDE_FIELDS
+    | RICH_ROLLING_PROBABILITY_FIELDS
+    | RICH_ADAPTER_PROBABILITY_FIELDS
+)
+HITTER_RATE_LINEAGE_SCHEMA = "hitter-rate-lineage-v1"
+HITTER_RATE_FIELDS = ("k_rate", "bb_rate", "k_rate_recent", "bb_rate_recent")
+_SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 
 
 @dataclass(frozen=True)
@@ -187,6 +207,42 @@ def validate_profile_and_rich_features(
         raise StatcastIntegrityError(
             f"{context}.statcast: unverified profile cannot claim fallback lineage"
         )
+    source_hash = getattr(profile, "source_hash", None)
+    source_max_value = getattr(profile, "source_max_game_date", None)
+    source_cutoff_value = getattr(profile, "source_cutoff_date", None)
+    if source_status in {"observed", "partial_league_fallback"}:
+        if not isinstance(source_hash, str) or _SHA256_RE.fullmatch(source_hash) is None:
+            raise StatcastIntegrityError(
+                f"{context}.statcast: source-built profile lacks a valid source hash"
+            )
+        if source_max_value is None or source_cutoff_value is None:
+            raise StatcastIntegrityError(
+                f"{context}.statcast: source-built profile lacks date lineage"
+            )
+        source_max = _lineage_date(
+            source_max_value, context, "statcast", "source_max_game_date"
+        )
+        source_cutoff = _lineage_date(
+            source_cutoff_value, context, "statcast", "source_cutoff_date"
+        )
+        if source_max > source_cutoff:
+            raise StatcastIntegrityError(
+                f"{context}.statcast: source rows exceed the bound cutoff"
+            )
+        for parsed, label in (
+            (source_max, "source_max_game_date"),
+            (source_cutoff, "source_cutoff_date"),
+        ):
+            if date(2026, 5, 1) <= parsed <= date(2026, 5, 31):
+                raise StatcastIntegrityError(
+                    f"{context}.statcast: {label} enters sealed May 2026"
+                )
+    elif source_hash is not None and (
+        not isinstance(source_hash, str) or _SHA256_RE.fullmatch(source_hash) is None
+    ):
+        raise StatcastIntegrityError(
+            f"{context}.statcast: invalid optional source hash"
+        )
 
     validate_rate_pair(
         getattr(profile, "barrel_rate", None),
@@ -237,6 +293,7 @@ def validate_profile_and_rich_features(
         )
     if rich is None:
         return
+    _validate_rich_feature_lineage(profile, rich, context=context)
     effective_barrel = rich.get("barrel_rate", getattr(profile, "barrel_rate", None))
     effective_hard_hit = rich.get(
         "hard_hit_rate", getattr(profile, "hard_hit_rate", None)
@@ -246,3 +303,215 @@ def validate_profile_and_rich_features(
         effective_hard_hit,
         context=f"{context}.effective_rich_features",
     )
+
+
+def sha256_feature_value(value: Any) -> str:
+    payload = json.dumps(value, sort_keys=True, separators=(",", ":"), default=str)
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def validate_hitter_rate_lineage(profile: Any, *, context: str) -> None:
+    lineage = getattr(profile, "field_lineage", None)
+    if not isinstance(lineage, Mapping):
+        raise StatcastIntegrityError(f"{context}: hitter-rate lineage is missing")
+    player_id = int(getattr(profile, "player_id"))
+    for field in HITTER_RATE_FIELDS:
+        value = getattr(profile, field, None)
+        if value is None:
+            continue
+        entry = lineage.get(field)
+        if not isinstance(entry, Mapping):
+            raise StatcastIntegrityError(
+                f"{context}.{field}: point-in-time lineage is missing"
+            )
+        if entry.get("source") != "mlb_game_log_point_in_time":
+            raise StatcastIntegrityError(
+                f"{context}.{field}: unapproved hitter-rate source"
+            )
+        if entry.get("player_id") != player_id:
+            raise StatcastIntegrityError(
+                f"{context}.{field}: player identity mismatch"
+            )
+        if entry.get("value_sha256") != sha256_feature_value(value):
+            raise StatcastIntegrityError(
+                f"{context}.{field}: value/lineage hash mismatch"
+            )
+        target = _lineage_date(entry.get("target_date"), context, field, "target_date")
+        cutoff = _lineage_date(
+            entry.get("source_cutoff_date"), context, field, "source_cutoff_date"
+        )
+        if cutoff >= target:
+            raise StatcastIntegrityError(
+                f"{context}.{field}: source cutoff is not pregame"
+            )
+        source_max_value = entry.get("source_max_game_date")
+        if source_max_value is not None:
+            source_max = _lineage_date(
+                source_max_value, context, field, "source_max_game_date"
+            )
+            if source_max > cutoff:
+                raise StatcastIntegrityError(
+                    f"{context}.{field}: source rows exceed the cutoff"
+                )
+        for parsed in (target, cutoff):
+            if date(2026, 5, 1) <= parsed <= date(2026, 5, 31):
+                raise StatcastIntegrityError(
+                    f"{context}.{field}: hitter-rate lineage enters sealed May 2026"
+                )
+        source_hash = entry.get("source_hash")
+        if not isinstance(source_hash, str) or _SHA256_RE.fullmatch(source_hash) is None:
+            raise StatcastIntegrityError(
+                f"{context}.{field}: invalid source hash"
+            )
+        denominator = entry.get("denominator")
+        numerator = entry.get("numerator")
+        if (
+            not isinstance(denominator, int)
+            or isinstance(denominator, bool)
+            or denominator <= 0
+            or not isinstance(numerator, int)
+            or isinstance(numerator, bool)
+            or not 0 <= numerator <= denominator
+        ):
+            raise StatcastIntegrityError(
+                f"{context}.{field}: invalid count/denominator lineage"
+            )
+        if not math.isclose(
+            float(value), numerator / denominator, rel_tol=0.0, abs_tol=1e-12
+        ):
+            raise StatcastIntegrityError(
+                f"{context}.{field}: count/rate mismatch"
+            )
+
+
+def _validate_rich_feature_lineage(
+    profile: Any,
+    rich: Mapping[str, Any],
+    *,
+    context: str,
+) -> None:
+    active = {
+        field
+        for field in (RICH_PROFILE_OVERRIDE_FIELDS | RICH_ADAPTER_PROBABILITY_FIELDS)
+        if rich.get(field) is not None
+    }
+    if rich.get("roll15_xwoba") is not None and float(
+        rich.get("recent_pa_15") or 0.0
+    ) > 0.0:
+        active.update(RICH_ROLLING_PROBABILITY_FIELDS)
+    # Frozen/legacy artifacts predate the lineage schema and remain valid
+    # comparators. Every new source-built profile is strict.
+    strict = getattr(profile, "source_status", "unverified") != "unverified"
+    if not active and RICH_FEATURE_LINEAGE_KEY not in rich:
+        return
+    block = rich.get(RICH_FEATURE_LINEAGE_KEY)
+    if not isinstance(block, Mapping):
+        if strict and active:
+            raise StatcastIntegrityError(
+                f"{context}.rich: probability override lacks lineage"
+            )
+        return
+    if block.get("schema_version") != RICH_FEATURE_LINEAGE_SCHEMA:
+        raise StatcastIntegrityError(f"{context}.rich: invalid lineage schema")
+    fields = block.get("fields")
+    if not isinstance(fields, Mapping):
+        raise StatcastIntegrityError(f"{context}.rich: lineage fields are missing")
+    missing = sorted(active.difference(fields))
+    if missing:
+        raise StatcastIntegrityError(
+            f"{context}.rich: probability overrides lack lineage: {missing}"
+        )
+
+    player_id = int(getattr(profile, "player_id"))
+    for field in sorted(active):
+        entry = fields[field]
+        if not isinstance(entry, Mapping):
+            raise StatcastIntegrityError(
+                f"{context}.rich.{field}: lineage entry is not an object"
+            )
+        if entry.get("player_id") != player_id:
+            raise StatcastIntegrityError(
+                f"{context}.rich.{field}: player identity mismatch"
+            )
+        if entry.get("value_sha256") != sha256_feature_value(rich[field]):
+            raise StatcastIntegrityError(
+                f"{context}.rich.{field}: value/lineage hash mismatch"
+            )
+        target = _lineage_date(entry.get("target_date"), context, field, "target_date")
+        cutoff = _lineage_date(
+            entry.get("source_cutoff_date"), context, field, "source_cutoff_date"
+        )
+        if cutoff >= target:
+            raise StatcastIntegrityError(
+                f"{context}.rich.{field}: source cutoff is not pregame"
+            )
+        for parsed, label in ((target, "target_date"), (cutoff, "source_cutoff_date")):
+            if date(2026, 5, 1) <= parsed <= date(2026, 5, 31):
+                raise StatcastIntegrityError(
+                    f"{context}.rich.{field}: {label} enters sealed May 2026"
+                )
+        max_date_value = entry.get("source_max_game_date")
+        if max_date_value is not None:
+            source_max = _lineage_date(
+                max_date_value, context, field, "source_max_game_date"
+            )
+            if source_max > cutoff:
+                raise StatcastIntegrityError(
+                    f"{context}.rich.{field}: source rows exceed the cutoff"
+                )
+            if date(2026, 5, 1) <= source_max <= date(2026, 5, 31):
+                raise StatcastIntegrityError(
+                    f"{context}.rich.{field}: source rows enter sealed May 2026"
+                )
+        sample_count = entry.get("sample_count")
+        if not isinstance(sample_count, int) or isinstance(sample_count, bool) or sample_count < 0:
+            raise StatcastIntegrityError(
+                f"{context}.rich.{field}: invalid sample count"
+            )
+        fallback_reason = entry.get("fallback_reason")
+        source_hash = entry.get("source_hash")
+        if source_hash is None:
+            if not isinstance(fallback_reason, str) or not fallback_reason:
+                raise StatcastIntegrityError(
+                    f"{context}.rich.{field}: missing source hash without fallback reason"
+                )
+        elif not isinstance(source_hash, str) or _SHA256_RE.fullmatch(source_hash) is None:
+            raise StatcastIntegrityError(
+                f"{context}.rich.{field}: invalid source hash"
+            )
+        if field in RICH_PROFILE_OVERRIDE_FIELDS:
+            profile_value = getattr(profile, field, None)
+            if profile_value is None or float(rich[field]) != float(profile_value):
+                raise StatcastIntegrityError(
+                    f"{context}.rich.{field}: override differs from bound profile value"
+                )
+            if sample_count != int(getattr(profile, "sample_pa", 0)):
+                raise StatcastIntegrityError(
+                    f"{context}.rich.{field}: profile sample count mismatch"
+                )
+            profile_hash = getattr(profile, "source_hash", None)
+            if profile_hash is not None and source_hash != profile_hash:
+                raise StatcastIntegrityError(
+                    f"{context}.rich.{field}: profile source hash mismatch"
+                )
+            if entry.get("source_cutoff_date") != getattr(
+                profile, "source_cutoff_date", None
+            ):
+                raise StatcastIntegrityError(
+                    f"{context}.rich.{field}: profile cutoff mismatch"
+                )
+        if field in {"barrel_rate", "hard_hit_rate"} and fallback_reason is None:
+            denominator = getattr(profile, "batted_ball_denominator", None)
+            if entry.get("denominator") != denominator or not isinstance(denominator, int):
+                raise StatcastIntegrityError(
+                    f"{context}.rich.{field}: batted-ball denominator mismatch"
+                )
+
+
+def _lineage_date(value: Any, context: str, field: str, label: str) -> date:
+    try:
+        return date.fromisoformat(str(value))
+    except (TypeError, ValueError) as exc:
+        raise StatcastIntegrityError(
+            f"{context}.rich.{field}: invalid {label}"
+        ) from exc
