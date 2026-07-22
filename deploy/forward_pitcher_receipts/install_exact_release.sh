@@ -62,7 +62,8 @@ else
     git clone --filter=blob:none --no-checkout "$remote" "$temporary/repo"
   sudo -u "$service_user" env GIT_SSH_COMMAND="$ssh_command" \
     git -C "$temporary/repo" fetch --no-tags origin "$commit"
-  sudo -u "$service_user" git -C "$temporary/repo" checkout --detach "$commit"
+  sudo -u "$service_user" env GIT_SSH_COMMAND="$ssh_command" \
+    git -C "$temporary/repo" checkout --detach "$commit"
   [[ "$(sudo -u "$service_user" git -C "$temporary/repo" rev-parse HEAD)" = "$commit" ]] || { echo "Checkout differs from authorized commit" >&2; exit 2; }
   test -z "$(sudo -u "$service_user" git -C "$temporary/repo" status --porcelain --untracked-files=all)" || { echo "Fresh release is dirty" >&2; exit 2; }
   mv "$temporary/repo" "$release"

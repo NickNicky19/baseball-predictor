@@ -30,6 +30,17 @@ def fails(fn) -> bool:
     return False
 
 
+def unique_record_for_state(root: Path, state: str) -> Path:
+    """Select a mutation target by content, never filesystem enumeration order."""
+    matches = []
+    for path in (root / "records").glob("*.json"):
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        if payload.get("terminal_state") == state:
+            matches.append(path)
+    assert len(matches) == 1, f"expected exactly one {state!r} record, found {len(matches)}"
+    return matches[0]
+
+
 def game(pk: int, start: str, home_pitcher: int, away_pitcher: int) -> dict:
     return {
         "gamePk": pk, "officialDate": "2026-07-20", "gameDate": start, "gameType": "R",
@@ -75,7 +86,7 @@ def main() -> int:
         assert fails(lambda: ledger.append_captured(target=first, context=first_context, raw_payload=raw))
         print("[OK] MUTATION terminal target cannot be retried or backfilled")
 
-        captured_record = next((root / "records").glob("*.json"))
+        captured_record = unique_record_for_state(root, "captured")
         backup = captured_record.read_bytes()
         changed = json.loads(backup)
         changed["terminal_state"] = "missed"
