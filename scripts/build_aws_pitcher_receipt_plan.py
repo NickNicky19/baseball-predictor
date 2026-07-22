@@ -72,7 +72,7 @@ def build_plan(*, official_date: str, plan_dir: Path, receipt_dir: Path, runtime
     received = fetcher(runtime)(date_value)
     try:
         raw = json.loads(received.body.decode("utf-8"))
-        games = games_from_raw_schedule_response(raw)
+        games = games_from_raw_schedule_response(raw, allow_empty_date=True)
         records = canonical_schedule_records(games)
         plan = plan_from_schedule(
             official_game_date=date_value,
@@ -85,7 +85,13 @@ def build_plan(*, official_date: str, plan_dir: Path, receipt_dir: Path, runtime
     current = now or datetime.now(timezone.utc)
     if current.tzinfo is None:
         raise AWSReceiptPlanError("plan clock must include timezone")
-    due = [target for target in plan.targets if datetime.fromisoformat(target.entry_target_at_utc.replace("Z", "+00:00")) <= current]
+    received_at = datetime.fromisoformat(received.received_at_utc.replace("Z", "+00:00"))
+    due = [
+        target
+        for target in plan.targets
+        if datetime.fromisoformat(target.entry_target_at_utc.replace("Z", "+00:00"))
+        <= max(current.astimezone(timezone.utc), received_at)
+    ]
     if due:
         raise AWSReceiptPlanError("refusing to publish a plan after any T-4 target is due")
     raw_sha = hashlib.sha256(received.body).hexdigest()

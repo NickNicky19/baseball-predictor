@@ -275,6 +275,8 @@ class ForwardPitcherContextLedger:
             raise ForwardPitcherContextLedgerError("ledger chain order is invalid")
         previous = _EMPTY_CHAIN
         seen_chain: set[str] = set()
+        eligible_captured = 0
+        ineligible_captured = 0
         actual_records = set((self.root / "records").glob("*.json")) if (self.root / "records").exists() else set()
         expected_records: set[Path] = set()
         for chain_expected in chain_order:
@@ -304,6 +306,8 @@ class ForwardPitcherContextLedger:
                 context = load_context(self.root / str(record.get("context_path", "")), self.plan, target)
                 if context.context_sha256 != record.get("context_sha256") or context.source_payload_sha256 != record.get("raw_payload_sha256"):
                     raise ForwardPitcherContextLedgerError("captured context binding drifted")
+                eligible_captured += int(context.candidate_input_eligible)
+                ineligible_captured += int(not context.candidate_input_eligible)
             elif state not in {"source_error", "missed"} or not str(record.get("detail", "")).strip():
                 raise ForwardPitcherContextLedgerError("invalid excluded terminal record")
             previous = chain
@@ -321,6 +325,8 @@ class ForwardPitcherContextLedger:
             "missing_due_target_ids": missing,
             "complete_due_targets": not missing,
             "state_counts": counts,
+            "candidate_input_eligible_captured": eligible_captured,
+            "candidate_input_ineligible_captured": ineligible_captured,
             "research_only": True,
             "betting_authorized": False,
         }

@@ -69,6 +69,17 @@ def run_all(*, plan_dir: Path, ledger_root: Path, runtime_path: Path, now: datet
         # explicit check as a second boundary against a future parser change.
         if plan.official_game_date.startswith("2026-05-"):
             raise AWSReceiptTickError("May 2026 plan reached AWS receipt runner")
+        if not plan.targets:
+            results.append({
+                "plan": plan_path.name,
+                "plan_sha256": plan.plan_sha256,
+                "future": 0,
+                "captured": 0,
+                "source_error": 0,
+                "missed": 0,
+                "no_scheduled_targets": True,
+            })
+            continue
         ledger = ForwardPitcherContextLedger(
             ledger_root / plan.official_game_date / plan.plan_sha256,
             plan,

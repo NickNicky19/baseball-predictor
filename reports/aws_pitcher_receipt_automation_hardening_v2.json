@@ -1,0 +1,92 @@
+{
+  "schema_version": "aws-pitcher-receipt-automation-hardening-v2",
+  "generated_at_utc": "2026-07-22T07:04:10.9388613Z",
+  "status": "CERTIFIED_CODE_READY_NOT_DEPLOYED",
+  "scope": "future_only_research_input",
+  "root_causes": [
+    {
+      "id": "AWS-RECEIPT-001",
+      "defect": "Official no-game responses represented as dates=[] could not create a plan, and a zero-target plan crashed the tick and health paths.",
+      "affected_scope": "Off-days and other valid official dates without scheduled MLB games.",
+      "repair": "Permit the explicit official empty-date representation only in plan construction; publish and independently verify a zero-target source receipt without constructing a ledger or fetching at T-4."
+    },
+    {
+      "id": "AWS-RECEIPT-002",
+      "defect": "A completed source_error or missed terminal state was reported as healthy and the health command exited successfully.",
+      "affected_scope": "Network loss, source failure, late execution, and process-health alerting.",
+      "repair": "Classify source_error or missed states as terminal_collection_failure, retain the immutable health report, and exit nonzero so systemd and GitHub can alert."
+    },
+    {
+      "id": "AWS-RECEIPT-003",
+      "defect": "The systemd tick ran every 60 seconds although the locked runtime declared a 15-second scheduler cadence.",
+      "affected_scope": "All prospective T-4 capture windows.",
+      "repair": "Bind the systemd timer to 15 seconds and mutation-test the deployed unit against the locked runtime."
+    },
+    {
+      "id": "AWS-RECEIPT-004",
+      "defect": "Plan timeliness was checked against the pre-fetch clock, allowing a slow plan request to complete after a target became due.",
+      "affected_scope": "Plan publication near the first T-4 horizon.",
+      "repair": "Use the later of the invocation clock and the retained response-receipt clock; refuse publication at or after any target."
+    },
+    {
+      "id": "AWS-RECEIPT-005",
+      "defect": "No independent GitHub path replayed retained raw schedule bytes through the exact plan, source receipt, ledger, and health chain.",
+      "affected_scope": "Secondary verification, durable backup, and silent server failure detection.",
+      "repair": "Add an hourly read-only workflow and offline verifier; it cannot write the server or fetch replacement receipts."
+    },
+    {
+      "id": "AWS-RECEIPT-006",
+      "defect": "Pitcher-receipt units shared the future full-collector checkout path and had no exact-commit installation boundary.",
+      "affected_scope": "Deployment isolation and reproducibility.",
+      "repair": "Use an isolated release/evidence root and an exact-commit installer with a pinned official GitHub host key, clean-checkout validation, offline gates, and only the three receipt timers."
+    }
+  ],
+  "validation": {
+    "aws_regression_and_mutation_checks": "16/16",
+    "forward_context_contract_checks": "10/10",
+    "ledger_checks": "7/7",
+    "collector_checks": "6/6",
+    "runtime_checks": "7/7",
+    "full_pytest": "99 passed",
+    "python_compile": "passed",
+    "workflow_yaml_parse": "passed",
+    "installer_shell_syntax": "passed"
+  },
+  "hashes_sha256": {
+    ".gitattributes": "d698a901f489587b1bd53d6fc01dfd2812d8debe00f6b0f939401b0956665e15",
+    "config/forward_pitcher_context_runtime_v1.json": "e02dcda63574ad63d870127be1a31b0fb7d482c94c018769b8b68f3d87ac62f7",
+    ".github/workflows/pitcher-receipt-verifier.yml": "c1a4924b33357f8b7aadec9adbaef82af4710868eede2d38dfe0e531fac8bd18",
+    "deploy/forward_pitcher_receipts/baseball-pitcher-receipt-plan.service": "37e903445fbffc2509ff857b60fb8a65390b36f4452e344a74fa5a1637b7a61a",
+    "deploy/forward_pitcher_receipts/baseball-pitcher-receipt-plan.timer": "f8dc9fb3e25861d830f30fbca1db6f5fd953b0e6706ebbb21d9db25b22790581",
+    "deploy/forward_pitcher_receipts/baseball-pitcher-receipt-tick.service": "87960f5d1ad0a9b5795361fea9fdd72eba34ac49c3d45d5a2b361a90967b0233",
+    "deploy/forward_pitcher_receipts/baseball-pitcher-receipt-tick.timer": "a76b54f8fba6435aa07a5fbf6699e628784c38fcf1557085a02d7e8cf921b8ea",
+    "deploy/forward_pitcher_receipts/baseball-pitcher-receipt-health.service": "fd83d6145d9065d9f8b0d9a1764b930f078e906917941d8cedcdb7eed83e5596",
+    "deploy/forward_pitcher_receipts/baseball-pitcher-receipt-health.timer": "dd91728f43c364472e3eff450da0edf0dddda869533430e07a3247022ca0f310",
+    "deploy/forward_pitcher_receipts/github.com_known_hosts": "6233fddbb0a29afc8c4e8c699733c1a188c3a41f2fb63a2640653dc4aea624ce",
+    "deploy/forward_pitcher_receipts/install_exact_release.sh": "bc973e940cf0a8cbfdbf1192e7239250914cddecf3be96a8af14eb93c8a757cc",
+    "docs/AWS_PITCHER_RECEIPT_AUTOMATION.md": "c96692febc3dd6ea171c7c17ef419070f61e9dabdd0dcf91e5d0f89c8b73ee04",
+    "scripts/build_aws_pitcher_receipt_plan.py": "24b0ed53a826d8974270450f17321148128fe511ccb39ca815fd53f115e2cce8",
+    "scripts/run_aws_pitcher_receipt_plan_for_today.py": "ba5280c7668370ed0fdc3ff0c9c9a3f136077b2ce4b8e7ee2f30f50f53804bd4",
+    "scripts/run_aws_pitcher_receipt_tick.py": "5866d5925c32de3e1840691d232904dac78ff96e0825dcae72c76dbc532b628b",
+    "scripts/report_aws_pitcher_receipt_health.py": "62ba3659f855f5e545cefb2c1ed00eb2140ded900ab14be3a2ad25731e088704",
+    "scripts/verify_aws_pitcher_receipt_tree.py": "ab8e019dcf0dd353e2f4aa2b5aeada1432d045558eba62be5b84444c8988be24",
+    "scripts/check_aws_pitcher_receipts_offline.py": "f8481fb434cb8d0002ef62d9335f788b0664ea2457487549aaa7b1e9f051865e",
+    "src/evaluation/forward_pitcher_context.py": "cfe56c92fbfa0702f36cf226fabe9e77f0202d2172f70f7b4a2d51ee941378cb",
+    "src/evaluation/forward_pitcher_context_collector.py": "efc001d135e1ce675865da32f939ce5165d88990111f25c3971e091bb60f4bf7",
+    "src/evaluation/forward_pitcher_context_ledger.py": "ff34f4c9b7dea869b5c66ace5d3769e03212646ddb7cf8c58e80f074dae685dd"
+  },
+  "protected_boundaries": {
+    "may_2026": "not_fetched_inspected_parsed_or_written",
+    "historical_t4_backfill": "forbidden_and_not_attempted",
+    "model_probabilities": "not_loaded",
+    "prices_or_outcomes": "not_accessed",
+    "local_process_20872": "observed_healthy_and_untouched",
+    "operational_smoke": "untouched_and_non_economic",
+    "betting_authorized": false
+  },
+  "deployment": {
+    "aws_deployed": false,
+    "reason": "Exact release heads are not yet landed and the exact-release installer has not been run on the host.",
+    "next_action": "Land the verifier dependency and this hardened receipt release under exact-head authorization, then install the resulting exact commit on AWS and verify the first future-only plan/tick/health cycle."
+  }
+}

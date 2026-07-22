@@ -1,5 +1,43 @@
 PROJECT_CONTEXT.md — v17 (master roadmap) — paste into any new chat
 
+===============================================================================
+AUTHORITATIVE AWS RECEIPT HARDENING (2026-07-22) - READY, NOT DEPLOYED
+
+The fresh-evidence boundary remains unchanged: all admissible batter-only
+families have spent their 2024 selection and remain rejected, 2025 HR
+confirmation is spent, May 2026 remains sealed, and no missed T-minus-4 receipt
+may be backfilled. A new model candidate is still forbidden until genuinely
+fresh receipt-bound evidence exists.
+
+The AWS T-minus-4 pitcher-receipt release was re-audited before deployment and
+six operational integrity defects were repaired at source. Official no-game
+responses now produce a verified zero-target receipt instead of crashing. A
+plan fetch that completes after T-minus-4 is rejected. The systemd cadence now
+matches the locked 15-second runtime. Source-error and missed terminal states
+are alerts rather than false health successes. An hourly read-only GitHub
+workflow independently replays retained raw schedule bytes through the exact
+plan, source receipt, ledger, and health chain without fetching replacements.
+Deployment is isolated from the full model/odds collector and accepts only an
+exact authorized commit with a pinned GitHub host key and clean-release checks.
+
+Validation passed: AWS regression/mutations 16/16; context 10/10; ledger 7/7;
+collector 6/6; runtime 7/7; full pytest 99/99; Python compile, workflow YAML,
+installer shell syntax, and every certificate-bound SHA-256 passed. No model,
+price, lineup, outcome, settlement, or May artifact was accessed. Local process
+20872 and operational smoke were observed only and remained untouched.
+
+  certified hardening report:
+    reports/aws_pitcher_receipt_automation_hardening_v2.json
+  report sha256:
+    31e291119025f8695351e06fb5ff15b4ce3a56936887445797ca40a86b4fa85c
+
+Status: `CERTIFIED_CODE_READY_NOT_DEPLOYED`. Betting remains unauthorized. The
+single highest-value next action is exact-head landing followed by exact-commit
+AWS installation and verification of the first future-only plan/tick/health
+cycle. Do not deploy a moving branch and do not backfill a missed date.
+
+===============================================================================
+
 Keep this file in the repo. Start a FRESH chat per task, upload this (plus the
 repo/zip if code work is needed), and say which roadmap item to work on.
 Update "Current status" and check off roadmap items as they complete.

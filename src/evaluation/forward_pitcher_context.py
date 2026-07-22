@@ -262,11 +262,23 @@ def context_from_schedule(
     return context.bind_target(target)
 
 
-def games_from_raw_schedule_response(raw: object) -> list[dict[str, Any]]:
-    """Extract exactly one date's games from unmodified official schedule JSON."""
+def games_from_raw_schedule_response(
+    raw: object,
+    *,
+    allow_empty_date: bool = False,
+) -> list[dict[str, Any]]:
+    """Extract one date's games from unmodified official schedule JSON.
+
+    The official schedule endpoint returns ``dates=[]`` on some legitimate
+    no-game dates.  Only the plan builder may opt into that representation;
+    target-time resolution still requires exactly one dated response so an
+    empty or wrong response cannot masquerade as a captured target.
+    """
     if not isinstance(raw, Mapping):
         raise ForwardPitcherContextError("raw MLB schedule response must be an object")
     dates = raw.get("dates")
+    if allow_empty_date and dates == []:
+        return []
     if not isinstance(dates, list) or len(dates) != 1 or not isinstance(dates[0], Mapping):
         raise ForwardPitcherContextError("raw MLB schedule response must contain exactly one date record")
     games = dates[0].get("games")

@@ -7,8 +7,8 @@ After=network-online.target
 Type=oneshot
 User=baseball-shadow
 Group=baseball-shadow
-WorkingDirectory=/opt/baseball-predictor
-ExecStart=/usr/bin/python3 /opt/baseball-predictor/scripts/run_aws_pitcher_receipt_tick.py --plan-dir /srv/baseball-shadow/pitcher-receipts/plans --ledger-root /srv/baseball-shadow/pitcher-receipts/ledgers --lock-file /srv/baseball-shadow/pitcher-receipts/locks/tick.lock
+WorkingDirectory=/opt/baseball-predictor-pitcher-receipts/current
+ExecStart=/usr/bin/python3 /opt/baseball-predictor-pitcher-receipts/current/scripts/run_aws_pitcher_receipt_tick.py --plan-dir /srv/baseball-shadow/pitcher-receipts/plans --ledger-root /srv/baseball-shadow/pitcher-receipts/ledgers --lock-file /srv/baseball-shadow/pitcher-receipts/locks/tick.lock
 
 NoNewPrivileges=true
 PrivateTmp=true

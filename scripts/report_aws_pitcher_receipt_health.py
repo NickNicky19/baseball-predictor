@@ -60,12 +60,27 @@ def build_report(*, plan_dir: Path, ledger_root: Path, runtime_path: Path, asses
     for plan_path in sorted(plan_dir.glob("*.plan.json")) if plan_dir.is_dir() else []:
         try:
             plan = _load_plan(plan_path)
-            ledger = ForwardPitcherContextLedger(ledger_root / plan.official_game_date / plan.plan_sha256, plan, runtime_sha)
-            verdict = ledger.verify(assessed_at_utc=assessed) if plan.targets else {
+            verdict = {
                 "complete_due_targets": True, "state_counts": {"captured": 0, "source_error": 0, "missed": 0},
                 "missing_due_target_ids": [], "due_targets": 0, "terminal_targets": 0,
+                "candidate_input_eligible_captured": 0,
+                "candidate_input_ineligible_captured": 0,
             }
-            rows.append({"plan": plan_path.name, "plan_sha256": plan.plan_sha256, "targets": len(plan.targets), "status": "healthy" if verdict["complete_due_targets"] else "missing_terminal_receipts", "ledger": verdict})
+            if plan.targets:
+                ledger = ForwardPitcherContextLedger(
+                    ledger_root / plan.official_game_date / plan.plan_sha256,
+                    plan,
+                    runtime_sha,
+                )
+                verdict = ledger.verify(assessed_at_utc=assessed)
+            states = verdict["state_counts"]
+            if not verdict["complete_due_targets"]:
+                status = "missing_terminal_receipts"
+            elif states["source_error"] or states["missed"]:
+                status = "terminal_collection_failure"
+            else:
+                status = "healthy"
+            rows.append({"plan": plan_path.name, "plan_sha256": plan.plan_sha256, "targets": len(plan.targets), "status": status, "ledger": verdict})
         except (OSError, ValueError, ForwardPitcherContextLedgerError) as exc:
             rows.append({"plan": plan_path.name, "status": "invalid", "detail": type(exc).__name__})
     report = {
@@ -95,6 +110,9 @@ def main(argv: list[str] | None = None) -> int:
         stamp = report["assessed_at_utc"].replace(":", "").replace("-", "")
         path = _publish_once(args.report_dir / f"{stamp}.{report['report_sha256']}.json", _canonical_bytes(report))
         print(json.dumps({"health_report_path": str(path), **report}, sort_keys=True))
+        if report["status"] != "healthy":
+            print("[FAIL] pitcher receipt health is alert; immutable report retained", file=sys.stderr)
+            return 2
     except (OSError, ValueError, RuntimeError) as exc:
         print(f"[FAIL] {type(exc).__name__}: {exc}", file=sys.stderr)
         return 2
