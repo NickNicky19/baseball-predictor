@@ -4,7 +4,7 @@ split by DATE (never randomly), and expose clean feature matrices.
 
 Design contracts (kept deliberately in lock-step with the rest of the repo):
 
-- PROVENANCE GATE (discipline #5). The loader asserts builder_schema=='a3.1'
+- PROVENANCE GATE (discipline #5). The loader asserts builder_schema=='a3.2'
   on both hitter and pitcher frames, and roller_schema=='a4.1' on the HITTER
   frame only (A4 is a hitter batted-ball signal; run_build_statcast_features
   never touches pitchers). A half-built or un-enriched set must fail loudly
@@ -45,7 +45,10 @@ from typing import Any, Iterable, Optional
 import numpy as np
 import pandas as pd
 
-BUILDER_SCHEMA = "a3.1"
+# a3.1 derives lineup identity from final batting-order occupants and can
+# misclassify both substitutes and replaced original starters.  A GBM trained
+# on that population is not a valid challenger for the production simulator.
+BUILDER_SCHEMA = "a3.2"
 ROLLER_SCHEMA = "a4.1"
 
 # Categories that have a simulator baseline (via A2 run_reconstruct_date) and
@@ -77,7 +80,9 @@ _PITCHER_NON_FEATURES = {
 # listed is treated as numeric. (LightGBM path label-encodes these; see trainer.)
 HITTER_CATEGORICAL = [
     "team", "opponent", "venue", "bats",
-    "opp_sp_throws", "opp_sp_source",
+    # Provider/player IDs are labels, never ordinal quantities.  Treating an
+    # opposing-pitcher ID as a number lets a tree learn arbitrary ID cut points.
+    "opp_sp_id", "opp_sp_throws", "opp_sp_source",
     "umpire_id",
 ]
 PITCHER_CATEGORICAL = [
@@ -185,6 +190,18 @@ def assert_schema(df: pd.DataFrame, *, kind: str) -> None:
                 "hitter frame stamped roller_schema but has no roll15_/roll30_ "
                 "feature columns — enrichment looks incomplete."
             )
+
+        # A completed-game actual starter is post-game knowledge. The shared
+        # challenger may use a pregame probable pitcher or an explicit missing
+        # state, but it must never silently train on realized starter identity.
+        if "opp_sp_source" in df.columns:
+            forbidden = df["opp_sp_source"].astype(str).eq("actual_starter")
+            if forbidden.any():
+                raise ValueError(
+                    "hitter frame contains opp_sp_source='actual_starter' "
+                    f"on {int(forbidden.sum())} rows â€” post-game pitcher "
+                    "knowledge is forbidden in a point-in-time challenger."
+                )
 
 
 # ---------------------------------------------------------------------------

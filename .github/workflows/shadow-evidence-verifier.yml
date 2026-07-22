@@ -73,21 +73,36 @@ jobs:
           [[ "$PRIMARY_USER" =~ ^[A-Za-z0-9._-]+$ ]] || { echo "Invalid primary user" >&2; exit 2; }
           [[ "$PRIMARY_ROOT" =~ ^/[A-Za-z0-9._/-]+$ ]] || { echo "Invalid primary root" >&2; exit 2; }
 
-      - name: Fetch the synchronized evidence copy
+      - name: Configure read-only primary identity
         shell: bash
         env:
-          PRIMARY_HOST: ${{ vars.SHADOW_PRIMARY_HOST }}
-          PRIMARY_USER: ${{ vars.SHADOW_PRIMARY_USER }}
-          PRIMARY_ROOT: ${{ vars.SHADOW_PRIMARY_ROOT }}
           PRIMARY_KEY: ${{ secrets.SHADOW_PRIMARY_SSH_KEY }}
           PRIMARY_KNOWN_HOSTS: ${{ secrets.SHADOW_PRIMARY_KNOWN_HOSTS }}
-          OFFICIAL_DATE: ${{ steps.date.outputs.date }}
         run: |
           install -d -m 700 ~/.ssh
           printf '%s\n' "$PRIMARY_KEY" > ~/.ssh/shadow_readonly
           chmod 600 ~/.ssh/shadow_readonly
           printf '%s\n' "$PRIMARY_KNOWN_HOSTS" > ~/.ssh/known_hosts
           chmod 600 ~/.ssh/known_hosts
+
+      - name: Prove primary identity cannot write evidence
+        shell: bash
+        env:
+          PRIMARY_HOST: ${{ vars.SHADOW_PRIMARY_HOST }}
+          PRIMARY_USER: ${{ vars.SHADOW_PRIMARY_USER }}
+          PRIMARY_ROOT: ${{ vars.SHADOW_PRIMARY_ROOT }}
+        run: |
+          SSH=(ssh -q -i ~/.ssh/shadow_readonly -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes)
+          "${SSH[@]}" "$PRIMARY_USER@$PRIMARY_HOST" "test -r '$PRIMARY_ROOT' && ! test -w '$PRIMARY_ROOT'"
+
+      - name: Fetch the synchronized evidence copy
+        shell: bash
+        env:
+          PRIMARY_HOST: ${{ vars.SHADOW_PRIMARY_HOST }}
+          PRIMARY_USER: ${{ vars.SHADOW_PRIMARY_USER }}
+          PRIMARY_ROOT: ${{ vars.SHADOW_PRIMARY_ROOT }}
+          OFFICIAL_DATE: ${{ steps.date.outputs.date }}
+        run: |
           install -d evidence/plans evidence/live evidence/lifecycle evidence/close evidence/official evidence/ledger
           SCP=(scp -q -i ~/.ssh/shadow_readonly -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes)
           "${SCP[@]}" -r "$PRIMARY_USER@$PRIMARY_HOST:$PRIMARY_ROOT/plans/$OFFICIAL_DATE" evidence/plans/
@@ -97,7 +112,11 @@ jobs:
           "${SCP[@]}" -r "$PRIMARY_USER@$PRIMARY_HOST:$PRIMARY_ROOT/official/$OFFICIAL_DATE" evidence/official/
           "${SCP[@]}" "$PRIMARY_USER@$PRIMARY_HOST:$PRIMARY_ROOT/ledger/forward_ledger.jsonl" evidence/ledger/
           "${SCP[@]}" "$PRIMARY_USER@$PRIMARY_HOST:$PRIMARY_ROOT/evidence_scope.json" evidence/
-          rm -f ~/.ssh/shadow_readonly
+
+      - name: Remove ephemeral primary identity
+        if: always()
+        shell: bash
+        run: rm -f ~/.ssh/shadow_readonly
 
       - name: Verify due targets and every retained hash
         id: verifier

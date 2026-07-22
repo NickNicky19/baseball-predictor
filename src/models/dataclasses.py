@@ -547,6 +547,7 @@ class DailyPrediction:
 
 def _projection_to_dict(projection: PropProjection) -> dict[str, Any]:
     sim = projection.simulation
+    probs = projection.outcome_probs
     return {
         "player_id": projection.player_id,
         "player_name": projection.player_name,
@@ -569,6 +570,17 @@ def _projection_to_dict(projection: PropProjection) -> dict[str, Any]:
             "p_ge_threshold": dict(sim.p_ge_threshold),
         }
         if sim
+        else None,
+        "outcome_probs": {
+            "strikeout": probs.strikeout,
+            "walk": probs.walk,
+            "home_run": probs.home_run,
+            "single": probs.single,
+            "double": probs.double,
+            "triple": probs.triple,
+            "out_on_bip": probs.out_on_bip,
+        }
+        if probs
         else None,
     }
 

@@ -1,6 +1,6 @@
 {
   "schema_version": "aws-pitcher-receipt-automation-hardening-v2",
-  "generated_at_utc": "2026-07-22T07:04:10.9388613Z",
+  "generated_at_utc": "2026-07-22T07:13:14.6390108Z",
   "status": "CERTIFIED_CODE_READY_NOT_DEPLOYED",
   "scope": "future_only_research_input",
   "root_causes": [
@@ -47,13 +47,17 @@
     "ledger_checks": "7/7",
     "collector_checks": "6/6",
     "runtime_checks": "7/7",
-    "full_pytest": "99 passed",
+    "full_pytest": "125 passed",
+    "read_only_verifier_unit_tests": "4/4",
+    "combined_forward_shadow_readiness": "225/225",
     "python_compile": "passed",
     "workflow_yaml_parse": "passed",
     "installer_shell_syntax": "passed"
   },
   "hashes_sha256": {
-    ".gitattributes": "d698a901f489587b1bd53d6fc01dfd2812d8debe00f6b0f939401b0956665e15",
+    ".gitattributes": "78aa8b768b5704a82fbc037cfbd2e4f599c81d3ee0aec24f71dbfd3f498131b3",
+    ".github/workflows/forward-shadow-preflight.yml": "ecad0c10564018e1c2854cc9795e1d3a78435cc92895288e5899ad13f85d1d2c",
+    ".github/workflows/shadow-evidence-verifier.yml": "7f22ecf8d8905ef3c21237588dce5a50e840fe7998983d0a03694b60c851dc88",
     "config/forward_pitcher_context_runtime_v1.json": "e02dcda63574ad63d870127be1a31b0fb7d482c94c018769b8b68f3d87ac62f7",
     ".github/workflows/pitcher-receipt-verifier.yml": "c1a4924b33357f8b7aadec9adbaef82af4710868eede2d38dfe0e531fac8bd18",
     "deploy/forward_pitcher_receipts/baseball-pitcher-receipt-plan.service": "37e903445fbffc2509ff857b60fb8a65390b36f4452e344a74fa5a1637b7a61a",
@@ -71,9 +75,16 @@
     "scripts/report_aws_pitcher_receipt_health.py": "62ba3659f855f5e545cefb2c1ed00eb2140ded900ab14be3a2ad25731e088704",
     "scripts/verify_aws_pitcher_receipt_tree.py": "ab8e019dcf0dd353e2f4aa2b5aeada1432d045558eba62be5b84444c8988be24",
     "scripts/check_aws_pitcher_receipts_offline.py": "f8481fb434cb8d0002ef62d9335f788b0664ea2457487549aaa7b1e9f051865e",
+    "scripts/audit_forward_shadow_readiness.py": "3d2da94bd3178ed7ac77b765a918790bafefe9c23218f6a58b226b7f89724455",
     "src/evaluation/forward_pitcher_context.py": "cfe56c92fbfa0702f36cf226fabe9e77f0202d2172f70f7b4a2d51ee941378cb",
     "src/evaluation/forward_pitcher_context_collector.py": "efc001d135e1ce675865da32f939ce5165d88990111f25c3971e091bb60f4bf7",
-    "src/evaluation/forward_pitcher_context_ledger.py": "ff34f4c9b7dea869b5c66ace5d3769e03212646ddb7cf8c58e80f074dae685dd"
+    "src/evaluation/forward_pitcher_context_ledger.py": "ff34f4c9b7dea869b5c66ace5d3769e03212646ddb7cf8c58e80f074dae685dd",
+    "src/evaluation/shadow_capture_plan.py": "491a73556cab02b8295eee695f0474345defbc15f5d9bd01aae011cdff2b17e0",
+    "tests/test_shadow_verifier_workflow.py": "a52508d3c343aec846593a3f23d87fdcb400daf02ccada315c8ee228b4bb6131"
+  },
+  "integration_dependency": {
+    "read_only_verifier_head": "96dc78446c2a71b54629b645e27bf5acb95557d0",
+    "merge_strategy": "non_force_merge_preserving_both_release_lineages"
   },
   "protected_boundaries": {
     "may_2026": "not_fetched_inspected_parsed_or_written",

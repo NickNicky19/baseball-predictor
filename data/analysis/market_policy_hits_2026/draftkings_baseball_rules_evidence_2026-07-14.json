@@ -1,0 +1,31 @@
+{
+  "schema": "primary-sportsbook-rule-evidence-v1",
+  "retrieved_at_utc": "2026-07-14T23:25:00Z",
+  "source": {
+    "publisher": "DraftKings Sportsbook",
+    "url": "https://sportsbook.draftkings.com/help/sport-rules/baseball",
+    "page_title": "Baseball Rules | DraftKings Sportsbook",
+    "page_states_rules_as_of": "2025-08-26",
+    "rendered_main_text_sha256": "ff5042a71a64cbeeb44b445ac2ceaac989bd701505019e05fd080f669cf6c6f2"
+  },
+  "verified_facts": {
+    "position_player_participation": "At least one plate appearance, as determined by the game's official governing body.",
+    "pregame_single_game_player_prop": "The player must start and participate. A nonstarter who participates as a substitute is void.",
+    "starting_batter_early_exit": "For a full-game single-player batting-stat prop, an over-side starting batter who leaves after at least one PA but before PA 2 is void unless settlement is already unconditionally determined.",
+    "under_exception": "The early-exit void paragraph explicitly does not apply to the Under selection.",
+    "regular_game_length": "A nine-inning game generally must complete nine innings, or 8.5 with the home team already leading, unless settlement is already unconditionally determined."
+  },
+  "measured_local_support": {
+    "canonical_games_audited": 856,
+    "scheduled_nine_inning_games": 856,
+    "games_finishing_before_scheduled_innings": 0,
+    "original_starters_with_exactly_one_pa": 44,
+    "one_pa_starters_with_recorded_same_slot_replacement": 44,
+    "one_pa_starters_without_replacement_evidence": 0,
+    "non_regular_games_in_crosswalk": 4,
+    "non_regular_games_in_current_strict_hits_universe": 0
+  },
+  "implementation_consequence": "Historical grading must be side-specific after a model chooses Over or Under. A single MARKET_KEY-level gradeable flag cannot represent the early-exit rule for both sides.",
+  "betting_authorized": false,
+  "reason": "Primary settlement evidence removes one placeholder, but quote executability, fitted edge selection, evidence precision, held-out replication, and forward shadow remain unresolved."
+}

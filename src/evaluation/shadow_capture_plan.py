@@ -372,10 +372,11 @@ def plan_from_schedule(
         except KeyError as exc:
             raise ShadowCapturePlanError(f"schedule record missing required field {exc.args[0]!r}") from exc
         if source_date != plan_date:
-            raise ShadowCapturePlanError(
-                f"schedule game_pk {game_pk} officialDate={source_date} differs from requested {plan_date}; "
-                "do not relabel a game from its timestamp"
-            )
+            # MLB can return a game from an adjacent official date inside a
+            # date-filtered schedule response (for example around a
+            # reschedule).  Keep that row in the retained, hash-bound source
+            # snapshot, but never relabel it or create a target for it.
+            continue
         if game_pk in seen_game_pks:
             raise ShadowCapturePlanError(
                 f"schedule snapshot has duplicate game_pk {game_pk}; do not silently deduplicate a game identity"

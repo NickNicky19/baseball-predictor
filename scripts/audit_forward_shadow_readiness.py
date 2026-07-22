@@ -15,7 +15,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 
 CHECKS = {
-    "capture_plan": ("scripts/check_shadow_capture_plan_offline.py", "15/15 checks passed", 15),
+    "capture_plan": ("scripts/check_shadow_capture_plan_offline.py", "17/17 checks passed", 17),
     "prediction_snapshot": ("scripts/check_shadow_prediction_snapshot_offline.py", "6/6", 6),
     "ledger": ("scripts/check_shadow_ledger_offline.py", "17/17 checks passed", 17),
     "ledger_report": ("scripts/check_shadow_ledger_report_offline.py", "3/3 checks passed", 3),
@@ -43,6 +43,7 @@ BOUND_FILES = [
     ".gitattributes",
     ".gitignore",
     ".github/workflows/daily-predictions.yml",
+    ".github/workflows/forward-shadow-preflight.yml",
     ".github/workflows/shadow-evidence-verifier.yml",
     "config/forward_shadow_deployment_protocol.json",
     "config/forward_shadow_evidence_boundary.json",
@@ -148,10 +149,23 @@ def main(argv: list[str] | None = None) -> int:
     if "NEVER fetches" not in verifier_workflow or "NOT the primary T-4h" not in verifier_workflow:
         raise ValueError("GitHub verifier no longer declares its independent non-primary role")
     if (
+        "Prove primary identity cannot write evidence" not in verifier_workflow
+        or "test -r '$PRIMARY_ROOT' && ! test -w '$PRIMARY_ROOT'" not in verifier_workflow
+    ):
+        raise ValueError("GitHub verifier does not prove that its primary identity is read-only")
+    if (
         "$PRIMARY_ROOT/evidence_scope.json" not in verifier_workflow
         or "--evidence-scope evidence/evidence_scope.json" not in verifier_workflow
     ):
         raise ValueError("GitHub verifier is not bound to the immutable evidence scope")
+    preflight_workflow = (ROOT / ".github/workflows/forward-shadow-preflight.yml").read_text(encoding="utf-8")
+    if (
+        "pull_request:" not in preflight_workflow
+        or "PYBASEBALL_CACHE" not in preflight_workflow
+        or "tests.test_shadow_verifier_workflow" not in preflight_workflow
+        or "scripts/audit_forward_shadow_readiness.py" not in preflight_workflow
+    ):
+        raise ValueError("GitHub pull-request preflight does not run the full forward-shadow readiness boundary")
 
     windows_runner = (
         ROOT / "deploy/shadow_collector/windows/Run-LocalOperationalSmoke.ps1"
@@ -210,7 +224,7 @@ def main(argv: list[str] | None = None) -> int:
             "github_is_primary_collector": False,
             "durable_external_primary_collector_deployed": False,
             "github_independent_verifier_implemented": True,
-            "github_independent_verifier_configured": False,
+            "github_independent_verifier_live_configuration_verified_by_offline_audit": False,
             "research_entry_ledger_commit_implemented": True,
             "prestart_reference_capture_implemented": True,
             "official_mlb_outcome_resolution_implemented": True,
@@ -250,8 +264,7 @@ def main(argv: list[str] | None = None) -> int:
             "v11 permanently failed event identity and cannot be retried, backfilled, or certified",
             "the incompatible successor operational smoke has not yet completed",
             "no durable always-on per-game T-4h primary collector is deployed",
-            "no external host or provider plan has been explicitly selected and authorized",
-            "GitHub read-only evidence SSH variables/secrets are not configured",
+            "external host, provider-plan, and GitHub verifier configuration are not attested by this offline audit; require a separate live deployment receipt",
             "no successful complete future T-4h/prestart/official lifecycle has yet been captured operationally",
             "no exact executable execution-product prices, accepted entries, fills, or settlements have been captured",
             "Onyx, Novig, Chalkboard, and PrizePicks each remain blocked on separate primary rules/account/payout/executability evidence",

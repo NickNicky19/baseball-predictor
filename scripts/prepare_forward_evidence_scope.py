@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import subprocess
@@ -42,6 +43,68 @@ def _source_tree_clean() -> bool:
     return not bool(_git("status", "--porcelain", "--untracked-files=all"))
 
 
+def validate_config_bound_runtime_dependencies(
+    config_path: Path, *, root: Path = ROOT
+) -> dict[str, str]:
+    """Fail before scope creation if a configured fitted artifact is absent/drifted."""
+
+    config_path = config_path.resolve()
+    payload = json.loads(config_path.read_text(encoding="utf-8"))
+    contracts = (
+        ("pa_simulator", "kbb_artifact_path", "kbb_artifact_sha256"),
+        ("base_running", "pa_distribution_path", "pa_distribution_sha256"),
+    )
+    verified: dict[str, str] = {}
+    for block_name, path_key, hash_key in contracts:
+        block = payload.get(block_name, {}) or {}
+        declared = block.get(path_key)
+        if not declared:
+            continue
+        expected = str(block.get(hash_key, "")).strip().lower()
+        if len(expected) != 64 or any(ch not in "0123456789abcdef" for ch in expected):
+            raise ForwardEvidenceEraError(
+                f"{block_name}.{hash_key} is missing or not SHA-256"
+            )
+        artifact = (root / str(declared)).resolve()
+        try:
+            artifact.relative_to(root.resolve())
+        except ValueError as exc:
+            raise ForwardEvidenceEraError(
+                f"{block_name}.{path_key} escapes the release root"
+            ) from exc
+        if not artifact.is_file():
+            raise ForwardEvidenceEraError(
+                f"bound runtime dependency is missing: {declared}"
+            )
+        actual = hashlib.sha256(artifact.read_bytes()).hexdigest()
+        if actual != expected:
+            raise ForwardEvidenceEraError(
+                f"bound runtime dependency hash mismatch: {declared}"
+            )
+        verified[str(declared)] = actual
+
+    settlement = root / "config" / "shadow_draftkings_hits_reference_settlement.json"
+    if not settlement.is_file():
+        raise ForwardEvidenceEraError("reference settlement contract is missing")
+    settlement_payload = json.loads(settlement.read_text(encoding="utf-8"))
+    evidence_path = str(settlement_payload.get("rule_evidence_path", "")).strip()
+    expected = str(settlement_payload.get("rule_evidence_sha256", "")).strip().lower()
+    if not evidence_path or len(expected) != 64:
+        raise ForwardEvidenceEraError("reference settlement evidence binding is malformed")
+    evidence = (root / evidence_path).resolve()
+    if not evidence.is_file():
+        raise ForwardEvidenceEraError(
+            f"bound runtime dependency is missing: {evidence_path}"
+        )
+    actual = hashlib.sha256(evidence.read_bytes()).hexdigest()
+    if actual != expected:
+        raise ForwardEvidenceEraError(
+            f"bound runtime dependency hash mismatch: {evidence_path}"
+        )
+    verified[evidence_path] = actual
+    return verified
+
+
 def _write_json_atomic(path: Path, payload: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_name(f".{path.name}.tmp-{os.getpid()}")
@@ -68,6 +131,7 @@ def main(argv: list[str] | None = None) -> int:
     args = ap.parse_args(argv)
 
     service_root = Path(args.service_root).resolve()
+    validate_config_bound_runtime_dependencies(ROOT / "config" / "config.kbb.json")
     output = service_root / "evidence_scope.json"
     runtime_manifest_path = service_root / "runtime_manifest.json"
     if output.exists():

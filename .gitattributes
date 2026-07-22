@@ -29,3 +29,18 @@
 *.jpeg binary
 *.pdf binary
 *.zip binary
+
+# These two manifests are pre-existing hash-bound evidence. Preserve their
+# exact bytes across clean checkouts; newline normalization would invalidate
+# the locked SHA-256 boundary without changing their JSON meaning.
+data/market/v3/base_rule_strict_hits_manifest.json -text
+data/market/v3/policy_fit_mar_may_canonical/hits_policy_source_uncensored_original_starter_fit_mar_apr_manifest.json -text
+
+# Legacy tracked outcome fixtures were committed with CRLF bytes. They are
+# runtime-inert but must not make a fresh Windows evidence checkout appear
+# dirty merely because the global CSV rule normalizes future files to LF.
+data/learning/prediction_outcomes.csv -text
+data/predictions/preds_2026-07-05.csv -text
+data/predictions/preds_2026-07-06.csv -text
+data/predictions/preds_2026-07-07.csv -text
+data/predictions/preds_2026-07-08.csv -text

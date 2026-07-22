@@ -21,7 +21,8 @@ Deployment is isolated from the full model/odds collector and accepts only an
 exact authorized commit with a pinned GitHub host key and clean-release checks.
 
 Validation passed: AWS regression/mutations 16/16; context 10/10; ledger 7/7;
-collector 6/6; runtime 7/7; full pytest 99/99; Python compile, workflow YAML,
+collector 6/6; runtime 7/7; combined full pytest 125/125; read-only verifier
+4/4; combined forward-shadow readiness 225/225; Python compile, workflow YAML,
 installer shell syntax, and every certificate-bound SHA-256 passed. No model,
 price, lineup, outcome, settlement, or May artifact was accessed. Local process
 20872 and operational smoke were observed only and remained untouched.
@@ -29,12 +30,68 @@ price, lineup, outcome, settlement, or May artifact was accessed. Local process
   certified hardening report:
     reports/aws_pitcher_receipt_automation_hardening_v2.json
   report sha256:
-    31e291119025f8695351e06fb5ff15b4ce3a56936887445797ca40a86b4fa85c
+    f81e97d4fb3e37b095d3b046b6e92abb8580b8e5a1346e7c1def3181aa86b652
 
 Status: `CERTIFIED_CODE_READY_NOT_DEPLOYED`. Betting remains unauthorized. The
 single highest-value next action is exact-head landing followed by exact-commit
 AWS installation and verification of the first future-only plan/tick/health
 cycle. Do not deploy a moving branch and do not backfill a missed date.
+
+===============================================================================
+CURRENT HANDOFF ADDENDUM (2026-07-21) — SUPERSEDES OLDER HEADLINES ON CONFLICT
+
+Absolute rules: research only; no betting authorization; May 2026 sealed;
+never lower the +0.10 capture lower-bound gate; never treat historical prices
+as executable; never use postgame facts as pregame features; never pool markets
+or products; never fabricate a fallback.
+
+Current main checkout: C:\Projects\baseball_predictor on branch
+codex/hits-forward-evidence-release at commit 0406acf. Its supported daily
+command is `python run_slate.py --date YYYY-MM-DD --config config/config.kbb.json`.
+This runs the frozen K/BB baseline for Hits, HR-related hitter projections, HRR,
+and pitcher strikeouts. It deliberately excludes exploratory/rejected HR work.
+Never use `--apply-corrections` in the frozen evidence period; manual runs must
+use a separate `--archive-dir`.
+
+2026-07-21 HR research is isolated in
+C:\Projects\baseball_predictor\.codex-provenance-foundation on branch
+codex/pregame-provenance-foundation (commits 074ffdb, 17d331f, af14620,
+5f921b1). It is not production code. The strictly-prior 30/120-day Statcast HR
+challenger showed only small 2025 simple-baseline gains (Brier about -0.000230,
+log loss about -0.001475), below its predeclared materiality gate; it is
+rejected and its 2025 confirmation cannot be reused as independent proof.
+
+Current readiness: about 5/10 overall; Hits about 5/10 and still below the
+locked +0.10 capture lower-bound gate (candidate lower bound about +0.0503);
+HR over 0.5 about 3/10. No policy qualifies and no market is authorized.
+
+The current highest-value direction is a shared fitted batter PA-outcome
+foundation for Hits, HR over 0.5, and Total Bases, adjudicated separately.
+Batter-only features may proceed only when their timing contract passes.
+Pitcher-matchup features require receipt-proven probable-starter identity; if
+unavailable, exclude that block rather than using a guessed or actual postgame
+starter. RBI/HRR require a separate point-in-time run-context layer.
+
+Fit on 2023 and select on 2024. Do not reuse spent confirmation data as new
+independent proof. Fresh untouched confirmation or forward evidence is required
+for a new candidate. No hand-tuned baseball coefficient, multiplier, or
+performance threshold may be introduced.
+
+The local 2023-2025 Statcast cache has 2,145,072 regular-season pitch rows,
+710,217 EV/LA batted-ball rows, 371,987 spray-coordinate-ready rows (52.38% of
+BBE), and 1,302 distinct pitchers with complete pitch context. This is enough
+for research foundations, not proof of a blanket spray feature or a pregame
+pitcher-matchup model.
+
+Operational smoke/collector evidence is separate and permanently non-economic
+unless a clean authorized economic era is created. Do not backfill missed
+prospective observations. Missed days may be reconstructed only as labelled
+historical research with predictions hash-locked before official outcomes; they
+cannot count as executable-price, forward ROI, or authorization evidence.
+
+Formal goal status in the app is ACTIVE under the strengthened shared batter
+PA-outcome objective. Do not falsely mark it complete; the batter-only and
+probable-starter fail-closed rules remain mandatory.
 
 ===============================================================================
 
@@ -313,8 +370,8 @@ The corrected successor is now the single active v13 local operational smoke:
   fixed official date
     2026-07-19
   immutable plan
-    15 targets / 15 unique MLB game PKs
-    plan SHA-256 fd88633b78fb29aeb34b5288fa07ea4b82e826c443e92dd8b92153e6254e5292
+    16 targets / 16 unique MLB game PKs
+    plan SHA-256 e3e1d4b706363f2c90e8a36518dd3a453f377c49b0fa406f01d5ba97b7c9daf9
   first and last entry targets
     2026-07-19T12:15:00Z through 2026-07-19T19:20:00Z
   evidence-scope file SHA-256
@@ -325,6 +382,12 @@ The corrected successor is now the single active v13 local operational smoke:
     ec2d0237113d6132813a194ad091e0828b5ba0638e3394cc27fe94a1e6e75099
   runtime fingerprint
     55747f459e86f04740ca74f75750b5d9ab140582f5b3f54619a0f314357c5b94
+
+The current 16-target plan superseded the earlier 15-target plan at
+`2026-07-18T21:02:29Z`, before any old target was due and before any terminal
+evidence existed. The collector retained the old plan under `superseded/` and
+recorded the transition in a `shadow-plan-supersession-v1` artifact. This is a
+valid pre-capture official-schedule identity update, not a retry or backfill.
 
 At the time of this context update, v13 is running normally but has no due
 targets, terminal receipts, source errors, or ledger rows. That is the expected
@@ -1029,3 +1092,64 @@ DRAFTKINGS HR-OVER-0.5 RESEARCH CONTRACT (2026-07-15; MAY REMAINS SEALED)
   built for HR instead. May's economic/performance holdout remains UNSPENT, but
   the stronger literal statement "no May artifact has ever been opened" is no
   longer accurate and must not be repeated.
+
+-------------------------------------------------------------------------------
+PREDICTOR INTEGRITY REPAIR AND STRICT CANDIDATE ADJUDICATION (2026-07-20)
+
+  A live plumbing defect was found and repaired. DailyPredictor recenters the
+  contact-conditional league baselines after building a Statcast snapshot. The
+  refresh path rebuilt PASimulatorConfig from league defaults and silently
+  discarded the complete `pa_simulator` config block, including the hash-bound
+  fitted K/BB model. The refresh now re-applies the exact effective config.
+  Mutation tests prove configured PA parameters survive the refresh. On the
+  existing 2026-07-12 feature snapshot, the intended K/BB path differed on all
+  270 hitters: +0.01941 strikeout probability per PA and -0.00692 hit
+  probability per PA versus the silently reset path. This is an implementation
+  repair of the already-preserved K/BB research baseline, not a new fitted
+  candidate and not betting authorization.
+
+  Research automation is now aligned to `config/config.kbb.json`; the GUI's
+  promoted-model default remains unchanged and explicit. Prediction and outcome
+  automation both use the same research config. `pa_simulator` is now part of
+  model_version, so frozen and fitted-K/BB outputs can no longer share an
+  identity. The fitted PA-distribution artifact is also content-bound in both
+  current configs; a missing or hash-mismatched declared artifact now fails
+  instead of silently reverting to the legacy PA draw. Its nine lineup-slot
+  distributions now also fail closed on missing slots, duplicate/invalid keys,
+  negative/non-finite probabilities, or totals other than 1.0; runtime no
+  longer clips or renormalizes malformed fitted evidence. Base config version is
+  `5fa493e73b34`; K/BB research version is `bd7a467f966c` under the repaired
+  identity contract. Outcome grading rejects
+  any prediction-time versus grading-time model-version mismatch.
+
+  Prediction archives now atomically persist both the full simulation
+  distribution and the explicit PA outcome distribution. Malformed, partial,
+  duplicated, non-finite, or out-of-range archived probability evidence hard
+  fails instead of silently falling back to a normal approximation. Old
+  archives without decision-time provenance are not re-labeled or backfilled.
+
+  A monotonicity defect was also confirmed in the legacy HR formula: higher
+  opposing-pitcher HR/9 lowered hitter HR probability. A separately gated,
+  opt-in sign correction was tested on 8,827 official open-period keys and
+  rejected. It improved some point estimates but worsened diagnostic Brier,
+  failed paired uncertainty, and regressed confirmation AUC. The flag remains
+  disabled; frozen HR behavior is unchanged. Every affected HR projection now
+  carries `opposing_pitcher_hr9_direction_unqualified`, and the daily policy
+  layer forcibly keeps those rows research-only even if an authorization
+  certificate were otherwise present. This records the known limitation and
+  prevents an unsupported HR wager without pretending the rejected correction
+  improved predictions. Report:
+    data/analysis/hr_over_contract_v1/pitcher_hr9_direction_candidate_v1/report.json
+    SHA-256 a2ac12f6df03fdcd1b18279eedb27aa253595678fcab068d4ad0861dcf30e191
+
+  A fitted batter probability challenger was also rejected before production
+  or market evaluation. Removing 72 `actual_starter` rows was necessary but not
+  sufficient: the historical builder had no verified decision-horizon receipt
+  hashes for lineups/starters/weather/officials. Exploratory 2025 gains cannot
+  qualify a time-safe candidate. No May performance evidence was used, no gate
+  was weakened, production/GUI authorization is unchanged, and wagering remains
+  unauthorized.
+
+  Verification after these repairs: 118/118 project tests passed; the leakage-
+  critical fitted-model harness passed 20/20. No rejected intervention was
+  promoted and no May performance evidence was opened.

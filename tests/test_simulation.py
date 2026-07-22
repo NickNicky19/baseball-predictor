@@ -12,8 +12,14 @@ production, so each is impossible to reintroduce silently:
 - Elite/weak discrimination and HRR realism bands.
 """
 
+from dataclasses import replace
+import hashlib
+import json
+
+import pytest
+
 from src.models.dataclasses import LeagueBaselines, StatcastProfile
-from src.simulation import BaseState, HybridPASimulator, MonteCarloEngine
+from src.simulation import BaseState, HybridPASimulator, MonteCarloEngine, PASimulatorConfig
 from src.simulation.game_simulator import GameSimulator, GameSimulatorInput
 
 
@@ -109,6 +115,101 @@ def test_elite_hitter_beats_weak_hitter():
 
     assert p_elite["home_run"] > p_weak["home_run"]
     assert hit_total(p_elite) > hit_total(p_weak)
+
+
+def test_pitcher_hr9_direction_candidate_is_opt_in_and_monotone():
+    """The correction changes only the known-bad HR/9 direction when enabled."""
+    league = LeagueBaselines()
+    frozen_config = PASimulatorConfig.from_league(league)
+    candidate_config = replace(frozen_config, correct_pitcher_hr9_direction=True)
+    frozen = HybridPASimulator(config=frozen_config, league_baselines=league)
+    candidate = HybridPASimulator(config=candidate_config, league_baselines=league)
+
+    neutral_frozen = frozen.expected_outcome_probabilities(
+        pitcher_hr_per_9=league.hr_per_9
+    )
+    neutral_candidate = candidate.expected_outcome_probabilities(
+        pitcher_hr_per_9=league.hr_per_9
+    )
+    assert neutral_candidate == neutral_frozen
+
+    low = max(0.1, league.hr_per_9 * 0.5)
+    high = league.hr_per_9 * 1.5
+    assert (
+        frozen.expected_outcome_probabilities(pitcher_hr_per_9=high)["home_run"]
+        < frozen.expected_outcome_probabilities(pitcher_hr_per_9=low)["home_run"]
+    )
+    assert (
+        candidate.expected_outcome_probabilities(pitcher_hr_per_9=high)["home_run"]
+        > candidate.expected_outcome_probabilities(pitcher_hr_per_9=low)["home_run"]
+    )
+
+
+def test_fitted_pa_distribution_is_hash_bound_and_missing_fails(tmp_path):
+    artifact = tmp_path / "pa.json"
+    complete = {
+        str(slot): {"4": 0.5, "5": 0.5} for slot in range(1, 10)
+    }
+    artifact.write_text(
+        json.dumps({"by_lineup_slot": complete}),
+        encoding="utf-8",
+    )
+    digest = hashlib.sha256(artifact.read_bytes()).hexdigest()
+    valid = {
+        "base_running": {
+            "pa_distribution_path": str(artifact),
+            "pa_distribution_sha256": digest,
+        }
+    }
+    simulator = GameSimulator(config=valid, random_seed=1)
+    assert simulator._pa_dist_states[1] == [4, 5]
+
+    artifact.write_text(
+        json.dumps({"by_lineup_slot": {str(i): {"3": 1.0} for i in range(1, 10)}}),
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="PA distribution hash mismatch"):
+        GameSimulator(config=valid, random_seed=1)
+
+    missing = {
+        "base_running": {
+            "pa_distribution_path": str(tmp_path / "missing.json"),
+            "pa_distribution_sha256": "0" * 64,
+        }
+    }
+    with pytest.raises(ValueError, match="does not exist"):
+        GameSimulator(config=missing, random_seed=1)
+
+
+@pytest.mark.parametrize(
+    ("bad_distribution", "message"),
+    [
+        ({4: -0.1, 5: 1.1}, "negative probability"),
+        ({4: float("nan"), 5: 1.0}, "non-finite probability"),
+        ({4: 0.4, 5: 0.4}, "not 1.0"),
+    ],
+)
+def test_pa_distribution_probabilities_fail_closed(bad_distribution, message):
+    with pytest.raises(ValueError, match=message):
+        GameSimulator(pa_distribution={1: bad_distribution}, random_seed=1)
+
+
+def test_fitted_pa_distribution_requires_all_lineup_slots(tmp_path):
+    artifact = tmp_path / "partial_pa.json"
+    artifact.write_text(
+        json.dumps({"by_lineup_slot": {"1": {"4": 1.0}}}), encoding="utf-8"
+    )
+    digest = hashlib.sha256(artifact.read_bytes()).hexdigest()
+    with pytest.raises(ValueError, match="must cover lineup slots 1-9"):
+        GameSimulator(
+            config={
+                "base_running": {
+                    "pa_distribution_path": str(artifact),
+                    "pa_distribution_sha256": digest,
+                }
+            },
+            random_seed=1,
+        )
 
 
 # ---------------------------------------------------------------------------

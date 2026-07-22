@@ -20,6 +20,7 @@ from src.models.dataclasses import (
     StatcastProfile,
     WeatherContext,
 )
+from src.prediction.prop_engine import PropEngine
 from src.simulation.pa_simulator import HybridPASimulator, PASimulatorConfig
 from src.simulation.probability_engine import ProbabilityEngine
 
@@ -157,6 +158,73 @@ def test_probability_engine_outcomes_sum_to_one():
     safeguards = OutputSafeguards(league_baselines=league)
     assert safeguards.check_outcome_probabilities(probs).passed
     assert probs.home_run <= safeguards.limits.max_hr_prob_pa
+
+
+def test_probability_engine_uses_same_context_bounds_as_monte_carlo_input():
+    """The archived PA probabilities and sampled distribution must agree."""
+    bundle = _sample_bundle()
+    bundle.matchup.bvp_ops_factor = 4.0
+    bundle.matchup.bvp_hr_factor = 3.0
+    bundle.matchup.recent_form_multiplier = 2.0
+    league = LeagueBaselines()
+    pa_sim = HybridPASimulator(
+        config=PASimulatorConfig.from_league(league), league_baselines=league
+    )
+    explicit = ProbabilityEngine(pa_simulator=pa_sim, league_baselines=league).from_bundle(bundle)
+    direct = pa_sim.expected_outcome_probabilities(
+        pitcher_k_pct=bundle.pitcher_statcast.k_rate * 100.0,
+        pitcher_bb_pct=bundle.pitcher_statcast.bb_rate * 100.0,
+        pitcher_hr_per_9=bundle.pitcher_statcast.hr_per_9,
+        park_hr_factor=bundle.park.hr_factor * bundle.metadata["weather_hr_factor"],
+        park_hits_factor=bundle.park.hits_factor,
+        handedness_advantage=bundle.matchup.platoon_advantage,
+        recent_form_mult=1.18,
+        bvp_ops_factor=1.25,
+        bvp_hr_factor=1.40,
+        statcast=bundle.statcast,
+        rich_features={},
+    )
+    for key, value in direct.items():
+        assert getattr(explicit, key) == value
+
+
+def test_league_recentering_preserves_configured_pa_model():
+    """A live baseline refresh must not silently revert the fitted PA engine."""
+    engine = PropEngine(
+        config={
+            "simulation": {"n_sims": 100},
+            "pa_simulator": {
+                "hit_prob_cap": 0.271,
+                "hr_quality": 0.123,
+            },
+        }
+    )
+    assert engine.pa_config.hit_prob_cap == 0.271
+    assert engine.pa_config.hr_quality == 0.123
+
+    refreshed = LeagueBaselines(xwoba_on_contact=0.391, xslg_on_contact=0.651)
+    engine.configure_simulation(league_baselines=refreshed)
+
+    assert engine.pa_config.hit_prob_cap == 0.271
+    assert engine.pa_config.hr_quality == 0.123
+    assert engine.probability_engine.league is refreshed
+
+
+def test_legacy_hr9_direction_is_explicitly_flagged_in_projection():
+    bundle = _sample_bundle()
+    frozen = PropEngine(config={"simulation": {"n_sims": 100}})
+    candidate = PropEngine(
+        config={
+            "simulation": {"n_sims": 100},
+            "pa_simulator": {"correct_pitcher_hr9_direction": True},
+        }
+    )
+
+    frozen_projection = frozen.project_hitter(bundle, categories=("home_runs",))[0]
+    candidate_projection = candidate.project_hitter(bundle, categories=("home_runs",))[0]
+
+    assert "opposing_pitcher_hr9_direction_unqualified" in frozen_projection.input_health_flags
+    assert "opposing_pitcher_hr9_direction_unqualified" not in candidate_projection.input_health_flags
 
 
 def test_expected_outcome_probs_match_league_hit_rate():

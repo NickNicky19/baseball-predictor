@@ -88,6 +88,16 @@ class ProbabilityEngine:
         weather_hr = float(bundle.metadata.get("weather_hr_factor", 1.0))
         umpire_k_bias = bundle.umpire.k_bias if bundle.umpire else 0.0
 
+        # Keep the explicit probability object on the exact same normalized
+        # context as PropEngine's Monte Carlo input.  These values were
+        # previously passed through raw here while the simulation path bounded
+        # them, so one projection could expose two different PA distributions.
+        bvp_ops, bvp_hr, recent_form = normalize_matchup_multipliers(
+            bvp_ops_factor=bundle.matchup.bvp_ops_factor,
+            bvp_hr_factor=bundle.matchup.bvp_hr_factor,
+            recent_form_multiplier=bundle.matchup.recent_form_multiplier,
+        )
+
         probs = self.pa_simulator.expected_outcome_probabilities(
             pitcher_k_pct=pitcher_k + umpire_k_bias,
             pitcher_bb_pct=pitcher_bb,
@@ -95,9 +105,9 @@ class ProbabilityEngine:
             park_hr_factor=bundle.park.hr_factor * weather_hr,
             park_hits_factor=bundle.park.hits_factor,
             handedness_advantage=bundle.matchup.platoon_advantage,
-            recent_form_mult=bundle.matchup.recent_form_multiplier,
-            bvp_ops_factor=bundle.matchup.bvp_ops_factor,
-            bvp_hr_factor=bundle.matchup.bvp_hr_factor,
+            recent_form_mult=recent_form,
+            bvp_ops_factor=bvp_ops,
+            bvp_hr_factor=bvp_hr,
             statcast=bundle.statcast,
             rich_features=rich,
         )
@@ -111,4 +121,28 @@ class ProbabilityEngine:
             triple=probs["triple"],
             out_on_bip=probs["out_on_bip"],
         )
+
+
+def _clamp(value: float, lower: float, upper: float) -> float:
+    return max(lower, min(upper, value))
+
+
+def normalize_matchup_multipliers(
+    *,
+    bvp_ops_factor: float,
+    bvp_hr_factor: float,
+    recent_form_multiplier: float,
+) -> tuple[float, float, float]:
+    """Return the single normalized context consumed by every PA path.
+
+    Keeping these bounds in one function prevents the explicit probability
+    object and Monte Carlo simulation from silently describing different
+    hitters when an upstream feature is extreme or malformed-but-numeric.
+    """
+
+    return (
+        _clamp(float(bvp_ops_factor), 0.80, 1.25),
+        _clamp(float(bvp_hr_factor), 0.70, 1.40),
+        _clamp(float(recent_form_multiplier), 0.85, 1.18),
+    )
 
