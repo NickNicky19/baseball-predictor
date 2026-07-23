@@ -19,7 +19,7 @@ import pandas as pd
 from src.data.injury_client import InjuryClient
 from src.data.mlb_api import MLBStatsAPI
 from src.data.odds import CompositeOddsProvider
-from src.data.savant import SavantClient
+from src.data.savant import SavantClient, resolve_configured_savant_csv
 from src.data.umpire_client import UmpireClient
 from src.data.weather_client import WeatherClient
 from src.evaluation.park_factor_estimator import ParkFactorEstimator, ParkFactorSettings
@@ -649,15 +649,9 @@ class DailyPredictor:
         return ParkFactors(venue=venue)
 
     def _savant_csv_path(self) -> Optional[str]:
-        savant_cfg = self.config.get("savant", {})
-        csv_path = savant_cfg.get("csv_path")
-        if not csv_path:
-            return None
-        path = Path(csv_path)
-        if not path.is_absolute():
-            root = Path(__file__).resolve().parents[2]
-            path = root / csv_path
-        return str(path) if path.exists() else None
+        return resolve_configured_savant_csv(
+            self.config, root=Path(__file__).resolve().parents[2]
+        )
 
     @staticmethod
     def _load_config(config_path: Optional[str | Path]) -> dict[str, Any]:

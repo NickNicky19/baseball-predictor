@@ -1,0 +1,90 @@
+{
+  "artifact_version": "savant-player-summary-contract-repair-v1",
+  "status": "INTEGRITY_REPAIR_VERIFIED_NO_PROMOTION",
+  "classification": "integrity_repair",
+  "market_scope": [
+    "hits",
+    "hr_over_0_5",
+    "total_bases"
+  ],
+  "root_causes": [
+    "A configured but absent Savant CSV was converted to no override instead of source loss.",
+    "Player-summary barrel alias selection used Python truthiness, so NaN could suppress a valid canonical value.",
+    "Official percentage-point fields were conditionally normalized, making values at or below 1.0 ambiguous and potentially 100 times too large.",
+    "Aggregate barrel/hard-hit rates could enter without common-denominator counts or a strict-prior source cutoff.",
+    "Malformed and duplicate player identities could be coerced or silently overwritten."
+  ],
+  "source_basis": {
+    "official_custom_leaderboard_url": "https://baseballsavant.mlb.com/leaderboard/custom",
+    "official_labels": [
+      "Barrel%",
+      "Hard Hit %",
+      "Barrels",
+      "Batted Balls"
+    ],
+    "configured_source_audit": {
+      "config_count": 53,
+      "configured_count": 9,
+      "configured_missing_count": 9,
+      "source_rows_read": 0,
+      "outcome_fields_read": false,
+      "may_2026_touched": false,
+      "canonical_output_sha256": "39eb9c436e09efca6d225a1f70e2bf4027cde9c35f206940f18490fa930f2915"
+    }
+  },
+  "repair": {
+    "configured_missing_source_policy": "fail closed",
+    "pitch_csv_timing": "requires game_date and consumes only rows strictly before target_date",
+    "player_summary_timing": "requires exactly one source_window_end strictly before target_date",
+    "identity": "positive integral unique player_id and nonnegative integral PA",
+    "percentage_units": "official percent fields are always divided by 100",
+    "ambiguous_barrel_rate_alias": "rejected",
+    "batted_ball_contract": "common BBE, barrel, and hard-hit counts determine rates; displayed rates must agree within one-decimal percentage precision",
+    "coefficient_changes": 0,
+    "player_exclusions": 0,
+    "fallback_values_changed": 0
+  },
+  "version_binding": {
+    "parser_code_sha256": "8b78f81c4c68d0335c8705a7e6218049fa548c31a393cb6057e67c22b8d40f67",
+    "probability_path_code_sha256": "d08df09b7ceae2ad3b3ba002d087f4b23c48b3c5be22833713d401ce65d00efe",
+    "feature_factory_code_sha256": "c0d6421f85f8ca7e504eb691b40748377527ed935fd83f8a341a6490c4f2d712",
+    "daily_predictor_code_sha256": "da17fbebaa8c97b80af513d7c2ea2cfcc4fa0573f9ec1debdb9b777822bc10e7",
+    "frozen_configuration_sha256": "ff65d440b7571aa490300b26b1cf8a6271c5979e564c1a74d1d0988a0b743bad",
+    "audit_script_sha256": "af210727a58ec6de4fcd43fc58e019bfb2282c964314bc197776200b34344bee",
+    "predeclaration_sha256": "598086c566ccf8879df2a2f78ddc10ffe4409a4473a26087e6c6a32f93d473fe",
+    "regression_mutation_test_sha256": "870e87a88bfcdc8af08ec13f8d37b78497cf336d761b5b4b012f4338b69d81a7",
+    "audit_test_sha256": "839967a5f49b731fe42b9a50bccf6e30b967f2b545dabb632640185450501242",
+    "certified_direct_panel_sha256": "1638ee336833ae6cb3ba580eafe2800a8f4a6c609719fe88df7481c71e0f2fb1",
+    "certified_direct_panel_manifest_sha256": "673ece8b9a26733ad4c8bf0b95fb15f6b32849e7a37c9b2fcb7f0734dcb4030f"
+  },
+  "verification": {
+    "full_suite": "221 passed",
+    "old_nan_alias_failure_caught": true,
+    "old_sub_one_percent_unit_failure_caught": true,
+    "missing_source_mutation_fails_closed": true,
+    "timing_mutations_fail_closed": true,
+    "identity_mutations_fail_closed": true,
+    "count_rate_mutations_fail_closed": true,
+    "valid_strict_prior_summary_preserved": true,
+    "valid_strict_prior_pitch_rows_preserved": true
+  },
+  "historical_reconstruction": {
+    "performed": false,
+    "reason": "The declared summary artifact is absent, the certified direct panel did not use this path, and old archives cannot be retroactively relabeled. Rebuilding unchanged certified evidence would create false independence.",
+    "archived_predictions_preserved": true
+  },
+  "separate_market_adjudication": {
+    "hits": "NO_NEW_NUMERIC_CANDIDATE; integrity repaired but no admissible new performance evidence",
+    "hr_over_0_5": "NO_NEW_NUMERIC_CANDIDATE; frozen simulator and spent 2025 confirmation remain binding",
+    "total_bases": "NO_NEW_NUMERIC_CANDIDATE; no fresh independent performance evidence",
+    "market_implied_comparison": "not run; no verified executable-price candidate",
+    "performance_claim": "none"
+  },
+  "promotion": {
+    "promoted": false,
+    "betting_authorized": false,
+    "reason": "Truthful source rejection is required, but it is not predictive uplift evidence."
+  },
+  "operational_effect": "Research code now refuses the nine frozen configs while their declared CSV remains absent. Frozen production and AWS runtimes were not changed or redeployed.",
+  "highest_value_next_action": "Bind exact content hashes to every consumed Statcast profile and feature lineage, then continue outcome-blind feature-consumption auditing while fresh prospective evidence accrues."
+}

@@ -173,7 +173,9 @@ class StatcastFeatureEngine:
             )
 
         if savant_csv_path:
-            csv_profiles = self.savant.build_hitter_profiles_from_csv(savant_csv_path)
+            csv_profiles = self.savant.build_hitter_profiles_from_csv(
+                savant_csv_path, target_date=target_date.isoformat()
+            )
             profiles.update({pid: self.enrich_profile(p) for pid, p in csv_profiles.items()})
 
         logger.info("Built %d Statcast profiles for %s", len(profiles), game_date)

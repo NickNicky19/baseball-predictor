@@ -1145,3 +1145,23 @@ direct batter panel already used the truthful denominator, so it was not
 rebuilt, relabeled, or rescored. This is an integrity repair with no performance
 or promotion claim. Frozen production, rejected candidates, spent confirmation,
 prediction archives, AWS runtime, and the protected collector were untouched.
+
+2026-07-22 HANDOFF ADDENDUM — SAVANT PLAYER-SUMMARY CONTRACT (AUTHORITATIVE)
+
+SI-026 is repaired in the same isolated lineage. Nine daily configs declare
+`data/savant/stats.csv`, which is absent; the old resolvers silently converted
+that declared source loss to no override. If a summary appeared, a NaN legacy
+alias could suppress the canonical barrel value, official percentage-point
+values at or below 1.0 could be inflated 100-fold, aggregate barrel/hard-hit
+rates lacked common-denominator counts, identities could overwrite, and no
+strict-prior cutoff was enforced. Configured loss now fails closed. CSV profile
+construction requires an explicit target date; pitch rows are filtered strictly
+prior by `game_date`, summaries require one strict-prior `source_window_end`,
+official percent fields have explicit units, ambiguous aliases fail, and
+barrel/hard-hit rates require coherent BBE/barrel/hard-hit counts. Mutation and
+regression proof passes; the full suite is 221 passed. Exact hashes and the
+outcome-blind 53-config audit are in
+`docs/research/SAVANT_PLAYER_SUMMARY_CONTRACT_REPAIR_V1_REPORT.json`. No source
+row, outcome field, 2026/May artifact, archive, frozen runtime, AWS service, or
+collector was changed. This is integrity repair only; no market earned a
+performance or promotion claim.

@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from dataclasses import replace
 from datetime import date, timedelta
+import math
 from pathlib import Path
 from typing import Any, Optional
 
@@ -170,18 +171,77 @@ class SavantClient:
         return profiles
 
     def build_hitter_profiles_from_csv(
-        self, csv_path: str | Path
+        self, csv_path: str | Path, *, target_date: str | None = None
     ) -> dict[int, StatcastProfile]:
         """Build profiles from a Savant CSV (player-level or pitch-level)."""
+        if target_date is None:
+            raise StatcastSourceSchemaError(
+                "Savant CSV profile construction requires an explicit target_date"
+            )
+        try:
+            target = date.fromisoformat(target_date)
+        except (TypeError, ValueError) as exc:
+            raise StatcastSourceSchemaError(
+                "Savant CSV target_date must be an ISO date"
+            ) from exc
         df = self.load_savant_csv(csv_path)
-        if "batter" in df.columns:
+        if "batter" in df.columns and "events" in df.columns:
+            source_window_end = None
+            if "game_date" not in df.columns:
+                raise StatcastSourceSchemaError(
+                    "pitch-level Savant CSV lacks game_date for strict-prior use"
+                )
+            parsed = pd.to_datetime(df["game_date"], errors="coerce")
+            if bool(df["game_date"].isna().any()) or bool(
+                (df["game_date"].notna() & parsed.isna()).any()
+            ):
+                raise StatcastSourceSchemaError(
+                    "pitch-level Savant CSV contains an invalid game_date"
+                )
+            cutoff = pd.Timestamp(target)
+            df = df.loc[parsed < cutoff].copy()
+            parsed = parsed.loc[df.index]
+            if df.empty:
+                raise StatcastSourceUnavailableError(
+                    "pitch-level Savant CSV contains no strict-prior rows"
+                )
+            source_window_end = parsed.max().date().isoformat()
             profiles = self.build_hitter_profiles_from_statcast(df)
             return {
-                player_id: replace(profile, source_kind="savant_pitch_csv")
+                player_id: replace(
+                    profile,
+                    source_kind="savant_pitch_csv",
+                    source_window_end=source_window_end,
+                )
                 for player_id, profile in profiles.items()
             }
 
-        return self._profiles_from_player_level_csv(df)
+        source_window_end = None
+        if "source_window_end" not in df.columns:
+            raise StatcastSourceSchemaError(
+                "player-level Savant CSV lacks source_window_end for strict-prior use"
+            )
+        parsed = pd.to_datetime(df["source_window_end"], errors="coerce")
+        if bool(df["source_window_end"].isna().any()) or bool(
+            (df["source_window_end"].notna() & parsed.isna()).any()
+        ):
+            raise StatcastSourceSchemaError(
+                "player-level Savant CSV contains an invalid source_window_end"
+            )
+        unique = parsed.dropna().dt.date.unique()
+        if len(unique) != 1:
+            raise StatcastSourceSchemaError(
+                "player-level Savant CSV must have one source_window_end"
+            )
+        if unique[0] >= target:
+            raise StatcastSourceSchemaError(
+                "player-level Savant CSV source_window_end is not strict-prior"
+            )
+        source_window_end = unique[0].isoformat()
+
+        return self._profiles_from_player_level_csv(
+            df, source_window_end=source_window_end
+        )
 
     def get_hitter_profile(
         self,
@@ -368,7 +428,9 @@ class SavantClient:
             source_row_count=len(group),
         )
 
-    def _profiles_from_player_level_csv(self, df: pd.DataFrame) -> dict[int, StatcastProfile]:
+    def _profiles_from_player_level_csv(
+        self, df: pd.DataFrame, *, source_window_end: str | None = None
+    ) -> dict[int, StatcastProfile]:
         """Parse a player-level Savant export (one row per hitter)."""
         id_col = _first_present(df.columns, ["player_id", "batter", "id"])
         name_col = _first_present(df.columns, ["player_name", "last_name, first_name", "name"])
@@ -378,26 +440,78 @@ class SavantClient:
             )
 
         profiles: dict[int, StatcastProfile] = {}
-        for _, row in df.iterrows():
-            player_id = int(row[id_col])
-            name = str(row[name_col]) if name_col else ""
+        for row_number, row in df.iterrows():
+            player_id = _required_nonnegative_int(
+                row.get(id_col),
+                context=f"player-level Savant CSV row {row_number} player identity",
+                positive=True,
+            )
+            if player_id in profiles:
+                raise StatcastSourceSchemaError(
+                    f"player-level Savant CSV has duplicate player_id {player_id}"
+                )
+            name_value = row.get(name_col) if name_col else None
+            name = "" if pd.isna(name_value) else str(name_value)
+            sample_pa = _required_nonnegative_int(
+                row.get("pa"),
+                context=f"player-level Savant CSV[{player_id}] pa",
+            )
+            barrel, hard_hit, denominator, barrel_count, hard_hit_count = (
+                _parse_player_summary_batted_ball(row, player_id=player_id)
+            )
             profile = StatcastProfile(
                 player_id=player_id,
                 player_name=name,
-                sample_pa=_safe_int(row.get("pa")),
-                xwoba=_safe_float(row.get("xwoba")),
-                xba=_safe_float(row.get("xba")),
-                xslg=_safe_float(row.get("xslg")),
-                barrel_rate=_normalize_rate(_safe_float(row.get("barrel_rate") or row.get("barrel_batted_rate"))),
-                sweet_spot_rate=_normalize_rate(_safe_float(row.get("sweet_spot_percent"))),
-                hard_hit_rate=_normalize_rate(_safe_float(row.get("hard_hit_percent"))),
-                whiff_rate=_normalize_rate(_safe_float(row.get("whiff_percent"))),
-                chase_rate=_normalize_rate(_safe_float(row.get("chase_percent"))),
-                contact_rate=_normalize_rate(_safe_float(row.get("contact_percent"))),
-                swing_rate=_normalize_rate(_safe_float(row.get("swing_percent"))),
-                zone_rate=_normalize_rate(_safe_float(row.get("zone_percent"))),
+                sample_pa=sample_pa,
+                xwoba=_optional_finite_float(
+                    row.get("xwoba"),
+                    context=f"player-level Savant CSV[{player_id}] xwoba",
+                ),
+                xba=_optional_finite_float(
+                    row.get("xba"),
+                    context=f"player-level Savant CSV[{player_id}] xba",
+                ),
+                xslg=_optional_finite_float(
+                    row.get("xslg"),
+                    context=f"player-level Savant CSV[{player_id}] xslg",
+                ),
+                barrel_rate=barrel,
+                sweet_spot_rate=_player_summary_percent(
+                    row.get("sweet_spot_percent"),
+                    context=f"player-level Savant CSV[{player_id}] sweet_spot_percent",
+                ),
+                hard_hit_rate=hard_hit,
+                batted_ball_denominator=denominator,
+                barrel_count=barrel_count,
+                hard_hit_count=hard_hit_count,
+                batted_ball_rate_definition=(
+                    "savant_player_summary_counts_common_bbe"
+                    if denominator is not None
+                    else None
+                ),
+                whiff_rate=_player_summary_percent(
+                    row.get("whiff_percent"),
+                    context=f"player-level Savant CSV[{player_id}] whiff_percent",
+                ),
+                chase_rate=_player_summary_percent(
+                    row.get("chase_percent"),
+                    context=f"player-level Savant CSV[{player_id}] chase_percent",
+                ),
+                contact_rate=_player_summary_percent(
+                    row.get("contact_percent"),
+                    context=f"player-level Savant CSV[{player_id}] contact_percent",
+                ),
+                swing_rate=_player_summary_percent(
+                    row.get("swing_percent"),
+                    context=f"player-level Savant CSV[{player_id}] swing_percent",
+                ),
+                zone_rate=_player_summary_percent(
+                    row.get("zone_percent"),
+                    context=f"player-level Savant CSV[{player_id}] zone_percent",
+                ),
                 source_kind="savant_player_csv",
                 source_status="observed_complete",
+                source_window_end=source_window_end,
                 source_row_count=1,
             )
             validate_rate_pair(
@@ -515,10 +629,133 @@ def _safe_float(value: Any) -> Optional[float]:
         return None
 
 
-def _safe_int(value: Any) -> int:
+def resolve_configured_savant_csv(
+    config: dict[str, Any], *, root: Path
+) -> Optional[str]:
+    """Resolve an explicitly configured Savant CSV without hiding source loss."""
+    savant_cfg = config.get("savant", {})
+    csv_path = savant_cfg.get("csv_path")
+    if csv_path in (None, ""):
+        return None
+    if not isinstance(csv_path, str):
+        raise StatcastSourceSchemaError("savant.csv_path must be a string")
+    path = Path(csv_path)
+    if not path.is_absolute():
+        path = root / path
+    if not path.exists() or not path.is_file():
+        raise StatcastSourceUnavailableError(
+            f"configured Savant CSV is unavailable: {path}"
+        )
+    return str(path)
+
+
+def _optional_finite_float(value: Any, *, context: str) -> Optional[float]:
+    if value is None or pd.isna(value):
+        return None
     try:
-        if value is None or (isinstance(value, float) and pd.isna(value)):
-            return 0
-        return int(value)
-    except (TypeError, ValueError):
-        return 0
+        parsed = float(value)
+    except (TypeError, ValueError) as exc:
+        raise StatcastSourceSchemaError(f"{context} is not numeric") from exc
+    if not math.isfinite(parsed):
+        raise StatcastSourceSchemaError(f"{context} is non-finite")
+    return parsed
+
+
+def _required_nonnegative_int(
+    value: Any, *, context: str, positive: bool = False
+) -> int:
+    parsed = _optional_finite_float(value, context=context)
+    if parsed is None or not parsed.is_integer():
+        raise StatcastSourceSchemaError(f"{context} must be an integer")
+    integer = int(parsed)
+    minimum = 1 if positive else 0
+    if integer < minimum:
+        raise StatcastSourceSchemaError(f"{context} must be >= {minimum}")
+    return integer
+
+
+def _player_summary_percent(value: Any, *, context: str) -> Optional[float]:
+    parsed = _optional_finite_float(value, context=context)
+    if parsed is None:
+        return None
+    if not 0.0 <= parsed <= 100.0:
+        raise StatcastSourceSchemaError(f"{context} is outside [0,100]")
+    return parsed / 100.0
+
+
+def _one_present_column(row: pd.Series, candidates: tuple[str, ...]) -> Optional[str]:
+    present = [
+        name
+        for name in candidates
+        if name in row.index and not pd.isna(row.get(name))
+    ]
+    if len(present) > 1:
+        raise StatcastSourceSchemaError(
+            "player-level Savant CSV has ambiguous aliases: " + ", ".join(present)
+        )
+    return present[0] if present else None
+
+
+def _parse_player_summary_batted_ball(
+    row: pd.Series, *, player_id: int
+) -> tuple[
+    Optional[float], Optional[float], Optional[int], Optional[int], Optional[int]
+]:
+    context = f"player-level Savant CSV[{player_id}]"
+    if "barrel_rate" in row.index and not pd.isna(row.get("barrel_rate")):
+        raise StatcastSourceSchemaError(
+            f"{context}: ambiguous barrel_rate alias is not accepted"
+        )
+    names = {
+        "denominator": _one_present_column(row, ("batted_ball", "batted_balls")),
+        "barrel_count": _one_present_column(row, ("barrel", "barrels")),
+        "hard_hit_count": _one_present_column(row, ("hard_hit", "hard_hits")),
+        "barrel_rate": _one_present_column(row, ("barrel_batted_rate",)),
+        "hard_hit_rate": _one_present_column(row, ("hard_hit_percent",)),
+    }
+    if all(value is None for value in names.values()):
+        return None, None, None, None, None
+    missing = [key for key, value in names.items() if value is None]
+    if missing:
+        raise StatcastSourceSchemaError(
+            f"{context}: partial batted-ball count/rate contract: "
+            + ", ".join(missing)
+        )
+    denominator = _required_nonnegative_int(
+        row[names["denominator"]], context=f"{context} batted_ball"
+    )
+    barrel_count = _required_nonnegative_int(
+        row[names["barrel_count"]], context=f"{context} barrel"
+    )
+    hard_hit_count = _required_nonnegative_int(
+        row[names["hard_hit_count"]], context=f"{context} hard_hit"
+    )
+    if (
+        denominator == 0
+        or barrel_count > hard_hit_count
+        or hard_hit_count > denominator
+    ):
+        raise StatcastSourceSchemaError(
+            f"{context}: impossible batted-ball count ordering"
+        )
+    reported_barrel = _player_summary_percent(
+        row[names["barrel_rate"]], context=f"{context} barrel_batted_rate"
+    )
+    reported_hard_hit = _player_summary_percent(
+        row[names["hard_hit_rate"]], context=f"{context} hard_hit_percent"
+    )
+    barrel = barrel_count / denominator
+    hard_hit = hard_hit_count / denominator
+    # Savant leaderboard rates are displayed to one decimal percentage point.
+    tolerance = 0.0005000001
+    if (
+        reported_barrel is None
+        or reported_hard_hit is None
+        or abs(reported_barrel - barrel) > tolerance
+        or abs(reported_hard_hit - hard_hit) > tolerance
+    ):
+        raise StatcastSourceSchemaError(
+            f"{context}: displayed rates disagree with common-denominator counts"
+        )
+    validate_rate_pair(barrel, hard_hit, context=context, allow_both_missing=False)
+    return barrel, hard_hit, denominator, barrel_count, hard_hit_count
