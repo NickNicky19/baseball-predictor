@@ -1,6 +1,39 @@
 PROJECT_CONTEXT.md — v17 (master roadmap) — paste into any new chat
 
 ===============================================================================
+SHARED PA ADJUDICATION READINESS (2026-07-22) — NO MODEL PROMOTION
+
+The shared batter PA forward control is deployed separately on AWS from the
+pitcher-receipt collector. Its purpose is fresh point-in-time research evidence;
+it is not a production promotion and does not authorize betting.
+
+An outcome-blind prospective adjudication boundary is implemented for Hits,
+HR over 0.5, and Total Bases. It requires an exact 56-date population from
+2026-07-23 through 2026-09-16 and forbids opening outcomes before
+2026-09-17T12:00:00Z. Failed or incomplete dates cannot be skipped, replaced,
+or backfilled. May 2026 remains fully sealed.
+
+The adjudicator derives each scored target from a hash-bound official final-feed
+projection; recomputes game/team/side/player identity, count algebra, and Total
+Bases; binds the exact consumed probabilities to the T-4 horizon; uses the
+candidate-fixed top-decile cohort for every HR comparator; and requires binary
+Brier/log-loss materiality at every declared line. All 56 calendar dates require
+an explicit disposition. Synthetic regression/mutation coverage is 37/37 and
+the full repository suite is 211/211.
+
+  readiness report:
+    reports/shared_pa_forward_adjudication_readiness_v1.json
+  report sha256:
+    69f1bad3692cb6d1f2a0b53bc37f5d2f02872a48e708e42362562d656f24b128
+
+This is an evaluation-integrity improvement, not a measured probability
+improvement. No new batter-only challenger has earned selection, production is
+unchanged, and no market is promotion-eligible. The shared AWS lane currently
+captures the empirical-Bayes control but not every required exact T-4 frozen
+production or receipt-verified market comparator. Missing comparator evidence
+must remain missing; it cannot be reconstructed after the horizon.
+
+===============================================================================
 AUTHORITATIVE AWS RECEIPT HARDENING (2026-07-22) - READY, NOT DEPLOYED
 
 The fresh-evidence boundary remains unchanged: all admissible batter-only
