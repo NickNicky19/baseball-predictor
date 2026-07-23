@@ -8,7 +8,7 @@ import tempfile
 import json
 import subprocess
 import hashlib
-from datetime import date
+from datetime import date, datetime, timezone
 from pathlib import Path
 from unittest.mock import patch
 
@@ -260,9 +260,13 @@ def main() -> int:
         class SlateRecorder:
             archive = object()
 
+        class SlateAPI:
+            def get_schedule(self, game_date, include_lineups=False):
+                return [{"gamePk": 901, "gameDate": "2099-07-18T23:10:00Z"}]
+
         class SlatePredictor:
             def __init__(self, config_path=None) -> None:
-                self.mlb_api = object()
+                self.mlb_api = SlateAPI()
                 self.outcome_recorder = SlateRecorder()
 
             def predict(self, *args, **kwargs) -> DailyPrediction:
@@ -283,6 +287,11 @@ def main() -> int:
         with (
             patch.object(run_slate, "DailyPredictor", SlatePredictor),
             patch.object(run_slate, "PredictionArchive", SlateArchive),
+            patch.object(
+                run_slate,
+                "utc_now",
+                return_value=datetime(2099, 7, 18, 19, 0, tzinfo=timezone.utc),
+            ),
         ):
             slate_exit = run_slate.main([
                 "--date", "2099-07-18",
