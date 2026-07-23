@@ -1,0 +1,102 @@
+{
+  "schema_version": "shared-pa-forward-adjudication-readiness-v1",
+  "status": "OUTCOME_BLIND_ADJUDICATION_BOUNDARY_VERIFIED_EVIDENCE_AND_CHALLENGER_PENDING",
+  "as_of": "2026-07-22",
+  "research_only": true,
+  "betting_authorized": false,
+  "production_changed": false,
+  "model_improvement_proven": false,
+  "source_release_commit": "55ed4103e64bfefd0457541c5ffa18f1a50068a3",
+  "prospective_window": {
+    "first_official_date": "2026-07-23",
+    "last_official_date": "2026-09-16",
+    "calendar_dates": 56,
+    "outcomes_open_after_utc": "2026-09-17T12:00:00Z",
+    "failed_or_missing_dates_may_be_replaced": false,
+    "missed_evidence_may_be_backfilled": false
+  },
+  "hashes": {
+    "adjudication_contract": {
+      "path": "config/shared_pa_forward_adjudication_v1.json",
+      "sha256": "4c6668cb708480aa0fb090f0ad767e405bf33ce21b2e190af1dc674967751587"
+    },
+    "adjudication_code": {
+      "path": "src/evaluation/shared_pa_forward_adjudication.py",
+      "sha256": "b333cdb5185f8308d2576ed20bf6e681f52b5b959cb56ad2700fb3392c5cc013"
+    },
+    "regression_and_mutation_tests": {
+      "path": "tests/test_shared_pa_forward_adjudication.py",
+      "sha256": "543914fc0504ef605699850c9c9b634ae0450e0e3d6a72d9af6abd6eca755205"
+    },
+    "bound_forward_evidence_contract": {
+      "path": "config/shared_pa_forward_evidence_contract_v1.json",
+      "sha256": "b93827a465e5145d1e725f84cbed53d413f0c2e8601e41021221e3d13d079401"
+    }
+  },
+  "integrity_repairs": [
+    {
+      "id": "SPAA-001",
+      "defect": "A caller-provided observed count could be scored without proving that it was the count derived from the retained official final feed.",
+      "repair": "The evaluator now accepts only a hash-bound official outcome record, revalidates hard game/team/side/player identity and count algebra, and derives Hits, HR, or Total Bases itself.",
+      "mutation_proof": "Tampered and tampered-then-rehashed outcome records both fail."
+    },
+    {
+      "id": "SPAA-002",
+      "defect": "Prediction provenance hashes did not bind the exact probability value consumed by the evaluator.",
+      "repair": "Every candidate, league-rate, player-rate, frozen, and market probability is bound to its hard identity, exact T-4 horizon, source identity, and consumed-value SHA-256.",
+      "mutation_proof": "Changing a probability without its bound prediction record fails."
+    },
+    {
+      "id": "SPAA-003",
+      "defect": "The high-probability calibration tail was independently reselected for each comparator, so models could be compared on different players.",
+      "repair": "The candidate top decile is selected once at each line and the identical cohort is used for every comparator.",
+      "mutation_proof": "The report exposes the fixed cohort size and every comparator consumes the same indices."
+    },
+    {
+      "id": "SPAA-004",
+      "defect": "Binary proper-score materiality versus league and time-safe player-rate baselines was not required at every declared market line.",
+      "repair": "Hits, HR, and Total Bases now require paired date-cluster Brier and log-loss materiality at every line against every required comparator.",
+      "mutation_proof": "A candidate that loses to the player/league baselines at HR over 0.5 is ineligible even if another comparison looks favorable."
+    },
+    {
+      "id": "SPAA-005",
+      "defect": "A subset of successful dates could be evaluated without an exact disposition for every date in the locked 56-day population.",
+      "repair": "All 56 calendar dates require explicit immutable dispositions; any failed or incomplete date remains a promotion blocker and cannot be replaced.",
+      "mutation_proof": "A missing date fails validation and a terminal failed date produces an explicit promotion blocker."
+    },
+    {
+      "id": "SPAA-006",
+      "defect": "Outcome parsing and decision-horizon provenance could be invoked without proving the outcome-opening boundary and exact T-4 chronology.",
+      "repair": "The opening gate runs before projection parsing, official dates are restricted to the locked window, horizons must equal official start minus four hours, and post-horizon inputs fail.",
+      "mutation_proof": "Early opening, out-of-window date, non-T-4 horizon, post-horizon prediction, duplicate JSON key, and malformed final-feed mutations all fail."
+    }
+  ],
+  "market_gates": {
+    "hits": "separate full-count and over-0.5/1.5 adjudication required",
+    "home_runs_over_0_5": "separate full-count and over-0.5 adjudication required, including candidate-fixed high tail",
+    "total_bases": "separate full-count and over-0.5 through over-5.5 adjudication required",
+    "cross_market_rescue": false
+  },
+  "verification": {
+    "focused_tests": "37 passed",
+    "full_repository_tests": "211 passed",
+    "diff_check": "passed",
+    "outcomes_opened": false,
+    "may_2026_accessed": false,
+    "spent_2025_hr_reused": false
+  },
+  "remaining_evidence_gaps": [
+    "No new batter-only challenger has earned selection over the empirical-Bayes player-rate control.",
+    "Fresh outcomes remain sealed until the predeclared opening time.",
+    "The shared AWS collector captures the empirical-Bayes control but does not yet capture an exact T-4 frozen-production comparator or verified market-implied comparator for every market.",
+    "No market can be promoted without its own complete comparator, coverage, calibration, discrimination, and uncertainty evidence."
+  ],
+  "decision": {
+    "adjudication_integrity_ready": true,
+    "candidate_ready": false,
+    "promotion_eligible": false,
+    "frozen_baseline_retained": true,
+    "betting_authorized": false
+  },
+  "single_highest_value_next_action": "Create and deploy a separate fail-closed T-4 comparator-capture lane for exact frozen-production probabilities and receipt-verified market probabilities, without changing or restarting either running collector; any missed dates remain permanently missing."
+}

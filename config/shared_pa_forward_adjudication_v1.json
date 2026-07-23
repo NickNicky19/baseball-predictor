@@ -1,0 +1,103 @@
+{
+  "schema_version": "shared-pa-forward-adjudication-contract-v1",
+  "status": "LOCKED_OUTCOME_BLIND_BEFORE_FIRST_ELIGIBLE_DATE",
+  "protocol_locked_at_utc": "2026-07-22T23:50:00Z",
+  "source_release_commit": "55ed4103e64bfefd0457541c5ffa18f1a50068a3",
+  "shared_pa_evidence_contract": {
+    "path": "config/shared_pa_forward_evidence_contract_v1.json",
+    "sha256": "b93827a465e5145d1e725f84cbed53d413f0c2e8601e41021221e3d13d079401"
+  },
+  "prospective_window": {
+    "first_official_date": "2026-07-23",
+    "last_official_date": "2026-09-16",
+    "required_consecutive_calendar_dates": 56,
+    "outcomes_must_not_be_opened_before_utc": "2026-09-17T12:00:00Z",
+    "every_nonempty_pitcher_plan_required": true,
+    "every_planned_game_side_requires_one_terminal_record": true,
+    "incomplete_or_failed_dates_cannot_be_skipped_or_replaced": true,
+    "historical_or_missed_records_cannot_be_backfilled": true,
+    "may_2026_must_not_be_accessed": true
+  },
+  "official_outcome_contract": {
+    "source": "hash-verified normalized projection derived from a retained official MLB final live-feed boxscore",
+    "raw_payload_and_projection_hashes_required": true,
+    "opening_gate_must_run_before_projection_parse": true,
+    "final_status_required": true,
+    "hard_game_team_side_player_identity_required": true,
+    "official_starter_batting_orders": [
+      "100", "200", "300", "400", "500", "600", "700", "800", "900"
+    ],
+    "count_fields": [
+      "plateAppearances", "atBats", "hits", "doubles", "triples", "homeRuns"
+    ],
+    "hits_definition": "official hits",
+    "home_run_over_0_5_definition": "official homeRuns >= 1",
+    "total_bases_definition": "singles + 2*doubles + 3*triples + 4*homeRuns",
+    "dnp_or_nonstarter_disposition": "retained_coverage_failure_not_scored",
+    "support_breach_disposition": "model_invalid_no_clipping_or_probability_floor"
+  },
+  "markets": {
+    "hits": {
+      "binary_lines": [0.5, 1.5],
+      "full_count_distribution_required": true
+    },
+    "home_runs_over_0_5": {
+      "binary_lines": [0.5],
+      "full_count_distribution_required": true,
+      "high_probability_tail": "candidate top decile fixed from candidate probabilities"
+    },
+    "total_bases": {
+      "binary_lines": [0.5, 1.5, 2.5, 3.5, 4.5, 5.5],
+      "full_count_distribution_required": true
+    }
+  },
+  "comparators": {
+    "league_rate_2023_same_pa_volume": "required",
+    "time_safe_player_empirical_bayes": "required_comparator",
+    "frozen_production_simulator": "required_exact_pregame_probability_or_gate_unassessable",
+    "valid_market_implied_probability": "required_where_receipt_verified_available",
+    "historical_price_executability": false
+  },
+  "metrics": {
+    "proper_scores": ["brier", "log_loss"],
+    "calibration": ["absolute_bias", "equal_frequency_decile_ece", "candidate_fixed_top_decile_absolute_bias"],
+    "discrimination": ["auc"],
+    "coverage": ["planned_rows", "gradeable_rows", "explicit_dispositions"],
+    "uncertainty": {
+      "unit": "official_date_cluster",
+      "method": "paired_percentile_bootstrap",
+      "confidence": 0.95,
+      "resamples": 10000,
+      "seed": 20260722
+    }
+  },
+  "promotion_gates": {
+    "proper_score_material_fraction": 0.01,
+    "proper_score_point_and_upper_bound_must_both_clear": true,
+    "minimum_gradeable_fraction": 0.95,
+    "all_56_calendar_date_dispositions_required": true,
+    "all_date_blocks_must_be_complete": true,
+    "binary_proper_score_materiality_required_at_every_declared_line": true,
+    "calibration_must_not_regress_against_every_required_comparator": true,
+    "high_tail_calibration_must_not_regress": true,
+    "auc_must_not_regress": true,
+    "coverage_must_not_regress": true,
+    "all_markets_adjudicated_separately": true,
+    "one_market_cannot_rescue_another": true,
+    "missing_required_comparator_means_no_promotion": true,
+    "post_hoc_threshold_or_policy_changes_forbidden": true,
+    "betting_authorized": false
+  },
+  "protected_boundaries": {
+    "outcomes_opened_while_contract_created": false,
+    "may_2026_opened": false,
+    "spent_2025_hr_reused": false,
+    "pitcher_features_in_candidate": false,
+    "prices_claimed_executable": false,
+    "production_changed": false,
+    "candidate_must_be_locked_before_outcomes_open": true,
+    "outcome_sealed_replay_must_be_labeled_nonprospective": true,
+    "research_only": true,
+    "betting_authorized": false
+  }
+}
