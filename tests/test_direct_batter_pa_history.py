@@ -16,10 +16,10 @@ def rows() -> pd.DataFrame:
         "launch_speed_angle": 6,
     }
     return pd.DataFrame([
-        {**base, "game_date": "2023-04-01", "events": "single"},
-        {**base, "game_date": "2023-04-02", "events": "truncated_pa"},
-        {**base, "game_date": "2023-04-03", "events": "home_run", "game_type": "S"},
-        {**base, "game_date": "2023-04-04", "events": "double"},
+        {**base, "game_date": "2023-04-01", "game_pk": 1, "at_bat_number": 1, "pitch_number": 1, "events": "single"},
+        {**base, "game_date": "2023-04-02", "game_pk": 2, "at_bat_number": 1, "pitch_number": 1, "events": "truncated_pa"},
+        {**base, "game_date": "2023-04-03", "game_pk": 3, "at_bat_number": 1, "pitch_number": 1, "events": "home_run", "game_type": "S"},
+        {**base, "game_date": "2023-04-04", "game_pk": 4, "at_bat_number": 1, "pitch_number": 1, "events": "double"},
     ])
 
 
@@ -56,6 +56,13 @@ def test_identity_and_year_fail_closed() -> None:
         prepare_raw(rows(), player_id=8)
     with pytest.raises(ValueError, match="only 2023 and 2024"):
         history_features(prepare_raw(rows(), player_id=7), player_id=7, target_date="2025-04-04")
+
+
+def test_duplicate_raw_pitch_identity_fails_closed() -> None:
+    frame = rows()
+    frame.loc[1, ["game_pk", "at_bat_number", "pitch_number"]] = [1, 1, 1]
+    with pytest.raises(ValueError, match="duplicate pitch identity"):
+        prepare_raw(frame, player_id=7)
 
 
 def test_batted_ball_composition_is_mutually_exclusive_and_count_bearing() -> None:

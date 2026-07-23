@@ -36,7 +36,7 @@ NON_PA_EVENTS = frozenset({"truncated_pa"})
 SWINGS = frozenset({"swinging_strike", "swinging_strike_blocked", "foul", "foul_tip", "hit_into_play"})
 WHIFFS = frozenset({"swinging_strike", "swinging_strike_blocked"})
 REQUIRED_COLUMNS = frozenset({
-    "game_date", "game_type", "batter", "events", "description", "type", "zone",
+    "game_date", "game_pk", "batter", "at_bat_number", "pitch_number", "game_type", "events", "description", "type", "zone",
     "pitch_type", "release_speed", "pfx_x", "pfx_z", "plate_x", "plate_z",
     "launch_speed", "launch_angle", "launch_speed_angle",
 })
@@ -105,6 +105,14 @@ def prepare_raw(frame: pd.DataFrame, *, player_id: int) -> pd.DataFrame:
     ids = pd.to_numeric(work["batter"], errors="coerce")
     if ids.isna().any() or not ids.astype(int).eq(int(player_id)).all():
         raise ValueError("direct batter source identity mismatch")
+    pitch_identity = ["game_pk", "batter", "at_bat_number", "pitch_number"]
+    numeric_identity = work[pitch_identity].apply(pd.to_numeric, errors="coerce")
+    if numeric_identity.isna().any().any() or (numeric_identity <= 0).any().any():
+        raise ValueError("direct batter source has invalid pitch identity")
+    if not np.equal(numeric_identity.to_numpy(float), np.floor(numeric_identity.to_numpy(float))).all():
+        raise ValueError("direct batter source pitch identity is not integral")
+    if numeric_identity.duplicated().any():
+        raise ValueError("direct batter source has duplicate pitch identity")
     game_type = work["game_type"].astype("string")
     if game_type.isna().any() or game_type.str.len().eq(0).any():
         raise ValueError("direct batter source has missing game_type")
