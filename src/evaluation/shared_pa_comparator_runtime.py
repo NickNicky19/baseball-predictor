@@ -275,6 +275,7 @@ def prepare_prediction_batches(
     current = _utc(now, "tick clock")
     root = Path(evidence_root) / "pregame" / plan.official_game_date / plan.plan_sha256 / "prediction_batches"
     counts = {"prepared": 0, "verified_retry": 0, "future": 0, "missed": 0}
+    generated_this_tick: tuple[PredictionArtifacts, datetime] | None = None
     for horizon_text, targets in targets_by_horizon(plan).items():
         target = targets[0]
         horizon = _utc(horizon_text, "target horizon")
@@ -310,7 +311,9 @@ def prepare_prediction_batches(
             publish_once(missed_path, canonical_bytes(terminal))
             counts["missed"] += 1
             continue
-        artifacts, completed = generate(plan.official_game_date)
+        if generated_this_tick is None:
+            generated_this_tick = generate(plan.official_game_date)
+        artifacts, completed = generated_this_tick
         manifest = _prediction_manifest(
             plan=plan, target=target, artifacts=artifacts,
             completed_at=completed, runtime_sha256=runtime_sha256,

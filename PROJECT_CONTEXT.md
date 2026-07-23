@@ -22,7 +22,7 @@ free health reports expose missing credentials and overdue terminal coverage.
   readiness report:
     reports/shared_pa_comparator_aws_automation_readiness_v1.json
   report sha256:
-    f0f0b39181120b14c889f517348b03ba0e0a794c720f90489029e78e1d725bec
+    a6e3a6a5daf00fee26b289a6c63d169fbfee7eea967b888f1cfd4de8be1fc03a
   release manifest:
     config/shared_pa_comparator_release_manifest_v1.json
   runtime sha256:
@@ -31,14 +31,16 @@ free health reports expose missing credentials and overdue terminal coverage.
     4de9e599070a7cfb96eaa9e742d7fe577d7ae011113a664a747361b0bb543e20
 
 Each market line has its own terminal state, so a missing 1.5 line cannot
-erase a valid 0.5 line or be rescued by it. Verification is 44/44 focused and
-260/260 full repository tests, plus the
+erase a valid 0.5 line or be rescued by it. Simultaneously open horizons reuse
+one full-slate generation rather than risking deadline loss through duplicate
+model work. Verification is 45/45 focused and 261/261 full repository tests, plus the
 offline release and 32-file hash-manifest gates. No real provider request,
 outcome read, May access, backfill, model fit, coefficient change, promotion,
 or betting authorization occurred. Proven probability improvement remains 0%.
-The code is not yet committed, reviewed, landed, or deployed; AWS provider-key
-presence is also unverified. The next action is the exact commit and reviewed
-PR, then exact-commit installation and a future-only non-economic smoke.
+The code is committed and pushed in draft PR #14, but is not yet reviewed,
+landed, or deployed; AWS provider-key presence is also unverified. The next
+action is prerequisite PR #13 landing, then PR #14 review and exact-commit
+installation followed by a future-only non-economic smoke.
 
 ===============================================================================
 SHARED PA COMPARATOR CAPTURE READINESS (2026-07-22) — NOT DEPLOYED

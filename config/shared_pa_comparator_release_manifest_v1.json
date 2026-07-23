@@ -10,8 +10,8 @@
   "existing_collectors_modified": false,
   "betting_authorized": false,
   "verification": {
-    "focused_tests_passed": 44,
-    "full_repository_tests_passed": 260,
+    "focused_tests_passed": 45,
+    "full_repository_tests_passed": 261,
     "offline_release_gate_passed": true
   },
   "files_sha256": {
@@ -26,7 +26,7 @@
     "scripts/check_aws_shared_pa_comparator_offline.py": "054bbb602627c53a9e625d80343cc2f5e4610e253d603fc7d74e1e79d4c12644",
     "scripts/check_shared_pa_comparator_release_manifest.py": "9c7d0169a79b85e35e4e2e2fe9e9afcc170ab931db9c3b7e1f1433b0ef34a152",
     "src/evaluation/shared_pa_comparator_capture.py": "80b35587b91b922335cdba011d729015e2b32190f66d8d081efd58d2657d5c7f",
-    "src/evaluation/shared_pa_comparator_runtime.py": "a7110514f343aed100249846d44def278f1b78e7e2ad9cb3630681cce4307a17",
+    "src/evaluation/shared_pa_comparator_runtime.py": "a66e64b78d94796fa9881e37cefa3af18e1c8416a544bb80b016d4963bdd6043",
     "src/evaluation/shadow_live_provider.py": "040b12553fc95be02b1a0bc2ce0946e9021a65ca4732d3adb31407dae6ea093b",
     "src/models/dataclasses.py": "1ad8cb045a5e3a38b81e24ca9f9d3feb48ffaee25625d6411eb60f8f4ce606ab",
     "src/models/total_bases_contract.py": "345a5c5dfc719245532e67362e0b708500521c88390222b6b00be0ace03bd009",
@@ -41,7 +41,7 @@
     "deploy/shared_pa_comparators/baseball-shared-pa-comparator-health.service": "7a972d01680f28d1ae575958d5ff5fbdfc34da1717d69d3f6e18f617c67d429f",
     "deploy/shared_pa_comparators/baseball-shared-pa-comparator-health.timer": "192a44767cf261c8433be6ec6ef111c84f1b2f687c92daeb95fbd539cd22e6da",
     "tests/test_shared_pa_comparator_capture.py": "2521995e89667abd3a5274f79566e5169c9138b0fd9fa385bfb2d07755669398",
-    "tests/test_shared_pa_comparator_runtime.py": "ab5f78c0c2f9dd2fd37cdd0ff21ae3b64e6895b917d28faf004018e645b06171",
+    "tests/test_shared_pa_comparator_runtime.py": "8c4190adfe546bad769b9d58f6aed79afe3e02214a68a8d41bc0a419e7161ec0",
     "tests/test_run_shared_pa_frozen.py": "a735be00a03d4aec6faf745aee80fcab996b97b25699074950935da3fa6665cc",
     "tests/test_run_aws_shared_pa_comparator_tick.py": "3cbbae5c87958154920eeba9f83120893b1881bb3a1bf99957172844b6bb2da6",
     "tests/test_aws_shared_pa_comparator_health.py": "d9b92b352f1482a75a7b3728b0046a3404ce4bbfcee376d37fde6fcb0a731577",

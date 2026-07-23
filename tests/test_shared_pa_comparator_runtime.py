@@ -84,6 +84,38 @@ def test_prediction_batch_is_immutable_and_exact_retry_does_not_regenerate(tmp_p
     assert (root / "manifest.json").is_file()
 
 
+def test_one_full_slate_generation_supplies_all_horizons_open_in_same_tick(tmp_path: Path) -> None:
+    second_start = START + timedelta(minutes=1)
+    plan = plan_from_schedule(
+        official_game_date="2026-07-30", entry_hours=4, policy_sha256=H,
+        schedule_snapshot=[
+            {
+                "gamePk": 901, "officialDate": "2026-07-30",
+                "gameDate": START.isoformat(),
+                "teams": {"home": {"team": {"name": "Home A"}}, "away": {"team": {"name": "Away A"}}},
+            },
+            {
+                "gamePk": 902, "officialDate": "2026-07-30",
+                "gameDate": second_start.isoformat(),
+                "teams": {"home": {"team": {"name": "Home B"}}, "away": {"team": {"name": "Away B"}}},
+            },
+        ],
+    )
+    calls = 0
+
+    def generate(_):
+        nonlocal calls
+        calls += 1
+        return _archives(), HORIZON - timedelta(minutes=19)
+
+    result = prepare_prediction_batches(
+        plan=plan, evidence_root=tmp_path, scheduler=_scheduler(), runtime_sha256=H,
+        now=HORIZON - timedelta(minutes=20), generate=generate,
+    )
+    assert result["prepared"] == 2
+    assert calls == 1
+
+
 def test_missed_prediction_window_is_terminal_and_never_backfilled(tmp_path: Path) -> None:
     called = False
 
