@@ -1,6 +1,46 @@
 PROJECT_CONTEXT.md — v17 (master roadmap) — paste into any new chat
 
 ===============================================================================
+SHARED PA AWS COMPARATOR AUTOMATION (2026-07-22) — CODE READY, NOT DEPLOYED
+
+The separate T-4 comparator layer now has isolated AWS preparation, market,
+finalization, and health services. It reads the existing pitcher-receipt and
+shared-PA ledgers only; neither collector nor protected local process 20872 was
+restarted, altered, or retimed. Prediction generation is allowed only from
+T-45m through T-5m, the single three-market provider response only from T-3m
+through T-4, and finalization only after a five-minute receipt grace. A missed
+window becomes an immutable terminal record and can never trigger a backfill.
+
+Frozen Hits/HR and separate structural Total Bases archives are published as
+atomic immutable trees. Provider events, exact game identity, and all three
+market keys are also one atomic tree. Final records require receipt-proven
+pitcher identity and bind the exact automation manifest and a fully hash-locked
+Python dependency environment. Missing provider evidence remains an explicit
+non-probability record and cannot erase valid frozen model evidence. Outcome-
+free health reports expose missing credentials and overdue terminal coverage.
+
+  readiness report:
+    reports/shared_pa_comparator_aws_automation_readiness_v1.json
+  report sha256:
+    f0f0b39181120b14c889f517348b03ba0e0a794c720f90489029e78e1d725bec
+  release manifest:
+    config/shared_pa_comparator_release_manifest_v1.json
+  runtime sha256:
+    4e48f563f0817bcbd5a81510cd399a7d264b46fd4556e31cf79adb19258ffde9
+  dependency lock sha256:
+    4de9e599070a7cfb96eaa9e742d7fe577d7ae011113a664a747361b0bb543e20
+
+Each market line has its own terminal state, so a missing 1.5 line cannot
+erase a valid 0.5 line or be rescued by it. Verification is 44/44 focused and
+260/260 full repository tests, plus the
+offline release and 32-file hash-manifest gates. No real provider request,
+outcome read, May access, backfill, model fit, coefficient change, promotion,
+or betting authorization occurred. Proven probability improvement remains 0%.
+The code is not yet committed, reviewed, landed, or deployed; AWS provider-key
+presence is also unverified. The next action is the exact commit and reviewed
+PR, then exact-commit installation and a future-only non-economic smoke.
+
+===============================================================================
 SHARED PA COMPARATOR CAPTURE READINESS (2026-07-22) — NOT DEPLOYED
 
 The separate shared-PA comparator layer now has a locked, fail-closed T-4

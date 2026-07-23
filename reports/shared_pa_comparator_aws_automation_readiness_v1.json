@@ -1,0 +1,67 @@
+{
+  "schema_version": "shared-pa-comparator-aws-automation-readiness-v1",
+  "assessed_date": "2026-07-22",
+  "status": "HASH_BOUND_CODE_READY_NOT_COMMITTED_NOT_DEPLOYED",
+  "classification": "integrity repair and prospective evidence automation; not a model promotion",
+  "base_commit": "3555a595a42769687d1344530fdaefdd13b76ab3",
+  "scope": {
+    "markets": ["hits", "home_runs_over_0_5", "total_bases"],
+    "decision_horizon": "T-4h",
+    "aws_primary": true,
+    "existing_pitcher_collector_modified": false,
+    "existing_shared_pa_collector_modified": false,
+    "local_process_20872_restarted_or_altered": false
+  },
+  "source_truth_repairs": [
+    "frozen projections carry and consume exact opposing pitcher MLB identity",
+    "receipt-proven probable starter mismatch is an explicit non-probability disposition",
+    "Hits, HR, and Total Bases provider keys are captured in one retained response",
+    "only a unique same-book same-event same-player same-line two-sided quote is de-vigged",
+    "each market line receives its own terminal state so a missing line cannot erase or rescue another line",
+    "prediction and provider windows become permanent terminal misses after their deadline",
+    "multi-file prediction and market artifact trees publish atomically and immutably",
+    "final probability records bind exact automation-runtime and dependency-lock hashes",
+    "daily health reports expose missing credentials and overdue terminal coverage"
+  ],
+  "automation": {
+    "prediction_window": "T-45m through T-5m",
+    "market_window": "T-3m through T-4 horizon",
+    "finalization_grace_seconds": 300,
+    "prediction_timer_seconds": 120,
+    "market_timer_seconds": 15,
+    "finalize_timer_seconds": 30,
+    "health_timer_seconds": 600,
+    "late_backfill_allowed": false,
+    "provider_credential_on_aws_verified": false,
+    "first_real_run_classification": "non-economic operational smoke"
+  },
+  "hashes": {
+    "capture_contract_sha256": "0db198cc31b127b80d6ac84f2a944722cb649b068552bb6c069cada635fe37f0",
+    "runtime_manifest_sha256": "4e48f563f0817bcbd5a81510cd399a7d264b46fd4556e31cf79adb19258ffde9",
+    "dependency_lock_sha256": "4de9e599070a7cfb96eaa9e742d7fe577d7ae011113a664a747361b0bb543e20",
+    "release_manifest_sha256": "89350fcc81e9053a24398381ce251ba304b2d8771d70b810636a9b19bc3b2e0d"
+  },
+  "verification": {
+    "focused_tests_passed": 44,
+    "full_repository_tests_passed": 260,
+    "release_manifest_files_verified": 32,
+    "offline_release_gate_passed": true,
+    "git_diff_check_passed": true,
+    "protected_local_process_20872_responding": true
+  },
+  "research_result": {
+    "model_probability_improvement_proven_percent": 0,
+    "fresh_outcomes_inspected": false,
+    "may_2026_accessed": false,
+    "historical_or_missed_t4_backfilled": false,
+    "candidate_promoted": false,
+    "production_baseline_retained": true,
+    "betting_authorized": false
+  },
+  "rejection_reasons": [
+    "no fresh prospective settled comparator population exists yet",
+    "AWS provider credential presence has not yet been verified",
+    "the hash-bound release has not yet been committed, reviewed, landed, or deployed"
+  ],
+  "single_highest_value_next_action": "Commit this exact hash-bound candidate, restore GitHub authentication, publish a reviewed PR without changing the earlier PR #13 head, then deploy the exact landed commit to the separate AWS comparator root and verify its first future-only non-economic smoke cycle."
+}

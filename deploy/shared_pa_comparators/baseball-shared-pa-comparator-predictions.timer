@@ -1,0 +1,12 @@
+[Unit]
+Description=Check shared-PA prediction preparation windows every two minutes
+
+[Timer]
+OnBootSec=30s
+OnUnitActiveSec=120s
+AccuracySec=1s
+Persistent=false
+Unit=baseball-shared-pa-comparator-predictions.service
+
+[Install]
+WantedBy=timers.target

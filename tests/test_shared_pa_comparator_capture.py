@@ -22,6 +22,7 @@ from src.evaluation.shared_pa_forward_collector import (
     build_projected_player_snapshot,
 )
 from src.evaluation.shared_pa_forward_evidence import load_forward_contract
+from src.evaluation.shared_pa_comparator_runtime import finalize_target
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -373,7 +374,7 @@ def test_archive_without_projected_lineup_permission_is_not_the_locked_t4_run() 
 
 def test_valid_market_devigs_only_same_book_same_line_two_sided_quotes() -> None:
     records = _markets()
-    assert len(records) == 3
+    assert len(records) == 9
     assert {row["terminal_state"] for row in records} == {"resolved"}
     hr = next(row for row in records if row["market"] == "home_runs_over_0_5")
     over_raw = 100 / 220
@@ -471,6 +472,20 @@ def test_missing_market_is_explicit_for_every_player_market() -> None:
     }
 
 
+def test_missing_one_line_cannot_erase_another_valid_line_in_same_market() -> None:
+    provider = json.loads(_provider())
+    hits = provider["bookmakers"][0]["markets"][0]
+    hits["outcomes"] = [row for row in hits["outcomes"] if row["point"] == 0.5]
+    records = _markets(provider_bytes=json.dumps(provider).encode())
+    hit_rows = {
+        row["line"]: row for row in records if row["market"] == "hits"
+    }
+    assert hit_rows[0.5]["terminal_state"] == "resolved"
+    assert set(hit_rows[0.5]["binary_probabilities"]) == {"over_0.5"}
+    assert hit_rows[1.5]["terminal_state"] == "missing_line"
+    assert hit_rows[1.5]["binary_probabilities"] == {}
+
+
 def test_unmatched_provider_player_is_retained_in_the_candidate_funnel() -> None:
     provider = json.loads(_provider())
     provider["bookmakers"][0]["markets"][1]["outcomes"].extend([
@@ -518,6 +533,44 @@ def test_publication_rejects_nonresearch_or_may_record_before_write(tmp_path: Pa
             record_type="frozen_bundle", record=record, path=tmp_path / "unsafe.json"
         )
     assert not (tmp_path / "unsafe.json").exists()
+
+
+def test_target_terminal_can_record_missing_prerequisite_without_probability(tmp_path: Path) -> None:
+    record = {
+        "official_game_date": "2026-07-30",
+        "target_id": _plan().targets[0].target_id,
+        "terminal_state": "source_or_integrity_failure",
+        "detail": "shared PA side receipt unavailable after finalization grace",
+        "probability_consumed": False,
+        "research_only": True,
+        "betting_authorized": False,
+    }
+    assert publish_comparator_record(
+        record_type="target_terminal", record=record, path=tmp_path / "terminal.json"
+    ) is True
+
+
+def test_finalizer_keeps_frozen_model_evidence_when_timely_market_is_missing(tmp_path: Path) -> None:
+    result = finalize_target(
+        target=_plan().targets[0],
+        player_snapshots=[_player_snapshot()],
+        pitcher_context_record=_pitcher_context(),
+        frozen_archive=_archive(),
+        total_bases_archive=_tb_archive(),
+        loaded_contract=_loaded_contract(),
+        output_root=tmp_path,
+        finalized_at=HORIZON + timedelta(minutes=5),
+        automation_runtime_sha256="a" * 64,
+        dependency_lock_sha256="b" * 64,
+    )
+    assert result == {"frozen_records": 1, "market_records": 9, "published": 11}
+    market_files = list((tmp_path / "2026-07-30" / _plan().targets[0].target_id / "markets").rglob("*.json"))
+    assert len(market_files) == 9
+    assert all(
+        json.loads(path.read_text())["record"]["terminal_state"]
+        == "source_or_integrity_failure"
+        for path in market_files
+    )
 
 
 def test_may_target_is_rejected_before_any_artifact_parse() -> None:

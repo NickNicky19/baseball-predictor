@@ -600,75 +600,76 @@ def build_market_comparators(
     records: list[dict[str, Any]] = []
     for normalized_name, frozen in sorted(name_index.items()):
         for market, (provider_key, _, lines) in MARKET_SPEC.items():
-            hard_key = (
-                f"{target.mlb_game_pk}:{frozen['side']}:{frozen['team_id']}:"
-                f"{frozen['player_id']}:{market}"
-            )
-            probabilities: dict[str, float] = {}
-            disposition = "resolved"
-            selection_evidence: dict[str, Any] = {}
             market_seen = any(key[0] == provider_key for key in groups)
             for line in lines:
+                line_key = _line_key(line)
+                hard_key = (
+                    f"{target.mlb_game_pk}:{frozen['side']}:{frozen['team_id']}:"
+                    f"{frozen['player_id']}:{market}:{line_key}"
+                )
+                probabilities: dict[str, float] = {}
+                disposition = "resolved"
+                selection_evidence: dict[str, Any] = {}
                 rows = groups.get((provider_key, normalized_name, line), [])
                 if not rows:
                     disposition = "missing_line" if market_seen else "missing_market"
-                    break
-                over = [row for row in rows if row.get("name") == "Over"]
-                under = [row for row in rows if row.get("name") == "Under"]
-                if len(over) != 1 or len(under) != 1:
-                    disposition = "one_sided" if len(over) + len(under) == 1 else "ambiguous_group"
-                    break
-                sids = [str(over[0].get("sid", "")).strip(), str(under[0].get("sid", "")).strip()]
-                if any(not sid for sid in sids) or len(set(sids)) != 2:
-                    disposition = "invalid_selection"
-                    break
-                timestamps = {
-                    str(over[0].get("_market_last_update_utc", "")),
-                    str(under[0].get("_market_last_update_utc", "")),
-                }
-                if len(timestamps) != 1 or "" in timestamps:
-                    disposition = "ambiguous_group"
-                    break
-                over_odds = _american(over[0].get("price"), "over price")
-                under_odds = _american(under[0].get("price"), "under price")
-                over_raw = _raw_implied(over_odds)
-                under_raw = _raw_implied(under_odds)
-                probabilities[_line_key(line)] = over_raw / (over_raw + under_raw)
-                selection_evidence[_line_key(line)] = {
-                    "over_sid": sids[0], "under_sid": sids[1],
-                    "over_odds_american": over_odds, "under_odds_american": under_odds,
-                    "market_last_update_utc": timestamps.pop(),
-                }
-            record: dict[str, Any] = {
-                "terminal_state": disposition, "market": market,
-                "mlb_game_pk": target.mlb_game_pk, "side": frozen["side"],
-                "team_id": frozen["team_id"], "player_id": frozen["player_id"],
-                "target_id": target.target_id,
-                "official_game_date": target.official_game_date,
-                "official_start_utc": target.official_start_time_utc,
-                "target_horizon_utc": target.entry_target_at_utc,
-                "provider_event_id": provider_event_id, "provider_artifact_sha256": artifact_sha,
-                "game_identity_artifact_sha256": identity_sha,
-                "received_at_utc": _stamp(received), "selection_evidence": selection_evidence,
-                "binary_probabilities": probabilities if disposition == "resolved" else {},
-                "research_only": True, "executable_price_claimed": False,
-                "betting_authorized": False,
-            }
-            if disposition == "resolved":
-                record["prediction_provenance"] = {
-                    "source_id": "market_implied", "evidence_mode": "prospective_pre_horizon",
-                    "input_observed_at_utc": _stamp(received),
-                    "prediction_generated_at_utc": _stamp(received),
-                    "model_or_contract_locked_at_utc": contract["contract_locked_at_utc"],
-                    "artifact_sha256": artifact_sha,
-                    "model_or_contract_sha256": contract_sha,
-                    "prediction_hard_key": hard_key,
+                else:
+                    over = [row for row in rows if row.get("name") == "Over"]
+                    under = [row for row in rows if row.get("name") == "Under"]
+                    if len(over) != 1 or len(under) != 1:
+                        disposition = "one_sided" if len(over) + len(under) == 1 else "ambiguous_group"
+                    else:
+                        sids = [str(over[0].get("sid", "")).strip(), str(under[0].get("sid", "")).strip()]
+                        if any(not sid for sid in sids) or len(set(sids)) != 2:
+                            disposition = "invalid_selection"
+                        else:
+                            timestamps = {
+                                str(over[0].get("_market_last_update_utc", "")),
+                                str(under[0].get("_market_last_update_utc", "")),
+                            }
+                            if len(timestamps) != 1 or "" in timestamps:
+                                disposition = "ambiguous_group"
+                            else:
+                                over_odds = _american(over[0].get("price"), "over price")
+                                under_odds = _american(under[0].get("price"), "under price")
+                                over_raw = _raw_implied(over_odds)
+                                under_raw = _raw_implied(under_odds)
+                                probabilities[line_key] = over_raw / (over_raw + under_raw)
+                                selection_evidence[line_key] = {
+                                    "over_sid": sids[0], "under_sid": sids[1],
+                                    "over_odds_american": over_odds, "under_odds_american": under_odds,
+                                    "market_last_update_utc": timestamps.pop(),
+                                }
+                record: dict[str, Any] = {
+                    "terminal_state": disposition, "market": market, "line": line,
+                    "mlb_game_pk": target.mlb_game_pk, "side": frozen["side"],
+                    "team_id": frozen["team_id"], "player_id": frozen["player_id"],
+                    "target_id": target.target_id,
+                    "official_game_date": target.official_game_date,
+                    "official_start_utc": target.official_start_time_utc,
                     "target_horizon_utc": target.entry_target_at_utc,
-                    "consumed_probability_sha256": _consumed_sha(
-                        "market_implied", hard_key, target.entry_target_at_utc, probabilities
-                    ),
+                    "provider_event_id": provider_event_id, "provider_artifact_sha256": artifact_sha,
+                    "game_identity_artifact_sha256": identity_sha,
+                    "received_at_utc": _stamp(received), "selection_evidence": selection_evidence,
+                    "binary_probabilities": probabilities if disposition == "resolved" else {},
+                    "research_only": True, "executable_price_claimed": False,
+                    "betting_authorized": False,
                 }
-            records.append(record)
+                if disposition == "resolved":
+                    record["prediction_provenance"] = {
+                        "source_id": "market_implied", "evidence_mode": "prospective_pre_horizon",
+                        "input_observed_at_utc": _stamp(received),
+                        "prediction_generated_at_utc": _stamp(received),
+                        "model_or_contract_locked_at_utc": contract["contract_locked_at_utc"],
+                        "artifact_sha256": artifact_sha,
+                        "model_or_contract_sha256": contract_sha,
+                        "prediction_hard_key": hard_key,
+                        "target_horizon_utc": target.entry_target_at_utc,
+                        "consumed_probability_sha256": _consumed_sha(
+                            "market_implied", hard_key, target.entry_target_at_utc, probabilities
+                        ),
+                    }
+                records.append(record)
     provider_to_market = {
         provider_key: market for market, (provider_key, _, _) in MARKET_SPEC.items()
     }
@@ -708,7 +709,7 @@ def publish_comparator_record(
     *, record_type: str, record: Mapping[str, Any], path: str | Path,
 ) -> bool:
     """Publish one canonical immutable record; exact retry verifies only."""
-    if record_type not in {"frozen_bundle", "market_record"}:
+    if record_type not in {"frozen_bundle", "market_record", "target_terminal"}:
         raise SharedPAComparatorCaptureError("comparator record type is invalid")
     if not isinstance(record, Mapping):
         raise SharedPAComparatorCaptureError("comparator record must be an object")

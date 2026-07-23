@@ -1,0 +1,12 @@
+[Unit]
+Description=Publish comparator automation health every ten minutes
+
+[Timer]
+OnBootSec=90s
+OnUnitActiveSec=600s
+AccuracySec=5s
+Persistent=false
+Unit=baseball-shared-pa-comparator-health.service
+
+[Install]
+WantedBy=timers.target
