@@ -1099,3 +1099,19 @@ DRAFTKINGS HR-OVER-0.5 RESEARCH CONTRACT (2026-07-15; MAY REMAINS SEALED)
   built for HR instead. May's economic/performance holdout remains UNSPENT, but
   the stronger literal statement "no May artifact has ever been opened" is no
   longer accurate and must not be repeated.
+2026-07-22 HANDOFF ADDENDUM — STATCAST FULL-PITCH DENOMINATOR REPAIR (AUTHORITATIVE)
+
+SI-023 is repaired on isolated branch `codex/statcast-source-loss-fail-closed-v1`.
+The generic pitch-level Savant path previously discarded every non-terminal
+pitch before computing swing/contact/whiff/chase/zone rates and could copy an
+uncertified Statcast `player_name` into a batter profile. Qualification and
+`sample_pa` now use terminal events, pitch-rate construction retains all source
+pitches, `source_row_count` records all consumed pitches, and numeric batter ID
+remains authoritative until slate identity resolution. Regression and mutation
+proof passes; the full suite is 189 passed and 1 skipped. Exact evidence is in
+`docs/research/STATCAST_PITCH_DENOMINATOR_REPAIR_V1_REPORT.json`. This is an
+integrity repair, not a measured probability improvement. The certified direct
+batter 2023/2024 panel already used a separate truthful all-pitch history path,
+so it is not rebuilt or rescored as new evidence; its rejected result remains
+binding. May 2026, spent 2025 HR confirmation, frozen production, archived
+predictions, AWS runtime, and the protected local collector were untouched.

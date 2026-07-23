@@ -139,23 +139,33 @@ class SavantClient:
             )
 
         df = statcast_df.copy()
-        df = df[df["events"].notna()]
-        if df.empty or not df["batter"].notna().any():
+        terminal = df.loc[df["events"].notna() & df["batter"].notna()].copy()
+        if terminal.empty:
             raise StatcastSourceSchemaError(
                 "pitch-level Statcast payload contains no terminal batter events"
             )
 
-        pa_counts = df.groupby("batter").size()
+        # A Statcast payload is pitch-level.  ``events`` is populated only on
+        # the terminal pitch of a PA, so qualification and sample_pa use those
+        # rows while pitch-denominator features must retain the full sequence.
+        pa_counts = terminal.groupby("batter").size()
         qualified = pa_counts[pa_counts >= self.min_pa].index
-        df = df[df["batter"].isin(qualified)]
+        df = df.loc[df["batter"].notna() & df["batter"].isin(qualified)].copy()
         if df.empty:
             return {}
 
         profiles: dict[int, StatcastProfile] = {}
         for batter_id, group in df.groupby("batter"):
             player_id = int(batter_id)
-            name = str(group["player_name"].iloc[0]) if "player_name" in group.columns else ""
-            profile = self._aggregate_hitter_group(group, player_id, name)
+            # Statcast ``player_name`` is the pitcher on pitch-level rows.  A
+            # batter name is resolved later from the independently keyed slate.
+            profile = self._aggregate_hitter_group(group, player_id, "")
+            expected_pa = int(pa_counts.loc[batter_id])
+            if profile.sample_pa != expected_pa:
+                raise StatcastSourceSchemaError(
+                    f"batter {player_id} PA count changed between qualification "
+                    f"and aggregation: {expected_pa} != {profile.sample_pa}"
+                )
             profiles[player_id] = self.apply_league_fallback(profile)
         return profiles
 
@@ -289,7 +299,15 @@ class SavantClient:
     def _aggregate_hitter_group(
         self, group: pd.DataFrame, player_id: int, player_name: str
     ) -> StatcastProfile:
-        pa = len(group)
+        if "events" not in group.columns:
+            raise StatcastSourceSchemaError(
+                f"batter {player_id} group lacks terminal-event evidence"
+            )
+        pa = int(group["events"].notna().sum())
+        if pa <= 0:
+            raise StatcastSourceSchemaError(
+                f"batter {player_id} group contains no terminal PA"
+            )
 
         def _mean(col: str) -> Optional[float]:
             if col not in group.columns:

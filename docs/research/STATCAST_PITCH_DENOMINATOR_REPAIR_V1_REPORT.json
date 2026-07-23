@@ -1,0 +1,86 @@
+{
+  "schema_version": "statcast-pitch-denominator-repair-report-v1",
+  "repair_id": "statcast-full-pitch-denominators-v1-97aabc4da175",
+  "status": "INTEGRITY_REPAIR_PASSED_PERFORMANCE_PROMOTION_NOT_TESTABLE_AS_INDEPENDENT_EVIDENCE",
+  "root_cause": {
+    "code_path": "src/data/savant.py:SavantClient.build_hitter_profiles_from_statcast",
+    "defect": "The pitch-level payload was reduced to rows with terminal events before pitch-denominator features were calculated. Swing, contact, whiff, chase, and zone rates therefore saw only the final pitch of each PA.",
+    "identity_defect": "The same generic pitch-level path copied Statcast player_name into a batter profile even though that field is not a certified batter identity in the all-pitch feed."
+  },
+  "affected_scope": {
+    "markets": ["Hits", "HR over 0.5", "Total Bases"],
+    "probability_path": "StatcastFeatureEngine -> FeatureFactory/RichFeatureEnricher -> HybridPASimulator",
+    "frozen_baseline_changed": false,
+    "production_changed": false,
+    "archived_predictions_rewritten": false
+  },
+  "repair": {
+    "pa_denominator": "terminal events only",
+    "pitch_rate_denominator": "all source pitches for qualified numeric batter IDs",
+    "source_row_count": "all consumed pitch rows",
+    "batter_identity": "numeric batter ID only until separately keyed slate identity resolution",
+    "fail_closed_boundaries": [
+      "missing terminal-event schema",
+      "no terminal PA for a grouped batter",
+      "qualification/aggregation PA-count mismatch"
+    ],
+    "clipping_used": false,
+    "silent_league_substitution_added": false,
+    "players_deleted": false,
+    "coefficients_changed": false
+  },
+  "proof": {
+    "old_failure_fixture": "One three-pitch PA previously reduced to its in-play terminal pitch, implying contact=1, whiff=0, swing=1 and zone=1 instead of the all-pitch values.",
+    "repaired_fixture": {
+      "sample_pa": 1,
+      "source_row_count": 3,
+      "contact_rate": 0.5,
+      "whiff_rate": 0.5,
+      "swing_rate": 0.6666666666666666,
+      "chase_rate": 1.0,
+      "zone_rate": 0.6666666666666666,
+      "batter_name_from_pitch_feed": ""
+    },
+    "mutation": "Adding a non-terminal called strike changes the swing denominator and source row count while sample_pa remains exactly one.",
+    "targeted_tests": "32 passed",
+    "full_tests": "189 passed, 1 skipped"
+  },
+  "artifact_reconstruction": {
+    "required_now": false,
+    "reason": "The certified 2023/2024 direct batter PA panel was built by a separate strict-prior all-pitch history path and already contains all-pitch swing/whiff/chase/zone features. It did not consume the defective SavantClient aggregation. Historical live archives remain preserved as evidence and are not overwritten. New source-bound artifacts must use the repaired version.",
+    "may_2026_touched": false,
+    "prospective_receipts_backfilled": false
+  },
+  "chronological_adjudication": {
+    "fit_2023": "No new coefficients were fitted by this integrity repair.",
+    "selection_2024": "The certified direct-batter 2024 selection already evaluated the truthful all-pitch features and rejected the candidate family for lack of material improvement.",
+    "hits": "No new independent performance claim; prior truthful all-pitch candidate remained below materiality gates.",
+    "hr_over_0_5": "No new independent performance claim; game-market probability remains blocked on a locked PA-volume layer and fresh evidence.",
+    "total_bases": "No new independent performance claim; game-market probability remains blocked on a locked PA-volume layer and fresh evidence.",
+    "spent_2025_hr_reused": false,
+    "promotion": false
+  },
+  "identity_hashes": {
+    "code": {
+      "src/data/savant.py": "97aabc4da1751d411756931f2ed413f3bb3e7be5965efe14ab2a5bff67bd4349"
+    },
+    "configuration": {
+      "config/config.json": "77c029297b514e3df652bb447d90e58906e954c64dcd039d78537b9e59870436"
+    },
+    "data": {
+      "certified_direct_batter_panel_2023_2024": "1638ee336833ae6cb3ba580eafe2800a8f4a6c609719fe88df7481c71e0f2fb1"
+    },
+    "features": {
+      "certified_direct_batter_panel_manifest": "673ece8b9a26733ad4c8bf0b95fb15f6b32849e7a37c9b2fcb7f0734dcb4030f"
+    },
+    "tests": {
+      "tests/test_statcast_source_loss_boundary.py": "8346eac560ee1843b43300b7c42dac64dfa41f18f51e0d04446b1b54ef8c7aec"
+    },
+    "predeclaration": {
+      "docs/research/STATCAST_PITCH_DENOMINATOR_REPAIR_V1.md": "c7f02ff3b13a99dbd70561d6f51f5eaa55d912fd3f6439ac2a06424005544850"
+    }
+  },
+  "classification": "integrity repair; not an earned model promotion",
+  "betting_authorized": false,
+  "highest_value_next_action": "Allow the already enabled AWS plan timer to create the first future-only receipt plan at its next 00:15 America/New_York boundary, independently verify the immutable plan/receipt tree, and use only those fresh receipts to open the locked prospective batter-only versus receipt-proven-pitcher adjudication."
+}

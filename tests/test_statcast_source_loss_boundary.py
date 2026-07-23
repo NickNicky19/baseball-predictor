@@ -53,6 +53,27 @@ def _pitch_rows() -> pd.DataFrame:
     )
 
 
+def _multi_pitch_pa() -> pd.DataFrame:
+    return pd.DataFrame(
+        {
+            "batter": [7, 7, 7],
+            # On Statcast pitch rows this is the pitcher, not the batter.
+            "player_name": ["Opposing Pitcher"] * 3,
+            "events": [pd.NA, pd.NA, "single"],
+            "game_date": ["2026-04-29"] * 3,
+            "type": ["S", "S", "X"],
+            "launch_speed": [pd.NA, pd.NA, 98.0],
+            "launch_angle": [pd.NA, pd.NA, 18.0],
+            "launch_speed_angle": [pd.NA, pd.NA, 6],
+            "estimated_woba_using_speedangle": [pd.NA, pd.NA, 0.5],
+            "estimated_ba_using_speedangle": [pd.NA, pd.NA, 0.4],
+            "estimated_slg_using_speedangle": [pd.NA, pd.NA, 0.8],
+            "description": ["called_strike", "swinging_strike", "hit_into_play"],
+            "zone": [5, 11, 6],
+        }
+    )
+
+
 def _bundle(profile: StatcastProfile) -> PlayerFeatureBundle:
     game = GameContext(
         game_pk=99,
@@ -113,6 +134,43 @@ def test_nonempty_pitch_payload_with_no_terminal_events_fails() -> None:
     mutated["events"] = pd.NA
     with pytest.raises(StatcastSourceSchemaError, match="no terminal batter events"):
         SavantClient(min_pa=1).build_hitter_profiles_from_statcast(mutated)
+
+
+def test_pitch_rates_use_all_pitches_while_sample_pa_uses_terminal_events() -> None:
+    profile = SavantClient(min_pa=1).build_hitter_profiles_from_statcast(
+        _multi_pitch_pa()
+    )[7]
+
+    assert profile.sample_pa == 1
+    assert profile.source_row_count == 3
+    assert profile.contact_rate == pytest.approx(0.5)
+    assert profile.whiff_rate == pytest.approx(0.5)
+    assert profile.swing_rate == pytest.approx(2 / 3)
+    assert profile.chase_rate == pytest.approx(1.0)
+    assert profile.zone_rate == pytest.approx(2 / 3)
+
+
+def test_mutation_nonterminal_pitch_changes_pitch_rates_not_pa_count() -> None:
+    source = _multi_pitch_pa()
+    original = SavantClient(min_pa=1).build_hitter_profiles_from_statcast(source)[7]
+    extra = source.iloc[[0]].copy()
+    extra["description"] = "called_strike"
+    extra["events"] = pd.NA
+    mutated = SavantClient(min_pa=1).build_hitter_profiles_from_statcast(
+        pd.concat([source, extra], ignore_index=True)
+    )[7]
+
+    assert mutated.sample_pa == original.sample_pa == 1
+    assert mutated.source_row_count == original.source_row_count + 1
+    assert mutated.swing_rate == pytest.approx(0.5)
+    assert mutated.swing_rate != original.swing_rate
+
+
+def test_pitch_level_pitcher_name_cannot_enter_batter_profile() -> None:
+    profile = SavantClient(min_pa=1).build_hitter_profiles_from_statcast(
+        _multi_pitch_pa()
+    )[7]
+    assert profile.player_name == ""
 
 
 def test_missing_and_empty_csvs_fail_closed(tmp_path) -> None:
