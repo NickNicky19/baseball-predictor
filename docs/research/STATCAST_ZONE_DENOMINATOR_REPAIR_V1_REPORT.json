@@ -1,0 +1,64 @@
+{
+  "artifact_version": "statcast-zone-denominator-repair-v1",
+  "status": "INTEGRITY_REPAIR_VERIFIED_NO_PROMOTION",
+  "classification": "integrity_repair",
+  "market_scope": [
+    "hits",
+    "hr_over_0_5",
+    "total_bases"
+  ],
+  "root_cause": "The generic live Statcast profile divided in-zone pitches by every source row, including rows whose zone was unavailable. Chase and zone parsing also lacked a shared fail-closed domain boundary.",
+  "repair": {
+    "zone_rate_contract": "zones 1-9 divided by all nonmissing classified zones 1-14",
+    "missing_zone_policy": "exclude from the zone-rate denominator; preserve the source row",
+    "invalid_zone_policy": "fail closed on nonnumeric nonmissing values or numeric values outside 1-14",
+    "coefficient_changes": 0,
+    "probability_changes_claimed": false
+  },
+  "outcome_blind_input_audit": {
+    "seasons": [2023, 2024],
+    "files": 1413,
+    "empty_files": 107,
+    "rows": 1572200,
+    "missing_zone": 53661,
+    "nonnumeric_nonmissing": 0,
+    "numeric_outside_1_14": 0,
+    "outcome_fields_read": false,
+    "may_2026_touched": false,
+    "canonical_output_sha256": "a3514cb315ed1b65b9a34df456ef518773f34940f91f590b2715bc395df7cdd0"
+  },
+  "version_binding": {
+    "code_sha256": "632a18de7f9f754f9420a158f1bc47cb6bb273a3223dd95d6954b409af09a2a1",
+    "configuration_sha256": "ff65d440b7571aa490300b26b1cf8a6271c5979e564c1a74d1d0988a0b743bad",
+    "audit_script_sha256": "ce2eb98bc6427d712952c7edfab24d5b22fbf790797fd9fca0cb1a6fa5e47b23",
+    "predeclaration_sha256": "bdae032ccb9361bc2d6f3d5668143944a2009995074e75638cc4aa1019f7aea7",
+    "regression_mutation_test_sha256": "f10b4c4e670bf325c08e03cf665892e7d001517ba77c3802be41102dbcc01fe3",
+    "audit_test_sha256": "63292fe12201c87e1710c1236b8d033f76e45b390df70b0fb80e008f7e568aa7",
+    "certified_direct_panel_sha256": "1638ee336833ae6cb3ba580eafe2800a8f4a6c609719fe88df7481c71e0f2fb1",
+    "certified_direct_panel_manifest_sha256": "673ece8b9a26733ad4c8bf0b95fb15f6b32849e7a37c9b2fcb7f0734dcb4030f"
+  },
+  "verification": {
+    "targeted_tests": "26 passed",
+    "full_suite": "203 passed",
+    "old_failure_caught": true,
+    "valid_missing_zone_preserved": true,
+    "invalid_zone_mutations_fail_closed": true
+  },
+  "historical_reconstruction": {
+    "required": false,
+    "reason": "The certified 2023/2024 direct batter panel already used all nonmissing classified zones as its denominator. Rebuilding it would relabel unchanged evidence and is prohibited.",
+    "archived_live_artifacts_preserved": true
+  },
+  "chronological_evaluation": {
+    "hits": "NO_NEW_NUMERIC_CANDIDATE; preserved prior separate-market result",
+    "hr_over_0_5": "NO_NEW_NUMERIC_CANDIDATE; preserved prior separate-market result and spent 2025 confirmation boundary",
+    "total_bases": "NO_NEW_NUMERIC_CANDIDATE; no promotion evidence",
+    "performance_claim": "none"
+  },
+  "promotion": {
+    "promoted": false,
+    "betting_authorized": false,
+    "reason": "The repair makes future source-to-feature consumption truthful but creates no fresh untouched performance evidence."
+  },
+  "highest_value_next_action": "Audit the player-summary Statcast barrel/hard-hit alias, count, denominator, and lineage contract before any such rate can enter future HR probabilities."
+}

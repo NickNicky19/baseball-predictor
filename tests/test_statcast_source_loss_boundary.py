@@ -173,6 +173,26 @@ def test_pitch_level_pitcher_name_cannot_enter_batter_profile() -> None:
     assert profile.player_name == ""
 
 
+def test_zone_rate_excludes_unclassified_zone_rows_from_denominator() -> None:
+    source = _multi_pitch_pa()
+    source.loc[1, "zone"] = pd.NA
+    profile = SavantClient(min_pa=1).build_hitter_profiles_from_statcast(source)[7]
+
+    assert profile.sample_pa == 1
+    assert profile.source_row_count == 3
+    assert profile.zone_rate == pytest.approx(1.0)
+
+
+@pytest.mark.parametrize("bad_zone", ["not-a-zone", 15, 0])
+def test_zone_schema_mutation_fails_closed(bad_zone) -> None:
+    source = _multi_pitch_pa()
+    if isinstance(bad_zone, str):
+        source["zone"] = source["zone"].astype("object")
+    source.loc[1, "zone"] = bad_zone
+    with pytest.raises(StatcastSourceSchemaError, match="zone"):
+        SavantClient(min_pa=1).build_hitter_profiles_from_statcast(source)
+
+
 def test_missing_and_empty_csvs_fail_closed(tmp_path) -> None:
     client = SavantClient()
     with pytest.raises(StatcastSourceUnavailableError, match="not found"):

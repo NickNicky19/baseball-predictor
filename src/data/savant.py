@@ -447,7 +447,10 @@ class SavantClient:
     def _compute_chase_rate(group: pd.DataFrame) -> Optional[float]:
         if "description" not in group.columns or "zone" not in group.columns:
             return None
-        outside = group["zone"].isin([11, 12, 13, 14])
+        zone = SavantClient._validated_zone(group)
+        if zone is None:
+            return None
+        outside = zone.isin([11, 12, 13, 14])
         chased = outside & group["description"].isin(
             ["swinging_strike", "swinging_strike_blocked", "foul", "foul_tip", "hit_into_play"]
         )
@@ -460,8 +463,31 @@ class SavantClient:
     def _compute_zone_rate(group: pd.DataFrame) -> Optional[float]:
         if "zone" not in group.columns:
             return None
-        in_zone = group["zone"].between(1, 9)
-        return float(in_zone.sum() / len(group)) if len(group) else None
+        zone = SavantClient._validated_zone(group)
+        if zone is None:
+            return None
+        classified = zone.notna()
+        denominator = int(classified.sum())
+        if denominator == 0:
+            return None
+        in_zone = zone.between(1, 9)
+        return float(in_zone.sum() / denominator)
+
+    @staticmethod
+    def _validated_zone(group: pd.DataFrame) -> Optional[pd.Series]:
+        if "zone" not in group.columns:
+            return None
+        raw = group["zone"]
+        zone = pd.to_numeric(raw, errors="coerce")
+        if bool((raw.notna() & zone.isna()).any()):
+            raise StatcastSourceSchemaError(
+                "Statcast zone contains a nonnumeric nonmissing value"
+            )
+        if bool((zone.notna() & ~zone.between(1, 14)).any()):
+            raise StatcastSourceSchemaError(
+                "Statcast zone contains a value outside classified zones 1-14"
+            )
+        return zone
 
 
 def _normalize_rate(value: Optional[float]) -> Optional[float]:

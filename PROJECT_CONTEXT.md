@@ -1128,3 +1128,20 @@ in `docs/research/FEATURE_MANIFEST_CONSUMPTION_REPAIR_V1_REPORT.json`. The
 repair is numerically inert on valid inputs and is not model-performance or
 promotion evidence. No archived feature, probability, outcome, May 2026 data,
 AWS runtime, or collector was changed.
+
+2026-07-22 HANDOFF ADDENDUM — STATCAST ZONE DENOMINATOR REPAIR (AUTHORITATIVE)
+
+SI-025 is repaired in the same isolated lineage. The generic live Statcast
+profile previously divided in-zone pitches by all source rows, including rows
+with no classified zone. An outcome-blind audit read only the `zone` column in
+permissible 2023/2024 caches and measured 53,661 missing-zone rows among
+1,572,200 rows; it read no outcome field and touched no 2026 or May artifact.
+Zone rate now uses all nonmissing classified zones 1–14 as its denominator, and
+the shared chase/zone parser fails closed on nonnumeric nonmissing or
+out-of-domain zones. Regression and mutation proof passes; the full suite is
+203 passed. Exact hashes are in
+`docs/research/STATCAST_ZONE_DENOMINATOR_REPAIR_V1_REPORT.json`. The certified
+direct batter panel already used the truthful denominator, so it was not
+rebuilt, relabeled, or rescored. This is an integrity repair with no performance
+or promotion claim. Frozen production, rejected candidates, spent confirmation,
+prediction archives, AWS runtime, and the protected collector were untouched.
