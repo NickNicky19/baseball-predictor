@@ -14,6 +14,8 @@ from typing import Any, Mapping, Optional
 
 import pandas as pd
 
+from src.data.rolling_source_contract import validate_rolling_lineage
+
 
 class StatcastIntegrityError(ValueError):
     """Raised when batted-ball evidence is contradictory or unprovable."""
@@ -252,3 +254,21 @@ def validate_profile_and_rich_features(
         effective_hard_hit,
         context=f"{context}.effective_rich_features",
     )
+    rolling_values_present = any(
+        (
+            key.startswith("roll") or key.startswith("recent_pa_")
+        )
+        and not key.startswith("rolling_source_")
+        and value not in (None, "", 0, 0.0)
+        for key, value in rich.items()
+    )
+    rolling_lineage = rich.get("_rolling_lineage")
+    if source_bound and rolling_values_present:
+        if not isinstance(rolling_lineage, Mapping):
+            raise StatcastIntegrityError(
+                f"{context}.effective_rich_features: missing rolling lineage"
+            )
+        validate_rolling_lineage(
+            rolling_lineage,
+            context=f"{context}.effective_rich_features",
+        )

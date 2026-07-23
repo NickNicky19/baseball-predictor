@@ -262,16 +262,9 @@ class FeatureFactory:
 
             rolling: Optional[dict[str, Any]] = None
             if self.rolling_stats_provider is not None:
-                try:
-                    rolling = self.rolling_stats_provider.rolling_features(
-                        hitter.player.mlb_id, game_date
-                    )
-                except Exception as exc:
-                    logger.debug(
-                        "Rolling features unavailable for %s: %s",
-                        hitter.player.name,
-                        exc,
-                    )
+                rolling = self.rolling_stats_provider.rolling_features(
+                    hitter.player.mlb_id, game_date
+                )
 
             rich_features = self.rich_feature_enricher.enrich(
                 data=context_data,

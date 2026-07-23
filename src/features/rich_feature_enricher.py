@@ -20,6 +20,7 @@ from src.features.ml.statcast_features import StatcastFeatureEngineer
 from src.features.ml.context_features import ContextFeatureEngineer
 from src.features.ml.rolling_features import RollingFeatureEngineer
 from src.models.dataclasses import StatcastProfile
+from src.data.rolling_source_contract import lineage_from_payload, validate_rolling_lineage
 from src.data.statcast_integrity import (
     RICH_STATCAST_PASSTHROUGH_FIELDS,
     StatcastIntegrityError,
@@ -127,6 +128,24 @@ class RichFeatureEnricher:
                 )
             lineage[field] = entry
         features["_statcast_lineage"] = lineage
+        if rolling:
+            rolling_lineage = lineage_from_payload(rolling)
+            rolling_values_present = any(
+                (key.startswith("roll") or key.startswith("recent_pa_"))
+                and not key.startswith("rolling_source_")
+                and value not in (None, "", 0, 0.0)
+                for key, value in rolling.items()
+            )
+            if rolling_values_present and rolling_lineage is None:
+                raise StatcastIntegrityError(
+                    "rolling features require explicit source lineage"
+                )
+            if rolling_lineage is not None:
+                validate_rolling_lineage(
+                    rolling_lineage,
+                    context=f"RichFeatureEnricher.rolling[{profile.player_id}]",
+                )
+                features["_rolling_lineage"] = rolling_lineage
         validate_profile_and_rich_features(
             profile,
             features,

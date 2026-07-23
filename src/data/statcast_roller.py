@@ -44,6 +44,10 @@ from src.data.statcast_batted_ball_rates import (
     barrel_rate as derive_barrel_rate,
     hard_hit_rate as derive_hard_hit_rate,
 )
+from src.data.rolling_source_contract import (
+    RollingSourceSchemaError,
+    RollingSourceUnavailableError,
+)
 
 from src.utils.logging import get_logger
 
@@ -133,9 +137,20 @@ class StatcastRoller:
         season = int(as_of_date[:4])
         frame = self._player_season_frame(player_id, season)
         out: dict[str, Any] = {}
-        if frame.empty or "game_date" not in frame.columns:
+        if "game_date" not in frame.columns:
+            raise RollingSourceSchemaError(
+                f"rolling Statcast source missing game_date for {player_id}/{season}"
+            )
+        if frame.empty:
             for col in rolling_feature_columns(self.config.windows):
                 out[col] = ""
+            out.update(
+                _rolling_lineage(
+                    source_kind="pybaseball_statcast_batter",
+                    as_of_date=as_of_date,
+                    strict_prior=frame,
+                )
+            )
             return out
 
         before = frame[frame["game_date"] < as_of_date]
@@ -145,6 +160,13 @@ class StatcastRoller:
             recent_days = set(game_days[-w:])
             window_df = before[before["game_date"].isin(recent_days)]
             out.update(self._aggregate_window(window_df, w, len(recent_days)))
+        out.update(
+            _rolling_lineage(
+                source_kind="pybaseball_statcast_batter",
+                as_of_date=as_of_date,
+                strict_prior=before,
+            )
+        )
         return out
 
     def join_onto_rows(
@@ -207,18 +229,23 @@ class StatcastRoller:
                 self.cache_hits += 1
                 self._mem[key] = frame
                 return frame
-            except Exception:
-                logger.warning("Corrupt statcast cache %s; refetching", path.name)
-                path.unlink(missing_ok=True)
+            except Exception as exc:
+                raise RollingSourceSchemaError(
+                    f"corrupt Statcast cache preserved for quarantine: {path}"
+                ) from exc
 
         self.cache_misses += 1
         frame = self._fetch_player_season(player_id, season)
+        if frame.empty and "game_date" not in frame.columns:
+            frame = pd.DataFrame(columns=["game_date"])
         tmp = path.with_suffix(".tmp")
         try:
             frame.to_csv(tmp, index=False)
             tmp.replace(path)
         except Exception as exc:
-            logger.warning("Failed to cache statcast for %s/%s: %s", player_id, season, exc)
+            raise RollingSourceUnavailableError(
+                f"failed to durably cache rolling Statcast for {player_id}/{season}"
+            ) from exc
         self._mem[key] = frame
         return frame
 
@@ -230,14 +257,29 @@ class StatcastRoller:
         try:
             frame = self._fetch_fn(player_id, start, end)
         except Exception as exc:
-            logger.warning("Statcast fetch failed for %s (%s): %s", player_id, season, exc)
-            return pd.DataFrame()
-        if frame is None or frame.empty:
-            return pd.DataFrame()
+            raise RollingSourceUnavailableError(
+                f"rolling Statcast fetch failed for {player_id}/{season}"
+            ) from exc
+        if frame is None:
+            raise RollingSourceUnavailableError(
+                f"rolling Statcast returned None for {player_id}/{season}"
+            )
+        if not isinstance(frame, pd.DataFrame):
+            raise RollingSourceSchemaError(
+                f"rolling Statcast returned {type(frame).__name__}, expected DataFrame"
+            )
+        if frame.empty:
+            return frame
         # Normalize game_date to ISO strings for reliable < comparison.
-        if "game_date" in frame.columns:
-            frame = frame.copy()
+        if "game_date" not in frame.columns:
+            raise RollingSourceSchemaError("rolling Statcast response missing game_date")
+        frame = frame.copy()
+        try:
             frame["game_date"] = pd.to_datetime(frame["game_date"]).dt.strftime("%Y-%m-%d")
+        except Exception as exc:
+            raise RollingSourceSchemaError(
+                "rolling Statcast game_date values are invalid"
+            ) from exc
         return frame
 
     @staticmethod
@@ -319,3 +361,30 @@ def _barrel_rate(bip: pd.DataFrame) -> Any:
     """
     value = derive_barrel_rate(bip)
     return "" if value is None else round(value, 4)
+
+
+def _rolling_lineage(
+    *, source_kind: str, as_of_date: str, strict_prior: pd.DataFrame
+) -> dict[str, Any]:
+    canonical = strict_prior.reindex(sorted(strict_prior.columns), axis=1).copy()
+    if not canonical.empty:
+        text = canonical.fillna("<NA>").astype(str)
+        text = text.sort_values(list(text.columns), kind="mergesort").reset_index(drop=True)
+    else:
+        text = canonical
+    payload = text.to_csv(index=False, lineterminator="\n").encode("utf-8")
+    maximum = (
+        str(strict_prior["game_date"].max())
+        if not strict_prior.empty
+        else None
+    )
+    return {
+        "rolling_source_kind": source_kind,
+        "rolling_source_status": (
+            "observed_strict_prior" if not strict_prior.empty else "confirmed_empty_history"
+        ),
+        "rolling_source_target_date": as_of_date,
+        "rolling_source_max_game_date": maximum,
+        "rolling_source_row_count": len(strict_prior),
+        "rolling_source_content_sha256": hashlib.sha256(payload).hexdigest(),
+    }

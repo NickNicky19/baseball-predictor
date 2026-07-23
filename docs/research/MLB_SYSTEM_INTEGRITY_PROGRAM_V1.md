@@ -61,6 +61,7 @@ outcome/result columns. Exact machine-readable scope is in
 | SI-019 | P0 | The frozen pitcher HR/9 term had reversed monotonic direction: a higher HR/9 reduced hitter HR probability. | HR; shared simulator | Historical sign is explicitly isolated as `legacy_frozen`; corrected direction is separately selectable and monotonicity-tested. Batter-only v3 excludes the pitcher block. No pitcher candidate may advance without T-4 identity evidence. | Integrity repair/research candidate boundary |
 | SI-020 | P0 | The v2 selector called per-PA HR scoring `HR over 0.5` and similarly treated hit/TB PA outcomes as game-market probabilities. A full-game probability requires a point-in-time PA-volume distribution. | Hits, HR over 0.5, Total Bases | v3 labels these PA-foundation diagnostics only and records every market as blocked. Realized game PA is forbidden as a prediction input. | Evaluation-boundary repair |
 | SI-021 | P1 | Barrel rate and hard-hit rate overlap because every barrel is also a hard-hit BBE; exposing both rates can duplicate one contact-quality signal and hides sample exposure. | HR first; Hits/TB shared PA foundation | Implemented mutually exclusive barrels, hard-hit non-barrels, and other measured BBE with counts, one denominator, and measured BBE per PA. Fail-closed mutations pass. The single locked 2023 experiment found no material survivor, so the repair is retained but the representation is rejected as a model upgrade. | Integrity repair/rejected research representation |
+| SI-022 | P1 | Rolling Statcast and MLB game-log fetch failures became ordinary blank histories; corrupt rolling caches were deleted/refetched; `FeatureFactory` swallowed configured rolling-provider errors; outputs lacked strict-prior content hashes. | Hits, HR, TB training/live feature coverage | Provider and cache failures now fail closed, corrupt caches are preserved, configured-provider failures propagate, successful empty history is distinct from failure, and observed/empty rolling blocks bind target date, maximum source date, row count, and strict-prior content hash through serialization. Complete; numerically inert on valid inputs. | Integrity repair |
 
 ## HR probability-consumption audit
 
@@ -169,3 +170,20 @@ also verify their common denominator, counts, and definition. Deliberate
 plausible-value, deleted-lineage, source-status, and count mutations fail. Full
 tests pass 179/179. No numeric probability changed for a valid source-bound
 input, so no chronological rescore or model promotion is claimed.
+
+## Rolling-source contract repair v1
+
+The rolling Statcast and MLB game-log paths now distinguish source failure from
+confirmed empty history. Provider exceptions, malformed responses, cache-write
+failure, and corrupt cache reads are terminal. Corrupt cache bytes remain in
+place for quarantine rather than being deleted and silently replaced. When a
+rolling provider is configured, `FeatureFactory` propagates its failure instead
+of continuing with an apparently ordinary missing block.
+
+Every successful rolling result now binds source kind, observed/empty status,
+target date, maximum strict-prior source date, strict-prior row count, and a
+content SHA-256 computed only from rows before the target. The target-date
+mutation leaves that hash unchanged, while a same-day maximum-date mutation
+fails serialization. Full tests pass 187/187 and the existing Statcast roller
+leakage/denominator harness passes 19/19. No model coefficient or valid numeric
+probability changed, so no performance promotion is claimed.

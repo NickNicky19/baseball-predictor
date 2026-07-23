@@ -25,11 +25,14 @@ one API call per player, not one per date.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from datetime import date, datetime
+import hashlib
+import json
 from typing import Any, Optional
 
 from src.data.mlb_api import HittingStatsSnapshot, PitchingStatsSnapshot, MLBStatsAPI
+from src.data.rolling_source_contract import RollingSourceUnavailableError
 from src.utils.logging import get_logger
 
 logger = get_logger(__name__)
@@ -127,7 +130,21 @@ class PointInTimeStats:
         left absent rather than approximated dishonestly.
         """
         rows = self._rows_before(self._hitting_log(player_id), as_of_date)
-        out: dict[str, Any] = {}
+        payload = json.dumps(
+            [asdict(row) for row in rows],
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+        out: dict[str, Any] = {
+            "rolling_source_kind": "mlb_statsapi_hitting_game_log",
+            "rolling_source_status": (
+                "observed_strict_prior" if rows else "confirmed_empty_history"
+            ),
+            "rolling_source_target_date": as_of_date,
+            "rolling_source_max_game_date": rows[-1].game_date if rows else None,
+            "rolling_source_row_count": len(rows),
+            "rolling_source_content_sha256": hashlib.sha256(payload).hexdigest(),
+        }
         for window, prefix in ((15, "roll15"), (30, "roll30")):
             recent = rows[-window:]
             pa = sum(r.pa for r in recent)
@@ -172,8 +189,9 @@ class PointInTimeStats:
         try:
             data = self.mlb_api._get(url, params=params)
         except Exception as exc:  # DataFetchError or network issues
-            logger.warning("Game log fetch failed for %s (%s): %s", player_id, group, exc)
-            return []
+            raise RollingSourceUnavailableError(
+                f"MLB game-log fetch failed for player={player_id} group={group}"
+            ) from exc
 
         rows: list[GameLogRow] = []
         for block in data.get("stats", []):

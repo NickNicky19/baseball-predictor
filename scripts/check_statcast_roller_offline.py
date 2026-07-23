@@ -59,6 +59,7 @@ def _bip(game_date: str, xwoba: float, ev: float, barrel: int, hard_hit: int) ->
         "estimated_slg_using_speedangle": xwoba * 1.4,
         "launch_speed": ev,
         "launch_angle": 15.0,
+        "launch_speed_angle": 6 if barrel else (4 if hard_hit else 2),
         "barrel": barrel,
         "hard_hit": hard_hit,
     }

@@ -5,6 +5,7 @@ from copy import deepcopy
 import pytest
 
 from src.data.statcast_integrity import StatcastIntegrityError
+from src.data.rolling_source_contract import RollingSourceSchemaError
 from src.features.feature_store import bundle_to_dict
 from src.features.rich_feature_enricher import RichFeatureEnricher
 from src.models.dataclasses import (
@@ -143,3 +144,34 @@ def test_mutation_lineage_source_status_mismatch_fails() -> None:
             statcast=profile,
             rich_features=rich,
         )
+
+
+def test_mutation_nonempty_rolling_features_require_lineage() -> None:
+    with pytest.raises(StatcastIntegrityError, match="require explicit source lineage"):
+        RichFeatureEnricher().enrich(
+            data={"game_date": "2026-04-30"},
+            profile=_profile(),
+            rolling={"recent_pa_15": 20, "roll15_k_rate": 0.20},
+        )
+
+
+def test_mutation_rolling_lineage_is_rechecked_at_serialization() -> None:
+    profile = _profile()
+    rolling = {
+        "recent_pa_15": 20,
+        "roll15_k_rate": 0.20,
+        "rolling_source_kind": "mlb_statsapi_hitting_game_log",
+        "rolling_source_status": "observed_strict_prior",
+        "rolling_source_target_date": "2026-04-30",
+        "rolling_source_max_game_date": "2026-04-29",
+        "rolling_source_row_count": 20,
+        "rolling_source_content_sha256": "a" * 64,
+    }
+    rich = RichFeatureEnricher().enrich(
+        data={"game_date": "2026-04-30"},
+        profile=profile,
+        rolling=rolling,
+    )
+    rich["_rolling_lineage"]["rolling_source_max_game_date"] = "2026-04-30"
+    with pytest.raises(RollingSourceSchemaError, match="not strictly prior"):
+        bundle_to_dict(_bundle(profile, rich))

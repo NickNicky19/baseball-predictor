@@ -1,0 +1,72 @@
+{
+  "schema_version": "rolling-source-contract-repair-report-v1",
+  "repair_id": "rolling-source-contract-fail-closed-v1-d3f20d628163",
+  "classification": "integrity_repair_only",
+  "status": "verified_not_promoted",
+  "research_only": true,
+  "betting_authorized": false,
+  "base_commit": "408247846a033fb0037c917e1e3149a9a3b92ba4",
+  "repair_identity_sha256": "d3f20d628163c42227d12a2cad0f1844f1034bd090b4a37d1cd78410a0e06e3e",
+  "hashes": {
+    "code_aggregate_sha256": "27f8b7b1fab05e47aff1cd2156232dc121a2dbb0206fd36e194901d9671453f9",
+    "config_aggregate_sha256": "32a5afecede19e51dcf12638189556488bf9a77005eedb227a067318c2eaa59a",
+    "contract_aggregate_sha256": "093ab34fb0560faaee5177cb6776dc9f25bf893adcc5d159b78a5e82a55c0577",
+    "test_aggregate_sha256": "90fc68c610d643498884263cc1e4ea6693b59ff4bc198f0fc112936ecc84dce2"
+  },
+  "artifact_identity": {
+    "source_data": "not_opened",
+    "feature_artifacts": "not_rebuilt_numeric_inertness_proven",
+    "prediction_artifacts": "not_created",
+    "market_artifacts": "not_opened",
+    "outcome_artifacts": "not_opened"
+  },
+  "root_causes": [
+    "Rolling Statcast provider exceptions returned an empty DataFrame and ordinary blank features.",
+    "Corrupt rolling caches were deleted and silently replaced by a refetch.",
+    "FeatureFactory swallowed every configured rolling-provider exception.",
+    "Rolling output did not persist source, cutoff, row-count, or content-hash lineage."
+  ],
+  "repair": [
+    "Provider exceptions, None, non-DataFrame, missing-date, invalid-date, corrupt-cache, and cache-write failures are terminal.",
+    "Corrupt cache bytes are preserved for quarantine and no implicit refetch occurs.",
+    "Configured rolling-provider errors propagate out of feature construction.",
+    "Successful empty history is explicit and distinct from failure.",
+    "Observed and empty rolling blocks bind source kind, target date, maximum strict-prior source date, row count, and strict-prior content SHA-256.",
+    "Rich-feature serialization revalidates rolling chronology and lineage."
+  ],
+  "verification": {
+    "pytest": "187/187 passed",
+    "rolling_statcast_harness": "19/19 passed",
+    "point_in_time_training_builder_harness": "35/35 passed",
+    "focused_rolling_and_lineage_tests": "15/15 passed before full-suite expansion",
+    "valid_input_numeric_inertness": true,
+    "mutations": [
+      "rolling Statcast provider exception",
+      "corrupt cache preservation and no refetch",
+      "target-date row excluded from content hash",
+      "successful empty-history status",
+      "MLB game-log provider exception",
+      "FeatureFactory configured-provider exception",
+      "missing rolling lineage",
+      "same-day maximum-date lineage"
+    ]
+  },
+  "market_adjudication": {
+    "hits": "not_a_probability_candidate_valid_inputs_numerically_unchanged",
+    "home_runs_over_0_5": "not_a_probability_candidate_valid_inputs_numerically_unchanged",
+    "total_bases": "not_a_probability_candidate_valid_inputs_numerically_unchanged",
+    "chronological_rescore_run": false,
+    "reason": "The repair converts unobservable source failures into terminal errors and leaves successful valid features unchanged. It does not create a probability candidate."
+  },
+  "protected_boundaries": {
+    "may_2026_opened": false,
+    "spent_2025_hr_reused": false,
+    "prospective_evidence_backfilled": false,
+    "frozen_baseline_changed": false,
+    "probability_coefficients_changed": false,
+    "policy_changed": false,
+    "operational_collector_touched": false
+  },
+  "promotion": "none",
+  "highest_value_next_action": "Accumulate fresh source-bound prospective batter rows and certified T-minus-4 starter receipts, then freeze one new batter-only challenger before inspecting independent outcomes."
+}

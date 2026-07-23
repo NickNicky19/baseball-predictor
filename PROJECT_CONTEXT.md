@@ -29,6 +29,15 @@ changed, or contradictory lineage fails again at feature storage and PA
 probability consumption. Full tests pass 179/179. Valid probabilities remain
 unchanged; this is another integrity repair, not a performance promotion.
 
+SI-022 is repaired in the same isolated lineage. Rolling Statcast/MLB game-log
+fetch failures can no longer become blank histories, corrupt caches are
+preserved rather than deleted/refetched, and a configured rolling-provider
+failure now stops feature construction. Observed and confirmed-empty histories
+carry exact target cutoff, maximum strict-prior source date, row count, and
+content hash through storage. Full tests pass 187/187; the rolling leakage and
+denominator harness passes 19/19. No valid probability changed and no model was
+promoted.
+
 ===============================================================================
 AUTHORITATIVE NEXT-ACTION AUDIT (2026-07-21) - FRESH RECEIPTS REQUIRED
 
