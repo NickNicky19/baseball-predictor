@@ -1,0 +1,13 @@
+{
+  "schema_version": "shared-pa-candidate-evidence-rejection-v1",
+  "candidate_id": "shared_pa_eb_augmented_regularized_multinomial_2023_v2",
+  "status": "REJECTED_FOR_COVERAGE_DENOMINATOR_MISSTATEMENT_AND_PERFORMANCE_GATES",
+  "root_cause": "The v2 report called coverage_loss zero while showing 79.296% OOF coverage of all eligible 2023 rows. The excluded 9,053 earliest rows were valid initial training-only observations, not missing validation predictions, but the report did not make that denominator distinction explicit.",
+  "affected_scope": "v2 2023-only report wording and coverage gate interpretation. Its predeclared OOF probabilities and metrics remain immutable evidence, but cannot support a candidate survivor claim.",
+  "safe_remediation": "v3 makes the validation-window universe explicit, records initial_training_only_rows separately, and fails closed if any expected validation row lacks an OOF prediction. It reruns the identical locked chronology and comparators under a new hash-bound protocol.",
+  "v2_report_sha256": "15dc36b994493d44cd2c3dca6b8d4b3768e4d5eca1e65e6127871231c863f34a",
+  "v2_predictions_sha256": "d0778476df089e6bfee11910486e0730b6552d76e3c981c38cf96a7d0936c23d",
+  "v2_market_gate_result": "all Hits, HR, and Total Bases development gates failed independently",
+  "may_2026_opened": false,
+  "betting_authorized": false
+}

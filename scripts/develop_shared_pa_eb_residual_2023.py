@@ -71,7 +71,7 @@ def _require(condition: bool, message: str) -> None:
 
 def _load_contract(protocol: Path) -> dict[str, Any]:
     contract = json.loads(protocol.read_text(encoding="utf-8"))
-    _require(contract.get("schema_version") == "shared-pa-eb-augmented-development-protocol-v2", "unexpected EB-augmented protocol schema")
+    _require(contract.get("schema_version") == "shared-pa-eb-augmented-development-protocol-v3", "unexpected EB-augmented protocol schema")
     _require(contract.get("status") == "LOCKED_BEFORE_2023_FOLD_SCORING", "EB-augmented protocol is not locked before scoring")
     _require(contract.get("research_only") is True, "EB-augmented protocol must be research only")
     _require(contract.get("betting_authorized") is False and contract.get("production_changed") is False, "protocol must not claim production or betting")
@@ -150,6 +150,29 @@ def _date_splits(frame: pd.DataFrame, n_splits: int) -> list[tuple[np.ndarray, n
         _require(len(train_rows) > 0 and len(validation_rows) > 0, "empty chronological split")
         output.append((train_rows, validation_rows))
     return output
+
+
+def _oof_coverage_summary(*, total_rows: int, outer_splits: list[tuple[np.ndarray, np.ndarray]], evaluated: np.ndarray) -> dict[str, int | float]:
+    """Distinguish unavoidable initial training rows from model coverage loss."""
+    _require(total_rows > 0 and evaluated.shape == (total_rows,), "OOF coverage shape is invalid")
+    expected = np.zeros(total_rows, dtype=bool)
+    for _, validation_rows in outer_splits:
+        if (validation_rows < 0).any() or (validation_rows >= total_rows).any():
+            raise ValueError("OOF validation row index is out of range")
+        if expected[validation_rows].any():
+            raise ValueError("OOF validation rows overlap across chronological folds")
+        expected[validation_rows] = True
+    if not np.array_equal(expected, evaluated):
+        raise ValueError("OOF probability coverage does not exactly match locked validation windows")
+    return {
+        "input_rows": int(total_rows),
+        "initial_training_only_rows": int((~expected).sum()),
+        "chronological_oof_eligible_rows": int(expected.sum()),
+        "oof_scored_rows": int(evaluated.sum()),
+        "missing_oof_rows": int((expected & ~evaluated).sum()),
+        "coverage_loss_within_scored_windows": int((expected & ~evaluated).sum()),
+        "oof_coverage_of_all_2023_rows": float(evaluated.mean()),
+    }
 
 
 def _component(frame: pd.DataFrame, probabilities: np.ndarray, name: str) -> tuple[np.ndarray, np.ndarray]:
@@ -297,6 +320,7 @@ def run(*, panel: Path, manifest: Path, protocol: Path, report: Path, prediction
         fold_records.append({"fold": fold_index, "train_date_min": train["game_date"].min(), "train_date_max": train["game_date"].max(), "validation_date_min": validation["game_date"].min(), "validation_date_max": validation["game_date"].max(), "train_rows": int(len(train)), "validation_rows": int(len(validation)), "inner_grid": inner_scores, "selected": selected, "empirical_bayes_unseen_player_fraction": float(eb_fallback.mean()), "components": fold_components})
     evaluated = np.isfinite(oof).all(axis=1)
     _require(evaluated.any() and not np.isnan(league_oof[evaluated]).any() and not np.isnan(eb_oof[evaluated]).any() and not np.isnan(core_oof[evaluated]).any(), "OOF probability coverage is incomplete")
+    coverage = _oof_coverage_summary(total_rows=len(frame), outer_splits=outer_splits, evaluated=evaluated)
     selection = frame.loc[evaluated].reset_index(drop=True)
     probability_map = {"candidate": oof[evaluated], "league_rate": league_oof[evaluated], "empirical_bayes_player_rate_pa_200": eb_oof[evaluated], "all_prior_catboost_core_v3_family": core_oof[evaluated]}
     overall = {label: proper_scores(outcome_counts(selection), probability) for label, probability in probability_map.items()}
@@ -330,12 +354,12 @@ def run(*, panel: Path, manifest: Path, protocol: Path, report: Path, prediction
             prediction_frame[f"{label}_{outcome}"] = probability[:, index]
     atomic(predictions, prediction_frame.to_csv(index=False, lineterminator="\n").encode("utf-8"))
     result: dict[str, Any] = {
-        "schema_version": "shared-pa-eb-augmented-development-report-v2",
+        "schema_version": "shared-pa-eb-augmented-development-report-v3",
         "candidate_id": candidate["id"],
         "status": "DEVELOPMENT_SURVIVOR_REQUIRES_SEPARATE_LOCKED_2024_SELECTION" if all_gates else "DEVELOPMENT_REJECTED_NO_CANDIDATE",
         "inputs": {"panel": {"path": str(panel), "sha256": sha256_file(panel), "rows_consumed": int(len(frame))}, "manifest": {"path": str(manifest), "sha256": sha256_file(manifest)}, "protocol": {"path": str(protocol), "sha256": sha256_file(protocol)}},
         "chronology": {"development_years": [2023], "outer_folds": len(fold_records), "2024_opened": False, "2025_opened": False, "may_2026_opened": False, "all_validation_predictions_out_of_fold": True, "realized_pa_used_as_feature": False},
-        "population": {"input_rows": int(len(frame)), "oof_evaluated_rows": int(evaluated.sum()), "oof_coverage": float(evaluated.mean()), "coverage_loss": 0, "identity_key": ["game_pk", "player_id"]},
+        "population": {**coverage, "identity_key": ["game_pk", "player_id"]},
         "features": {"numeric": numeric_feature_names(contract), "log1p": log1p_feature_names(contract), "core_catboost_comparator": core_features, "forbidden_context_present": False},
         "folds": fold_records,
         "overall_eight_class_pa_scores": overall,
@@ -354,7 +378,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--panel", required=True, type=Path)
     parser.add_argument("--manifest", required=True, type=Path)
-    parser.add_argument("--protocol", type=Path, default=ROOT / "config/shared_pa_eb_augmented_development_2023_v2.json")
+    parser.add_argument("--protocol", type=Path, default=ROOT / "config/shared_pa_eb_augmented_development_2023_v3.json")
     parser.add_argument("--report", required=True, type=Path)
     parser.add_argument("--predictions", required=True, type=Path)
     result = run(**vars(parser.parse_args()))
