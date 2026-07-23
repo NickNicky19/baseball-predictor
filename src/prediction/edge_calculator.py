@@ -27,6 +27,7 @@ from src.evaluation.market_economics import (
     fair_over_probability,
     implied_probability,
     net_payout_multiple,
+    probability as validate_probability,
 )
 
 
@@ -103,6 +104,9 @@ class EdgeCalculator:
         by normalizing both sides to sum to 1, then compute edge on BOTH the
         over and the under and keep whichever side the model favors.
         """
+        self._validate_projection_quote_identity(projection, odds_line)
+        if projection.category == "total_bases":
+            require_supported_total_bases_line(odds_line.line)
         model_prob_over = self._model_prob_over(
             projection,
             odds_line.line,
@@ -239,9 +243,34 @@ class EdgeCalculator:
         explicitly labelled diagnostic.
         """
         min_edge = min_edge_pct if min_edge_pct is not None else self.thresholds.lean_edge_pct
-        odds_index = {
-            (line.player_name.lower(), line.category): line for line in odds_lines
-        }
+        odds_index: dict[tuple[str, str], list[OddsLine]] = {}
+        seen_products: set[tuple[str, str, str, float]] = set()
+        for line in odds_lines:
+            player_key = str(line.player_name).strip().casefold()
+            category_key = str(line.category)
+            if not player_key:
+                raise ValueError("quote player identity cannot be blank")
+            if category_key not in {
+                "hits", "hrr", "home_runs", "fantasy", "strikeouts", "total_bases"
+            }:
+                raise ValueError(f"unknown quote category: {category_key!r}")
+            over_threshold_for_half_point_line(line.line)
+            if category_key == "total_bases":
+                require_supported_total_bases_line(line.line)
+            implied_probability(line.over_odds_american)
+            implied_probability(line.under_odds_american)
+            product_key = (
+                player_key,
+                category_key,
+                str(line.sportsbook).strip().casefold(),
+                float(line.line),
+            )
+            if product_key in seen_products:
+                raise ValueError(
+                    "duplicate player/category/sportsbook/line quote cannot be selected by order"
+                )
+            seen_products.add(product_key)
+            odds_index.setdefault((player_key, category_key), []).append(line)
 
         value_plays: list[EdgeResult] = []
         for proj in projections:
@@ -250,22 +279,22 @@ class EdgeCalculator:
             if proj.confidence < self.thresholds.min_confidence:
                 continue
 
-            odds = odds_index.get((proj.player_name.lower(), proj.category))
-            if odds is None:
+            quotes = odds_index.get((proj.player_name.strip().casefold(), proj.category), [])
+            if not quotes:
                 continue
+            for odds in quotes:
+                if self._exact_tail_probability(proj, odds.line) is None:
+                    continue
 
-            if self._exact_tail_probability(proj, odds.line) is None:
-                continue
-
-            edge = self.compute_edge(proj, odds)
-            # Use the FAVORED-SIDE edge magnitude for the research threshold,
-            # but never present a negative-payout row as a value play.  The
-            # latter is a mechanical wager condition, not a tuned cutoff.
-            favored_edge_pct = abs(edge.model_prob_side - edge.fair_prob_side) * 100.0
-            if (edge.expected_profit_per_unit > 0 and
-                    favored_edge_pct >= min_edge and
-                    edge.recommendation != EdgeRecommendation.PASS):
-                value_plays.append(edge)
+                edge = self.compute_edge(proj, odds)
+                # Use the FAVORED-SIDE edge magnitude for the research threshold,
+                # but never present a negative-payout row as a value play.  The
+                # latter is a mechanical wager condition, not a tuned cutoff.
+                favored_edge_pct = abs(edge.model_prob_side - edge.fair_prob_side) * 100.0
+                if (edge.expected_profit_per_unit > 0 and
+                        favored_edge_pct >= min_edge and
+                        edge.recommendation != EdgeRecommendation.PASS):
+                    value_plays.append(edge)
 
         if sort_by == "edge":
             return sorted(value_plays, key=lambda e: abs(e.edge_pct), reverse=True)
@@ -321,19 +350,67 @@ class EdgeCalculator:
         That is wrong for every discrete prop, and forbidden for total bases.
         """
         sim = projection.simulation
-        if sim is None or not sim.p_ge_threshold:
+        if sim is None:
             return None
-        try:
-            threshold = over_threshold_for_half_point_line(line)
-        except ValueError:
+        tails = EdgeCalculator._validated_tail_map(projection)
+        if not tails:
             return None
-        for raw_threshold, probability in sim.p_ge_threshold.items():
+        threshold = over_threshold_for_half_point_line(line)
+        return tails.get(int(threshold))
+
+    @staticmethod
+    def _validated_tail_map(projection: PropProjection) -> dict[int, float]:
+        sim = projection.simulation
+        if sim is None:
+            return {}
+        if isinstance(sim.n_sims, bool) or not isinstance(sim.n_sims, int) or sim.n_sims <= 0:
+            raise ValueError("simulation n_sims must be a positive integer")
+        if sim.category != projection.category:
+            raise ValueError("simulation category does not match projection category")
+        summary = [sim.mean, sim.median, sim.p10, sim.p90, projection.projected_value]
+        if any(isinstance(value, bool) or not isinstance(value, (int, float))
+               or not math.isfinite(float(value)) for value in summary):
+            raise ValueError("simulation summaries and projected value must be finite")
+        if sim.p10 > sim.median or sim.median > sim.p90:
+            raise ValueError("simulation quantiles must satisfy p10 <= median <= p90")
+        if not math.isfinite(float(projection.confidence)) or not 0.0 <= projection.confidence <= 1.0:
+            raise ValueError("projection confidence must be finite and within [0,1]")
+        if not isinstance(sim.p_ge_threshold, dict):
+            raise ValueError("simulation tail probabilities must be an object")
+        tails: dict[int, float] = {}
+        for raw_threshold, raw_probability in sim.p_ge_threshold.items():
+            if isinstance(raw_threshold, bool):
+                raise ValueError("simulation thresholds must be positive integers")
             try:
-                if math.isclose(float(raw_threshold), threshold, abs_tol=1e-9):
-                    return float(probability)
-            except (TypeError, ValueError):
-                continue
-        return None
+                threshold = float(raw_threshold)
+            except (TypeError, ValueError) as exc:
+                raise ValueError("simulation thresholds must be numeric") from exc
+            if (not math.isfinite(threshold) or threshold <= 0
+                    or not threshold.is_integer()):
+                raise ValueError("simulation thresholds must be positive integers")
+            integer = int(threshold)
+            if integer in tails:
+                raise ValueError("simulation tail probabilities repeat a threshold")
+            tails[integer] = validate_probability(
+                raw_probability, f"p_ge_threshold[{integer}]"
+            )
+        ordered = sorted(tails.items())
+        if any(right_probability > left_probability
+               for (_, left_probability), (_, right_probability) in zip(ordered, ordered[1:])):
+            raise ValueError("simulation survival probabilities must be nonincreasing")
+        return tails
+
+    @staticmethod
+    def _validate_projection_quote_identity(
+        projection: PropProjection,
+        odds_line: OddsLine,
+    ) -> None:
+        projection_player = str(projection.player_name).strip().casefold()
+        quote_player = str(odds_line.player_name).strip().casefold()
+        if not projection_player or not quote_player or projection_player != quote_player:
+            raise ValueError("projection and quote player identity differ")
+        if projection.category != odds_line.category:
+            raise ValueError("projection and quote category differ")
 
     def _classify_edge(self, edge_pct: float, confidence: float) -> EdgeRecommendation:
         if confidence < self.thresholds.min_confidence:

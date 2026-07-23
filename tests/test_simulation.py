@@ -12,6 +12,8 @@ production, so each is impossible to reintroduce silently:
 - Elite/weak discrimination and HRR realism bands.
 """
 
+import pytest
+
 from src.models.dataclasses import LeagueBaselines, StatcastProfile
 from src.simulation import BaseState, HybridPASimulator, MonteCarloEngine
 from src.simulation.game_simulator import GameSimulator, GameSimulatorInput
@@ -140,6 +142,27 @@ def test_monte_carlo_hrr_distribution():
     assert result.p10 <= result.mean <= result.p90
 
 
+@pytest.mark.parametrize("n_sims", [0, -1, True, 1.5])
+def test_mutation_invalid_monte_carlo_draw_count_fails_closed(n_sims):
+    mc = MonteCarloEngine(random_seed=7)
+    with pytest.raises(ValueError, match="positive integer"):
+        mc.run(
+            GameSimulatorInput(expected_pa=4.0, pitcher_k_pct=22.0, pitcher_bb_pct=8.0),
+            category="hits",
+            n_sims=n_sims,
+        )
+
+
+def test_mutation_unknown_monte_carlo_category_cannot_fall_back_to_hrr():
+    mc = MonteCarloEngine(random_seed=7)
+    with pytest.raises(ValueError, match="unknown simulation category"):
+        mc.run(
+            GameSimulatorInput(expected_pa=4.0, pitcher_k_pct=22.0, pitcher_bb_pct=8.0),
+            category="home_run_typo",
+            n_sims=10,
+        )
+
+
 def test_league_average_on_contact_hrr_realistic():
     """End-to-end HRR for a league-average-on-contact hitter must land in a
     realistic band, NOT the ~3.3 the centering bug produced."""
@@ -179,4 +202,3 @@ def test_league_average_hits_per_game_realistic():
 
     mean_hits = total_hits / n_sims
     assert 0.7 <= mean_hits <= 1.6, f"mean hits/game {mean_hits:.3f} outside realistic range"
-

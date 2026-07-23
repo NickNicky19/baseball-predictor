@@ -1,0 +1,73 @@
+{
+  "schema_version": "market-tail-consumption-contract-repair-report-v1",
+  "candidate_id": "market-tail-consumption-contract-repair-v1-e9113bbec2863ab4",
+  "defect_id": "SI-031",
+  "classification": "integrity_repair_only",
+  "status": "verified_not_promoted",
+  "root_cause": [
+    "exact Monte Carlo tails entered edge arithmetic without validating draw count, category, summaries, thresholds, probability bounds, or survival monotonicity",
+    "an injected exact Total Bases tail bypassed the declared candidate line grid",
+    "direct quote consumption did not bind player/category identity",
+    "odds indexing overwrote multiple sportsbook products by player/category",
+    "unknown simulator categories silently produced HRR and invalid draw counts could emit empty distributions"
+  ],
+  "repair": [
+    "complete simulation result validation precedes every exact-tail lookup",
+    "Total Bases line support validates before exact-tail consumption",
+    "projection and quote player/category identities must match",
+    "distinct sportsbooks and alternate lines remain separate products",
+    "duplicate same sportsbook/line products fail instead of last-write-wins",
+    "invalid quotes fail instead of disappearing from a value scan",
+    "unknown categories and nonpositive/nonintegral draw counts fail at simulation generation"
+  ],
+  "mutation_proof": [
+    "NaN, negative, and above-one tail probabilities rejected",
+    "noninteger and duplicate canonical thresholds rejected",
+    "nonmonotone survival tails rejected",
+    "simulation/projection category mismatch rejected",
+    "projection/quote player and category mismatch rejected",
+    "unsupported Total Bases exact line rejected",
+    "different sportsbooks retained separately",
+    "alternate lines at one sportsbook retained separately",
+    "duplicate exact product rejected",
+    "invalid line and zero American price rejected",
+    "zero, negative, boolean, and nonintegral draw counts rejected",
+    "unknown simulation category rejected instead of HRR substitution"
+  ],
+  "verification": {
+    "focused": "41 passed",
+    "full_suite": "285 passed",
+    "historical_outcomes_opened": false,
+    "historical_prices_opened": false,
+    "may_2026_opened": false,
+    "feature_artifacts_rebuilt": false,
+    "probabilities_recomputed": false,
+    "aws_runtime_changed": false,
+    "collector_changed": false
+  },
+  "hashes": {
+    "parent_commit": "06097a5d4fdd96c50ae90d1669d4a8d4172e1fce",
+    "code_bundle_sha256": "e9113bbec2863ab4807b379f4182a14c01673d72fde4f9239250a51c8bfdb9b1",
+    "test_bundle_sha256": "de2fcd8b816d07237525c027b8b48256c541e51776dc96056cfd7972922cd8e9",
+    "config_sha256": "77c029297b514e3df652bb447d90e58906e954c64dcd039d78537b9e59870436",
+    "predeclaration_sha256": "a155d5793ea92d75b7244aee911e21320b5e68a3b6765ce4f94d31bf7ed0f83c",
+    "data_sha256": null,
+    "feature_sha256": null,
+    "src_prediction_edge_calculator_py": "99bb6f7ca8813294f5e51f005783f76b5535620e9dd79014ad58f8a42dd4f332",
+    "src_simulation_monte_carlo_py": "c1e2af6941543fdce7a35631ad379455a03a2e53d6370bb0132f409d4a93a94d",
+    "tests_test_edge_engine_py": "014160cf9a315c2c1a517d8455aa1b69b4de9fc0dcb731fd36edeb6146ec6e86",
+    "tests_test_simulation_py": "2a1047230af7f2a2f7879904683a640ed658d6e6de1bd542560d91cf2f5bcf3f",
+    "tests_test_market_economics_properties_py": "5585d74783f1337a7f8056a70cdfd002e3e942b4545d4b1f622a44bf1fe75ab8"
+  },
+  "chronological_evaluation": {
+    "required": false,
+    "reason": "valid exact-tail probabilities and valid market arithmetic are unchanged; invalid or pooled products are rejected and no fitted candidate was created"
+  },
+  "promotion": {
+    "hits": false,
+    "home_runs": false,
+    "total_bases": false,
+    "betting_authorized": false
+  },
+  "highest_value_next_action": "Verify the first fresh T-4 pitcher receipts independently, then permit pitcher matchup inputs only for the exact receipt-bound game/team identities."
+}

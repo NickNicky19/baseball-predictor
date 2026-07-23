@@ -1225,6 +1225,25 @@ unauthorized.
 The report SHA-256 is
 `9c076e07014e4eb6f130c1b7ac3ef849c4a495d675f0f61b187f0863f035d2b3`.
 
+2026-07-23 HANDOFF ADDENDUM — MARKET TAIL CONSUMPTION (AUTHORITATIVE)
+
+SI-031 is repaired in the same isolated lineage. Exact Monte Carlo tails could
+previously reach edge arithmetic with invalid probability/distribution state;
+an injected exact Total Bases tail bypassed its allowed line grid; direct calls
+did not bind quote identity; player/category indexing overwrote sportsbooks;
+and an unknown simulator category silently became HRR. The repaired boundary
+validates the complete distribution, exact player/category/line identity, and
+market quote, keeps each sportsbook and alternate line separate, rejects an
+ambiguous duplicate product, and fails on unknown category or invalid draw
+count. Focused proof is 41 passed and the full suite is 285 passed. Exact hashes
+are in `docs/research/MARKET_TAIL_CONSUMPTION_CONTRACT_REPAIR_V1_REPORT.json`.
+Valid probabilities and price arithmetic are unchanged; no historical
+price/outcome, May/2026, feature, prediction, AWS, collector, or frozen runtime
+artifact was opened or changed. No market was promoted and betting remains
+unauthorized.
+The report SHA-256 is
+`8b895fb8af82d896f4f91694bc9ea25583af45a83302f2a7fe3445958f03dc53`.
+
 2026-07-22 HANDOFF ADDENDUM — EXPLICIT/SAMPLED INPUT PARITY (AUTHORITATIVE)
 
 SI-029 is repaired in the same isolated lineage. `ProbabilityEngine` archived

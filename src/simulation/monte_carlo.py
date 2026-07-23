@@ -100,6 +100,10 @@ class MonteCarloEngine:
         store_samples: bool = False,
     ) -> MonteCarloResult:
         """Simulate n_sims games and aggregate for the requested prop category."""
+        if category not in self.DEFAULT_THRESHOLDS:
+            raise ValueError(f"unknown simulation category: {category!r}")
+        if isinstance(n_sims, bool) or not isinstance(n_sims, int) or n_sims <= 0:
+            raise ValueError("n_sims must be a positive integer")
         # FIX: seed the shared simulator ONCE per run from the engine RNG so
         # the entire run is reproducible under the engine's random_seed.
         run_seed = self.rng.randint(0, 2**31 - 1)
@@ -115,7 +119,7 @@ class MonteCarloEngine:
                 game_results.append(result)
 
         arr = np.array(samples, dtype=float)
-        thresh = thresholds or self.DEFAULT_THRESHOLDS.get(category, [])
+        thresh = self.DEFAULT_THRESHOLDS[category] if thresholds is None else thresholds
         p_ge = {t: float((arr >= t).mean()) for t in thresh}
 
         return MonteCarloResult(
@@ -142,7 +146,7 @@ class MonteCarloEngine:
             return float(result.strikeouts)
         if category == "total_bases":
             return float(result.total_bases)
-        return float(result.hrr)
+        raise ValueError(f"unknown simulation category: {category!r}")
 
     def _fantasy_points(self, result: GameSimulationResult) -> float:
         fs = self.fantasy_scoring
@@ -155,4 +159,3 @@ class MonteCarloEngine:
             + result.runs * fs.run
             + result.walks * fs.walk
         )
-

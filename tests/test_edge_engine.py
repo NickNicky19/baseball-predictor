@@ -71,12 +71,96 @@ def test_missing_exact_tail_cannot_silently_price_a_market():
 def test_half_point_line_uses_integer_tail_key_not_the_line_key():
     """Regression: archived MC tails are count keys, never book-line keys."""
     calc = EdgeCalculator()
-    # If the old direct ``p_ge_threshold[1.5]`` lookup returns, this test
-    # observes 1%, not the true P(hits >= 2) of 77%.
-    proj = _proj("hits", 1.2, 0.7, {1.5: 0.01, 2.0: 0.77})
+    proj = _proj("hits", 1.2, 0.7, {2.0: 0.77})
     odds = OddsLine("Test Player", "hits", 1.5, over_odds_american=100, under_odds_american=-120)
     edge = calc.compute_edge(proj, odds)
     assert edge.model_prob_over == 0.77
+
+
+@pytest.mark.parametrize("bad_probability", [float("nan"), -0.01, 1.01])
+def test_mutation_invalid_exact_tail_probability_fails_closed(bad_probability):
+    calc = EdgeCalculator()
+    proj = _proj("hits", 1.0, 0.7, {2.0: bad_probability})
+    odds = OddsLine("Test Player", "hits", 1.5, -110, -110)
+    with pytest.raises(ValueError, match="finite and in"):
+        calc.compute_edge(proj, odds)
+
+
+def test_mutation_noninteger_or_ambiguous_threshold_fails_closed():
+    calc = EdgeCalculator()
+    odds = OddsLine("Test Player", "hits", 1.5, -110, -110)
+    with pytest.raises(ValueError, match="positive integers"):
+        calc.compute_edge(_proj("hits", 1.0, 0.7, {1.5: 0.2, 2.0: 0.7}), odds)
+    with pytest.raises(ValueError, match="repeat"):
+        calc.compute_edge(_proj("hits", 1.0, 0.7, {2: 0.7, "2.0": 0.7}), odds)
+
+
+def test_mutation_nonmonotone_survival_tail_fails_closed():
+    calc = EdgeCalculator()
+    proj = _proj("hits", 1.0, 0.7, {1.0: 0.4, 2.0: 0.5})
+    odds = OddsLine("Test Player", "hits", 1.5, -110, -110)
+    with pytest.raises(ValueError, match="nonincreasing"):
+        calc.compute_edge(proj, odds)
+
+
+def test_mutation_projection_quote_identity_mismatch_fails_closed():
+    calc = EdgeCalculator()
+    proj = _proj("hits", 1.0, 0.7, {2.0: 0.5})
+    with pytest.raises(ValueError, match="player identity"):
+        calc.compute_edge(proj, OddsLine("Other Player", "hits", 1.5, -110, -110))
+    with pytest.raises(ValueError, match="category differ"):
+        calc.compute_edge(proj, OddsLine("Test Player", "home_runs", 1.5, -110, -110))
+
+
+def test_total_bases_exact_tail_cannot_bypass_supported_line_contract():
+    calc = EdgeCalculator()
+    proj = _proj("total_bases", 2.0, 0.7, {7.0: 0.1})
+    odds = OddsLine("Test Player", "total_bases", 6.5, 100, -120)
+    with pytest.raises(ValueError, match="outside the observed candidate contract"):
+        calc.compute_edge(proj, odds)
+
+
+def test_distinct_sportsbooks_are_not_pooled_or_overwritten():
+    calc = EdgeCalculator(EdgeThresholds(lean_edge_pct=0.1, min_confidence=0.4))
+    proj = _proj("hits", 1.0, 0.7, {2.0: 0.8})
+    quotes = [
+        OddsLine("Test Player", "hits", 1.5, 100, -120, sportsbook="a"),
+        OddsLine("Test Player", "hits", 1.5, 120, -140, sportsbook="b"),
+    ]
+    plays = calc.find_value_plays([proj], quotes)
+    assert {play.sportsbook for play in plays} == {"a", "b"}
+
+
+def test_duplicate_same_product_quote_fails_instead_of_last_write_wins():
+    calc = EdgeCalculator()
+    proj = _proj("hits", 1.0, 0.7, {2.0: 0.8})
+    quote = OddsLine("Test Player", "hits", 1.5, 100, -120, sportsbook="a")
+    with pytest.raises(ValueError, match="duplicate"):
+        calc.find_value_plays([proj], [quote, quote])
+
+
+def test_same_sportsbook_alternate_lines_remain_separate_products():
+    calc = EdgeCalculator(EdgeThresholds(lean_edge_pct=0.1, min_confidence=0.4))
+    proj = _proj("hits", 1.0, 0.7, {1.0: 0.9, 2.0: 0.7})
+    quotes = [
+        OddsLine("Test Player", "hits", 0.5, -150, 130, sportsbook="a"),
+        OddsLine("Test Player", "hits", 1.5, 120, -140, sportsbook="a"),
+    ]
+    plays = calc.find_value_plays([proj], quotes)
+    assert {play.line for play in plays} == {0.5, 1.5}
+
+
+def test_mutation_invalid_quote_cannot_be_silently_skipped():
+    calc = EdgeCalculator()
+    proj = _proj("hits", 1.0, 0.7, {2.0: 0.7})
+    with pytest.raises(ValueError, match="half-point"):
+        calc.find_value_plays(
+            [proj], [OddsLine("Test Player", "hits", 1.25, -110, -110)]
+        )
+    with pytest.raises(ValueError, match="cannot be 0"):
+        calc.find_value_plays(
+            [proj], [OddsLine("Test Player", "hits", 1.5, 0, -110)]
+        )
 
 
 def test_edge_side_detects_under():
