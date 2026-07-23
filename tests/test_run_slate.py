@@ -39,6 +39,7 @@ def test_automation_persists_features_and_decision_time_provenance(monkeypatch):
     assert seen["config_path"] == Path("config/config.kbb.json")
     assert seen["kwargs"]["persist_features"] is True
     assert seen["kwargs"]["capture_prediction_provenance"] is True
+    assert seen["kwargs"]["hitter_categories"] == ("hits", "hrr", "home_runs")
 
 
 def test_archive_dir_redirects_output_without_changing_prediction_call(monkeypatch, tmp_path):

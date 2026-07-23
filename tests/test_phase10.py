@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from dataclasses import asdict
+
 from src.data.mlb_api import HittingStatsSnapshot, PitchingStatsSnapshot
 from src.evaluation.output_safeguards import OutputSafeguards
 from src.features.feature_factory import FeatureFactory
@@ -20,6 +22,7 @@ from src.models.dataclasses import (
     StatcastProfile,
     WeatherContext,
 )
+from src.models.total_bases_contract import shared_pa_forward_candidate_config
 from src.prediction.prop_engine import PropEngine
 from src.simulation.pa_simulator import HybridPASimulator, PASimulatorConfig
 from src.simulation.probability_engine import ProbabilityEngine
@@ -225,6 +228,22 @@ def test_legacy_hr9_direction_is_explicitly_flagged_in_projection():
 
     assert "opposing_pitcher_hr9_direction_unqualified" in frozen_projection.input_health_flags
     assert "opposing_pitcher_hr9_direction_unqualified" not in candidate_projection.input_health_flags
+
+
+def test_appending_total_bases_output_does_not_mutate_existing_probabilities():
+    """The archive repair adds an output, not a changed Hits/HR formula."""
+    bundle = _sample_bundle()
+    config = {"simulation": {"n_sims": 500, "random_seed": 20260723}}
+    legacy = PropEngine(config=config).project_hitter(
+        bundle, categories=("hits", "hrr", "home_runs")
+    )
+    extended = PropEngine(config=shared_pa_forward_candidate_config(config)).project_hitter(
+        bundle, categories=("hits", "hrr", "home_runs", "total_bases")
+    )
+    assert [row.category for row in extended] == [
+        "hits", "hrr", "home_runs", "total_bases"
+    ]
+    assert [asdict(row) for row in extended[:3]] == [asdict(row) for row in legacy]
 
 
 def test_expected_outcome_probs_match_league_hit_rate():

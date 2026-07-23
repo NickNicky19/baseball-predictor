@@ -1,6 +1,39 @@
 PROJECT_CONTEXT.md — v17 (master roadmap) — paste into any new chat
 
 ===============================================================================
+SHARED PA COMPARATOR CAPTURE READINESS (2026-07-22) — NOT DEPLOYED
+
+The separate shared-PA comparator layer now has a locked, fail-closed T-4
+contract for Hits, HR over 0.5, and Total Bases. Frozen batter archives now
+carry the exact opposing-pitcher MLB ID consumed by the feature bundle, and a
+comparator probability is usable only when that ID equals the immutable
+receipt-proven probable starter for the opposing side. Missing or conflicting
+identity remains unassessable; no name match, eventual starter, deletion,
+clipping, or league-average substitution is permitted.
+
+The supported production `run_slate.py` path remains unchanged. Total Bases is
+generated only by a separate unpromoted structural runner and separate archive.
+Regression proves that appending this output leaves the existing Hits, HRR, and
+HR projections exactly unchanged. The market layer requests the three locked
+provider keys but accepts a probability only from a unique DraftKings Over and
+Under at the same event, player, line, and timestamp. One-sided HR, cross-book
+pairing, late evidence, duplicate SIDs, unmatched players, and identity drift
+receive explicit non-probability dispositions. Publication is write-once and
+hash-bound.
+
+  readiness report:
+    reports/shared_pa_comparator_capture_readiness_v1.json
+  report sha256:
+    3dfcb5ec8109accb9c1654a743c3cc6b7687c9a9a172b69962591c243869de36
+
+Verification is 31/31 focused and 241/241 full repository tests. No real
+provider request, outcome read, May access, backfill, model fit, probability
+coefficient change, production promotion, or betting authorization occurred.
+This is code readiness only and is not yet deployed. The highest-value next
+action is an exact reviewed release and a separate AWS non-economic T-4 smoke;
+the existing pitcher and shared-PA collectors must remain untouched.
+
+===============================================================================
 SHARED PA ADJUDICATION READINESS (2026-07-22) — NO MODEL PROMOTION
 
 The shared batter PA forward control is deployed separately on AWS from the

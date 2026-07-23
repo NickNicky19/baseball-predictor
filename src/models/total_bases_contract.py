@@ -75,3 +75,29 @@ def candidate_config(config: dict[str, Any]) -> dict[str, Any]:
         "source": "observed closes_2026-05/06; structural interface, not fitted",
     }
     return out
+
+
+def shared_pa_forward_candidate_config(config: dict[str, Any]) -> dict[str, Any]:
+    """Fork config for the outcome-blind shared-PA Total Bases output.
+
+    This is deliberately separate from the older candidate provenance above.
+    Its structural line/threshold interface is locked by the prospective
+    shared-PA adjudication contract.  It adds no coefficient and does not
+    promote Total Bases into production.
+    """
+    out = deepcopy(config)
+    if "total_bases" in out:
+        raise ValueError(
+            "config already contains a total_bases block; refuse to overwrite "
+            "shared-PA candidate provenance"
+        )
+    out["total_bases"] = {
+        "status": "candidate_unpromoted",
+        "market_line_contract": list(TOTAL_BASES_MARKET_LINES),
+        "threshold_contract": list(TOTAL_BASES_THRESHOLDS),
+        "source": (
+            "shared-pa-forward-adjudication-contract-v1; "
+            "outcome-blind structural output interface, not fitted"
+        ),
+    }
+    return out
