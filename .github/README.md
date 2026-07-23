@@ -113,15 +113,13 @@ to maintain.
 
 ## Troubleshooting
 
-- **"Record Outcomes" commits nothing:** no archived predictions existed for
-  that date (the prediction workflow must have run that day first), or games
-  weren't final when it ran. Re-run it by hand with the specific date once
-  games are final.
+- **"Record Outcomes" fails:** no admissible prior-day archive existed, its
+  decision-time provenance was invalid, or games were not final. This is a
+  terminal, visible research failure; do not rerun an older date or backfill it.
 - **Push rejected / permission error:** the repo-level "Read and write
   permissions" toggle in step 3 isn't set.
 - **A schedule didn't fire:** GitHub sometimes delays scheduled Actions under
   load, and disables schedules on repos with no activity for 60 days. A manual
   run or any push re-activates them.
-- **MLB/Statcast fetch failed:** transient upstream outage; the next day's run
-  picks up. To backfill a missed grading day, trigger "Record Outcomes" by
-  hand with that date.
+- **MLB/Statcast fetch failed:** investigate before the next slate. A missed
+  prospective date remains missing rather than being reconstructed later.

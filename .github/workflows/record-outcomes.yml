@@ -8,44 +8,17 @@ name: Record Outcomes
 # West Coast extra-inning ones are final, and 6 hours BEFORE the 20:00 UTC
 # prediction job so the day's collection is closed out first.
 #
-# BACKFILL WINDOW (was: yesterday only)
-# ------------------------------------
-# This job used to grade YESTERDAY and only yesterday, and it skipped
-# "gracefully" when the archive was missing. That made every failure a
-# PERMANENT, SILENT hole in the forward-pairs dataset:
-#
-#   * predict job failed (transient API blip) -> no archive -> this job said
-#     "nothing to grade" and exited clean. Nobody ever went back. That is
-#     exactly what happened to 2026-07-10.
-#   * predict succeeded but its git push failed -> archive never reached the
-#     repo -> same silent hole.
-#   * games not final at 10:00 ET (West Coast extra innings, lagging feed) ->
-#     run_record_outcomes exited 1 -> this workflow went RED -> the pairs were
-#     never recorded and nothing retried them.
-#
-# Now it re-checks the last N days every run, so a failure today HEALS
-# tomorrow with no human action. Safe to run daily because OutcomeRecorder is
-# idempotent by construction: _build_pair_rows loads the existing
-# (player_id, game_date, category) keys and skips any it already has, so an
-# already-graded date appends nothing.
-#
-# This does NOT backfill predictions — only grades archives that already
-# exist. A prediction regenerated days later would see lineups/weather that
-# were not knowable at slate time; injecting reconstructions would contaminate
-# the forward-pairs set, whose entire value is that it is forward.
+# FORWARD-ONLY SETTLEMENT
+# -----------------------
+# This workflow grades exactly the immediately preceding official MLB date.
+# A missed archive, unavailable final, or invalid provenance remains a visible
+# terminal failure; it is never re-opened on a later day.  Re-grading older
+# dates would reconstruct prospective settlement evidence after the fact and
+# must not be used to heal a historical hole.
 on:
   schedule:
     - cron: "0 14 * * *"   # 14:00 UTC = 10:00 AM Eastern
   workflow_dispatch:
-    inputs:
-      date:
-        description: "Single date to grade (YYYY-MM-DD). Blank = backfill window."
-        required: false
-        default: ""
-      backfill_days:
-        description: "Days to re-check when no date is given (default 7)."
-        required: false
-        default: "7"
 permissions:
   contents: write
 concurrency:
@@ -67,10 +40,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # One date if explicitly dispatched; otherwise the rolling backfill
-      # window. The backfill is idempotent, so re-grading already-recorded
-      # dates is a no-op (it reports duplicates and appends nothing).
-      #
       # --config is passed EXPLICITLY. Without it the recorder falls back to
       # whatever load_config(None) resolves; if that ever yields an empty or
       # partial config the pairs get stamped with the wrong (or a default {})
@@ -82,22 +51,13 @@ jobs:
         env:
           PYTHONPATH: .
         run: |
-          DATE="${{ github.event.inputs.date }}"
-          DAYS="${{ github.event.inputs.backfill_days }}"
-          DAYS="${DAYS:-7}"
-          if [ -n "${DATE}" ]; then
-            echo "Grading single date ${DATE}"
-            python run_record_outcomes.py \
-              --date "${DATE}" \
-              --config config/config.kbb.json \
-              --verbose
-          else
-            echo "Backfilling the last ${DAYS} day(s)"
-            python run_record_outcomes.py \
-              --backfill-days "${DAYS}" \
-              --config config/config.kbb.json \
-              --verbose
-          fi
+          TARGET_DATE="$(TZ=America/New_York date -d 'yesterday' +%F)"
+          [[ "$TARGET_DATE" != 2026-05-* ]] || { echo "May 2026 is sealed" >&2; exit 2; }
+          echo "Grading the single forward settlement date ${TARGET_DATE}"
+          python run_record_outcomes.py \
+            --date "${TARGET_DATE}" \
+            --config config/config.kbb.json \
+            --verbose
 
       - name: Commit pairs
         run: |
@@ -109,6 +69,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No new pairs to commit (all dates already graded, or games not final)."
           else
-            git commit -m "Outcomes: backfill through $(TZ=America/New_York date +%F) [skip ci]"
+            git commit -m "Outcomes: forward settlement $(TZ=America/New_York date -d 'yesterday' +%F) [skip ci]"
             git push
           fi
