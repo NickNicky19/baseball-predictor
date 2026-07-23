@@ -22,7 +22,7 @@ free health reports expose missing credentials and overdue terminal coverage.
   readiness report:
     reports/shared_pa_comparator_aws_automation_readiness_v1.json
   report sha256:
-    a6e3a6a5daf00fee26b289a6c63d169fbfee7eea967b888f1cfd4de8be1fc03a
+    41a202d81d8e06e545759f5ac9c7661df2618f3dd67c53398db8a471416b2270
   release manifest:
     config/shared_pa_comparator_release_manifest_v1.json
   runtime sha256:
@@ -37,8 +37,8 @@ model work. Verification is 45/45 focused and 261/261 full repository tests, plu
 offline release and 32-file hash-manifest gates. No real provider request,
 outcome read, May access, backfill, model fit, coefficient change, promotion,
 or betting authorization occurred. Proven probability improvement remains 0%.
-The code is committed and pushed in draft PR #14, but is not yet reviewed,
-landed, or deployed; AWS provider-key presence is also unverified. The next
+The code is committed and pushed in ready PR #14, but is not yet landed or
+deployed; AWS provider-key presence is also unverified. The next
 action is prerequisite PR #13 landing, then PR #14 review and exact-commit
 installation followed by a future-only non-economic smoke.
 

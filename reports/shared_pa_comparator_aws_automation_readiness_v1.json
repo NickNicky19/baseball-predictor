@@ -1,11 +1,11 @@
 {
   "schema_version": "shared-pa-comparator-aws-automation-readiness-v1",
   "assessed_date": "2026-07-22",
-  "status": "HASH_BOUND_DRAFT_PR_OPEN_NOT_DEPLOYED",
+  "status": "HASH_BOUND_PR_READY_NOT_DEPLOYED",
   "classification": "integrity repair and prospective evidence automation; not a model promotion",
   "base_commit": "3555a595a42769687d1344530fdaefdd13b76ab3",
   "candidate_branch": "codex/shared-pa-comparator-capture-v1",
-  "draft_pull_request": "https://github.com/NickNicky19/baseball-predictor/pull/14",
+  "pull_request": "https://github.com/NickNicky19/baseball-predictor/pull/14",
   "scope": {
     "markets": ["hits", "home_runs_over_0_5", "total_bases"],
     "decision_horizon": "T-4h",
@@ -64,7 +64,7 @@
   "rejection_reasons": [
     "no fresh prospective settled comparator population exists yet",
     "AWS provider credential presence has not yet been verified",
-    "draft PR #14 has not yet been reviewed, landed, or deployed"
+    "ready PR #14 has not yet been landed or deployed"
   ],
   "single_highest_value_next_action": "Commit this exact hash-bound candidate, restore GitHub authentication, publish a reviewed PR without changing the earlier PR #13 head, then deploy the exact landed commit to the separate AWS comparator root and verify its first future-only non-economic smoke cycle."
 }
