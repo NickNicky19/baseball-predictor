@@ -8,7 +8,7 @@ daily without your laptop, and you can read results from your phone.
 | Workflow | When (UTC) | What it does | Changes model? |
 |---|---|---|---|
 | `record-outcomes.yml` | 14:00 daily | Grades yesterday's predictions → appends pairs to `prediction_outcomes.csv` | No |
-| `daily-predictions.yml` | 15:00 daily | Predicts today's slate, archives it | No |
+| `daily-predictions.yml` | 12:00 daily | Early backup archive for today's slate; the AWS per-game collector owns T-4 timing | No |
 | `weekly-validation.yml` | Mon 15:30 | Writes a readable report to `reports/latest.md` | No |
 
 Grading runs an hour before predicting so each day's collection closes out

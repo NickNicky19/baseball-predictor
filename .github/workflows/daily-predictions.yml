@@ -1,12 +1,15 @@
 name: Daily Prediction Archive
 on:
   schedule:
-    # Best-effort daily prediction archive. This is NOT the primary T-4h
+    # Best-effort early daily prediction archive. This is NOT the primary T-4h
     # market collector: one fixed time cannot be four hours before every
     # staggered first pitch, and GitHub cron does not provide a hard execution
     # guarantee. The future external shadow collector owns per-game timing;
     # this workflow preserves model-side evidence and provides a durable backup.
-    - cron: "0 20 * * *"   # 20:00 UTC = 4:00 PM Eastern
+    # Run before ordinary North American daytime first pitches. The strict
+    # whole-slate boundary in run_slate.py remains authoritative if GitHub
+    # dispatch is delayed or a special early game makes this unsafe.
+    - cron: "0 12 * * *"   # 12:00 UTC = 08:00 EDT / 07:00 EST
   workflow_dispatch:
     inputs:
       date:

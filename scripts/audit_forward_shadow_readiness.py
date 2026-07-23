@@ -139,7 +139,7 @@ def main(argv: list[str] | None = None) -> int:
     total = sum(item["checks_passed"] for item in checks.values())
     workflow_path = ROOT / ".github/workflows/daily-predictions.yml"
     workflow = workflow_path.read_text(encoding="utf-8")
-    if "- cron: \"0 20 * * *\"" not in workflow:
+    if "- cron: \"0 12 * * *\"" not in workflow:
         raise ValueError("GitHub backup schedule drifted")
     if "NOT the primary T-4h" not in workflow or "future external shadow collector" not in workflow:
         raise ValueError("workflow no longer declares its non-primary capture role")
@@ -220,7 +220,7 @@ def main(argv: list[str] | None = None) -> int:
         "guard_checks_passed": total,
         "capture_timing": {
             "target": "per-game T-4h derived from official start time",
-            "github_backup_cron": "0 20 * * *",
+            "github_backup_cron": "0 12 * * *",
             "github_is_primary_collector": False,
             "durable_external_primary_collector_deployed": False,
             "github_independent_verifier_implemented": True,
