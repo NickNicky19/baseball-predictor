@@ -1,0 +1,25 @@
+{
+  "schema_version": "shared-pa-core-attribution-record-v1",
+  "status": "DIAGNOSTIC_COMPLETE_NO_NEW_CANDIDATE",
+  "scope": "Certified 2023-only strict-prior batter features, fixed CatBoost core, four chronological OOF folds. This is attribution, not a causal claim or model selection.",
+  "immutable_evidence": {
+    "report_sha256": "4ff16fb005b3581e31ba2793df4ab8f069210b0c93799ba03ab65f9cc62dd0d3",
+    "oof_predictions_sha256": "cb1de6fdd739e15fa960a82c803463de911eba8f9b9fc6149dbd78fc465688c2",
+    "panel_sha256": "5e47ee69416d22bfe7eb0b7745abf7ac60cd9fa585c2f0d54aff266fb59ec4f8",
+    "protocol_sha256": "0dfb1ce56d1d7b6b45db2228798a9414bf0bbdde53d90c1cc91a4f342df79b5e",
+    "runner_sha256": "7fd05af59dfcf92a6c8257cb91de37103393d3c233d53726ab9f2c82f5ab2ad2",
+    "test_sha256": "4eee54475efa162feeaa029537579fb550f97b939a18d11f94747c8a148b550a"
+  },
+  "coverage": {"input_rows": 43726, "initial_training_only_rows": 9053, "chronological_oof_eligible_rows": 34673, "oof_scored_rows": 34673, "missing_oof_rows": 0, "coverage_loss_within_scored_windows": 0},
+  "measured_findings": {
+    "hr": "Removing the strict-prior batted-ball block worsened Brier by +0.00003235 (95% [+0.00001629, +0.00004910]) and log loss by +0.000274996 (95% [+0.00015919, +0.00039939]) versus the full core, with aggregate AUC loss. AUC loss was not present in every fold, so this is a valid source-block priority, not proof of a new candidate.",
+    "hits_and_total_bases": "Removing strict-prior pitch-shape features worsened both Brier and log loss with positive 95% lower bounds for Hits and Total Bases. Total Bases also lost AUC in every fold; Hits did not. This is a valid source-block priority, not a production change.",
+    "outcome_history": "Removing outcome-history features had mixed or slightly improved proper scores. This does not justify deleting them: the audit is diagnostic and cannot establish a causal redundancy or a better model specification."
+  },
+  "rejected_interpretations": ["The report does not prove a causal mechanism.", "The report does not prove a data defect.", "The report does not authorize removal of any block, coefficient tuning, a new fitted candidate, a 2024 read, a 2025 HR-confirmation read, or betting."],
+  "single_highest_value_next_action": "Conduct a predeclared source-to-feature lineage and denominator audit of the batted-ball block (HR priority) and pitch-shape block (Hits/Total Bases priority), tracing raw strict-prior rows through the panel and testing timing, identity, unit, count, and serialization mutations before considering any new candidate.",
+  "full_test_result": "398 passed",
+  "may_2026_opened": false,
+  "production_changed": false,
+  "betting_authorized": false
+}

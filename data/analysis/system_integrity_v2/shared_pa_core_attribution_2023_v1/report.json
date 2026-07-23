@@ -1,0 +1,1234 @@
+{
+  "betting_authorized": false,
+  "chronology": {
+    "2024_opened": false,
+    "2025_opened": false,
+    "all_predictions_out_of_fold": true,
+    "development_years": [
+      2023
+    ],
+    "may_2026_opened": false,
+    "outer_folds": 4,
+    "realized_pa_used_as_feature": false
+  },
+  "components": {
+    "hits": {
+      "ablations": {
+        "full_core_minus_batted_ball": {
+          "ablated_minus_full_interval": {
+            "brier": {
+              "lower": -6.374486170978722e-05,
+              "point": 3.5471088422657366e-05,
+              "upper": 0.00013365945458988928
+            },
+            "dates": 144,
+            "draws": 2000,
+            "log_loss": {
+              "lower": -0.00010229800233177745,
+              "point": 4.943507862897111e-05,
+              "upper": 0.00018457986604836823
+            }
+          },
+          "auc_loss_aggregate": true,
+          "auc_loss_every_fold": false,
+          "calibration": {
+            "1": {
+              "converged": true,
+              "intercept": -0.6520370022491319,
+              "slope": 0.49172755691414705
+            }
+          },
+          "interpretation": "Positive ablated-minus-full loss means this block improved the fixed core on the shared chronological OOF universe; this is source attribution, not causal proof or a candidate selection.",
+          "proper_score_loss_direction_consistent": {
+            "brier": false,
+            "log_loss": false
+          },
+          "scores": {
+            "auc": 0.5185745881073726,
+            "brier": 0.34693750117642946,
+            "log_loss": 0.5311062599427859
+          }
+        },
+        "full_core_minus_outcome_history": {
+          "ablated_minus_full_interval": {
+            "brier": {
+              "lower": -0.0001398593925679035,
+              "point": -6.451969272938516e-05,
+              "upper": 1.3746961834075565e-05
+            },
+            "dates": 144,
+            "draws": 2000,
+            "log_loss": {
+              "lower": -0.00020336870721387483,
+              "point": -8.767439127089456e-05,
+              "upper": 2.5429069650999293e-05
+            }
+          },
+          "auc_loss_aggregate": false,
+          "auc_loss_every_fold": false,
+          "calibration": {
+            "1": {
+              "converged": true,
+              "intercept": -0.59104953718231,
+              "slope": 0.542367580676132
+            }
+          },
+          "interpretation": "Positive ablated-minus-full loss means this block improved the fixed core on the shared chronological OOF universe; this is source attribution, not causal proof or a candidate selection.",
+          "proper_score_loss_direction_consistent": {
+            "brier": false,
+            "log_loss": false
+          },
+          "scores": {
+            "auc": 0.5200392513570795,
+            "brier": 0.3468375103952774,
+            "log_loss": 0.5309691504728861
+          }
+        },
+        "full_core_minus_pitch_discipline": {
+          "ablated_minus_full_interval": {
+            "brier": {
+              "lower": -2.5991782345998253e-05,
+              "point": 4.765475684948494e-05,
+              "upper": 0.00012005050174616609
+            },
+            "dates": 144,
+            "draws": 2000,
+            "log_loss": {
+              "lower": -2.8903223293354795e-05,
+              "point": 7.227336279997126e-05,
+              "upper": 0.0001763495161879579
+            }
+          },
+          "auc_loss_aggregate": true,
+          "auc_loss_every_fold": false,
+          "calibration": {
+            "1": {
+              "converged": true,
+              "intercept": -0.6475831788616006,
+              "slope": 0.4975840483530168
+            }
+          },
+          "interpretation": "Positive ablated-minus-full loss means this block improved the fixed core on the shared chronological OOF universe; this is source attribution, not causal proof or a candidate selection.",
+          "proper_score_loss_direction_consistent": {
+            "brier": false,
+            "log_loss": false
+          },
+          "scores": {
+            "auc": 0.5188787828273248,
+            "brier": 0.3469496848448563,
+            "log_loss": 0.5311290982269569
+          }
+        },
+        "full_core_minus_pitch_shape": {
+          "ablated_minus_full_interval": {
+            "brier": {
+              "lower": 4.609903280403405e-05,
+              "point": 0.00013767758810417704,
+              "upper": 0.00022551355925326386
+            },
+            "dates": 144,
+            "draws": 2000,
+            "log_loss": {
+              "lower": 4.400722891748064e-05,
+              "point": 0.00017906578245676345,
+              "upper": 0.0003022210258114439
+            }
+          },
+          "auc_loss_aggregate": true,
+          "auc_loss_every_fold": false,
+          "calibration": {
+            "1": {
+              "converged": true,
+              "intercept": -0.6935282592739909,
+              "slope": 0.458018084892698
+            }
+          },
+          "interpretation": "Positive ablated-minus-full loss means this block improved the fixed core on the shared chronological OOF universe; this is source attribution, not causal proof or a candidate selection.",
+          "proper_score_loss_direction_consistent": {
+            "brier": true,
+            "log_loss": true
+          },
+          "scores": {
+            "auc": 0.5188617777622604,
+            "brier": 0.347039707676111,
+            "log_loss": 0.5312358906466138
+          }
+        }
+      },
+      "full_core": {
+        "calibration": {
+          "1": {
+            "converged": true,
+            "intercept": -0.6257933977772884,
+            "slope": 0.5143669552105663
+          }
+        },
+        "scores": {
+          "auc": 0.5200130220118097,
+          "brier": 0.3469020300880068,
+          "log_loss": 0.531056824864157
+        }
+      }
+    },
+    "hr_over_0_5": {
+      "ablations": {
+        "full_core_minus_batted_ball": {
+          "ablated_minus_full_interval": {
+            "brier": {
+              "lower": 1.6288751038509382e-05,
+              "point": 3.2349596671289435e-05,
+              "upper": 4.910453500588238e-05
+            },
+            "dates": 144,
+            "draws": 2000,
+            "log_loss": {
+              "lower": 0.00015918582688701703,
+              "point": 0.0002749958672326827,
+              "upper": 0.00039938642973759566
+            }
+          },
+          "auc_loss_aggregate": true,
+          "auc_loss_every_fold": false,
+          "calibration": {
+            "1": {
+              "converged": true,
+              "intercept": -0.23713137614977678,
+              "slope": 0.9560132116097675
+            }
+          },
+          "interpretation": "Positive ablated-minus-full loss means this block improved the fixed core on the shared chronological OOF universe; this is source attribution, not causal proof or a candidate selection.",
+          "proper_score_loss_direction_consistent": {
+            "brier": true,
+            "log_loss": true
+          },
+          "scores": {
+            "auc": 0.586924853644502,
+            "brier": 0.06310925258384203,
+            "log_loss": 0.14268409929314874
+          }
+        },
+        "full_core_minus_outcome_history": {
+          "ablated_minus_full_interval": {
+            "brier": {
+              "lower": -1.9182408669011877e-05,
+              "point": -5.6953922726695106e-06,
+              "upper": 7.979597740574261e-06
+            },
+            "dates": 144,
+            "draws": 2000,
+            "log_loss": {
+              "lower": -0.00011465100304737354,
+              "point": -2.3405403774196553e-05,
+              "upper": 6.792100909558403e-05
+            }
+          },
+          "auc_loss_aggregate": true,
+          "auc_loss_every_fold": false,
+          "calibration": {
+            "1": {
+              "converged": true,
+              "intercept": -0.12053792480807494,
+              "slope": 0.9835246251813518
+            }
+          },
+          "interpretation": "Positive ablated-minus-full loss means this block improved the fixed core on the shared chronological OOF universe; this is source attribution, not causal proof or a candidate selection.",
+          "proper_score_loss_direction_consistent": {
+            "brier": false,
+            "log_loss": false
+          },
+          "scores": {
+            "auc": 0.5920372295566685,
+            "brier": 0.06307120759489808,
+            "log_loss": 0.14238569802214185
+          }
+        },
+        "full_core_minus_pitch_discipline": {
+          "ablated_minus_full_interval": {
+            "brier": {
+              "lower": -2.0392586204944267e-05,
+              "point": -8.162981155875419e-06,
+              "upper": 3.6263787640747153e-06
+            },
+            "dates": 144,
+            "draws": 2000,
+            "log_loss": {
+              "lower": -0.00013050364989408288,
+              "point": -5.189882250560581e-05,
+              "upper": 2.404034756731121e-05
+            }
+          },
+          "auc_loss_aggregate": false,
+          "auc_loss_every_fold": false,
+          "calibration": {
+            "1": {
+              "converged": true,
+              "intercept": -0.10827591484761624,
+              "slope": 0.9897958801213622
+            }
+          },
+          "interpretation": "Positive ablated-minus-full loss means this block improved the fixed core on the shared chronological OOF universe; this is source attribution, not causal proof or a candidate selection.",
+          "proper_score_loss_direction_consistent": {
+            "brier": false,
+            "log_loss": false
+          },
+          "scores": {
+            "auc": 0.5942620502465248,
+            "brier": 0.06306874000601487,
+            "log_loss": 0.14235720460341045
+          }
+        },
+        "full_core_minus_pitch_shape": {
+          "ablated_minus_full_interval": {
+            "brier": {
+              "lower": -4.671645041582772e-06,
+              "point": 8.656223015411514e-06,
+              "upper": 2.1720785776391957e-05
+            },
+            "dates": 144,
+            "draws": 2000,
+            "log_loss": {
+              "lower": -1.0337345631276181e-05,
+              "point": 6.637502634535123e-05,
+              "upper": 0.0001480723904775735
+            }
+          },
+          "auc_loss_aggregate": true,
+          "auc_loss_every_fold": false,
+          "calibration": {
+            "1": {
+              "converged": true,
+              "intercept": -0.24427750526640693,
+              "slope": 0.947132973940306
+            }
+          },
+          "interpretation": "Positive ablated-minus-full loss means this block improved the fixed core on the shared chronological OOF universe; this is source attribution, not causal proof or a candidate selection.",
+          "proper_score_loss_direction_consistent": {
+            "brier": false,
+            "log_loss": false
+          },
+          "scores": {
+            "auc": 0.5899606337985163,
+            "brier": 0.06308555921018615,
+            "log_loss": 0.1424754784522614
+          }
+        }
+      },
+      "full_core": {
+        "calibration": {
+          "1": {
+            "converged": true,
+            "intercept": -0.14941005065883445,
+            "slope": 0.977113512716604
+          }
+        },
+        "scores": {
+          "auc": 0.5924990230032348,
+          "brier": 0.06307690298717074,
+          "log_loss": 0.14240910342591606
+        }
+      }
+    },
+    "total_bases": {
+      "ablations": {
+        "full_core_minus_batted_ball": {
+          "ablated_minus_full_interval": {
+            "brier": {
+              "lower": -1.3782860498743474e-05,
+              "point": 6.50794150514522e-05,
+              "upper": 0.00014398772701665813
+            },
+            "dates": 144,
+            "draws": 2000,
+            "log_loss": {
+              "lower": 5.646917263271019e-05,
+              "point": 0.000265206039125893,
+              "upper": 0.0004653336023942523
+            }
+          },
+          "auc_loss_aggregate": true,
+          "auc_loss_every_fold": false,
+          "calibration": {
+            "0": {
+              "converged": true,
+              "intercept": 0.6520370022491349,
+              "slope": 0.49172755691414455
+            },
+            "1": {
+              "converged": true,
+              "intercept": -0.7396427741850785,
+              "slope": 0.5915365041450261
+            },
+            "2": {
+              "converged": true,
+              "intercept": -2.202277072955632,
+              "slope": 0.28300112373244696
+            },
+            "3": {
+              "converged": true,
+              "intercept": -1.8277371998979572,
+              "slope": 0.6769819296237909
+            },
+            "4": {
+              "converged": true,
+              "intercept": -0.23713137614977678,
+              "slope": 0.9560132116097675
+            }
+          },
+          "interpretation": "Positive ablated-minus-full loss means this block improved the fixed core on the shared chronological OOF universe; this is source attribution, not causal proof or a candidate selection.",
+          "proper_score_loss_direction_consistent": {
+            "brier": false,
+            "log_loss": true
+          },
+          "scores": {
+            "auc": 0.5439835037008585,
+            "brier": 0.37343375510280785,
+            "log_loss": 0.7452999961259892
+          }
+        },
+        "full_core_minus_outcome_history": {
+          "ablated_minus_full_interval": {
+            "brier": {
+              "lower": -0.0001266211992131565,
+              "point": -6.82777845098136e-05,
+              "upper": -3.828414256056374e-06
+            },
+            "dates": 144,
+            "draws": 2000,
+            "log_loss": {
+              "lower": -0.000273305769255775,
+              "point": -9.203379049004331e-05,
+              "upper": 8.448442266057578e-05
+            }
+          },
+          "auc_loss_aggregate": true,
+          "auc_loss_every_fold": true,
+          "calibration": {
+            "0": {
+              "converged": true,
+              "intercept": 0.5910495371823081,
+              "slope": 0.5423675806761337
+            },
+            "1": {
+              "converged": true,
+              "intercept": -0.5318778633743324,
+              "slope": 0.710448229829001
+            },
+            "2": {
+              "converged": true,
+              "intercept": -2.3798559044096335,
+              "slope": 0.22414023226143268
+            },
+            "3": {
+              "converged": true,
+              "intercept": -3.180503296309997,
+              "slope": 0.4258609048557276
+            },
+            "4": {
+              "converged": true,
+              "intercept": -0.12053792480807494,
+              "slope": 0.9835246251813518
+            }
+          },
+          "interpretation": "Positive ablated-minus-full loss means this block improved the fixed core on the shared chronological OOF universe; this is source attribution, not causal proof or a candidate selection.",
+          "proper_score_loss_direction_consistent": {
+            "brier": false,
+            "log_loss": false
+          },
+          "scores": {
+            "auc": 0.5398597860066727,
+            "brier": 0.37330039790324665,
+            "log_loss": 0.7449427562963732
+          }
+        },
+        "full_core_minus_pitch_discipline": {
+          "ablated_minus_full_interval": {
+            "brier": {
+              "lower": -3.1133119346864736e-05,
+              "point": 2.651819490149494e-05,
+              "upper": 8.276304759481507e-05
+            },
+            "dates": 144,
+            "draws": 2000,
+            "log_loss": {
+              "lower": -0.00012328843590826837,
+              "point": 1.0869885476505396e-05,
+              "upper": 0.00014358560658871253
+            }
+          },
+          "auc_loss_aggregate": false,
+          "auc_loss_every_fold": false,
+          "calibration": {
+            "0": {
+              "converged": true,
+              "intercept": 0.647583178861598,
+              "slope": 0.4975840483530189
+            },
+            "1": {
+              "converged": true,
+              "intercept": -0.6492582048533114,
+              "slope": 0.6457578998118898
+            },
+            "2": {
+              "converged": true,
+              "intercept": -2.4046120403517564,
+              "slope": 0.21581978696395124
+            },
+            "3": {
+              "converged": true,
+              "intercept": -2.217419080685492,
+              "slope": 0.6087553457976969
+            },
+            "4": {
+              "converged": true,
+              "intercept": -0.10827591484761624,
+              "slope": 0.9897958801213622
+            }
+          },
+          "interpretation": "Positive ablated-minus-full loss means this block improved the fixed core on the shared chronological OOF universe; this is source attribution, not causal proof or a candidate selection.",
+          "proper_score_loss_direction_consistent": {
+            "brier": false,
+            "log_loss": false
+          },
+          "scores": {
+            "auc": 0.5449808835077885,
+            "brier": 0.37339519388265796,
+            "log_loss": 0.7450456599723397
+          }
+        },
+        "full_core_minus_pitch_shape": {
+          "ablated_minus_full_interval": {
+            "brier": {
+              "lower": 5.603514853488975e-05,
+              "point": 0.00012901327146906314,
+              "upper": 0.00019851761185220263
+            },
+            "dates": 144,
+            "draws": 2000,
+            "log_loss": {
+              "lower": 0.00023062776319673754,
+              "point": 0.00041472454454463686,
+              "upper": 0.0005938456692969143
+            }
+          },
+          "auc_loss_aggregate": true,
+          "auc_loss_every_fold": true,
+          "calibration": {
+            "0": {
+              "converged": true,
+              "intercept": 0.6935282592739888,
+              "slope": 0.45801808489269974
+            },
+            "1": {
+              "converged": true,
+              "intercept": -0.7303664225080759,
+              "slope": 0.5978953170932794
+            },
+            "2": {
+              "converged": true,
+              "intercept": -2.4759519725240384,
+              "slope": 0.19261923835196873
+            },
+            "3": {
+              "converged": true,
+              "intercept": -2.557181843598279,
+              "slope": 0.5438705951256351
+            },
+            "4": {
+              "converged": true,
+              "intercept": -0.24427750526640693,
+              "slope": 0.947132973940306
+            }
+          },
+          "interpretation": "Positive ablated-minus-full loss means this block improved the fixed core on the shared chronological OOF universe; this is source attribution, not causal proof or a candidate selection.",
+          "proper_score_loss_direction_consistent": {
+            "brier": true,
+            "log_loss": true
+          },
+          "scores": {
+            "auc": 0.5425129736280888,
+            "brier": 0.3734976889592255,
+            "log_loss": 0.7454495146314077
+          }
+        }
+      },
+      "full_core": {
+        "calibration": {
+          "0": {
+            "converged": true,
+            "intercept": 0.6257933977772892,
+            "slope": 0.5143669552105656
+          },
+          "1": {
+            "converged": true,
+            "intercept": -0.6266259198698134,
+            "slope": 0.6567364444109378
+          },
+          "2": {
+            "converged": true,
+            "intercept": -2.38924601918392,
+            "slope": 0.22110461036075554
+          },
+          "3": {
+            "converged": true,
+            "intercept": -1.9973963383258804,
+            "slope": 0.6485954711715622
+          },
+          "4": {
+            "converged": true,
+            "intercept": -0.14941005065883445,
+            "slope": 0.977113512716604
+          }
+        },
+        "scores": {
+          "auc": 0.5449746770149437,
+          "brier": 0.37336867568775645,
+          "log_loss": 0.7450347900868632
+        }
+      }
+    }
+  },
+  "feature_sets": {
+    "full_core": [
+      "history_pitch_count",
+      "history_pa",
+      "history_strikeout_count",
+      "history_strikeout_rate",
+      "history_walk_count",
+      "history_walk_rate",
+      "history_single_count",
+      "history_single_rate",
+      "history_double_count",
+      "history_double_rate",
+      "history_triple_count",
+      "history_triple_rate",
+      "history_home_run_count",
+      "history_home_run_rate",
+      "history_bip_out_count",
+      "history_bip_out_rate",
+      "history_other_non_ab_count",
+      "history_other_non_ab_rate",
+      "history_swing_rate",
+      "history_whiff_rate",
+      "history_chase_rate",
+      "history_zone_rate",
+      "history_bip",
+      "history_exit_velocity_mean",
+      "history_exit_velocity_sd",
+      "history_launch_angle_mean",
+      "history_launch_angle_sd",
+      "history_batted_ball_denominator",
+      "history_barrel_count",
+      "history_hard_hit_count",
+      "history_barrel_rate",
+      "history_hard_hit_rate",
+      "history_release_speed_mean",
+      "history_release_speed_sd",
+      "history_pfx_x_mean",
+      "history_pfx_x_sd",
+      "history_pfx_z_mean",
+      "history_pfx_z_sd",
+      "history_plate_x_mean",
+      "history_plate_x_sd",
+      "history_plate_z_mean",
+      "history_plate_z_sd",
+      "history_distinct_pitch_types",
+      "history_pitch_type_entropy",
+      "history_hard_hit_non_barrel_count",
+      "history_other_measured_bbe_count",
+      "history_barrel_share_bbe",
+      "history_hard_hit_non_barrel_share_bbe",
+      "history_other_measured_bbe_share_bbe",
+      "history_measured_bbe_per_pa"
+    ],
+    "full_core_minus_batted_ball": [
+      "history_pitch_count",
+      "history_pa",
+      "history_strikeout_count",
+      "history_strikeout_rate",
+      "history_walk_count",
+      "history_walk_rate",
+      "history_single_count",
+      "history_single_rate",
+      "history_double_count",
+      "history_double_rate",
+      "history_triple_count",
+      "history_triple_rate",
+      "history_home_run_count",
+      "history_home_run_rate",
+      "history_bip_out_count",
+      "history_bip_out_rate",
+      "history_other_non_ab_count",
+      "history_other_non_ab_rate",
+      "history_swing_rate",
+      "history_whiff_rate",
+      "history_chase_rate",
+      "history_zone_rate",
+      "history_release_speed_mean",
+      "history_release_speed_sd",
+      "history_pfx_x_mean",
+      "history_pfx_x_sd",
+      "history_pfx_z_mean",
+      "history_pfx_z_sd",
+      "history_plate_x_mean",
+      "history_plate_x_sd",
+      "history_plate_z_mean",
+      "history_plate_z_sd",
+      "history_distinct_pitch_types",
+      "history_pitch_type_entropy"
+    ],
+    "full_core_minus_outcome_history": [
+      "history_pitch_count",
+      "history_swing_rate",
+      "history_whiff_rate",
+      "history_chase_rate",
+      "history_zone_rate",
+      "history_bip",
+      "history_exit_velocity_mean",
+      "history_exit_velocity_sd",
+      "history_launch_angle_mean",
+      "history_launch_angle_sd",
+      "history_batted_ball_denominator",
+      "history_barrel_count",
+      "history_hard_hit_count",
+      "history_barrel_rate",
+      "history_hard_hit_rate",
+      "history_release_speed_mean",
+      "history_release_speed_sd",
+      "history_pfx_x_mean",
+      "history_pfx_x_sd",
+      "history_pfx_z_mean",
+      "history_pfx_z_sd",
+      "history_plate_x_mean",
+      "history_plate_x_sd",
+      "history_plate_z_mean",
+      "history_plate_z_sd",
+      "history_distinct_pitch_types",
+      "history_pitch_type_entropy",
+      "history_hard_hit_non_barrel_count",
+      "history_other_measured_bbe_count",
+      "history_barrel_share_bbe",
+      "history_hard_hit_non_barrel_share_bbe",
+      "history_other_measured_bbe_share_bbe",
+      "history_measured_bbe_per_pa"
+    ],
+    "full_core_minus_pitch_discipline": [
+      "history_pa",
+      "history_strikeout_count",
+      "history_strikeout_rate",
+      "history_walk_count",
+      "history_walk_rate",
+      "history_single_count",
+      "history_single_rate",
+      "history_double_count",
+      "history_double_rate",
+      "history_triple_count",
+      "history_triple_rate",
+      "history_home_run_count",
+      "history_home_run_rate",
+      "history_bip_out_count",
+      "history_bip_out_rate",
+      "history_other_non_ab_count",
+      "history_other_non_ab_rate",
+      "history_bip",
+      "history_exit_velocity_mean",
+      "history_exit_velocity_sd",
+      "history_launch_angle_mean",
+      "history_launch_angle_sd",
+      "history_batted_ball_denominator",
+      "history_barrel_count",
+      "history_hard_hit_count",
+      "history_barrel_rate",
+      "history_hard_hit_rate",
+      "history_release_speed_mean",
+      "history_release_speed_sd",
+      "history_pfx_x_mean",
+      "history_pfx_x_sd",
+      "history_pfx_z_mean",
+      "history_pfx_z_sd",
+      "history_plate_x_mean",
+      "history_plate_x_sd",
+      "history_plate_z_mean",
+      "history_plate_z_sd",
+      "history_distinct_pitch_types",
+      "history_pitch_type_entropy",
+      "history_hard_hit_non_barrel_count",
+      "history_other_measured_bbe_count",
+      "history_barrel_share_bbe",
+      "history_hard_hit_non_barrel_share_bbe",
+      "history_other_measured_bbe_share_bbe",
+      "history_measured_bbe_per_pa"
+    ],
+    "full_core_minus_pitch_shape": [
+      "history_pitch_count",
+      "history_pa",
+      "history_strikeout_count",
+      "history_strikeout_rate",
+      "history_walk_count",
+      "history_walk_rate",
+      "history_single_count",
+      "history_single_rate",
+      "history_double_count",
+      "history_double_rate",
+      "history_triple_count",
+      "history_triple_rate",
+      "history_home_run_count",
+      "history_home_run_rate",
+      "history_bip_out_count",
+      "history_bip_out_rate",
+      "history_other_non_ab_count",
+      "history_other_non_ab_rate",
+      "history_swing_rate",
+      "history_whiff_rate",
+      "history_chase_rate",
+      "history_zone_rate",
+      "history_bip",
+      "history_exit_velocity_mean",
+      "history_exit_velocity_sd",
+      "history_launch_angle_mean",
+      "history_launch_angle_sd",
+      "history_batted_ball_denominator",
+      "history_barrel_count",
+      "history_hard_hit_count",
+      "history_barrel_rate",
+      "history_hard_hit_rate",
+      "history_hard_hit_non_barrel_count",
+      "history_other_measured_bbe_count",
+      "history_barrel_share_bbe",
+      "history_hard_hit_non_barrel_share_bbe",
+      "history_other_measured_bbe_share_bbe",
+      "history_measured_bbe_per_pa"
+    ]
+  },
+  "folds": [
+    {
+      "fold": 1,
+      "models": {
+        "full_core": {
+          "hits": {
+            "auc": 0.5131631781280763,
+            "brier": 0.346454234391301,
+            "log_loss": 0.5307698914022418
+          },
+          "hr_over_0_5": {
+            "auc": 0.572453107416196,
+            "brier": 0.06005360460784228,
+            "log_loss": 0.13744900185411893
+          },
+          "total_bases": {
+            "auc": 0.5334032926875819,
+            "brier": 0.3723251493864746,
+            "log_loss": 0.7440905619492156
+          }
+        },
+        "full_core_minus_batted_ball": {
+          "hits": {
+            "auc": 0.5154856405945124,
+            "brier": 0.3461577621303731,
+            "log_loss": 0.5303762468492947
+          },
+          "hr_over_0_5": {
+            "auc": 0.562935750281883,
+            "brier": 0.06010212620133632,
+            "log_loss": 0.13781283359913832
+          },
+          "total_bases": {
+            "auc": 0.5318344114463118,
+            "brier": 0.3720694156381317,
+            "log_loss": 0.7433842302187847
+          }
+        },
+        "full_core_minus_outcome_history": {
+          "hits": {
+            "auc": 0.5144899080856922,
+            "brier": 0.3463441929280864,
+            "log_loss": 0.5306256224243385
+          },
+          "hr_over_0_5": {
+            "auc": 0.5726881139301168,
+            "brier": 0.060058744966617186,
+            "log_loss": 0.13745774078412
+          },
+          "total_bases": {
+            "auc": 0.5310840746169403,
+            "brier": 0.3722123974412266,
+            "log_loss": 0.7438704452430607
+          }
+        },
+        "full_core_minus_pitch_discipline": {
+          "hits": {
+            "auc": 0.5135510056008732,
+            "brier": 0.3464734509301471,
+            "log_loss": 0.530813506481962
+          },
+          "hr_over_0_5": {
+            "auc": 0.5802527588864617,
+            "brier": 0.060010626318231494,
+            "log_loss": 0.13716529025510008
+          },
+          "total_bases": {
+            "auc": 0.5328303951997888,
+            "brier": 0.3722881478530502,
+            "log_loss": 0.7438166550926641
+          }
+        },
+        "full_core_minus_pitch_shape": {
+          "hits": {
+            "auc": 0.5164267021383528,
+            "brier": 0.3463308108072609,
+            "log_loss": 0.5305716955148664
+          },
+          "hr_over_0_5": {
+            "auc": 0.5671445033039183,
+            "brier": 0.06006371322187543,
+            "log_loss": 0.13754731686938892
+          },
+          "total_bases": {
+            "auc": 0.5328339302229985,
+            "brier": 0.3722424171415412,
+            "log_loss": 0.7440343447892616
+          }
+        }
+      },
+      "train_date_max": "2023-05-06",
+      "train_date_min": "2023-03-30",
+      "train_rows": 9053,
+      "validation_date_max": "2023-06-11",
+      "validation_date_min": "2023-05-07",
+      "validation_rows": 8654
+    },
+    {
+      "fold": 2,
+      "models": {
+        "full_core": {
+          "hits": {
+            "auc": 0.525056684390296,
+            "brier": 0.34720487718358845,
+            "log_loss": 0.5313148946447745
+          },
+          "hr_over_0_5": {
+            "auc": 0.6020680240764631,
+            "brier": 0.0636606508035612,
+            "log_loss": 0.1431543365648828
+          },
+          "total_bases": {
+            "auc": 0.5500241334073717,
+            "brier": 0.3738070598728507,
+            "log_loss": 0.7454475836814053
+          }
+        },
+        "full_core_minus_batted_ball": {
+          "hits": {
+            "auc": 0.5190847595068138,
+            "brier": 0.3474700516571417,
+            "log_loss": 0.5316887415301534
+          },
+          "hr_over_0_5": {
+            "auc": 0.5955901560498017,
+            "brier": 0.06369151290216246,
+            "log_loss": 0.1434436222795584
+          },
+          "total_bases": {
+            "auc": 0.5444990800871591,
+            "brier": 0.3740809073985854,
+            "log_loss": 0.7463464016206475
+          }
+        },
+        "full_core_minus_outcome_history": {
+          "hits": {
+            "auc": 0.5250631284735271,
+            "brier": 0.34708178091437,
+            "log_loss": 0.5311603244366259
+          },
+          "hr_over_0_5": {
+            "auc": 0.5986767958563729,
+            "brier": 0.06366527551524839,
+            "log_loss": 0.14319936871728334
+          },
+          "total_bases": {
+            "auc": 0.5448769082035633,
+            "brier": 0.37373478718522657,
+            "log_loss": 0.7454106429880794
+          }
+        },
+        "full_core_minus_pitch_discipline": {
+          "hits": {
+            "auc": 0.5248991367107272,
+            "brier": 0.34718336968666774,
+            "log_loss": 0.5312872728904541
+          },
+          "hr_over_0_5": {
+            "auc": 0.6032033857322274,
+            "brier": 0.06366158917426672,
+            "log_loss": 0.14314528607123
+          },
+          "total_bases": {
+            "auc": 0.5526250210770423,
+            "brier": 0.3738068120734795,
+            "log_loss": 0.745407663878982
+          }
+        },
+        "full_core_minus_pitch_shape": {
+          "hits": {
+            "auc": 0.5230290831447008,
+            "brier": 0.34734854412945865,
+            "log_loss": 0.5315032905690134
+          },
+          "hr_over_0_5": {
+            "auc": 0.5985237613218389,
+            "brier": 0.0636911500038808,
+            "log_loss": 0.14332106161718364
+          },
+          "total_bases": {
+            "auc": 0.5492600270047526,
+            "brier": 0.3739287329826755,
+            "log_loss": 0.7459438652981163
+          }
+        }
+      },
+      "train_date_max": "2023-06-11",
+      "train_date_min": "2023-03-30",
+      "train_rows": 17707,
+      "validation_date_max": "2023-07-21",
+      "validation_date_min": "2023-06-12",
+      "validation_rows": 8710
+    },
+    {
+      "fold": 3,
+      "models": {
+        "full_core": {
+          "hits": {
+            "auc": 0.5206227678287679,
+            "brier": 0.34977664002873055,
+            "log_loss": 0.534232052984472
+          },
+          "hr_over_0_5": {
+            "auc": 0.5941788063642905,
+            "brier": 0.06615693809527436,
+            "log_loss": 0.14790102532298513
+          },
+          "total_bases": {
+            "auc": 0.5440071071376937,
+            "brier": 0.37721534749370206,
+            "log_loss": 0.7508540456649061
+          }
+        },
+        "full_core_minus_batted_ball": {
+          "hits": {
+            "auc": 0.5207956429155285,
+            "brier": 0.34976082091892013,
+            "log_loss": 0.5342018448481134
+          },
+          "hr_over_0_5": {
+            "auc": 0.5881292896082051,
+            "brier": 0.06619170431510918,
+            "log_loss": 0.14817806032207312
+          },
+          "total_bases": {
+            "auc": 0.5462304496383068,
+            "brier": 0.3772993092750357,
+            "log_loss": 0.751353628033157
+          }
+        },
+        "full_core_minus_outcome_history": {
+          "hits": {
+            "auc": 0.5192575430552342,
+            "brier": 0.34980843166768527,
+            "log_loss": 0.5342667748381177
+          },
+          "hr_over_0_5": {
+            "auc": 0.5946223671984754,
+            "brier": 0.0661269928668701,
+            "log_loss": 0.14776934267798628
+          },
+          "total_bases": {
+            "auc": 0.5366141402518136,
+            "brier": 0.3771592887678119,
+            "log_loss": 0.7506187322283544
+          }
+        },
+        "full_core_minus_pitch_discipline": {
+          "hits": {
+            "auc": 0.5184297133239053,
+            "brier": 0.34985236625550403,
+            "log_loss": 0.5343438779087133
+          },
+          "hr_over_0_5": {
+            "auc": 0.5927900608024574,
+            "brier": 0.06616264986882626,
+            "log_loss": 0.14796501989875813
+          },
+          "total_bases": {
+            "auc": 0.5437114474327579,
+            "brier": 0.3772552179895716,
+            "log_loss": 0.7510312243586801
+          }
+        },
+        "full_core_minus_pitch_shape": {
+          "hits": {
+            "auc": 0.5173945641102441,
+            "brier": 0.3499661028520512,
+            "log_loss": 0.5345291936239396
+          },
+          "hr_over_0_5": {
+            "auc": 0.594601099044346,
+            "brier": 0.06614425656025212,
+            "log_loss": 0.14785485124247394
+          },
+          "total_bases": {
+            "auc": 0.5386963671154895,
+            "brier": 0.3773837195521243,
+            "log_loss": 0.7514087835266466
+          }
+        }
+      },
+      "train_date_max": "2023-07-21",
+      "train_date_min": "2023-03-30",
+      "train_rows": 26417,
+      "validation_date_max": "2023-08-26",
+      "validation_date_min": "2023-07-22",
+      "validation_rows": 8583
+    },
+    {
+      "fold": 4,
+      "models": {
+        "full_core": {
+          "hits": {
+            "auc": 0.5272971455947417,
+            "brier": 0.34422035419351243,
+            "log_loss": 0.5279654545594883
+          },
+          "hr_over_0_5": {
+            "auc": 0.5966752191134417,
+            "brier": 0.062462059500446525,
+            "log_loss": 0.1411816143210949
+          },
+          "total_bases": {
+            "auc": 0.5584617480325429,
+            "brier": 0.3701868306489819,
+            "log_loss": 0.739843305635336
+          }
+        },
+        "full_core_minus_batted_ball": {
+          "hits": {
+            "auc": 0.5255022103351654,
+            "brier": 0.34440546824230767,
+            "log_loss": 0.5282078465238867
+          },
+          "hr_over_0_5": {
+            "auc": 0.5968255584767113,
+            "brier": 0.06247751588822407,
+            "log_loss": 0.14135243055477023
+          },
+          "total_bases": {
+            "auc": 0.5580246726277636,
+            "brier": 0.37034252667638273,
+            "log_loss": 0.740207558507294
+          }
+        },
+        "full_core_minus_outcome_history": {
+          "hits": {
+            "auc": 0.5274675352689094,
+            "brier": 0.3441647717829715,
+            "log_loss": 0.5278803646923161
+          },
+          "hr_over_0_5": {
+            "auc": 0.598493665332803,
+            "brier": 0.06245915285706253,
+            "log_loss": 0.14116441955285086
+          },
+          "total_bases": {
+            "auc": 0.5531352758017559,
+            "brier": 0.37015455561880073,
+            "log_loss": 0.7399637386946135
+          }
+        },
+        "full_core_minus_pitch_discipline": {
+          "hits": {
+            "auc": 0.5255248638740062,
+            "brier": 0.34433760884407055,
+            "log_loss": 0.5281269426118078
+          },
+          "hr_over_0_5": {
+            "auc": 0.5970269709174503,
+            "brier": 0.06246564533934237,
+            "log_loss": 0.14120257335669525
+          },
+          "total_bases": {
+            "auc": 0.5574566157262352,
+            "brier": 0.3702898115387784,
+            "log_loss": 0.7400233907997132
+          }
+        },
+        "full_core_minus_pitch_shape": {
+          "hits": {
+            "auc": 0.5242474491614378,
+            "brier": 0.3445596066791238,
+            "log_loss": 0.5283926296973896
+          },
+          "hr_over_0_5": {
+            "auc": 0.5950790835002511,
+            "brier": 0.06246843226740433,
+            "log_loss": 0.14122675018194755
+          },
+          "total_bases": {
+            "auc": 0.5554326881718754,
+            "brier": 0.37049407738022755,
+            "log_loss": 0.7405052310138932
+          }
+        }
+      },
+      "train_date_max": "2023-08-26",
+      "train_date_min": "2023-03-30",
+      "train_rows": 35000,
+      "validation_date_max": "2023-10-01",
+      "validation_date_min": "2023-08-27",
+      "validation_rows": 8726
+    }
+  ],
+  "identity_hashes": {
+    "code": {
+      "scripts/audit_shared_pa_core_attribution_2023.py": "7fd05af59dfcf92a6c8257cb91de37103393d3c233d53726ab9f2c82f5ab2ad2",
+      "src/evaluation/shared_pa_training_data.py": "ce0689ef9d3d296a8d40e9badc2400c73bf57fa648f73d1d43e8c4efd900fac1",
+      "src/learning/shared_pa_model.py": "441b643873d3d623c8e78fccedbf11ed2ee67ebf02c5e51960043059fb9092b6"
+    },
+    "tests": {
+      "tests/test_audit_shared_pa_core_attribution_2023.py": "4eee54475efa162feeaa029537579fb550f97b939a18d11f94747c8a148b550a"
+    }
+  },
+  "inputs": {
+    "manifest": {
+      "path": "C:\\Projects\\baseball_predictor\\.codex-system-integrity-v1\\data\\analysis\\system_integrity_v2\\direct_batter_pa_development_2023_v1\\manifest.json",
+      "sha256": "ca6246eeb80ca8e2d11baad1ccffc738778719979efd23dde0d33aaac873d0a3"
+    },
+    "panel": {
+      "path": "C:\\Projects\\baseball_predictor\\.codex-system-integrity-v1\\data\\analysis\\system_integrity_v2\\direct_batter_pa_development_2023_v1\\panel_2023.csv.gz",
+      "sha256": "5e47ee69416d22bfe7eb0b7745abf7ac60cd9fa585c2f0d54aff266fb59ec4f8"
+    },
+    "protocol": {
+      "path": "C:\\Projects\\baseball_predictor\\.codex-statcast-source-loss-v1\\config\\shared_pa_core_attribution_2023_v1.json",
+      "sha256": "0dfb1ce56d1d7b6b45db2228798a9414bf0bbdde53d90c1cc91a4f342df79b5e"
+    }
+  },
+  "next_action": "Interpret only after reviewing all separated market components. This diagnostic cannot itself create a candidate, change a coefficient, or open later-year evidence.",
+  "population": {
+    "chronological_oof_eligible_rows": 34673,
+    "coverage_loss_within_scored_windows": 0,
+    "identity_key": [
+      "game_pk",
+      "player_id"
+    ],
+    "initial_training_only_rows": 9053,
+    "input_rows": 43726,
+    "missing_oof_rows": 0,
+    "oof_coverage_of_all_2023_rows": 0.7929607098751315,
+    "oof_scored_rows": 34673
+  },
+  "predictions": {
+    "path": "data\\analysis\\system_integrity_v2\\shared_pa_core_attribution_2023_v1\\oof_predictions.csv",
+    "rows": 34673,
+    "sha256": "cb1de6fdd739e15fa960a82c803463de911eba8f9b9fc6149dbd78fc465688c2"
+  },
+  "production_changed": false,
+  "schema_version": "shared-pa-core-attribution-report-v1",
+  "status": "ATTRIBUTION_COMPLETE_NO_CANDIDATE_OR_PROMOTION"
+}
