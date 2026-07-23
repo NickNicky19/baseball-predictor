@@ -52,7 +52,11 @@ from src.models.dataclasses import (
 from src.evaluation.output_safeguards import OutputSafeguards
 from src.simulation.game_simulator import GameSimulator, GameSimulatorInput
 from src.simulation.monte_carlo import FantasyScoring, MonteCarloEngine
-from src.simulation.pa_simulator import HybridPASimulator, PASimulatorConfig
+from src.simulation.pa_simulator import (
+    HybridPASimulator,
+    INERT_PA_CONFIG_FIELDS,
+    PASimulatorConfig,
+)
 from src.simulation.input_contract import effective_pa_context
 from src.simulation.probability_engine import ProbabilityEngine
 from src.utils.logging import get_logger
@@ -306,9 +310,8 @@ class PropEngine:
 
         DEGENERATE WHEN ABSENT: with no `pa_simulator` block, this returns
         exactly PASimulatorConfig.from_league(league) -- byte-identical to the
-        previous behaviour. Unknown keys are IGNORED (a typo must not crash a
-        live slate), but they are LOGGED, because a silently-ignored key is how a
-        config lies to you.
+        previous behaviour. Unknown output-affecting keys fail closed; a typo
+        cannot masquerade as an applied model configuration.
         """
         base = PASimulatorConfig.from_league(self.league)
         block = self.config.get("pa_simulator") or {}
@@ -332,22 +335,29 @@ class PropEngine:
         valid = {f.name for f in fields(PASimulatorConfig)}
         overrides: dict[str, Any] = {}
         unknown: list[str] = []
+        inert: list[str] = []
         for k, v in block.items():
             if k.startswith("_"):          # _comment, _note, ...
                 continue
             if k in artifact_keys:
                 continue
             if k in valid:
-                overrides[k] = v
+                if k in INERT_PA_CONFIG_FIELDS:
+                    inert.append(k)
+                else:
+                    overrides[k] = v
             else:
                 unknown.append(k)
 
         if unknown:
-            logger.warning(
-                "config['pa_simulator'] has %d key(s) that are not fields of "
-                "PASimulatorConfig and were IGNORED: %s. A silently-ignored key "
-                "is how a config lies to you -- check the spelling.",
-                len(unknown), sorted(unknown),
+            raise ValueError(
+                "config['pa_simulator'] contains unknown keys: "
+                f"{sorted(unknown)}"
+            )
+        if inert:
+            raise ValueError(
+                "config['pa_simulator'] cannot override inert legacy fields: "
+                f"{sorted(inert)}"
             )
         if use_fitted_kbb:
             overrides.update(_load_hash_bound_kbb(block))

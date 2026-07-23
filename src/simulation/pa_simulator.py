@@ -45,6 +45,35 @@ if TYPE_CHECKING:
     from src.simulation.base_state import BaseState
 
 
+INERT_PA_CONFIG_FIELDS = frozenset({
+    "bip_out_base_weight",
+    "single_base_weight",
+    "double_base_weight",
+    "triple_base_weight",
+    "out_weight_floor",
+    "out_contact_bonus",
+    "out_power_bonus",
+    "single_power_penalty",
+    "single_contact_bonus",
+    "double_power_bonus",
+    "triple_speed_bonus",
+    "single_weight_floor",
+    "double_weight_floor",
+    "triple_weight_floor",
+})
+
+_KBB_CONFIG_FIELDS = frozenset({
+    "kbb_k_intercept",
+    "kbb_k_hitter_season",
+    "kbb_k_hitter_recent",
+    "kbb_k_pitcher",
+    "kbb_bb_intercept",
+    "kbb_bb_hitter_season",
+    "kbb_bb_hitter_recent",
+    "kbb_bb_pitcher",
+})
+
+
 @dataclass
 class PASimulatorConfig:
     """Configurable coefficients for the hybrid PA simulator."""
@@ -234,6 +263,64 @@ class PASimulatorConfig:
     bb_max: float = 0.185
     hr_min: float = 0.004
     hr_max: float = 0.118
+
+    def __post_init__(self) -> None:
+        """Reject malformed or internally contradictory probability inputs."""
+        values = asdict(self)
+        for name, value in values.items():
+            if name in {"pitcher_hr9_effect_mode", "use_fitted_kbb"} or value is None:
+                continue
+            if isinstance(value, bool) or not isinstance(value, (int, float)):
+                raise ValueError(f"PASimulatorConfig.{name} must be a real number")
+            if not math.isfinite(float(value)):
+                raise ValueError(f"PASimulatorConfig.{name} must be finite")
+
+        if type(self.use_fitted_kbb) is not bool:
+            raise ValueError("PASimulatorConfig.use_fitted_kbb must be boolean")
+        if self.pitcher_hr9_effect_mode not in {"legacy_frozen", "corrected"}:
+            raise ValueError(
+                "pitcher_hr9_effect_mode must be 'legacy_frozen' or 'corrected'"
+            )
+
+        fitted_names = sorted(_KBB_CONFIG_FIELDS)
+        fitted_values = [getattr(self, name) for name in fitted_names]
+        if self.use_fitted_kbb and any(value is None for value in fitted_values):
+            raise ValueError("fitted K/BB mode requires every fitted coefficient")
+        if not self.use_fitted_kbb and any(value is not None for value in fitted_values):
+            raise ValueError("fitted K/BB coefficients are forbidden while fitted mode is off")
+
+        positive = (
+            "contact_scale", "power_scale", "speed_scale", "pitcher_k_scale",
+            "pitcher_bb_scale", "xwoba_scale", "xslg_scale", "barrel_scale",
+            "hard_hit_scale", "rolling_pa_ramp", "xba_shrinkage_pa",
+            "hit_rate_scale", "form_log_min", "form_log_max",
+            "park_hr_log_floor", "context_hit_scale_min", "context_hit_scale_max",
+        )
+        for name in positive:
+            if getattr(self, name) <= 0.0:
+                raise ValueError(f"PASimulatorConfig.{name} must be positive")
+
+        unit_interval = (
+            "rolling_quality_weight", "hit_on_contact_min", "hit_on_contact_max",
+            "xbh_double_share", "xbh_triple_share", "hit_prob_cap",
+            "k_min", "k_max", "bb_min", "bb_max", "hr_min", "hr_max",
+        )
+        for name in unit_interval:
+            if not 0.0 <= getattr(self, name) <= 1.0:
+                raise ValueError(f"PASimulatorConfig.{name} must be within [0,1]")
+
+        for low_name, high_name in (
+            ("hit_on_contact_min", "hit_on_contact_max"),
+            ("form_log_min", "form_log_max"),
+            ("context_hit_scale_min", "context_hit_scale_max"),
+            ("k_min", "k_max"),
+            ("bb_min", "bb_max"),
+            ("hr_min", "hr_max"),
+        ):
+            if getattr(self, low_name) > getattr(self, high_name):
+                raise ValueError(f"PASimulatorConfig requires {low_name} <= {high_name}")
+        if self.xbh_double_share + self.xbh_triple_share >= 1.0:
+            raise ValueError("non-HR extra-base-hit shares must sum to less than one")
 
     @classmethod
     def from_league(cls, league: LeagueBaselines, **overrides: float) -> PASimulatorConfig:

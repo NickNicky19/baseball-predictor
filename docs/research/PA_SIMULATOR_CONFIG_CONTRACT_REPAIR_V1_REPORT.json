@@ -1,0 +1,81 @@
+{
+  "schema_version": "pa-simulator-config-contract-repair-report-v1",
+  "candidate_id": "pa-simulator-config-contract-repair-v1-98a9b067d303dfa5",
+  "defect_id": "SI-030",
+  "classification": "integrity_repair_only",
+  "status": "verified_not_promoted",
+  "root_cause": [
+    "unknown pa_simulator keys were logged and ignored, allowing a typo to masquerade as consumed configuration",
+    "PASimulatorConfig accepted wrong types, nonfinite values, invalid bounds and shares, nonpositive denominator scales, and incomplete/decorative fitted coefficients",
+    "inert legacy fields could be declared as output-affecting overrides"
+  ],
+  "repair": [
+    "unknown daily PA configuration keys fail closed",
+    "documentation-only underscore keys remain explicitly inert",
+    "all numeric fields require finite real non-boolean values",
+    "probability, share, scale, ramp, shrinkage, and min/max invariants validate at dataclass construction",
+    "fitted K/BB mode requires the complete coefficient set and forbids coefficients while disabled",
+    "daily configs and correction states cannot override inert legacy fields",
+    "configured missing K/BB coefficient source remains a hard failure"
+  ],
+  "configuration_audit": {
+    "configs_with_pa_simulator_block": 3,
+    "unknown_keys": 0,
+    "inert_override_keys": 0,
+    "declared_coefficient_source": "data/learning/k_bb_pre2026.json",
+    "declared_coefficient_source_present_in_isolated_branch": false,
+    "handling": "fail_closed_without_copy_or_fabricated_fallback"
+  },
+  "mutation_proof": [
+    "NaN rejected",
+    "numeric string rejected",
+    "boolean substituted for float rejected",
+    "reversed probability bounds rejected",
+    "impossible extra-base-hit shares rejected",
+    "out-of-range rolling weight rejected",
+    "zero shrinkage denominator rejected",
+    "decorative fitted coefficient rejected while fitted mode is off",
+    "incomplete fitted coefficient set rejected",
+    "unknown key rejected",
+    "inert legacy override rejected",
+    "configured missing coefficient artifact rejected",
+    "valid complete fitted configuration preserved"
+  ],
+  "verification": {
+    "focused": "36 passed",
+    "full_suite": "269 passed",
+    "historical_outcomes_opened": false,
+    "historical_prices_opened": false,
+    "may_2026_opened": false,
+    "feature_artifacts_rebuilt": false,
+    "probabilities_recomputed": false,
+    "aws_runtime_changed": false,
+    "collector_changed": false
+  },
+  "hashes": {
+    "parent_commit": "4d67a894defb1d48034da4d3b0eaa8fb6dad0fa3",
+    "code_bundle_sha256": "98a9b067d303dfa5a3af696c40aca520f037ecfb03e73f455b4609822d15eb6c",
+    "test_bundle_sha256": "d239c3ad07eb3b99bd2228844ab743ca91ee9e47e67e254965d4fd97646824a1",
+    "config_bundle_sha256": "7d5be8e89fa7c533a599c01fd26bfe7280dcc981a13f1a97cba0acead656a071",
+    "predeclaration_sha256": "d18124a8d795cfff53d12a05e01bc64ef6f32856057b3b05b6f602f1f371c5ab",
+    "data_sha256": null,
+    "feature_sha256": null,
+    "src_simulation_pa_simulator_py": "2839a696bc172f3f06ec9cda7dc31adfffef966fa1d028ca9e1e8ef0d6397deb",
+    "src_prediction_prop_engine_py": "2ad76ccfeb15c80c32f3c9561551879441683a648426904a5bedcfd41dabf49e",
+    "src_learning_bias_corrector_py": "978b916a0454d76c9c455a3f8cd79078eac249b95f2caaedf20d910d7f0a2f16",
+    "tests_test_pa_simulator_config_contract_py": "d9da286795c0fbc7f5d6bb7487322a19939620c5b3a4d7b1b67c49f00a3a97c5",
+    "tests_test_probability_consumption_integrity_py": "061060da6c6e1c92a612580ae675ce100d17625f42d49162c944ac67329847c1",
+    "tests_test_correction_manager_py": "1c13d15d009a8f0f641fdefc1a2825e3ab8e8536cb02145a81986f1a89b5e8e5"
+  },
+  "chronological_evaluation": {
+    "required": false,
+    "reason": "valid configurations are numerically unchanged and no fitted probability candidate or reconstructed feature was created"
+  },
+  "promotion": {
+    "hits": false,
+    "home_runs": false,
+    "total_bases": false,
+    "betting_authorized": false
+  },
+  "highest_value_next_action": "Use independently verified fresh T-4 receipts to bind opposing-pitcher identity before permitting any pitcher feature in a new candidate; otherwise retain the batter-only path."
+}

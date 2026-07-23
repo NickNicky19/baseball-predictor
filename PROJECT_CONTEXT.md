@@ -1205,6 +1205,26 @@ unchanged, no candidate was promoted, and betting remains unauthorized.
 The report SHA-256 is
 `b77f92a1d98884549fe6fc589bbba09c58344c1b7db8ccb921a49149b62ecaa6`.
 
+2026-07-23 HANDOFF ADDENDUM — PA SIMULATOR CONFIG CONTRACT (AUTHORITATIVE)
+
+SI-030 is repaired in the same isolated lineage. Unknown `pa_simulator` keys
+were previously logged and ignored, while direct construction accepted wrong
+types, NaN/infinity, invalid probability bounds and mixture shares, nonpositive
+denominator scales, incomplete/decorative fitted coefficients, and inert legacy
+overrides. The shared dataclass boundary now rejects those states and the daily
+config bridge fails on unknown or inert keys. All three repository PA-config
+blocks have no unknown/inert key; their declared K/BB artifact is absent from
+this older isolated branch and remains a hard source failure rather than being
+copied or fabricated. Focused proof is 36 passed and the full suite is 269
+passed. Exact hashes are in
+`docs/research/PA_SIMULATOR_CONFIG_CONTRACT_REPAIR_V1_REPORT.json`. Valid
+configuration probabilities are unchanged; no data/feature artifact was
+rebuilt, no market was promoted, May/2026 and outcomes/prices stayed unopened,
+and AWS/collector/frozen production were untouched. Betting remains
+unauthorized.
+The report SHA-256 is
+`9c076e07014e4eb6f130c1b7ac3ef849c4a495d675f0f61b187f0863f035d2b3`.
+
 2026-07-22 HANDOFF ADDENDUM — EXPLICIT/SAMPLED INPUT PARITY (AUTHORITATIVE)
 
 SI-029 is repaired in the same isolated lineage. `ProbabilityEngine` archived

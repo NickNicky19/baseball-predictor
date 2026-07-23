@@ -20,7 +20,7 @@ from typing import Any, Optional
 from src.evaluation.calibration import CalibrationResult
 from src.learning.outcome_retrainer import RetrainResult
 from src.models.dataclasses import LeagueBaselines, PropCategory, PropProjection
-from src.simulation.pa_simulator import PASimulatorConfig
+from src.simulation.pa_simulator import INERT_PA_CONFIG_FIELDS, PASimulatorConfig
 from src.utils.logging import get_logger
 
 logger = get_logger(__name__)
@@ -140,6 +140,7 @@ class BiasCorrectionState:
         pa_fields = {
             name for name in pa_defaults.__dataclass_fields__
             if type(getattr(pa_defaults, name)) is float
+            and name not in INERT_PA_CONFIG_FIELDS
         }
         if set(self.pa_config_overrides) - pa_fields:
             raise ValueError("pa_config_overrides contains an unknown or nonnumeric field")
