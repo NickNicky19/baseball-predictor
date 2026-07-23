@@ -1,0 +1,45 @@
+{
+  "schema_version": "feature-manifest-consumption-repair-report-v1",
+  "repair_id": "feature-manifest-load-boundary-v1-54e76ea582ff",
+  "status": "INTEGRITY_REPAIR_PASSED_NUMERICALLY_INERT_ON_VALID_INPUTS",
+  "root_cause": "FeatureStore.load selected JSON/Parquet files directly and never invoked the existing content-hash verifier, restricted loading to declared artifacts, or compared loaded population with manifest bundle_count.",
+  "affected_scope": ["Hits", "HR over 0.5", "Total Bases"],
+  "repair": {
+    "present_manifest_verified_before_read": true,
+    "unlisted_artifact_rejected_as_candidate_source": true,
+    "bundle_count_verified_after_deserialization": true,
+    "legacy_missing_manifest_status": "readable_but_explicitly_unverified",
+    "feature_values_changed_on_valid_inputs": false,
+    "probability_coefficients_changed": false
+  },
+  "mutation_proof": {
+    "changed_bundle_hash": "load raises FeatureManifestError before deserialization",
+    "changed_bundle_count": "load raises FeatureManifestError after deserialization",
+    "unlisted_sibling": "cannot override the manifest-listed JSON artifact",
+    "offline_harness": "10/10 passed",
+    "targeted_pytest": "21 passed",
+    "full_pytest": "194 passed"
+  },
+  "artifact_reconstruction": {
+    "required": false,
+    "reason": "The repair is numerically inert for valid hash-matching artifacts. Existing legacy artifacts are preserved and explicitly remain unverified; none were rewritten or relabeled.",
+    "may_2026_touched": false,
+    "prospective_evidence_backfilled": false
+  },
+  "identity_hashes": {
+    "code": {
+      "src/features/feature_store.py": "54e76ea582ff70ea71e74c9db9ece128d858e4b3b05ad117b9c30b9d9a8a3314",
+      "scripts/check_feature_manifest_offline.py": "bfdf14c238378846d69390d89e61ce69a01d13659573ffe3551e3dfc6dff701d"
+    },
+    "configuration": {
+      "docs/research/FEATURE_MANIFEST_CONSUMPTION_REPAIR_V1.md": "3e54e29f788dd7958ac8ba908cbed5a2260987bcf14f8c7437bb5fdc09dff429"
+    },
+    "tests": {
+      "tests/test_feature_manifest_consumption_repair.py": "770fc17a731c723c505f956a883177ac0eef9bb349a62c6d5267ee8dea6e799c"
+    }
+  },
+  "chronological_performance_evaluation": "Not rerun because valid probabilities are byte-equivalent and invalid/tampered inputs now terminate. This repair supplies no candidate performance evidence and cannot rescue any rejected market.",
+  "promotion": false,
+  "betting_authorized": false,
+  "highest_value_next_action": "Accumulate and independently verify the first future-only July 23 T-4 receipt ledger from the already published five-target AWS plan; do not retime, restart, or backfill it."
+}

@@ -111,17 +111,56 @@ class FeatureStore:
         json_path = out_dir / "bundles.json"
         parquet_path = out_dir / "bundles.parquet"
 
-        if prefer == "json" and json_path.exists():
-            data = json.loads(json_path.read_text(encoding="utf-8"))
-            return [bundle_from_dict(row) for row in data]
+        manifest = self.verify_manifest(game_date)
+        manifested_paths: set[str] | None = None
+        if manifest is not None:
+            manifested_paths = {
+                str(evidence["path"])
+                for evidence in manifest["artifacts"].values()
+            }
+        else:
+            logger.warning(
+                "Feature bundles for %s have no manifest and remain legacy-unverified",
+                game_date,
+            )
 
-        if parquet_path.exists():
+        def _eligible(path: Path) -> bool:
+            return path.exists() and (
+                manifested_paths is None or path.name in manifested_paths
+            )
+
+        bundles: list[PlayerFeatureBundle] | None = None
+
+        if prefer == "json" and _eligible(json_path):
+            data = json.loads(json_path.read_text(encoding="utf-8"))
+            bundles = [bundle_from_dict(row) for row in data]
+
+        elif _eligible(parquet_path):
             df = pd.read_parquet(parquet_path)
-            return dataframe_to_bundles(df)
+            bundles = dataframe_to_bundles(df)
 
-        if json_path.exists():
+        elif _eligible(json_path):
             data = json.loads(json_path.read_text(encoding="utf-8"))
-            return [bundle_from_dict(row) for row in data]
+            bundles = [bundle_from_dict(row) for row in data]
+
+        if bundles is not None:
+            if manifest is not None:
+                expected = manifest.get("bundle_count")
+                if not isinstance(expected, int) or expected < 0:
+                    raise FeatureManifestError(
+                        f"Feature manifest has invalid bundle_count: {self.manifest_path(game_date)}"
+                    )
+                if len(bundles) != expected:
+                    raise FeatureManifestError(
+                        f"Feature bundle count mismatch for {game_date}: "
+                        f"manifest says {expected}, loaded {len(bundles)}"
+                    )
+            return bundles
+
+        if manifest is not None:
+            raise FeatureManifestError(
+                f"Verified feature manifest has no loadable declared artifact for {game_date}"
+            )
 
         logger.warning("No feature bundles found for %s", game_date)
         return []

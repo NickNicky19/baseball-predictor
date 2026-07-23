@@ -1115,3 +1115,16 @@ batter 2023/2024 panel already used a separate truthful all-pitch history path,
 so it is not rebuilt or rescored as new evidence; its rejected result remains
 binding. May 2026, spent 2025 HR confirmation, frozen production, archived
 predictions, AWS runtime, and the protected local collector were untouched.
+
+2026-07-22 HANDOFF ADDENDUM — FEATURE MANIFEST LOAD BOUNDARY (AUTHORITATIVE)
+
+SI-024 is repaired in the same isolated lineage. A present feature manifest is
+now verified before `FeatureStore.load` reads any artifact, an unlisted sibling
+cannot override a declared artifact, and loaded bundle count must match the
+manifest. Missing-manifest legacy artifacts remain readable only with an
+explicit unverified warning; no provenance is invented. Mutation proof is
+10/10 in the offline harness and the full suite is 194 passed. Exact hashes are
+in `docs/research/FEATURE_MANIFEST_CONSUMPTION_REPAIR_V1_REPORT.json`. The
+repair is numerically inert on valid inputs and is not model-performance or
+promotion evidence. No archived feature, probability, outcome, May 2026 data,
+AWS runtime, or collector was changed.

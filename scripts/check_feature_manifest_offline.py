@@ -90,12 +90,33 @@ def main() -> int:
         check(True, "mutation: tampered bundle hash hard-fails verification")
     else:
         check(False, "mutation: tampered bundle hash hard-fails verification")
+    try:
+        store.load("2026-07-13")
+    except FeatureManifestError:
+        check(True, "mutation: ordinary load cannot bypass a contradictory manifest")
+    else:
+        check(False, "mutation: ordinary load cannot bypass a contradictory manifest")
+
+    count_store = FeatureStore(root / "count")
+    count_store.save([example_bundle()], "2026-07-11", write_parquet=False)
+    count_manifest_path = count_store.manifest_path("2026-07-11")
+    count_manifest = json.loads(count_manifest_path.read_text(encoding="utf-8"))
+    count_manifest["bundle_count"] = 2
+    count_manifest_path.write_text(json.dumps(count_manifest), encoding="utf-8")
+    try:
+        count_store.load("2026-07-11")
+    except FeatureManifestError:
+        check(True, "mutation: manifest population must match deserialized population")
+    else:
+        check(False, "mutation: manifest population must match deserialized population")
 
     legacy = FeatureStore(root / "legacy")
     legacy.save([example_bundle()], "2026-07-12", write_parquet=False)
     legacy.manifest_path("2026-07-12").unlink()
     check(legacy.verify_manifest("2026-07-12") is None,
           "legacy snapshot is labelled unverified, not assigned invented provenance")
+    check(len(legacy.load("2026-07-12")) == 1,
+          "legacy missing-manifest snapshot remains readable only as unverified")
 
     print(f"\n{PASS}/{PASS + FAIL}")
     return 0 if FAIL == 0 else 1
