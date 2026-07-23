@@ -23,10 +23,12 @@ from src.data.statcast_integrity import derive_batted_ball_evidence, validate_ra
 from src.data.statcast_source_contract import (
     StatcastSourceSchemaError,
     StatcastSourceUnavailableError,
+    statcast_frame_content_sha256,
     validate_statcast_source_lineage,
 )
 from src.models.dataclasses import LeagueBaselines, PitcherStatcastProfile, StatcastProfile
 from src.utils.logging import get_logger
+from src.utils.provenance import sha256_json
 
 logger = get_logger(__name__)
 
@@ -277,6 +279,26 @@ class SavantClient:
             source_kind="league_baseline",
             source_status="league_fallback_no_player_profile",
             source_row_count=0,
+            source_content_sha256=sha256_json(
+                {
+                    "artifact_version": "league-statcast-fallback-v1",
+                    "values": {
+                        "xwoba": lg.xwoba,
+                        "xba": lg.xba_on_contact,
+                        "xslg": lg.xslg,
+                        "barrel_rate": lg.barrel_rate,
+                        "sweet_spot_rate": lg.sweet_spot_rate,
+                        "hard_hit_rate": lg.hard_hit_rate,
+                        "chase_rate": lg.chase_rate,
+                        "contact_rate": lg.contact_rate,
+                        "whiff_rate": lg.whiff_rate,
+                        "swing_rate": lg.swing_rate,
+                        "zone_rate": lg.zone_rate,
+                        "k_rate": lg.k_pct / 100.0,
+                        "bb_rate": lg.bb_pct / 100.0,
+                    },
+                }
+            ),
             fallback_fields=HITTER_LEAGUE_FALLBACK_FIELDS,
         )
         validate_statcast_source_lineage(
@@ -426,6 +448,7 @@ class SavantClient:
             source_kind="pybaseball_statcast",
             source_status="observed_complete",
             source_row_count=len(group),
+            source_content_sha256=statcast_frame_content_sha256(group),
         )
 
     def _profiles_from_player_level_csv(
@@ -513,6 +536,9 @@ class SavantClient:
                 source_status="observed_complete",
                 source_window_end=source_window_end,
                 source_row_count=1,
+                source_content_sha256=statcast_frame_content_sha256(
+                    df.loc[[row_number]]
+                ),
             )
             validate_rate_pair(
                 profile.barrel_rate,

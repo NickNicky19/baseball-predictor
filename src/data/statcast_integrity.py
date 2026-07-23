@@ -227,6 +227,9 @@ def validate_profile_and_rich_features(
             "source_status": getattr(profile, "source_status", None),
             "source_window_end": getattr(profile, "source_window_end", None),
             "source_row_count": getattr(profile, "source_row_count", None),
+            "source_content_sha256": getattr(
+                profile, "source_content_sha256", None
+            ),
         }
         if any(entry.get(key) != value for key, value in expected.items()):
             raise StatcastIntegrityError(

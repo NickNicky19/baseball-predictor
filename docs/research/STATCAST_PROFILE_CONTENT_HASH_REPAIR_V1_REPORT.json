@@ -1,0 +1,84 @@
+{
+  "artifact_version": "statcast-profile-content-hash-repair-v1",
+  "status": "INTEGRITY_REPAIR_VERIFIED_NO_PROMOTION",
+  "classification": "integrity_repair",
+  "market_scope": [
+    "hits",
+    "hr_over_0_5",
+    "total_bases"
+  ],
+  "root_cause": "Source-bound Statcast profiles persisted source kind, status, cutoff, row count, and fallback fields but not a digest of the exact consumed source rows. Changed rows with equal counts and dates therefore had indistinguishable feature and probability lineage.",
+  "repair": {
+    "observed_profile_hash": "SHA-256 of canonical player-specific consumed rows after strict-prior and qualification boundaries",
+    "fallback_profile_hash": "SHA-256 of the exact league fallback mapping",
+    "canonicalization": {
+      "row_order_independent": true,
+      "column_order_independent": true,
+      "duplicate_preserving": true,
+      "typed_missing_values": true,
+      "nonfinite_or_unsupported_cells": "fail closed"
+    },
+    "required_boundaries": [
+      "Statcast source lineage",
+      "feature JSON and Parquet inspection columns",
+      "rich Statcast field lineage",
+      "prediction input health v4",
+      "final PA probability consumption"
+    ],
+    "numeric_feature_changes": 0,
+    "coefficient_changes": 0,
+    "fallback_value_changes": 0
+  },
+  "version_binding": {
+    "dataclass_schema_sha256": "22702547a2b1c4dd172f9308a47e473e2db8aa5c0cf17be277017aa62028551a",
+    "source_hash_contract_sha256": "30d220e006411f7c973be551917c6fc8a3bc5fc00b438ef813b6017d396ac42d",
+    "source_builder_sha256": "586feee3b341c4ef3de67e52d07c9e9e41020a5656fa9d49cfcedec77a5db265",
+    "probability_integrity_sha256": "63a8f5bb02dba8c317fecd1155caf2e1c55ad8753794b58b2fb86727b4505d1c",
+    "rich_feature_lineage_sha256": "d8381fa5c0c40e729727ddf09802e0d4ae99162fdabd52f4433f9e9636d0c3d5",
+    "feature_store_sha256": "8bd5f7f1fc500c28239173fa5c922527037402a5b95956857bbfa4c33fd31782",
+    "profile_path_sha256": "c5082978f7fb369e7c7e9cbe24f6a8fb50f6a6a3a77bc993b04fe9bcf76b86c6",
+    "health_schema_sha256": "43389fec081e6bbdd931e1c0a084f3e62a3eaab61026d642b5d3187a091af30c",
+    "configuration_sha256": "ff65d440b7571aa490300b26b1cf8a6271c5979e564c1a74d1d0988a0b743bad",
+    "predeclaration_sha256": "f92e7fc435e2cf3edc8ef5b28ecb811a5e51cd53c0019b0d52fa08a6e84554a1",
+    "hash_mutation_test_sha256": "668e3e5375bf250b14305214555ccfd138b660f6fd76c288af7093f982eaf8a4",
+    "rich_lineage_test_sha256": "0e71e2470a6e5042cc134e1e3a05a8257e7d0839f3f9e7277e201c1c6c88f8ef",
+    "source_boundary_test_sha256": "eab2f5af05e942811e45e026046a9b44541a1e50705b9bf890009c79775df8a6",
+    "certified_direct_panel_sha256": "1638ee336833ae6cb3ba580eafe2800a8f4a6c609719fe88df7481c71e0f2fb1",
+    "certified_direct_panel_manifest_sha256": "673ece8b9a26733ad4c8bf0b95fb15f6b32849e7a37c9b2fcb7f0734dcb4030f"
+  },
+  "verification": {
+    "targeted_tests": "57 passed",
+    "full_suite": "231 passed",
+    "row_reordering_preserves_hash": true,
+    "column_reordering_preserves_hash": true,
+    "value_mutation_changes_hash": true,
+    "duplicate_population_mutation_changes_hash": true,
+    "missing_or_malformed_hash_fails_closed": true,
+    "rich_lineage_hash_mutation_fails_closed": true,
+    "valid_hash_round_trip_preserved": true,
+    "valid_probability_values_unchanged": true
+  },
+  "scope_audit": {
+    "outcome_fields_read": false,
+    "may_2026_touched": false,
+    "aws_runtime_changed": false,
+    "collector_changed": false
+  },
+  "historical_reconstruction": {
+    "performed": false,
+    "reason": "Old artifacts lack the newly required digest and cannot be retroactively certified. The certified direct panel is already hash-bound by its own manifest and was not relabeled or rescored.",
+    "future_feature_artifacts_require_new_hashes": true
+  },
+  "separate_market_adjudication": {
+    "hits": "NO_NEW_NUMERIC_CANDIDATE; integrity strengthened without fresh performance evidence",
+    "hr_over_0_5": "NO_NEW_NUMERIC_CANDIDATE; frozen simulator and spent confirmation boundary preserved",
+    "total_bases": "NO_NEW_NUMERIC_CANDIDATE; no independent promotion evidence",
+    "performance_claim": "none"
+  },
+  "promotion": {
+    "promoted": false,
+    "betting_authorized": false,
+    "reason": "Exact provenance is necessary but does not establish predictive or economic superiority."
+  },
+  "highest_value_next_action": "Audit atomic feature publication and manifest crash consistency so a partially written source-bound bundle cannot be consumed, while prospective receipt evidence continues to accrue."
+}

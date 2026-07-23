@@ -1165,3 +1165,21 @@ outcome-blind 53-config audit are in
 row, outcome field, 2026/May artifact, archive, frozen runtime, AWS service, or
 collector was changed. This is integrity repair only; no market earned a
 performance or promotion claim.
+
+2026-07-22 HANDOFF ADDENDUM — STATCAST PROFILE CONTENT HASHES (AUTHORITATIVE)
+
+SI-027 completes the remaining exact-content portion of SI-011 in the same
+isolated lineage. Source-bound profiles previously carried kind/status/cutoff/
+row count but no digest of the actual consumed rows. Canonical SHA-256 binding
+is now row- and column-order independent, duplicate preserving, typed for
+missing values, and fail-closed for nonfinite/unsupported cells. Every observed
+profile hashes its player-specific consumed rows; league fallback hashes its
+exact mapping. The digest is required and propagated through JSON/Parquet,
+rich-field lineage, prediction health v4, and final probability consumption.
+Hash mutations fail at both storage and consumption. Targeted proof is 57
+passed and the full suite is 231 passed. Exact hashes are in
+`docs/research/STATCAST_PROFILE_CONTENT_HASH_REPAIR_V1_REPORT.json`. Valid
+probabilities are numerically unchanged; old artifacts are preserved but cannot
+be retro-certified. No data or outcome was opened, May/2026 remained untouched,
+and frozen production, AWS, operational smoke, and the collector were unchanged.
+No market promotion or betting authorization follows.

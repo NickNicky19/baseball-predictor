@@ -42,6 +42,7 @@ def _profile() -> StatcastProfile:
         source_status="observed_complete",
         source_window_end="2026-04-29",
         source_row_count=100,
+        source_content_sha256="a" * 64,
     )
 
 
@@ -81,6 +82,7 @@ def test_rich_pass_through_persists_exact_statcast_lineage() -> None:
     barrel = rich["_statcast_lineage"]["barrel_rate"]
     assert barrel["source_kind"] == profile.source_kind
     assert barrel["source_window_end"] == profile.source_window_end
+    assert barrel["source_content_sha256"] == profile.source_content_sha256
     assert barrel["batted_ball_denominator"] == 10
     assert barrel["barrel_count"] == 1
     assert barrel["hard_hit_count"] == 4
@@ -139,6 +141,17 @@ def test_mutation_lineage_source_status_mismatch_fails() -> None:
     profile = _profile()
     rich = deepcopy(_rich(profile))
     rich["_statcast_lineage"]["xslg"]["source_status"] = "observed_with_field_fallback"
+    with pytest.raises(StatcastIntegrityError, match="lineage mismatch"):
+        HybridPASimulator().expected_outcome_probabilities(
+            statcast=profile,
+            rich_features=rich,
+        )
+
+
+def test_mutation_lineage_source_hash_mismatch_fails() -> None:
+    profile = _profile()
+    rich = deepcopy(_rich(profile))
+    rich["_statcast_lineage"]["xslg"]["source_content_sha256"] = "b" * 64
     with pytest.raises(StatcastIntegrityError, match="lineage mismatch"):
         HybridPASimulator().expected_outcome_probabilities(
             statcast=profile,

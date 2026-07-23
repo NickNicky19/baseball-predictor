@@ -116,6 +116,7 @@ class RichFeatureEnricher:
                 "source_status": profile.source_status,
                 "source_window_end": profile.source_window_end,
                 "source_row_count": profile.source_row_count,
+                "source_content_sha256": profile.source_content_sha256,
             }
             if field in {"barrel_rate", "hard_hit_rate"}:
                 entry.update(

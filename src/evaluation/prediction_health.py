@@ -20,7 +20,7 @@ from typing import Iterable, Sequence
 from src.models.dataclasses import PlayerFeatureBundle, PropCategory
 
 
-HEALTH_SCHEMA_VERSION = "prediction-input-health-v3"
+HEALTH_SCHEMA_VERSION = "prediction-input-health-v4"
 
 
 @dataclass(frozen=True)
@@ -47,6 +47,7 @@ class PredictionInputHealth:
     hitter_statcast_source_status: str
     hitter_statcast_source_window_end: str | None
     hitter_statcast_source_row_count: int | None
+    hitter_statcast_source_content_sha256: str | None
     hitter_statcast_fallback_fields: tuple[str, ...]
     opposing_pitcher_id: int | None
     opposing_pitcher_payload_present: bool
@@ -177,6 +178,7 @@ def health_for_bundle(bundle: PlayerFeatureBundle) -> PredictionInputHealth:
         hitter_statcast_source_status=bundle.statcast.source_status,
         hitter_statcast_source_window_end=bundle.statcast.source_window_end,
         hitter_statcast_source_row_count=bundle.statcast.source_row_count,
+        hitter_statcast_source_content_sha256=bundle.statcast.source_content_sha256,
         hitter_statcast_fallback_fields=tuple(bundle.statcast.fallback_fields),
         opposing_pitcher_id=bundle.hitter.opposing_pitcher_id,
         opposing_pitcher_payload_present=pitcher_payload_present,

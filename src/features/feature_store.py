@@ -315,6 +315,7 @@ def bundles_to_dataframe(bundles: list[PlayerFeatureBundle]) -> pd.DataFrame:
             "statcast_source_status": bundle.statcast.source_status,
             "statcast_source_window_end": bundle.statcast.source_window_end,
             "statcast_source_row_count": bundle.statcast.source_row_count,
+            "statcast_source_content_sha256": bundle.statcast.source_content_sha256,
             "statcast_fallback_fields": json.dumps(list(bundle.statcast.fallback_fields)),
             "bundle_json": json.dumps(bundle_to_dict(bundle)),
         }

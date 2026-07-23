@@ -216,6 +216,7 @@ class StatcastProfile:
     source_status: str = "untracked_legacy"
     source_window_end: Optional[str] = None
     source_row_count: Optional[int] = None
+    source_content_sha256: Optional[str] = None
     fallback_fields: tuple[str, ...] = ()
 
     def has_advanced_data(self) -> bool:

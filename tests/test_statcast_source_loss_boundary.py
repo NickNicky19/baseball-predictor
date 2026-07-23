@@ -212,6 +212,7 @@ def test_observed_profile_records_window_rows_and_exact_fallbacks() -> None:
     assert profile.source_status == "observed_with_field_fallback"
     assert profile.source_window_end == "2026-04-29"
     assert profile.source_row_count == 2
+    assert len(profile.source_content_sha256 or "") == 64
     assert profile.fallback_fields == tuple(sorted(profile.fallback_fields))
     assert "sweet_spot_rate" in profile.fallback_fields
     validate_statcast_source_lineage(profile, context="test observed")
@@ -226,6 +227,7 @@ def test_real_missing_player_is_explicit_not_source_outage() -> None:
 
     health = health_for_bundle(_bundle(profile))
     assert health.hitter_statcast_source_status == profile.source_status
+    assert health.hitter_statcast_source_content_sha256 == profile.source_content_sha256
     assert health.hitter_statcast_fallback_fields == profile.fallback_fields
     assert "hitter_statcast_player_history_fallback" in health.flags
 
@@ -251,9 +253,11 @@ def test_source_lineage_survives_json_and_dataframe_round_trips() -> None:
     from_json = bundle_from_dict(bundle_to_dict(bundle))
     assert from_json.statcast.fallback_fields == profile.fallback_fields
     assert from_json.statcast.source_status == profile.source_status
+    assert from_json.statcast.source_content_sha256 == profile.source_content_sha256
 
     frame = bundles_to_dataframe([bundle])
     assert frame.loc[0, "statcast_source_status"] == profile.source_status
+    assert frame.loc[0, "statcast_source_content_sha256"] == profile.source_content_sha256
     from_frame = dataframe_to_bundles(frame)[0]
     assert from_frame.statcast.source_kind == profile.source_kind
     assert from_frame.statcast.fallback_fields == profile.fallback_fields
@@ -314,6 +318,7 @@ def test_valid_source_lineage_is_numerically_inert() -> None:
         source_status="observed_complete",
         source_window_end="2026-04-29",
         source_row_count=100,
+        source_content_sha256="a" * 64,
     )
     sim = HybridPASimulator()
     assert sim.expected_outcome_probabilities(
