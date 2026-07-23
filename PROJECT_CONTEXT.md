@@ -1,6 +1,27 @@
 PROJECT_CONTEXT.md — v17 (master roadmap) — paste into any new chat
 
 ===============================================================================
+AUTHORITATIVE INTEGRITY MILESTONE (2026-07-22) - SOURCE LOSS FAILS CLOSED
+
+SI-006 is repaired on isolated branch
+`codex/statcast-source-loss-fail-closed-v1`. Statcast dependency loss, provider
+exceptions, empty/invalid responses, malformed pitch-level schemas, and
+missing/empty CSVs now fail before probability production. Observed,
+partial-field-fallback, and no-player-history profiles persist explicit source
+lineage through feature storage, health reporting, and PA probability
+consumption. Full tests pass 172/172; the existing 7/7 as-of, 9/9 batted-ball,
+and 22/22 health mutation harnesses also pass. Valid numeric probabilities are
+unchanged, so this is an integrity repair, not a scoring improvement or model
+promotion. No data/features were rebuilt or relabeled, May 2026 was untouched,
+the frozen baseline remains in force, and betting remains unauthorized. Exact
+report: `docs/research/STATCAST_SOURCE_LOSS_REPAIR_V1_REPORT.json`.
+
+The prior `NO_ADMISSIBLE_NEW_CANDIDATE_FRESH_EVIDENCE_REQUIRED` conclusion
+below remains authoritative for performance promotion. The single highest-value
+next action remains fresh certified T-minus-4 starter receipts plus source-bound
+prospective batter rows; never backfill or reuse spent confirmation evidence.
+
+===============================================================================
 AUTHORITATIVE NEXT-ACTION AUDIT (2026-07-21) - FRESH RECEIPTS REQUIRED
 
 After the repaired direct-batter v2 rejection, the remaining admissible research

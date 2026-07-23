@@ -1,0 +1,68 @@
+{
+  "schema_version": "statcast-source-loss-repair-report-v1",
+  "repair_id": "statcast-source-loss-fail-closed-v1-15c2fde21448",
+  "classification": "integrity_repair_only",
+  "status": "verified_not_promoted",
+  "research_only": true,
+  "betting_authorized": false,
+  "base_commit": "3e3f80d0439f4e1283646c5665d3cf5a3da815ec",
+  "repair_identity_sha256": "15c2fde214482f9db6321b7f8c324966035b7e34a2f757aeaed1ca8846e11940",
+  "hashes": {
+    "code_aggregate_sha256": "aed82a71e2366c233dac03a0832edc1c39874f56fbe6c0c0d0f723f2803f6a95",
+    "config_aggregate_sha256": "ae8254b461ad3d1c564cedb2c2c40641c11af450e6eec58e417a19609cf275ec",
+    "contract_aggregate_sha256": "9de45cbb522bf4cc3d3558159a8a0a56f6d79a17235e036011470d2092ccc289",
+    "test_aggregate_sha256": "1ad93bc451cd71f34bb1e9e22bd16b43348b3a39ba9a0606960b21a2efe8f503"
+  },
+  "artifact_identity": {
+    "source_data": "not_opened",
+    "feature_artifacts": "not_rebuilt_numeric_inertness_proven",
+    "prediction_artifacts": "not_created",
+    "market_artifacts": "not_opened",
+    "outcome_artifacts": "not_opened"
+  },
+  "root_cause": "Dependency absence, provider failure, and empty Statcast responses were collapsed into an ordinary empty DataFrame. The active feature path then resolved every hitter to league averages without distinguishing total source loss from a genuine player-history gap.",
+  "repair": [
+    "Fail closed on unavailable dependency, provider exception, None, empty, non-DataFrame, and malformed pitch-level responses.",
+    "Fail closed on missing, unreadable, or empty Savant CSV sources.",
+    "Persist source kind, source status, strictly-prior source window end, source row count, and exact fallback fields.",
+    "Validate source lineage at feature serialization, deserialization, and PA probability consumption.",
+    "Keep genuine no-player-history coverage with an explicit league-fallback status instead of deleting the player."
+  ],
+  "verification": {
+    "pytest": "172/172 passed",
+    "statcast_asof_harness": "7/7 passed",
+    "batted_ball_harness": "9/9 passed",
+    "prediction_health_harness": "22/22 passed",
+    "valid_input_numeric_inertness": true,
+    "mutations": [
+      "dependency absence",
+      "provider exception",
+      "None response",
+      "empty response",
+      "missing events schema",
+      "no terminal batter events",
+      "missing and empty CSV",
+      "observed_complete with fallback fields",
+      "serialization contradiction",
+      "probability-consumption contradiction"
+    ]
+  },
+  "market_adjudication": {
+    "hits": "not_a_probability_candidate_valid_inputs_numerically_unchanged",
+    "home_runs_over_0_5": "not_a_probability_candidate_valid_inputs_numerically_unchanged",
+    "total_bases": "not_a_probability_candidate_valid_inputs_numerically_unchanged",
+    "chronological_rescore_run": false,
+    "reason": "A chronological rescore would be identical on valid inputs and impossible on source-outage inputs, which now terminate before prediction. Claiming a proper-score improvement from this repair would be fabricated."
+  },
+  "protected_boundaries": {
+    "may_2026_opened": false,
+    "spent_2025_hr_reused": false,
+    "prospective_evidence_backfilled": false,
+    "frozen_baseline_changed": false,
+    "probability_coefficients_changed": false,
+    "policy_changed": false,
+    "operational_collector_touched": false
+  },
+  "promotion": "none",
+  "highest_value_next_action": "Use fresh source-bound prospective rows to measure feature-specific coverage and then adjudicate a predeclared batter-only challenger; do not fit or select another HR candidate on spent confirmation data."
+}

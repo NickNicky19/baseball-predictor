@@ -210,6 +210,13 @@ class StatcastProfile:
     k_rate_recent: Optional[float] = None
     bb_rate_recent: Optional[float] = None
     distribution: Optional[StatcastDistributionProfile] = None
+    # Source lineage is additive so old frozen artifacts remain readable. New
+    # source-bound profiles must replace the legacy defaults before use.
+    source_kind: str = "untracked_legacy"
+    source_status: str = "untracked_legacy"
+    source_window_end: Optional[str] = None
+    source_row_count: Optional[int] = None
+    fallback_fields: tuple[str, ...] = ()
 
     def has_advanced_data(self) -> bool:
         return self.sample_pa > 0 and self.xwoba is not None

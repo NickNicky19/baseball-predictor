@@ -19,10 +19,31 @@ from src.data.statcast_batted_ball_rates import (
     hard_hit_rate as derive_hard_hit_rate,
 )
 from src.data.statcast_integrity import derive_batted_ball_evidence, validate_rate_pair
+from src.data.statcast_source_contract import (
+    StatcastSourceSchemaError,
+    StatcastSourceUnavailableError,
+    validate_statcast_source_lineage,
+)
 from src.models.dataclasses import LeagueBaselines, PitcherStatcastProfile, StatcastProfile
 from src.utils.logging import get_logger
 
 logger = get_logger(__name__)
+
+HITTER_LEAGUE_FALLBACK_FIELDS = (
+    "barrel_rate",
+    "bb_rate",
+    "chase_rate",
+    "contact_rate",
+    "hard_hit_rate",
+    "k_rate",
+    "sweet_spot_rate",
+    "swing_rate",
+    "whiff_rate",
+    "xba",
+    "xslg",
+    "xwoba",
+    "zone_rate",
+)
 
 try:
     import pybaseball as pyb
@@ -59,8 +80,9 @@ class SavantClient:
     ) -> pd.DataFrame:
         """Fetch raw Statcast pitch-level data for a date range."""
         if pyb is None:
-            logger.warning("pybaseball not installed; Statcast fetch unavailable.")
-            return pd.DataFrame()
+            raise StatcastSourceUnavailableError(
+                "pybaseball is unavailable; refusing to substitute league averages"
+            )
 
         end = date.fromisoformat(end_date or date.today().isoformat())
         days = lookback_days or self.lookback_days
@@ -70,31 +92,58 @@ class SavantClient:
         try:
             df = pyb.statcast(start_dt=start.isoformat(), end_dt=end.isoformat())
         except Exception as exc:
-            logger.error("Statcast fetch failed: %s", exc)
-            return pd.DataFrame()
+            raise StatcastSourceUnavailableError(
+                f"Statcast fetch failed for {start.isoformat()}..{end.isoformat()}"
+            ) from exc
 
-        if df is None or df.empty:
-            return pd.DataFrame()
+        if df is None:
+            raise StatcastSourceUnavailableError(
+                f"Statcast returned no rows for {start.isoformat()}..{end.isoformat()}"
+            )
+        if not isinstance(df, pd.DataFrame):
+            raise StatcastSourceSchemaError(
+                f"Statcast returned {type(df).__name__}, expected DataFrame"
+            )
+        if df.empty:
+            raise StatcastSourceUnavailableError(
+                f"Statcast returned no rows for {start.isoformat()}..{end.isoformat()}"
+            )
         return df
 
     def load_savant_csv(self, csv_path: str | Path) -> pd.DataFrame:
         """Load a Baseball Savant CSV export."""
         path = Path(csv_path)
         if not path.exists():
-            logger.warning("Savant CSV not found: %s", path)
-            return pd.DataFrame()
-        return pd.read_csv(path)
+            raise StatcastSourceUnavailableError(f"Savant CSV not found: {path}")
+        try:
+            df = pd.read_csv(path)
+        except Exception as exc:
+            raise StatcastSourceUnavailableError(
+                f"Savant CSV could not be read: {path}"
+            ) from exc
+        if df.empty:
+            raise StatcastSourceUnavailableError(f"Savant CSV contains no rows: {path}")
+        return df
 
     def build_hitter_profiles_from_statcast(
         self, statcast_df: pd.DataFrame
     ) -> dict[int, StatcastProfile]:
         """Aggregate pitch-level Statcast data into per-batter profiles."""
-        if statcast_df.empty or "batter" not in statcast_df.columns:
+        if statcast_df.empty:
             return {}
+        missing = {"batter", "events"} - set(statcast_df.columns)
+        if missing:
+            raise StatcastSourceSchemaError(
+                "pitch-level Statcast payload missing required columns: "
+                + ", ".join(sorted(missing))
+            )
 
         df = statcast_df.copy()
-        if "events" in df.columns:
-            df = df[df["events"].notna()]
+        df = df[df["events"].notna()]
+        if df.empty or not df["batter"].notna().any():
+            raise StatcastSourceSchemaError(
+                "pitch-level Statcast payload contains no terminal batter events"
+            )
 
         pa_counts = df.groupby("batter").size()
         qualified = pa_counts[pa_counts >= self.min_pa].index
@@ -115,11 +164,12 @@ class SavantClient:
     ) -> dict[int, StatcastProfile]:
         """Build profiles from a Savant CSV (player-level or pitch-level)."""
         df = self.load_savant_csv(csv_path)
-        if df.empty:
-            return {}
-
         if "batter" in df.columns:
-            return self.build_hitter_profiles_from_statcast(df)
+            profiles = self.build_hitter_profiles_from_statcast(df)
+            return {
+                player_id: replace(profile, source_kind="savant_pitch_csv")
+                for player_id, profile in profiles.items()
+            }
 
         return self._profiles_from_player_level_csv(df)
 
@@ -137,12 +187,12 @@ class SavantClient:
     def league_fallback_profile(self, player_id: int, player_name: str) -> StatcastProfile:
         """Create a full profile using league-average values (no advanced sample)."""
         lg = self.league
-        return StatcastProfile(
+        profile = StatcastProfile(
             player_id=player_id,
             player_name=player_name,
             sample_pa=0,
             xwoba=lg.xwoba,
-            xba=None,
+            xba=lg.xba_on_contact,
             xslg=lg.xslg,
             barrel_rate=lg.barrel_rate,
             sweet_spot_rate=lg.sweet_spot_rate,
@@ -154,7 +204,16 @@ class SavantClient:
             zone_rate=lg.zone_rate,
             k_rate=lg.k_pct / 100.0,
             bb_rate=lg.bb_pct / 100.0,
+            source_kind="league_baseline",
+            source_status="league_fallback_no_player_profile",
+            source_row_count=0,
+            fallback_fields=HITTER_LEAGUE_FALLBACK_FIELDS,
         )
+        validate_statcast_source_lineage(
+            profile,
+            context=f"SavantClient.league_fallback_profile[{player_id}]",
+        )
+        return profile
 
     def apply_league_fallback(self, profile: StatcastProfile) -> StatcastProfile:
         """Fill any missing metric with the corresponding league baseline."""
@@ -164,27 +223,49 @@ class SavantClient:
             context=f"StatcastProfile[{profile.player_id}] before fallback",
         )
         lg = self.league
-        return replace(
+        fallback_values = {
+            "xwoba": lg.xwoba,
+            "xba": lg.xba_on_contact,
+            "xslg": lg.xslg,
+            "barrel_rate": lg.barrel_rate,
+            "sweet_spot_rate": lg.sweet_spot_rate,
+            "hard_hit_rate": lg.hard_hit_rate,
+            "chase_rate": lg.chase_rate,
+            "contact_rate": lg.contact_rate,
+            "whiff_rate": lg.whiff_rate,
+            "swing_rate": lg.swing_rate,
+            "zone_rate": lg.zone_rate,
+            "k_rate": lg.k_pct / 100.0,
+            "bb_rate": lg.bb_pct / 100.0,
+        }
+        newly_fallback = {
+            field for field in fallback_values if getattr(profile, field) is None
+        }
+        fallback_fields = tuple(sorted(set(profile.fallback_fields) | newly_fallback))
+        if profile.source_status == "untracked_legacy":
+            source_status = "untracked_legacy"
+        elif profile.source_status == "league_fallback_no_player_profile":
+            source_status = profile.source_status
+        else:
+            source_status = (
+                "observed_with_field_fallback" if fallback_fields else "observed_complete"
+            )
+        enriched = replace(
             profile,
-            xwoba=profile.xwoba if profile.xwoba is not None else lg.xwoba,
-            xslg=profile.xslg if profile.xslg is not None else lg.xslg,
-            barrel_rate=profile.barrel_rate if profile.barrel_rate is not None else lg.barrel_rate,
-            sweet_spot_rate=(
-                profile.sweet_spot_rate if profile.sweet_spot_rate is not None else lg.sweet_spot_rate
-            ),
-            hard_hit_rate=(
-                profile.hard_hit_rate if profile.hard_hit_rate is not None else lg.hard_hit_rate
-            ),
-            chase_rate=profile.chase_rate if profile.chase_rate is not None else lg.chase_rate,
-            contact_rate=(
-                profile.contact_rate if profile.contact_rate is not None else lg.contact_rate
-            ),
-            whiff_rate=profile.whiff_rate if profile.whiff_rate is not None else lg.whiff_rate,
-            swing_rate=profile.swing_rate if profile.swing_rate is not None else lg.swing_rate,
-            zone_rate=profile.zone_rate if profile.zone_rate is not None else lg.zone_rate,
-            k_rate=profile.k_rate if profile.k_rate is not None else lg.k_pct / 100.0,
-            bb_rate=profile.bb_rate if profile.bb_rate is not None else lg.bb_pct / 100.0,
+            **{
+                field: getattr(profile, field)
+                if getattr(profile, field) is not None
+                else value
+                for field, value in fallback_values.items()
+            },
+            source_status=source_status,
+            fallback_fields=fallback_fields,
         )
+        validate_statcast_source_lineage(
+            enriched,
+            context=f"SavantClient.apply_league_fallback[{profile.player_id}]",
+        )
+        return enriched
 
     def build_pitcher_profile_from_rates(
         self,
@@ -264,6 +345,9 @@ class SavantClient:
             contact_rate=self._compute_contact_rate(group),
             swing_rate=self._compute_swing_rate(group),
             zone_rate=self._compute_zone_rate(group),
+            source_kind="pybaseball_statcast",
+            source_status="observed_complete",
+            source_row_count=len(group),
         )
 
     def _profiles_from_player_level_csv(self, df: pd.DataFrame) -> dict[int, StatcastProfile]:
@@ -271,7 +355,9 @@ class SavantClient:
         id_col = _first_present(df.columns, ["player_id", "batter", "id"])
         name_col = _first_present(df.columns, ["player_name", "last_name, first_name", "name"])
         if id_col is None:
-            return {}
+            raise StatcastSourceSchemaError(
+                "player-level Savant CSV has no player identity column"
+            )
 
         profiles: dict[int, StatcastProfile] = {}
         for _, row in df.iterrows():
@@ -292,6 +378,9 @@ class SavantClient:
                 contact_rate=_normalize_rate(_safe_float(row.get("contact_percent"))),
                 swing_rate=_normalize_rate(_safe_float(row.get("swing_percent"))),
                 zone_rate=_normalize_rate(_safe_float(row.get("zone_percent"))),
+                source_kind="savant_player_csv",
+                source_status="observed_complete",
+                source_row_count=1,
             )
             validate_rate_pair(
                 profile.barrel_rate,

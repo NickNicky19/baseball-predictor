@@ -34,6 +34,7 @@ from src.models.dataclasses import (
 from src.utils.logging import get_logger
 from src.utils.provenance import sha256_file
 from src.data.statcast_integrity import validate_profile_and_rich_features
+from src.data.statcast_source_contract import validate_statcast_source_lineage
 
 logger = get_logger(__name__)
 
@@ -218,6 +219,10 @@ def bundle_to_dict(bundle: PlayerFeatureBundle) -> dict[str, Any]:
         bundle.rich_features,
         context=f"FeatureStore.serialize[{bundle.hitter.player.mlb_id}]",
     )
+    validate_statcast_source_lineage(
+        bundle.statcast,
+        context=f"FeatureStore.serialize.source[{bundle.hitter.player.mlb_id}]",
+    )
     return _to_plain(asdict(bundle))
 
 
@@ -239,6 +244,10 @@ def bundle_from_dict(data: dict[str, Any]) -> PlayerFeatureBundle:
         bundle.statcast,
         bundle.rich_features,
         context=f"FeatureStore.deserialize[{bundle.hitter.player.mlb_id}]",
+    )
+    validate_statcast_source_lineage(
+        bundle.statcast,
+        context=f"FeatureStore.deserialize.source[{bundle.hitter.player.mlb_id}]",
     )
     return bundle
 
@@ -263,6 +272,11 @@ def bundles_to_dataframe(bundles: list[PlayerFeatureBundle]) -> pd.DataFrame:
             "contact_rate": bundle.statcast.contact_rate,
             "whiff_rate": bundle.statcast.whiff_rate,
             "has_advanced_data": bundle.statcast.has_advanced_data(),
+            "statcast_source_kind": bundle.statcast.source_kind,
+            "statcast_source_status": bundle.statcast.source_status,
+            "statcast_source_window_end": bundle.statcast.source_window_end,
+            "statcast_source_row_count": bundle.statcast.source_row_count,
+            "statcast_fallback_fields": json.dumps(list(bundle.statcast.fallback_fields)),
             "bundle_json": json.dumps(bundle_to_dict(bundle)),
         }
         rows.append(row)
@@ -291,6 +305,7 @@ def _statcast_from_dict(data: dict[str, Any]) -> StatcastProfile:
     distribution = payload.get("distribution")
     if isinstance(distribution, dict):
         payload["distribution"] = StatcastDistributionProfile(**distribution)
+    payload["fallback_fields"] = tuple(payload.get("fallback_fields", ()))
     return StatcastProfile(**payload)
 
 

@@ -45,7 +45,7 @@ outcome/result columns. Exact machine-readable scope is in
 | SI-003 | P0 | General-purpose backfill utilities do not encode the current sealed-month/prospective-evidence boundary. | All research evidence | Contract and runner now skip May before fetching, exclude outcome fields, and forbid prospective classes. Complete for this backfill path. | Research governance repair |
 | SI-004 | P0 | Canonical PA builders divide barrels by classified buckets while hard hits use measured EV, so denominator parity is not certified. | Shared batter PA research | Canonical transformers now share the count-bearing primitive and fork schema v2. Pre-2026 reconstruction/evaluation pending. | Integrity repair/new candidate |
 | SI-005 | P0 | Direct batter history repeats the mismatched barrel/hard-hit denominators. | Shared batter PA candidate | Direct history now emits common counts/denominator/rates. Pre-2026 reconstruction/evaluation pending. | Integrity repair/new candidate |
-| SI-006 | P1 | Missing Statcast fields can silently become league averages; fetch failures can return an empty frame. | Hits, HR, TB | Make source/fallback status explicit and quarantine silent source loss; never disguise failure as player evidence. Pending. | Integrity repair |
+| SI-006 | P1 | Missing Statcast fields could silently become league averages; dependency absence, fetch errors, and empty responses returned an ordinary empty frame. | Hits, HR, TB | Source outages, empty/malformed responses, and missing/empty CSVs now fail closed. Observed, partial-field-fallback, and no-player-history states persist exact lineage through feature storage, health reporting, and probability consumption. Complete; numerically inert on valid inputs and not a model promotion. | Integrity repair |
 | SI-007 | P1 | Rich features override scalar fields independently without stored count/denominator lineage. | Hits, HR, TB | Bind effective values to source/count/denominator/window; reject contradictory partial overrides. Partial invariant implemented. | Integrity repair |
 | SI-008 | P1 | Pitcher fields can affect probabilities without a receipt-proven pregame starter identity in historical candidates. | Hits, HR, TB | Exclude pitcher block unless receipt contract passes. Existing block retained; full consumer audit pending. | Governance/integrity |
 | SI-009 | P1 | The frozen HR formula consumes barrel signal in `H_power`, consumes it again through xSLG, then adds a distribution quality score containing barrel/hard-hit and a further EV/launch-angle term. These are hand-specified, overlapping paths. | HR first; Hits/TB through the shared simulator | Frozen formula retained only as comparator. The repaired challenger is a locked fitted batter-only PA model; no coefficient tuning or claim that the legacy formula was repaired. | Research candidate audit |
@@ -133,3 +133,22 @@ league-rate, time-safe empirical-Bayes player-rate, frozen simulator, and valid
 market-implied comparators where available. No repaired candidate can use May,
 spent HR confirmation as fresh proof, reconstructed prospective evidence, or
 unverified prices. Failing any gate retains the frozen baseline.
+
+## Statcast source-loss repair v1
+
+Repair identity `statcast-source-loss-fail-closed-v1` closes SI-006 without
+opening historical outcomes or changing any probability coefficient. Provider
+dependency loss, exceptions, `None`, empty responses, malformed pitch-level
+schemas, and missing/empty CSVs are terminal source errors. Valid player
+observations now carry source kind, status, strictly-prior window end, source
+row count, and exact fallback fields. A genuine no-player-history case remains
+coverage-preserving but is explicitly labelled as league fallback evidence.
+Contradictory lineage fails at serialization and at the PA probability consumer.
+
+Full tests pass 172/172; the pre-existing as-of, batted-ball, and prediction
+health mutation harnesses pass 7/7, 9/9, and 22/22. No source/feature artifact
+was reconstructed because valid numeric features and probabilities are
+unchanged; existing artifacts are neither overwritten nor retroactively
+relabeled. New forward or permissible historical builds will use the versioned
+lineage schema. This is an integrity repair only, not a Brier, log-loss,
+calibration, discrimination, market, ROI, promotion, or betting result.

@@ -38,6 +38,7 @@ from typing import TYPE_CHECKING, Optional, Any
 
 from src.evaluation.hits_contact_adapter import consume_fitted_contact_xba
 from src.data.statcast_integrity import validate_profile_and_rich_features
+from src.data.statcast_source_contract import validate_statcast_source_lineage
 from src.models.dataclasses import LeagueBaselines, PAOutcome, StatcastProfile
 
 if TYPE_CHECKING:
@@ -512,6 +513,10 @@ class HybridPASimulator:
         rich = rich or {}
 
         if statcast is not None:
+            validate_statcast_source_lineage(
+                statcast,
+                context=f"HybridPASimulator.source[{statcast.player_id}]",
+            )
             validate_profile_and_rich_features(
                 statcast,
                 rich,

@@ -20,7 +20,7 @@ from typing import Iterable, Sequence
 from src.models.dataclasses import PlayerFeatureBundle, PropCategory
 
 
-HEALTH_SCHEMA_VERSION = "prediction-input-health-v2"
+HEALTH_SCHEMA_VERSION = "prediction-input-health-v3"
 
 
 @dataclass(frozen=True)
@@ -43,6 +43,11 @@ class PredictionInputHealth:
     expected_pa: float
     statcast_sample_pa: int
     hitter_has_advanced_statcast: bool
+    hitter_statcast_source_kind: str
+    hitter_statcast_source_status: str
+    hitter_statcast_source_window_end: str | None
+    hitter_statcast_source_row_count: int | None
+    hitter_statcast_fallback_fields: tuple[str, ...]
     opposing_pitcher_id: int | None
     opposing_pitcher_payload_present: bool
     opposing_pitcher_sample_pa: int
@@ -107,6 +112,15 @@ def health_for_bundle(bundle: PlayerFeatureBundle) -> PredictionInputHealth:
         # assertion about why the slot was unavailable.
         flags.append("legacy_lineup_slot_pa_fallback")
 
+    if bundle.statcast.source_status == "league_fallback_no_player_profile":
+        flags.append("hitter_statcast_player_history_fallback")
+    elif bundle.statcast.source_status == "observed_with_field_fallback":
+        flags.append("hitter_statcast_partial_field_fallback")
+    elif bundle.statcast.source_status == "observed_complete":
+        flags.append("hitter_statcast_observed_complete")
+    else:
+        flags.append("hitter_statcast_lineage_untracked_legacy")
+
     if has_advanced_statcast:
         flags.append("hitter_advanced_statcast")
     else:
@@ -159,6 +173,11 @@ def health_for_bundle(bundle: PlayerFeatureBundle) -> PredictionInputHealth:
         expected_pa=bundle.expected_pa,
         statcast_sample_pa=bundle.statcast.sample_pa,
         hitter_has_advanced_statcast=has_advanced_statcast,
+        hitter_statcast_source_kind=bundle.statcast.source_kind,
+        hitter_statcast_source_status=bundle.statcast.source_status,
+        hitter_statcast_source_window_end=bundle.statcast.source_window_end,
+        hitter_statcast_source_row_count=bundle.statcast.source_row_count,
+        hitter_statcast_fallback_fields=tuple(bundle.statcast.fallback_fields),
         opposing_pitcher_id=bundle.hitter.opposing_pitcher_id,
         opposing_pitcher_payload_present=pitcher_payload_present,
         opposing_pitcher_sample_pa=pitcher_sample_pa,

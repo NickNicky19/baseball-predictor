@@ -15,6 +15,7 @@ from typing import Optional
 import pandas as pd
 
 from src.data.savant import SavantClient
+from src.data.statcast_source_contract import validate_statcast_source_lineage
 from src.data.statcast_distributions import StatcastDistributionBuilder
 from src.evaluation.hits_contact_adapter import (
     HitsContactAdapterSettings,
@@ -146,8 +147,22 @@ class StatcastFeatureEngine:
             )
         last_completed_date = (target_date - timedelta(days=1)).isoformat()
         statcast_df = self.savant.fetch_statcast_range(end_date=last_completed_date)
-        if not statcast_df.empty:
-            profiles.update(self.build_profiles_from_statcast_df(statcast_df))
+        profiles.update(
+            {
+                player_id: replace(
+                    profile,
+                    source_window_end=last_completed_date,
+                )
+                for player_id, profile in self.build_profiles_from_statcast_df(
+                    statcast_df
+                ).items()
+            }
+        )
+        for profile in profiles.values():
+            validate_statcast_source_lineage(
+                profile,
+                context=f"StatcastFeatureEngine.build_profiles_for_date[{profile.player_id}]",
+            )
         self._hits_contact_evidence = {}
         if self.hits_contact_adapter is not None:
             self._hits_contact_evidence = build_contact_adapter_evidence(
@@ -252,6 +267,11 @@ class StatcastFeatureEngine:
                     "zone_rate": profile.zone_rate,
                     "k_rate": profile.k_rate,
                     "bb_rate": profile.bb_rate,
+                    "source_kind": profile.source_kind,
+                    "source_status": profile.source_status,
+                    "source_window_end": profile.source_window_end,
+                    "source_row_count": profile.source_row_count,
+                    "fallback_fields": list(profile.fallback_fields),
                 }
             )
         return pd.DataFrame(rows)
