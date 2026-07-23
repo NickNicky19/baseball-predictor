@@ -61,6 +61,12 @@ def _atomic_publish_once(path: Path, payload: bytes) -> bool:
         temporary = Path(handle.name)
         handle.write(payload)
         handle.flush()
+        # NamedTemporaryFile is 0600 regardless of the service UMask.  The
+        # independent verifier is deliberately a different, non-writing user
+        # in the baseball-shadow group, so immutable evidence must be group
+        # readable before the hard link publishes it.  0640 grants no group
+        # write and leaves other users with no access.
+        os.fchmod(handle.fileno(), 0o640)
         os.fsync(handle.fileno())
     try:
         try:

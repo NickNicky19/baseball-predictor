@@ -1,0 +1,44 @@
+{
+  "schema_version": "shared-pa-verifier-permission-repair-v1",
+  "incident_id": "SI-035",
+  "observed_workflow_run_id": 29980908774,
+  "root_cause": "Python tempfile.NamedTemporaryFile created immutable shared-PA evidence with mode 0600. Hard-link publication preserved that mode, so the deliberately separate shadow-verifier account could traverse the group-owned evidence tree but could not read the ledger manifest.",
+  "affected_scope": [
+    "shared PA forward ledger files",
+    "shared PA forward health files",
+    "independent GitHub verifier reads"
+  ],
+  "not_affected": [
+    "evidence bytes already published",
+    "collector timing",
+    "pitcher receipt collector",
+    "model probabilities",
+    "historical or prospective outcomes"
+  ],
+  "repair": {
+    "new_publications": "Set mode 0640 on the fully flushed temporary file before immutable hard-link publication.",
+    "existing_publications": "At deployment, change only group ownership and permission metadata under the shared-PA evidence root: directories 0750 and files 0640.",
+    "boundary": "Deployment fails if shadow-verifier is missing, is outside the baseball-shadow group, cannot read the evidence root, or can write it.",
+    "backfill": false,
+    "evidence_content_mutation": false
+  },
+  "mutation_and_regression_proof": {
+    "focused_tests": "21 passed",
+    "full_tests": "263 passed",
+    "release_manifest_bindings": 29,
+    "release_manifest_state": "verified"
+  },
+  "hashes": {
+    "src/evaluation/shared_pa_forward_ledger.py": "fb88596f3523973849ea226408e8f3c9e575cfe172834aae63d4df89bee76f26",
+    "scripts/report_aws_shared_pa_forward_health.py": "c56f73c52825c2db682982f13141e96b511843f29efde788983a3bbecc40dab0",
+    "deploy/shared_pa_forward/install_exact_release.sh": "b30cb7a8c3f7fb0efab6cf0d96096abb0628f67f9082eb508a3c636ba4258d65",
+    "tests/test_aws_shared_pa_forward_health.py": "97710174ea1346aff1a6b2a78d06a33d9c8a564c04c8d607d521bf05ada694e4",
+    "tests/test_aws_shared_pa_forward_runtime.py": "834f2bc01a3f43380e52f7bcc4630ed939260688db4d38222ca0e025c95dadbf",
+    "tests/test_aws_shared_pa_forward_verifier.py": "e87779e9f7009ede4deba3bea47744adde859595181bf492a525db9cd6a4538e",
+    "reports/shared_pa_forward_release_v1_hash_manifest.json": "6763ec0901af9dd120f094202fadb8f0203efa3734b0a97503ca9659024ad7de"
+  },
+  "classification": "operational integrity repair",
+  "performance_improvement_claimed": false,
+  "production_model_promoted": false,
+  "betting_authorized": false
+}
