@@ -25,13 +25,14 @@ def _sha(label: str) -> str:
 def _record() -> dict:
     lineup_a = [{"player_id": value, "slot": value} for value in range(1, 10)]
     lineup_b = [{"player_id": value + 1, "slot": value} for value in range(1, 10)]
-    receipt = {
+    history_receipt = {
         "source_kind": "internal_historical_lineup_feature_store",
         "source_record_id": "immutable-fixture",
         "received_at_utc": "2026-07-24T15:00:00Z",
         "payload_sha256": _sha("payload"),
         "input_surface_sha256": _sha("surface"),
     }
+    roster_receipt = {**history_receipt, "source_kind": "official_mlb_active_roster_t4"}
     record = {
         "schema_version": "projected-lineup-projection-v1",
         "terminal_state": "projected_complete",
@@ -42,7 +43,7 @@ def _record() -> dict:
         "team_id": 147,
         "target_horizon_utc": "2026-07-24T16:00:00Z",
         "projection_receipt_utc": "2026-07-24T15:00:00Z",
-        "input_receipts": {"active_roster": receipt, "historical_lineup_features": receipt},
+        "input_receipts": {"active_roster": roster_receipt, "historical_lineup_features": history_receipt},
         "active_roster_player_ids": list(range(1, 12)),
         "fitted_candidate_id": "internal_lineup_projector_candidate_v1",
         "fitted_artifact_sha256": _sha("fitted"),

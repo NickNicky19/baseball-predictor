@@ -4,8 +4,14 @@
   "purpose": "Define the fail-closed, source-neutral handoff from pregame lineup inputs to an internal projected-lineup distribution. This contract does not authorize a provider, a fitted lineup candidate, a player-prop probability change, or betting.",
   "decision_horizon": "T-4h",
   "permitted_source_kinds": [
+    "official_mlb_active_roster_t4",
     "internal_historical_lineup_feature_store"
   ],
+  "input_receipt_source_kinds": {
+    "active_roster": "official_mlb_active_roster_t4",
+    "historical_lineup_features": "internal_historical_lineup_feature_store",
+    "availability": "internal_historical_lineup_feature_store"
+  },
   "required_input_receipts": [
     "active_roster",
     "historical_lineup_features"

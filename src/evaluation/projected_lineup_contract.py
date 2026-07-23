@@ -70,7 +70,9 @@ def load_contract(path: str | Path) -> dict[str, Any]:
         raise ProjectedLineupContractError("projected-lineup contract schema changed")
     if raw.get("status") != "RESEARCH_ONLY_NOT_ACTIVE_IN_PRODUCTION" or raw.get("decision_horizon") != "T-4h":
         raise ProjectedLineupContractError("research-only T-minus-4 boundary changed")
-    if raw.get("permitted_source_kinds") != ["internal_historical_lineup_feature_store"]:
+    if raw.get("permitted_source_kinds") != [
+        "official_mlb_active_roster_t4", "internal_historical_lineup_feature_store"
+    ]:
         raise ProjectedLineupContractError("an unapproved lineup source was enabled")
     if raw.get("required_input_receipts") != ["active_roster", "historical_lineup_features"]:
         raise ProjectedLineupContractError("required lineup input receipts changed")
@@ -91,7 +93,7 @@ def _validate_receipts(value: Any, horizon: datetime, contract: Mapping[str, Any
     for name, raw in value.items():
         if not isinstance(raw, Mapping) or set(raw) != {"source_kind", "source_record_id", "received_at_utc", "payload_sha256", "input_surface_sha256"}:
             raise ProjectedLineupContractError(f"{name} receipt schema is invalid")
-        if raw["source_kind"] not in contract["permitted_source_kinds"]:
+        if raw["source_kind"] != contract["input_receipt_source_kinds"].get(name):
             raise ProjectedLineupContractError(f"{name} receipt uses an unapproved source")
         if not isinstance(raw["source_record_id"], str) or not raw["source_record_id"].strip():
             raise ProjectedLineupContractError(f"{name} receipt lacks a source record identity")
