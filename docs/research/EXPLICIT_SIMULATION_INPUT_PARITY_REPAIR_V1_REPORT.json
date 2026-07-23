@@ -1,0 +1,80 @@
+{
+  "artifact_version": "explicit-simulation-input-parity-repair-v1",
+  "status": "INTEGRITY_REPAIR_VERIFIED_NO_PROMOTION",
+  "classification": "integrity_repair_of_frozen_comparator",
+  "market_scope": [
+    "hits",
+    "hr_over_0_5",
+    "total_bases"
+  ],
+  "root_cause": "The archived explicit PA distribution consumed raw recent-form, BvP OPS, and BvP HR multipliers, while the Monte Carlo input built from the same bundle consumed bounded values. Stated PA probabilities could therefore differ from the probabilities sampled for market distributions.",
+  "repair": {
+    "single_effective_context": [
+      "pitcher K and BB rates",
+      "pitcher HR/9",
+      "park hit and HR factors",
+      "weather HR factor",
+      "umpire K bias",
+      "handedness",
+      "recent form",
+      "BvP OPS",
+      "BvP HR"
+    ],
+    "consumers": [
+      "ProbabilityEngine explicit PA distribution",
+      "PropEngine GameSimulatorInput"
+    ],
+    "existing_frozen_bounds_preserved": {
+      "recent_form_multiplier": [0.85, 1.18],
+      "bvp_ops_factor": [0.8, 1.25],
+      "bvp_hr_factor": [0.7, 1.4]
+    },
+    "new_baseball_coefficients": 0,
+    "new_thresholds": 0,
+    "invalid_numeric_context": "fail closed"
+  },
+  "version_binding": {
+    "effective_context_code_sha256": "0e7664f4816f4cb6b425542ba554db0a52dd785ff4ef594e248fe75aad13ad20",
+    "explicit_probability_consumer_sha256": "d47d1ecda8b154919dba55c460668a525e2ea1ae3ae6334c3af5482e860e9f31",
+    "sampled_probability_consumer_sha256": "a131b52362dff99f8268e43243c7d92bc62fac24f282694cc4f6a48d8298e06d",
+    "regression_mutation_test_sha256": "4c5423e6565daa1cc610db1e842bdc16ab3a2a9bbfa9fe2c81a79078bd1ebc6a",
+    "predeclaration_sha256": "1bb7d0fc10ba068e5501c976ef305873cf3668c0bf2e0d1925fa05662b249c59",
+    "configuration_sha256": "ff65d440b7571aa490300b26b1cf8a6271c5979e564c1a74d1d0988a0b743bad",
+    "certified_direct_panel_sha256": "1638ee336833ae6cb3ba580eafe2800a8f4a6c609719fe88df7481c71e0f2fb1",
+    "certified_direct_panel_manifest_sha256": "673ece8b9a26733ad4c8bf0b95fb15f6b32849e7a37c9b2fcb7f0734dcb4030f"
+  },
+  "verification": {
+    "targeted_tests": "13 passed",
+    "full_suite": "241 passed, 1 skipped",
+    "recent_form_bound_mutation_parity": true,
+    "bvp_ops_bound_mutation_parity": true,
+    "bvp_hr_bound_mutation_parity": true,
+    "pitcher_umpire_combination_parity": true,
+    "park_weather_combination_parity": true,
+    "invalid_context_mutations_fail_closed": true,
+    "in_bound_explicit_probabilities_unchanged": true
+  },
+  "scope_audit": {
+    "outcome_fields_read": false,
+    "may_2026_touched": false,
+    "historical_predictions_rewritten": false,
+    "aws_runtime_changed": false,
+    "collector_changed": false
+  },
+  "historical_reconstruction": {
+    "performed": false,
+    "reason": "The repair makes future representations internally consistent. Historical archives are preserved as evidence of their original code and cannot be overwritten or relabeled."
+  },
+  "separate_market_adjudication": {
+    "hits": "NO_PROMOTION; representation parity repaired without fresh score evidence",
+    "hr_over_0_5": "NO_PROMOTION; frozen comparator only and spent confirmation preserved",
+    "total_bases": "NO_PROMOTION; representation parity repaired without fresh score evidence",
+    "calibration_brier_logloss_auc_claim": "none"
+  },
+  "promotion": {
+    "promoted": false,
+    "betting_authorized": false,
+    "reason": "Matching explicit and sampled probabilities fixes integrity but cannot prove either legacy matchup effect is useful."
+  },
+  "highest_value_next_action": "Complete the receipt-gated pitcher-consumption adapter only after independently verified fresh T-4 context exists; until then keep new candidates batter-only and use prospective shared-PA comparator capture."
+}

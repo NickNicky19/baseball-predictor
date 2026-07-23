@@ -1184,6 +1184,25 @@ be retro-certified. No data or outcome was opened, May/2026 remained untouched,
 and frozen production, AWS, operational smoke, and the collector were unchanged.
 No market promotion or betting authorization follows.
 
+2026-07-22 HANDOFF ADDENDUM — EXPLICIT/SAMPLED INPUT PARITY (AUTHORITATIVE)
+
+SI-029 is repaired in the same isolated lineage. `ProbabilityEngine` archived
+explicit PA probabilities from raw recent-form/BvP multipliers while
+`PropEngine` sampled bounded versions from the same bundle. One validated
+effective-context builder now owns pitcher rates, park/weather, umpire,
+handedness, recent form, and BvP inputs for both consumers. The frozen
+comparator's existing bounds are preserved exactly rather than retuned or
+endorsed; invalid numeric context fails closed. Mutations outside all three
+existing bounds now produce exact explicit/sampled input parity, combined
+park/weather and pitcher/umpire inputs match, and valid in-bound explicit
+probabilities are unchanged. Targeted proof is 13 passed; the full suite is
+241 passed and 1 skipped. Exact hashes are in
+`docs/research/EXPLICIT_SIMULATION_INPUT_PARITY_REPAIR_V1_REPORT.json`. This
+repairs representation integrity only. The fitted batter-only challenger does
+not inherit the hand-specified matchup effects, no historical archive was
+rewritten, May/2026 and outcomes were untouched, AWS/collector were unchanged,
+and no market promotion or betting authorization follows.
+
 2026-07-22 HANDOFF ADDENDUM — FEATURE PUBLICATION TRANSACTION (AUTHORITATIVE)
 
 SI-028 is repaired in the same isolated lineage. Feature artifacts were formerly

@@ -53,6 +53,7 @@ from src.evaluation.output_safeguards import OutputSafeguards
 from src.simulation.game_simulator import GameSimulator, GameSimulatorInput
 from src.simulation.monte_carlo import FantasyScoring, MonteCarloEngine
 from src.simulation.pa_simulator import HybridPASimulator, PASimulatorConfig
+from src.simulation.input_contract import effective_pa_context
 from src.simulation.probability_engine import ProbabilityEngine
 from src.utils.logging import get_logger
 
@@ -568,34 +569,7 @@ class PropEngine:
         rich_features: Optional[dict] = None,
     ) -> GameSimulatorInput:
         """Build simulation input, including rich features when available."""
-        pitcher_k = self.league.k_pct
-        pitcher_bb = self.league.bb_pct
-
-        if bundle.pitcher_statcast and bundle.pitcher_statcast.k_rate is not None:
-            pitcher_k = bundle.pitcher_statcast.k_rate * 100.0
-        if bundle.pitcher_statcast and bundle.pitcher_statcast.bb_rate is not None:
-            pitcher_bb = bundle.pitcher_statcast.bb_rate * 100.0
-
-        pitcher_hr_per_9 = None
-        if bundle.pitcher_statcast and bundle.pitcher_statcast.hr_per_9 is not None:
-            pitcher_hr_per_9 = bundle.pitcher_statcast.hr_per_9
-
-        weather_hr = float(bundle.metadata.get("weather_hr_factor", 1.0))
-        umpire_k_bias = 0.0
-        if bundle.umpire:
-            umpire_k_bias = bundle.umpire.k_bias
-
-        # Clamp game-level multipliers to realistic ranges. Small-sample BvP
-        # and streaky recent-form values can arrive far from 1.0 and stack
-        # multiplicatively, inflating HRR well past any real expectation.
-        # (The PA simulator already clamps its own latent inputs; these bound
-        # the game-level knobs the simulator trusts as pre-vetted.)
-        def _clamp(x: float, lo: float, hi: float) -> float:
-            return max(lo, min(hi, x))
-
-        bvp_ops = _clamp(bundle.matchup.bvp_ops_factor, 0.80, 1.25)
-        bvp_hr = _clamp(bundle.matchup.bvp_hr_factor, 0.70, 1.40)
-        form_mult = _clamp(bundle.matchup.recent_form_multiplier, 0.85, 1.18)
+        context = effective_pa_context(bundle, self.league)
 
         # The fitted PA artifact is conditional on batting-order slot.  Passing
         # None silently takes GameSimulator's legacy floor/floor+1 path even
@@ -610,18 +584,18 @@ class PropEngine:
         return GameSimulatorInput(
             expected_pa=bundle.expected_pa,
             lineup_slot=slot,
-            pitcher_k_pct=pitcher_k,
-            pitcher_bb_pct=pitcher_bb,
-            park_hr_factor=bundle.park.hr_factor,
-            park_hits_factor=bundle.park.hits_factor,
-            weather_hr_factor=weather_hr,
-            umpire_k_bias=umpire_k_bias,
-            handedness_advantage=bundle.matchup.platoon_advantage,
-            recent_form_mult=form_mult,
-            bvp_ops_factor=bvp_ops,
-            bvp_hr_factor=bvp_hr,
+            pitcher_k_pct=context.pitcher_k_pct,
+            pitcher_bb_pct=context.pitcher_bb_pct,
+            park_hr_factor=context.park_hr_factor,
+            park_hits_factor=context.park_hits_factor,
+            weather_hr_factor=context.weather_hr_factor,
+            umpire_k_bias=context.umpire_k_bias,
+            handedness_advantage=context.handedness_advantage,
+            recent_form_mult=context.recent_form_mult,
+            bvp_ops_factor=context.bvp_ops_factor,
+            bvp_hr_factor=context.bvp_hr_factor,
             statcast=bundle.statcast,
-            pitcher_hr_per_9=pitcher_hr_per_9,
+            pitcher_hr_per_9=context.pitcher_hr_per_9,
             rich_features=rich_features,
         )
 
