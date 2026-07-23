@@ -1,0 +1,15 @@
+{
+  "schema_version": "shared-pa-candidate-pre-score-rejection-v1",
+  "candidate_id": "shared_pa_eb_regularized_residual_2023_v1",
+  "status": "REJECTED_BEFORE_ANY_PUBLISHED_DEVELOPMENT_SCORE",
+  "root_causes": [
+    "The v1 description called an ordinary logistic feature model a residual model even though no offset/residual likelihood was implemented.",
+    "Its fixed L-BFGS solver reached the locked iteration ceiling on the certified 2023-only panel, so it could not provide a reproducible fitted probability artifact."
+  ],
+  "affected_scope": "Unscored 2023-only shared PA development candidate v1. No frozen baseline, 2024 selection, 2025 confirmation, May 2026 artifact, market artifact, production probability, or operational collector was read or changed.",
+  "safe_remediation": "New v2 has an honest EB-feature-augmented model identity and a deterministic newton-cholesky solver. Its data, targets, feature contract, comparators, chronology, and gates remain separately hash-bound and locked before scoring.",
+  "published_metric_or_prediction_artifacts": false,
+  "mutation_proof": ["duplicate raw/prepared feature labels fail closed", "invalid denominators and process values fail closed", "locked protocol rejects later-year/context escape hatches", "existing evidence output is never overwritten"],
+  "may_2026_opened": false,
+  "betting_authorized": false
+}
