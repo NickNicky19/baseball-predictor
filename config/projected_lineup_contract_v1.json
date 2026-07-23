@@ -1,0 +1,45 @@
+{
+  "schema_version": "projected-lineup-contract-v1",
+  "status": "RESEARCH_ONLY_NOT_ACTIVE_IN_PRODUCTION",
+  "purpose": "Define the fail-closed, source-neutral handoff from pregame lineup inputs to an internal projected-lineup distribution. This contract does not authorize a provider, a fitted lineup candidate, a player-prop probability change, or betting.",
+  "decision_horizon": "T-4h",
+  "permitted_source_kinds": [
+    "internal_historical_lineup_feature_store"
+  ],
+  "required_input_receipts": [
+    "active_roster",
+    "historical_lineup_features"
+  ],
+  "optional_input_receipts": [
+    "availability"
+  ],
+  "projection_requirements": {
+    "complete_joint_lineup_distribution": true,
+    "exactly_nine_unique_players_per_scenario": true,
+    "one_unique_batting_slot_per_player_per_scenario": true,
+    "scenario_probability_mass_must_equal_one": true,
+    "all_players_must_be_from_the_receipted_active_roster": true,
+    "player_start_and_slot_marginals_must_be_derived_not_supplied": true,
+    "all_input_receipts_at_or_before_horizon": true,
+    "missing_or_invalid_input_quarantines_the_team": true
+  },
+  "forbidden": {
+    "may_2026_fetch_read_parse_write": true,
+    "post_horizon_inputs": true,
+    "final_lineup_for_target_game": true,
+    "target_game_outcomes": true,
+    "prices_execution_settlement_policy": true,
+    "manual_probability_or_coefficient_overrides": true,
+    "league_average_or_last_lineup_fallback": true,
+    "production_probability_consumption": true,
+    "betting_authorization": true
+  },
+  "required_future_evaluation": [
+    "chronological_start_probability_calibration",
+    "chronological_slot_probability_calibration",
+    "coverage_and_quarantine_rate",
+    "identity_and_receipt_timing_audit",
+    "comparison_with_time_safe_last_lineup_and_historical_start_rate_baselines",
+    "separate_downstream_hits_hr_tb_candidate_adjudication"
+  ]
+}
