@@ -73,8 +73,10 @@ jobs:
       # job aborted, the commit step was skipped, and any archive already
       # written on the runner was thrown away with the container.
       #
-      # With always(), a partial or previously-orphaned archive still reaches
-      # the repo, where record-outcomes.yml's backfill window will grade it.
+      # With always(), a partial archive still reaches the repo.  The next
+      # day's forward-only settlement job may grade it only if it is the
+      # immediately preceding official date; it will never backfill an older
+      # missed prospective record.
       # The job's overall status still reflects the predict failure (the step
       # itself is not masked), so a genuine outage is still visible/emailed.
       - name: Commit results
@@ -100,7 +102,6 @@ jobs:
         run: |
           echo "run_slate.py failed for ${{ steps.date.outputs.slate }}."
           echo "Any archive already written has been committed above; the"
-          echo "record-outcomes backfill window will grade it once games are final."
-          echo "If no archive was written, tomorrow's run will NOT retroactively"
-          echo "create one — this slate is lost. Investigate the failure."
+          echo "The next day's forward-only settlement job may grade an existing archive."
+          echo "If no archive was written, this slate is permanently missing."
           exit 1
