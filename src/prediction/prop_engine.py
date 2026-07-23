@@ -407,7 +407,7 @@ class PropEngine:
         categories: Optional[tuple[PropCategory, ...]] = None,
     ) -> list[PropProjection]:
         """Return one PropProjection per requested category for a hitter."""
-        cats = categories or self.HITTER_CATEGORIES
+        cats = self.HITTER_CATEGORIES if categories is None else categories
         if "total_bases" in cats:
             status = (self.config.get("total_bases") or {}).get("status")
             if status not in {"candidate_unpromoted", "promoted"}:
@@ -462,12 +462,10 @@ class PropEngine:
                 expected_pa=bundle.expected_pa,
             )
             if not safeguard.passed:
-                from src.utils.logging import get_logger
-                get_logger(__name__).warning(
-                    "Output safeguard violation for %s (%s): %s",
-                    bundle.hitter.player.name,
-                    category,
-                    "; ".join(safeguard.violations),
+                raise ValueError(
+                    "output safeguard rejected projection for "
+                    f"{bundle.hitter.player.name} ({category}): "
+                    + "; ".join(safeguard.violations)
                 )
 
             projections.append(projection)
@@ -586,10 +584,12 @@ class PropEngine:
         # when config claims the fitted distribution is active.  Validate the
         # boundary here; the offline PA harness mutation-tests this handoff.
         slot = getattr(bundle.hitter, "lineup_slot", None)
-        try:
-            slot = int(slot) if slot is not None and 1 <= int(slot) <= 9 else None
-        except (TypeError, ValueError):
-            slot = None
+        if slot is not None:
+            if isinstance(slot, bool) or not isinstance(slot, int) or not 1 <= slot <= 9:
+                raise ValueError(
+                    "non-null hitter lineup_slot must be an integer from 1 to 9; "
+                    "refusing silent fallback to the legacy PA distribution"
+                )
 
         return GameSimulatorInput(
             expected_pa=bundle.expected_pa,

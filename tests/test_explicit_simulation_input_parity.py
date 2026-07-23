@@ -17,6 +17,7 @@ from src.models.dataclasses import (
     WeatherContext,
 )
 from src.prediction.prop_engine import PropEngine
+from src.evaluation.output_safeguards import SafeguardReport
 from src.simulation.input_contract import (
     SimulationInputContractError,
     effective_pa_context,
@@ -64,32 +65,17 @@ class _SpyPASimulator:
 
 
 @pytest.mark.parametrize(
-    "updates,expected",
+    "updates",
     [
-        ({"recent_form_multiplier": 9.0}, (1.18, 1.0, 1.0)),
-        ({"bvp_ops_factor": -4.0}, (1.0, 0.80, 1.0)),
-        ({"bvp_hr_factor": 8.0}, (1.0, 1.0, 1.40)),
+        {"recent_form_multiplier": 9.0},
+        {"bvp_ops_factor": -4.0},
+        {"bvp_hr_factor": 8.0},
     ],
 )
-def test_explicit_and_sampled_paths_share_exact_bounded_context(updates, expected) -> None:
+def test_mutation_out_of_bound_context_fails_instead_of_clipping(updates) -> None:
     bundle = _bundle(**updates)
-    spy = _SpyPASimulator()
-    ProbabilityEngine(pa_simulator=spy).from_bundle(bundle)
-    sampled = PropEngine(
-        n_sims=500, config={"simulation": {"n_sims": 500}}
-    )._bundle_to_sim_input(bundle)
-
-    assert spy.kwargs is not None
-    assert (
-        spy.kwargs["recent_form_mult"],
-        spy.kwargs["bvp_ops_factor"],
-        spy.kwargs["bvp_hr_factor"],
-    ) == expected
-    assert spy.kwargs["recent_form_mult"] == sampled.recent_form_mult
-    assert spy.kwargs["bvp_ops_factor"] == sampled.bvp_ops_factor
-    assert spy.kwargs["bvp_hr_factor"] == sampled.bvp_hr_factor
-    assert spy.kwargs["pitcher_k_pct"] == sampled.pitcher_k_pct + sampled.umpire_k_bias
-    assert spy.kwargs["park_hr_factor"] == sampled.park_hr_factor * sampled.weather_hr_factor
+    with pytest.raises(SimulationInputContractError, match="frozen comparator bounds"):
+        effective_pa_context(bundle, LeagueBaselines())
 
 
 @pytest.mark.parametrize(
@@ -103,6 +89,34 @@ def test_explicit_and_sampled_paths_share_exact_bounded_context(updates, expecte
 def test_invalid_context_fails_closed(field, value) -> None:
     with pytest.raises(SimulationInputContractError, match="non-finite|not numeric"):
         effective_pa_context(_bundle(**{field: value}), LeagueBaselines())
+
+
+def test_explicit_empty_category_request_stays_empty() -> None:
+    engine = PropEngine(n_sims=500, config={"simulation": {"n_sims": 500}})
+    assert engine.project_hitter(_bundle(), categories=()) == []
+
+
+def test_invalid_non_null_lineup_slot_cannot_select_legacy_pa_fallback() -> None:
+    bundle = _bundle()
+    bundle.hitter.lineup_slot = 10
+    engine = PropEngine(n_sims=500, config={"simulation": {"n_sims": 500}})
+    with pytest.raises(ValueError, match="refusing silent fallback"):
+        engine._bundle_to_sim_input(bundle)
+
+
+def test_output_safeguard_violation_cannot_be_published(monkeypatch) -> None:
+    engine = PropEngine(n_sims=500, config={"simulation": {"n_sims": 500}})
+    monkeypatch.setattr(
+        engine.output_safeguards,
+        "check_projection",
+        lambda *args, **kwargs: SafeguardReport(
+            passed=False,
+            violations=["injected impossible probability"],
+            warnings=[],
+        ),
+    )
+    with pytest.raises(ValueError, match="output safeguard rejected"):
+        engine.project_hitter(_bundle(), categories=("hits",))
 
 
 def test_in_bound_explicit_probabilities_are_numerically_unchanged() -> None:

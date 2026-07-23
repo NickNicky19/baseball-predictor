@@ -114,4 +114,9 @@ def _fraction(value, label: str) -> float:
 
 def _bounded(value, lower: float, upper: float, label: str) -> float:
     parsed = _finite(value, label)
-    return max(lower, min(upper, parsed))
+    if not lower <= parsed <= upper:
+        raise SimulationInputContractError(
+            f"{label} must be within the frozen comparator bounds "
+            f"[{lower},{upper}], got {parsed}"
+        )
+    return parsed

@@ -1244,6 +1244,25 @@ unauthorized.
 The report SHA-256 is
 `8b895fb8af82d896f4f91694bc9ea25583af45a83302f2a7fe3445958f03dc53`.
 
+2026-07-23 HANDOFF ADDENDUM — SIMULATOR INPUT CONTRACT (AUTHORITATIVE)
+
+SI-032 is repaired in the same isolated lineage. Out-of-contract recent-form
+and BvP values were previously clipped into plausible state; the game simulator
+accepted malformed numeric/context inputs; configured PA artifact loss and an
+invalid non-null lineup slot could silently select the legacy PA model;
+negative distribution weights were changed to zero; and a failed output
+safeguard still returned its projection. The repaired shared boundary rejects
+those states before probability generation or publication, validates complete
+PA/base distributions and run probabilities, and respects an explicit empty
+category request. Valid in-contract probability behavior is unchanged. Focused
+proof is 52 passed and the full suite is 315 passed. Exact hashes are in
+`docs/research/SIMULATOR_INPUT_CONTRACT_REPAIR_V1_REPORT.json`. No source,
+feature, prediction, outcome, price, May 2026, AWS, collector, or frozen-runtime
+artifact was opened or changed. No market was promoted and betting remains
+unauthorized.
+The report SHA-256 is
+`2571c6f6b1ea0e0ddf370d979d709e0b6003d5b596090f97b12296dc4d7df58d`.
+
 2026-07-22 HANDOFF ADDENDUM — EXPLICIT/SAMPLED INPUT PARITY (AUTHORITATIVE)
 
 SI-029 is repaired in the same isolated lineage. `ProbabilityEngine` archived

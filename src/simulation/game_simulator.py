@@ -90,6 +90,7 @@ that is training on the test set.
 from __future__ import annotations
 
 import json
+import math
 import random
 from dataclasses import dataclass
 from pathlib import Path
@@ -173,6 +174,59 @@ class GameSimulatorInput:
     # byte-identically. An existing caller that does not set it is unaffected.
     lineup_slot: Optional[int] = None
 
+    def __post_init__(self) -> None:
+        """Reject malformed values before any simulator clamp can hide them."""
+        required_finite = (
+            "expected_pa", "pitcher_k_pct", "pitcher_bb_pct",
+            "park_hr_factor", "park_hits_factor", "weather_hr_factor",
+            "umpire_k_bias", "handedness_advantage", "recent_form_mult",
+            "bvp_ops_factor", "bvp_hr_factor",
+        )
+        values: dict[str, float] = {}
+        for name in required_finite:
+            raw = getattr(self, name)
+            if isinstance(raw, bool):
+                raise ValueError(f"GameSimulatorInput.{name} must be numeric, not boolean")
+            try:
+                value = float(raw)
+            except (TypeError, ValueError) as exc:
+                raise ValueError(f"GameSimulatorInput.{name} must be numeric") from exc
+            if not math.isfinite(value):
+                raise ValueError(f"GameSimulatorInput.{name} must be finite")
+            values[name] = value
+
+        if values["expected_pa"] <= 0.0:
+            raise ValueError("GameSimulatorInput.expected_pa must be positive")
+        for name in ("pitcher_k_pct", "pitcher_bb_pct"):
+            if not 0.0 <= values[name] <= 100.0:
+                raise ValueError(f"GameSimulatorInput.{name} must be within [0,100]")
+        effective_k = values["pitcher_k_pct"] + values["umpire_k_bias"]
+        if not 0.0 <= effective_k <= 100.0:
+            raise ValueError("effective pitcher K% must be within [0,100]")
+        if effective_k + values["pitcher_bb_pct"] > 100.0:
+            raise ValueError("effective pitcher K% plus BB% cannot exceed 100")
+        for name in (
+            "park_hr_factor", "park_hits_factor", "weather_hr_factor",
+            "recent_form_mult", "bvp_ops_factor", "bvp_hr_factor",
+        ):
+            if values[name] <= 0.0:
+                raise ValueError(f"GameSimulatorInput.{name} must be positive")
+        if self.pitcher_hr_per_9 is not None:
+            raw = self.pitcher_hr_per_9
+            if isinstance(raw, bool):
+                raise ValueError("GameSimulatorInput.pitcher_hr_per_9 must be numeric")
+            try:
+                value = float(raw)
+            except (TypeError, ValueError) as exc:
+                raise ValueError("GameSimulatorInput.pitcher_hr_per_9 must be numeric") from exc
+            if not math.isfinite(value) or value < 0.0:
+                raise ValueError("GameSimulatorInput.pitcher_hr_per_9 must be finite and nonnegative")
+        if self.lineup_slot is not None:
+            if isinstance(self.lineup_slot, bool) or not isinstance(self.lineup_slot, int):
+                raise ValueError("GameSimulatorInput.lineup_slot must be an integer from 1 to 9")
+            if not 1 <= self.lineup_slot <= 9:
+                raise ValueError("GameSimulatorInput.lineup_slot must be an integer from 1 to 9")
+
 
 class GameSimulator:
     """Simulates a hitter's performance in a game using PA-level simulation."""
@@ -192,6 +246,8 @@ class GameSimulator:
         # Config-driven base-running parameters (config/base_running block)
         # take effect unless explicitly overridden by the kwargs above.
         br = (config or {}).get("base_running", {}) or {}
+        if not isinstance(br, dict):
+            raise ValueError("config.base_running must be an object")
         if config and p_score_from_base is None:
             p_score_from_base = br.get("p_score_from_base") or None
         if base_state_mix_rate is None:
@@ -210,18 +266,39 @@ class GameSimulator:
         )
         self.p_score_from_base = dict(DEFAULT_P_SCORE_FROM_BASE)
         if p_score_from_base:
-            self.p_score_from_base.update(p_score_from_base)
+            if not isinstance(p_score_from_base, dict):
+                raise ValueError("p_score_from_base must be an object")
+            unknown = sorted(set(p_score_from_base) - set(DEFAULT_P_SCORE_FROM_BASE))
+            if unknown:
+                raise ValueError(f"p_score_from_base contains unknown outcomes: {unknown}")
+            for kind, raw in p_score_from_base.items():
+                value = self._finite_number(raw, f"p_score_from_base.{kind}")
+                if not 0.0 <= value <= 1.0:
+                    raise ValueError(f"p_score_from_base.{kind} must be within [0,1]")
+                self.p_score_from_base[kind] = value
 
         # Structural placeholders. Absent -> degenerate to PRE-FIX behaviour;
         # see the DEGENERATE WHEN ABSENT note in the module docstring.
-        self.base_state_mix_rate = float(
+        self.base_state_mix_rate = self._finite_number(
             DEFAULT_BASE_STATE_MIX_RATE if base_state_mix_rate is None
-            else base_state_mix_rate
+            else base_state_mix_rate,
+            "base_state_mix_rate",
         )
-        self.run_traffic_boost = float(
+        self.run_traffic_boost = self._finite_number(
             DEFAULT_RUN_TRAFFIC_BOOST if run_traffic_boost is None
-            else run_traffic_boost
+            else run_traffic_boost,
+            "run_traffic_boost",
         )
+        if not 0.0 <= self.base_state_mix_rate <= 1.0:
+            raise ValueError("base_state_mix_rate must be within [0,1]")
+        if self.run_traffic_boost < 0.0:
+            raise ValueError("run_traffic_boost must be nonnegative")
+        for kind, probability in self.p_score_from_base.items():
+            if kind != "home_run" and probability * (1.0 + 2.0 * self.run_traffic_boost) > 1.0:
+                raise ValueError(
+                    "run_traffic_boost would require clipping a configured "
+                    f"p_score_from_base probability for {kind}"
+                )
 
         # BYTE-IDENTICAL LEGACY PATH. lambda == 1.0 is *distributionally*
         # identical to the pre-fix per-PA resample, but not byte-identical: the
@@ -390,20 +467,25 @@ class GameSimulator:
     def _load_pa_distribution(path: Optional[str]) -> Optional[dict[int, dict[int, float]]]:
         """Load the fitted PA distribution artifact, or None.
 
-        A MISSING file returns None (legacy path -- inert). A file that EXISTS
-        but is malformed RAISES: a silently-ignored broken fit would leave the
-        simulator on the legacy path while the config says otherwise, and the
-        gate would read 'no drift' and call it a tie. That is the exact
-        failure mode B4's config-threading bug produced. Fail loudly.
+        Absence of a configured path selects the frozen legacy path. Once a
+        path is explicitly configured, a missing or malformed artifact raises:
+        configured evidence may never silently degrade to a different model.
         """
         if not path:
             return None
         p = Path(path)
         if not p.exists():
-            return None
-        raw = json.loads(p.read_text(encoding="utf-8-sig"))
+            raise FileNotFoundError(
+                f"configured PA distribution artifact does not exist: {p}"
+            )
+        try:
+            raw = json.loads(p.read_text(encoding="utf-8-sig"))
+        except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+            raise ValueError(f"configured PA distribution artifact is unreadable: {p}") from exc
+        if not isinstance(raw, dict):
+            raise ValueError(f"{p} must contain a JSON object")
         by_slot = raw.get("by_lineup_slot")
-        if not by_slot:
+        if not isinstance(by_slot, dict) or not by_slot:
             raise ValueError(
                 f"{p} exists but has no 'by_lineup_slot' block. A malformed PA "
                 f"distribution must not silently fall back to the legacy draw -- "
@@ -412,7 +494,33 @@ class GameSimulator:
             )
         out: dict[int, dict[int, float]] = {}
         for slot, dist in by_slot.items():
-            out[int(slot)] = {int(k): float(v) for k, v in dist.items()}
+            if isinstance(slot, bool):
+                raise ValueError(f"invalid PA distribution lineup slot: {slot!r}")
+            try:
+                parsed_slot = int(slot)
+            except (TypeError, ValueError) as exc:
+                raise ValueError(f"invalid PA distribution lineup slot: {slot!r}") from exc
+            if str(parsed_slot) != str(slot).strip() or not 1 <= parsed_slot <= 9:
+                raise ValueError(f"invalid PA distribution lineup slot: {slot!r}")
+            if not isinstance(dist, dict) or not dist:
+                raise ValueError(f"PA distribution for lineup_slot {parsed_slot} must be non-empty")
+            parsed_dist: dict[int, float] = {}
+            for pa, weight in dist.items():
+                if isinstance(pa, bool):
+                    raise ValueError(f"invalid PA support for lineup_slot {parsed_slot}: {pa!r}")
+                try:
+                    parsed_pa = int(pa)
+                except (TypeError, ValueError) as exc:
+                    raise ValueError(
+                        f"invalid PA support for lineup_slot {parsed_slot}: {pa!r}"
+                    ) from exc
+                if str(parsed_pa) != str(pa).strip() or parsed_pa < 0:
+                    raise ValueError(f"invalid PA support for lineup_slot {parsed_slot}: {pa!r}")
+                parsed_dist[parsed_pa] = weight
+            out[parsed_slot] = parsed_dist
+        missing_slots = sorted(set(range(1, 10)) - set(out))
+        if missing_slots:
+            raise ValueError(f"PA distribution is missing lineup slots: {missing_slots}")
         return out
 
     @staticmethod
@@ -425,8 +533,23 @@ class GameSimulator:
         states: dict[int, list[int]] = {}
         weights: dict[int, list[float]] = {}
         for slot, d in dist.items():
+            if isinstance(slot, bool) or not isinstance(slot, int) or not 1 <= slot <= 9:
+                raise ValueError(f"invalid PA distribution lineup_slot: {slot!r}")
+            if not isinstance(d, dict) or not d:
+                raise ValueError(f"PA distribution for lineup_slot {slot} must be non-empty")
             ks = sorted(d)
-            ws = [max(0.0, float(d[k])) for k in ks]
+            ws: list[float] = []
+            for pa in ks:
+                if isinstance(pa, bool) or not isinstance(pa, int) or pa < 0:
+                    raise ValueError(f"invalid PA support for lineup_slot {slot}: {pa!r}")
+                weight = GameSimulator._finite_number(
+                    d[pa], f"PA distribution weight for lineup_slot {slot}, PA {pa}"
+                )
+                if weight < 0.0:
+                    raise ValueError(
+                        f"PA distribution weight for lineup_slot {slot}, PA {pa} must be nonnegative"
+                    )
+                ws.append(weight)
             total = sum(ws)
             if total <= 0:
                 raise ValueError(
@@ -471,14 +594,41 @@ class GameSimulator:
         p = self.p_score_from_base.get(kind, 0.0)
         if self.run_traffic_boost:
             behind = max(0, sum(state.bases) - 1)  # runners on, excluding batter
-            p = min(1.0, p * (1.0 + self.run_traffic_boost * behind))
+            p = p * (1.0 + self.run_traffic_boost * behind)
         return 1 if self.rng.random() < p else 0
 
     @staticmethod
     def _normalize_dist(
         dist: dict[tuple[int, int, int], float]
     ) -> tuple[list[tuple[int, int, int]], list[float]]:
+        if not isinstance(dist, dict) or not dist:
+            raise ValueError("base_state_dist must be a non-empty object")
         states = list(dist.keys())
-        weights = [max(0.0, dist[s]) for s in states]
-        total = sum(weights) or 1.0
+        weights: list[float] = []
+        for state in states:
+            if (
+                not isinstance(state, tuple)
+                or len(state) != 3
+                or any(isinstance(v, bool) or not isinstance(v, int) or v not in (0, 1) for v in state)
+            ):
+                raise ValueError(f"invalid base_state_dist state: {state!r}")
+            weight = GameSimulator._finite_number(dist[state], f"base_state_dist[{state!r}]")
+            if weight < 0.0:
+                raise ValueError(f"base_state_dist[{state!r}] must be nonnegative")
+            weights.append(weight)
+        total = sum(weights)
+        if total <= 0.0:
+            raise ValueError("base_state_dist must have positive total weight")
         return states, [w / total for w in weights]
+
+    @staticmethod
+    def _finite_number(value: Any, label: str) -> float:
+        if isinstance(value, bool):
+            raise ValueError(f"{label} must be numeric, not boolean")
+        try:
+            parsed = float(value)
+        except (TypeError, ValueError) as exc:
+            raise ValueError(f"{label} must be numeric") from exc
+        if not math.isfinite(parsed):
+            raise ValueError(f"{label} must be finite")
+        return parsed

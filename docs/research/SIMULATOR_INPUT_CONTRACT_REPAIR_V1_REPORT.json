@@ -1,0 +1,71 @@
+{
+  "schema_version": "simulator-input-contract-repair-report-v1",
+  "candidate_id": "simulator-input-contract-repair-v1-98992f253f63b013",
+  "defect_id": "SI-032",
+  "classification": "integrity_repair_only",
+  "status": "verified_not_promoted",
+  "root_cause": [
+    "out-of-contract recent-form and BvP values were clipped into plausible effective values",
+    "GameSimulatorInput had no type, finiteness, range, or cross-field validation boundary",
+    "an explicitly configured missing PA-distribution artifact silently selected the legacy PA model",
+    "negative base-state and PA-distribution weights were clipped to zero and malformed distributions could be normalized",
+    "invalid non-null lineup slots silently selected the legacy PA path",
+    "a failed output safeguard was logged while the rejected projection was still returned",
+    "an explicit empty hitter-category request expanded to all hitter categories"
+  ],
+  "repair": [
+    "shared effective context rejects values outside the frozen comparator contract rather than clipping them",
+    "all game-simulator inputs validate exact numeric type, finiteness, ranges, positivity, lineup identity, and K/BB coherence before sampling",
+    "configured PA artifacts are mandatory and their complete lineup-slot support and weights validate before use",
+    "base-state and run-scoring configuration rejects invalid state without substitution or probability clipping",
+    "invalid non-null lineup slots fail before PA-model selection",
+    "output safeguard violations stop publication",
+    "only a None category request selects defaults; an explicit empty request remains empty"
+  ],
+  "mutation_proof": [
+    "NaN, infinity, booleans, nonpositive PA/factors, invalid K/BB rates and sums, invalid HR/9, and invalid lineup slots rejected",
+    "configured missing, incomplete, nonfinite, negative, and invalid-slot PA distributions rejected",
+    "negative/nonfinite/invalid base states and impossible run probabilities rejected",
+    "out-of-contract recent-form and BvP values rejected instead of clipped",
+    "invalid lineup mutation cannot activate legacy PA fallback",
+    "injected output-safeguard failure cannot return a projection",
+    "explicit empty category request returns no projections",
+    "valid simulator inputs and complete PA distributions remain consumable"
+  ],
+  "verification": {
+    "focused": "52 passed",
+    "full_suite": "315 passed",
+    "historical_outcomes_opened": false,
+    "historical_prices_opened": false,
+    "may_2026_opened": false,
+    "source_or_feature_artifacts_rebuilt": false,
+    "valid_probabilities_recomputed": false,
+    "aws_runtime_changed": false,
+    "collector_changed": false
+  },
+  "hashes": {
+    "parent_commit": "c8ae1b93f1671c73177f1ea2efaa28cb2d0ccbbb",
+    "bundle_hash_definition": "sha256(utf8(sorted path + NUL + lowercase file_sha256, newline delimited, terminal newline))",
+    "code_bundle_sha256": "98992f253f63b0130a534e8058e3ec9aa4cbb6f774b2fb73f663054b9f39febe",
+    "test_bundle_sha256": "f1a2c847bd9e684546a63e64679517adbc69d6b548059763e2e212c2a765bd86",
+    "config_sha256": "77c029297b514e3df652bb447d90e58906e954c64dcd039d78537b9e59870436",
+    "data_sha256": null,
+    "feature_sha256": null,
+    "src_simulation_input_contract_py": "605c43a4df59767716b32f86983f9a6699de9fc6fb81c2d36271a2998afd9e1e",
+    "src_simulation_game_simulator_py": "983101b40a614640ef3fe77bc19bce7d84541a492ca5c0b47f3356b7832c70cd",
+    "src_prediction_prop_engine_py": "aa230e882531122e34bd54e4d3c9d5584de417a33d95e4ec49e9ea54597ececa",
+    "tests_test_explicit_simulation_input_parity_py": "4c0db3e5a8c77d2a2ceb035c707f28fe5997cdb7eb9476ee380f68f3dbff6609",
+    "tests_test_game_simulator_input_contract_repair_py": "f770c83550cc3ca802275f62d1f2279453d487475dcfebd14fe17a2edb43c7fa"
+  },
+  "chronological_evaluation": {
+    "required": false,
+    "reason": "valid in-contract probability behavior is unchanged; malformed state is rejected and no fitted candidate was created"
+  },
+  "promotion": {
+    "hits": false,
+    "home_runs": false,
+    "total_bases": false,
+    "betting_authorized": false
+  },
+  "highest_value_next_action": "Independently verify the first fresh T-4 pitcher receipts and permit pitcher-matchup research only for exact receipt-bound game and team identities; continue batter-only prospective replication otherwise."
+}
