@@ -33,8 +33,9 @@ from __future__ import annotations
 import argparse
 import logging
 import sys
-from datetime import date
+from datetime import date, datetime, timezone
 from pathlib import Path
+from typing import Any
 
 from src.models.dataclasses import PropCategory
 from src.learning.prediction_archive import PredictionArchive
@@ -53,6 +54,78 @@ EXIT_OK = 0
 EXIT_ERROR = 1
 EXIT_NO_DATA = 2
 EXIT_CONFIG = 3
+
+
+class PregameArchiveBoundaryError(ValueError):
+    """A live archive would be created after at least one game has started."""
+
+
+def utc_now() -> datetime:
+    """Clock boundary kept injectable by the pregame archive tests."""
+    return datetime.now(timezone.utc)
+
+
+def _parse_schedule_start(raw_game: dict[str, Any]) -> datetime:
+    """Return a schedule game's exact UTC start or fail closed.
+
+    ``run_slate.py`` archives a whole-slate prediction object.  Filtering its
+    projections after the model has fetched live inputs is not sufficient: an
+    in-progress game's season/recent inputs may already have changed.  The
+    complete slate must therefore be proven pregame *before* prediction starts.
+    """
+    raw_start = raw_game.get("gameDate")
+    game_pk = raw_game.get("gamePk", "unknown")
+    if not isinstance(raw_start, str) or not raw_start:
+        raise PregameArchiveBoundaryError(
+            f"Refusing live archive: schedule game {game_pk} lacks an exact gameDate"
+        )
+    try:
+        start = datetime.fromisoformat(raw_start.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise PregameArchiveBoundaryError(
+            f"Refusing live archive: schedule game {game_pk} has an invalid gameDate"
+        ) from exc
+    if start.tzinfo is None:
+        raise PregameArchiveBoundaryError(
+            f"Refusing live archive: schedule game {game_pk} gameDate lacks a timezone"
+        )
+    return start.astimezone(timezone.utc)
+
+
+def assert_full_slate_is_pregame(*, mlb_api: Any, game_date: str, assessed_at: datetime | None = None) -> None:
+    """Fail closed unless every scheduled game starts strictly after now.
+
+    This boundary applies before feature construction, simulation, or archive
+    publication.  It deliberately rejects a partial slate: a partial archive
+    would look like a full-day denominator later and could hide post-start input
+    contamination.  Per-game T-4 collectors use their own receipt-bound entry
+    points and are intentionally not routed through this whole-slate runner.
+    """
+    current = assessed_at or utc_now()
+    if current.tzinfo is None:
+        raise PregameArchiveBoundaryError("Refusing live archive: assessment clock lacks a timezone")
+    current = current.astimezone(timezone.utc)
+    try:
+        games = mlb_api.get_schedule(game_date, include_lineups=False)
+    except Exception as exc:
+        raise PregameArchiveBoundaryError(
+            "Refusing live archive: cannot obtain the authoritative slate schedule"
+        ) from exc
+    if not isinstance(games, list):
+        raise PregameArchiveBoundaryError("Refusing live archive: schedule response is not a game list")
+
+    started: list[str] = []
+    for raw_game in games:
+        if not isinstance(raw_game, dict):
+            raise PregameArchiveBoundaryError("Refusing live archive: schedule contains a malformed game")
+        start = _parse_schedule_start(raw_game)
+        if start <= current:
+            started.append(f"{raw_game.get('gamePk', 'unknown')}@{start.isoformat()}")
+    if started:
+        raise PregameArchiveBoundaryError(
+            "Refusing live archive: one or more slate games have started or reached first pitch: "
+            + ", ".join(started)
+        )
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
@@ -115,6 +188,12 @@ def main(argv: list[str] | None = None) -> int:
     try:
         config_path = Path(args.config) if args.config else DEFAULT_RESEARCH_CONFIG
         predictor = DailyPredictor(config_path=config_path)
+        # Do this before the first feature or stats request.  A post-start
+        # archive cannot be repaired by dropping projections after the fact.
+        assert_full_slate_is_pregame(
+            mlb_api=predictor.mlb_api,
+            game_date=args.date,
+        )
         archive_dir = (
             Path(args.archive_dir).resolve()
             if args.archive_dir
@@ -173,6 +252,9 @@ def main(argv: list[str] | None = None) -> int:
     except ConfigError as exc:
         print(f"Configuration error: {exc}", file=sys.stderr)
         return EXIT_CONFIG
+    except PregameArchiveBoundaryError as exc:
+        print(str(exc), file=sys.stderr)
+        return EXIT_NO_DATA
     except (DataFetchError, PredictorError) as exc:
         print(f"Prediction error: {exc}", file=sys.stderr)
         return EXIT_ERROR

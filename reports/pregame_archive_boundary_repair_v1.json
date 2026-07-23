@@ -1,0 +1,46 @@
+{
+  "schema_version": "pregame-archive-boundary-repair-v1",
+  "status": "REPAIRED_AND_TESTED_RESEARCH_ONLY",
+  "finding": {
+    "id": "daily-archive-post-start-input-risk-2026-07-23",
+    "root_cause": "run_slate.py generated and archived a whole daily slate without first proving that every scheduled game remained strictly before first pitch. Filtering output after prediction would not repair the problem because live feature inputs may already include an in-progress game.",
+    "affected_scope": "The normal whole-slate daily archive entry point. Receipt-bound per-game T-minus-4 collectors are separate entry points and were not changed.",
+    "historical_artifact_reconstruction_required": false,
+    "production_probability_change": false,
+    "research_only": true,
+    "betting_authorized": false
+  },
+  "remediation": {
+    "source": "run_slate.py",
+    "mechanism": "Before feature construction, simulation, or archive publication, fetch the authoritative schedule and fail closed when any game is at or after its exact timezone-aware start. Missing, malformed, timezone-naive, or unavailable schedule data also fails closed.",
+    "protected_invariants": [
+      "No May 2026 access",
+      "No post-start input may enter a whole-slate archive",
+      "No partial-slate denominator may be presented as a full slate",
+      "Receipt-bound T-minus-4 collectors remain untouched",
+      "No model coefficient, configuration, probability, or market policy changed"
+    ]
+  },
+  "proof": {
+    "success_condition": "A complete future slate reaches the existing predictor with feature persistence and decision-time provenance unchanged.",
+    "failure_condition": "A started, exact-first-pitch, or malformed scheduled game returns EXIT_NO_DATA before predict() is called.",
+    "regression_tests": [
+      "test_automation_persists_features_and_decision_time_provenance",
+      "test_archive_dir_redirects_output_without_changing_prediction_call"
+    ],
+    "mutation_tests": [
+      "test_started_slate_fails_before_feature_or_prediction_consumption",
+      "test_missing_schedule_start_fails_closed_before_prediction"
+    ],
+    "test_command": "C:\\Users\\nicho\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe -m pytest tests/test_run_slate.py -q",
+    "test_result": "4 passed",
+    "test_hash": "85a673de0aca4aa02fbdf9ea8540de43a467189a5cc5f33284d585d10bf2af0c",
+    "consumer_harness": {
+      "path": "scripts/check_shadow_collector_tick_offline.py",
+      "sha256": "71d4d9ff7b67894f1eccee3686ac675a20b68c0a60f79c1e4e4be81681f088ff",
+      "result": "24/24 checks passed"
+    },
+    "source_hash": "11dbe9643f73b7f475c7d911080b8711934393922a06b24282899c08522ecd76"
+  },
+  "next_action": "Use only fresh receipt-bound forward observations for pitcher-matchup research; do not create or score a new historical candidate from this operational repair."
+}
