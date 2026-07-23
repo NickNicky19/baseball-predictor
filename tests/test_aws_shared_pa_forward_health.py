@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 import json
+import os
+from unittest.mock import patch
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from scripts.report_aws_shared_pa_forward_health import build_report
+from scripts.report_aws_shared_pa_forward_health import _atomic_publish_once, build_report
 from src.evaluation.shadow_capture_plan import plan_from_schedule
 
 
@@ -14,6 +16,19 @@ ROOT = Path(__file__).resolve().parents[1]
 RUNTIME = ROOT / "config/shared_pa_forward_runtime_v1.json"
 START = datetime(2026, 7, 30, tzinfo=timezone.utc)
 HORIZON = START - timedelta(hours=4)
+
+
+def test_health_publication_sets_group_read_only_mode_before_link(tmp_path: Path) -> None:
+    path = tmp_path / "health" / "report.json"
+    with patch(
+        "scripts.report_aws_shared_pa_forward_health.os.fchmod",
+        wraps=os.fchmod,
+    ) as chmod:
+        _atomic_publish_once(path, b"immutable\n")
+    chmod.assert_called_once()
+    assert chmod.call_args.args[1] == 0o640
+    if os.name != "nt":
+        assert path.stat().st_mode & 0o777 == 0o640
 
 
 def _write_plan(path: Path) -> None:

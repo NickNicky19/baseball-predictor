@@ -17,6 +17,7 @@ fi
 commit="$1"
 service_user="baseball-shadow"
 service_group="baseball-shadow"
+verifier_user="shadow-verifier"
 remote="git@github.com:NickNicky19/baseball-predictor.git"
 release_root="/opt/baseball-predictor-shared-pa-forward"
 release="$release_root/releases/$commit"
@@ -29,6 +30,11 @@ github_host_key="github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6
 github_host_key_sha256="6233fddbb0a29afc8c4e8c699733c1a188c3a41f2fb63a2640653dc4aea624ce"
 
 id "$service_user" >/dev/null 2>&1 || { echo "Missing $service_user account" >&2; exit 2; }
+id "$verifier_user" >/dev/null 2>&1 || { echo "Missing $verifier_user account" >&2; exit 2; }
+id -nG "$verifier_user" | tr ' ' '\n' | grep -Fx "$service_group" >/dev/null || {
+  echo "$verifier_user is not in $service_group" >&2
+  exit 2
+}
 test -d "$pitcher_plan_root" || { echo "Existing pitcher plan directory is unavailable" >&2; exit 2; }
 test -r "$pitcher_plan_root" || { echo "Existing pitcher plan directory is unreadable" >&2; exit 2; }
 test -f "$deploy_key" || { echo "Missing read-only GitHub deploy key" >&2; exit 2; }
@@ -43,6 +49,16 @@ chown "$service_user:$service_group" "$known_hosts"
 chmod 0600 "$known_hosts"
 install -d -o "$service_user" -g "$service_group" -m 0750 \
   "$evidence_root" "$evidence_root/ledgers" "$evidence_root/health" "$evidence_root/locks"
+
+# Repair only metadata on already-published evidence.  The old atomic writer
+# used NamedTemporaryFile's forced 0600 mode, so the read-only verifier could
+# traverse the tree but could not copy immutable files.  Do not rewrite,
+# delete, replace, or backfill any evidence bytes.
+chgrp -R "$service_group" "$evidence_root"
+find "$evidence_root" -type d -exec chmod 0750 {} +
+find "$evidence_root" -type f -exec chmod 0640 {} +
+sudo -u "$verifier_user" test -r "$evidence_root"
+sudo -u "$verifier_user" test ! -w "$evidence_root"
 
 ssh_command="ssh -i $deploy_key -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$known_hosts"
 if [[ -e "$release" ]]; then

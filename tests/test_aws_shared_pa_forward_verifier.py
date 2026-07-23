@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import json
+import os
+from unittest.mock import patch
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -13,9 +15,23 @@ from scripts.verify_aws_shared_pa_forward_tree import verify_tree
 from src.evaluation.shadow_capture_plan import plan_from_schedule
 from src.evaluation.shared_pa_forward_evidence import load_forward_contract
 from src.evaluation.shared_pa_forward_ledger import SharedPAForwardLedger
+from src.evaluation.shared_pa_forward_ledger import _atomic_publish_once
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_atomic_publication_sets_group_read_only_mode_before_link(tmp_path: Path) -> None:
+    path = tmp_path / "nested" / "evidence.json"
+    with patch(
+        "src.evaluation.shared_pa_forward_ledger.os.fchmod",
+        wraps=os.fchmod,
+    ) as chmod:
+        assert _atomic_publish_once(path, b"immutable\n") is True
+    chmod.assert_called_once()
+    assert chmod.call_args.args[1] == 0o640
+    if os.name != "nt":
+        assert path.stat().st_mode & 0o777 == 0o640
 
 
 def test_may_rejected_before_opening_invalid_plan(tmp_path: Path) -> None:

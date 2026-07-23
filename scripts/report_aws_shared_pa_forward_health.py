@@ -35,6 +35,7 @@ def _atomic_publish_once(path: Path, payload: bytes) -> None:
         temporary = Path(handle.name)
         handle.write(payload)
         handle.flush()
+        os.fchmod(handle.fileno(), 0o640)
         os.fsync(handle.fileno())
     try:
         os.link(temporary, path)

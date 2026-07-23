@@ -98,6 +98,11 @@ def test_deployment_is_separate_and_cannot_run_prediction_or_pitcher_units() -> 
         r"systemctl\s+(?:start|stop|restart|enable|disable)[^\n]*baseball-pitcher-receipt",
         installer,
     )
+    assert 'verifier_user="shadow-verifier"' in installer
+    assert 'chgrp -R "$service_group" "$evidence_root"' in installer
+    assert 'find "$evidence_root" -type d -exec chmod 0750 {} +' in installer
+    assert 'find "$evidence_root" -type f -exec chmod 0640 {} +' in installer
+    assert 'sudo -u "$verifier_user" test ! -w "$evidence_root"' in installer
 
 
 def test_secondary_workflow_is_read_only_and_never_fetches_replacement_data() -> None:

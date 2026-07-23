@@ -1261,3 +1261,27 @@ PREDICTOR INTEGRITY REPAIR AND STRICT CANDIDATE ADJUDICATION (2026-07-20)
   Verification after these repairs: 118/118 project tests passed; the leakage-
   critical fitted-model harness passed 20/20. No rejected intervention was
   promoted and no May performance evidence was opened.
+
+-------------------------------------------------------------------------------
+SHARED-PA VERIFIER PERMISSION REPAIR (2026-07-23)
+
+  SI-035 identified an operational integrity defect in the AWS shared-PA
+  evidence path. Python NamedTemporaryFile created prospective ledger and
+  health files with mode 0600; immutable hard-link publication preserved that
+  mode. The separate read-only shadow-verifier identity could traverse the
+  group-owned tree but could not read the ledger manifest. GitHub Actions run
+  29980908774 therefore failed truthfully instead of substituting evidence.
+
+  The source writer now sets mode 0640 before publication. The exact-release
+  installer repairs only ownership and permission metadata on the existing
+  shared-PA evidence tree (directories 0750, files 0640) and fails closed unless
+  shadow-verifier is a baseball-shadow group member that can read but cannot
+  write the evidence root. It does not alter evidence bytes, retime or restart
+  the protected pitcher collector, or backfill any missed record.
+
+  Mutation/regression proof passed 21 focused tests and 263 full tests. The
+  29-file release manifest verified exactly. Report:
+    reports/shared_pa_verifier_permission_repair_v1.json
+
+  This is an operational integrity repair only. It changes no probability,
+  supplies no performance evidence, promotes no model, and authorizes no bet.
