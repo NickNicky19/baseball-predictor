@@ -72,3 +72,70 @@ def test_empty_slate_exact_tree_verifies_without_sources(tmp_path: Path) -> None
     )
     assert report["state"] == "verified"
     assert report["replacement_data_fetched"] is False
+    assert report["replay_compatibility"] == {"applied": False}
+
+
+def test_certified_permission_only_code_transition_replays_without_republishing(
+    tmp_path: Path,
+) -> None:
+    plan = plan_from_schedule(
+        official_game_date="2026-07-29",
+        entry_hours=4,
+        policy_sha256="a" * 64,
+        schedule_snapshot=[],
+    )
+    plans = tmp_path / "plans"
+    plans.mkdir()
+    (plans / "2026-07-29.plan.json").write_text(json.dumps(plan.to_dict()), encoding="utf-8")
+    runtime, runtime_sha = load_runtime(ROOT / "config/shared_pa_forward_runtime_v1.json")
+    loaded = load_forward_contract(root=ROOT, contract_path=ROOT / runtime["contract"]["path"])
+    root = tmp_path / "shared-pa-forward" / "ledgers" / "2026-07-29" / plan.plan_sha256
+    SharedPAForwardLedger(
+        root,
+        plan=plan,
+        contract_sha256=loaded["contract_sha256"],
+        runtime_manifest_sha256=runtime_sha,
+        collector_code_sha256=collector_code_sha256(),
+    )
+    manifest_path = root / "ledger_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["collector_code_sha256"] = "8b3a713d90f85f03f9f11032e3fc8544494cb64647e6c0f48376bd65eda58489"
+    manifest_path.write_text(json.dumps(manifest, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
+    before = manifest_path.read_bytes()
+    report = verify_tree(
+        evidence_root=tmp_path,
+        official_date="2026-07-29",
+        assessed_at=datetime(2026, 7, 29, 12, tzinfo=timezone.utc),
+    )
+    assert report["state"] == "verified"
+    assert report["collector_code_sha256"] == manifest["collector_code_sha256"]
+    assert report["verifier_code_sha256"] == collector_code_sha256()
+    assert report["replay_compatibility"]["applied"] is True
+    assert manifest_path.read_bytes() == before
+
+
+def test_uncertified_collector_code_transition_fails_closed(tmp_path: Path) -> None:
+    plan = plan_from_schedule(
+        official_game_date="2026-07-29",
+        entry_hours=4,
+        policy_sha256="a" * 64,
+        schedule_snapshot=[],
+    )
+    plans = tmp_path / "plans"
+    plans.mkdir()
+    (plans / "2026-07-29.plan.json").write_text(json.dumps(plan.to_dict()), encoding="utf-8")
+    runtime, runtime_sha = load_runtime(ROOT / "config/shared_pa_forward_runtime_v1.json")
+    loaded = load_forward_contract(root=ROOT, contract_path=ROOT / runtime["contract"]["path"])
+    SharedPAForwardLedger(
+        tmp_path / "shared-pa-forward" / "ledgers" / "2026-07-29" / plan.plan_sha256,
+        plan=plan,
+        contract_sha256=loaded["contract_sha256"],
+        runtime_manifest_sha256=runtime_sha,
+        collector_code_sha256="d" * 64,
+    )
+    with pytest.raises(ValueError, match="no unique hash-bound"):
+        verify_tree(
+            evidence_root=tmp_path,
+            official_date="2026-07-29",
+            assessed_at=datetime(2026, 7, 29, 12, tzinfo=timezone.utc),
+        )

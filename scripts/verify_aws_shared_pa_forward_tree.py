@@ -22,9 +22,69 @@ from src.evaluation.shared_pa_forward_ledger import SharedPAForwardLedger, side_
 
 
 _DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+DEFAULT_COMPATIBILITY = ROOT / "config/shared_pa_forward_verifier_compatibility_v1.json"
 
 
-def verify_tree(*, evidence_root: Path, official_date: str, assessed_at: datetime) -> dict[str, object]:
+def _load_replay_compatibility(
+    *,
+    path: Path,
+    evidence_collector_sha256: str,
+    verifier_code_sha256: str,
+) -> dict[str, object]:
+    raw = path.read_bytes()
+    value = json.loads(raw)
+    if not isinstance(value, dict) or set(value) != {"schema_version", "pairs"}:
+        raise ValueError("verifier compatibility certificate field set changed")
+    if value["schema_version"] != "shared-pa-forward-verifier-compatibility-v1":
+        raise ValueError("verifier compatibility certificate schema changed")
+    pairs = value["pairs"]
+    if not isinstance(pairs, list) or not pairs:
+        raise ValueError("verifier compatibility certificate has no pairs")
+    required = {
+        "evidence_collector_code_sha256", "verifier_code_sha256",
+        "evidence_collector_commit", "classification", "changed_code_paths",
+        "parser_or_probability_semantics_changed", "evidence_bytes_changed",
+    }
+    matches = []
+    for pair in pairs:
+        if not isinstance(pair, dict) or set(pair) != required:
+            raise ValueError("verifier compatibility pair field set changed")
+        if (
+            pair["classification"] != "permission_metadata_and_read_only_open_repair"
+            or pair["changed_code_paths"] != ["src/evaluation/shared_pa_forward_ledger.py"]
+            or pair["parser_or_probability_semantics_changed"] is not False
+            or pair["evidence_bytes_changed"] is not False
+        ):
+            raise ValueError("verifier compatibility pair exceeds the permitted repair scope")
+        for label in ("evidence_collector_code_sha256", "verifier_code_sha256"):
+            digest = pair[label]
+            if not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest):
+                raise ValueError(f"verifier compatibility {label} is invalid")
+        commit = pair["evidence_collector_commit"]
+        if not isinstance(commit, str) or not re.fullmatch(r"[0-9a-f]{40}", commit):
+            raise ValueError("verifier compatibility collector commit is invalid")
+        if (
+            pair["evidence_collector_code_sha256"] == evidence_collector_sha256
+            and pair["verifier_code_sha256"] == verifier_code_sha256
+        ):
+            matches.append(pair)
+    if len(matches) != 1:
+        raise ValueError("no unique hash-bound verifier replay compatibility pair")
+    return {
+        "applied": True,
+        "certificate_sha256": hashlib.sha256(raw).hexdigest(),
+        "evidence_collector_commit": matches[0]["evidence_collector_commit"],
+        "classification": matches[0]["classification"],
+    }
+
+
+def verify_tree(
+    *,
+    evidence_root: Path,
+    official_date: str,
+    assessed_at: datetime,
+    compatibility_path: Path = DEFAULT_COMPATIBILITY,
+) -> dict[str, object]:
     if not _DATE.fullmatch(official_date):
         raise ValueError("official date must be YYYY-MM-DD")
     if official_date.startswith("2026-05-"):
@@ -41,17 +101,23 @@ def verify_tree(*, evidence_root: Path, official_date: str, assessed_at: datetim
     loaded = load_forward_contract(
         root=ROOT, contract_path=ROOT / runtime["contract"]["path"]
     )
-    code_sha = collector_code_sha256()
+    verifier_code_sha = collector_code_sha256()
     ledger_root = evidence_root / "shared-pa-forward" / "ledgers" / official_date / plan.plan_sha256
     if not (ledger_root / "ledger_manifest.json").is_file():
         raise ValueError("copied shared PA ledger manifest is missing")
-    ledger = SharedPAForwardLedger(
-        ledger_root,
-        plan=plan,
-        contract_sha256=loaded["contract_sha256"],
-        runtime_manifest_sha256=runtime_sha,
-        collector_code_sha256=code_sha,
-    )
+    ledger = SharedPAForwardLedger.open_existing(ledger_root, plan=plan)
+    if ledger.contract_sha256 != loaded["contract_sha256"]:
+        raise ValueError("copied ledger contract differs from the verifier contract")
+    if ledger.runtime_manifest_sha256 != runtime_sha:
+        raise ValueError("copied ledger runtime differs from the verifier runtime")
+    if ledger.collector_code_sha256 == verifier_code_sha:
+        compatibility: dict[str, object] = {"applied": False}
+    else:
+        compatibility = _load_replay_compatibility(
+            path=compatibility_path,
+            evidence_collector_sha256=ledger.collector_code_sha256,
+            verifier_code_sha256=verifier_code_sha,
+        )
     counts = ledger.verify(require_complete_coverage=False)
     current = assessed_at.astimezone(timezone.utc)
     due_ids = {
@@ -77,7 +143,9 @@ def verify_tree(*, evidence_root: Path, official_date: str, assessed_at: datetim
         "plan_file_sha256": hashlib.sha256(raw_plan).hexdigest(),
         "contract_sha256": loaded["contract_sha256"],
         "runtime_manifest_sha256": runtime_sha,
-        "collector_code_sha256": code_sha,
+        "collector_code_sha256": ledger.collector_code_sha256,
+        "verifier_code_sha256": verifier_code_sha,
+        "replay_compatibility": compatibility,
         "verification": counts,
         "due_side_count": len(due_ids),
         "missing_due_side_count": 0,

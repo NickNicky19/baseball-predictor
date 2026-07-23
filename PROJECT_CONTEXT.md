@@ -1285,3 +1285,32 @@ SHARED-PA VERIFIER PERMISSION REPAIR (2026-07-23)
 
   This is an operational integrity repair only. It changes no probability,
   supplies no performance evidence, promotes no model, and authorizes no bet.
+
+-------------------------------------------------------------------------------
+SHARED-PA IMMUTABLE VERSION REPLAY REPAIR (2026-07-23)
+
+  SI-036 found that the independent verifier constructed a ledger with its
+  current code hash before verifying the copied immutable ledger. The SI-035
+  permission-only source repair changed that hash, so replay compared a new
+  manifest identity with the already-open daily identity and failed. Deploying
+  the new collector during that daily ledger also made the service refuse to
+  mix versions, as required by the immutable contract.
+
+  The ledger now has a strictly read-only open path. It validates the complete
+  manifest, plan, target identities, safety flags, and hashes without publishing
+  or rewriting anything. Replay across differing code hashes is allowed only
+  for one exact compatibility certificate binding the prior collector hash to
+  the current verifier hash and asserting that only permission metadata and the
+  read-only open path changed. Any unknown pair or widened/semantic change fails
+  closed.
+
+  AWS was restored to exact commit
+  7b04e8d08e1927e4ac4bbf6efad1c64392c450b9 for the already-open July 23
+  ledger; both shared-PA timers were active after restoration. The permission
+  metadata repair remains applied. No evidence byte was changed and no record
+  was backfilled. Verification passed 20 focused tests, 266 full tests, and the
+  exact 30-file release manifest. Report:
+    reports/shared_pa_verifier_version_compatibility_repair_v1.json
+
+  This repair changes no probability, supplies no performance evidence,
+  promotes no model, and authorizes no bet.

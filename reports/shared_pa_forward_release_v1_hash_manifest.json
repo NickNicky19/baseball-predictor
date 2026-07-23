@@ -4,24 +4,25 @@
   "research_source_commit": "5ae5b02cecd21966cd0ec5cbd259c45f34074e4e",
   "release_base_commit": "e58bec19a1b29618eb0d41f0e3031d9a6a8a7802",
   "composite_sha256": {
-    "code": "b0151a0a2698b3724fd79cd6d217eb32ebf9f67644f8458ec9de99e9461a138d",
-    "configuration": "c38ad777a1efedf4063aa93517b6adcb66637e06a35b34eeddb971335c03a735",
+    "code": "3f50dca58ba3eac356021fe3b81c3f9ad852d938bf19857814f2a131a6d33d47",
+    "configuration": "b903bfa40b77d4f4b437b2fdd571795821bec0a110c3590e2fd1c5d47a391ba6",
     "feature_contract": "4bdf5d6f4db9105770a28e669f61ab7f0aa57ba6d87f09476c0bed721632678c",
-    "tests": "a12c793c40204b8c3fb2e5a846e0863c2ae5f0217969636e2ef4b76bf326d3a9",
-    "deployment": "4e40371b68041b9e2d6e894cb775e78ca1e3e07400b3a7897b50d45434b78e7d"
+    "tests": "1a3320efd2912d6f05eadad4d8807d20a72f30e4a7e1ab1e51504609727d2a2e",
+    "deployment": "29f36b41cd5a27dcd129ae9eb5cd1e53a802e9b931c25ff04322b953f298629f"
   },
   "code_files": {
     "scripts/run_aws_shared_pa_forward_tick.py": "d1e0cbd968cdce242d53727376440567f10f37c9d46f9ccf8cdef4fec1870e6a",
     "src/evaluation/shadow_capture_plan.py": "491a73556cab02b8295eee695f0474345defbc15f5d9bd01aae011cdff2b17e0",
     "src/evaluation/shared_pa_forward_collector.py": "c3b7b7297f57c154885fc1811a22a9a15329e2d95f2afc65f1d996d9152f1c23",
     "src/evaluation/shared_pa_forward_evidence.py": "9b8f79ce7b12d8ead102a4c2cbfedb227a18c6e1ebb47e70b19f24910fea59f1",
-    "src/evaluation/shared_pa_forward_ledger.py": "fb88596f3523973849ea226408e8f3c9e575cfe172834aae63d4df89bee76f26",
+    "src/evaluation/shared_pa_forward_ledger.py": "8dff31bcc76dce20f67f684f079b70e69e1b9282e2d619ffb2144ffda34faa2f",
     "src/evaluation/shared_pa_forward_runner.py": "b835f9ee31a44e7e52d3bcee9a59d73da8eef9ed4763e27b7e9196411279096c"
   },
   "configuration_files": {
     "config/shared_pa_forward_eb_control_v1.json": "033934ec8dc06bc49d02fd46e223f840ef5cef01bb545c09054fe9b740628c6c",
     "config/shared_pa_forward_evidence_contract_v1.json": "b93827a465e5145d1e725f84cbed53d413f0c2e8601e41021221e3d13d079401",
-    "config/shared_pa_forward_runtime_v1.json": "4dbaeb60c8b0dab0a22dbd3d92485bd5be2e6b1d51c2de5f6dd2124c669d615a"
+    "config/shared_pa_forward_runtime_v1.json": "4dbaeb60c8b0dab0a22dbd3d92485bd5be2e6b1d51c2de5f6dd2124c669d615a",
+    "config/shared_pa_forward_verifier_compatibility_v1.json": "1555a4646c9078fff3dab6a03271af7ffd46c4bb6e95a634b15a767a7330abe3"
   },
   "data_bindings": {
     "certified_2023_pa_panel_sha256": "1638ee336833ae6cb3ba580eafe2800a8f4a6c609719fe88df7481c71e0f2fb1",
@@ -38,10 +39,10 @@
     "scripts/check_aws_shared_pa_forward_offline.py": "286e9300991ea1d4786a097407bba7b2bd53b2beae930656e1ec0aebd1395d2c",
     "tests/test_aws_shared_pa_forward_health.py": "97710174ea1346aff1a6b2a78d06a33d9c8a564c04c8d607d521bf05ada694e4",
     "tests/test_aws_shared_pa_forward_runtime.py": "834f2bc01a3f43380e52f7bcc4630ed939260688db4d38222ca0e025c95dadbf",
-    "tests/test_aws_shared_pa_forward_verifier.py": "e87779e9f7009ede4deba3bea47744adde859595181bf492a525db9cd6a4538e",
+    "tests/test_aws_shared_pa_forward_verifier.py": "3ead9da3bd6558b8f454ae894c80d910a4e43407f7b034dcc0d9f1598bc00c28",
     "tests/test_shared_pa_forward_collector.py": "5398028e1e378b9c6962ba1bfda9a198081fbc456aca5de6966d90d16c25712f",
     "tests/test_shared_pa_forward_evidence.py": "a364c7eb3ae38c396eb501c47d6d1abb6d3455f5a63276d6d6cc8a9607ed022c",
-    "tests/test_shared_pa_forward_ledger.py": "1d3e6f6b59f503b813bd81d6bd5727f85a4341a25e7bbffce88041e327f25c7e",
+    "tests/test_shared_pa_forward_ledger.py": "fdb872b6e7fbeb120e75b6608aea25caad53e7309db859096415e74b7481298e",
     "tests/test_shared_pa_forward_runner.py": "c90b2466abc02c1e4fe397551372c60adeddcca4912f9106af7e80c2dd9acc6a"
   },
   "deployment_files": {
@@ -53,7 +54,7 @@
     "deploy/shared_pa_forward/github.com_known_hosts": "6233fddbb0a29afc8c4e8c699733c1a188c3a41f2fb63a2640653dc4aea624ce",
     "deploy/shared_pa_forward/install_exact_release.sh": "b30cb7a8c3f7fb0efab6cf0d96096abb0628f67f9082eb508a3c636ba4258d65",
     "scripts/report_aws_shared_pa_forward_health.py": "c56f73c52825c2db682982f13141e96b511843f29efde788983a3bbecc40dab0",
-    "scripts/verify_aws_shared_pa_forward_tree.py": "ed9ea90f54fb05e3a79e29945d39e6b9c868c20a9280bd492f87a7d45805f7e5"
+    "scripts/verify_aws_shared_pa_forward_tree.py": "890f16421a20142daf2632431bf6249117ef328c01a749202d4eb6f0b8ce01c7"
   },
   "prospective_feature_snapshot_rule": "Each complete player record must carry a reproducible feature_snapshot_sha256; no pre-collection synthetic feature hash is treated as evidence."
 }

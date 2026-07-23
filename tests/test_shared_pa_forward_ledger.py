@@ -119,6 +119,33 @@ def _players(plan, side: str = "home"):
     return loaded, lineup, players, raw
 
 
+def test_open_existing_is_read_only_and_rejects_safety_manifest_mutation(
+    tmp_path: Path,
+) -> None:
+    plan = _plan()
+    loaded, _, _, _ = _players(plan)
+    ledger = SharedPAForwardLedger(
+        tmp_path,
+        plan=plan,
+        contract_sha256=loaded["contract_sha256"],
+        runtime_manifest_sha256="c" * 64,
+        collector_code_sha256="b" * 64,
+    )
+    before = (tmp_path / "ledger_manifest.json").read_bytes()
+    opened = SharedPAForwardLedger.open_existing(tmp_path, plan=plan)
+    assert opened.collector_code_sha256 == ledger.collector_code_sha256
+    assert (tmp_path / "ledger_manifest.json").read_bytes() == before
+
+    mutated = json.loads(before)
+    mutated["betting_authorized"] = True
+    (tmp_path / "ledger_manifest.json").write_text(
+        json.dumps(mutated, sort_keys=True, separators=(",", ":")) + "\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(SharedPAForwardLedgerError, match="safety contract"):
+        SharedPAForwardLedger.open_existing(tmp_path, plan=plan)
+
+
 def test_complete_and_excluded_sides_verify_as_full_coverage(tmp_path: Path) -> None:
     plan = _plan()
     loaded, lineup, players, stats_raw = _players(plan)

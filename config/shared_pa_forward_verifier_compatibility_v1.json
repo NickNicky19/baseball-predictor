@@ -1,0 +1,16 @@
+{
+  "schema_version": "shared-pa-forward-verifier-compatibility-v1",
+  "pairs": [
+    {
+      "evidence_collector_code_sha256": "8b3a713d90f85f03f9f11032e3fc8544494cb64647e6c0f48376bd65eda58489",
+      "verifier_code_sha256": "3f50dca58ba3eac356021fe3b81c3f9ad852d938bf19857814f2a131a6d33d47",
+      "evidence_collector_commit": "7b04e8d08e1927e4ac4bbf6efad1c64392c450b9",
+      "classification": "permission_metadata_and_read_only_open_repair",
+      "changed_code_paths": [
+        "src/evaluation/shared_pa_forward_ledger.py"
+      ],
+      "parser_or_probability_semantics_changed": false,
+      "evidence_bytes_changed": false
+    }
+  ]
+}

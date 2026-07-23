@@ -91,6 +91,36 @@ def _json(path: Path, label: str) -> Mapping[str, Any]:
 
 
 class SharedPAForwardLedger:
+    @staticmethod
+    def _manifest_payload(
+        *,
+        plan: ShadowCapturePlan,
+        contract_sha256: str,
+        runtime_manifest_sha256: str,
+        collector_code_sha256: str,
+    ) -> dict[str, Any]:
+        return {
+            "schema_version": "shared-pa-forward-ledger-v1",
+            "plan_sha256": plan.plan_sha256,
+            "official_game_date": plan.official_game_date,
+            "entry_hours": plan.entry_hours,
+            "contract_sha256": contract_sha256,
+            "runtime_manifest_sha256": runtime_manifest_sha256,
+            "collector_code_sha256": collector_code_sha256,
+            "research_only": True,
+            "betting_authorized": False,
+            "production_changed": False,
+            "expected_side_target_ids": sorted(
+                side_target_id(plan=plan, target=target, side=side)
+                for target in plan.targets for side in ("away", "home")
+            ),
+        }
+
+    @staticmethod
+    def _validate_digest(label: str, value: str) -> None:
+        if len(value) != 64 or any(character not in "0123456789abcdef" for character in value):
+            raise SharedPAForwardLedgerError(f"{label} must be a lowercase SHA-256 digest")
+
     def __init__(
         self,
         root: str | Path,
@@ -114,25 +144,57 @@ class SharedPAForwardLedger:
             ("runtime_manifest_sha256", self.runtime_manifest_sha256),
             ("collector_code_sha256", self.collector_code_sha256),
         ):
-            if len(value) != 64 or any(character not in "0123456789abcdef" for character in value):
-                raise SharedPAForwardLedgerError(f"{label} must be a lowercase SHA-256 digest")
-        manifest = {
-            "schema_version": "shared-pa-forward-ledger-v1",
-            "plan_sha256": plan.plan_sha256,
-            "official_game_date": plan.official_game_date,
-            "entry_hours": plan.entry_hours,
-            "contract_sha256": self.contract_sha256,
-            "runtime_manifest_sha256": self.runtime_manifest_sha256,
-            "collector_code_sha256": self.collector_code_sha256,
-            "research_only": True,
-            "betting_authorized": False,
-            "production_changed": False,
-            "expected_side_target_ids": sorted(
-                side_target_id(plan=plan, target=target, side=side)
-                for target in plan.targets for side in ("away", "home")
-            ),
-        }
+            self._validate_digest(label, value)
+        manifest = self._manifest_payload(
+            plan=plan,
+            contract_sha256=self.contract_sha256,
+            runtime_manifest_sha256=self.runtime_manifest_sha256,
+            collector_code_sha256=self.collector_code_sha256,
+        )
         _atomic_publish_once(self.root / "ledger_manifest.json", canonical_bytes(manifest) + b"\n")
+
+    @classmethod
+    def open_existing(
+        cls,
+        root: str | Path,
+        *,
+        plan: ShadowCapturePlan,
+    ) -> "SharedPAForwardLedger":
+        """Open an immutable ledger without publishing or rewriting its manifest."""
+        if plan.official_game_date.startswith("2026-05-"):
+            raise SharedPAForwardLedgerError("May 2026 is sealed before ledger access")
+        if plan.entry_hours != 4:
+            raise SharedPAForwardLedgerError("shared PA ledger requires the locked T-minus-4 plan")
+        resolved = Path(root).resolve()
+        manifest = _json(resolved / "ledger_manifest.json", "ledger manifest")
+        required = {
+            "schema_version", "plan_sha256", "official_game_date", "entry_hours",
+            "contract_sha256", "runtime_manifest_sha256", "collector_code_sha256",
+            "research_only", "betting_authorized", "production_changed",
+            "expected_side_target_ids",
+        }
+        if set(manifest) != required:
+            raise SharedPAForwardLedgerError("ledger manifest field set changed")
+        for label in ("contract_sha256", "runtime_manifest_sha256", "collector_code_sha256"):
+            value = manifest[label]
+            if not isinstance(value, str):
+                raise SharedPAForwardLedgerError(f"ledger {label} must be a string")
+            cls._validate_digest(label, value)
+        expected = cls._manifest_payload(
+            plan=plan,
+            contract_sha256=str(manifest["contract_sha256"]),
+            runtime_manifest_sha256=str(manifest["runtime_manifest_sha256"]),
+            collector_code_sha256=str(manifest["collector_code_sha256"]),
+        )
+        if dict(manifest) != expected:
+            raise SharedPAForwardLedgerError("ledger manifest differs from its plan and safety contract")
+        ledger = cls.__new__(cls)
+        ledger.root = resolved
+        ledger.plan = plan
+        ledger.contract_sha256 = str(manifest["contract_sha256"])
+        ledger.runtime_manifest_sha256 = str(manifest["runtime_manifest_sha256"])
+        ledger.collector_code_sha256 = str(manifest["collector_code_sha256"])
+        return ledger
 
     def terminal_side_ids(self) -> set[str]:
         directory = self.root / "terminal"
