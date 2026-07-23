@@ -13,6 +13,7 @@ from datetime import date
 from enum import Enum
 from pathlib import Path
 from typing import Any, Optional, Union
+from uuid import uuid4
 
 import pandas as pd
 
@@ -38,7 +39,10 @@ from src.data.statcast_source_contract import validate_statcast_source_lineage
 
 logger = get_logger(__name__)
 
-FEATURE_MANIFEST_SCHEMA_VERSION = "feature-bundle-manifest-v1"
+FEATURE_MANIFEST_SCHEMA_VERSION = "feature-bundle-manifest-v2"
+SUPPORTED_FEATURE_MANIFEST_SCHEMAS = frozenset(
+    {"feature-bundle-manifest-v1", FEATURE_MANIFEST_SCHEMA_VERSION}
+)
 
 
 class FeatureManifestError(ValueError):
@@ -77,16 +81,22 @@ class FeatureStore:
         written: dict[str, Path] = {}
 
         if write_json:
-            json_path = out_dir / "bundles.json"
+            json_tmp = out_dir / f".bundles.{uuid4().hex}.json.tmp"
             payload = [bundle_to_dict(b) for b in bundles]
-            json_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+            json_tmp.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+            json_path = self._publish_content_addressed(
+                json_tmp, out_dir=out_dir, suffix="json"
+            )
             written["json"] = json_path
             logger.info("Saved %d bundles to %s", len(bundles), json_path)
 
         if write_parquet:
-            parquet_path = out_dir / "bundles.parquet"
+            parquet_tmp = out_dir / f".bundles.{uuid4().hex}.parquet.tmp"
             df = bundles_to_dataframe(bundles)
-            df.to_parquet(parquet_path, index=False)
+            df.to_parquet(parquet_tmp, index=False)
+            parquet_path = self._publish_content_addressed(
+                parquet_tmp, out_dir=out_dir, suffix="parquet"
+            )
             written["parquet"] = parquet_path
             logger.info("Saved %d bundles to %s", len(bundles), parquet_path)
 
@@ -112,34 +122,35 @@ class FeatureStore:
         parquet_path = out_dir / "bundles.parquet"
 
         manifest = self.verify_manifest(game_date)
-        manifested_paths: set[str] | None = None
         if manifest is not None:
-            manifested_paths = {
-                str(evidence["path"])
-                for evidence in manifest["artifacts"].values()
-            }
+            artifacts = manifest["artifacts"]
         else:
             logger.warning(
                 "Feature bundles for %s have no manifest and remain legacy-unverified",
                 game_date,
             )
 
-        def _eligible(path: Path) -> bool:
-            return path.exists() and (
-                manifested_paths is None or path.name in manifested_paths
-            )
-
         bundles: list[PlayerFeatureBundle] | None = None
 
-        if prefer == "json" and _eligible(json_path):
+        if manifest is not None:
+            order = ("json", "parquet") if prefer == "json" else ("parquet", "json")
+            for name in order:
+                evidence = artifacts.get(name)
+                if not isinstance(evidence, dict):
+                    continue
+                path = out_dir / evidence["path"]
+                if name == "json":
+                    data = json.loads(path.read_text(encoding="utf-8"))
+                    bundles = [bundle_from_dict(row) for row in data]
+                else:
+                    bundles = dataframe_to_bundles(pd.read_parquet(path))
+                break
+        elif prefer == "json" and json_path.exists():
             data = json.loads(json_path.read_text(encoding="utf-8"))
             bundles = [bundle_from_dict(row) for row in data]
-
-        elif _eligible(parquet_path):
-            df = pd.read_parquet(parquet_path)
-            bundles = dataframe_to_bundles(df)
-
-        elif _eligible(json_path):
+        elif parquet_path.exists():
+            bundles = dataframe_to_bundles(pd.read_parquet(parquet_path))
+        elif json_path.exists():
             data = json.loads(json_path.read_text(encoding="utf-8"))
             bundles = [bundle_from_dict(row) for row in data]
 
@@ -167,7 +178,11 @@ class FeatureStore:
 
     def exists(self, game_date: str) -> bool:
         out_dir = self.root / game_date
-        return (out_dir / "bundles.json").exists() or (out_dir / "bundles.parquet").exists()
+        return (
+            self.manifest_path(game_date).is_file()
+            or (out_dir / "bundles.json").is_file()
+            or (out_dir / "bundles.parquet").is_file()
+        )
 
     def manifest_path(self, game_date: str) -> Path:
         return self.root / game_date / "manifest.json"
@@ -188,7 +203,7 @@ class FeatureStore:
         except json.JSONDecodeError as exc:
             raise FeatureManifestError(f"Invalid feature manifest: {path}") from exc
 
-        if manifest.get("schema_version") != FEATURE_MANIFEST_SCHEMA_VERSION:
+        if manifest.get("schema_version") not in SUPPORTED_FEATURE_MANIFEST_SCHEMAS:
             raise FeatureManifestError(
                 f"Unknown feature manifest schema in {path}: {manifest.get('schema_version')!r}"
             )
@@ -206,8 +221,18 @@ class FeatureStore:
                 raise FeatureManifestError(f"Feature manifest artifact {name!r} is malformed")
             rel = evidence.get("path")
             expected = evidence.get("sha256")
-            if not isinstance(rel, str) or not isinstance(expected, str):
+            expected_bytes = evidence.get("bytes")
+            if (
+                not isinstance(rel, str)
+                or not isinstance(expected, str)
+                or not isinstance(expected_bytes, int)
+                or expected_bytes < 0
+            ):
                 raise FeatureManifestError(f"Feature manifest artifact {name!r} lacks path/hash")
+            if Path(rel).name != rel or Path(rel).is_absolute():
+                raise FeatureManifestError(
+                    f"Feature manifest artifact {name!r} has unsafe path"
+                )
             candidate = path.parent / rel
             if not candidate.is_file():
                 raise FeatureManifestError(f"Feature artifact missing: {candidate}")
@@ -216,7 +241,29 @@ class FeatureStore:
                 raise FeatureManifestError(
                     f"Feature artifact hash mismatch for {candidate}: expected {expected}, got {actual}"
                 )
+            actual_bytes = candidate.stat().st_size
+            if actual_bytes != expected_bytes:
+                raise FeatureManifestError(
+                    f"Feature artifact byte-count mismatch for {candidate}: "
+                    f"expected {expected_bytes}, got {actual_bytes}"
+                )
         return manifest
+
+    @staticmethod
+    def _publish_content_addressed(
+        temporary: Path, *, out_dir: Path, suffix: str
+    ) -> Path:
+        digest = sha256_file(temporary)
+        final = out_dir / f"bundles.{digest}.{suffix}"
+        if final.exists():
+            if not final.is_file() or sha256_file(final) != digest:
+                raise FeatureManifestError(
+                    f"Existing content-addressed feature artifact is corrupt: {final}"
+                )
+            temporary.unlink()
+            return final
+        temporary.replace(final)
+        return final
 
     def _write_manifest(
         self,

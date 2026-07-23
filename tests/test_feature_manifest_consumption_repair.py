@@ -65,7 +65,9 @@ def test_unlisted_sibling_cannot_override_manifested_json(tmp_path) -> None:
 
 def test_missing_manifest_remains_readable_as_legacy_unverified(tmp_path) -> None:
     store = FeatureStore(tmp_path)
-    store.save([_bundle()], "2026-07-22", write_parquet=False)
+    written = store.save([_bundle()], "2026-07-22", write_parquet=False)
+    legacy = tmp_path / "2026-07-22" / "bundles.json"
+    legacy.write_bytes(written["json"].read_bytes())
     store.manifest_path("2026-07-22").unlink()
 
     loaded = store.load("2026-07-22")

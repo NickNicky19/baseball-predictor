@@ -1183,3 +1183,21 @@ probabilities are numerically unchanged; old artifacts are preserved but cannot
 be retro-certified. No data or outcome was opened, May/2026 remained untouched,
 and frozen production, AWS, operational smoke, and the collector were unchanged.
 No market promotion or betting authorization follows.
+
+2026-07-22 HANDOFF ADDENDUM — FEATURE PUBLICATION TRANSACTION (AUTHORITATIVE)
+
+SI-028 is repaired in the same isolated lineage. Feature artifacts were formerly
+written to canonical loadable paths before the manifest; an interrupted first
+save could be consumed as legacy-unverified, and replacement generations were
+exposed one file at a time. New saves now use SHA-256 content-addressed artifact
+names and atomically publish the manifest only after the complete generation
+exists. Without a manifest, only old canonical legacy names are eligible;
+temporary/content-addressed orphans are retained but never consumed. Manifest
+paths are basename-only and hashes, byte counts, and bundle population all
+verify before load. Crash, traversal, byte-count, hash, population, and sibling
+mutations pass; targeted proof is 8 passed and the full suite is 235 passed.
+Exact hashes are in
+`docs/research/FEATURE_PUBLICATION_TRANSACTION_REPAIR_V1_REPORT.json`. No old
+artifact was deleted or rewritten, valid features/probabilities are unchanged,
+May/2026 and outcomes were untouched, and frozen production/AWS/collector were
+not changed. No market promotion or betting authorization follows.

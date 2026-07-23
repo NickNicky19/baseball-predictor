@@ -1,0 +1,70 @@
+{
+  "artifact_version": "feature-publication-transaction-repair-v1",
+  "status": "INTEGRITY_REPAIR_VERIFIED_NO_PROMOTION",
+  "classification": "integrity_repair",
+  "market_scope": [
+    "hits",
+    "hr_over_0_5",
+    "total_bases"
+  ],
+  "root_cause": "Feature artifacts were written to canonical loadable filenames before the manifest commit. An interrupted first save could therefore be consumed as legacy-unverified, and a replacement generation was exposed file by file before its new manifest became authoritative.",
+  "repair": {
+    "artifact_names": "SHA-256 content-addressed",
+    "commit_boundary": "atomic manifest replacement after every declared artifact exists",
+    "no_manifest_eligibility": "only pre-existing canonical bundles.json/bundles.parquet legacy names",
+    "manifested_load": "only declared generation paths, honoring JSON/Parquet preference",
+    "path_policy": "local basename only; absolute and traversal paths fail closed",
+    "integrity_checks": [
+      "SHA-256",
+      "byte count",
+      "bundle population"
+    ],
+    "orphan_policy": "retain but never consume",
+    "historical_deletions": 0,
+    "numeric_feature_changes": 0,
+    "probability_changes": 0
+  },
+  "version_binding": {
+    "feature_store_sha256": "cfe6bfd61263313a5afe20226fa765dadb46b660ff48839625088852c3dd7acb",
+    "manifest_regression_test_sha256": "19fceae5de08a4ff9f2bae560f208c4d22673fcad49adb5944ecee8083f74ec2",
+    "transaction_mutation_test_sha256": "54b37079417ed7cba81d85e6816697a60084102c3e2978e289758ad69830e524",
+    "predeclaration_sha256": "49bcd2a7e0bb95ce3cfac689bea8c4838954ab0da4ffeea88982be4eef751250",
+    "configuration_sha256": "ff65d440b7571aa490300b26b1cf8a6271c5979e564c1a74d1d0988a0b743bad",
+    "certified_direct_panel_sha256": "1638ee336833ae6cb3ba580eafe2800a8f4a6c609719fe88df7481c71e0f2fb1",
+    "certified_direct_panel_manifest_sha256": "673ece8b9a26733ad4c8bf0b95fb15f6b32849e7a37c9b2fcb7f0734dcb4030f"
+  },
+  "verification": {
+    "targeted_tests": "8 passed",
+    "full_suite": "235 passed",
+    "first_save_interruption_not_loadable": true,
+    "old_manifest_survives_interrupted_replacement": true,
+    "path_traversal_mutation_fails_closed": true,
+    "byte_count_mutation_fails_closed": true,
+    "hash_and_population_mutations_fail_closed": true,
+    "unlisted_sibling_ineligible": true,
+    "valid_generation_round_trip": true
+  },
+  "scope_audit": {
+    "outcome_fields_read": false,
+    "may_2026_touched": false,
+    "historical_feature_artifacts_modified": false,
+    "aws_runtime_changed": false,
+    "collector_changed": false
+  },
+  "historical_reconstruction": {
+    "performed": false,
+    "reason": "The defect is a publication boundary. Existing artifacts remain preserved; only future saves use transactional generations."
+  },
+  "separate_market_adjudication": {
+    "hits": "NO_NEW_NUMERIC_CANDIDATE; persistence repair only",
+    "hr_over_0_5": "NO_NEW_NUMERIC_CANDIDATE; persistence repair only",
+    "total_bases": "NO_NEW_NUMERIC_CANDIDATE; persistence repair only",
+    "performance_claim": "none"
+  },
+  "promotion": {
+    "promoted": false,
+    "betting_authorized": false,
+    "reason": "Crash consistency prevents false evidence but does not establish predictive superiority."
+  },
+  "highest_value_next_action": "Consolidate the repaired source/feature lineage into a versioned future-only candidate configuration, then collect untouched hash-bound batter rows alongside certified starter receipts for separate-market prospective adjudication."
+}
