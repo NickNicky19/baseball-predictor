@@ -1,0 +1,35 @@
+{
+  "schema_version": "shared-pa-candidate-rejection-v1",
+  "candidate_id": "shared_pa_eb_augmented_regularized_multinomial_2023_v3",
+  "status": "REJECTED_NO_CANDIDATE",
+  "reason": "The candidate failed every predeclared materiality gate independently for Hits, HR over 0.5, and Total Bases. No market can rescue another.",
+  "result_summary": {
+    "hits": "Small proper-score point gains versus league/core were far below the required one-percent material threshold; AUC was inferior to the core in at least one outer fold.",
+    "hr_over_0_5": "The candidate was worse than the fixed all-prior CatBoost core on Brier, log loss, and aggregate AUC. It improved versus simple baselines but did not meet the material threshold.",
+    "total_bases": "Small proper-score point gains versus league/core were far below the required one-percent material threshold; AUC was inferior to the core in at least one outer fold."
+  },
+  "coverage": {
+    "input_rows": 43726,
+    "initial_training_only_rows": 9053,
+    "chronological_oof_eligible_rows": 34673,
+    "oof_scored_rows": 34673,
+    "missing_oof_rows": 0,
+    "coverage_loss_within_scored_windows": 0
+  },
+  "immutable_evidence": {
+    "report_sha256": "09c91f320eed0148f35dd154ad95621239f0cf17a37925a329ee25d728b87e3d",
+    "oof_predictions_sha256": "d0778476df089e6bfee11910486e0730b6552d76e3c981c38cf96a7d0936c23d",
+    "panel_sha256": "5e47ee69416d22bfe7eb0b7745abf7ac60cd9fa585c2f0d54aff266fb59ec4f8",
+    "protocol_sha256": "626ea7dc5e5434826e1ff76e0ab1626b36af0509053f8cac41e4016f0a87be6e",
+    "runner_sha256": "6a793e0c94fe896582bd407546d87cc47ec0f347117a55644f0da0aa3ed9075d",
+    "model_sha256": "feaf0871eeca22ca40d15615b75118a22bafebcdcadd1e9446398637ae037313",
+    "model_test_sha256": "52043f3aea5b7ae65ff63209f9955f010b3822cf88bedbaeb0584d1f2e396f97",
+    "runner_test_sha256": "1f97ca50e09dfe3e03292d0a7a80ae9e5e43b994defb8dc957cf71f74e318b1f"
+  },
+  "mutation_and_regression_proof": "393 tests passed and 1 intentionally skipped at locked v3 code. The focused new tests reject duplicate feature labels, denominator mismatch, nonnumeric/negative process inputs, missing validation predictions, overlapping OOF windows, protocol escape hatches, and evidence overwrites.",
+  "next_highest_value_action": "Do not open 2024 or 2025 for this rejected family. First conduct one predeclared 2023-only source-to-feature attribution audit that tests whether the CatBoost core's incremental signal arises from a valid strict-prior feature block or an unresolved denominator/lineage defect; it must emit no new candidate or promotion unless that measurement isolates an actionable, timing-valid cause.",
+  "may_2026_opened": false,
+  "frozen_baseline_changed": false,
+  "operational_collector_changed": false,
+  "betting_authorized": false
+}
