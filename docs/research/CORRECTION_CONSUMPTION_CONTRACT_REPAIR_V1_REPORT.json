@@ -1,0 +1,80 @@
+{
+  "schema_version": "correction-consumption-contract-repair-report-v1",
+  "candidate_id": "correction-consumption-contract-repair-v1-a71a6c19989ee725",
+  "classification": "integrity_repair_only",
+  "status": "verified_not_promoted",
+  "root_cause": [
+    "explicit correction requests silently continued without corrections when state was missing or malformed",
+    "category offsets changed projected_value without regenerating the stored Monte Carlo distribution or exact market-tail probabilities",
+    "long-lived predictors could blend an already-corrected parameter state again on a later call",
+    "persisted correction state lacked point-in-time cutoff, source, protocol, code, configuration, test, market-scope, and promotion identities"
+  ],
+  "affected_scope": [
+    "Hits",
+    "HR over 0.5",
+    "Total Bases",
+    "every optional runtime correction consumer"
+  ],
+  "repair": [
+    "schema-v2 persisted correction states validate all fields and exact SHA-256 provenance",
+    "automated retraining emits RESEARCH_ONLY artifacts and cannot promote itself",
+    "runtime use requires an independently PROMOTED artifact, strictly-prior training cutoff, and exact market scope",
+    "output-only category offsets are quarantined from probability consumption",
+    "requested missing, malformed, inactive, unversioned, nonfinite, or ineligible state fails closed",
+    "each prediction restores immutable uncorrected league and PA parameters before any eligible correction is applied",
+    "correction state publication is atomic"
+  ],
+  "mutation_proof": [
+    "legacy schema rejected",
+    "missing explicitly requested state rejected",
+    "NaN confidence rejected",
+    "invalid source hash rejected",
+    "invalid cutoff rejected",
+    "forged promotion status rejected",
+    "research-only state rejected at runtime",
+    "same-day training cutoff rejected",
+    "out-of-scope market rejected",
+    "output-only category offset rejected",
+    "repeated correction application cannot compound",
+    "uncorrected call restores the immutable base context"
+  ],
+  "verification": {
+    "focused": "25 passed",
+    "full_suite": "255 passed",
+    "historical_outcomes_opened": false,
+    "historical_prices_opened": false,
+    "may_2026_opened": false,
+    "feature_artifacts_rebuilt": false,
+    "probabilities_recomputed": false,
+    "aws_runtime_changed": false,
+    "collector_changed": false
+  },
+  "hashes": {
+    "parent_commit": "39278ae6d6a9e3a6c733b4c5d6c0d90dc1fbd7ec",
+    "code_bundle_sha256": "a71a6c19989ee725557c680b3847da6f2aa09fd870fac6418a8fda36946dc496",
+    "test_bundle_sha256": "ccd8df777d463e1af732518d4647c9dcf79e432aa5493d0e1c6ef8e68d621870",
+    "config_sha256": "77c029297b514e3df652bb447d90e58906e954c64dcd039d78537b9e59870436",
+    "predeclaration_sha256": "6041c41e2561d5f1d5bd25b72f84a6c80752ab3fbfab6b3064f16b971628d64b",
+    "data_sha256": null,
+    "feature_sha256": null,
+    "src_learning_bias_corrector_py": "9c4d04770dbe998a75f497db437fb458b863b441d32a9537ea0a4ccca15fb858",
+    "src_learning_retrain_runner_py": "c0d50963ad0df6798c1b66cc089b0a609af4897057d298664907ccd173e738aa",
+    "src_prediction_correction_manager_py": "4225489f9d89a73baabe5135940b37f55db36b33cebb9a7ff14010b947a516e3",
+    "src_prediction_daily_predictor_py": "622fd594cfd30ea49640df0affdc730de8f3cf54b0f56baee742bb9e67fd49ba",
+    "src_features_feature_factory_py": "d6b65aa278089fe8c770c190e0b80dce8b19b6930591f7688dcdeab1078527ee",
+    "tests_test_correction_manager_py": "1c13d15d009a8f0f641fdefc1a2825e3ab8e8536cb02145a81986f1a89b5e8e5",
+    "tests_test_daily_predictor_py": "6d441cd7d601528b2933d9c8f9586a99d97c539047da493a2680d8e2346708ab",
+    "tests_test_retrain_runner_py": "74eefa75855984b3be6c376ad03ce44134f1932ab2b48cb8208821e14cfe6633"
+  },
+  "chronological_evaluation": {
+    "required": false,
+    "reason": "valid-input probabilities are unchanged and every legacy/unpromoted correction is now quarantined; no fitted probability candidate was created"
+  },
+  "promotion": {
+    "hits": false,
+    "home_runs": false,
+    "total_bases": false,
+    "betting_authorized": false
+  },
+  "highest_value_next_action": "Preserve this quarantine and verify fresh receipt-bound T-4 pitcher evidence before connecting any pitcher matchup feature; continue batter-only prospective comparator capture in parallel."
+}

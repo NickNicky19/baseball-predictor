@@ -9,6 +9,7 @@ Corrections are off by default and must be enabled explicitly.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import date
 from pathlib import Path
 from typing import Any, Optional
 
@@ -83,6 +84,7 @@ class CorrectionManager:
         return self._enabled
 
     def enable(self) -> None:
+        self.corrector.state.assert_runtime_eligible()
         self._enabled = True
         logger.info("Corrections enabled")
 
@@ -126,31 +128,52 @@ class CorrectionManager:
         logger.info("Loaded correction state from %s", resolved)
         return True
 
-    def load_state_if_exists(self) -> bool:
-        """Load state file only when it exists (non-fatal).
-
-        A missing OR unreadable/corrupt state file both mean the same thing to
-        the pipeline: proceed without corrections. A malformed file must never
-        crash a prediction run, so decode/JSON errors are swallowed with a
-        warning rather than propagated.
-        """
+    def load_state_if_exists(self, *, required: bool = False) -> bool:
+        """Load an optional state, but never hide a requested-state defect."""
         resolved = self._resolve_path(self.settings.state_path)
         if not resolved.exists():
+            if required:
+                raise FileNotFoundError(f"required correction state not found: {resolved}")
             return False
         try:
             return self.load_state(resolved)
         except (ValueError, OSError) as exc:  # JSONDecodeError is a ValueError
-            logger.warning(
-                "Correction state at %s is unreadable (%s); running without corrections",
-                resolved,
-                exc,
-            )
+            if required:
+                raise ValueError(
+                    f"required correction state is invalid: {resolved}: {exc}"
+                ) from exc
+            logger.warning("Ignored invalid disabled correction state at %s: %s", resolved, exc)
             return False
 
     def save_state(self, path: Optional[str | Path] = None) -> Path:
         """Persist current correction state."""
         resolved = self._resolve_path(path or self.settings.state_path)
         return self.corrector.save(resolved)
+
+    def validate_runtime_context(
+        self,
+        *,
+        target_date: str,
+        requested_markets: tuple[str, ...],
+    ) -> None:
+        """Bind a promoted correction to a strictly later, declared market run."""
+        state = self.corrector.state
+        state.assert_runtime_eligible()
+        try:
+            target = date.fromisoformat(target_date)
+            cutoff = date.fromisoformat(state.training_cutoff)
+        except ValueError as exc:
+            raise ValueError("correction runtime dates must be ISO dates") from exc
+        if cutoff >= target:
+            raise ValueError(
+                "correction training cutoff must be strictly before the target date"
+            )
+        outside_scope = set(requested_markets) - set(state.market_scope)
+        if outside_scope:
+            raise ValueError(
+                "correction artifact is not promoted for requested markets: "
+                f"{sorted(outside_scope)}"
+            )
 
     def prepare(
         self,
@@ -189,10 +212,18 @@ class CorrectionManager:
         """Apply output-level category bias corrections after simulation."""
         if not self._should_apply(force) or not self.settings.apply_projection_offsets:
             return projections
-        return self.corrector.apply_projections(projections)
+        if self.corrector.state.category_offsets:
+            raise ValueError(
+                "output-only category offsets are quarantined because they do not "
+                "regenerate the Monte Carlo probability distribution"
+            )
+        return projections
 
     def _should_apply(self, force: bool = False) -> bool:
-        return (self._enabled or force) and self.corrector.is_active()
+        requested = self._enabled or force
+        if requested:
+            self.corrector.state.assert_runtime_eligible()
+        return requested and self.corrector.is_active()
 
     def status(self) -> dict[str, Any]:
         """Return a summary of correction state for logging/debugging."""

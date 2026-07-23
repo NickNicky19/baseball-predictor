@@ -1,6 +1,7 @@
 """Tests for automated retraining infrastructure."""
 
 from pathlib import Path
+import json
 
 import pytest
 
@@ -25,6 +26,16 @@ def test_retrain_runner_fits_and_saves(tmp_path):
     assert report.sample_size >= 10
     assert report.confidence > 0
     assert Path(report.state_path).exists()
+    payload = json.loads(Path(report.state_path).read_text(encoding="utf-8"))
+    assert payload["version"] == "2.0"
+    assert payload["promotion_status"] == "RESEARCH_ONLY"
+    assert payload["training_cutoff"]
+    assert payload["market_scope"]
+    for name in (
+        "source_sha256", "protocol_sha256", "code_sha256",
+        "config_sha256", "test_sha256",
+    ):
+        assert len(payload[name]) == 64
 
 
 def test_retrain_runner_insufficient_pairs():

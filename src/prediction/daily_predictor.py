@@ -112,6 +112,11 @@ class DailyPredictor:
         self.correction_manager = correction_manager or CorrectionManager.from_config(
             self.config,
         )
+        # Corrections must be a pure function of one immutable base context.
+        # Keeping the base separately also lets a later uncorrected call restore
+        # truth after a corrected call on the same long-lived predictor.
+        self._uncorrected_league = self.league
+        self._uncorrected_pa_config = self.prop_engine.pa_config
         self.weather_client = weather_client or WeatherClient()
         self.umpire_client = umpire_client or UmpireClient()
         self.injury_client = injury_client or InjuryClient()
@@ -177,7 +182,19 @@ class DailyPredictor:
 
         try:
             market_policy = load_market_output_policy(self.project_root, self.config)
-            correction_ctx = self._prepare_corrections(use_corrections)
+            self.prop_engine.configure_simulation(
+                self._uncorrected_league, self._uncorrected_pa_config
+            )
+            self._sync_league_context(self._uncorrected_league)
+            correction_ctx = self._prepare_corrections(
+                use_corrections,
+                target_date=game_date,
+                requested_markets=tuple(
+                    hitter_categories or self.prop_engine.HITTER_CATEGORIES
+                ) + (
+                    ("strikeouts",) if include_pitchers else ()
+                ),
+            )
 
             bundles = self.build_feature_bundles(
                 game_date,
@@ -401,7 +418,13 @@ class DailyPredictor:
             )
         return value_plays
 
-    def _prepare_corrections(self, use_corrections: bool) -> bool:
+    def _prepare_corrections(
+        self,
+        use_corrections: bool,
+        *,
+        target_date: str,
+        requested_markets: tuple[str, ...],
+    ) -> bool:
         """
         Optionally apply model-parameter corrections before simulation.
 
@@ -411,20 +434,20 @@ class DailyPredictor:
             return False
 
         if not self.correction_manager.corrector.is_active():
-            if not self.correction_manager.load_state_if_exists():
-                logger.info(
-                    "Corrections requested but no active state at %s; running without corrections",
-                    self.correction_manager.settings.state_path,
-                )
-                return False
+            self.correction_manager.load_state_if_exists(required=True)
 
         if not self.correction_manager.corrector.is_active():
-            return False
+            raise ValueError("required correction state contains no active parameter update")
+
+        self.correction_manager.validate_runtime_context(
+            target_date=target_date,
+            requested_markets=requested_markets,
+        )
 
         pa_config = self.prop_engine.pa_config
         effective_league, _ = self.correction_manager.prepare(
-            self.league,
-            pa_config,
+            self._uncorrected_league,
+            self._uncorrected_pa_config,
             self.prop_engine,
             force=True,
         )
@@ -435,7 +458,9 @@ class DailyPredictor:
         """Keep feature/statcast layers aligned with corrected league baselines."""
         self.league = league
         self.statcast_engine.league = league
-        self.statcast_engine.savant.league = league
+        statcast_savant = getattr(self.statcast_engine, "savant", None)
+        if statcast_savant is not None:
+            statcast_savant.league = league
         self._savant_client.league = league
         self.lineup_intelligence.league = league
         self.feature_factory.sync_league(league)

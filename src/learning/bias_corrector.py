@@ -8,7 +8,12 @@ to PropProjection, LeagueBaselines, and PASimulatorConfig.
 from __future__ import annotations
 
 import json
+import math
+import os
+import re
+import tempfile
 from dataclasses import asdict, dataclass, field, replace
+from datetime import date
 from pathlib import Path
 from typing import Any, Optional
 
@@ -20,6 +25,16 @@ from src.utils.logging import get_logger
 
 logger = get_logger(__name__)
 
+_SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
+_ALLOWED_MARKETS = {"hits", "home_runs", "total_bases", "hrr", "fantasy", "strikeouts"}
+_PROVENANCE_HASH_FIELDS = (
+    "source_sha256",
+    "protocol_sha256",
+    "code_sha256",
+    "config_sha256",
+    "test_sha256",
+)
+
 
 @dataclass
 class BiasCorrectionState:
@@ -30,8 +45,16 @@ class BiasCorrectionState:
     pa_config_overrides: dict[str, float] = field(default_factory=dict)
     sample_sizes: dict[str, int] = field(default_factory=dict)
     confidence: float = 0.0
-    version: str = "1.0"
+    version: str = "2.0"
     notes: str = ""
+    training_cutoff: str = ""
+    source_sha256: str = ""
+    protocol_sha256: str = ""
+    code_sha256: str = ""
+    config_sha256: str = ""
+    test_sha256: str = ""
+    market_scope: tuple[str, ...] = ()
+    promotion_status: str = "RESEARCH_ONLY"
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -42,19 +65,112 @@ class BiasCorrectionState:
             "confidence": self.confidence,
             "version": self.version,
             "notes": self.notes,
+            "training_cutoff": self.training_cutoff,
+            "source_sha256": self.source_sha256,
+            "protocol_sha256": self.protocol_sha256,
+            "code_sha256": self.code_sha256,
+            "config_sha256": self.config_sha256,
+            "test_sha256": self.test_sha256,
+            "market_scope": list(self.market_scope),
+            "promotion_status": self.promotion_status,
         }
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> BiasCorrectionState:
-        return cls(
+        if not isinstance(data, dict):
+            raise ValueError("correction state must be a JSON object")
+        expected = set(cls().to_dict())
+        missing = expected - set(data)
+        extra = set(data) - expected
+        if missing or extra:
+            raise ValueError(
+                "correction state schema mismatch "
+                f"(missing={sorted(missing)}, extra={sorted(extra)})"
+            )
+        state = cls(
             category_offsets=data.get("category_offsets", {}),
             league_overrides=data.get("league_overrides", {}),
             pa_config_overrides=data.get("pa_config_overrides", {}),
             sample_sizes=data.get("sample_sizes", {}),
             confidence=float(data.get("confidence", 0.0)),
-            version=str(data.get("version", "1.0")),
+            version=str(data.get("version", "")),
             notes=str(data.get("notes", "")),
+            training_cutoff=str(data.get("training_cutoff", "")),
+            source_sha256=str(data.get("source_sha256", "")),
+            protocol_sha256=str(data.get("protocol_sha256", "")),
+            code_sha256=str(data.get("code_sha256", "")),
+            config_sha256=str(data.get("config_sha256", "")),
+            test_sha256=str(data.get("test_sha256", "")),
+            market_scope=tuple(data.get("market_scope", ())),
+            promotion_status=str(data.get("promotion_status", "")),
         )
+        state.validate_persisted()
+        return state
+
+    def validate_persisted(self) -> None:
+        """Validate the complete persisted-state contract without repairing it."""
+        if self.version != "2.0":
+            raise ValueError("legacy or unknown correction-state schema is not consumable")
+        for label, mapping in (
+            ("category_offsets", self.category_offsets),
+            ("league_overrides", self.league_overrides),
+            ("pa_config_overrides", self.pa_config_overrides),
+            ("sample_sizes", self.sample_sizes),
+        ):
+            if not isinstance(mapping, dict):
+                raise ValueError(f"{label} must be an object")
+        numeric = {
+            **self.category_offsets,
+            **self.league_overrides,
+            **self.pa_config_overrides,
+        }
+        if any(isinstance(value, bool) or not isinstance(value, (int, float))
+               or not math.isfinite(float(value)) for value in numeric.values()):
+            raise ValueError("correction values must be finite numbers")
+        if any(category not in _ALLOWED_MARKETS for category in self.category_offsets):
+            raise ValueError("category_offsets contains an unsupported market")
+        league_defaults = LeagueBaselines()
+        league_fields = {
+            name for name in league_defaults.__dataclass_fields__
+            if type(getattr(league_defaults, name)) is float
+        }
+        if set(self.league_overrides) - league_fields:
+            raise ValueError("league_overrides contains an unknown or non-rate field")
+        pa_defaults = PASimulatorConfig()
+        pa_fields = {
+            name for name in pa_defaults.__dataclass_fields__
+            if type(getattr(pa_defaults, name)) is float
+        }
+        if set(self.pa_config_overrides) - pa_fields:
+            raise ValueError("pa_config_overrides contains an unknown or nonnumeric field")
+        if not math.isfinite(self.confidence) or not 0.0 <= self.confidence <= 1.0:
+            raise ValueError("correction confidence must be finite and within [0,1]")
+        if any(isinstance(value, bool) or not isinstance(value, int) or value < 0
+               for value in self.sample_sizes.values()):
+            raise ValueError("correction sample sizes must be nonnegative integers")
+        try:
+            date.fromisoformat(self.training_cutoff)
+        except ValueError as exc:
+            raise ValueError("correction training_cutoff must be an ISO date") from exc
+        for field_name in _PROVENANCE_HASH_FIELDS:
+            if not _SHA256_RE.fullmatch(getattr(self, field_name)):
+                raise ValueError(f"correction {field_name} must be a lowercase SHA-256")
+        if not self.market_scope or len(set(self.market_scope)) != len(self.market_scope):
+            raise ValueError("correction market_scope must be nonempty and unique")
+        if any(market not in _ALLOWED_MARKETS for market in self.market_scope):
+            raise ValueError("correction market_scope contains an unsupported market")
+        if self.promotion_status not in {"RESEARCH_ONLY", "PROMOTED"}:
+            raise ValueError("correction promotion_status is invalid")
+
+    def assert_runtime_eligible(self) -> None:
+        self.validate_persisted()
+        if self.promotion_status != "PROMOTED":
+            raise ValueError("research-only correction state cannot enter runtime probabilities")
+        if self.category_offsets:
+            raise ValueError(
+                "output-only category offsets cannot enter runtime probabilities; "
+                "a coherent distribution must be regenerated"
+            )
 
 
 class BiasCorrector:
@@ -181,9 +297,20 @@ class BiasCorrector:
         logger.info("BiasCorrectionState updated (confidence=%.2f)", self.state.confidence)
 
     def save(self, path: str | Path) -> Path:
+        self.state.validate_persisted()
         path = Path(path)
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps(self.state.to_dict(), indent=2), encoding="utf-8")
+        payload = json.dumps(self.state.to_dict(), indent=2, sort_keys=True) + "\n"
+        fd, temp_name = tempfile.mkstemp(prefix=f".{path.name}.", suffix=".tmp", dir=path.parent)
+        try:
+            with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as handle:
+                handle.write(payload)
+                handle.flush()
+                os.fsync(handle.fileno())
+            os.replace(temp_name, path)
+        finally:
+            if os.path.exists(temp_name):
+                os.unlink(temp_name)
         logger.info("Saved bias correction state to %s", path)
         return path
 

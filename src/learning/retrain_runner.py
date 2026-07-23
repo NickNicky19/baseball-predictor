@@ -22,6 +22,7 @@ if TYPE_CHECKING:
     from src.prediction.correction_manager import CorrectionManager
 from src.utils.errors import ConfigError, RetrainError
 from src.utils.logging import get_logger
+from src.utils.provenance import sha256_file, sha256_json
 
 logger = get_logger(__name__)
 
@@ -182,6 +183,41 @@ class RetrainRunner:
 
         if save_state:
             corrector = BiasCorrector.from_retrain_result(result)
+            source_dates = pd.to_datetime(df["game_date"], errors="raise").dt.date
+            if source_dates.empty:
+                raise RetrainError("Cannot persist correction state without a training cutoff")
+            source_files = (
+                "src/learning/outcome_retrainer.py",
+                "src/learning/bias_corrector.py",
+                "src/learning/retrain_runner.py",
+                "src/evaluation/calibration.py",
+                "src/evaluation/backtest_engine.py",
+            )
+            test_files = (
+                "tests/test_correction_manager.py",
+                "tests/test_retrain_runner.py",
+            )
+            source_root = Path(__file__).resolve().parents[2]
+            corrector.state.training_cutoff = max(source_dates).isoformat()
+            corrector.state.source_sha256 = sha256_file(resolved_pairs)
+            corrector.state.protocol_sha256 = sha256_json(
+                {
+                    "retraining": self.config.get("retraining", {}),
+                    "learning": self.config.get("learning", {}),
+                    "settings": self.settings.__dict__,
+                }
+            )
+            corrector.state.code_sha256 = sha256_json(
+                {path: sha256_file(source_root / path) for path in source_files}
+            )
+            corrector.state.config_sha256 = sha256_json(self.config)
+            corrector.state.test_sha256 = sha256_json(
+                {path: sha256_file(source_root / path) for path in test_files}
+            )
+            corrector.state.market_scope = tuple(sorted(set(df["category"].astype(str))))
+            # A fitting job cannot promote itself. Independent chronological
+            # adjudication must create a distinct promoted artifact.
+            corrector.state.promotion_status = "RESEARCH_ONLY"
             corrector.save(state_path)
             logger.info("Saved correction state to %s", state_path)
 

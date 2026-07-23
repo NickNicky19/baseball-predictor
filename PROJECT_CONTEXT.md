@@ -1184,6 +1184,27 @@ be retro-certified. No data or outcome was opened, May/2026 remained untouched,
 and frozen production, AWS, operational smoke, and the collector were unchanged.
 No market promotion or betting authorization follows.
 
+2026-07-23 HANDOFF ADDENDUM — CORRECTION CONSUMPTION CONTRACT (AUTHORITATIVE)
+
+SI-013 is repaired on isolated branch `codex/statcast-source-loss-fail-closed-v1`.
+The optional correction path previously treated a missing/corrupt explicitly
+requested state as an ordinary uncorrected run, could alter displayed means
+without regenerating exact Monte Carlo probabilities, and could compound
+parameter blends across repeated calls. Persisted states lacked point-in-time,
+protocol, source, code, config, test, market-scope, and promotion identities.
+Schema-v2 states now validate those identities; automated retraining creates
+only `RESEARCH_ONLY` state; runtime consumption requires an independently
+`PROMOTED`, strictly-prior, exact-market artifact; output-only offsets are
+quarantined; publication is atomic; and every run begins from immutable
+uncorrected parameters. Focused proof is 25 passed and the full suite is 255
+passed. Exact hashes are recorded in
+`docs/research/CORRECTION_CONSUMPTION_CONTRACT_REPAIR_V1_REPORT.json`. No
+historical outcome/price, 2026/May, feature, prediction, AWS, or collector
+artifact was opened or changed. Valid uncorrected probabilities are numerically
+unchanged, no candidate was promoted, and betting remains unauthorized.
+The report SHA-256 is
+`b77f92a1d98884549fe6fc589bbba09c58344c1b7db8ccb921a49149b62ecaa6`.
+
 2026-07-22 HANDOFF ADDENDUM — EXPLICIT/SAMPLED INPUT PARITY (AUTHORITATIVE)
 
 SI-029 is repaired in the same isolated lineage. `ProbabilityEngine` archived

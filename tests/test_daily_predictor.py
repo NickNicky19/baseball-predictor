@@ -6,8 +6,11 @@ from datetime import date
 from pathlib import Path
 from types import SimpleNamespace
 
+import pytest
+
 from src.data.mlb_api import HittingStatsSnapshot, PitchingStatsSnapshot
 from src.data.odds import CompositeOddsProvider, FileOddsSettings, OddsSettings
+from src.learning.bias_corrector import BiasCorrectionState, BiasCorrector
 from src.models.dataclasses import (
     GameContext,
     HitterGameContext,
@@ -20,10 +23,13 @@ from src.models.dataclasses import (
     StatcastProfile,
 )
 from src.prediction import DailyPredictor, PropEngine
+from src.prediction.correction_manager import CorrectionManager
+from src.utils.errors import PredictionPipelineError
 from src.simulation.game_simulator import GameSimulatorInput
 
 FIXTURES = Path(__file__).parent / "fixtures"
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+HASH = "b" * 64
 
 
 class MockMLBAPI:
@@ -157,16 +163,54 @@ def test_prediction_provenance_is_explicit_and_serialized():
     assert result.to_dict()["prediction_provenance"] == expected
 
 
-def test_predict_with_corrections_no_state_graceful():
+def test_mutation_explicit_corrections_with_missing_state_fail_closed():
     predictor = _fast_predictor()
-    result = predictor.predict(
+    with pytest.raises(PredictionPipelineError, match="required correction state not found"):
+        predictor.predict(
+            "2026-07-01",
+            hitter_categories=("hrr",),
+            include_pitchers=False,
+            apply_corrections=True,
+            include_edges=False,
+        )
+
+
+def test_mutation_repeated_correction_does_not_compound_and_disable_restores_base():
+    predictor = _fast_predictor()
+    base = predictor._uncorrected_pa_config.hr_park
+    state = BiasCorrectionState(
+        pa_config_overrides={"hr_park": base + 0.2},
+        sample_sizes={"total": 400},
+        confidence=0.5,
+        training_cutoff="2024-12-31",
+        source_sha256=HASH,
+        protocol_sha256=HASH,
+        code_sha256=HASH,
+        config_sha256=HASH,
+        test_sha256=HASH,
+        market_scope=("hrr",),
+        promotion_status="PROMOTED",
+    )
+    predictor.correction_manager = CorrectionManager(corrector=BiasCorrector(state))
+
+    predictor._prepare_corrections(
+        True, target_date="2025-01-01", requested_markets=("hrr",)
+    )
+    once = predictor.prop_engine.pa_config.hr_park
+    predictor._prepare_corrections(
+        True, target_date="2025-01-01", requested_markets=("hrr",)
+    )
+    twice = predictor.prop_engine.pa_config.hr_park
+    assert once == twice == base + 0.1
+
+    predictor.predict(
         "2026-07-01",
         hitter_categories=("hrr",),
         include_pitchers=False,
-        apply_corrections=True,
+        apply_corrections=False,
         include_edges=False,
     )
-    assert len(result.hitter_projections) == 1
+    assert predictor.prop_engine.pa_config.hr_park == base
 
 
 def test_predict_with_edges():

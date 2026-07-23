@@ -330,7 +330,9 @@ class FeatureFactory:
         """Keep sub-engines aligned when league baselines are corrected."""
         self.league = league
         self.statcast_engine.league = league
-        self.statcast_engine.savant.league = league
+        statcast_savant = getattr(self.statcast_engine, "savant", None)
+        if statcast_savant is not None:
+            statcast_savant.league = league
         self.savant_client.league = league
         self.lineup_intelligence.league = league
         self.matchup_intelligence.league = league
