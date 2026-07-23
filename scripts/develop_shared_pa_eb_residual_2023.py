@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Locked 2023-only development of the EB residual shared PA foundation."""
+"""Locked 2023-only development of the EB-augmented shared PA foundation."""
 from __future__ import annotations
 
 import argparse
@@ -21,7 +21,7 @@ if str(ROOT) not in os.sys.path:
 
 from src.evaluation.multi_market_foundation import PA_OUTCOMES  # noqa: E402
 from src.evaluation.shared_pa_training_data import outcome_counts  # noqa: E402
-from src.learning.eb_residual_pa_model import fit_eb_residual_pa_model  # noqa: E402
+from src.learning.eb_residual_pa_model import fit_eb_augmented_pa_model  # noqa: E402
 from src.learning.shared_pa_model import (  # noqa: E402
     fit_catboost,
     fit_rate_baseline,
@@ -71,9 +71,9 @@ def _require(condition: bool, message: str) -> None:
 
 def _load_contract(protocol: Path) -> dict[str, Any]:
     contract = json.loads(protocol.read_text(encoding="utf-8"))
-    _require(contract.get("schema_version") == "shared-pa-eb-residual-development-protocol-v1", "unexpected EB residual protocol schema")
-    _require(contract.get("status") == "LOCKED_BEFORE_2023_FOLD_SCORING", "EB residual protocol is not locked before scoring")
-    _require(contract.get("research_only") is True, "EB residual protocol must be research only")
+    _require(contract.get("schema_version") == "shared-pa-eb-augmented-development-protocol-v2", "unexpected EB-augmented protocol schema")
+    _require(contract.get("status") == "LOCKED_BEFORE_2023_FOLD_SCORING", "EB-augmented protocol is not locked before scoring")
+    _require(contract.get("research_only") is True, "EB-augmented protocol must be research only")
     _require(contract.get("betting_authorized") is False and contract.get("production_changed") is False, "protocol must not claim production or betting")
     candidate = contract.get("candidate")
     _require(isinstance(candidate, dict), "protocol candidate is missing")
@@ -247,7 +247,7 @@ def _inner_params(frame: pd.DataFrame, contract: dict[str, Any], *, outer_train_
         for regularization_c in candidate["inner_selection"]["grid"]["regularization_c"]:
             fold_losses: list[float] = []
             for train_rows, validation_rows in _date_splits(inner_frame, candidate["inner_selection"]["n_splits"]):
-                model = fit_eb_residual_pa_model(inner_frame.iloc[train_rows], prior_strength_pa=prior_strength, regularization_c=regularization_c, numeric_features=numeric_feature_names(contract), log1p_features=log1p_feature_names(contract), seed=candidate["outer_evaluation"]["seed"])
+                model = fit_eb_augmented_pa_model(inner_frame.iloc[train_rows], prior_strength_pa=prior_strength, regularization_c=regularization_c, numeric_features=numeric_feature_names(contract), log1p_features=log1p_feature_names(contract), seed=candidate["outer_evaluation"]["seed"])
                 validation = inner_frame.iloc[validation_rows]
                 fold_losses.append(proper_scores(outcome_counts(validation), model.predict_proba(validation))["multiclass_log_loss"])
             scores.append({"prior_strength_pa": prior_strength, "regularization_c": regularization_c, "fold_log_loss": fold_losses, "mean_log_loss": float(np.mean(fold_losses))})
@@ -258,7 +258,7 @@ def _inner_params(frame: pd.DataFrame, contract: dict[str, Any], *, outer_train_
 
 def run(*, panel: Path, manifest: Path, protocol: Path, report: Path, predictions: Path) -> dict[str, Any]:
     if report.exists() or predictions.exists():
-        raise FileExistsError("refusing to overwrite EB residual development evidence")
+        raise FileExistsError("refusing to overwrite EB-augmented development evidence")
     contract = _load_contract(protocol)
     frame = _validate_panel(panel, manifest, contract)
     candidate = contract["candidate"]
@@ -275,7 +275,7 @@ def run(*, panel: Path, manifest: Path, protocol: Path, report: Path, prediction
         selected, inner_scores = _inner_params(frame, contract, outer_train_rows=train_rows)
         train = frame.iloc[train_rows]
         validation = frame.iloc[validation_rows]
-        model = fit_eb_residual_pa_model(train, prior_strength_pa=selected["prior_strength_pa"], regularization_c=selected["regularization_c"], numeric_features=numeric_feature_names(contract), log1p_features=log1p_feature_names(contract), seed=seed)
+        model = fit_eb_augmented_pa_model(train, prior_strength_pa=selected["prior_strength_pa"], regularization_c=selected["regularization_c"], numeric_features=numeric_feature_names(contract), log1p_features=log1p_feature_names(contract), seed=seed)
         league = fit_rate_baseline(train, kind="league_rate")
         eb = fit_rate_baseline(train, kind="empirical_bayes_player_rate", prior_strength_pa=200.0)
         core = fit_catboost(train, features=core_features, params=CORE_PARAMS, seed=seed)
@@ -330,7 +330,7 @@ def run(*, panel: Path, manifest: Path, protocol: Path, report: Path, prediction
             prediction_frame[f"{label}_{outcome}"] = probability[:, index]
     atomic(predictions, prediction_frame.to_csv(index=False, lineterminator="\n").encode("utf-8"))
     result: dict[str, Any] = {
-        "schema_version": "shared-pa-eb-residual-development-report-v1",
+        "schema_version": "shared-pa-eb-augmented-development-report-v2",
         "candidate_id": candidate["id"],
         "status": "DEVELOPMENT_SURVIVOR_REQUIRES_SEPARATE_LOCKED_2024_SELECTION" if all_gates else "DEVELOPMENT_REJECTED_NO_CANDIDATE",
         "inputs": {"panel": {"path": str(panel), "sha256": sha256_file(panel), "rows_consumed": int(len(frame))}, "manifest": {"path": str(manifest), "sha256": sha256_file(manifest)}, "protocol": {"path": str(protocol), "sha256": sha256_file(protocol)}},
@@ -354,7 +354,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--panel", required=True, type=Path)
     parser.add_argument("--manifest", required=True, type=Path)
-    parser.add_argument("--protocol", type=Path, default=ROOT / "config/shared_pa_eb_residual_development_2023_v1.json")
+    parser.add_argument("--protocol", type=Path, default=ROOT / "config/shared_pa_eb_augmented_development_2023_v2.json")
     parser.add_argument("--report", required=True, type=Path)
     parser.add_argument("--predictions", required=True, type=Path)
     result = run(**vars(parser.parse_args()))

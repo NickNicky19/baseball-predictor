@@ -1,4 +1,4 @@
-"""Empirical-Bayes-backed, regularized shared PA outcome probabilities."""
+"""Empirical-Bayes-feature-augmented regularized shared PA probabilities."""
 
 from __future__ import annotations
 
@@ -110,7 +110,7 @@ def _model_features(
 
 
 @dataclass
-class EBResidualPAModel:
+class EBAugmentedPAModel:
     pipeline: Any
     league_probability: np.ndarray
     prior_strength_pa: float
@@ -128,14 +128,14 @@ class EBResidualPAModel:
         probabilities = np.asarray(self.pipeline.predict_proba(prepared), dtype=float)
         classes = np.asarray(self.pipeline.named_steps["model"].classes_)
         if not np.array_equal(classes, np.arange(len(PA_OUTCOMES))):
-            raise ValueError("residual PA model class identity changed")
+            raise ValueError("EB-augmented PA model class identity changed")
         return _validated_probability_matrix(
             probabilities,
             expected_shape=(len(frame), len(PA_OUTCOMES)),
         )
 
 
-def fit_eb_residual_pa_model(
+def fit_eb_augmented_pa_model(
     frame: pd.DataFrame,
     *,
     prior_strength_pa: float,
@@ -144,7 +144,7 @@ def fit_eb_residual_pa_model(
     log1p_features: list[str],
     seed: int,
     max_iter: int = 2000,
-) -> EBResidualPAModel:
+) -> EBAugmentedPAModel:
     from sklearn.impute import SimpleImputer
     from sklearn.linear_model import LogisticRegression
     from sklearn.pipeline import Pipeline
@@ -175,14 +175,17 @@ def fit_eb_residual_pa_model(
         prepared.reset_index(drop=True),
     ], axis=1)
     if event_frame.columns.duplicated().any():
-        raise ValueError("residual PA event frame has duplicate column names")
+        raise ValueError("EB-augmented PA event frame has duplicate column names")
     events, labels, weights = weighted_event_rows(event_frame, prepared.columns.tolist())
     pipeline = Pipeline([
         ("imputer", SimpleImputer(strategy="median", add_indicator=True, keep_empty_features=True)),
         ("scale", StandardScaler()),
         ("model", LogisticRegression(
             C=float(regularization_c),
-            solver="lbfgs",
+            # The full multiclass Hessian is small for this locked feature
+            # contract.  Unlike the rejected v1 L-BFGS path, this solver has a
+            # deterministic convergence criterion for the exact objective.
+            solver="newton-cholesky",
             max_iter=max_iter,
             random_state=seed,
             tol=1e-8,
@@ -193,8 +196,8 @@ def fit_eb_residual_pa_model(
     if not np.array_equal(model.classes_, np.arange(len(PA_OUTCOMES))):
         raise ValueError("training did not retain every PA outcome class")
     if np.asarray(model.n_iter_).max() >= max_iter:
-        raise ValueError("residual PA model did not converge")
-    fitted = EBResidualPAModel(
+        raise ValueError("EB-augmented PA model did not converge")
+    fitted = EBAugmentedPAModel(
         pipeline=pipeline,
         league_probability=league,
         prior_strength_pa=float(prior_strength_pa),

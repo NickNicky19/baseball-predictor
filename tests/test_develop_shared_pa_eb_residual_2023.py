@@ -18,7 +18,7 @@ SPEC.loader.exec_module(MODULE)
 
 
 def test_locked_protocol_has_no_later_year_or_context_escape_hatch():
-    contract = MODULE._load_contract(ROOT / "config" / "shared_pa_eb_residual_development_2023_v1.json")
+    contract = MODULE._load_contract(ROOT / "config" / "shared_pa_eb_augmented_development_2023_v2.json")
     boundary = contract["evidence_boundary"]
     assert boundary["development_years"] == [2023]
     forbidden = " ".join(boundary["forbidden"]).lower()
@@ -48,7 +48,7 @@ def test_existing_evidence_output_is_never_overwritten(tmp_path: Path):
         MODULE.run(
             panel=tmp_path / "missing.csv.gz",
             manifest=tmp_path / "missing.json",
-            protocol=ROOT / "config" / "shared_pa_eb_residual_development_2023_v1.json",
+            protocol=ROOT / "config" / "shared_pa_eb_augmented_development_2023_v2.json",
             report=report,
             predictions=predictions,
         )

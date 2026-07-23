@@ -1,0 +1,74 @@
+{
+  "schema_version": "shared-pa-eb-augmented-development-protocol-v2",
+  "status": "LOCKED_BEFORE_2023_FOLD_SCORING",
+  "locked_date": "2026-07-23",
+  "research_only": true,
+  "betting_authorized": false,
+  "production_changed": false,
+  "candidate": {
+    "id": "shared_pa_eb_augmented_regularized_multinomial_2023_v2",
+    "kind": "eight-class-time-safe-empirical-bayes-feature-augmented-multinomial-logistic",
+    "outcomes": ["strikeout", "walk", "single", "double", "triple", "home_run", "bip_out", "other_non_ab"],
+    "base": "Strict-prior player PA-outcome posterior shrunk to the fold-trained league distribution, exposed as explicit model inputs.",
+    "model": "Regularized multinomial logistic model. The EB probabilities are features, not a claimed offset or residual; no manually specified baseball direction or multiplier is used.",
+    "numeric_features": [
+      "history_swing_rate", "history_whiff_rate", "history_chase_rate", "history_zone_rate",
+      "history_exit_velocity_mean", "history_exit_velocity_sd", "history_launch_angle_mean", "history_launch_angle_sd",
+      "history_barrel_share_bbe", "history_hard_hit_non_barrel_share_bbe", "history_other_measured_bbe_share_bbe", "history_measured_bbe_per_pa",
+      "history_pa_age_days_mean", "history_pa_age_days_sd",
+      "history_release_speed_mean", "history_release_speed_sd", "history_pfx_x_mean", "history_pfx_x_sd", "history_pfx_z_mean", "history_pfx_z_sd",
+      "history_plate_x_mean", "history_plate_x_sd", "history_plate_z_mean", "history_plate_z_sd", "history_pitch_type_entropy"
+    ],
+    "log1p_features": [
+      "history_batted_ball_denominator", "history_pitch_count", "history_bip", "history_distinct_pitch_types",
+      "days_since_pa", "days_since_strikeout", "days_since_walk", "days_since_single", "days_since_double", "days_since_triple",
+      "days_since_home_run", "days_since_bip_out", "days_since_other_non_ab"
+    ],
+    "solver": "newton-cholesky multiclass logistic regression; fixed finite convergence criterion; solver change repairs rejected v1 nonconvergence rather than changing features, targets, or scoring.",
+    "inner_selection": {
+      "algorithm": "nested expanding TimeSeriesSplit over sorted unique 2023 game dates",
+      "n_splits": 3,
+      "grid": {"prior_strength_pa": [50.0, 200.0, 800.0], "regularization_c": [0.01, 0.1, 1.0]},
+      "metric": "eight-class PA multiclass log loss",
+      "tie_breaker": "lowest mean validation log loss, then lower regularization_c, then greater prior_strength_pa"
+    },
+    "outer_evaluation": {"algorithm": "expanding TimeSeriesSplit over sorted unique 2023 game dates", "n_splits": 4, "seed": 20260723, "bootstrap_draws": 2000}
+  },
+  "evidence_boundary": {
+    "development_years": [2023],
+    "external_panel": "C:\\Projects\\baseball_predictor\\.codex-system-integrity-v1\\data\\analysis\\system_integrity_v2\\direct_batter_pa_development_2023_v1\\panel_2023.csv.gz",
+    "external_panel_sha256": "5e47ee69416d22bfe7eb0b7745abf7ac60cd9fa585c2f0d54aff266fb59ec4f8",
+    "external_manifest": "C:\\Projects\\baseball_predictor\\.codex-system-integrity-v1\\data\\analysis\\system_integrity_v2\\direct_batter_pa_development_2023_v1\\manifest.json",
+    "external_manifest_sha256": "ca6246eeb80ca8e2d11baad1ccffc738778719979efd23dde0d33aaac873d0a3",
+    "feature_cutoff": "max_source_date is null or strictly before game_date",
+    "forbidden": ["2024 rows or outcomes", "2025 rows or outcomes", "all May 2026 artifacts", "2026 outcomes", "market prices", "starter, pitcher, lineup, team, venue, weather, umpire", "realized PA as a model feature"]
+  },
+  "comparators": {
+    "league_rate": "fold-trained league PA outcome rate",
+    "empirical_bayes_player_rate_pa_200": "fold-trained player-rate posterior with 200-PA league prior",
+    "all_prior_catboost_core_v3_family": "fixed all-prior CatBoost core family; no player identity or context features; exact inherited parameters"
+  },
+  "separate_components": {
+    "hits": "per-PA P(single or double or triple or home_run)",
+    "hr_over_0_5": "per-PA P(home_run); not a full-game market probability",
+    "total_bases": "per-PA 0/1/2/3/4 total-base distribution",
+    "one_market_cannot_rescue_another": true
+  },
+  "gates": {
+    "coverage_loss_allowed": 0,
+    "proper_score_materiality": "candidate-minus-each comparator point and date-block 95% upper bound must each be below negative 1% of comparator Brier and log loss separately for every component",
+    "calibration": "report diagnostics only; no calibration transform is fitted after fold selection",
+    "discrimination": "candidate AUC must be noninferior to every comparator in every outer fold and aggregate separately for each component",
+    "chronology": "every outer train date strictly precedes its validation dates; nested selection sees only its outer training dates",
+    "promotion": "a 2023 development survivor is not a promotion and cannot reopen 2024 selection or use spent 2025 HR confirmation"
+  },
+  "protected_invariants": {
+    "may_2026_sealed": true,
+    "spent_2025_hr_not_reused": true,
+    "frozen_baselines_unchanged": true,
+    "pitcher_context_excluded_without_receipt": true,
+    "operational_smoke_non_economic": true,
+    "july_22_collector_untouched": true,
+    "no_betting_authorization": true
+  }
+}

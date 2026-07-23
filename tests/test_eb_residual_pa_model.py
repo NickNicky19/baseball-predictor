@@ -5,7 +5,7 @@ import pandas as pd
 import pytest
 
 from src.evaluation.multi_market_foundation import PA_OUTCOMES
-from src.learning.eb_residual_pa_model import fit_eb_residual_pa_model
+from src.learning.eb_residual_pa_model import fit_eb_augmented_pa_model
 
 
 NUMERIC = ["process_signal"]
@@ -56,7 +56,7 @@ def _frame() -> pd.DataFrame:
 
 
 def _fit(frame: pd.DataFrame):
-    return fit_eb_residual_pa_model(
+    return fit_eb_augmented_pa_model(
         frame,
         prior_strength_pa=50.0,
         regularization_c=0.1,
