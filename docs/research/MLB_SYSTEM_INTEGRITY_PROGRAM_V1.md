@@ -46,7 +46,7 @@ outcome/result columns. Exact machine-readable scope is in
 | SI-004 | P0 | Canonical PA builders divide barrels by classified buckets while hard hits use measured EV, so denominator parity is not certified. | Shared batter PA research | Canonical transformers now share the count-bearing primitive and fork schema v2. Pre-2026 reconstruction/evaluation pending. | Integrity repair/new candidate |
 | SI-005 | P0 | Direct batter history repeats the mismatched barrel/hard-hit denominators. | Shared batter PA candidate | Direct history now emits common counts/denominator/rates. Pre-2026 reconstruction/evaluation pending. | Integrity repair/new candidate |
 | SI-006 | P1 | Missing Statcast fields could silently become league averages; dependency absence, fetch errors, and empty responses returned an ordinary empty frame. | Hits, HR, TB | Source outages, empty/malformed responses, and missing/empty CSVs now fail closed. Observed, partial-field-fallback, and no-player-history states persist exact lineage through feature storage, health reporting, and probability consumption. Complete; numerically inert on valid inputs and not a model promotion. | Integrity repair |
-| SI-007 | P1 | Rich features override scalar fields independently without stored count/denominator lineage. | Hits, HR, TB | Bind effective values to source/count/denominator/window; reject contradictory partial overrides. Partial invariant implemented. | Integrity repair |
+| SI-007 | P1 | `RichFeatureEnricher` merged rolling payloads after source-bound Statcast values, allowing a rolling provider to replace plausible scalar inputs without stored origin/count/denominator lineage. | Hits, HR, TB | Rolling/source collisions now fail before enrichment. Every effective rich Statcast pass-through binds source kind/status/window/row count; barrel and hard-hit also bind their shared denominator/counts/definition. Serialization and probability consumption reject changed, missing, or contradictory lineage. Complete; numerically inert on valid inputs. | Integrity repair |
 | SI-008 | P1 | Pitcher fields can affect probabilities without a receipt-proven pregame starter identity in historical candidates. | Hits, HR, TB | Exclude pitcher block unless receipt contract passes. Existing block retained; full consumer audit pending. | Governance/integrity |
 | SI-009 | P1 | The frozen HR formula consumes barrel signal in `H_power`, consumes it again through xSLG, then adds a distribution quality score containing barrel/hard-hit and a further EV/launch-angle term. These are hand-specified, overlapping paths. | HR first; Hits/TB through the shared simulator | Frozen formula retained only as comparator. The repaired challenger is a locked fitted batter-only PA model; no coefficient tuning or claim that the legacy formula was repaired. | Research candidate audit |
 | SI-010 | P1 | Invalid K/BB inputs were converted to NaN and routed into the legacy path, contrary to the comment claiming the defect was visible. | Hits, HR, TB | Invalid/nonfinite/out-of-range values now raise; legitimate missing recent rates retain the predeclared season substitution; missing season rates fail when the fitted path is enabled. Regression and mutation tests pass. | Integrity repair |
@@ -152,3 +152,20 @@ unchanged; existing artifacts are neither overwritten nor retroactively
 relabeled. New forward or permissible historical builds will use the versioned
 lineage schema. This is an integrity repair only, not a Brier, log-loss,
 calibration, discrimination, market, ROI, promotion, or betting result.
+
+## Rich-feature lineage repair v1
+
+Repair identity is separately hash-bound in
+`docs/research/RICH_FEATURE_LINEAGE_REPAIR_V1_REPORT.json`. The measured defect
+was an order-dependent merge: rolling-provider fields were applied after
+source-bound Statcast values and could plausibly replace xwOBA, xBA, xSLG,
+barrel rate, hard-hit rate, contact rates, sample size, or target-date context.
+The simulator then preferred that unproven rich value.
+
+The repaired enrichment boundary rejects every rolling/source collision and
+persists exact per-field Statcast lineage. Probability consumption and feature
+storage independently verify value identity and lineage; barrel/hard-hit fields
+also verify their common denominator, counts, and definition. Deliberate
+plausible-value, deleted-lineage, source-status, and count mutations fail. Full
+tests pass 179/179. No numeric probability changed for a valid source-bound
+input, so no chronological rescore or model promotion is claimed.

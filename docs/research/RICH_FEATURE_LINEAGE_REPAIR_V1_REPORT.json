@@ -1,0 +1,60 @@
+{
+  "schema_version": "rich-feature-lineage-repair-report-v1",
+  "repair_id": "rich-feature-lineage-fail-closed-v1-b641dfe58bbe",
+  "classification": "integrity_repair_only",
+  "status": "verified_not_promoted",
+  "research_only": true,
+  "betting_authorized": false,
+  "base_commit": "5ad60a9baa0af16f2395b5963befb21619547bcb",
+  "repair_identity_sha256": "b641dfe58bbec45efa1ef6e35f77c014cec9aa4cc3c92e3539a7a8813a8e1f17",
+  "hashes": {
+    "code_aggregate_sha256": "72005013db9b202fe98fbe89f32c6483306b1ac58de1e9425cc13668b3dcf49e",
+    "config_aggregate_sha256": "32a5afecede19e51dcf12638189556488bf9a77005eedb227a067318c2eaa59a",
+    "contract_aggregate_sha256": "30241a38d6e2a58a282778479b0c8e098ede5746c1b598e355c496cf4f67cb21",
+    "test_aggregate_sha256": "59734dcb5cc846a5808efbe98127954a79a1c7d6f7229088a56272d247d3acb0"
+  },
+  "artifact_identity": {
+    "source_data": "not_opened",
+    "feature_artifacts": "not_rebuilt_numeric_inertness_proven",
+    "prediction_artifacts": "not_created",
+    "market_artifacts": "not_opened",
+    "outcome_artifacts": "not_opened"
+  },
+  "root_cause": "RichFeatureEnricher merged rolling-provider fields after source-bound Statcast values. A rolling payload could replace plausible xwOBA, xBA, xSLG, barrel, hard-hit, contact, sample-size, or target-date inputs and the simulator preferred the unproven rich value.",
+  "repair": [
+    "Reject rolling-provider collisions with every source-bound Statcast field, sample_pa, and game_date before enrichment.",
+    "Persist per-field source kind, source status, source window end, and source row count.",
+    "Persist the common batted-ball denominator, barrel count, hard-hit count, and definition for both effective rates.",
+    "Reject value changes, missing lineage, source-lineage mismatch, and count-lineage mismatch at feature persistence and probability consumption."
+  ],
+  "verification": {
+    "pytest": "179/179 passed",
+    "focused_lineage_and_probability_tests": "37/37 passed",
+    "valid_input_numeric_inertness": true,
+    "mutations": [
+      "rolling barrel-rate collision",
+      "plausible xwOBA override",
+      "deleted source lineage",
+      "hard-hit count-lineage mismatch",
+      "source-status lineage mismatch"
+    ]
+  },
+  "market_adjudication": {
+    "hits": "not_a_probability_candidate_valid_inputs_numerically_unchanged",
+    "home_runs_over_0_5": "not_a_probability_candidate_valid_inputs_numerically_unchanged",
+    "total_bases": "not_a_probability_candidate_valid_inputs_numerically_unchanged",
+    "chronological_rescore_run": false,
+    "reason": "The repair blocks unproven overrides and leaves every valid probability unchanged. A rescore cannot establish material improvement and would falsely relabel an integrity repair as a model candidate."
+  },
+  "protected_boundaries": {
+    "may_2026_opened": false,
+    "spent_2025_hr_reused": false,
+    "prospective_evidence_backfilled": false,
+    "frozen_baseline_changed": false,
+    "probability_coefficients_changed": false,
+    "policy_changed": false,
+    "operational_collector_touched": false
+  },
+  "promotion": "none",
+  "highest_value_next_action": "Require fresh source-bound prospective batter rows and certified T-minus-4 starter receipts before freezing any new probability challenger."
+}

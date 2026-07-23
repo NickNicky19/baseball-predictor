@@ -19,6 +19,25 @@ class StatcastIntegrityError(ValueError):
     """Raised when batted-ball evidence is contradictory or unprovable."""
 
 
+RICH_STATCAST_PASSTHROUGH_FIELDS = (
+    "avg_exit_velocity",
+    "avg_launch_angle",
+    "barrel_rate",
+    "bb_rate",
+    "chase_rate",
+    "contact_rate",
+    "hard_hit_rate",
+    "k_rate",
+    "sweet_spot_rate",
+    "swing_rate",
+    "whiff_rate",
+    "xba",
+    "xslg",
+    "xwoba",
+    "zone_rate",
+)
+
+
 @dataclass(frozen=True)
 class BattedBallEvidence:
     measured_batted_balls: int
@@ -171,6 +190,59 @@ def validate_profile_and_rich_features(
         )
     if rich is None:
         return
+    lineage = rich.get("_statcast_lineage")
+    source_bound = getattr(profile, "source_status", "untracked_legacy") != "untracked_legacy"
+    for field in RICH_STATCAST_PASSTHROUGH_FIELDS:
+        if field not in rich or rich.get(field) is None:
+            continue
+        profile_value = getattr(profile, field, None)
+        if profile_value is None:
+            raise StatcastIntegrityError(
+                f"{context}.effective_rich_features: {field} cannot replace missing source evidence"
+            )
+        try:
+            equal = math.isclose(
+                float(rich[field]), float(profile_value), rel_tol=0.0, abs_tol=1e-12
+            )
+        except (TypeError, ValueError) as exc:
+            raise StatcastIntegrityError(
+                f"{context}.effective_rich_features: {field} is not numeric"
+            ) from exc
+        if not equal:
+            raise StatcastIntegrityError(
+                f"{context}.effective_rich_features: unauthorized {field} override"
+            )
+        if not source_bound:
+            continue
+        if not isinstance(lineage, Mapping) or not isinstance(lineage.get(field), Mapping):
+            raise StatcastIntegrityError(
+                f"{context}.effective_rich_features: missing lineage for {field}"
+            )
+        entry = lineage[field]
+        expected = {
+            "source": "statcast_profile",
+            "source_kind": getattr(profile, "source_kind", None),
+            "source_status": getattr(profile, "source_status", None),
+            "source_window_end": getattr(profile, "source_window_end", None),
+            "source_row_count": getattr(profile, "source_row_count", None),
+        }
+        if any(entry.get(key) != value for key, value in expected.items()):
+            raise StatcastIntegrityError(
+                f"{context}.effective_rich_features: lineage mismatch for {field}"
+            )
+        if field in {"barrel_rate", "hard_hit_rate"}:
+            count_expected = {
+                "batted_ball_denominator": denominator,
+                "barrel_count": barrel_count,
+                "hard_hit_count": hard_hit_count,
+                "batted_ball_rate_definition": getattr(
+                    profile, "batted_ball_rate_definition", None
+                ),
+            }
+            if any(entry.get(key) != value for key, value in count_expected.items()):
+                raise StatcastIntegrityError(
+                    f"{context}.effective_rich_features: count lineage mismatch for {field}"
+                )
     effective_barrel = rich.get("barrel_rate", getattr(profile, "barrel_rate", None))
     effective_hard_hit = rich.get(
         "hard_hit_rate", getattr(profile, "hard_hit_rate", None)

@@ -21,6 +21,14 @@ below remains authoritative for performance promotion. The single highest-value
 next action remains fresh certified T-minus-4 starter receipts plus source-bound
 prospective batter rows; never backfill or reuse spent confirmation evidence.
 
+SI-007 is also repaired in the same isolated research lineage. Rolling-provider
+payloads can no longer replace source-bound Statcast values, and every effective
+rich Statcast field is bound to source kind/status/window/row count. Barrel and
+hard-hit fields additionally bind their shared denominator and counts. Missing,
+changed, or contradictory lineage fails again at feature storage and PA
+probability consumption. Full tests pass 179/179. Valid probabilities remain
+unchanged; this is another integrity repair, not a performance promotion.
+
 ===============================================================================
 AUTHORITATIVE NEXT-ACTION AUDIT (2026-07-21) - FRESH RECEIPTS REQUIRED
 

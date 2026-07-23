@@ -20,7 +20,12 @@ from src.features.ml.statcast_features import StatcastFeatureEngineer
 from src.features.ml.context_features import ContextFeatureEngineer
 from src.features.ml.rolling_features import RollingFeatureEngineer
 from src.models.dataclasses import StatcastProfile
-from src.data.statcast_integrity import validate_rate_pair
+from src.data.statcast_integrity import (
+    RICH_STATCAST_PASSTHROUGH_FIELDS,
+    StatcastIntegrityError,
+    validate_profile_and_rich_features,
+    validate_rate_pair,
+)
 
 
 class RichFeatureEnricher:
@@ -86,6 +91,45 @@ class RichFeatureEnricher:
             "sample_pa": profile.sample_pa,
         }
         if rolling:
+            collisions = sorted(
+                set(rolling).intersection(
+                    set(RICH_STATCAST_PASSTHROUGH_FIELDS)
+                    | {"sample_pa", "game_date"}
+                )
+            )
+            if collisions:
+                raise StatcastIntegrityError(
+                    "rolling provider cannot replace source-bound fields: "
+                    + ", ".join(collisions)
+                )
             input_data.update(rolling)
 
-        return self.pipeline.compute(input_data)
+        features = self.pipeline.compute(input_data)
+        lineage: dict[str, dict[str, Any]] = {}
+        for field in RICH_STATCAST_PASSTHROUGH_FIELDS:
+            if features.get(field) is None:
+                continue
+            entry: dict[str, Any] = {
+                "source": "statcast_profile",
+                "source_kind": profile.source_kind,
+                "source_status": profile.source_status,
+                "source_window_end": profile.source_window_end,
+                "source_row_count": profile.source_row_count,
+            }
+            if field in {"barrel_rate", "hard_hit_rate"}:
+                entry.update(
+                    {
+                        "batted_ball_denominator": profile.batted_ball_denominator,
+                        "barrel_count": profile.barrel_count,
+                        "hard_hit_count": profile.hard_hit_count,
+                        "batted_ball_rate_definition": profile.batted_ball_rate_definition,
+                    }
+                )
+            lineage[field] = entry
+        features["_statcast_lineage"] = lineage
+        validate_profile_and_rich_features(
+            profile,
+            features,
+            context=f"RichFeatureEnricher.output[{profile.player_id}]",
+        )
+        return features
