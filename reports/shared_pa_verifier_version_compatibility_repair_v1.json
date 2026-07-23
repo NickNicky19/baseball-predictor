@@ -1,0 +1,43 @@
+{
+  "schema_version": "shared-pa-verifier-version-compatibility-repair-v1",
+  "incident_id": "SI-036",
+  "root_cause": "The independent verifier constructed a new ledger manifest with the current code hash before verifying a copied immutable ledger. A permission-only collector repair therefore made the verifier and service try to compare the already-open daily ledger with a new code identity, correctly producing an immutable-manifest conflict.",
+  "affected_scope": [
+    "independent replay of an immutable ledger after a non-semantic code-hash transition",
+    "mid-day shared-PA runtime deployment"
+  ],
+  "source_repair": {
+    "read_only_open": "SharedPAForwardLedger.open_existing validates the exact manifest field set, plan binding, safety booleans, expected target identities, and digest syntax without publishing or rewriting any byte.",
+    "compatibility_boundary": "A code-hash mismatch is accepted only for one exact certificate pair binding the prior collector hash and current verifier hash. Unknown hashes, duplicate pairs, widened changed paths, semantic-change claims, or evidence-byte changes fail closed.",
+    "runtime_boundary": "The 2026-07-23 AWS shared-PA runtime was restored to exact commit 7b04e8d08e1927e4ac4bbf6efad1c64392c450b9 so the already-open daily ledger cannot mix collector identities. The permission metadata repair remains applied.",
+    "backfill": false,
+    "evidence_content_mutation": false
+  },
+  "certified_compatibility": {
+    "evidence_collector_code_sha256": "8b3a713d90f85f03f9f11032e3fc8544494cb64647e6c0f48376bd65eda58489",
+    "verifier_code_sha256": "3f50dca58ba3eac356021fe3b81c3f9ad852d938bf19857814f2a131a6d33d47",
+    "changed_code_paths": [
+      "src/evaluation/shared_pa_forward_ledger.py"
+    ],
+    "parser_or_probability_semantics_changed": false,
+    "evidence_bytes_changed": false
+  },
+  "mutation_and_regression_proof": {
+    "focused_tests": "20 passed",
+    "full_tests": "266 passed",
+    "release_manifest_bindings": 30,
+    "release_manifest_state": "verified"
+  },
+  "hashes": {
+    "config/shared_pa_forward_verifier_compatibility_v1.json": "1555a4646c9078fff3dab6a03271af7ffd46c4bb6e95a634b15a767a7330abe3",
+    "src/evaluation/shared_pa_forward_ledger.py": "8dff31bcc76dce20f67f684f079b70e69e1b9282e2d619ffb2144ffda34faa2f",
+    "scripts/verify_aws_shared_pa_forward_tree.py": "890f16421a20142daf2632431bf6249117ef328c01a749202d4eb6f0b8ce01c7",
+    "tests/test_aws_shared_pa_forward_verifier.py": "3ead9da3bd6558b8f454ae894c80d910a4e43407f7b034dcc0d9f1598bc00c28",
+    "tests/test_shared_pa_forward_ledger.py": "fdb872b6e7fbeb120e75b6608aea25caad53e7309db859096415e74b7481298e",
+    "reports/shared_pa_forward_release_v1_hash_manifest.json": "9d4b45c95e0bf991ceca2587e8a4b9ee6671bbcf735e5891450ed1bd13a80116"
+  },
+  "classification": "operational integrity and independent-verification repair",
+  "performance_improvement_claimed": false,
+  "production_model_promoted": false,
+  "betting_authorized": false
+}
