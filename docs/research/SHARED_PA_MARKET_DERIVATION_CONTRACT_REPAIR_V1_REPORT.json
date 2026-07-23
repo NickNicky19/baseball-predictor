@@ -1,0 +1,60 @@
+{
+  "schema_version": "shared-pa-market-derivation-contract-repair-report-v1",
+  "candidate_id": "shared-pa-market-derivation-contract-repair-v1-21aa7f8bfc335e19",
+  "defect_id": "SI-033",
+  "classification": "integrity_repair_only",
+  "status": "verified_not_promoted",
+  "root_cause": [
+    "exact market derivation checked the PA-probability matrix width but not finiteness, bounds, or row mass",
+    "row lineup slots and PA-distribution support were coerced with int, allowing nonintegral identity to be truncated",
+    "PA-distribution slots, weights, completeness, and unit mass were not validated before mixture arithmetic",
+    "derived probabilities near an invalid boundary were clipped into [0,1]"
+  ],
+  "repair": [
+    "validate the complete PA probability matrix before deriving any market",
+    "require exact integral lineup-slot and PA-support identities",
+    "require complete slots 1 through 9 with finite weights in [0,1] and unit mass",
+    "reject every out-of-support derived probability without clipping or substitution",
+    "retain one shared exact derivation while keeping Hits, HR, and Total Bases outputs separate"
+  ],
+  "mutation_proof": [
+    "NaN, negative, above-one, non-normalized, and wrong-width PA probability inputs rejected",
+    "boolean, missing, out-of-range, nonintegral, and NaN row lineup identities rejected",
+    "missing/extra slots, negative/nonfinite weights, non-unit mass, and fractional PA support rejected",
+    "valid fixed-four-PA Hits and HR tails match their closed forms",
+    "valid Total Bases survival tails remain ordered and within [0,1]"
+  ],
+  "verification": {
+    "focused": "20 passed",
+    "full_suite": "332 passed",
+    "historical_outcomes_opened": false,
+    "historical_prices_opened": false,
+    "may_2026_opened": false,
+    "source_or_feature_artifacts_rebuilt": false,
+    "valid_probabilities_recomputed": false,
+    "aws_runtime_changed": false,
+    "collector_changed": false
+  },
+  "hashes": {
+    "parent_commit": "debf54361205539cbb3ece822490e15331cb369c",
+    "bundle_hash_definition": "sha256(utf8(sorted path + NUL + lowercase file_sha256, newline delimited, terminal newline))",
+    "code_bundle_sha256": "21aa7f8bfc335e194f09f610d74e0009e4a023242a5d66357e76d6406230d5c5",
+    "test_bundle_sha256": "1e2bfd9fef414f9158e7d670cfd11b9e870c27ed63fa004c1ff64473017e9492",
+    "config_sha256": "77c029297b514e3df652bb447d90e58906e954c64dcd039d78537b9e59870436",
+    "data_sha256": null,
+    "feature_sha256": null,
+    "src_learning_shared_pa_model_py": "33abaac1fd8262d076f2d71986f77d8a0fa1ea6534c5ec93c10857cc84bced19",
+    "tests_test_shared_pa_market_derivation_contract_py": "3655aa95192be47e73f37d8bac35f4fcb62e038e5ec75275122d7e66dcec2b80"
+  },
+  "chronological_evaluation": {
+    "required": false,
+    "reason": "valid PA and PA-volume inputs produce unchanged exact tails; malformed state is rejected and no model was fitted or selected"
+  },
+  "promotion": {
+    "hits": false,
+    "home_runs": false,
+    "total_bases": false,
+    "betting_authorized": false
+  },
+  "highest_value_next_action": "Collect and independently verify fresh point-in-time PA-volume and T-4 starter evidence, then score the locked shared PA candidate prospectively for each market without threshold changes."
+}

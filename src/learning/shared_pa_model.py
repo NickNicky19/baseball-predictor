@@ -379,8 +379,66 @@ def derived_market_probabilities(
 ) -> dict[str, np.ndarray]:
     """Derive exact Hits/HR/TB tails from one PA distribution and fitted PA volume."""
     probabilities = np.asarray(pa_probabilities, dtype=float)
-    if probabilities.shape[1] != len(PA_OUTCOMES):
+    if probabilities.ndim != 2 or probabilities.shape[1] != len(PA_OUTCOMES):
         raise ValueError("PA probability class mismatch")
+    if not np.isfinite(probabilities).all():
+        raise ValueError("PA probabilities must be finite")
+    if ((probabilities < 0.0) | (probabilities > 1.0)).any():
+        raise ValueError("PA probabilities must be within [0,1]")
+    if not np.allclose(probabilities.sum(axis=1), 1.0, rtol=0.0, atol=1e-9):
+        raise ValueError("PA probability rows must sum to one")
+    if len(lineup_slots) != len(probabilities):
+        raise ValueError("lineup-slot and PA-probability row counts differ")
+    if not isinstance(pa_distribution, dict) or not pa_distribution:
+        raise ValueError("PA distribution must be a non-empty object")
+
+    validated_distributions: dict[str, dict[int, float]] = {}
+    for raw_slot, raw_distribution in pa_distribution.items():
+        if isinstance(raw_slot, bool):
+            raise ValueError(f"invalid PA-distribution lineup slot: {raw_slot!r}")
+        try:
+            slot_number = int(raw_slot)
+        except (TypeError, ValueError) as exc:
+            raise ValueError(f"invalid PA-distribution lineup slot: {raw_slot!r}") from exc
+        if str(slot_number) != str(raw_slot).strip() or not 1 <= slot_number <= 9:
+            raise ValueError(f"invalid PA-distribution lineup slot: {raw_slot!r}")
+        slot = str(slot_number)
+        if slot in validated_distributions:
+            raise ValueError(f"duplicate canonical PA-distribution lineup slot: {slot}")
+        if not isinstance(raw_distribution, dict) or not raw_distribution:
+            raise ValueError(f"missing PA distribution for lineup slot {slot}")
+        distribution: dict[int, float] = {}
+        for raw_pa, raw_weight in raw_distribution.items():
+            if isinstance(raw_pa, bool):
+                raise ValueError(f"invalid PA support for lineup slot {slot}: {raw_pa!r}")
+            try:
+                pa = int(raw_pa)
+            except (TypeError, ValueError) as exc:
+                raise ValueError(f"invalid PA support for lineup slot {slot}: {raw_pa!r}") from exc
+            if str(pa) != str(raw_pa).strip() or pa < 0:
+                raise ValueError(f"invalid PA support for lineup slot {slot}: {raw_pa!r}")
+            if pa in distribution:
+                raise ValueError(f"duplicate canonical PA support for lineup slot {slot}: {pa}")
+            if isinstance(raw_weight, bool):
+                raise ValueError(f"PA weight for lineup slot {slot}, PA {pa} must be numeric")
+            try:
+                weight = float(raw_weight)
+            except (TypeError, ValueError) as exc:
+                raise ValueError(
+                    f"PA weight for lineup slot {slot}, PA {pa} must be numeric"
+                ) from exc
+            if not np.isfinite(weight) or not 0.0 <= weight <= 1.0:
+                raise ValueError(
+                    f"PA weight for lineup slot {slot}, PA {pa} must be finite within [0,1]"
+                )
+            distribution[pa] = weight
+        if not np.isclose(sum(distribution.values()), 1.0, rtol=0.0, atol=1e-9):
+            raise ValueError(f"PA distribution for lineup slot {slot} must sum to one")
+        validated_distributions[slot] = distribution
+
+    missing_slots = sorted(set(str(slot) for slot in range(1, 10)) - set(validated_distributions))
+    if missing_slots:
+        raise ValueError(f"PA distribution is missing lineup slots: {missing_slots}")
     class_index = {name: index for index, name in enumerate(PA_OUTCOMES)}
     output = {
         "hits_0.5": np.zeros(len(probabilities)),
@@ -394,10 +452,20 @@ def derived_market_probabilities(
         "single": 1, "double": 2, "triple": 3, "home_run": 4,
     }
     for row_index, (probability, raw_slot) in enumerate(zip(probabilities, lineup_slots)):
-        slot = str(int(raw_slot))
-        distribution = pa_distribution.get(slot)
-        if not distribution:
-            raise ValueError(f"missing PA distribution for lineup slot {slot}")
+        if isinstance(raw_slot, (bool, np.bool_)):
+            raise ValueError(f"invalid lineup slot at row {row_index}: {raw_slot!r}")
+        try:
+            slot_number = int(raw_slot)
+        except (TypeError, ValueError, OverflowError) as exc:
+            raise ValueError(f"invalid lineup slot at row {row_index}: {raw_slot!r}") from exc
+        try:
+            exact_slot = float(raw_slot)
+        except (TypeError, ValueError, OverflowError) as exc:
+            raise ValueError(f"invalid lineup slot at row {row_index}: {raw_slot!r}") from exc
+        if not np.isfinite(exact_slot) or exact_slot != slot_number or not 1 <= slot_number <= 9:
+            raise ValueError(f"invalid lineup slot at row {row_index}: {raw_slot!r}")
+        slot = str(slot_number)
+        distribution = validated_distributions[slot]
         q_hit = float(probability[hit_indices].sum())
         q_hr = float(probability[class_index["home_run"]])
         one_pa_tb = np.zeros(5, dtype=float)
@@ -405,8 +473,8 @@ def derived_market_probabilities(
         for name, bases in tb_values.items():
             one_pa_tb[bases] = float(probability[class_index[name]])
         for raw_pa, weight in distribution.items():
-            pa = int(raw_pa)
-            mixture_weight = float(weight)
+            pa = raw_pa
+            mixture_weight = weight
             output["hits_0.5"][row_index] += mixture_weight * (1.0 - (1.0 - q_hit) ** pa)
             p0 = (1.0 - q_hit) ** pa
             p1 = pa * q_hit * (1.0 - q_hit) ** max(pa - 1, 0)
@@ -419,7 +487,6 @@ def derived_market_probabilities(
                 threshold = int(line + 0.5)
                 output[f"total_bases_{line}"][row_index] += mixture_weight * float(tb_pmf[threshold:].sum())
     for name, values in output.items():
-        if not np.isfinite(values).all() or ((values < -1e-12) | (values > 1.0 + 1e-12)).any():
+        if not np.isfinite(values).all() or ((values < 0.0) | (values > 1.0)).any():
             raise ValueError(f"derived market probability outside [0,1]: {name}")
-        output[name] = np.clip(values, 0.0, 1.0)
     return output

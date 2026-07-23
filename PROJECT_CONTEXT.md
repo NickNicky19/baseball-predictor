@@ -1263,6 +1263,24 @@ unauthorized.
 The report SHA-256 is
 `2571c6f6b1ea0e0ddf370d979d709e0b6003d5b596090f97b12296dc4d7df58d`.
 
+2026-07-23 HANDOFF ADDENDUM — SHARED PA MARKET DERIVATION (AUTHORITATIVE)
+
+SI-033 is repaired in the same isolated lineage. The exact shared-PA market
+derivation previously accepted malformed/non-normalized PA probabilities,
+truncated lineup-slot and PA-support identities with `int`, mixed unverified PA
+weights, and clipped suspicious derived values into probability support. The
+repaired boundary requires finite bounded unit-mass PA rows, exact lineup/PA
+identity, complete slots 1–9, finite nonnegative unit-mass PA distributions,
+and un-clipped final probability support. Closed-form Hits and HR mutations and
+Total Bases survival checks pass. Focused proof is 20 passed and the full suite
+is 332 passed. Exact hashes are in
+`docs/research/SHARED_PA_MARKET_DERIVATION_CONTRACT_REPAIR_V1_REPORT.json`.
+Valid exact tails are unchanged; no historical outcome, price, May 2026,
+source, feature, prediction, AWS, collector, or frozen-production artifact was
+opened or changed. No market was promoted and betting remains unauthorized.
+The report SHA-256 is
+`d25da6da862ccd2ea67b686a4cebc18f436f487ab8b1408a67a9106e74a6f522`.
+
 2026-07-22 HANDOFF ADDENDUM — EXPLICIT/SAMPLED INPUT PARITY (AUTHORITATIVE)
 
 SI-029 is repaired in the same isolated lineage. `ProbabilityEngine` archived
