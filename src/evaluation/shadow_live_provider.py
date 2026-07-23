@@ -37,6 +37,11 @@ SOURCE_NAME = "the_odds_api"
 SPORT_KEY = "baseball_mlb"
 BOOKMAKER_KEY = "draftkings"
 MARKET_KEY = "batter_hits"
+SHARED_PA_MARKET_KEYS = (
+    "batter_hits",
+    "batter_home_runs",
+    "batter_total_bases",
+)
 BASE_URL = "https://api.the-odds-api.com/v4"
 _WS = re.compile(r"\s+")
 RESOLUTION_STATUSES = frozenset({
@@ -229,6 +234,27 @@ class TheOddsAPIShadowClient:
             {
                 "bookmakers": BOOKMAKER_KEY,
                 "markets": MARKET_KEY,
+                "oddsFormat": "american",
+                "dateFormat": "iso",
+                "includeSids": "true",
+                "includeLinks": "false",
+            },
+        )
+
+    def fetch_shared_pa_markets(self, event_id: str) -> ProviderResponse:
+        """Fetch the three locked shared-PA markets in one retained response.
+
+        The existing Hits collector continues to call ``fetch_hits`` unchanged.
+        This separate method is inert until the new comparator service invokes
+        it, and it never interprets a one-sided quote as a fair probability.
+        """
+        if not str(event_id).strip():
+            raise ShadowLiveProviderError("provider event id cannot be blank")
+        return self._get(
+            f"sports/{SPORT_KEY}/events/{event_id}/odds",
+            {
+                "bookmakers": BOOKMAKER_KEY,
+                "markets": ",".join(SHARED_PA_MARKET_KEYS),
                 "oddsFormat": "american",
                 "dateFormat": "iso",
                 "includeSids": "true",

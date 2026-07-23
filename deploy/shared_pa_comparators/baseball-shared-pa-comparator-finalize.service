@@ -1,0 +1,23 @@
+[Unit]
+Description=Finalize receipt-bound shared-PA comparator evidence (research only)
+After=baseball-pitcher-receipt-tick.service baseball-shared-pa-forward-tick.service
+
+[Service]
+Type=oneshot
+User=baseball-shadow
+Group=baseball-shadow
+WorkingDirectory=/srv/baseball-shadow/shared-pa-comparators/runtime
+ExecStart=/opt/baseball-predictor-shared-pa-comparators/current-venv/bin/python /opt/baseball-predictor-shared-pa-comparators/current/scripts/run_aws_shared_pa_comparator_tick.py finalize --plan-dir /srv/baseball-shadow/pitcher-receipts/plans --plan-receipt-root /srv/baseball-shadow/pitcher-receipts/plan-receipts --pitcher-ledger-root /srv/baseball-shadow/pitcher-receipts/ledgers --shared-pa-ledger-root /srv/baseball-shadow/shared-pa-forward/ledgers --evidence-root /srv/baseball-shadow/shared-pa-comparators --lock-file /srv/baseball-shadow/shared-pa-comparators/locks/finalize.lock
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadOnlyPaths=/srv/baseball-shadow/pitcher-receipts /srv/baseball-shadow/shared-pa-forward/ledgers
+ReadWritePaths=/srv/baseball-shadow/shared-pa-comparators
+RestrictSUIDSGID=true
+LockPersonality=true
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_UNIX
+MemoryDenyWriteExecute=true
+UMask=0027

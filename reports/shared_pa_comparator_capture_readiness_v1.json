@@ -1,0 +1,157 @@
+{
+  "schema_version": "shared-pa-comparator-capture-readiness-v1",
+  "candidate_id": "shared_pa_comparator_capture_v1",
+  "candidate_classification": "source_truth_repair_and_forward_evidence_readiness_not_model_promotion",
+  "source_base_commit": "a6d56efec25e4ff5061fc26b84e9eb620f70040a",
+  "status": "CERTIFIED_CODE_READY_NOT_DEPLOYED_NOT_PERFORMANCE_ADJUDICATED",
+  "scope": {
+    "markets": ["hits", "home_runs_over_0_5", "total_bases"],
+    "decision_horizon": "T-4h",
+    "research_only": true,
+    "betting_authorized": false,
+    "production_probability_changed": false,
+    "fresh_prospective_performance_observations": 0,
+    "proven_probability_improvement": 0.0
+  },
+  "feature_to_probability_map": {
+    "frozen_hits_and_hr": [
+      "point-in-time feature bundle",
+      "existing frozen config.kbb probability and game simulation",
+      "unchanged run_slate categories hits/hrr/home_runs",
+      "exact simulation p_ge_threshold",
+      "hard game/player/opposing-pitcher identity",
+      "receipt-proven probable-starter equality gate",
+      "frozen_production adjudication probability"
+    ],
+    "total_bases": [
+      "same point-in-time feature bundle",
+      "same frozen game simulator",
+      "separate outcome-blind structural Total Bases output permission",
+      "exact totals 1 through 6 p_ge_threshold",
+      "hard game/player/opposing-pitcher identity",
+      "receipt-proven probable-starter equality gate",
+      "frozen_production Total Bases comparator classified as a deterministic extension, not a prior production promotion"
+    ],
+    "market_implied": [
+      "retained The Odds API event bytes and receipt time",
+      "hash-bound exact event identity with team-pair cardinality and chronological ordinal",
+      "DraftKings market key fixed separately per market",
+      "exact player description map within hard MLB game identity",
+      "same event/book/market/player/line unique Over and Under selection IDs",
+      "American raw implied probabilities",
+      "two-sided normalization only",
+      "market_implied adjudication probability"
+    ],
+    "pitcher_receipt_gate": [
+      "immutable official pregame schedule response",
+      "home/away probable-pitcher MLB IDs",
+      "batter side selects the opposing probable-pitcher ID",
+      "exact equality with the ID serialized from the feature bundle",
+      "missing or mismatch becomes unassessable with no guessed, name-matched, league-average, or eventual-starter substitution"
+    ]
+  },
+  "defect_register": [
+    {
+      "priority": 1,
+      "finding": "Frozen batter archives serialized only an opposing-pitcher display name, so probability consumption could not prove which MLB pitcher identity entered the feature bundle.",
+      "root_cause": "PropProjection dropped HitterGameContext.opposing_pitcher_id during construction and JSON serialization.",
+      "affected_scope": "Every archived batter probability using pitcher context, including Hits, HR, and derived Total Bases.",
+      "repair": "Carry the exact MLB opposing_pitcher_id from the consumed feature bundle through PropProjection and archive serialization.",
+      "fail_closed_boundary": "Frozen comparator consumption requires equality with the immutable T-4 probable-starter receipt; missing or conflicting identity is unassessable.",
+      "classification": "source_truth_repair",
+      "production_promotion": false
+    },
+    {
+      "priority": 2,
+      "finding": "The supported production slate did not archive Total Bases, and adding it directly would violate the existing candidate-only gate and break automation.",
+      "root_cause": "Total Bases is intentionally excluded from run_slate and PropEngine rejects it without explicit candidate provenance.",
+      "affected_scope": "Required frozen-simulator comparator for Total Bases.",
+      "repair": "Preserve run_slate unchanged and add a separate hash-bound Total Bases runner using an outcome-blind structural candidate config.",
+      "fail_closed_boundary": "The comparator requires two separate archives with exact config/model/run-option identities; neither can impersonate the other.",
+      "classification": "research_candidate_output_extension",
+      "production_promotion": false
+    },
+    {
+      "priority": 3,
+      "finding": "The live provider client exposed only DraftKings batter_hits.",
+      "root_cause": "The original operational-smoke lane was intentionally market-specific.",
+      "affected_scope": "Fresh market comparators for HR and Total Bases.",
+      "repair": "Add a separate inert client method requesting batter_hits, batter_home_runs, and batter_total_bases in one event request; the existing Hits method and running collectors remain unchanged.",
+      "fail_closed_boundary": "The new resolver keeps markets separate and requires the locked key for each output.",
+      "classification": "capture_readiness_repair",
+      "production_promotion": false
+    },
+    {
+      "priority": 4,
+      "finding": "A one-sided, cross-book, late, duplicated, or timestamp-inconsistent quote could be mistaken for a valid market-implied probability.",
+      "root_cause": "No shared three-market probability-consumption boundary existed.",
+      "affected_scope": "Hits, HR, and Total Bases market comparison.",
+      "repair": "Require same event/book/market/player/line, unique Over and Under SIDs, one shared market timestamp, receipt and timestamp no later than T-4, and exact two-sided de-vigging.",
+      "fail_closed_boundary": "Invalid evidence receives an explicit terminal disposition and no probability; unmatched provider players remain in the candidate funnel.",
+      "classification": "probability_consumption_repair",
+      "production_promotion": false
+    },
+    {
+      "priority": 5,
+      "finding": "Comparator records needed crash-safe immutable publication.",
+      "root_cause": "The new normalized records had no write-once persistence boundary.",
+      "affected_scope": "All future comparator evidence.",
+      "repair": "Canonical hash envelope plus atomic hard-link publication; exact retry verifies and conflicting retry cannot overwrite.",
+      "fail_closed_boundary": "May, non-research, betting-authorized, malformed, and conflicting records are rejected before publication.",
+      "classification": "evidence_integrity_repair",
+      "production_promotion": false
+    }
+  ],
+  "chronology_and_data_boundaries": {
+    "fit_season": 2023,
+    "selection_season": 2024,
+    "spent_2025_hr_confirmation_reused": false,
+    "may_2026_accessed_by_repair_workflow": false,
+    "outcome_fields_accessed": false,
+    "real_provider_requests_made": 0,
+    "missed_prospective_records_backfilled": false,
+    "historical_prices_claimed_executable": false,
+    "synthetic_fixtures_only_for_new_tests": true
+  },
+  "hashes": {
+    "contract_sha256": "0db198cc31b127b80d6ac84f2a944722cb649b068552bb6c069cada635fe37f0",
+    "frozen_config_file_sha256": "ff65d440b7571aa490300b26b1cf8a6271c5979e564c1a74d1d0988a0b743bad",
+    "frozen_effective_config_sha256": "3a62fc507956752086919b757ae683e60f9df8fb2143f83292ac61f07830a60c",
+    "frozen_model_version": "8c7eed9bb0c3",
+    "total_bases_extension_effective_config_sha256": "2563cfc1b8ebd71e787d8adeb0c89849c2732c92b6d7368ba7b149885fdc2abc",
+    "total_bases_extension_model_version": "de116c7c2f33",
+    "comparator_module_sha256": "d0add1adc39815c6a98719c356bd6eebf8cff4af046fdb0720e5e366ca2ede71",
+    "total_bases_runner_sha256": "dc6901c5cfb85862523f733e65fac429feca2c34155081deb2c13feb3efd5d97",
+    "provider_client_sha256": "040b12553fc95be02b1a0bc2ce0946e9021a65ca4732d3adb31407dae6ea093b",
+    "projection_schema_sha256": "1ad8cb045a5e3a38b81e24ca9f9d3feb48ffaee25625d6411eb60f8f4ce606ab",
+    "total_bases_contract_code_sha256": "345a5c5dfc719245532e67362e0b708500521c88390222b6b00be0ace03bd009",
+    "probability_producer_sha256": "47f198a64230209d080be01257724c67a34bb123c7c0a603b5d8286ee0130640",
+    "shared_pa_evidence_contract_sha256": "b93827a465e5145d1e725f84cbed53d413f0c2e8601e41021221e3d13d079401",
+    "permissible_pregame_archive_audit_sha256": "3c269daef727741f8b15b3af9f3e697d1a60387743a087c631194415096d6e88",
+    "comparator_tests_sha256": "5ea82ae2e0d33f3117d0f032da0288a2ec08ec1eab6f3d6585f74bedce94cc44",
+    "market_client_tests_sha256": "5ddb56f15bb20b51e5c04903e0ca6c8c5ad3ed0f6524312e47911f4d33e12473",
+    "total_bases_runner_tests_sha256": "d72d61436c39276837d2ddacbfdcbd20f3e8e509296735cc06c3b9136f417e2c"
+  },
+  "verification": {
+    "focused_tests": "31 passed",
+    "full_repository_tests": "241 passed",
+    "git_diff_check": "passed",
+    "existing_run_slate_probability_categories_changed": false,
+    "existing_hits_hr_probability_regression": "exact dataclass equality passed when the Total Bases output is appended under the separate structural config",
+    "active_local_pitcher_collector_pid_20872_modified_or_restarted": false,
+    "operational_smoke_modified": false
+  },
+  "adjudication": {
+    "integrity_defect_repaired": true,
+    "code_ready": true,
+    "deployed": false,
+    "fresh_independent_evidence_available": false,
+    "hits_material_improvement_proven": false,
+    "hr_material_improvement_proven": false,
+    "total_bases_material_improvement_proven": false,
+    "candidate_promoted": false,
+    "frozen_baseline_retained": true,
+    "betting_authorized": false
+  },
+  "single_highest_value_next_action": "Land an exact reviewed release, integrate it as a new non-overlapping AWS comparator service, and complete one future T-4 non-economic smoke before opening a fresh prospective evidence era; do not alter or backfill the existing pitcher or shared-PA collectors."
+}

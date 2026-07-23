@@ -461,6 +461,7 @@ class PropEngine:
                 team=bundle.hitter.player.team,
                 opponent=bundle.hitter.game.opponent,
                 opposing_pitcher=bundle.hitter.opposing_pitcher_name,
+                opposing_pitcher_id=bundle.hitter.opposing_pitcher_id,
                 lineup_status=bundle.hitter.game.lineup_status,
                 mlb_game_pk=bundle.hitter.game.game_pk,
                 input_health_flags=health_flags,

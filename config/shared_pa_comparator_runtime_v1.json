@@ -1,0 +1,39 @@
+{
+  "schema_version": "shared-pa-comparator-runtime-v1",
+  "scope": "future_only_three_market_comparator_capture",
+  "contract": {
+    "path": "config/shared_pa_comparator_capture_v1.json",
+    "sha256": "0db198cc31b127b80d6ac84f2a944722cb649b068552bb6c069cada635fe37f0"
+  },
+  "scheduler": {
+    "entry_hours": 4,
+    "prediction_window_opens_seconds_before_horizon": 2700,
+    "prediction_window_closes_seconds_before_horizon": 300,
+    "market_window_opens_seconds_before_horizon": 180,
+    "finalize_grace_seconds_after_horizon": 300,
+    "prediction_tick_seconds": 120,
+    "market_tick_seconds": 15,
+    "finalize_tick_seconds": 30
+  },
+  "provider": {
+    "api_key_environment_variable": "ODDS_API_KEY",
+    "markets": ["batter_hits", "batter_home_runs", "batter_total_bases"],
+    "bookmaker": "draftkings",
+    "maximum_event_start_delta_seconds": 60
+  },
+  "invariants": {
+    "read_pitcher_receipts_only": true,
+    "read_shared_pa_snapshots_only": true,
+    "separate_evidence_root": true,
+    "immutable_publication": true,
+    "post_horizon_prediction_or_market_fetch_forbidden": true,
+    "late_backfill_forbidden": true,
+    "may_2026_forbidden": true,
+    "outcomes_and_settlement_forbidden": true,
+    "historical_executability_claim_forbidden": true,
+    "existing_collectors_untouched": true,
+    "research_only": true,
+    "betting_authorized": false,
+    "production_changed": false
+  }
+}

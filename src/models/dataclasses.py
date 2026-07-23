@@ -464,6 +464,11 @@ class PropProjection:
     team: str = ""
     opponent: str = ""
     opposing_pitcher: str = ""
+    # Hard MLB identity for the pitcher context actually consumed by the
+    # projection.  Names remain display-only.  Forward comparator evidence
+    # must reject a missing or receipt-inconsistent identifier rather than
+    # infer one later from a name or the eventual starter.
+    opposing_pitcher_id: Optional[int] = None
     lineup_status: LineupStatus = "unknown"
     # MLB's stable game identity.  Optional only so generic/live callers that
     # construct projections without a historical game context remain compatible.
@@ -558,6 +563,7 @@ def _projection_to_dict(projection: PropProjection) -> dict[str, Any]:
         "team": projection.team,
         "opponent": projection.opponent,
         "opposing_pitcher": projection.opposing_pitcher,
+        "opposing_pitcher_id": projection.opposing_pitcher_id,
         "lineup_status": projection.lineup_status,
         "mlb_game_pk": projection.mlb_game_pk,
         "input_health_flags": list(projection.input_health_flags),

@@ -1,0 +1,12 @@
+[Unit]
+Description=Check pre-T4 three-market capture windows every 15 seconds
+
+[Timer]
+OnBootSec=20s
+OnUnitActiveSec=15s
+AccuracySec=1s
+Persistent=false
+Unit=baseball-shared-pa-comparator-markets.service
+
+[Install]
+WantedBy=timers.target

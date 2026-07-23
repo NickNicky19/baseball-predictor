@@ -1,0 +1,81 @@
+{
+  "schema_version": "shared-pa-comparator-capture-contract-v1",
+  "status": "LOCKED_RESEARCH_ONLY_FAIL_CLOSED",
+  "contract_locked_at_utc": "2026-07-23T00:36:00Z",
+  "decision_horizon": "T-4h",
+  "provider": {
+    "source_name": "the_odds_api",
+    "sport_key": "baseball_mlb",
+    "bookmaker_key": "draftkings",
+    "maximum_event_start_delta_seconds": 60,
+    "raw_bytes_and_receipt_hash_required": true,
+    "selection_ids_required": true
+  },
+  "markets": {
+    "hits": {
+      "provider_market_key": "batter_hits",
+      "archive_category": "hits",
+      "lines": [0.5, 1.5]
+    },
+    "home_runs_over_0_5": {
+      "provider_market_key": "batter_home_runs",
+      "archive_category": "home_runs",
+      "lines": [0.5]
+    },
+    "total_bases": {
+      "provider_market_key": "batter_total_bases",
+      "archive_category": "total_bases",
+      "lines": [0.5, 1.5, 2.5, 3.5, 4.5, 5.5]
+    }
+  },
+  "frozen_formula": {
+    "config_path": "config/config.kbb.json",
+    "config_file_sha256": "ff65d440b7571aa490300b26b1cf8a6271c5979e564c1a74d1d0988a0b743bad",
+    "effective_config_sha256": "3a62fc507956752086919b757ae683e60f9df8fb2143f83292ac61f07830a60c",
+    "model_version": "8c7eed9bb0c3",
+    "corrections_active": false,
+    "total_bases_classification": "deterministic additional output from the unchanged frozen game simulator; not a prior production market promotion",
+    "total_bases_extension_constructor": "src.models.total_bases_contract.shared_pa_forward_candidate_config",
+    "total_bases_extension_effective_config_sha256": "2563cfc1b8ebd71e787d8adeb0c89849c2732c92b6d7368ba7b149885fdc2abc",
+    "total_bases_extension_model_version": "de116c7c2f33",
+    "hard_opposing_pitcher_id_required": true,
+    "receipt_proven_probable_starter_match_required": true,
+    "missing_or_conflicting_pitcher_disposition": "unassessable_no_substitution"
+  },
+  "valid_market_probability": {
+    "same_event_book_market_player_line_required": true,
+    "unique_over_and_under_required": true,
+    "unique_selection_ids_required": true,
+    "same_market_timestamp_required": true,
+    "receipt_and_market_timestamp_no_later_than_horizon": true,
+    "american_implied_formula": "negative: -odds/(-odds+100); positive: 100/(odds+100)",
+    "devig_formula": "over_raw/(over_raw+under_raw)",
+    "one_sided_disposition": "unassessable_raw_retained",
+    "cross_book_pairing_forbidden": true,
+    "executable_or_fill_claim": false
+  },
+  "terminal_dispositions": [
+    "resolved",
+    "missing_market",
+    "missing_line",
+    "one_sided",
+    "ambiguous_group",
+    "invalid_selection",
+    "unmatched_player",
+    "pitcher_receipt_unavailable",
+    "pitcher_identity_mismatch",
+    "frozen_probability_missing",
+    "source_or_integrity_failure"
+  ],
+  "protected_boundaries": {
+    "may_2026_fetch_read_parse_write_forbidden": true,
+    "outcomes_forbidden": true,
+    "missed_receipts_not_backfillable": true,
+    "historical_prices_not_executable": true,
+    "market_pooling_forbidden": true,
+    "operational_smoke_separate": true,
+    "production_probability_formula_changed": false,
+    "research_only": true,
+    "betting_authorized": false
+  }
+}

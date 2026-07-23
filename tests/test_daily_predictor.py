@@ -158,6 +158,21 @@ def test_prediction_provenance_is_explicit_and_serialized():
     assert result.to_dict()["prediction_provenance"] == expected
 
 
+def test_projection_serializes_hard_opposing_pitcher_identity():
+    """Mutation guard: a display name cannot substitute for starter identity."""
+    predictor = _fast_predictor()
+    result = predictor.predict(
+        "2026-07-01",
+        hitter_categories=("home_runs",),
+        include_pitchers=False,
+        apply_corrections=False,
+        include_edges=False,
+    )
+    projection = result.hitter_projections[0]
+    assert projection.opposing_pitcher_id == 99
+    assert result.to_dict()["hitter_projections"][0]["opposing_pitcher_id"] == 99
+
+
 def test_predict_with_corrections_no_state_graceful():
     predictor = _fast_predictor()
     result = predictor.predict(

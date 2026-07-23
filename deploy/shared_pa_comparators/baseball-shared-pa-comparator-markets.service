@@ -1,0 +1,25 @@
+[Unit]
+Description=Capture one immutable pre-T4 Hits/HR/Total Bases response (research only)
+Wants=network-online.target
+After=network-online.target baseball-pitcher-receipt-plan.service
+
+[Service]
+Type=oneshot
+User=baseball-shadow
+Group=baseball-shadow
+WorkingDirectory=/srv/baseball-shadow/shared-pa-comparators/runtime
+EnvironmentFile=-/srv/baseball-shadow/shared-pa-comparators/secrets/provider.env
+ExecStart=/opt/baseball-predictor-shared-pa-comparators/current-venv/bin/python /opt/baseball-predictor-shared-pa-comparators/current/scripts/run_aws_shared_pa_comparator_tick.py capture-markets --plan-dir /srv/baseball-shadow/pitcher-receipts/plans --plan-receipt-root /srv/baseball-shadow/pitcher-receipts/plan-receipts --evidence-root /srv/baseball-shadow/shared-pa-comparators --lock-file /srv/baseball-shadow/shared-pa-comparators/locks/markets.lock
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadOnlyPaths=/srv/baseball-shadow/pitcher-receipts/plans /srv/baseball-shadow/pitcher-receipts/plan-receipts
+ReadWritePaths=/srv/baseball-shadow/shared-pa-comparators
+RestrictSUIDSGID=true
+LockPersonality=true
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+MemoryDenyWriteExecute=true
+UMask=0077

@@ -1,0 +1,12 @@
+[Unit]
+Description=Finalize due shared-PA comparator targets every 30 seconds
+
+[Timer]
+OnBootSec=45s
+OnUnitActiveSec=30s
+AccuracySec=1s
+Persistent=false
+Unit=baseball-shared-pa-comparator-finalize.service
+
+[Install]
+WantedBy=timers.target
