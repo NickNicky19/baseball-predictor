@@ -1,0 +1,35 @@
+{
+  "schema_version": "daily-archive-schedule-repair-v1",
+  "classification": "operational_integrity_repair_only",
+  "root_cause": "The GitHub whole-slate backup archive was scheduled at 20:00 UTC (16:00 EDT), after ordinary early MLB games had begun. Its output could therefore be post-start even when the job succeeded.",
+  "repair": {
+    "github_backup_cron": "0 12 * * *",
+    "utc_time": "12:00",
+    "role": "early whole-slate backup only; AWS per-game T-4 collection remains the primary prospective receipt path",
+    "fail_closed_boundary": "run_slate.py refuses a whole-slate archive when any scheduled game has reached first pitch"
+  },
+  "today_2026_07_23": {
+    "shared_pa_verifier_run": "30047500158",
+    "plan_sha256": "83d48315c1399d741e36ffab835550629342e76ebda597ad730cb9a7763be703",
+    "due_side_count": 10,
+    "missing_due_side_count": 0,
+    "terminal_records": 10,
+    "captured_complete": 0,
+    "lineup_unavailable": 10,
+    "interpretation": "Every planned game side has an explicit terminal T-4 record. No lineup was invented when the official source had none. This is input-integrity evidence, not model-performance evidence."
+  },
+  "proof": {
+    "focused_regression_and_mutation_tests": "17 passed",
+    "broader_fail_closed_audit": "225/225 guard checks passed",
+    "workflow_sha256": "1977fa43d7983d1c957cc7f39b41ac18a757e4100c81057cb40fcf07c23c93b7",
+    "audit_script_sha256": "c084b1cad0ca6255148984066a3f9d21cce6862573072b68f14c8678f659566d",
+    "schedule_test_sha256": "df70f16e1aa58a133dbba3a3a40289696b15c04ee9d863ac6c4ca6b259dc5ff8"
+  },
+  "boundaries": {
+    "may_2026_accessed": false,
+    "missed_prospective_evidence_backfilled": false,
+    "model_probability_or_coefficient_changed": false,
+    "market_or_betting_authorized": false
+  },
+  "next_measured_limiter": "A timestamped projected-lineup source must pass its own point-in-time, identity, and raw-receipt contract before batter feature snapshots can exist at T-4 when official lineups are not yet published."
+}
