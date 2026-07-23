@@ -20,24 +20,56 @@ from src.evaluation.shared_pa_training_data import outcome_counts
 EPSILON = 1e-12
 
 
+def _validated_count_matrix(counts: pd.DataFrame) -> np.ndarray:
+    try:
+        values = counts.loc[:, PA_OUTCOMES].to_numpy(float)
+    except (KeyError, TypeError, ValueError) as exc:
+        raise ValueError("PA counts must contain numeric contracted outcome columns") from exc
+    if values.ndim != 2 or values.shape[1] != len(PA_OUTCOMES):
+        raise ValueError("PA count matrix has the wrong shape")
+    if not np.isfinite(values).all():
+        raise ValueError("PA counts must be finite")
+    if (values < 0.0).any():
+        raise ValueError("PA counts must be nonnegative")
+    if not np.equal(values, np.floor(values)).all():
+        raise ValueError("PA counts must be integral")
+    return values
+
+
+def _validated_probability_matrix(
+    probabilities: np.ndarray,
+    *,
+    expected_shape: tuple[int, int] | None = None,
+) -> np.ndarray:
+    try:
+        probs = np.asarray(probabilities, dtype=float)
+    except (TypeError, ValueError) as exc:
+        raise ValueError("PA probabilities must be numeric") from exc
+    if probs.ndim != 2 or probs.shape[1] != len(PA_OUTCOMES):
+        raise ValueError("PA probability matrix has the wrong shape")
+    if expected_shape is not None and probs.shape != expected_shape:
+        raise ValueError("probability/count shape mismatch")
+    if not np.isfinite(probs).all():
+        raise ValueError("PA probabilities must be finite")
+    if ((probs < 0.0) | (probs > 1.0)).any():
+        raise ValueError("PA probabilities must be within [0,1]")
+    if not np.allclose(probs.sum(axis=1), 1.0, rtol=0.0, atol=1e-9):
+        raise ValueError("PA probabilities do not sum to one")
+    return probs
+
+
 def normalized_counts(frame: pd.DataFrame) -> tuple[pd.DataFrame, np.ndarray]:
     counts = outcome_counts(frame).loc[:, PA_OUTCOMES].astype(float)
-    exposure = counts.sum(axis=1).to_numpy(float)
-    if (exposure < 0).any() or float(exposure.sum()) <= 0:
+    values = _validated_count_matrix(counts)
+    exposure = values.sum(axis=1)
+    if float(exposure.sum()) <= 0:
         raise ValueError("shared PA fitting requires nonnegative and positive aggregate exposure")
     return counts, exposure
 
 
 def proper_scores(counts: pd.DataFrame, probabilities: np.ndarray) -> dict[str, float]:
-    values = counts.loc[:, PA_OUTCOMES].to_numpy(float)
-    probs = np.asarray(probabilities, dtype=float)
-    if probs.shape != values.shape:
-        raise ValueError("probability/count shape mismatch")
-    if not np.isfinite(probs).all() or (probs < 0).any():
-        raise ValueError("probabilities are non-finite or negative")
-    row_sums = probs.sum(axis=1)
-    if not np.allclose(row_sums, 1.0, atol=1e-9):
-        raise ValueError("PA probabilities do not sum to one")
+    values = _validated_count_matrix(counts)
+    probs = _validated_probability_matrix(probabilities, expected_shape=values.shape)
     total = float(values.sum())
     if total <= 0:
         raise ValueError("proper scoring requires positive PA exposure")
@@ -55,10 +87,8 @@ def proper_scores(counts: pd.DataFrame, probabilities: np.ndarray) -> dict[str, 
 
 def per_row_proper_loss(counts: pd.DataFrame, probabilities: np.ndarray) -> pd.DataFrame:
     """Return loss numerators and PA exposure for paired date-block inference."""
-    values = counts.loc[:, PA_OUTCOMES].to_numpy(float)
-    probs = np.asarray(probabilities, dtype=float)
-    if probs.shape != values.shape or not np.allclose(probs.sum(axis=1), 1.0, atol=1e-9):
-        raise ValueError("invalid probability matrix for paired loss")
+    values = _validated_count_matrix(counts)
+    probs = _validated_probability_matrix(probabilities, expected_shape=values.shape)
     clipped = np.clip(probs, EPSILON, 1.0)
     exposure = values.sum(axis=1)
     squared_sum = np.square(probs).sum(axis=1)
@@ -77,10 +107,8 @@ def binary_class_metrics(
     from scipy.optimize import minimize
     from sklearn.metrics import roc_auc_score
 
-    values = counts.loc[:, PA_OUTCOMES].to_numpy(float)
-    probs = np.asarray(probabilities, dtype=float)
-    if probs.shape != values.shape or not np.allclose(probs.sum(axis=1), 1.0, atol=1e-9):
-        raise ValueError("invalid probability matrix for classwise metrics")
+    values = _validated_count_matrix(counts)
+    probs = _validated_probability_matrix(probabilities, expected_shape=values.shape)
     exposure = values.sum(axis=1)
     if (exposure < 0).any() or exposure.sum() <= 0:
         raise ValueError("invalid PA exposure for classwise metrics")
@@ -158,6 +186,12 @@ def paired_date_block_interval(
 ) -> dict[str, float | int]:
     if metric not in {"log_loss", "brier"}:
         raise ValueError("paired interval metric must be log_loss or brier")
+    if isinstance(draws, bool) or not isinstance(draws, int) or draws <= 0:
+        raise ValueError("paired interval draws must be a positive integer")
+    if isinstance(seed, bool) or not isinstance(seed, int):
+        raise ValueError("paired interval seed must be an integer")
+    if len(dates) != len(counts):
+        raise ValueError("paired interval date/count row mismatch")
     candidate_loss = per_row_proper_loss(counts, candidate)
     baseline_loss = per_row_proper_loss(counts, baseline)
     column = f"{metric}_numerator"
@@ -171,9 +205,9 @@ def paired_date_block_interval(
     exposure = block["exposure"].to_numpy(float)
     delta = block["delta"].to_numpy(float)
     point = float(delta.sum() / exposure.sum())
-    rng = np.random.default_rng(int(seed))
-    samples = np.empty(int(draws), dtype=float)
-    for draw in range(int(draws)):
+    rng = np.random.default_rng(seed)
+    samples = np.empty(draws, dtype=float)
+    for draw in range(draws):
         selected = rng.integers(0, len(block), size=len(block))
         samples[draw] = delta[selected].sum() / exposure[selected].sum()
     lower, upper = np.quantile(samples, [0.025, 0.975])
@@ -216,6 +250,14 @@ def fit_rate_baseline(
 ) -> RateBaseline:
     if kind not in {"league_rate", "lineup_slot_rate", "empirical_bayes_player_rate"}:
         raise ValueError(f"unknown simple baseline: {kind}")
+    if isinstance(prior_strength_pa, bool):
+        raise ValueError("prior_strength_pa must be finite and nonnegative")
+    try:
+        prior_strength_pa = float(prior_strength_pa)
+    except (TypeError, ValueError) as exc:
+        raise ValueError("prior_strength_pa must be finite and nonnegative") from exc
+    if not np.isfinite(prior_strength_pa) or prior_strength_pa < 0.0:
+        raise ValueError("prior_strength_pa must be finite and nonnegative")
     counts, exposure = normalized_counts(frame)
     league_counts = counts.sum(axis=0).to_numpy(float)
     league = league_counts / league_counts.sum()
@@ -230,14 +272,14 @@ def fit_rate_baseline(
         work[group_column] = frame[group_column].to_numpy()
         for key, group in work.groupby(group_column, sort=False):
             group_counts = group.loc[:, PA_OUTCOMES].sum(axis=0).to_numpy(float)
-            posterior = group_counts + float(prior_strength_pa) * league
+            posterior = group_counts + prior_strength_pa * league
             grouped[key] = posterior / posterior.sum()
     return RateBaseline(
         kind=kind,
         league_probability=league,
         grouped_probability=grouped,
         group_column=group_column,
-        prior_strength_pa=float(prior_strength_pa),
+        prior_strength_pa=prior_strength_pa,
     )
 
 
@@ -281,9 +323,13 @@ class SharedPACatBoost:
             ).astype(str)
         pool = Pool(prepared, cat_features=self.categorical_features or None)
         probabilities = np.asarray(self.model.predict_proba(pool), dtype=float)
-        if probabilities.shape[1] != len(PA_OUTCOMES):
-            raise ValueError("CatBoost class set does not match PA outcome contract")
-        return probabilities
+        try:
+            return _validated_probability_matrix(
+                probabilities,
+                expected_shape=(len(frame), len(PA_OUTCOMES)),
+            )
+        except ValueError as exc:
+            raise ValueError("CatBoost output violates the PA outcome contract") from exc
 
 
 def fit_catboost(
@@ -297,6 +343,19 @@ def fit_catboost(
     categorical_features: list[str] | None = None,
 ) -> SharedPACatBoost:
     from catboost import CatBoostClassifier, Pool
+
+    if not isinstance(features, list) or not features or len(features) != len(set(features)):
+        raise ValueError("features must be a non-empty unique list")
+    missing_features = sorted(set(features) - set(frame.columns))
+    if missing_features:
+        raise ValueError(f"training frame is missing features: {missing_features}")
+    if not isinstance(params, dict):
+        raise ValueError("CatBoost params must be an object")
+    reserved = sorted(set(params).intersection({"loss_function", "random_seed", "verbose"}))
+    if reserved:
+        raise ValueError(f"CatBoost params cannot override locked fields: {reserved}")
+    if isinstance(seed, bool) or not isinstance(seed, int):
+        raise ValueError("CatBoost seed must be an integer")
 
     if categorical_features is None:
         categorical = [
@@ -342,9 +401,16 @@ def fit_catboost(
 
 
 def temperature_scale(probabilities: np.ndarray, temperature: float) -> np.ndarray:
+    if isinstance(temperature, bool):
+        raise ValueError("temperature must be positive and finite")
+    try:
+        temperature = float(temperature)
+    except (TypeError, ValueError) as exc:
+        raise ValueError("temperature must be positive and finite") from exc
     if not np.isfinite(temperature) or temperature <= 0:
         raise ValueError("temperature must be positive and finite")
-    logp = np.log(np.clip(np.asarray(probabilities, dtype=float), EPSILON, 1.0)) / float(temperature)
+    probs = _validated_probability_matrix(probabilities)
+    logp = np.log(np.clip(probs, EPSILON, 1.0)) / temperature
     logp -= logp.max(axis=1, keepdims=True)
     exp = np.exp(logp)
     return exp / exp.sum(axis=1, keepdims=True)
@@ -378,15 +444,10 @@ def derived_market_probabilities(
     pa_distribution: dict[str, dict[str, float]],
 ) -> dict[str, np.ndarray]:
     """Derive exact Hits/HR/TB tails from one PA distribution and fitted PA volume."""
-    probabilities = np.asarray(pa_probabilities, dtype=float)
-    if probabilities.ndim != 2 or probabilities.shape[1] != len(PA_OUTCOMES):
-        raise ValueError("PA probability class mismatch")
-    if not np.isfinite(probabilities).all():
-        raise ValueError("PA probabilities must be finite")
-    if ((probabilities < 0.0) | (probabilities > 1.0)).any():
-        raise ValueError("PA probabilities must be within [0,1]")
-    if not np.allclose(probabilities.sum(axis=1), 1.0, rtol=0.0, atol=1e-9):
-        raise ValueError("PA probability rows must sum to one")
+    try:
+        probabilities = _validated_probability_matrix(pa_probabilities)
+    except ValueError as exc:
+        raise ValueError(f"invalid PA probabilities for market derivation: {exc}") from exc
     if len(lineup_slots) != len(probabilities):
         raise ValueError("lineup-slot and PA-probability row counts differ")
     if not isinstance(pa_distribution, dict) or not pa_distribution:

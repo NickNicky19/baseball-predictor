@@ -93,7 +93,7 @@ def main() -> int:
     market = derived_market_probabilities(
         probs,
         pd.Series([1, 2]),
-        {"1": {"4": 1.0}, "2": {"4": 1.0}},
+        {str(slot): {"4": 1.0} for slot in range(1, 10)},
     )
     assert market["hits_0.5"][0] >= market["hits_1.5"][0]
     assert market["total_bases_0.5"][0] >= market["total_bases_5.5"][0]

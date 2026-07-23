@@ -46,7 +46,7 @@ def test_valid_exact_market_derivation_matches_closed_forms() -> None:
         (_probability_row(home_run=float("nan")), "finite"),
         (_probability_row(home_run=-0.01, bip_out=0.50), "within"),
         (_probability_row(bip_out=0.40), "sum to one"),
-        (np.ones((1, len(PA_OUTCOMES) - 1)), "class mismatch"),
+        (np.ones((1, len(PA_OUTCOMES) - 1)), "wrong shape"),
     ],
 )
 def test_mutation_invalid_pa_probability_matrix_fails_closed(probability, match) -> None:

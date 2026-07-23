@@ -1281,6 +1281,27 @@ opened or changed. No market was promoted and betting remains unauthorized.
 The report SHA-256 is
 `d25da6da862ccd2ea67b686a4cebc18f436f487ab8b1408a67a9106e74a6f522`.
 
+2026-07-23 HANDOFF ADDENDUM — SHARED PA EVALUATION CONTRACT (AUTHORITATIVE)
+
+SI-034 is repaired in the same isolated lineage. Shared-PA fit, score,
+calibration, uncertainty, and model-output paths previously applied different
+validation: malformed counts/probabilities could enter some metrics,
+temperature scaling clipped inputs before proving probability validity,
+bootstrap and empirical-Bayes controls were coercible, CatBoost identity fields
+could be overridden, and model output was checked only for class count. One
+common count/probability boundary now precedes every consumer; epsilon clipping
+is limited to logarithm safety after validation; model loss/seed identity and
+uncertainty/baseline controls fail closed. Focused proof is 68 passed, the
+offline mathematical reference is 8/8, and the full suite is 383 passed. Exact
+hashes are in
+`docs/research/SHARED_PA_EVALUATION_CONTRACT_REPAIR_V1_REPORT.json`. Valid
+probabilities and evidence metrics are unchanged. No historical outcome, price,
+May 2026, source, feature, prediction, AWS, collector, or frozen-production
+artifact was opened or changed. No market was promoted and betting remains
+unauthorized.
+The report SHA-256 is
+`77b87167ca3a74a3f75a834921bccefc0195729f530d7f65d206c30a582f7b63`.
+
 2026-07-22 HANDOFF ADDENDUM — EXPLICIT/SAMPLED INPUT PARITY (AUTHORITATIVE)
 
 SI-029 is repaired in the same isolated lineage. `ProbabilityEngine` archived

@@ -1,0 +1,67 @@
+{
+  "schema_version": "shared-pa-evaluation-contract-repair-report-v1",
+  "candidate_id": "shared-pa-evaluation-contract-repair-v1-4500f12d70f16fa7",
+  "defect_id": "SI-034",
+  "classification": "integrity_repair_only",
+  "status": "verified_not_promoted",
+  "root_cause": [
+    "shared-PA fitting and score consumers did not share one count/probability validation boundary",
+    "negative, fractional, or nonfinite outcome counts and invalid bounded probabilities could reach some metrics",
+    "temperature scaling clipped unproven inputs before calibration",
+    "bootstrap draw controls and empirical-Bayes prior strength accepted coercible or invalid values",
+    "free CatBoost parameters could override locked loss/seed identity and output validation checked only class count"
+  ],
+  "repair": [
+    "central finite nonnegative integral count validation precedes fitting and every score",
+    "central exact-shape finite bounded unit-mass probability validation precedes scoring, calibration, market derivation, and model output consumption",
+    "epsilon clipping occurs only after probability validity and only for logarithm evaluation",
+    "bootstrap draws/seeds and empirical-Bayes strength have exact fail-closed contracts",
+    "CatBoost loss, seed, and verbosity identity are locked outside generic parameters",
+    "CatBoost output must satisfy the complete eight-class probability contract"
+  ],
+  "mutation_proof": [
+    "NaN, negative, and fractional outcome counts rejected by all three score paths",
+    "NaN, negative/above-one, and non-unit-mass probabilities rejected by scores and temperature scaling",
+    "boolean, nonintegral, nonpositive bootstrap controls rejected",
+    "negative, nonfinite, boolean, and nonnumeric empirical-Bayes prior strengths rejected",
+    "loss, random-seed, and verbosity override mutations rejected",
+    "wrong-width, NaN, negative/above-one, and non-unit-mass model outputs rejected",
+    "valid scores and seeded date-block intervals remain reproducible"
+  ],
+  "verification": {
+    "focused": "68 passed",
+    "offline_reference": "8 passed",
+    "full_suite": "383 passed",
+    "historical_outcomes_opened": false,
+    "historical_prices_opened": false,
+    "may_2026_opened": false,
+    "source_or_feature_artifacts_rebuilt": false,
+    "valid_probabilities_recomputed": false,
+    "aws_runtime_changed": false,
+    "collector_changed": false
+  },
+  "hashes": {
+    "parent_commit": "631ebe118233379daaa3a064198315b599c54488",
+    "bundle_hash_definition": "sha256(utf8(sorted path + NUL + lowercase file_sha256, newline delimited, terminal newline))",
+    "code_bundle_sha256": "4500f12d70f16fa7df7da0ea164180d53d8b445aafc29ccaf1abf9756a78dd3e",
+    "test_bundle_sha256": "9e38e1adb4f2971b212f4378a8b98f2b48e6db48a12516dcfae0bd460dcfc35f",
+    "config_sha256": "77c029297b514e3df652bb447d90e58906e954c64dcd039d78537b9e59870436",
+    "data_sha256": null,
+    "feature_sha256": null,
+    "src_learning_shared_pa_model_py": "441b643873d3d623c8e78fccedbf11ed2ee67ebf02c5e51960043059fb9092b6",
+    "tests_test_shared_pa_evaluation_contract_py": "f66b075bd1d248af2470ae996bf10990a785f156a3921aa366b11cf3ebabcb95",
+    "tests_test_shared_pa_market_derivation_contract_py": "060f9e41e626b4421e74a58331e5a6a45aeeb8a4b2d56b6b4bc520decab98eb1",
+    "scripts_check_shared_pa_model_offline_py": "de536e83ce866876f250e0eb5bc45917e9241f3e20485b299d1fa5c4a840ecca"
+  },
+  "chronological_evaluation": {
+    "required": false,
+    "reason": "valid fits, probabilities, scores, calibration, and intervals are unchanged; invalid state is rejected and no candidate was fitted"
+  },
+  "promotion": {
+    "hits": false,
+    "home_runs": false,
+    "total_bases": false,
+    "betting_authorized": false
+  },
+  "highest_value_next_action": "Independently verify fresh T-4 starter receipts and collect point-in-time PA-volume evidence so the already locked batter-only candidate can receive untouched prospective market-specific scoring."
+}
