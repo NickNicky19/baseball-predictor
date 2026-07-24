@@ -5,6 +5,8 @@ Description=Baseball projected-lineup T-4 active-roster receipt tick
 Type=oneshot
 User=baseball-shadow
 Group=baseball-shadow
-WorkingDirectory=/srv/baseball-shadow/current
+# This collector deliberately has an independent immutable release tree.  It
+# must never share the live pitcher/shared-PA release symlink.
+WorkingDirectory=/opt/baseball-predictor-projected-lineup-roster/current
 UMask=0027
 ExecStart=/srv/baseball-shadow/venv/bin/python scripts/run_aws_projected_lineup_roster_tick.py --plan-dir /srv/baseball-shadow/pitcher-receipts/plans --ledger-root /srv/baseball-shadow/projected-lineup-roster-receipts
