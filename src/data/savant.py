@@ -18,6 +18,7 @@ from src.data.statcast_batted_ball_rates import (
     barrel_rate as derive_barrel_rate,
     hard_hit_rate as derive_hard_hit_rate,
 )
+from src.data.statcast_batted_ball_contract import validate_barrel_hard_hit_pair
 from src.models.dataclasses import LeagueBaselines, PitcherStatcastProfile, StatcastProfile
 from src.utils.logging import get_logger
 
@@ -157,8 +158,15 @@ class SavantClient:
 
     def apply_league_fallback(self, profile: StatcastProfile) -> StatcastProfile:
         """Fill any missing metric with the corresponding league baseline."""
+        # Validate raw values BEFORE any fallback.  A bad raw pair must never
+        # be disguised by a valid league fallback or reach the HR formula.
+        validate_barrel_hard_hit_pair(
+            barrel_rate=profile.barrel_rate,
+            hard_hit_rate=profile.hard_hit_rate,
+            source=f"statcast_profile:{profile.player_id}",
+        )
         lg = self.league
-        return replace(
+        resolved = replace(
             profile,
             xwoba=profile.xwoba if profile.xwoba is not None else lg.xwoba,
             xslg=profile.xslg if profile.xslg is not None else lg.xslg,
@@ -179,6 +187,12 @@ class SavantClient:
             k_rate=profile.k_rate if profile.k_rate is not None else lg.k_pct / 100.0,
             bb_rate=profile.bb_rate if profile.bb_rate is not None else lg.bb_pct / 100.0,
         )
+        validate_barrel_hard_hit_pair(
+            barrel_rate=resolved.barrel_rate,
+            hard_hit_rate=resolved.hard_hit_rate,
+            source=f"resolved_statcast_profile:{profile.player_id}",
+        )
+        return resolved
 
     def build_pitcher_profile_from_rates(
         self,

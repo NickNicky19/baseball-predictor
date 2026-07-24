@@ -1,0 +1,75 @@
+{
+  "schema_version": "statcast-batted-ball-integrity-repair-v1",
+  "status": "REPAIR_VERIFIED_NO_MODEL_PROMOTION",
+  "classification": "source-truth and probability-consumption repair; not a fitted candidate and not betting authorization",
+  "defect_id": "SCBB-001",
+  "incident": "Kwan-shaped impossible player-level Statcast pair: barrel_rate=0.50 and hard_hit_percent=9.4 normalized to 0.094, allowing barrel_rate > hard_hit_rate to reach a rich-feature HR path.",
+  "root_cause": {
+    "raw_parser": "The player-level CSV parser applied a generic unit normalizer independently to barrel_rate and hard_hit_percent without enforcing their shared denominator/subset relationship.",
+    "consumption": "Rich-feature overrides could supply barrel and hard-hit values that reached H_power and H_quality before the HR and total-bases probability calculations without a final cross-field contract."
+  },
+  "source_to_probability_map": {
+    "raw_player_level_csv": "src/data/savant.py::_profiles_from_player_level_csv",
+    "raw_profile_boundary": "src/data/savant.py::SavantClient.apply_league_fallback validates raw pair before fallback and validates the resolved profile after fallback",
+    "rich_override_boundary": "src/simulation/pa_simulator.py::HybridPASimulator._build_latent_profile validates a complete rich pair before selecting overrides",
+    "latent_features": {
+      "barrel_rate": "H_power",
+      "hard_hit_rate": "H_quality"
+    },
+    "market_consumption": {
+      "hr_over_0_5": "H_power and H_quality enter the HR-on-ball-in-play calculation, which becomes a per-PA HR probability and then a HR tail.",
+      "hits": "The shared PA distribution is constructed after the same latent profile boundary.",
+      "total_bases": "The shared PA distribution and hit-type tails are constructed after the same latent profile boundary."
+    }
+  },
+  "safe_remediation": {
+    "contract": "Rates must be finite fractions in [0,1]; when both are present, barrel_rate must not exceed hard_hit_rate. Rich overrides must provide both rates or neither.",
+    "fail_closed": "Invalid, contradictory, or partial rich pairs raise StatcastBattedBallContractError before fallback, latent-feature construction, or probability consumption.",
+    "prohibited_remedies": [
+      "clipping the barrel rate",
+      "substituting a league average for a contradictory input",
+      "dropping affected players",
+      "changing probability coefficients"
+    ]
+  },
+  "regression_and_mutation_proof": {
+    "focused_test": "tests/test_statcast_batted_ball_contract.py",
+    "cases": [
+      "Kwan-shaped player-level parser contradiction is quarantined through the public CSV ingestion path",
+      "valid player-level fractional/percent pair is preserved as 0.05 and 0.40",
+      "impossible rich override is rejected before probability construction",
+      "partial rich override is rejected before probability construction"
+    ],
+    "related_suite": "tests/test_simulation.py, tests/test_phase9.py, tests/test_phase10.py",
+    "result": "40 passed"
+  },
+  "artifact_hashes": {
+    "code": {
+      "src/data/savant.py": "d0016aada33d767abe7dd98bc0383307d002498bc89920155051c0a6c1229cf7",
+      "src/data/statcast_batted_ball_contract.py": "16eed0e05383ff58df3dc483981085d5c50fd35e3f102e7464a979a41debdc1d",
+      "src/simulation/pa_simulator.py": "2e209c5ffe1c75bbb0c3f1efd4e0f1ec1b6b96a217bf2528fc89bc346e74df71"
+    },
+    "configuration": {
+      "config/config.json": "afcf0f969f9ee28fd00ca2644315f9e7d36aefb19b1f693143c2337a4a34754f",
+      "config/config.hr_batted_ball.json": "d7ebba6f32d8600079453f367ae92fa5b2cd70d2f75f98debc5f724c5dcde39c"
+    },
+    "tests": {
+      "tests/test_statcast_batted_ball_contract.py": "b72e8438f69d0e13857a68a04fa96e76ec89d085007ea031ad7b259234e7fdcb"
+    },
+    "data_and_feature_artifacts": "No permissible historical player-level raw receipt or point-in-time feature artifact was found for this parser seam; none was reconstructed, synthesized, or hashed. Existing archives remain untouched."
+  },
+  "chronological_evaluation": {
+    "required_markets": ["hits", "hr_over_0_5", "total_bases"],
+    "result": "NOT_RUN",
+    "reason": "This is a fail-closed integrity repair, not a fitted probability change. Re-running old rows without raw receipt provenance would either rewrite history or invent a reconstruction. The repair therefore has no valid historical performance claim.",
+    "next_eligible_evidence": "Fresh, timestamped, point-in-time Statcast-source receipt that passes this contract, followed by separately locked chronological evaluation against each market's required baselines."
+  },
+  "promotion": {
+    "frozen_baseline_modified": false,
+    "calibration_brier_log_loss_discrimination_coverage_uncertainty_claim": "none",
+    "market_behavior_claim": "none",
+    "production_promotion": false,
+    "betting_authorization": false
+  },
+  "single_highest_value_next_action": "Complete the broader active input-to-probability defect register, then collect fresh valid pregame receipts under the repaired contract; only then fit or adjudicate a new challenger on its predeclared chronological protocol."
+}

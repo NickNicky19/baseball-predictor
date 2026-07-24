@@ -37,6 +37,7 @@ from dataclasses import asdict, dataclass
 from typing import TYPE_CHECKING, Optional, Any
 
 from src.evaluation.hits_contact_adapter import consume_fitted_contact_xba
+from src.data.statcast_batted_ball_contract import validate_barrel_hard_hit_pair
 from src.models.dataclasses import LeagueBaselines, PAOutcome, StatcastProfile
 
 if TYPE_CHECKING:
@@ -503,6 +504,22 @@ class HybridPASimulator:
         cfg = self.config
         lg = self.league
         rich = rich or {}
+
+        # A rich layer is an override path, not an exemption from the raw
+        # Statcast contract.  Reject an impossible or partial pair before a
+        # value can alter H_power/H_quality and therefore HR/TB probabilities.
+        validate_barrel_hard_hit_pair(
+            barrel_rate=rich.get("barrel_rate"),
+            hard_hit_rate=rich.get("hard_hit_rate"),
+            source="rich_features",
+            require_pair_when_present=True,
+        )
+        if statcast is not None:
+            validate_barrel_hard_hit_pair(
+                barrel_rate=statcast.barrel_rate,
+                hard_hit_rate=statcast.hard_hit_rate,
+                source=f"consumed_statcast_profile:{statcast.player_id}",
+            )
 
         def _pick(key: str, statcast_value: Optional[float], league_value: float) -> float:
             """Prefer rich value, then statcast profile, then league anchor."""
