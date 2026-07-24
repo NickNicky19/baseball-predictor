@@ -1,5 +1,7 @@
 [Unit]
 Description=Baseball projected-lineup T-4 active-roster receipt tick
+Wants=network-online.target
+After=network-online.target
 
 [Service]
 Type=oneshot
@@ -9,4 +11,13 @@ Group=baseball-shadow
 # must never share the live pitcher/shared-PA release symlink.
 WorkingDirectory=/opt/baseball-predictor-projected-lineup-roster/current
 UMask=0027
-ExecStart=/srv/baseball-shadow/venv/bin/python scripts/run_aws_projected_lineup_roster_tick.py --plan-dir /srv/baseball-shadow/pitcher-receipts/plans --ledger-root /srv/baseball-shadow/projected-lineup-roster-receipts
+ExecStart=/usr/bin/python3 /opt/baseball-predictor-projected-lineup-roster/current/scripts/run_aws_projected_lineup_roster_tick.py --plan-dir /srv/baseball-shadow/pitcher-receipts/plans --ledger-root /srv/baseball-shadow/projected-lineup-roster-receipts
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ReadWritePaths=/srv/baseball-shadow/projected-lineup-roster-receipts
+RestrictSUIDSGID=true
+LockPersonality=true
+CapabilityBoundingSet=

@@ -34,6 +34,8 @@ def test_aws_service_and_installer_are_isolated_from_live_collectors():
     installer = (ROOT / "deploy/projected_lineup_roster/install_exact_release.sh").read_text(encoding="utf-8")
     assert "WorkingDirectory=/opt/baseball-predictor-projected-lineup-roster/current" in service
     assert "/srv/baseball-shadow/current" not in service
+    assert "ExecStart=/usr/bin/python3 /opt/baseball-predictor-projected-lineup-roster/current/scripts/run_aws_projected_lineup_roster_tick.py" in service
+    assert "/srv/baseball-shadow/venv/bin/python" not in service
     assert 'release_root="/opt/baseball-predictor-projected-lineup-roster"' in installer
     assert 'evidence_root="/srv/baseball-shadow/projected-lineup-roster-receipts"' in installer
     assert "baseball-pitcher-receipt" not in installer
@@ -57,4 +59,14 @@ def test_offline_release_gate_mutation_rejects_shared_current_path():
         "WorkingDirectory=/srv/baseball-shadow/current",
     )
     with pytest.raises(ValueError, match="must not use a shared live release tree"):
+        validate_service_isolation(mutated)
+
+
+def test_offline_release_gate_mutation_rejects_missing_python_runtime():
+    service = (ROOT / "deploy/projected_lineup_roster/baseball-projected-lineup-roster-tick.service").read_text(encoding="utf-8")
+    mutated = service.replace(
+        "/usr/bin/python3 /opt/baseball-predictor-projected-lineup-roster/current/",
+        "/srv/baseball-shadow/venv/bin/python ",
+    )
+    with pytest.raises(ValueError, match="must not depend on an undeployed virtual environment"):
         validate_service_isolation(mutated)

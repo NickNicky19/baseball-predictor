@@ -18,6 +18,27 @@ def validate_service_isolation(service: str) -> None:
         raise ValueError("collector service must not use a shared live release tree")
     if "WorkingDirectory=/opt/baseball-predictor-projected-lineup-roster/current" not in service:
         raise ValueError("collector service must use its independent release tree")
+    if "/srv/baseball-shadow/venv/bin/python" in service:
+        raise ValueError("collector service must not depend on an undeployed virtual environment")
+    expected_exec = (
+        "ExecStart=/usr/bin/python3 "
+        "/opt/baseball-predictor-projected-lineup-roster/current/"
+        "scripts/run_aws_projected_lineup_roster_tick.py"
+    )
+    if expected_exec not in service:
+        raise ValueError("collector service must use the pinned system Python and absolute release script")
+    for directive in (
+        "NoNewPrivileges=true",
+        "PrivateTmp=true",
+        "ProtectSystem=full",
+        "ProtectHome=true",
+        "ReadWritePaths=/srv/baseball-shadow/projected-lineup-roster-receipts",
+        "RestrictSUIDSGID=true",
+        "LockPersonality=true",
+        "CapabilityBoundingSet=",
+    ):
+        if directive not in service:
+            raise ValueError(f"collector service is missing hardening directive {directive}")
 
 
 def main() -> int:
