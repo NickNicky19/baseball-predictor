@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import pytest
+
 from src.models.dataclasses import (
     GameContext,
     HitterGameContext,
@@ -10,6 +12,7 @@ from src.models.dataclasses import (
     StatcastProfile,
 )
 from src.prediction import DailyPredictor, PropEngine
+from src.utils.errors import PredictionPipelineError
 
 
 class LineupModeMLBAPI:
@@ -118,38 +121,29 @@ def test_confirmed_only_returns_single_hitter():
     assert bundles[0].hitter.game.lineup_status == "confirmed"
 
 
-def test_projected_mode_includes_extra_hitter():
+def test_projected_mode_fails_closed_before_unreceipted_lineup_consumption():
     api = LineupModeMLBAPI()
     predictor = _predictor(api)
-    bundles = predictor.build_feature_bundles("2026-07-01", use_projected_lineups=True)
-    assert api.last_include_projected is True
-    assert len(bundles) == 2
-    statuses = {b.hitter.game.lineup_status for b in bundles}
-    assert statuses == {"confirmed", "projected"}
+    with pytest.raises(PredictionPipelineError, match="REFUSING unbound projected lineups"):
+        predictor.predict(
+            "2026-07-01",
+            hitter_categories=("hrr",),
+            include_pitchers=False,
+            use_projected_lineups=True,
+        )
+    assert api.last_include_projected is None
 
 
-def test_projected_lineup_lowers_confidence():
+def test_projected_lineup_confidence_adjustment_cannot_reach_probability_path():
     api = LineupModeMLBAPI()
     predictor = _predictor(api)
-    confirmed = predictor.predict(
-        "2026-07-01",
-        hitter_categories=("hrr",),
-        include_pitchers=False,
-        use_projected_lineups=False,
-    )
-    with_projected = predictor.predict(
-        "2026-07-01",
-        hitter_categories=("hrr",),
-        include_pitchers=False,
-        use_projected_lineups=True,
-    )
-    confirmed_conf = confirmed.hitter_projections[0].confidence
-    projected_conf = next(
-        p.confidence
-        for p in with_projected.hitter_projections
-        if p.player_name == "Projected Player"
-    )
-    assert projected_conf < confirmed_conf
+    with pytest.raises(PredictionPipelineError, match="fitted projection artifact"):
+        predictor.predict(
+            "2026-07-01",
+            hitter_categories=("hrr",),
+            include_pitchers=False,
+            use_projected_lineups=True,
+        )
 
 
 def test_projection_includes_context_fields():

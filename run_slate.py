@@ -158,7 +158,10 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--include-projected-lineups",
         action="store_true",
-        help="Include projected lineups when confirmed orders are unavailable",
+        help=(
+            "Reserved and fail-closed: unreceipted schedule projections cannot "
+            "be used until a contract-bound projected-lineup source is certified"
+        ),
     )
     parser.add_argument(
         "--apply-corrections",

@@ -158,6 +158,17 @@ class DailyPredictor:
         odds.enabled in config when None. Pass odds_lines to override file loading.
         """
         game_date = game_date or date.today().isoformat()
+        if use_projected_lineups:
+            raise PredictionPipelineError(
+                "REFUSING unbound projected lineups: schedule-hydrated lineup "
+                "arrays have no T-minus-4 receipt, active-roster binding, fitted "
+                "projection artifact, or approved probability-consumption map",
+                hint=(
+                    "Use confirmed orders only. A contract-bound projected-lineup "
+                    "integration must be independently certified before this mode "
+                    "can produce model probabilities."
+                ),
+            )
         use_corrections = (
             apply_corrections
             if apply_corrections is not None

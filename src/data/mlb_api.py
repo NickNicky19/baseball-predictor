@@ -750,9 +750,16 @@ class MLBStatsAPI:
         Return hitters for a slate date.
 
         By default only confirmed lineups (live feed battingOrder) are included.
-        When include_projected=True, falls back to schedule-hydrated projected
-        lineups (homePlayers/awayPlayers) for games without a posted order.
+        Schedule-hydrated ``homePlayers``/``awayPlayers`` arrays are not an
+        admissible projected-lineup source: they have no target-horizon receipt,
+        active-roster binding, or fitted projection artifact.
         """
+        if include_projected:
+            raise DataFetchError(
+                "REFUSING schedule-hydrated projected lineups without a "
+                "contract-bound T-minus-4 projection receipt",
+                hint="Use confirmed lineups only until the projected-lineup contract is integrated.",
+            )
         game_date = game_date or date.today().isoformat()
         cache_key = self._hitters_cache_key(game_date, include_projected)
         cached = self._hitters_cache.get(cache_key)
