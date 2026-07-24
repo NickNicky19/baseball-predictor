@@ -76,7 +76,8 @@ python run_daily.py --category strikeouts --pitchers-only
 python run_daily.py --no-corrections --verbose   # explicit flags, debug logging
 python run_daily.py --format json -o data/predictions.json
 python run_daily.py --refresh                    # bypass MLB API day cache
-python run_daily.py --include-projected-lineups  # include predicted lineups when unconfirmed
+# Projected lineups are intentionally unavailable until a receipt-bound,
+# independently evaluated projected-lineup source is certified.
 ```
 
 **Self-improvement loop** (enable `outcome_recording.enabled` in config):

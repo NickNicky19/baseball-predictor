@@ -1,0 +1,46 @@
+{
+  "schema_version": "projected-lineup-schedule-hydrate-integrity-repair-v1",
+  "status": "REPAIR_VERIFIED_RESEARCH_ONLY_NO_MODEL_PROMOTION",
+  "defect_id": "PLSH-001",
+  "root_cause": "The optional projected-lineup path treated MLB schedule hydrate homePlayers/awayPlayers arrays as batting orders and allowed them to reach lineup certainty, expected-PA, confidence, and simulation inputs. Those arrays were not bound to a T-minus-4 receipt, an official active-roster receipt, a fitted joint lineup artifact, or an approved probability-consumption map.",
+  "affected_scope": {
+    "source": "MLBStatsAPI.get_hitters_for_date(include_projected=True)",
+    "probability_path": "DailyPredictor.predict(use_projected_lineups=True) -> feature bundles -> LineupIntelligence -> expected PA and simulation/confidence metadata",
+    "markets": ["hits", "hr_over_0_5", "total_bases"],
+    "frozen_confirmed_lineup_baseline": "unchanged"
+  },
+  "safe_remediation": {
+    "source_boundary": "The public MLB API path now rejects schedule-hydrated projected lineups before cache or network use.",
+    "probability_boundary": "DailyPredictor now rejects unbound projected-lineup mode before feature construction, preventing direct callers or mock substitutes from bypassing the source guard.",
+    "coverage_behavior": "Missing confirmed lineups remain explicit coverage losses. No last-lineup, roster, league-average, clipped, or hand-tuned substitute is supplied.",
+    "future_enablement": "Only a separately certified integration that validates the existing projected-lineup contract and its receipt-bound fitted joint distribution may enable projected probabilities."
+  },
+  "regression_and_mutation_proof": {
+    "source_mutation": "Requesting schedule projected lineups raises before network access.",
+    "probability_mutation": "Requesting projected mode through DailyPredictor raises before the feature builder calls the source.",
+    "confirmed_non_regression": "Confirmed-lineup daily predictor, run-slate, market-authorization-scope, and frozen shared-PA tests continue to pass.",
+    "test_result": "43 passed across focused contract/source/probability and related confirmed-lineup suites"
+  },
+  "artifact_hashes": {
+    "code": {
+      "src/data/mlb_api.py": "82970d5a4e88cc4e55b22121bfc5867e8b1bd476a63782ca230bb974cfb8fea1",
+      "src/prediction/daily_predictor.py": "f185e448aeefe9c5704dc438a6e14629a460794d14d828dbad6e50c6c468a2d5",
+      "run_slate.py": "74340c3f6cc820434cf761902d990947861a34a63357a86a93bff25566597723"
+    },
+    "configuration": {
+      "config/projected_lineup_contract_v1.json": "60f77c2b947f4186f00426633d6e8803ef3abfdb0f3ebbda4e47304c5005f0a5"
+    },
+    "tests": {
+      "tests/test_mlb_api_lineups.py": "ac420a77082a25377cb7226713819224bb386898e141706f41879f142a2f65e8",
+      "tests/test_projected_lineups.py": "d925c555bdeafd1563f6b4bf88d310ba9291f0853d9dff9cc3f57c3b98a2dcd0"
+    },
+    "data_and_feature_artifacts": "None rebuilt. No historical or prospective lineup, price, prediction, or outcome artifact was read, rewritten, or backfilled."
+  },
+  "evaluation": {
+    "historical_performance_claim": "none",
+    "markets_evaluated": "none; this repair removes an untruthful input path rather than fitting probabilities",
+    "promotion": false,
+    "betting_authorization": false
+  },
+  "single_highest_value_next_action": "Collect prospective active-roster receipts under the running collector, then build a receipt-bound historical lineup-feature store and predeclare a fitted joint-lineup candidate before any projected-lineup probability path is enabled."
+}
