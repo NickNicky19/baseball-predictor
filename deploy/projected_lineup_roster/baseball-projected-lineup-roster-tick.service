@@ -1,0 +1,10 @@
+[Unit]
+Description=Baseball projected-lineup T-4 active-roster receipt tick
+
+[Service]
+Type=oneshot
+User=baseball-shadow
+Group=baseball-shadow
+WorkingDirectory=/srv/baseball-shadow/current
+UMask=0027
+ExecStart=/srv/baseball-shadow/venv/bin/python scripts/run_aws_projected_lineup_roster_tick.py --plan-dir /srv/baseball-shadow/pitcher-receipts/plans --ledger-root /srv/baseball-shadow/projected-lineup-roster-receipts

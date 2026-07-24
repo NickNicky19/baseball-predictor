@@ -1,0 +1,10 @@
+[Unit]
+Description=Run baseball projected-lineup roster T-4 receipt tick each minute
+
+[Timer]
+OnCalendar=*-*-* *:*:00
+Persistent=true
+Unit=baseball-projected-lineup-roster-tick.service
+
+[Install]
+WantedBy=timers.target
