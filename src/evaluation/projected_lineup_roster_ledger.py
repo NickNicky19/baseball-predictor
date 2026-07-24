@@ -42,7 +42,10 @@ def _publish_once(path: Path, payload: bytes) -> bool:
         temporary = Path(handle.name)
         handle.write(payload)
         handle.flush()
-        os.fchmod(handle.fileno(), 0o640)
+        if hasattr(os, "fchmod"):
+            os.fchmod(handle.fileno(), 0o640)
+        else:
+            os.chmod(temporary, 0o640)
         os.fsync(handle.fileno())
     try:
         try:
@@ -77,6 +80,33 @@ class ProjectedLineupRosterLedger:
     def terminal_side_ids(self) -> set[str]:
         directory = self.root / "terminal"
         return {path.stem for path in directory.glob("*.json")} if directory.is_dir() else set()
+
+    def terminal_entries(self) -> dict[str, dict[str, Any]]:
+        """Return retained terminal entries keyed by side_target_id."""
+        directory = self.root / "terminal"
+        entries: dict[str, dict[str, Any]] = {}
+        if not directory.is_dir():
+            return entries
+        for path in sorted(directory.glob("*.json")):
+            try:
+                value = json.loads(path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError) as exc:
+                raise ProjectedLineupRosterLedgerError("terminal entry is unreadable") from exc
+            if not isinstance(value, dict):
+                raise ProjectedLineupRosterLedgerError("terminal entry must be a JSON object")
+            entries[path.stem] = value
+        return entries
+
+    def terminal_reference(self, side_target_id: str) -> dict[str, str]:
+        """Return the immutable file reference for one retained terminal entry."""
+        path = self.root / "terminal" / f"{side_target_id}.json"
+        if not path.is_file():
+            raise ProjectedLineupRosterLedgerError("requested roster terminal entry is missing")
+        payload = path.read_bytes()
+        return {
+            "path": path.relative_to(self.root).as_posix(),
+            "sha256": hashlib.sha256(payload).hexdigest(),
+        }
 
     def _raw(self, payload: bytes) -> dict[str, str]:
         digest = hashlib.sha256(payload).hexdigest()

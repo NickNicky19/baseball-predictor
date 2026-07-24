@@ -1,0 +1,10 @@
+[Unit]
+Description=Run baseball projected-lineup postgame label tick every fifteen minutes
+
+[Timer]
+OnCalendar=*:0/15
+Persistent=true
+Unit=baseball-projected-lineup-label-tick.service
+
+[Install]
+WantedBy=timers.target

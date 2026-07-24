@@ -1,0 +1,31 @@
+{
+  "schema_version": "projected-lineup-label-runtime-v1",
+  "scope": "future_only_lineup_label_evidence",
+  "contract": {
+    "path": "config/projected_lineup_contract_v1.json",
+    "sha256": "60f77c2b947f4186f00426633d6e8803ef3abfdb0f3ebbda4e47304c5005f0a5"
+  },
+  "sources": {
+    "completed_feed": {
+      "base_url_template": "https://statsapi.mlb.com/api/v1.1/game/{game_pk}/feed/live"
+    }
+  },
+  "scheduler": {
+    "tick_minutes": 15,
+    "request_timeout_seconds": 20
+  },
+  "invariants": {
+    "read_existing_pitcher_plan_only": true,
+    "read_existing_roster_receipts_only": true,
+    "separate_ledger_root": true,
+    "retain_raw_responses": true,
+    "pregame_probability_inputs_forbidden": true,
+    "prices_forbidden": true,
+    "late_backfill_forbidden": true,
+    "may_2026_forbidden": true,
+    "research_only": true,
+    "betting_authorized": false,
+    "production_changed": false
+  },
+  "collector_instance_id": "aws-primary-projected-lineup-label-v1"
+}
