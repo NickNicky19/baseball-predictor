@@ -1,0 +1,36 @@
+{
+  "schema_version": "projected-lineup-historical-input-adjudication-v1",
+  "status": "HISTORICAL_COMPLETED_LINEUPS_ADMISSIBLE_ONLY_AS_PRIOR_OBSERVATIONS",
+  "research_only": true,
+  "betting_authorized": false,
+  "may_2026_opened": false,
+  "finding": "The available 2023-2024 sources preserve completed lineups but do not preserve receipt-proven pregame active-roster state at T-minus-4. A completed lineup therefore cannot be used to reconstruct target-player availability or validate a historical T-minus-4 start-probability model.",
+  "safe_repair": "The historical feature store accepts a separately receipted official active roster for each future target and strictly earlier completed lineups only. It emits descriptive counts and conditional prior slot distributions, not target start probabilities or a fallback lineup.",
+  "affected_scope": "Projected-lineup availability and downstream PA-volume inputs for Hits, HR over 0.5, and Total Bases.",
+  "historical_reconstruction": "Not performed. No 2023-2024 roster snapshot is represented as a pregame receipt.",
+  "candidate_status": "No fitted lineup candidate, no downstream batter candidate, and no production probability change were created.",
+  "hashes": {
+    "historical_feature_store_code_sha256": "7110803d0d3391fdbf4c87c12790d4a1e132dbc06f442009d930cb3d192a2764",
+    "historical_feature_store_tests_sha256": "f61032ed0703b360ae85d218239501d1f597739c54a1db616c1a2c00a02334ea",
+    "locked_projection_contract_sha256": "60f77c2b947f4186f00426633d6e8803ef3abfdb0f3ebbda4e47304c5005f0a5"
+  },
+  "regression_and_mutation_proof": {
+    "command_scope": "test_projected_lineup_history + contract + official_roster",
+    "passed": 21,
+    "rejected_mutations": [
+      "same-day or future completed lineup",
+      "wrong team identity",
+      "duplicate game/player identity",
+      "invalid batting slot",
+      "unreceipted reconstructed roster",
+      "May 2026 target"
+    ]
+  },
+  "required_before_fit": [
+    "collect sufficient future official T-minus-4 active-roster receipts",
+    "retain independent final lineup labels for those targets",
+    "predeclare fitted joint-lineup model family and chronological adjudication before training",
+    "evaluate coverage, start and slot calibration, identity and timing, then separately evaluate Hits, HR, and Total Bases"
+  ],
+  "highest_value_next_action": "Continue the deployed official active-roster T-minus-4 collector and accumulate a fresh prospective paired roster/lineup panel; do not infer historical availability from final lineups."
+}
