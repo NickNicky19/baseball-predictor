@@ -1,0 +1,876 @@
+{
+  "game_date": "2026-07-25",
+  "hitter_projections": [],
+  "pitcher_projections": [
+    {
+      "player_id": 608379,
+      "player_name": "Michael Wacha",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 5.45,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824244,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.4518245623295165,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6349262173195445,
+          "6.0": 0.46280643427065893,
+          "7.0": 0.3064119574558688
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 663554,
+      "player_name": "Casey Mize",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 5.29,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824244,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.29391629442753,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6094826474725779,
+          "6.0": 0.43546813458218236,
+          "7.0": 0.2819317570392935
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 683352,
+      "player_name": "Mitch Bratt",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 3.12,
+      "confidence": 0.5,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822704,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.117861946445721,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.204914869634515,
+          "6.0": 0.09626407108155355,
+          "7.0": 0.039804372705017244
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 656492,
+      "player_name": "Foster Griffin",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 5.62,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822704,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.61893108883558,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6607107995574093,
+          "6.0": 0.4913485875258967,
+          "7.0": 0.33274282111625875
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 696270,
+      "player_name": "Ryan Johnson",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 2.98,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823197,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.9800992647040383,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.18140397256364793,
+          "6.0": 0.08192489733633479,
+          "7.0": 0.0325153108466093
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 592662,
+      "player_name": "Robbie Ray",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 5.24,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823197,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.23906670523647,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6004078950109751,
+          "6.0": 0.4259098226616336,
+          "7.0": 0.27354198249940376
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 656302,
+      "player_name": "Dylan Cease",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 7.79,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824734,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 7.787045817430671,
+        "median": 8.0,
+        "p10": 4.0,
+        "p90": 11.0,
+        "p_ge_threshold": {
+          "5.0": 0.8875090521327804,
+          "6.0": 0.7884688825859938,
+          "7.0": 0.6599304929148386
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 543243,
+      "player_name": "Sonny Gray",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 5.12,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824734,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.120305067495064,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5803564897384654,
+          "6.0": 0.40513889981614737,
+          "7.0": 0.25561098088389456
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 676664,
+      "player_name": "JP Sears",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 4.17,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823841,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.1697891385353865,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.404295249211473,
+          "6.0": 0.2419375795701334,
+          "7.0": 0.12910470499873783
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 691587,
+      "player_name": "Eury P\u00e9rez",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 5.83,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823841,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.827823938315126,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6912365089758603,
+          "6.0": 0.5262839371417086,
+          "7.0": 0.36606484600475653
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 677960,
+      "player_name": "Ryan Weathers",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 5.79,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823435,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.785918254599053,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6852670130000201,
+          "6.0": 0.5193511727770921,
+          "7.0": 0.3593552579982624
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 676440,
+      "player_name": "Tanner Bibee",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 4.82,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822948,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.823346650751896,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5279826859623017,
+          "6.0": 0.3530752405760913,
+          "7.0": 0.21246870042690003
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 607259,
+      "player_name": "Nick Martinez",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 4.21,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822948,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.208246395257674,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.411775954099596,
+          "6.0": 0.2482049323877339,
+          "7.0": 0.13348040530647431
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 684007,
+      "player_name": "Shota Imanaga",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 5.53,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823355,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.531985605550831,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.647444169721419,
+          "6.0": 0.47655555139246375,
+          "7.0": 0.31899665526775556
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 694973,
+      "player_name": "Paul Skenes",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 6.18,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823355,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.178474444199526,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.7381227772931284,
+          "6.0": 0.5825449616589534,
+          "7.0": 0.4223393686622642
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 693821,
+      "player_name": "Bryce Elder",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 5.01,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824811,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.009013921179587,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5610869357266137,
+          "6.0": 0.3856209899278079,
+          "7.0": 0.23913576239461443
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 687064,
+      "player_name": "Brandon Young",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 4.95,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824811,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.947815983389114,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5503028469886431,
+          "6.0": 0.3748835884900368,
+          "7.0": 0.230226553324425
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 686930,
+      "player_name": "Mason Barnett",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 2.54,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823679,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.54174560768228,
+        "median": 2.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.11446866056474503,
+          "6.0": 0.04486804657214105,
+          "7.0": 0.015383537420859184
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 686613,
+      "player_name": "Hunter Brown",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 5.19,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824571,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.192586716930032,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5926250388917684,
+          "6.0": 0.4177910822162729,
+          "7.0": 0.26648433536602334
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 680732,
+      "player_name": "Sean Burke",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 7.23,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824571,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 7.232529027138012,
+        "median": 7.0,
+        "p10": 4.0,
+        "p90": 11.0,
+        "p_ge_threshold": {
+          "5.0": 0.8471841624928362,
+          "6.0": 0.727998988753194,
+          "7.0": 0.5843306173071193
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 663372,
+      "player_name": "Ryan Feltner",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 3.94,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823758,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.94336652633016,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.3601002524628194,
+          "6.0": 0.20608201141076532,
+          "7.0": 0.10485694870927875
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 688107,
+      "player_name": "Robert Gasser",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 4.82,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823758,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.82433255146841,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5281614278959037,
+          "6.0": 0.3532476850591344,
+          "7.0": 0.21260734118136781
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 808967,
+      "player_name": "Yoshinobu Yamamoto",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 6.28,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823600,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.280870592146462,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.7507825408512625,
+          "6.0": 0.5983174061457686,
+          "7.0": 0.43871510932920443
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 690997,
+      "player_name": "Nolan McLean",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 6.38,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823600,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.380422481073486,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.7626476592035839,
+          "6.0": 0.6133394587620568,
+          "7.0": 0.45456455897776604
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 668881,
+      "player_name": "Hunter Greene",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 7.72,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823027,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 7.716826657776968,
+        "median": 8.0,
+        "p10": 4.0,
+        "p90": 11.0,
+        "p_ge_threshold": {
+          "5.0": 0.8829667399087441,
+          "6.0": 0.7814267203017649,
+          "7.0": 0.6508322652793761
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669467,
+      "player_name": "Andre Pallante",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 4.46,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823027,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.458986020592722,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.460094327349145,
+          "6.0": 0.29007970140524997,
+          "7.0": 0.1637308946752285
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 693433,
+      "player_name": "Bryan Woo",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 5.68,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822869,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.682717295121508,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6702352079722357,
+          "6.0": 0.5021125503485578,
+          "7.0": 0.3428802946519134
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 543135,
+      "player_name": "Nathan Eovaldi",
+      "category": "strikeouts",
+      "game_date": "2026-07-25",
+      "projected_value": 6.26,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822869,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.261237404455808,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.7483911101723909,
+          "6.0": 0.5953180535255181,
+          "7.0": 0.4355802622102213
+        }
+      },
+      "outcome_probs": null
+    }
+  ],
+  "value_plays": [],
+  "market_status": "RESEARCH_ONLY",
+  "market_policy_sha256": "08bc0c9d56eb21c7fb438eccd8d89539e98da111f72cdf6735af9cbeb02f154c",
+  "market_policy_reason": "policy verdict is 'RESEARCH_ONLY', not BETTING_AUTHORIZED",
+  "prediction_provenance": {
+    "schema_version": "daily-prediction-provenance-v1",
+    "captured_at_utc": "2026-07-25T13:51:22.569974+00:00",
+    "model_version": "8c7eed9bb0c3",
+    "effective_config_sha256": "3a62fc507956752086919b757ae683e60f9df8fb2143f83292ac61f07830a60c",
+    "config_source_path": "/home/runner/work/baseball-predictor/baseball-predictor/config/config.kbb.json",
+    "code": {
+      "status": "available",
+      "head": "c85dc760f10d4963500b9b230b853ab54f8d9eeb",
+      "tracked_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked": [],
+      "snapshot_sha256": "3f7714fb53696dff3c5439729d06208488d8fa0cca24c7c5f7bb8c4f2aac4758"
+    },
+    "run_options": {
+      "game_date": "2026-07-25",
+      "hitter_categories": [
+        "hits",
+        "hrr",
+        "home_runs"
+      ],
+      "include_pitchers": true,
+      "corrections_active": false,
+      "edges_requested": false,
+      "use_projected_lineups": false
+    }
+  }
+}
