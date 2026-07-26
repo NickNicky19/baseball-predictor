@@ -1,0 +1,4636 @@
+{
+  "game_date": "2026-07-26",
+  "hitter_projections": [
+    {
+      "player_id": 680757,
+      "player_name": "Steven Kwan",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 1.133,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.1325,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.70925,
+          "2.0": 0.324875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1448328037012161,
+        "walk": 0.09652738292980588,
+        "home_run": 0.03169666033234699,
+        "single": 0.17218220789537755,
+        "double": 0.051967650008026126,
+        "triple": 0.005747432253933428,
+        "out_on_bip": 0.497045862879294
+      }
+    },
+    {
+      "player_id": 680757,
+      "player_name": "Steven Kwan",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 2.151,
+      "confidence": 0.7,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.15075,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.541625,
+          "3.0": 0.361125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1448328037012161,
+        "walk": 0.09652738292980588,
+        "home_run": 0.03169666033234699,
+        "single": 0.17218220789537755,
+        "double": 0.051967650008026126,
+        "triple": 0.005747432253933428,
+        "out_on_bip": 0.497045862879294
+      }
+    },
+    {
+      "player_id": 680757,
+      "player_name": "Steven Kwan",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.139,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.139375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.131
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1448328037012161,
+        "walk": 0.09652738292980588,
+        "home_run": 0.03169666033234699,
+        "single": 0.17218220789537755,
+        "double": 0.051967650008026126,
+        "triple": 0.005747432253933428,
+        "out_on_bip": 0.497045862879294
+      }
+    },
+    {
+      "player_id": 608070,
+      "player_name": "Jos\u00e9 Ram\u00edrez",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 0.964,
+      "confidence": 0.653,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.963625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.648625,
+          "2.0": 0.25175
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1651385354706217,
+        "walk": 0.09632098395954032,
+        "home_run": 0.01596305222872528,
+        "single": 0.1610089830576959,
+        "double": 0.04290053157600665,
+        "triple": 0.0052284490931718604,
+        "out_on_bip": 0.5134394646142382
+      }
+    },
+    {
+      "player_id": 608070,
+      "player_name": "Jos\u00e9 Ram\u00edrez",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 1.716,
+      "confidence": 0.573,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.71575,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.466375,
+          "3.0": 0.27
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1651385354706217,
+        "walk": 0.09632098395954032,
+        "home_run": 0.01596305222872528,
+        "single": 0.1610089830576959,
+        "double": 0.04290053157600665,
+        "triple": 0.0052284490931718604,
+        "out_on_bip": 0.5134394646142382
+      }
+    },
+    {
+      "player_id": 608070,
+      "player_name": "Jos\u00e9 Ram\u00edrez",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.067,
+      "confidence": 0.733,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.067375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.0665
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1651385354706217,
+        "walk": 0.09632098395954032,
+        "home_run": 0.01596305222872528,
+        "single": 0.1610089830576959,
+        "double": 0.04290053157600665,
+        "triple": 0.0052284490931718604,
+        "out_on_bip": 0.5134394646142382
+      }
+    },
+    {
+      "player_id": 800050,
+      "player_name": "Chase DeLauter",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 1.049,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.049,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.69,
+          "2.0": 0.2825
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1661596245844999,
+        "walk": 0.07688950427462053,
+        "home_run": 0.04693076748602895,
+        "single": 0.14927787568091488,
+        "double": 0.050355802435080886,
+        "triple": 0.005118812259384507,
+        "out_on_bip": 0.5052676132794705
+      }
+    },
+    {
+      "player_id": 800050,
+      "player_name": "Chase DeLauter",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 2.111,
+      "confidence": 0.7,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.11125,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.529875,
+          "3.0": 0.354125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1661596245844999,
+        "walk": 0.07688950427462053,
+        "home_run": 0.04693076748602895,
+        "single": 0.14927787568091488,
+        "double": 0.050355802435080886,
+        "triple": 0.005118812259384507,
+        "out_on_bip": 0.5052676132794705
+      }
+    },
+    {
+      "player_id": 800050,
+      "player_name": "Chase DeLauter",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.196,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.195875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.180375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1661596245844999,
+        "walk": 0.07688950427462053,
+        "home_run": 0.04693076748602895,
+        "single": 0.14927787568091488,
+        "double": 0.050355802435080886,
+        "triple": 0.005118812259384507,
+        "out_on_bip": 0.5052676132794705
+      }
+    },
+    {
+      "player_id": 677587,
+      "player_name": "Brayan Rocchio",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 0.968,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.967875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.65225,
+          "2.0": 0.25575
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1705695334918433,
+        "walk": 0.06463220454990054,
+        "home_run": 0.02562516440635422,
+        "single": 0.15776822114234965,
+        "double": 0.04668973492025481,
+        "triple": 0.005242511693912935,
+        "out_on_bip": 0.5294726297953845
+      }
+    },
+    {
+      "player_id": 677587,
+      "player_name": "Brayan Rocchio",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 1.763,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.762625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.46325,
+          "3.0": 0.281375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1705695334918433,
+        "walk": 0.06463220454990054,
+        "home_run": 0.02562516440635422,
+        "single": 0.15776822114234965,
+        "double": 0.04668973492025481,
+        "triple": 0.005242511693912935,
+        "out_on_bip": 0.5294726297953845
+      }
+    },
+    {
+      "player_id": 677587,
+      "player_name": "Brayan Rocchio",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.101,
+      "confidence": 0.88,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.100875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.0965
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1705695334918433,
+        "walk": 0.06463220454990054,
+        "home_run": 0.02562516440635422,
+        "single": 0.15776822114234965,
+        "double": 0.04668973492025481,
+        "triple": 0.005242511693912935,
+        "out_on_bip": 0.5294726297953845
+      }
+    },
+    {
+      "player_id": 683953,
+      "player_name": "Travis Bazzana",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 0.797,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.79675,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.57475,
+          "2.0": 0.188
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2180786526390648,
+        "walk": 0.08879432651336927,
+        "home_run": 0.028693874568773935,
+        "single": 0.1318928563855749,
+        "double": 0.04006352306254914,
+        "triple": 0.004409137934567284,
+        "out_on_bip": 0.48806762889610067
+      }
+    },
+    {
+      "player_id": 683953,
+      "player_name": "Travis Bazzana",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 1.573,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.573125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.409375,
+          "3.0": 0.245125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2180786526390648,
+        "walk": 0.08879432651336927,
+        "home_run": 0.028693874568773935,
+        "single": 0.1318928563855749,
+        "double": 0.04006352306254914,
+        "triple": 0.004409137934567284,
+        "out_on_bip": 0.48806762889610067
+      }
+    },
+    {
+      "player_id": 683953,
+      "player_name": "Travis Bazzana",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.111,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.111125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1055
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2180786526390648,
+        "walk": 0.08879432651336927,
+        "home_run": 0.028693874568773935,
+        "single": 0.1318928563855749,
+        "double": 0.04006352306254914,
+        "triple": 0.004409137934567284,
+        "out_on_bip": 0.48806762889610067
+      }
+    },
+    {
+      "player_id": 682657,
+      "player_name": "Angel Mart\u00ednez",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 0.898,
+      "confidence": 0.63,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.898375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6245,
+          "2.0": 0.227125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21870343529487446,
+        "walk": 0.049927568073706796,
+        "home_run": 0.036010481012661334,
+        "single": 0.14604984599546786,
+        "double": 0.047275896675421945,
+        "triple": 0.00495707032489461,
+        "out_on_bip": 0.497075702622973
+      }
+    },
+    {
+      "player_id": 682657,
+      "player_name": "Angel Mart\u00ednez",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 1.702,
+      "confidence": 0.55,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.70225,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4395,
+          "3.0": 0.272375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21870343529487446,
+        "walk": 0.049927568073706796,
+        "home_run": 0.036010481012661334,
+        "single": 0.14604984599546786,
+        "double": 0.047275896675421945,
+        "triple": 0.00495707032489461,
+        "out_on_bip": 0.497075702622973
+      }
+    },
+    {
+      "player_id": 682657,
+      "player_name": "Angel Mart\u00ednez",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.141,
+      "confidence": 0.67,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1405,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.133125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21870343529487446,
+        "walk": 0.049927568073706796,
+        "home_run": 0.036010481012661334,
+        "single": 0.14604984599546786,
+        "double": 0.047275896675421945,
+        "triple": 0.00495707032489461,
+        "out_on_bip": 0.497075702622973
+      }
+    },
+    {
+      "player_id": 700932,
+      "player_name": "Kyle Manzardo",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 0.692,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.6915,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.521125,
+          "2.0": 0.144875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.30259650683571926,
+        "walk": 0.07870520627786826,
+        "home_run": 0.022938248334566844,
+        "single": 0.12335427578600545,
+        "double": 0.037949813135107306,
+        "triple": 0.004136002280028533,
+        "out_on_bip": 0.43031994735070433
+      }
+    },
+    {
+      "player_id": 700932,
+      "player_name": "Kyle Manzardo",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 1.313,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.313,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.3535,
+          "3.0": 0.193
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.30259650683571926,
+        "walk": 0.07870520627786826,
+        "home_run": 0.022938248334566844,
+        "single": 0.12335427578600545,
+        "double": 0.037949813135107306,
+        "triple": 0.004136002280028533,
+        "out_on_bip": 0.43031994735070433
+      }
+    },
+    {
+      "player_id": 700932,
+      "player_name": "Kyle Manzardo",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.085,
+      "confidence": 0.88,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.085,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.082375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.30259650683571926,
+        "walk": 0.07870520627786826,
+        "home_run": 0.022938248334566844,
+        "single": 0.12335427578600545,
+        "double": 0.037949813135107306,
+        "triple": 0.004136002280028533,
+        "out_on_bip": 0.43031994735070433
+      }
+    },
+    {
+      "player_id": 595978,
+      "player_name": "Austin Hedges",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 0.825,
+      "confidence": 0.76,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.82525,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.592125,
+          "2.0": 0.19625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1852679387850839,
+        "walk": 0.07135474424474358,
+        "home_run": 0.03375478634064049,
+        "single": 0.14855275810298318,
+        "double": 0.04694922661866727,
+        "triple": 0.005012871403119242,
+        "out_on_bip": 0.5091076745047624
+      }
+    },
+    {
+      "player_id": 595978,
+      "player_name": "Austin Hedges",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 1.576,
+      "confidence": 0.68,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.576375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.40725,
+          "3.0": 0.248875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1852679387850839,
+        "walk": 0.07135474424474358,
+        "home_run": 0.03375478634064049,
+        "single": 0.14855275810298318,
+        "double": 0.04694922661866727,
+        "triple": 0.005012871403119242,
+        "out_on_bip": 0.5091076745047624
+      }
+    },
+    {
+      "player_id": 595978,
+      "player_name": "Austin Hedges",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.118,
+      "confidence": 0.8,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1185,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.11325
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1852679387850839,
+        "walk": 0.07135474424474358,
+        "home_run": 0.03375478634064049,
+        "single": 0.14855275810298318,
+        "double": 0.04694922661866727,
+        "triple": 0.005012871403119242,
+        "out_on_bip": 0.5091076745047624
+      }
+    },
+    {
+      "player_id": 690984,
+      "player_name": "Petey Halpin",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 0.727,
+      "confidence": 0.78,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.7265,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.542875,
+          "2.0": 0.15675
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2328666660944389,
+        "walk": 0.047821893718539864,
+        "home_run": 0.024335874390069925,
+        "single": 0.14781009035521253,
+        "double": 0.044384283882893505,
+        "triple": 0.004928060877900155,
+        "out_on_bip": 0.4978531306809451
+      }
+    },
+    {
+      "player_id": 690984,
+      "player_name": "Petey Halpin",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 1.349,
+      "confidence": 0.7,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.349375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.355875,
+          "3.0": 0.20525
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2328666660944389,
+        "walk": 0.047821893718539864,
+        "home_run": 0.024335874390069925,
+        "single": 0.14781009035521253,
+        "double": 0.044384283882893505,
+        "triple": 0.004928060877900155,
+        "out_on_bip": 0.4978531306809451
+      }
+    },
+    {
+      "player_id": 690984,
+      "player_name": "Petey Halpin",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.084,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Drew Rasmussen",
+      "opposing_pitcher_id": 656876,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.08425,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.082125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2328666660944389,
+        "walk": 0.047821893718539864,
+        "home_run": 0.024335874390069925,
+        "single": 0.14781009035521253,
+        "double": 0.044384283882893505,
+        "triple": 0.004928060877900155,
+        "out_on_bip": 0.4978531306809451
+      }
+    },
+    {
+      "player_id": 650490,
+      "player_name": "Yandy D\u00edaz",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 1.054,
+      "confidence": 0.82,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.054125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.68825,
+          "2.0": 0.286875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17037512320582332,
+        "walk": 0.08180509742990168,
+        "home_run": 0.03422358802568319,
+        "single": 0.15532843407969096,
+        "double": 0.047877593819564614,
+        "triple": 0.005210410971775784,
+        "out_on_bip": 0.5051797524675605
+      }
+    },
+    {
+      "player_id": 650490,
+      "player_name": "Yandy D\u00edaz",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 2.015,
+      "confidence": 0.7,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.014875,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.508,
+          "3.0": 0.334625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17037512320582332,
+        "walk": 0.08180509742990168,
+        "home_run": 0.03422358802568319,
+        "single": 0.15532843407969096,
+        "double": 0.047877593819564614,
+        "triple": 0.005210410971775784,
+        "out_on_bip": 0.5051797524675605
+      }
+    },
+    {
+      "player_id": 650490,
+      "player_name": "Yandy D\u00edaz",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.144,
+      "confidence": 0.86,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.143625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.135625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17037512320582332,
+        "walk": 0.08180509742990168,
+        "home_run": 0.03422358802568319,
+        "single": 0.15532843407969096,
+        "double": 0.047877593819564614,
+        "triple": 0.005210410971775784,
+        "out_on_bip": 0.5051797524675605
+      }
+    },
+    {
+      "player_id": 668723,
+      "player_name": "Ryan Vilade",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 0.95,
+      "confidence": 0.767,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.949625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.648875,
+          "2.0": 0.24225
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20784217565332339,
+        "walk": 0.08054402754880614,
+        "home_run": 0.041445993852201844,
+        "single": 0.13233617703224151,
+        "double": 0.04362657904232324,
+        "triple": 0.004511865540373456,
+        "out_on_bip": 0.48969318133073036
+      }
+    },
+    {
+      "player_id": 668723,
+      "player_name": "Ryan Vilade",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 1.886,
+      "confidence": 0.647,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.886,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.4715,
+          "3.0": 0.306875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20784217565332339,
+        "walk": 0.08054402754880614,
+        "home_run": 0.041445993852201844,
+        "single": 0.13233617703224151,
+        "double": 0.04362657904232324,
+        "triple": 0.004511865540373456,
+        "out_on_bip": 0.48969318133073036
+      }
+    },
+    {
+      "player_id": 668723,
+      "player_name": "Ryan Vilade",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.176,
+      "confidence": 0.807,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.17575,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.163375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20784217565332339,
+        "walk": 0.08054402754880614,
+        "home_run": 0.041445993852201844,
+        "single": 0.13233617703224151,
+        "double": 0.04362657904232324,
+        "triple": 0.004511865540373456,
+        "out_on_bip": 0.48969318133073036
+      }
+    },
+    {
+      "player_id": 691406,
+      "player_name": "Junior Caminero",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 1.025,
+      "confidence": 0.82,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.024875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.67975,
+          "2.0": 0.27275
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19691695026744535,
+        "walk": 0.10128108041032478,
+        "home_run": 0.06511620143239767,
+        "single": 0.13200866901412459,
+        "double": 0.04778431453566141,
+        "triple": 0.004610076501276564,
+        "out_on_bip": 0.45228270783876956
+      }
+    },
+    {
+      "player_id": 691406,
+      "player_name": "Junior Caminero",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 2.273,
+      "confidence": 0.7,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.27275,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.538875,
+          "3.0": 0.392625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19691695026744535,
+        "walk": 0.10128108041032478,
+        "home_run": 0.06511620143239767,
+        "single": 0.13200866901412459,
+        "double": 0.04778431453566141,
+        "triple": 0.004610076501276564,
+        "out_on_bip": 0.45228270783876956
+      }
+    },
+    {
+      "player_id": 691406,
+      "player_name": "Junior Caminero",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.273,
+      "confidence": 0.86,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.27275,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.247
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19691695026744535,
+        "walk": 0.10128108041032478,
+        "home_run": 0.06511620143239767,
+        "single": 0.13200866901412459,
+        "double": 0.04778431453566141,
+        "triple": 0.004610076501276564,
+        "out_on_bip": 0.45228270783876956
+      }
+    },
+    {
+      "player_id": 676356,
+      "player_name": "Jonny DeLuca",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 0.93,
+      "confidence": 0.82,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.93025,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.640125,
+          "2.0": 0.23425
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21275237080402992,
+        "walk": 0.06285397305256975,
+        "home_run": 0.032016250607865816,
+        "single": 0.14883851198170012,
+        "double": 0.046125077975136895,
+        "triple": 0.004999066409149667,
+        "out_on_bip": 0.4924147491695477
+      }
+    },
+    {
+      "player_id": 676356,
+      "player_name": "Jonny DeLuca",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 1.736,
+      "confidence": 0.74,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.735625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.45175,
+          "3.0": 0.27925
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21275237080402992,
+        "walk": 0.06285397305256975,
+        "home_run": 0.032016250607865816,
+        "single": 0.14883851198170012,
+        "double": 0.046125077975136895,
+        "triple": 0.004999066409149667,
+        "out_on_bip": 0.4924147491695477
+      }
+    },
+    {
+      "player_id": 676356,
+      "player_name": "Jonny DeLuca",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.14,
+      "confidence": 0.86,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1395,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.13175
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21275237080402992,
+        "walk": 0.06285397305256975,
+        "home_run": 0.032016250607865816,
+        "single": 0.14883851198170012,
+        "double": 0.046125077975136895,
+        "triple": 0.004999066409149667,
+        "out_on_bip": 0.4924147491695477
+      }
+    },
+    {
+      "player_id": 802415,
+      "player_name": "Chandler Simpson",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 0.97,
+      "confidence": 0.82,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.970375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.65425,
+          "2.0": 0.255
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14176531839960693,
+        "walk": 0.0636210301167875,
+        "home_run": 0.019787473342514777,
+        "single": 0.1714612286849686,
+        "double": 0.048195366857405685,
+        "triple": 0.0056322203985224185,
+        "out_on_bip": 0.5495373622001941
+      }
+    },
+    {
+      "player_id": 802415,
+      "player_name": "Chandler Simpson",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 1.686,
+      "confidence": 0.74,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.686375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.453375,
+          "3.0": 0.263375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14176531839960693,
+        "walk": 0.0636210301167875,
+        "home_run": 0.019787473342514777,
+        "single": 0.1714612286849686,
+        "double": 0.048195366857405685,
+        "triple": 0.0056322203985224185,
+        "out_on_bip": 0.5495373622001941
+      }
+    },
+    {
+      "player_id": 802415,
+      "player_name": "Chandler Simpson",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.085,
+      "confidence": 0.88,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.08475,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.082125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14176531839960693,
+        "walk": 0.0636210301167875,
+        "home_run": 0.019787473342514777,
+        "single": 0.1714612286849686,
+        "double": 0.048195366857405685,
+        "triple": 0.0056322203985224185,
+        "out_on_bip": 0.5495373622001941
+      }
+    },
+    {
+      "player_id": 810938,
+      "player_name": "Ben Williamson",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 0.868,
+      "confidence": 0.82,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.867875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.60775,
+          "2.0": 0.214125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2005389569846176,
+        "walk": 0.07677563788721828,
+        "home_run": 0.023776583862087895,
+        "single": 0.1547996175631459,
+        "double": 0.045766523665654035,
+        "triple": 0.005142721569969229,
+        "out_on_bip": 0.49319995846730696
+      }
+    },
+    {
+      "player_id": 810938,
+      "player_name": "Ben Williamson",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 1.603,
+      "confidence": 0.74,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.602875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.428625,
+          "3.0": 0.24825
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2005389569846176,
+        "walk": 0.07677563788721828,
+        "home_run": 0.023776583862087895,
+        "single": 0.1547996175631459,
+        "double": 0.045766523665654035,
+        "triple": 0.005142721569969229,
+        "out_on_bip": 0.49319995846730696
+      }
+    },
+    {
+      "player_id": 810938,
+      "player_name": "Ben Williamson",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.092,
+      "confidence": 0.88,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.092125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.088375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2005389569846176,
+        "walk": 0.07677563788721828,
+        "home_run": 0.023776583862087895,
+        "single": 0.1547996175631459,
+        "double": 0.045766523665654035,
+        "triple": 0.005142721569969229,
+        "out_on_bip": 0.49319995846730696
+      }
+    },
+    {
+      "player_id": 656775,
+      "player_name": "Cedric Mullins",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 0.781,
+      "confidence": 0.82,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.78125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.568125,
+          "2.0": 0.17625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2135293981106175,
+        "walk": 0.07774079787027999,
+        "home_run": 0.0262753500130491,
+        "single": 0.13978625998368496,
+        "double": 0.04331569923178397,
+        "triple": 0.004694922031165871,
+        "out_on_bip": 0.4946575727594186
+      }
+    },
+    {
+      "player_id": 656775,
+      "player_name": "Cedric Mullins",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 1.465,
+      "confidence": 0.74,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.46525,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.394125,
+          "3.0": 0.225125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2135293981106175,
+        "walk": 0.07774079787027999,
+        "home_run": 0.0262753500130491,
+        "single": 0.13978625998368496,
+        "double": 0.04331569923178397,
+        "triple": 0.004694922031165871,
+        "out_on_bip": 0.4946575727594186
+      }
+    },
+    {
+      "player_id": 656775,
+      "player_name": "Cedric Mullins",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.097,
+      "confidence": 0.88,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.096875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.094
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2135293981106175,
+        "walk": 0.07774079787027999,
+        "home_run": 0.0262753500130491,
+        "single": 0.13978625998368496,
+        "double": 0.04331569923178397,
+        "triple": 0.004694922031165871,
+        "out_on_bip": 0.4946575727594186
+      }
+    },
+    {
+      "player_id": 663743,
+      "player_name": "Nick Fortes",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 0.845,
+      "confidence": 0.82,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.84475,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.608,
+          "2.0": 0.198875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1583618927617904,
+        "walk": 0.05356760921875443,
+        "home_run": 0.028606117993461664,
+        "single": 0.16074366093662248,
+        "double": 0.04841995148786702,
+        "triple": 0.005363169549345885,
+        "out_on_bip": 0.544937598052158
+      }
+    },
+    {
+      "player_id": 663743,
+      "player_name": "Nick Fortes",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 1.536,
+      "confidence": 0.74,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.535875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.411125,
+          "3.0": 0.237
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1583618927617904,
+        "walk": 0.05356760921875443,
+        "home_run": 0.028606117993461664,
+        "single": 0.16074366093662248,
+        "double": 0.04841995148786702,
+        "triple": 0.005363169549345885,
+        "out_on_bip": 0.544937598052158
+      }
+    },
+    {
+      "player_id": 663743,
+      "player_name": "Nick Fortes",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.097,
+      "confidence": 0.88,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.097375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.093125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1583618927617904,
+        "walk": 0.05356760921875443,
+        "home_run": 0.028606117993461664,
+        "single": 0.16074366093662248,
+        "double": 0.04841995148786702,
+        "triple": 0.005363169549345885,
+        "out_on_bip": 0.544937598052158
+      }
+    },
+    {
+      "player_id": 680700,
+      "player_name": "Richie Palacios",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 0.74,
+      "confidence": 0.82,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.7395,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.55,
+          "2.0": 0.161375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1935973831447938,
+        "walk": 0.09553039212501088,
+        "home_run": 0.027223247660384163,
+        "single": 0.14809363332324033,
+        "double": 0.04454507873256528,
+        "triple": 0.0049394541552770675,
+        "out_on_bip": 0.4860708108587284
+      }
+    },
+    {
+      "player_id": 680700,
+      "player_name": "Richie Palacios",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 1.41,
+      "confidence": 0.74,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.409875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.37575,
+          "3.0": 0.212625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1935973831447938,
+        "walk": 0.09553039212501088,
+        "home_run": 0.027223247660384163,
+        "single": 0.14809363332324033,
+        "double": 0.04454507873256528,
+        "triple": 0.0049394541552770675,
+        "out_on_bip": 0.4860708108587284
+      }
+    },
+    {
+      "player_id": 680700,
+      "player_name": "Richie Palacios",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.091,
+      "confidence": 0.88,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.09075,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.086625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1935973831447938,
+        "walk": 0.09553039212501088,
+        "home_run": 0.027223247660384163,
+        "single": 0.14809363332324033,
+        "double": 0.04454507873256528,
+        "triple": 0.0049394541552770675,
+        "out_on_bip": 0.4860708108587284
+      }
+    },
+    {
+      "player_id": 682998,
+      "player_name": "Corbin Carroll",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 0.983,
+      "confidence": 0.82,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.98275,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.650625,
+          "2.0": 0.26075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19115865870828952,
+        "walk": 0.08907114250839554,
+        "home_run": 0.028845272554197745,
+        "single": 0.14477149172118647,
+        "double": 0.04642088461083294,
+        "triple": 0.004902368623897935,
+        "out_on_bip": 0.4948301812731998
+      }
+    },
+    {
+      "player_id": 682998,
+      "player_name": "Corbin Carroll",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 1.892,
+      "confidence": 0.736,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.892,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.100000000000364,
+        "p_ge_threshold": {
+          "2.0": 0.492125,
+          "3.0": 0.309375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19115865870828952,
+        "walk": 0.08907114250839554,
+        "home_run": 0.028845272554197745,
+        "single": 0.14477149172118647,
+        "double": 0.04642088461083294,
+        "triple": 0.004902368623897935,
+        "out_on_bip": 0.4948301812731998
+      }
+    },
+    {
+      "player_id": 682998,
+      "player_name": "Corbin Carroll",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.123,
+      "confidence": 0.86,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.123,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.11825
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19115865870828952,
+        "walk": 0.08907114250839554,
+        "home_run": 0.028845272554197745,
+        "single": 0.14477149172118647,
+        "double": 0.04642088461083294,
+        "triple": 0.004902368623897935,
+        "out_on_bip": 0.4948301812731998
+      }
+    },
+    {
+      "player_id": 672695,
+      "player_name": "Geraldo Perdomo",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 0.91,
+      "confidence": 0.82,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.909875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.628125,
+          "2.0": 0.228
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1283658132626969,
+        "walk": 0.11048042626429685,
+        "home_run": 0.019444896039556767,
+        "single": 0.14582965125351435,
+        "double": 0.041516307916711646,
+        "triple": 0.004803742542826308,
+        "out_on_bip": 0.5495591627203971
+      }
+    },
+    {
+      "player_id": 672695,
+      "player_name": "Geraldo Perdomo",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 1.681,
+      "confidence": 0.74,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.68075,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.452625,
+          "3.0": 0.26
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1283658132626969,
+        "walk": 0.11048042626429685,
+        "home_run": 0.019444896039556767,
+        "single": 0.14582965125351435,
+        "double": 0.041516307916711646,
+        "triple": 0.004803742542826308,
+        "out_on_bip": 0.5495591627203971
+      }
+    },
+    {
+      "player_id": 672695,
+      "player_name": "Geraldo Perdomo",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.084,
+      "confidence": 0.88,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.084125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.081875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1283658132626969,
+        "walk": 0.11048042626429685,
+        "home_run": 0.019444896039556767,
+        "single": 0.14582965125351435,
+        "double": 0.041516307916711646,
+        "triple": 0.004803742542826308,
+        "out_on_bip": 0.5495591627203971
+      }
+    },
+    {
+      "player_id": 672515,
+      "player_name": "Gabriel Moreno",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 1.132,
+      "confidence": 0.82,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.132375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.71775,
+          "2.0": 0.322375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14274332129793793,
+        "walk": 0.09012255915589248,
+        "home_run": 0.032791029149965956,
+        "single": 0.177266193147106,
+        "double": 0.05607194786555046,
+        "triple": 0.005983029256734782,
+        "out_on_bip": 0.49502192012681234
+      }
+    },
+    {
+      "player_id": 672515,
+      "player_name": "Gabriel Moreno",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 2.121,
+      "confidence": 0.7,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.121125,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.54625,
+          "3.0": 0.35325
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14274332129793793,
+        "walk": 0.09012255915589248,
+        "home_run": 0.032791029149965956,
+        "single": 0.177266193147106,
+        "double": 0.05607194786555046,
+        "triple": 0.005983029256734782,
+        "out_on_bip": 0.49502192012681234
+      }
+    },
+    {
+      "player_id": 672515,
+      "player_name": "Gabriel Moreno",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.134,
+      "confidence": 0.86,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1335,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.126375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14274332129793793,
+        "walk": 0.09012255915589248,
+        "home_run": 0.032791029149965956,
+        "single": 0.177266193147106,
+        "double": 0.05607194786555046,
+        "triple": 0.005983029256734782,
+        "out_on_bip": 0.49502192012681234
+      }
+    },
+    {
+      "player_id": 606466,
+      "player_name": "Ketel Marte",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 1.019,
+      "confidence": 0.82,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.01875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.677125,
+          "2.0": 0.272
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14204077481537916,
+        "walk": 0.06705924332134204,
+        "home_run": 0.03077850855785014,
+        "single": 0.16418662736921055,
+        "double": 0.052257731963328,
+        "triple": 0.005549855367500989,
+        "out_on_bip": 0.5381272586053891
+      }
+    },
+    {
+      "player_id": 606466,
+      "player_name": "Ketel Marte",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 1.903,
+      "confidence": 0.7,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.902875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.491875,
+          "3.0": 0.312
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14204077481537916,
+        "walk": 0.06705924332134204,
+        "home_run": 0.03077850855785014,
+        "single": 0.16418662736921055,
+        "double": 0.052257731963328,
+        "triple": 0.005549855367500989,
+        "out_on_bip": 0.5381272586053891
+      }
+    },
+    {
+      "player_id": 606466,
+      "player_name": "Ketel Marte",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.124,
+      "confidence": 0.86,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.124375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.119375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14204077481537916,
+        "walk": 0.06705924332134204,
+        "home_run": 0.03077850855785014,
+        "single": 0.16418662736921055,
+        "double": 0.052257731963328,
+        "triple": 0.005549855367500989,
+        "out_on_bip": 0.5381272586053891
+      }
+    },
+    {
+      "player_id": 596146,
+      "player_name": "Max Kepler",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 0.89,
+      "confidence": 0.793,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.8905,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.61675,
+          "2.0": 0.2255
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16819241166670676,
+        "walk": 0.06894031029207563,
+        "home_run": 0.02769124618626993,
+        "single": 0.14924053396414738,
+        "double": 0.04703579893497912,
+        "triple": 0.005032726484592987,
+        "out_on_bip": 0.5338669724712283
+      }
+    },
+    {
+      "player_id": 596146,
+      "player_name": "Max Kepler",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 1.672,
+      "confidence": 0.713,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.67225,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4375,
+          "3.0": 0.264375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16819241166670676,
+        "walk": 0.06894031029207563,
+        "home_run": 0.02769124618626993,
+        "single": 0.14924053396414738,
+        "double": 0.04703579893497912,
+        "triple": 0.005032726484592987,
+        "out_on_bip": 0.5338669724712283
+      }
+    },
+    {
+      "player_id": 596146,
+      "player_name": "Max Kepler",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.109,
+      "confidence": 0.833,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.10925,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.105125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16819241166670676,
+        "walk": 0.06894031029207563,
+        "home_run": 0.02769124618626993,
+        "single": 0.14924053396414738,
+        "double": 0.04703579893497912,
+        "triple": 0.005032726484592987,
+        "out_on_bip": 0.5338669724712283
+      }
+    },
+    {
+      "player_id": 571448,
+      "player_name": "Nolan Arenado",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 0.852,
+      "confidence": 0.82,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.85175,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.603875,
+          "2.0": 0.206375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17762928154469151,
+        "walk": 0.07680104370864849,
+        "home_run": 0.022191364697242207,
+        "single": 0.15329462086920298,
+        "double": 0.04618226619449692,
+        "triple": 0.005114791975992306,
+        "out_on_bip": 0.5187866310097256
+      }
+    },
+    {
+      "player_id": 571448,
+      "player_name": "Nolan Arenado",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 1.578,
+      "confidence": 0.74,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.578,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.419875,
+          "3.0": 0.241625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17762928154469151,
+        "walk": 0.07680104370864849,
+        "home_run": 0.022191364697242207,
+        "single": 0.15329462086920298,
+        "double": 0.04618226619449692,
+        "triple": 0.005114791975992306,
+        "out_on_bip": 0.5187866310097256
+      }
+    },
+    {
+      "player_id": 571448,
+      "player_name": "Nolan Arenado",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.083,
+      "confidence": 0.88,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.08275,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.079875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17762928154469151,
+        "walk": 0.07680104370864849,
+        "home_run": 0.022191364697242207,
+        "single": 0.15329462086920298,
+        "double": 0.04618226619449692,
+        "triple": 0.005114791975992306,
+        "out_on_bip": 0.5187866310097256
+      }
+    },
+    {
+      "player_id": 680728,
+      "player_name": "Adrian Del Castillo",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 0.801,
+      "confidence": 0.717,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.8015,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.57975,
+          "2.0": 0.187375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2367086983290543,
+        "walk": 0.0684229099637039,
+        "home_run": 0.025505790297809937,
+        "single": 0.14597233384478098,
+        "double": 0.046420951896807214,
+        "triple": 0.004933161172861236,
+        "out_on_bip": 0.47203615449498243
+      }
+    },
+    {
+      "player_id": 680728,
+      "player_name": "Adrian Del Castillo",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 1.512,
+      "confidence": 0.637,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.512125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.40025,
+          "3.0": 0.2375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2367086983290543,
+        "walk": 0.0684229099637039,
+        "home_run": 0.025505790297809937,
+        "single": 0.14597233384478098,
+        "double": 0.046420951896807214,
+        "triple": 0.004933161172861236,
+        "out_on_bip": 0.47203615449498243
+      }
+    },
+    {
+      "player_id": 680728,
+      "player_name": "Adrian Del Castillo",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.092,
+      "confidence": 0.797,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.092125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.089
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2367086983290543,
+        "walk": 0.0684229099637039,
+        "home_run": 0.025505790297809937,
+        "single": 0.14597233384478098,
+        "double": 0.046420951896807214,
+        "triple": 0.004933161172861236,
+        "out_on_bip": 0.47203615449498243
+      }
+    },
+    {
+      "player_id": 682988,
+      "player_name": "Tyler Locklear",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 0.854,
+      "confidence": 0.633,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.854125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.602375,
+          "2.0": 0.207125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1476169691629096,
+        "walk": 0.11582848616867014,
+        "home_run": 0.06782983355266622,
+        "single": 0.1268775143547763,
+        "double": 0.04878688299255429,
+        "triple": 0.0045042153165982205,
+        "out_on_bip": 0.48855609845182524
+      }
+    },
+    {
+      "player_id": 682988,
+      "player_name": "Tyler Locklear",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 1.925,
+      "confidence": 0.513,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.924875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.461,
+          "3.0": 0.322125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1476169691629096,
+        "walk": 0.11582848616867014,
+        "home_run": 0.06782983355266622,
+        "single": 0.1268775143547763,
+        "double": 0.04878688299255429,
+        "triple": 0.0045042153165982205,
+        "out_on_bip": 0.48855609845182524
+      }
+    },
+    {
+      "player_id": 682988,
+      "player_name": "Tyler Locklear",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.24,
+      "confidence": 0.673,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.24,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.218
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1476169691629096,
+        "walk": 0.11582848616867014,
+        "home_run": 0.06782983355266622,
+        "single": 0.1268775143547763,
+        "double": 0.04878688299255429,
+        "triple": 0.0045042153165982205,
+        "out_on_bip": 0.48855609845182524
+      }
+    },
+    {
+      "player_id": 694374,
+      "player_name": "Tim Tawa",
+      "category": "hits",
+      "game_date": "2026-07-26",
+      "projected_value": 0.818,
+      "confidence": 0.78,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.81825,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.5885,
+          "2.0": 0.196625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1830929254819735,
+        "walk": 0.07257982193932237,
+        "home_run": 0.04119947821591877,
+        "single": 0.1508440598111469,
+        "double": 0.05264996827308554,
+        "triple": 0.005217795591903396,
+        "out_on_bip": 0.49441595068664956
+      }
+    },
+    {
+      "player_id": 694374,
+      "player_name": "Tim Tawa",
+      "category": "hrr",
+      "game_date": "2026-07-26",
+      "projected_value": 1.628,
+      "confidence": 0.7,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.628125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.421,
+          "3.0": 0.25675
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1830929254819735,
+        "walk": 0.07257982193932237,
+        "home_run": 0.04119947821591877,
+        "single": 0.1508440598111469,
+        "double": 0.05264996827308554,
+        "triple": 0.005217795591903396,
+        "out_on_bip": 0.49441595068664956
+      }
+    },
+    {
+      "player_id": 694374,
+      "player_name": "Tim Tawa",
+      "category": "home_runs",
+      "game_date": "2026-07-26",
+      "projected_value": 0.142,
+      "confidence": 0.82,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Washington Nationals",
+      "opposing_pitcher": "Miles Mikolas",
+      "opposing_pitcher_id": 571945,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.141875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.132625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1830929254819735,
+        "walk": 0.07257982193932237,
+        "home_run": 0.04119947821591877,
+        "single": 0.1508440598111469,
+        "double": 0.05264996827308554,
+        "triple": 0.005217795591903396,
+        "out_on_bip": 0.49441595068664956
+      }
+    }
+  ],
+  "pitcher_projections": [
+    {
+      "player_id": 800048,
+      "player_name": "Parker Messick",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 5.77,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.772101061714658,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6832816945989747,
+          "6.0": 0.5170565398789163,
+          "7.0": 0.3571451412050276
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 656876,
+      "player_name": "Drew Rasmussen",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 5.38,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822950,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.3847768720032185,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6242484270429022,
+          "6.0": 0.4512355479307413,
+          "7.0": 0.29596292293043236
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 684442,
+      "player_name": "Kohl Drake",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 4.94,
+      "confidence": 0.5,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.939086291882393,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.548754048514145,
+          "6.0": 0.37335230694932264,
+          "7.0": 0.2289649173934707
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 571945,
+      "player_name": "Miles Mikolas",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 2.47,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822706,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.4729151847233695,
+        "median": 2.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.10523292387862804,
+          "6.0": 0.040236203775705026,
+          "7.0": 0.013447641092416251
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 592791,
+      "player_name": "Jameson Taillon",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 4.72,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823354,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.720000508055608,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5090842644248814,
+          "6.0": 0.33504036475849364,
+          "7.0": 0.19812581561693887
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 677952,
+      "player_name": "Braxton Ashcraft",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 6.19,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823354,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.192079849738752,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.7398316323970383,
+          "6.0": 0.5846589082806749,
+          "7.0": 0.42451859190900776
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 592332,
+      "player_name": "Kevin Gausman",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 5.47,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824730,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.473404419438065,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6383229054772603,
+          "6.0": 0.46651738680216315,
+          "7.0": 0.30979053926880873
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 624133,
+      "player_name": "Ranger Suarez",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 5.56,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824730,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.5590011940319615,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6516012277456191,
+          "6.0": 0.4811661248671302,
+          "7.0": 0.3232579681327169
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 625643,
+      "player_name": "Reynaldo L\u00f3pez",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 3.25,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824810,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.251481248728308,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.22861359789396674,
+          "6.0": 0.11136041018711773,
+          "7.0": 0.04781931999004441
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669358,
+      "player_name": "Shane Baz",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 5.42,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824810,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.419209493181462,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6297554595962956,
+          "6.0": 0.4571853101508505,
+          "7.0": 0.3013196781317673
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 679883,
+      "player_name": "Luinder Avila",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 3.24,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824246,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.2416664199365037,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.22684592071910803,
+          "6.0": 0.11021263063581188,
+          "7.0": 0.047198260650856194
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 664285,
+      "player_name": "Framber Valdez",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 4.69,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824246,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.694622998592876,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5043964734028877,
+          "6.0": 0.3306269935639501,
+          "7.0": 0.19466329414638395
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 686218,
+      "player_name": "Emmet Sheehan",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 5.16,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823599,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.161641159018136,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5873969343691332,
+          "6.0": 0.41237780262970725,
+          "7.0": 0.26181347696273427
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 642547,
+      "player_name": "Freddy Peralta",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 5.15,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823599,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.148090804031615,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5850961349336341,
+          "6.0": 0.4100057416590348,
+          "7.0": 0.25977553441049417
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 621111,
+      "player_name": "Walker Buehler",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 4.3,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823840,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.303924585031719,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.43032034854274925,
+          "6.0": 0.2639900678489656,
+          "7.0": 0.14467790379676515
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 676083,
+      "player_name": "Janson Junk",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 4.38,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823840,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.378141486040194,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.44462102900003164,
+          "6.0": 0.27640590999287573,
+          "7.0": 0.15366097814213953
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 605488,
+      "player_name": "Jeffrey Springs",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 4.51,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823678,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.5127677313605234,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.470318105202297,
+          "6.0": 0.2992521697571273,
+          "7.0": 0.17058869752180006
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 687570,
+      "player_name": "Connor Prielipp",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 5.26,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823678,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.261709820908227,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6041686509890729,
+          "6.0": 0.42985890081789846,
+          "7.0": 0.2769976800919436
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669854,
+      "player_name": "Ronel Blanco",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 6.43,
+      "confidence": 0.5,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824572,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.431408949025136,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.7685566970301639,
+          "6.0": 0.6209099222631889,
+          "7.0": 0.46264712417468545
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 607200,
+      "player_name": "Erick Fedde",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 2.83,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824572,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.8330968961447347,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.1575146556447351,
+          "6.0": 0.06803433189954655,
+          "7.0": 0.025783260654793305
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 607536,
+      "player_name": "Kyle Freeland",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 4.75,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823755,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.747356983855981,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5141173159916612,
+          "6.0": 0.3398053248745392,
+          "7.0": 0.20188511680792076
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 694819,
+      "player_name": "Jacob Misiorowski",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 8.28,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823755,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 8.281977015027966,
+        "median": 8.0,
+        "p10": 5.0,
+        "p90": 12.0,
+        "p_ge_threshold": {
+          "5.0": 0.91541321331232,
+          "6.0": 0.8332510356583593,
+          "7.0": 0.7198401578525684
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 671096,
+      "player_name": "Andrew Abbott",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 4.6,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823028,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.604142173799489,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.48754256138310503,
+          "6.0": 0.31495525769297295,
+          "7.0": 0.18251917709596022
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 681517,
+      "player_name": "Kyle Leahy",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 4.4,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823028,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.39724316987072,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4482875416712524,
+          "6.0": 0.27962341392633716,
+          "7.0": 0.1560138833049154
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669302,
+      "player_name": "Logan Gilbert",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 6.23,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822870,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.2311040603160395,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.7446875922384779,
+          "6.0": 0.5906915126154243,
+          "7.0": 0.43076391311343065
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 594798,
+      "player_name": "Jacob deGrom",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 6.25,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822870,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.253394136662976,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.7474310014623672,
+          "6.0": 0.5941165132060953,
+          "7.0": 0.43432719288488597
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 667755,
+      "player_name": "Jos\u00e9 Soriano",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 5.66,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823194,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.660008521096591,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6668647397641531,
+          "6.0": 0.49828952920994707,
+          "7.0": 0.33926667451287085
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 687931,
+      "player_name": "Carson Whisenhunt",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 3.72,
+      "confidence": 0.5,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823194,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.715224813818676,
+        "median": 4.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.31572181224377904,
+          "6.0": 0.17209265514394612,
+          "7.0": 0.08315688706975277
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 701542,
+      "player_name": "Will Warren",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 5.07,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823433,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.0683736460151065,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5714209309849437,
+          "6.0": 0.3960348323636014,
+          "7.0": 0.24788111900863163
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 650911,
+      "player_name": "Cristopher S\u00e1nchez",
+      "category": "strikeouts",
+      "game_date": "2026-07-26",
+      "projected_value": 6.81,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823433,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.813840005326417,
+        "median": 7.0,
+        "p10": 4.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.8093384939020447,
+          "6.0": 0.6748871034746898,
+          "7.0": 0.5221987263304112
+        }
+      },
+      "outcome_probs": null
+    }
+  ],
+  "value_plays": [],
+  "market_status": "RESEARCH_ONLY",
+  "market_policy_sha256": "08bc0c9d56eb21c7fb438eccd8d89539e98da111f72cdf6735af9cbeb02f154c",
+  "market_policy_reason": "policy verdict is 'RESEARCH_ONLY', not BETTING_AUTHORIZED",
+  "prediction_provenance": {
+    "schema_version": "daily-prediction-provenance-v1",
+    "captured_at_utc": "2026-07-26T13:45:55.880617+00:00",
+    "model_version": "8c7eed9bb0c3",
+    "effective_config_sha256": "3a62fc507956752086919b757ae683e60f9df8fb2143f83292ac61f07830a60c",
+    "config_source_path": "/home/runner/work/baseball-predictor/baseball-predictor/config/config.kbb.json",
+    "code": {
+      "status": "available",
+      "head": "67efa1427987517d2c283cd502c1898b97c6bb2b",
+      "tracked_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked": [],
+      "snapshot_sha256": "fca5b3797a42a8486e09ce23fe53e3451bb8ff4fc86552ef876751884f7292a1"
+    },
+    "run_options": {
+      "game_date": "2026-07-26",
+      "hitter_categories": [
+        "hits",
+        "hrr",
+        "home_runs"
+      ],
+      "include_pitchers": true,
+      "corrections_active": false,
+      "edges_requested": false,
+      "use_projected_lineups": false
+    }
+  }
+}
