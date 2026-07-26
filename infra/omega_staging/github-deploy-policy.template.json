@@ -1,0 +1,77 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ConfirmCaller",
+      "Effect": "Allow",
+      "Action": "sts:GetCallerIdentity",
+      "Resource": "*"
+    },
+    {
+      "Sid": "ReadExactBudget",
+      "Effect": "Allow",
+      "Action": "budgets:ViewBudget",
+      "Resource": "arn:${PARTITION}:budgets::${ACCOUNT_ID}:budget/${BUDGET_NAME}"
+    },
+    {
+      "Sid": "GetEcrAuthorizationToken",
+      "Effect": "Allow",
+      "Action": "ecr:GetAuthorizationToken",
+      "Resource": "*"
+    },
+    {
+      "Sid": "PushOnlyStagingRepository",
+      "Effect": "Allow",
+      "Action": [
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:BatchGetImage",
+        "ecr:CompleteLayerUpload",
+        "ecr:DescribeImages",
+        "ecr:DescribeRepositories",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:InitiateLayerUpload",
+        "ecr:PutImage",
+        "ecr:UploadLayerPart"
+      ],
+      "Resource": "arn:${PARTITION}:ecr:${REGION}:${ACCOUNT_ID}:repository/baseball-predictor-omega-staging"
+    },
+    {
+      "Sid": "ReadStagingFoundationStack",
+      "Effect": "Allow",
+      "Action": "cloudformation:DescribeStacks",
+      "Resource": "arn:${PARTITION}:cloudformation:${REGION}:${ACCOUNT_ID}:stack/baseball-predictor-omega-staging-foundation/*"
+    },
+    {
+      "Sid": "ManageOnlyStagingServiceStack",
+      "Effect": "Allow",
+      "Action": [
+        "cloudformation:CreateChangeSet",
+        "cloudformation:DeleteChangeSet",
+        "cloudformation:DescribeChangeSet",
+        "cloudformation:DescribeStacks",
+        "cloudformation:ExecuteChangeSet"
+      ],
+      "Resource": [
+        "arn:${PARTITION}:cloudformation:${REGION}:${ACCOUNT_ID}:stack/baseball-predictor-omega-staging-service/*",
+        "arn:${PARTITION}:cloudformation:${REGION}:${ACCOUNT_ID}:changeSet/awscli-cloudformation-package-deploy-*/*"
+      ]
+    },
+    {
+      "Sid": "PassOnlyStagingCloudFormationRole",
+      "Effect": "Allow",
+      "Action": "iam:PassRole",
+      "Resource": "arn:${PARTITION}:iam::${ACCOUNT_ID}:role/baseball-predictor-omega-staging-cfn",
+      "Condition": {
+        "StringEquals": {
+          "iam:PassedToService": "cloudformation.amazonaws.com"
+        }
+      }
+    },
+    {
+      "Sid": "VerifyOnlyStagingService",
+      "Effect": "Allow",
+      "Action": "apprunner:DescribeService",
+      "Resource": "arn:${PARTITION}:apprunner:${REGION}:${ACCOUNT_ID}:service/baseball-predictor-omega-staging/*"
+    }
+  ]
+}

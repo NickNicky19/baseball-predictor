@@ -1,0 +1,12 @@
+{
+  "schema_version": "omega-integration-candidate-v0",
+  "candidate_id": "omega-integration-candidate-v0",
+  "qualification_state": "IMPLEMENTED_UNQUALIFIED",
+  "active": false,
+  "betting_authorized": false,
+  "promotion_approval_sha256": null,
+  "fits_model": false,
+  "changes_production_probabilities": false,
+  "collector_changes_permitted": false,
+  "may_2026_permitted": false
+}

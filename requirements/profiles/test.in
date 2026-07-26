@@ -1,0 +1,7 @@
+# OPERATIONAL test profile.  It includes the dashboard runtime so a clean test
+# environment exercises the exact web stack rather than globally installed
+# packages.
+-r dashboard.in
+hypothesis==6.131.9
+httpx==0.28.1
+pytest==8.3.5

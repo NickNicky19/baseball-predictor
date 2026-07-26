@@ -1,0 +1,8 @@
+**
+!Dockerfile
+!.dockerignore
+!dashboard/
+!dashboard/**
+!requirements/
+!requirements/profiles/
+!requirements/profiles/dashboard.lock

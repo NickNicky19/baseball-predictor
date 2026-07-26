@@ -1,0 +1,88 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Private, read-only Omega research dashboard. No production or collector access.
+
+Parameters:
+  ImageIdentifier:
+    Type: String
+    AllowedPattern: '^[0-9]+\.dkr\.ecr\.[a-z0-9-]+\.amazonaws\.com/baseball-predictor-omega-staging@sha256:[0-9a-f]{64}$'
+  SourceCommit:
+    Type: String
+    AllowedPattern: '^[0-9a-f]{40}$'
+  EcrAccessRoleArn:
+    Type: String
+    AllowedPattern: '^arn:[a-z0-9-]+:iam::[0-9]{12}:role/baseball-predictor-omega-staging-ecr-access$'
+  InstanceRoleArn:
+    Type: String
+    AllowedPattern: '^arn:[a-z0-9-]+:iam::[0-9]{12}:role/baseball-predictor-omega-staging-instance$'
+  DashboardAuthSecretArn:
+    Type: String
+    AllowedPattern: '^arn:[a-z0-9-]+:secretsmanager:[a-z0-9-]+:[0-9]{12}:secret:[A-Za-z0-9/_+=.@-]+$'
+  AllowedProducers:
+    Type: String
+    Default: omega-staging-snapshot-publisher-v1
+    AllowedPattern: '^[A-Za-z0-9._,-]+$'
+
+Resources:
+  DashboardService:
+    Type: AWS::AppRunner::Service
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      ServiceName: baseball-predictor-omega-staging
+      SourceConfiguration:
+        AutoDeploymentsEnabled: false
+        AuthenticationConfiguration:
+          AccessRoleArn: !Ref EcrAccessRoleArn
+        ImageRepository:
+          ImageIdentifier: !Ref ImageIdentifier
+          ImageRepositoryType: ECR
+          ImageConfiguration:
+            Port: "8080"
+            RuntimeEnvironmentVariables:
+              - Name: DASHBOARD_ALLOWED_PRODUCERS
+                Value: !Ref AllowedProducers
+              - Name: DASHBOARD_SOURCE_COMMIT
+                Value: !Ref SourceCommit
+              - Name: DASHBOARD_SNAPSHOT_ROOT
+                Value: /app/snapshots
+              - Name: MODEL_STATE
+                Value: RESEARCH_ONLY_NO_ACTIVE
+            RuntimeEnvironmentSecrets:
+              - Name: DASHBOARD_AUTH_SECRET
+                Value: !Ref DashboardAuthSecretArn
+      InstanceConfiguration:
+        Cpu: "1024"
+        Memory: "2048"
+        InstanceRoleArn: !Ref InstanceRoleArn
+      HealthCheckConfiguration:
+        Protocol: HTTP
+        Path: /healthz
+        Interval: 10
+        Timeout: 5
+        HealthyThreshold: 1
+        UnhealthyThreshold: 5
+      NetworkConfiguration:
+        IngressConfiguration:
+          IsPubliclyAccessible: false
+        EgressConfiguration:
+          EgressType: DEFAULT
+      Tags:
+        - Key: Environment
+          Value: omega-staging
+        - Key: ResearchOnly
+          Value: "true"
+        - Key: Production
+          Value: "false"
+        - Key: SourceCommit
+          Value: !Ref SourceCommit
+
+Outputs:
+  ServiceArn:
+    Value: !GetAtt DashboardService.ServiceArn
+  ServiceUrl:
+    Description: Private App Runner URL; it is not publicly reachable.
+    Value: !GetAtt DashboardService.ServiceUrl
+  DeployedImageIdentifier:
+    Value: !Ref ImageIdentifier
+  DeployedSourceCommit:
+    Value: !Ref SourceCommit
