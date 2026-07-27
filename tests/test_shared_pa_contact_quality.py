@@ -73,6 +73,19 @@ def test_target_date_is_strictly_excluded() -> None:
     assert result["history_contact_max_source_date"] == "2023-04-04"
 
 
+def test_ev_and_bb_type_without_launch_angle_uses_only_its_truthful_population() -> None:
+    frame = _rows()
+    frame.loc[4, "launch_speed"] = 100.0
+    frame.loc[4, "bb_type"] = "fly_ball"
+    prepared = prepare_contact_source(frame, player_id=10)
+    result = contact_quality_features(prepared, player_id=10, target_date="2023-04-06")
+    assert result["history_contact_joint_denominator"] == 4
+    assert result["history_contact_ev_bb_type_denominator"] == 5
+    assert result["history_contact_hard_hit_count_joint"] == 2
+    assert result["history_contact_hard_hit_fly_ball_count"] == 2
+    validate_contact_feature_row(result)
+
+
 def test_invalid_source_mutations_fail_closed() -> None:
     frame = _rows()
     frame.loc[0, "launch_speed"] = 90.0

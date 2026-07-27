@@ -370,10 +370,9 @@ def validate_contact_feature_row(row: dict[str, Any]) -> None:
     for hard_hit_name, type_name in hard_hit_type_pairs:
         if counts[hard_hit_name] > counts[type_name]:
             raise ValueError(f"contact-quality hard-hit type count exceeds type population: {hard_hit_name}")
-    if sum(counts[name] for name, _ in hard_hit_type_pairs) > min(
-        counts["history_contact_hard_hit_count_joint"],
-        counts["history_contact_ev_bb_type_denominator"],
-    ):
+    if sum(counts[name] for name, _ in hard_hit_type_pairs) > counts[
+        "history_contact_ev_bb_type_denominator"
+    ]:
         raise ValueError("contact-quality hard-hit type counts exceed their intersected population")
     max_source_date = row["history_contact_max_source_date"]
     if max_source_date is not None and not pd.isna(max_source_date):
