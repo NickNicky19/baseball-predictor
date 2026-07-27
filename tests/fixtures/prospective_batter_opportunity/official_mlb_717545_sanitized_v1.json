@@ -1,0 +1,57 @@
+{
+  "schema_version": "prospective-batter-opportunity-real-source-fixture-v1",
+  "classification": "PRE_2026_STATIC_SOURCE_SURFACE_AUDIT_NOT_PROSPECTIVE_EVIDENCE",
+  "source_request_url": "https://statsapi.mlb.com/api/v1.1/game/717545/feed/live?fields=gamePk%2CgameData%2Cdatetime%2CofficialDate%2Cstatus%2CabstractGameState%2CcodedGameState%2CliveData%2Cboxscore%2Cteams%2Caway%2Chome%2Cteam%2Cid%2Cplayers%2Cperson%2CbattingOrder%2Cstats%2Cbatting%2CplateAppearances",
+  "source_received_at_utc": "2023-07-01T23:00:00.000000Z",
+  "transport_payload_sha256": "179f79aacfbfe50799b28842aeac8eedb00274f09f41d0ba9d9cffd0b51857a8",
+  "transport_payload_size": 13879,
+  "sanitized_payload_sha256": "12e739f212340b915dd023e004164a24ab263940d0af8d2d453377f4731f63c8",
+  "sanitized_payload": {
+    "gameData": {
+      "datetime": {
+        "officialDate": "2023-07-01"
+      },
+      "status": {
+        "abstractGameState": "Final",
+        "codedGameState": "F"
+      }
+    },
+    "gamePk": 717545,
+    "liveData": {
+      "boxscore": {
+        "teams": {
+          "away": {
+            "players": {
+              "ID518934": {"battingOrder": "100", "person": {"id": 518934}, "stats": {"batting": {"plateAppearances": 5}}},
+              "ID519203": {"battingOrder": "400", "person": {"id": 519203}, "stats": {"batting": {"plateAppearances": 5}}},
+              "ID543309": {"battingOrder": "900", "person": {"id": 543309}, "stats": {"batting": {"plateAppearances": 4}}},
+              "ID641343": {"battingOrder": "200", "person": {"id": 641343}, "stats": {"batting": {"plateAppearances": 5}}},
+              "ID641856": {"battingOrder": "600", "person": {"id": 641856}, "stats": {"batting": {"plateAppearances": 4}}},
+              "ID643396": {"battingOrder": "500", "person": {"id": 643396}, "stats": {"batting": {"plateAppearances": 5}}},
+              "ID650402": {"battingOrder": "300", "person": {"id": 650402}, "stats": {"batting": {"plateAppearances": 5}}},
+              "ID665828": {"battingOrder": "800", "person": {"id": 665828}, "stats": {"batting": {"plateAppearances": 4}}},
+              "ID683011": {"battingOrder": "700", "person": {"id": 683011}, "stats": {"batting": {"plateAppearances": 4}}}
+            },
+            "team": {"id": 147}
+          },
+          "home": {
+            "players": {
+              "ID502671": {"battingOrder": "200", "person": {"id": 502671}, "stats": {"batting": {"plateAppearances": 4}}},
+              "ID571448": {"battingOrder": "400", "person": {"id": 571448}, "stats": {"batting": {"plateAppearances": 4}}},
+              "ID640458": {"battingOrder": "201", "person": {"id": 640458}, "stats": {"batting": {"plateAppearances": 1}}},
+              "ID657557": {"battingOrder": "700", "person": {"id": 657557}, "stats": {"batting": {"plateAppearances": 5}}},
+              "ID663457": {"battingOrder": "100", "person": {"id": 663457}, "stats": {"batting": {"plateAppearances": 5}}},
+              "ID666185": {"battingOrder": "401", "person": {"id": 666185}, "stats": {"batting": {"plateAppearances": 1}}},
+              "ID668800": {"battingOrder": "900", "person": {"id": 668800}, "stats": {"batting": {"plateAppearances": 4}}},
+              "ID669242": {"battingOrder": "800", "person": {"id": 669242}, "stats": {"batting": {"plateAppearances": 4}}},
+              "ID669357": {"battingOrder": "300", "person": {"id": 669357}, "stats": {"batting": {"plateAppearances": 5}}},
+              "ID676475": {"battingOrder": "600", "person": {"id": 676475}, "stats": {"batting": {"plateAppearances": 5}}},
+              "ID691023": {"battingOrder": "500", "person": {"id": 691023}, "stats": {"batting": {"plateAppearances": 5}}}
+            },
+            "team": {"id": 138}
+          }
+        }
+      }
+    }
+  }
+}

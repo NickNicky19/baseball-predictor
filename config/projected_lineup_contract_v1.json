@@ -27,6 +27,9 @@
     "all_players_must_be_from_the_receipted_active_roster": true,
     "player_start_and_slot_marginals_must_be_derived_not_supplied": true,
     "all_input_receipts_at_or_before_horizon": true,
+    "retained_schedule_bytes_and_observation_time_must_replay_exact_game_date_start_and_team_identity": true,
+    "retained_active_roster_bytes_and_observation_time_must_replay_exact_receipt_identity": true,
+    "downstream_consumers_must_revalidate_schedule_and_roster_semantics_not_only_hashes": true,
     "missing_or_invalid_input_quarantines_the_team": true
   },
   "forbidden": {

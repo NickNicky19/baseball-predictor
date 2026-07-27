@@ -1,0 +1,66 @@
+{
+  "schema_version": "prospective-opportunity-real-source-audit-v1",
+  "audit_date": "2026-07-26",
+  "status": "SOURCE_DEFECT_FOUND_AND_REPAIRED_IN_CANDIDATE",
+  "research_only": true,
+  "betting_authorized": false,
+  "fixture_classification": "PRE_2026_STATIC_SOURCE_SURFACE_AUDIT_NOT_PROSPECTIVE_EVIDENCE",
+  "request": {
+    "source": "official MLB Stats API",
+    "game_pk": 717545,
+    "official_game_date": "2023-07-01",
+    "endpoint": "https://statsapi.mlb.com/api/v1.1/game/717545/feed/live",
+    "fields_query_sha256": "db4e73c74f9cd6b251ed9078894218cf6877d66b185a3e99fa9998632e861db2",
+    "transport_byte_count": 13879,
+    "transport_sha256": "179f79aacfbfe50799b28842aeac8eedb00274f09f41d0ba9d9cffd0b51857a8"
+  },
+  "observation": {
+    "root_keys": [
+      "gameData",
+      "gamePk",
+      "liveData"
+    ],
+    "away_team_id": 147,
+    "home_team_id": 138,
+    "transport_player_fields_observed_beyond_request": [
+      "allPositions",
+      "gameStatus",
+      "jerseyNumber",
+      "parentTeamId",
+      "position",
+      "seasonStats",
+      "status"
+    ],
+    "defect": "The MLB fields query does not guarantee an exact minimal nested player surface. Treating the transport body as opportunity-only raw evidence was false.",
+    "affected_candidate_files": [
+      "src/evaluation/prospective_batter_opportunity.py",
+      "src/evaluation/prospective_batter_opportunity_history.py",
+      "config/prospective_batter_opportunity_contract_v1.json"
+    ]
+  },
+  "repair": {
+    "method": "The transport adapter now validates required identities and produces a canonical positive projection containing only game/date/final status, team IDs, player IDs, batting order, and plate appearances.",
+    "full_transport_persisted": false,
+    "transport_hash_and_size_recorded": true,
+    "canonical_projection_persisted_and_replayed": true,
+    "unexpected outcome_and_season_fields_reach_feature_consumers": false,
+    "clipping_or_fallback_used": false,
+    "missing_required_values_fail_closed": true
+  },
+  "offline_fixture": {
+    "path": "tests/fixtures/prospective_batter_opportunity/official_mlb_717545_sanitized_v1.json",
+    "classification": "PRE_2026_STATIC_SOURCE_SURFACE_AUDIT_NOT_PROSPECTIVE_EVIDENCE",
+    "sanitized_payload_sha256": "12e739f212340b915dd023e004164a24ab263940d0af8d2d453377f4731f63c8",
+    "full_transport_included": false,
+    "purpose": "Replay the approved positive projection and both-team parsing without retaining unrelated transport fields."
+  },
+  "limitations": [
+    "The original transport body is deliberately not retained by this candidate; the offline fixture replays the canonical projection while its recorded transport hash cannot independently reconstruct the discarded transport.",
+    "The transport hash is computed at collection time and requires trusted collector-code and runtime identity.",
+    "This source audit does not create prospective evidence and cannot satisfy any model, holdout, promotion, market, ROI, or betting gate.",
+    "A future live non-May collection under an immutable pregame plan remains required."
+  ],
+  "may_2026_accessed": false,
+  "outcomes_or_economic_evidence_scored": false,
+  "production_modified": false
+}

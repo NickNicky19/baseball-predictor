@@ -1,0 +1,96 @@
+{
+  "schema_version": "prospective-batter-opportunity-contract-v1",
+  "status": "RESEARCH_ONLY_NOT_ACTIVE_IN_PRODUCTION",
+  "purpose": "Collect immutable pregame target-player eligibility and descriptive PA-opportunity inputs without producing or changing probabilities.",
+  "decision_horizon": "T-4h",
+  "source": {
+    "kind": "official_mlb_final_opportunity_only_v1",
+    "base_url_template": "https://statsapi.mlb.com/api/v1.1/game/{game_pk}/feed/live",
+    "fields": "gamePk,gameData,datetime,officialDate,status,abstractGameState,codedGameState,liveData,boxscore,teams,away,home,team,id,players,person,battingOrder,stats,batting,plateAppearances",
+    "fields_limited_request_required": true,
+    "transport_may_return_unrequested_nested_player_fields": true,
+    "persist_only_canonical_positive_projection": true,
+    "full_transport_body_retention_forbidden": true,
+    "transport_body_hash_and_size_recorded": true,
+    "full_unrestricted_final_feed_forbidden": true,
+    "https_host_path_and_exact_query_bound_in_receipt": true,
+    "http_200_application_json_required": true
+  },
+  "denominator_source": {
+    "kind": "official_mlb_prior_schedule_denominator_v1",
+    "base_url": "https://statsapi.mlb.com/api/v1/schedule",
+    "fields": "dates,date,games,gamePk,officialDate,status,abstractGameState,codedGameState,teams,away,home,team,id",
+    "raw_fields_limited_response_required": true,
+    "target_team_filter_required": true,
+    "https_host_path_and_exact_query_bound_in_receipt": true,
+    "http_200_application_json_required": true,
+    "maximum_age_at_t4_seconds": 120
+  },
+  "required_inputs": [
+    "receipt_replayable_official_active_roster_t4",
+    "immutable_history_capture_plan_created_before_each_source_game",
+    "history_plan_bound_to_replayed_t4_plan_terminal_receipt_and_raw_roster_proof",
+    "terminal_planning_miss_bound_to_replayed_t4_plan_terminal_receipt_and_raw_roster_proof",
+    "opportunity_only_prior_game_raw_receipts",
+    "receipt_replayable_official_prior_schedule_denominator",
+    "explicit_captured_terminal_missing_game_partition"
+  ],
+  "permitted_fields": [
+    "game_identity",
+    "official_game_date",
+    "team_identity",
+    "player_identity",
+    "batting_order_slot_and_sequence",
+    "plate_appearances",
+    "receipt_timestamps",
+    "source_and_parser_hashes"
+  ],
+  "missingness": {
+    "terminal_missing_games_remain_missing": true,
+    "missing_games_never_enter_denominators_as_zero": true,
+    "fit_eligible_requires_complete_declared_coverage": true,
+    "late_backfill_forbidden": true
+  },
+  "history_plan_proof": {
+    "source_t4_plan_replayed": true,
+    "captured_side_terminal_hash_replayed": true,
+    "game_date_start_horizon_side_team_and_target_identity_rechecked": true,
+    "active_roster_raw_replayed": true,
+    "receipt_hash_recomputed": true,
+    "proof_bundle_persisted_with_plan": true,
+    "caller_supplied_digest_without_evidence_rejected": true
+  },
+  "planning_miss_proof": {
+    "at_or_after_first_pitch_only": true,
+    "source_t4_plan_replayed": true,
+    "captured_side_terminal_hash_and_semantics_replayed": true,
+    "active_roster_raw_replayed": true,
+    "self_contained_proof_bundle_persisted": true,
+    "later_plan_or_backfill_forbidden": true
+  },
+  "snapshot_publication": {
+    "full_source_to_snapshot_replay_required_before_any_raw_or_terminal_write": true,
+    "rehashed_semantic_mutation_rejected_before_publication": true
+  },
+  "forbidden": {
+    "may_2026_fetch_read_parse_write": true,
+    "target_game_final_lineup": true,
+    "target_game_outcomes": true,
+    "hits_home_runs_total_bases_or_run_production_fields": true,
+    "prices_execution_or_settlement": true,
+    "actual_target_starter_substitution": true,
+    "guessed_lineup_or_player_deletion": true,
+    "league_average_or_last_lineup_fallback": true,
+    "manual_probability_or_coefficient_changes": true,
+    "production_probability_consumption": true,
+    "betting_authorization": true
+  },
+  "required_before_deployment": [
+    "real_fields_limited_MLB_schedule_and_game_fixture_tests",
+    "independent_review_of_future_only_opportunity_history_collector_runner",
+    "future_only_collection_plan",
+    "Linux_runtime_and_dependency_verification",
+    "independent_QA",
+    "explicit_human_deployment_authorization"
+  ]
+}

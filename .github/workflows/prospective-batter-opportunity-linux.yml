@@ -1,0 +1,85 @@
+name: Prospective Batter Opportunity Linux Gate
+
+"on":
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/prospective-batter-opportunity-linux.yml"
+      - "requirements-prospective-batter-opportunity-ci.lock"
+      - "config/prospective_batter_opportunity_contract_v1.json"
+      - "config/prospective_batter_opportunity_runtime_v1.json"
+      - "config/projected_lineup_contract_v1.json"
+      - "config/projected_lineup_roster_runtime_v1.json"
+      - "reports/prospective_batter_opportunity_*.json"
+      - "reports/prospective_batter_opportunity_*.md"
+      - "reports/prospective_opportunity_real_source_audit_v1.json"
+      - "scripts/run_prospective_batter_opportunity_tick.py"
+      - "src/evaluation/prospective_batter_opportunity*.py"
+      - "src/evaluation/projected_lineup_roster_ledger.py"
+      - "src/evaluation/projected_lineup_roster_runner.py"
+      - "tests/fixtures/prospective_batter_opportunity/**"
+      - "tests/test_prospective_batter_opportunity*.py"
+      - "tests/test_run_prospective_batter_opportunity_tick.py"
+      - "tests/test_projected_lineup_contract.py"
+      - "tests/test_projected_lineup_official_roster.py"
+      - "tests/test_projected_lineup_roster_runner.py"
+      - "tests/test_projected_lineup_history.py"
+      - "tests/test_aws_projected_lineup_roster_runtime.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-candidate:
+    name: Ubuntu 24.04 / CPython 3.12.3
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONPATH: "."
+
+    steps:
+      - name: Check out exact candidate commit
+        uses: actions/checkout@v5
+
+      - name: Set up exact Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12.3"
+          architecture: "x64"
+
+      - name: Install exact test-only dependencies
+        run: |
+          python -m pip install --disable-pip-version-check --no-deps \
+            -r requirements-prospective-batter-opportunity-ci.lock
+          python -m pip check
+          python --version
+          python -m pytest --version
+          sha256sum requirements-prospective-batter-opportunity-ci.lock
+
+      - name: Run focused regression and mutation suite
+        run: |
+          python -m pytest -q -p no:cacheprovider \
+            tests/test_prospective_batter_opportunity.py \
+            tests/test_prospective_batter_opportunity_history.py \
+            tests/test_run_prospective_batter_opportunity_tick.py
+
+      - name: Run related chronology and source-truth suite
+        run: |
+          python -m pytest -q -p no:cacheprovider \
+            tests/test_prospective_batter_opportunity.py \
+            tests/test_prospective_batter_opportunity_history.py \
+            tests/test_projected_lineup_contract.py \
+            tests/test_projected_lineup_official_roster.py \
+            tests/test_projected_lineup_roster_runner.py \
+            tests/test_projected_lineup_history.py \
+            tests/test_run_prospective_batter_opportunity_tick.py \
+            tests/test_aws_projected_lineup_roster_runtime.py
+
+      - name: Verify tracked source contains no likely credentials
+        run: python scripts/check_tracked_secrets.py
+
+      - name: Prove tests did not mutate the checkout
+        run: git diff --exit-code

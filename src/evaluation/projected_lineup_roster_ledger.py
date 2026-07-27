@@ -16,6 +16,11 @@ from typing import Any, Mapping
 from src.evaluation.projected_lineup_contract import canonical_bytes, sha256_value
 from src.evaluation.projected_lineup_official_roster import RawOfficialRosterResponse, OfficialRosterReceiptError, parse_active_roster_receipt
 from src.evaluation.shadow_capture_plan import CaptureTarget, ShadowCapturePlan
+from src.evaluation.shared_pa_forward_collector import (
+    RawPregameResponse,
+    SharedPAForwardCollectorError,
+    projected_lineups_from_schedule,
+)
 
 
 class ProjectedLineupRosterLedgerError(ValueError):
@@ -84,10 +89,30 @@ class ProjectedLineupRosterLedger:
         _publish_once(path, payload)
         return {"path": path.relative_to(self.root).as_posix(), "sha256": digest}
 
-    def append_capture(self, *, target: CaptureTarget, side: str, team_id: int, roster_record: Mapping[str, Any], schedule_raw: bytes, roster_raw: bytes, committed_utc: str) -> bool:
+    def append_capture(self, *, target: CaptureTarget, side: str, team_id: int, roster_record: Mapping[str, Any], schedule_raw: bytes, schedule_received_at_utc: str, roster_raw: bytes, committed_utc: str) -> bool:
         identifier = roster_side_target_id(plan=self.plan, target=target, side=side)
-        if roster_record.get("payload_sha256") != hashlib.sha256(roster_raw).hexdigest() or roster_record.get("source_kind") != "official_mlb_active_roster_t4":
-            raise ProjectedLineupRosterLedgerError("roster record does not bind the retained raw response")
+        try:
+            schedule_response = RawPregameResponse(schedule_raw, schedule_received_at_utc)
+            schedule_game = projected_lineups_from_schedule(
+                response=schedule_response,
+                plan=self.plan,
+                target=target,
+            )
+        except SharedPAForwardCollectorError as exc:
+            raise ProjectedLineupRosterLedgerError("schedule raw cannot prove the captured game identity") from exc
+        if schedule_game.get(f"{side}_team_id") != team_id:
+            raise ProjectedLineupRosterLedgerError("schedule raw team identity differs from captured roster")
+        try:
+            replayed_roster = parse_active_roster_receipt(
+                response=RawOfficialRosterResponse(roster_raw, committed_utc),
+                requested_date=target.official_game_date,
+                team_id=team_id,
+                target_horizon_utc=target.entry_target_at_utc,
+            )
+        except OfficialRosterReceiptError as exc:
+            raise ProjectedLineupRosterLedgerError("roster raw cannot prove the captured receipt") from exc
+        if dict(roster_record) != replayed_roster:
+            raise ProjectedLineupRosterLedgerError("roster record differs from raw or commit time replay")
         players = roster_record.get("players")
         if not isinstance(players, list) or len(players) < 9 or len({item.get("player_id") for item in players if isinstance(item, Mapping)}) != len(players):
             raise ProjectedLineupRosterLedgerError("roster record has invalid player identities")
@@ -96,6 +121,7 @@ class ProjectedLineupRosterLedger:
             "plan_sha256": self.plan.plan_sha256, "target_id": target.target_id, "mlb_game_pk": target.mlb_game_pk,
             "official_game_date": target.official_game_date, "side": side, "team_id": team_id,
             "terminal_state": CAPTURED, "committed_utc": committed_utc,
+            "schedule_received_at_utc": schedule_response.received_at_utc,
             "schedule_raw": self._raw(schedule_raw), "roster_raw": self._raw(roster_raw),
             "roster": dict(roster_record), "detail": "", "research_only": True, "betting_authorized": False,
         }
@@ -125,7 +151,7 @@ class ProjectedLineupRosterLedger:
         except (OSError, json.JSONDecodeError) as exc:
             raise ProjectedLineupRosterLedgerError("ledger manifest is unreadable") from exc
         expected = {roster_side_target_id(plan=self.plan, target=target, side=side) for target in self.plan.targets for side in ("away", "home")}
-        if manifest.get("plan_sha256") != self.plan.plan_sha256 or set(manifest.get("expected_side_target_ids", [])) != expected or manifest.get("research_only") is not True or manifest.get("betting_authorized") is not False:
+        if manifest.get("plan_sha256") != self.plan.plan_sha256 or set(manifest.get("expected_side_target_ids", [])) != expected or manifest.get("contract_sha256") != self.contract_sha256 or manifest.get("collector_code_sha256") != self.collector_code_sha256 or manifest.get("research_only") is not True or manifest.get("betting_authorized") is not False:
             raise ProjectedLineupRosterLedgerError("ledger manifest differs from the immutable research plan")
         paths = sorted((self.root / "terminal").glob("*.json")) if (self.root / "terminal").is_dir() else []
         if any(path.stem not in expected for path in paths) or (require_complete_coverage and {path.stem for path in paths} != expected):
@@ -155,18 +181,30 @@ class ProjectedLineupRosterLedger:
                 raw_seen.add(raw_path)
             if entry.get("terminal_state") == CAPTURED:
                 roster = entry.get("roster"); roster_ref = entry.get("roster_raw")
-                if not isinstance(roster, Mapping) or not isinstance(roster_ref, Mapping) or not isinstance(entry.get("team_id"), int):
+                schedule_ref = entry.get("schedule_raw")
+                schedule_received = entry.get("schedule_received_at_utc")
+                if not isinstance(roster, Mapping) or not isinstance(roster_ref, Mapping) or not isinstance(schedule_ref, Mapping) or not isinstance(schedule_received, str) or not isinstance(entry.get("team_id"), int):
                     raise ProjectedLineupRosterLedgerError("captured roster terminal is incomplete")
                 roster_path = (self.root / str(roster_ref["path"])).resolve()
                 try:
+                    schedule_path = (self.root / str(schedule_ref["path"])).resolve()
+                    schedule_game = projected_lineups_from_schedule(
+                        response=RawPregameResponse(schedule_path.read_bytes(), schedule_received),
+                        plan=self.plan,
+                        target=target,
+                    )
+                    if schedule_game.get(f"{entry['side']}_team_id") != entry["team_id"]:
+                        raise ProjectedLineupRosterLedgerError(
+                            "retained schedule raw team identity differs from terminal"
+                        )
                     reproduced = parse_active_roster_receipt(
-                        response=RawOfficialRosterResponse(roster_path.read_bytes(), str(roster.get("received_at_utc"))),
+                        response=RawOfficialRosterResponse(roster_path.read_bytes(), str(entry.get("committed_utc"))),
                         requested_date=target.official_game_date,
                         team_id=int(entry["team_id"]),
                         target_horizon_utc=target.entry_target_at_utc,
                     )
-                except OfficialRosterReceiptError as exc:
-                    raise ProjectedLineupRosterLedgerError("retained roster raw is outside the safe input surface") from exc
+                except (OfficialRosterReceiptError, SharedPAForwardCollectorError, OSError) as exc:
+                    raise ProjectedLineupRosterLedgerError("retained schedule or roster raw is outside the safe input surface") from exc
                 if dict(roster) != reproduced:
                     raise ProjectedLineupRosterLedgerError("retained roster raw differs from consumed identity record")
         raw_dir = self.root / "raw"; actual = {path.resolve() for path in raw_dir.glob("*.json")} if raw_dir.is_dir() else set()
