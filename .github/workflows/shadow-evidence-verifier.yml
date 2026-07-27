@@ -1,10 +1,10 @@
 name: Forward Shadow Evidence Verifier
 
 on:
-  schedule:
-    # Independent hourly accountability check. This workflow NEVER fetches
-    # replacement odds and is NOT the primary T-4h collector.
-    - cron: "17 * * * *"
+  # Manual-only while the legacy forward-shadow producer is not deployed.
+  # Re-enabling an unattended schedule requires the separately tested
+  # activation contract in config/forward_shadow_verifier_activation.json.
+  # This independent verifier NEVER fetches replacement odds and is NOT the primary T-4h collector.
   workflow_dispatch:
     inputs:
       date:
