@@ -1,0 +1,64 @@
+{
+  "schema_version": "direct-batter-pa-foundation-v4.1-integration-closure-v1",
+  "status": "RESEARCH_ONLY_DEPENDENCY_CLOSURE_NOT_A_MODEL_PROMOTION",
+  "artifact_registry": {
+    "path": "config/direct_batter_pa_foundation_v4_1_artifact_registry.json",
+    "sha256": "f62983689106e37e57eb6ae2374c688f00c4764f75ee1a412b0f7542648e8096"
+  },
+  "required_files": [
+    {
+      "path": "scripts/build_direct_batter_pa_panel.py",
+      "sha256": "b015f63302e2167445c849da1825adf426acf536cc2ecbc5be9b99cd47577c3d",
+      "role": "panel_builder"
+    },
+    {
+      "path": "scripts/validate_direct_batter_pa_panel.py",
+      "sha256": "83f87e384452429d66296fbef8709d21d6500b2d80b20f254156052342e29d10",
+      "role": "artifact_validator"
+    },
+    {
+      "path": "src/features/direct_batter_pa_history.py",
+      "sha256": "4b89ffcb6d1b1e6a0ee708547e779850dfafd91d82b9f2266c607eb32dd55921",
+      "role": "strict_prior_feature_builder"
+    },
+    {
+      "path": "src/data/statcast_integrity.py",
+      "sha256": "63a8f5bb02dba8c317fecd1155caf2e1c55ad8753794b58b2fb86727b4505d1c",
+      "role": "batted_ball_source_truth_boundary",
+      "origin_commit": "62fa4b248067c0baac803cec965cb8b51cdaf0c4",
+      "origin_git_blob": "bafd3ede8cb1a3598be41e3a97f703d38fe83117"
+    },
+    {
+      "path": "src/data/rolling_source_contract.py",
+      "sha256": "5cdedee1daefc6206184e003a4b30bf534ba2255664ac8df40bb011742df872a",
+      "role": "strict_prior_rolling_lineage_boundary",
+      "origin_commit": "8105544b09abf5f1e4e829ca94345458eafda830",
+      "origin_git_blob": "18f42ab0bb5920abb0e2356674b89f9f532fbafc",
+      "origin_comparison": "SEMANTIC_MATCH_TERMINAL_BLANK_LINE_ONLY"
+    },
+    {
+      "path": "src/evaluation/shared_pa_training_data.py",
+      "sha256": "ce0689ef9d3d296a8d40e9badc2400c73bf57fa648f73d1d43e8c4efd900fac1",
+      "role": "exhaustive_pa_outcome_accounting",
+      "origin_commit": "946e80c88ab6ff5e5913bb26252b20efc907a2d1",
+      "origin_git_blob": "9eb2dc02158f6d7f500685039ebdab8c1c18631a"
+    }
+  ],
+  "intentionally_excluded": [
+    {
+      "path": "src/evaluation/multi_market_foundation.py",
+      "reason": "not imported by the repaired panel build or validation path"
+    },
+    {
+      "path": "src/learning/shared_pa_model.py",
+      "reason": "legacy candidate implementation is not part of the repaired data foundation"
+    }
+  ],
+  "boundaries": {
+    "development_years": [2023],
+    "selection_or_confirmation_opened": false,
+    "may_2026_opened": false,
+    "production_changed": false,
+    "betting_authorized": false
+  }
+}
