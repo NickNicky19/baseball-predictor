@@ -50,6 +50,7 @@ def test_contact_features_have_truthful_counts_denominators_and_ev50() -> None:
     prepared = prepare_contact_source(_rows(), player_id=10)
     result = contact_quality_features(prepared, player_id=10, target_date="2023-04-06")
     assert set(result) == set(FEATURE_COLUMNS)
+    assert list(result) == list(FEATURE_COLUMNS)
     assert result["history_contact_bip"] == 5
     assert result["history_contact_ev_denominator"] == 4
     assert result["history_contact_ev_missing_count"] == 1

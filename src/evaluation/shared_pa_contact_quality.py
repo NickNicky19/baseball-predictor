@@ -249,7 +249,7 @@ def contact_quality_features(
         raise AssertionError("contact-quality feature surface changed")
     if result["history_contact_max_source_date"] is not None and result["history_contact_max_source_date"] >= target_date:
         raise AssertionError("contact-quality chronology certificate failed")
-    return result
+    return {name: result[name] for name in FEATURE_COLUMNS}
 
 
 def validate_contact_feature_row(row: dict[str, Any]) -> None:
