@@ -1,7 +1,7 @@
 {
   "schema_version": "shared-pa-evidence-spend-ledger-v1",
   "status": "LOCKED_GLOBAL_LINEAGE_SPEND_REGISTER",
-  "as_of_utc": "2026-07-27T21:27:46Z",
+  "as_of_utc": "2026-07-27T22:29:23Z",
   "scope": {
     "candidate_lineage": "shared_batter_pa_outcome_foundation",
     "markets": ["hits", "hr_over_0_5", "total_bases"],
@@ -214,6 +214,24 @@
         }
       ],
       "limitation": "The 2023 result is development evidence only. It cannot serve as independent selection or confirmation for a repaired, renamed, or new challenger."
+    },
+    {
+      "window_id": "shared_pa_contact_eb_offset_2023_v1_development",
+      "period": "2023 regular season four-fold chronological development",
+      "role": "development_and_rejection",
+      "lineage_scope": ["shared_pa_contact_eb_offset_catboost_2023_v1", "shared_batter_pa_outcome_foundation", "hits", "hr_over_0_5", "total_bases"],
+      "state": "DEVELOPMENT_USED",
+      "permitted_use": ["audit_metadata", "reproduce_exact_rejection", "diagnose_conditional_context_limiter"],
+      "prohibited_use": ["retune_rejected_candidate", "reuse_contact_result_for_selection", "claim_confirmation", "promotion", "activation", "betting_authorization"],
+      "evidence": [
+        {
+          "commit": "2df809295e6cae9ac6a59f63533219b249f9f06c",
+          "path": "docs/SHARED_PA_CONTACT_EB_OFFSET_2023_V1_DECISION.md",
+          "sha256": "39a5a0ad5786e9579902ac16d14ebba7ef33f9444e5dcf610a658afe6799b48f",
+          "claim": "The predeclared contact-augmented empirical-Bayes-offset challenger was rejected separately for Hits, HR over 0.5, and Total Bases."
+        }
+      ],
+      "limitation": "This 2023 contact experiment is spent development evidence. Its weak mixed HR changes and failures in Hits and Total Bases cannot be retuned into selection or independent confirmation."
     }
   ]
 }
