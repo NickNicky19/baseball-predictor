@@ -17,6 +17,9 @@ Parameters:
   DashboardAuthSecretArn:
     Type: String
     AllowedPattern: '^arn:[a-z0-9-]+:secretsmanager:[a-z0-9-]+:[0-9]{12}:secret:[A-Za-z0-9/_+=.@-]+$'
+  VpcConnectorArn:
+    Type: String
+    AllowedPattern: '^arn:[a-z0-9-]+:apprunner:[a-z0-9-]+:[0-9]{12}:vpcconnector/baseball-predictor-omega-staging-isolated/[0-9a-z]{16}/[0-9]+$'
   AllowedProducers:
     Type: String
     Default: omega-staging-snapshot-publisher-v1
@@ -65,7 +68,8 @@ Resources:
         IngressConfiguration:
           IsPubliclyAccessible: false
         EgressConfiguration:
-          EgressType: DEFAULT
+          EgressType: VPC
+          VpcConnectorArn: !Ref VpcConnectorArn
       Tags:
         - Key: Environment
           Value: omega-staging

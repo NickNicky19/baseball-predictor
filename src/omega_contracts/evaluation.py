@@ -6,7 +6,12 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Iterable
 
-from .canonical import canonical_json_bytes, require_nonempty_text, require_sha256, sha256_bytes
+from .canonical import (
+    canonical_json_bytes,
+    require_nonempty_text,
+    require_sha256,
+    sha256_bytes,
+)
 from .errors import ContractError
 from .identity import ObservationKey
 
@@ -31,10 +36,15 @@ class EvaluationObservation:
     reason: str | None = None
 
     def __post_init__(self) -> None:
-        if self.disposition in {ObservationDisposition.AVAILABLE, ObservationDisposition.GRADEABLE}:
+        if self.disposition in {
+            ObservationDisposition.AVAILABLE,
+            ObservationDisposition.GRADEABLE,
+        }:
             require_sha256(self.probability_sha256, label="probability sha256")
             if self.reason is not None:
-                raise ContractError("available/gradeable observations cannot carry an exclusion reason")
+                raise ContractError(
+                    "available/gradeable observations cannot carry an exclusion reason"
+                )
         else:
             if self.probability_sha256 is not None:
                 raise ContractError("excluded observations cannot carry a probability")
@@ -77,7 +87,9 @@ def validate_complete_coverage(
         raise ContractError("required arms must be sorted and unique")
     if candidate_arm not in required_arms:
         raise ContractError("candidate arm is not declared")
-    by_key: dict[tuple[tuple[str, int, int, str, str, str], str], EvaluationObservation] = {}
+    by_key: dict[
+        tuple[tuple[str, int, int, str, str, str], str], EvaluationObservation
+    ] = {}
     planned: set[tuple[str, int, int, str, str, str]] = set()
     for key in planned_keys:
         if key.arm_id != "planned":
@@ -104,7 +116,9 @@ def validate_complete_coverage(
         )
     )
     if computed_planned_hash != declared_planned_hash:
-        raise ContractError("planned universe hash does not match its canonical identities")
+        raise ContractError(
+            "planned universe hash does not match its canonical identities"
+        )
     markets = {key[4] for key in planned}
     if len(markets) != 1:
         raise ContractError("markets must be adjudicated separately")
@@ -122,25 +136,34 @@ def validate_complete_coverage(
     if actual != expected:
         missing = len(expected - actual)
         extra = len(actual - expected)
-        raise ContractError(f"evaluation coverage matrix is incomplete: missing={missing}, extra={extra}")
+        raise ContractError(
+            f"evaluation coverage matrix is incomplete: missing={missing}, extra={extra}"
+        )
     available: dict[str, int] = {}
     gradeable: dict[str, int] = {}
     excluded: dict[str, int] = {}
     for arm in required_arms:
         rows = [by_key[(key, arm)] for key in planned]
         available[arm] = sum(
-            row.disposition in {ObservationDisposition.AVAILABLE, ObservationDisposition.GRADEABLE}
+            row.disposition
+            in {ObservationDisposition.AVAILABLE, ObservationDisposition.GRADEABLE}
             for row in rows
         )
-        gradeable[arm] = sum(row.disposition is ObservationDisposition.GRADEABLE for row in rows)
+        gradeable[arm] = sum(
+            row.disposition is ObservationDisposition.GRADEABLE for row in rows
+        )
         excluded[arm] = len(rows) - available[arm]
     for comparator in required_arms:
         if comparator == candidate_arm:
             continue
         if available[candidate_arm] < available[comparator]:
-            raise ContractError(f"candidate availability regresses against {comparator}")
+            raise ContractError(
+                f"candidate availability regresses against {comparator}"
+            )
         if gradeable[candidate_arm] < gradeable[comparator]:
-            raise ContractError(f"candidate gradeable coverage regresses against {comparator}")
+            raise ContractError(
+                f"candidate gradeable coverage regresses against {comparator}"
+            )
     common_gradeable = tuple(
         sorted(
             key
@@ -175,7 +198,9 @@ def select_common_gradeable_observations(
         for key in coverage.common_gradeable_keys:
             row = by_key.get((key, arm))
             if row is None or row.disposition is not ObservationDisposition.GRADEABLE:
-                raise ContractError("common gradeable comparison matrix changed after coverage validation")
+                raise ContractError(
+                    "common gradeable comparison matrix changed after coverage validation"
+                )
             rows.append(row)
         selected[arm] = tuple(rows)
     return selected

@@ -4,11 +4,14 @@ from pathlib import Path
 
 import pytest
 
-from src.omega_contracts.artifacts import ArtifactManifest, publish_immutable_artifact, validate_artifact
+from src.omega_contracts.artifacts import (
+    ArtifactManifest,
+    publish_immutable_artifact,
+    validate_artifact,
+)
 from src.omega_contracts.canonical import canonical_json_bytes, sha256_bytes
 from src.omega_contracts.errors import ContractError
 from src.omega_contracts.receipts import ReceiptReference, resolve_receipt
-
 
 REFERENCE_BYTES = {
     "code_sha256": b"synthetic code tree manifest",
@@ -87,7 +90,9 @@ def test_semantic_receipt_replays_raw_and_exact_identities(tmp_path: Path):
 
 @pytest.mark.parametrize("field", ["source_id", "protocol_id", "parser_sha256"])
 def test_receipt_semantic_field_mutations_fail(tmp_path: Path, field: str):
-    reference = write_receipt(tmp_path, mutate=lambda payload: payload.__setitem__(field, "wrong"))
+    reference = write_receipt(
+        tmp_path, mutate=lambda payload: payload.__setitem__(field, "wrong")
+    )
     with pytest.raises(ContractError, match="mismatch"):
         resolve(tmp_path, reference)
 
@@ -119,14 +124,18 @@ def test_receipt_raw_and_identity_swaps_fail(tmp_path: Path):
 def test_receipt_horizon_equality_and_unknown_fields_fail(tmp_path: Path):
     reference = write_receipt(
         tmp_path,
-        mutate=lambda payload: payload.__setitem__("observed_at_utc", payload["decision_horizon_utc"]),
+        mutate=lambda payload: payload.__setitem__(
+            "observed_at_utc", payload["decision_horizon_utc"]
+        ),
     )
     with pytest.raises(ContractError, match="strictly before"):
         resolve(tmp_path, reference)
 
     other = tmp_path / "other"
     other.mkdir()
-    reference = write_receipt(other, mutate=lambda payload: payload.__setitem__("extra", "x"))
+    reference = write_receipt(
+        other, mutate=lambda payload: payload.__setitem__("extra", "x")
+    )
     with pytest.raises(ContractError, match="exactly"):
         resolve(other, reference)
 
@@ -205,7 +214,9 @@ def artifact_payload(data: bytes) -> dict[str, object]:
         "config_sha256": sha256_bytes(REFERENCE_BYTES["config_sha256"]),
         "data_manifest_sha256": sha256_bytes(REFERENCE_BYTES["data_manifest_sha256"]),
         "feature_schema_sha256": sha256_bytes(REFERENCE_BYTES["feature_schema_sha256"]),
-        "dependency_lock_sha256": sha256_bytes(REFERENCE_BYTES["dependency_lock_sha256"]),
+        "dependency_lock_sha256": sha256_bytes(
+            REFERENCE_BYTES["dependency_lock_sha256"]
+        ),
         "test_manifest_sha256": sha256_bytes(REFERENCE_BYTES["test_manifest_sha256"]),
         "fit_start": "2023-01-01",
         "fit_end": "2023-12-31",
@@ -253,7 +264,9 @@ def test_content_addressed_publication_and_eligibility(tmp_path: Path):
     )
     references = write_artifact_references(tmp_path)
     assert artifact.read_bytes() == data
-    assert sidecar.read_bytes() == canonical_json_bytes(ArtifactManifest.from_mapping(payload).canonical_dict())
+    assert sidecar.read_bytes() == canonical_json_bytes(
+        ArtifactManifest.from_mapping(payload).canonical_dict()
+    )
     validated = validate_artifact(
         manifest=ArtifactManifest.from_mapping(payload),
         artifact_path=artifact,

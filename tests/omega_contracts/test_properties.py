@@ -1,7 +1,8 @@
 from datetime import date, datetime, timezone
 
 import pytest
-from hypothesis import given, strategies as st
+from hypothesis import given
+from hypothesis import strategies as st
 
 from src.omega_contracts.chronology import parse_date
 from src.omega_contracts.errors import ContractError
@@ -30,7 +31,9 @@ def test_canonical_date_round_trip_or_may_seal(value: date):
     hard_count=st.integers(min_value=0, max_value=10000),
     barrel_count=st.integers(min_value=0, max_value=10000),
 )
-def test_subset_rate_contract_matches_counts(total: int, hard_count: int, barrel_count: int):
+def test_subset_rate_contract_matches_counts(
+    total: int, hard_count: int, barrel_count: int
+):
     hard_count %= total + 1
     barrel_count %= total + 1
     schema = FeatureSchema(

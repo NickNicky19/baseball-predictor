@@ -1,0 +1,49 @@
+{
+  "$id": "urn:omega:manifest-trust-configuration:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "immutability_anchor": {
+      "const": "runtime_verified_read_only_tree_v1",
+      "type": "string"
+    },
+    "manifest_relative_path": {
+      "maxLength": 255,
+      "minLength": 1,
+      "pattern": "^(?![A-Za-z]:)(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+$",
+      "type": "string"
+    },
+    "maximum_manifest_bytes": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "maximum_snapshot_age_seconds": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "maximum_snapshot_bytes": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "schema_version": {
+      "const": "omega-manifest-trust-configuration-v1",
+      "type": "string"
+    },
+    "trusted_manifest_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "manifest_relative_path",
+    "trusted_manifest_sha256",
+    "maximum_snapshot_age_seconds",
+    "maximum_manifest_bytes",
+    "maximum_snapshot_bytes",
+    "immutability_anchor"
+  ],
+  "title": "Omega out-of-band manifest trust configuration",
+  "type": "object",
+  "x-document-schema-version": "omega-phase4-schema-document-v1"
+}

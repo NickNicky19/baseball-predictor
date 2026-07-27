@@ -34,14 +34,14 @@
           <dl>
             <div><dt>Official date</dt><dd>{{ loaded.snapshot.official_slate_date }}</dd></div>
             <div><dt>Latest refresh</dt><dd>{{ loaded.snapshot.source_health.latest_refresh_utc }}</dd></div>
-            <div><dt>Created</dt><dd>{{ loaded.snapshot.created_utc }}</dd></div>
+            <div><dt>Captured</dt><dd>{{ loaded.snapshot.captured_at_utc }}</dd></div>
             <div><dt>Snapshot hash</dt><dd><code>{{ loaded.snapshot_sha256 }}</code></dd></div>
           </dl>
         </article>
         <article>
           <h2>Source health</h2>
           <p class="status status-{{ loaded.snapshot.source_health.status }}">{{ loaded.snapshot.source_health.status }}</p>
-          <p>{{ loaded.snapshot.source_health.message }}</p>
+          <p>{{ loaded.snapshot.source_health.reason_codes|join(', ') }}</p>
           <dl>
             <div><dt>Producer</dt><dd>{{ loaded.snapshot.producer.producer_id }} / {{ loaded.snapshot.producer.producer_version }}</dd></div>
             <div><dt>Snapshot source</dt><dd><code>{{ loaded.snapshot.source_commit }}</code></dd></div>
@@ -119,7 +119,7 @@
               {% for row in rows %}
               <tr>
                 <td><strong>{{ row.player_name }}</strong><br><small>MLB {{ row.mlb_player_id or "Unavailable" }}</small></td>
-                <td>{{ row.team }} {{ row.home_away }} vs {{ row.opponent }}<br><small>{{ row.game_time_utc }} · gamePk {{ row.game_pk }}</small></td>
+                <td>{{ row.team }} {{ row.home_away }} vs {{ row.opponent }}<br><small>{{ row.event_start_utc }} · gamePk {{ row.game_pk }}</small></td>
                 <td>{{ row.lineup_status }}{% if row.batting_slot %}, slot {{ row.batting_slot }}{% endif %}</td>
                 <td>{{ row.projected_pa if row.projected_pa is not none else "Unavailable" }}{% if row.pa_distribution %}<details><summary>PA distribution</summary><code>{{ row.pa_distribution|tojson }}</code></details>{% endif %}</td>
                 <td>{% if row.opposing_starter %}{{ row.opposing_starter.name }} (MLB {{ row.opposing_starter.mlb_player_id }})<br><small>{{ row.opposing_starter.status }}</small>{% else %}Unavailable{% endif %}</td>

@@ -1,4 +1,4 @@
-# OPERATIONAL dependency profile for the read-only dashboard only.
+# OPERATIONAL dependency profile for the standalone read-only scaffold.
 # These values do not affect prediction mathematics.  Compile this file with
 # CPython 3.12 on Linux and --generate-hashes before any image is built.
 fastapi==0.115.12

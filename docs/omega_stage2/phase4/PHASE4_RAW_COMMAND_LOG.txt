@@ -1,0 +1,124 @@
+schema_version=omega-phase4-raw-command-log-v1
+input_commit=1ff7a2b9d064a53d1e26d961c7e511651ea2f0d7
+working_directory=C:\Projects\baseball_predictor_omega_phase4_trust_remediation_20260726
+
+COMMAND GROUP: timestamped final Windows gates
+COMMAND: pinned Python/pip check; Ruff check and format check; schema --check; structural verifier; cfn-lint; actionlint; pytest source suites; wheel verifier; installed import verifier; installed tests; tracked/untracked credential scans; SHA comparison
+ENVIRONMENT: Windows; CPython 3.12.13; pytest 8.3.5; Ruff 0.16.0; cfn-lint 1.53.2; actionlint 1.7.12
+
+=== GATE PYTHON_AND_ENV ===
+START_UTC=2026-07-26T10:18:04.8534198Z
+Python 3.12.13
+No broken requirements found.
+No broken requirements found.
+EXIT_CODE=0
+END_UTC=2026-07-26T10:18:05.5196532Z
+=== GATE RUFF ===
+START_UTC=2026-07-26T10:18:05.5236539Z
+All checks passed!
+37 files already formatted
+EXIT_CODE=0
+END_UTC=2026-07-26T10:18:05.6979407Z
+=== GATE SCHEMAS ===
+START_UTC=2026-07-26T10:18:05.6979407Z
+Phase 4 schemas verified
+EXIT_CODE=0
+END_UTC=2026-07-26T10:18:05.8656964Z
+=== GATE STRUCTURE ===
+START_UTC=2026-07-26T10:18:05.8656964Z
+EXIT_CODE=0
+END_UTC=2026-07-26T10:18:05.9369456Z
+=== GATE CFN_LINT ===
+START_UTC=2026-07-26T10:18:05.9369456Z
+EXIT_CODE=0
+END_UTC=2026-07-26T10:18:07.1735760Z
+=== GATE ACTIONLINT ===
+START_UTC=2026-07-26T10:18:07.1735760Z
+EXIT_CODE=0
+END_UTC=2026-07-26T10:18:07.2110630Z
+=== GATE SOURCE_TESTS ===
+START_UTC=2026-07-26T10:18:07.2110630Z
+........................................................................ [ 38%]
+........................................................................ [ 77%]
+.........................................                                [100%]
+185 passed in 2.73s
+EXIT_CODE=0
+END_UTC=2026-07-26T10:18:10.2201376Z
+=== GATE WHEEL_ALLOWLIST ===
+START_UTC=2026-07-26T10:18:10.2201376Z
+wheel allowlist verified: 22 entries
+EXIT_CODE=0
+END_UTC=2026-07-26T10:18:10.3157959Z
+=== GATE INSTALLED_IMPORT_CLOSURE ===
+START_UTC=2026-07-26T10:18:10.3157959Z
+installed import-to-lock closure verified: 4 direct requirements
+EXIT_CODE=0
+END_UTC=2026-07-26T10:18:10.7529121Z
+=== GATE INSTALLED_TESTS ===
+START_UTC=2026-07-26T10:18:10.7529121Z
+........................................................................ [ 64%]
+.......................................                                  [100%]
+111 passed in 1.03s
+EXIT_CODE=0
+END_UTC=2026-07-26T10:18:12.0566625Z
+=== GATE TRACKED_SECRET_SCAN ===
+START_UTC=2026-07-26T10:18:12.0566625Z
+[OK] no likely credentials found in 780 inspected tracked files
+EXIT_CODE=0
+END_UTC=2026-07-26T10:18:12.2927015Z
+=== GATE UNTRACKED_SECRET_SCAN ===
+START_UTC=2026-07-26T10:18:12.2927015Z
+[OK] no likely credentials found in 52 inspected tracked files
+EXIT_CODE=0
+END_UTC=2026-07-26T10:18:12.3864512Z
+=== GATE DETERMINISTIC_WHEEL ===
+START_UTC=2026-07-26T10:18:12.3864512Z
+A=6d7d2e86dc4cfc7b87db72d8892b8e2247aa0afac81813b6a9a910ef838de686
+B=6d7d2e86dc4cfc7b87db72d8892b8e2247aa0afac81813b6a9a910ef838de686
+EXIT_CODE=0
+END_UTC=2026-07-26T10:18:12.4350000Z
+
+COMMAND GROUP: timestamped deterministic build
+COMMAND: prepare_omega_scaffold_build_context.py twice; SOURCE_DATE_EPOCH=315532800; python -m build --wheel --no-isolation; SHA-256 compare
+START_UTC=2026-07-26T10:23:56.4756965Z
+prepared exact standalone scaffold context: 19 files
+Successfully built omega_trust_scaffold-0.4.0-py3-none-any.whl
+prepared exact standalone scaffold context: 19 files
+Successfully built omega_trust_scaffold-0.4.0-py3-none-any.whl
+C_SHA256=6d7d2e86dc4cfc7b87db72d8892b8e2247aa0afac81813b6a9a910ef838de686
+D_SHA256=6d7d2e86dc4cfc7b87db72d8892b8e2247aa0afac81813b6a9a910ef838de686
+C_BYTES=40763
+D_BYTES=40763
+EXIT_CODE=0
+END_UTC=2026-07-26T10:23:58.1438942Z
+
+COMMAND GROUP: platform availability
+COMMAND: docker --version
+STDERR: docker is not recognized as a command
+EXIT_CODE=COMMAND_NOT_FOUND
+COMMAND: wsl.exe --status
+STDOUT: The Windows Subsystem for Linux is not installed.
+EXIT_CODE=1
+RESULT: required clean Ubuntu and Linux-container gates unavailable; no skip or pass asserted
+
+COMMAND GROUP: final read-only PR state
+COMMAND: gh pr view 27 --repo NickNicky19/baseball-predictor --json number,isDraft,state,baseRefName,headRefName,headRefOid,url,statusCheckRollup
+RESULT: OPEN draft=true base=main head=omega/stage2-staging-2026-07-26 headRefOid=1ff7a2b9d064a53d1e26d961c7e511651ea2f0d7
+REMOTE_PHASE4_CHECKS=NONE because Phase 4 was not committed or pushed
+EXIT_CODE=0
+
+COMMAND GROUP: Phase 4 CSV/JSON consistency
+COMMAND: python scripts/verify_phase4_evidence.py --repository-root C:\Projects\baseball_predictor_omega_phase4_trust_remediation_20260726 --baseline 1ff7a2b9d064a53d1e26d961c7e511651ea2f0d7
+START_UTC=2026-07-26T10:27:23.2190895Z
+Phase 4 evidence verified: 46 required outputs; 8 JSON; 12 CSV
+EXIT_CODE=0
+END_UTC=2026-07-26T10:27:23.3642034Z
+
+COMMAND GROUP: final aggregate recheck after evidence completion
+RESULT: Ruff PASS 39 files; schemas PASS; structure PASS; cfn-lint PASS; actionlint PASS; source tests 185 passed in 2.65s; evidence 46/8/12 PASS; tracked scan 780 PASS; untracked scan 66 PASS
+EXIT_CODE=0
+
+COMMAND GROUP: final protected-state observation
+RESULT: collector PID 20872 PRESENT process=python start_utc=2026-07-21T22:21:50.5411050Z
+RESULT: live branch=codex/hits-forward-evidence-release head=93557426669fe316569040adf351800b7e7df147 default_status_rows=179
+CONTROL_ACTIONS=NONE

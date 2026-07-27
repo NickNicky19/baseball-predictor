@@ -1,0 +1,3 @@
+# OPERATIONAL CloudFormation lint profile for Phase 4 structural validation.
+cfn-lint==1.53.2
+ruff==0.16.0

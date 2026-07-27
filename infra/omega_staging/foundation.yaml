@@ -8,8 +8,141 @@ Parameters:
     Type: String
     Default: baseball-predictor-omega-staging
     AllowedPattern: '^baseball-predictor-omega-staging$'
+  StagingVpcCidr:
+    Type: String
+    AllowedPattern: '^10\.(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.0\.0/20$'
+  PrivateSubnetOneCidr:
+    Type: String
+    AllowedPattern: '^10\.(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.(?:0|16|32|48|64|80|96|112|128|144|160|176|192|208|224|240)\.0/24$'
+  PrivateSubnetTwoCidr:
+    Type: String
+    AllowedPattern: '^10\.(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.(?:0|16|32|48|64|80|96|112|128|144|160|176|192|208|224|240)\.0/24$'
 
 Resources:
+  IsolatedStagingVpc:
+    Type: AWS::EC2::VPC
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      CidrBlock: !Ref StagingVpcCidr
+      EnableDnsHostnames: false
+      EnableDnsSupport: true
+      InstanceTenancy: default
+      Tags:
+        - Key: Name
+          Value: baseball-predictor-omega-staging-isolated
+        - Key: Environment
+          Value: omega-staging
+        - Key: Production
+          Value: "false"
+
+  PrivateSubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref IsolatedStagingVpc
+      AvailabilityZone: !Select [0, !GetAZs ""]
+      CidrBlock: !Ref PrivateSubnetOneCidr
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: Name
+          Value: baseball-predictor-omega-staging-private-one
+
+  PrivateSubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref IsolatedStagingVpc
+      AvailabilityZone: !Select [1, !GetAZs ""]
+      CidrBlock: !Ref PrivateSubnetTwoCidr
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: Name
+          Value: baseball-predictor-omega-staging-private-two
+
+  PrivateRouteTableOne:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref IsolatedStagingVpc
+
+  PrivateRouteTableTwo:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref IsolatedStagingVpc
+
+  PrivateRouteTableOneAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref PrivateRouteTableOne
+      SubnetId: !Ref PrivateSubnetOne
+
+  PrivateRouteTableTwoAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref PrivateRouteTableTwo
+      SubnetId: !Ref PrivateSubnetTwo
+
+  DenyAllNetworkAcl:
+    Type: AWS::EC2::NetworkAcl
+    Properties:
+      VpcId: !Ref IsolatedStagingVpc
+      Tags:
+        - Key: Name
+          Value: baseball-predictor-omega-staging-deny-all
+
+  PrivateSubnetOneAclAssociation:
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Properties:
+      NetworkAclId: !Ref DenyAllNetworkAcl
+      SubnetId: !Ref PrivateSubnetOne
+
+  PrivateSubnetTwoAclAssociation:
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Properties:
+      NetworkAclId: !Ref DenyAllNetworkAcl
+      SubnetId: !Ref PrivateSubnetTwo
+
+  UnattachedIsolationSinkSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Unattached sink used only to suppress implicit connector egress
+      VpcId: !Ref IsolatedStagingVpc
+      SecurityGroupIngress: []
+      Tags:
+        - Key: Name
+          Value: baseball-predictor-omega-staging-unattached-sink
+
+  DenyAllConnectorSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Omega staging connector with no usable ingress or egress path
+      VpcId: !Ref IsolatedStagingVpc
+      SecurityGroupIngress: []
+      # A restricted inline rule suppresses EC2's implicit allow-all egress.
+      # The destination group has no ingress and is never attached to a resource;
+      # the custom network ACL independently denies every packet.
+      SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: 9
+          ToPort: 9
+          DestinationSecurityGroupId: !GetAtt UnattachedIsolationSinkSecurityGroup.GroupId
+      Tags:
+        - Key: Name
+          Value: baseball-predictor-omega-staging-deny-all
+
+  DashboardVpcConnector:
+    Type: AWS::AppRunner::VpcConnector
+    Properties:
+      VpcConnectorName: baseball-predictor-omega-isolated
+      Subnets:
+        - !Ref PrivateSubnetOne
+        - !Ref PrivateSubnetTwo
+      SecurityGroups:
+        - !GetAtt DenyAllConnectorSecurityGroup.GroupId
+      Tags:
+        - Key: Environment
+          Value: omega-staging
+        - Key: ResearchOnly
+          Value: "true"
+
   DashboardRepository:
     Type: AWS::ECR::Repository
     DeletionPolicy: Retain
@@ -122,7 +255,7 @@ Resources:
               - Sid: CreateTaggedService
                 Effect: Allow
                 Action: apprunner:CreateService
-                Resource: "*"
+                Resource: !Sub arn:${AWS::Partition}:apprunner:${AWS::Region}:${AWS::AccountId}:service/baseball-predictor-omega-staging/*
                 Condition:
                   StringEquals:
                     aws:RequestTag/Environment: omega-staging
@@ -170,3 +303,13 @@ Outputs:
     Value: !Ref DashboardAuthSecret
   ServiceCloudFormationRoleArn:
     Value: !GetAtt ServiceCloudFormationRole.Arn
+  IsolatedStagingVpcId:
+    Value: !Ref IsolatedStagingVpc
+  PrivateSubnetOneId:
+    Value: !Ref PrivateSubnetOne
+  PrivateSubnetTwoId:
+    Value: !Ref PrivateSubnetTwo
+  DenyAllConnectorSecurityGroupId:
+    Value: !GetAtt DenyAllConnectorSecurityGroup.GroupId
+  DashboardVpcConnectorArn:
+    Value: !GetAtt DashboardVpcConnector.VpcConnectorArn

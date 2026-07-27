@@ -1,0 +1,26 @@
+{
+  "allowed_global_resource_exceptions": [
+    "ecr:GetAuthorizationToken",
+    "sts:GetCallerIdentity"
+  ],
+  "boundaries": {
+    "collector_control": false,
+    "evidence_write": false,
+    "lightsail": false,
+    "model_artifact_write": false,
+    "production_resource": false,
+    "snapshot_write": false
+  },
+  "deployment_role_scope": [
+    "exact budget read",
+    "exact staging ECR repository",
+    "exact staging foundation read",
+    "exact staging service stack",
+    "exact staging CloudFormation role pass",
+    "exact staging App Runner service read"
+  ],
+  "schema_version": "omega-staging-iam-boundary-v1",
+  "state": "TEMPLATE_ONLY_NOT_AWS_VERIFIED",
+  "wildcard_actions": false,
+  "wildcard_resources_outside_service_required_exceptions": false
+}

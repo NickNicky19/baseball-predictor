@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools==80.9.0", "wheel==0.45.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "omega-trust-scaffold"
+version = "0.4.0"
+description = "Inactive, read-only Omega trust-contract and display scaffold"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "fastapi==0.115.12",
+  "jinja2==3.1.6",
+  "pydantic==2.11.5",
+  "uvicorn==0.34.2",
+]
+
+[tool.setuptools]
+packages = ["dashboard", "src.omega_contracts"]
+include-package-data = false
+
+[tool.setuptools.package-data]
+dashboard = ["templates/*.html", "static/*.css"]

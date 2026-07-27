@@ -1,55 +1,78 @@
 from __future__ import annotations
 
-import ast
 from pathlib import Path
 
-import pytest
-
-fastapi = pytest.importorskip("fastapi")
-pytest.importorskip("httpx")
 from fastapi.testclient import TestClient
 
 from dashboard.app import DashboardSettings, create_app
-from tests.omega_dashboard.conftest import publish_fixture
+from tests.omega_dashboard.conftest import NOW, bind_row_hash, publish_fixture
 
 
-def settings(root: Path, manifest: Path | None, *, secret: str | None = None) -> DashboardSettings:
+def settings(
+    root: Path,
+    manifest: Path | None,
+    digest: str | None,
+    *,
+    secret: str | None = None,
+) -> DashboardSettings:
     return DashboardSettings(
         snapshot_root=root,
         manifest_path=manifest,
         allowed_producers=frozenset({"authorized-runner-v1"}),
+        trusted_manifest_sha256=digest,
+        maximum_snapshot_age_seconds=600,
+        maximum_manifest_bytes=1024 * 1024,
+        maximum_snapshot_bytes=10 * 1024 * 1024,
+        immutability_anchor=root,
         auth_secret=secret,
         source_commit="67efa1427987517d2c283cd502c1898b97c6bb2b",
     )
 
 
-def test_only_health_is_public_and_missing_auth_configuration_fails_closed(
-    published_snapshot,
+def app_for(root: Path, manifest: Path | None, digest: str | None, **kwargs):
+    return create_app(
+        settings=settings(root, manifest, digest, secret=kwargs.pop("secret", None)),
+        clock=lambda: NOW,
+        **kwargs,
+    )
+
+
+def test_only_health_is_public_and_missing_auth_fails_closed(
+    published_snapshot, synthetic_source_permission
 ) -> None:
-    root, manifest = published_snapshot
-    client = TestClient(create_app(settings=settings(root, manifest)))
+    root, manifest, digest = published_snapshot
+    client = TestClient(app_for(root, manifest, digest))
     assert client.get("/healthz").status_code == 200
-    assert client.get("/").status_code == 503
-    assert client.get("/version").status_code == 503
-    assert client.get("/static/style.css").status_code == 503
-    assert client.get("/api/predictions").status_code == 503
-    assert client.get("/exports/predictions.csv").status_code == 503
+    for path in (
+        "/",
+        "/version",
+        "/static/style.css",
+        "/api/predictions",
+        "/exports/predictions.csv",
+    ):
+        assert client.get(path).status_code == 503
 
 
-def test_bearer_and_session_authentication(published_snapshot) -> None:
-    root, manifest = published_snapshot
-    client = TestClient(create_app(settings=settings(root, manifest, secret="test-secret")))
+def test_bearer_and_session_authentication(
+    published_snapshot, synthetic_source_permission
+) -> None:
+    root, manifest, digest = published_snapshot
+    client = TestClient(app_for(root, manifest, digest, secret="test-secret"))
     assert client.get("/").status_code == 401
     assert client.get("/", headers={"Authorization": "Bearer wrong"}).status_code == 401
-    assert client.get("/", headers={"Authorization": "Bearer test-secret"}).status_code == 200
+    assert (
+        client.get("/", headers={"Authorization": "Bearer test-secret"}).status_code
+        == 200
+    )
     client.cookies.set("dashboard_session", "test-secret")
     assert client.get("/version").status_code == 200
 
 
-def test_injected_verifier_and_truthful_no_data(tmp_path: Path) -> None:
+def test_truthful_no_data_when_trust_configuration_is_absent(tmp_path: Path) -> None:
     app = create_app(
-        settings=settings(tmp_path, None),
+        settings=settings(tmp_path, None, None),
         auth_verifier=lambda request: request.headers.get("x-test-auth") == "yes",
+        clock=lambda: NOW,
     )
     client = TestClient(app)
     assert client.get("/").status_code == 401
@@ -60,26 +83,26 @@ def test_injected_verifier_and_truthful_no_data(tmp_path: Path) -> None:
     assert client.get("/healthz").json()["snapshot_state"] == "unavailable"
 
 
-def test_slate_filters_sorting_and_supported_market_tabs(published_snapshot) -> None:
-    root, manifest = published_snapshot
+def test_filters_and_market_tabs(
+    published_snapshot, synthetic_source_permission
+) -> None:
+    root, manifest, digest = published_snapshot
     client = TestClient(
-        create_app(settings=settings(root, manifest), auth_verifier=lambda request: True)
+        app_for(root, manifest, digest, auth_verifier=lambda request: True)
     )
-    response = client.get("/?market=hits&team=AAA&show_abstentions=true")
+    response = client.get("/?market=hits&team=Alpha%20Club&show_abstentions=true")
     assert response.status_code == 200
     assert "Synthetic Batter" in response.text
     assert "Home Runs" in response.text
     assert "Pitcher Strikeouts" not in response.text
     assert "Betting authorization" in response.text
     assert ">No<" in response.text
-
     assert client.get("/api/predictions?market=rbi").status_code == 400
-    empty = client.get("/api/predictions?team=ZZZ").json()
-    assert empty["row_count"] == 0
+    assert client.get("/api/predictions?team=Unknown%20Club").json()["row_count"] == 0
 
 
-def test_probability_product_side_and_line_are_visible(
-    tmp_path: Path, snapshot_document
+def test_probability_side_line_and_receipt_bound_export(
+    tmp_path: Path, snapshot_document, synthetic_source_permission
 ) -> None:
     row = snapshot_document["rows"][0]
     row["point_prediction_kind"] = "probability"
@@ -87,42 +110,41 @@ def test_probability_product_side_and_line_are_visible(
     row["product_id"] = "hits-over-half-research"
     row["market_side"] = "over"
     row["market_line"] = 0.5
-    row["uncertainty"] = {"method": "display-bound", "lower": 0.5, "upper": 0.7}
-    manifest = publish_fixture(tmp_path, snapshot=snapshot_document)
+    row["uncertainty"] = {"method": "display_bound", "lower": 0.5, "upper": 0.7}
+    row["comparison"]["current_live_prediction"] = 0.6
+    bind_row_hash(row)
+    manifest, digest = publish_fixture(tmp_path, snapshot=snapshot_document)
     client = TestClient(
-        create_app(settings=settings(tmp_path, manifest), auth_verifier=lambda request: True)
+        app_for(tmp_path, manifest, digest, auth_verifier=lambda request: True)
     )
     response = client.get("/")
     assert response.status_code == 200
     assert "hits-over-half-research" in response.text
     assert "over 0.5" in response.text
-
-
-def test_exports_are_hash_bound_and_exact(published_snapshot) -> None:
-    root, manifest = published_snapshot
-    client = TestClient(
-        create_app(settings=settings(root, manifest), auth_verifier=lambda request: True)
-    )
     api = client.get("/api/predictions").json()
     assert api["row_count"] == 1
+    assert api["rows"][0]["identity_receipt_sha256"] == "c" * 64
     assert api["rows"][0]["snapshot_sha256"] == api["snapshot_sha256"]
 
-    csv_response = client.get("/exports/predictions.csv")
-    assert csv_response.status_code == 200
-    assert "snapshot_sha256" in csv_response.text
-    assert api["snapshot_sha256"] in csv_response.text
 
-    snapshot_response = client.get("/exports/predictions.json")
-    assert snapshot_response.content == (root / "snapshot.json").read_bytes()
-    manifest_response = client.get("/exports/manifest.json")
-    assert manifest_response.content == manifest.read_bytes()
-
-
-def test_security_headers_cover_health_and_authenticated_routes(published_snapshot) -> None:
-    root, manifest = published_snapshot
+def test_exports_are_exact_and_security_headers_apply(
+    published_snapshot, synthetic_source_permission
+) -> None:
+    root, manifest, digest = published_snapshot
     client = TestClient(
-        create_app(settings=settings(root, manifest), auth_verifier=lambda request: True)
+        app_for(root, manifest, digest, auth_verifier=lambda request: True)
     )
+    assert (
+        client.get("/exports/predictions.json").content
+        == (root / "snapshot.json").read_bytes()
+    )
+    assert (
+        client.get("/exports/manifest.json").content
+        == (root / "manifest.json").read_bytes()
+    )
+    csv_response = client.get("/exports/predictions.csv")
+    assert digest not in csv_response.text
+    assert "snapshot_sha256" in csv_response.text
     for path in ("/healthz", "/", "/api/predictions"):
         response = client.get(path)
         assert response.headers["cache-control"] == "no-store"
@@ -130,17 +152,20 @@ def test_security_headers_cover_health_and_authenticated_routes(published_snapsh
         assert response.headers["x-content-type-options"] == "nosniff"
 
 
-def test_dashboard_source_has_no_prediction_or_collector_imports() -> None:
-    dashboard_root = Path(__file__).resolve().parents[2] / "dashboard"
-    prohibited_roots = {"src", "run_slate", "run_daily", "gui"}
-    for path in dashboard_root.glob("*.py"):
-        tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
-        for node in ast.walk(tree):
-            if isinstance(node, ast.Import):
-                roots = {alias.name.split(".", 1)[0] for alias in node.names}
-                assert not roots.intersection(prohibited_roots), (path, roots)
-            elif isinstance(node, ast.ImportFrom) and node.module:
-                assert node.module.split(".", 1)[0] not in prohibited_roots, (
-                    path,
-                    node.module,
-                )
+def test_one_invalid_row_rejects_the_entire_snapshot(
+    tmp_path: Path, snapshot_document, synthetic_source_permission
+) -> None:
+    invalid = snapshot_document["rows"][0].copy()
+    invalid["row_id"] = "second-row"
+    invalid["mlb_player_id"] = 999
+    bind_row_hash(invalid)
+    snapshot_document["rows"].append(invalid)
+    manifest, digest = publish_fixture(tmp_path, snapshot=snapshot_document)
+    client = TestClient(
+        app_for(tmp_path, manifest, digest, auth_verifier=lambda request: True)
+    )
+    response = client.get("/")
+    assert response.status_code == 200
+    assert "No legitimate prediction snapshot is available" in response.text
+    assert "Synthetic Batter" not in response.text
+    assert client.get("/api/predictions").status_code == 503

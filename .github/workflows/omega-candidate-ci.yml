@@ -13,9 +13,13 @@ concurrency:
 
 jobs:
   validate:
-    name: Isolated candidate validation
-    runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    name: Clean ${{ matrix.os }} CPython 3.12.11
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-2025]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 35
     steps:
       - name: Check out candidate
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
@@ -23,7 +27,7 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Refuse production, evidence, or sealed-month path changes
+      - name: Refuse protected-path changes
         if: github.event_name == 'pull_request'
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
@@ -32,86 +36,165 @@ jobs:
         run: |
           set -euo pipefail
           git diff --name-only --diff-filter=ACMRTD "$BASE_SHA" "$HEAD_SHA" > "$RUNNER_TEMP/omega_changed_paths.txt"
-          forbidden='^(deploy/|\.github/workflows/(daily-predictions|record-outcomes|weekly-validation|forward-shadow-preflight|pitcher-receipt-verifier|shared-pa-forward-verifier|shadow-evidence-verifier)\.yml$|(.*\/)?(data|predictions|outcomes|receipts)(/|$)|.*2026[-_/]?0?5.*)'
+          forbidden='^(deploy/|\.github/workflows/(daily-predictions|record-outcomes|weekly-validation|forward-shadow-preflight|pitcher-receipt-verifier|shared-pa-forward-verifier|shadow-evidence-verifier)\.yml$|(.*\/)?(data|predictions|outcomes|receipts)(/|$)|.*2026[-_\/]?0?5.*)'
           if grep -Eiq "$forbidden" "$RUNNER_TEMP/omega_changed_paths.txt"; then
-            echo 'Candidate PR changes a protected production, evidence, outcome, receipt, or sealed-month path.' >&2
+            echo 'Candidate changes a protected production, evidence, outcome, receipt, or sealed-month path.' >&2
             grep -Ein "$forbidden" "$RUNNER_TEMP/omega_changed_paths.txt" >&2
             exit 1
           fi
 
-      - name: Verify frozen production boundary
-        run: python infra/omega_staging/verify_production_boundary.py
-
-      - name: Require reviewed hash locks
-        shell: bash
-        run: |
-          set -euo pipefail
-          for lock in requirements/profiles/dashboard.lock requirements/profiles/test.lock; do
-            test -s "$lock" || {
-              echo "Missing reviewed CPython 3.12/Linux hash lock: $lock" >&2
-              exit 1
-            }
-            grep -q -- '--hash=sha256:' "$lock" || {
-              echo "Lock has no package hashes: $lock" >&2
-              exit 1
-            }
-          done
-
-      - name: Set up CPython 3.12
+      - name: Set up exact CPython
         uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: '3.12.11'
-          cache: pip
-          cache-dependency-path: requirements/profiles/test.lock
 
-      - name: Install exact test environment
-        run: |
-          python -m pip install --require-hashes --no-deps -r requirements/profiles/test.lock
-          python -m pip check
-
-      - name: Verify candidate state and tracked secrets
-        shell: bash
-        run: |
-          python scripts/check_tracked_secrets.py
-          PYTHONPATH=. python scripts/verify_omega_candidate_boundaries.py
-          python - <<'PY'
-          import json
-          from pathlib import Path
-
-          state = json.loads(Path('config/omega_candidate_v0.json').read_text(encoding='utf-8'))
-          expected = {
-              'active': False,
-              'betting_authorized': False,
-              'fits_model': False,
-              'changes_production_probabilities': False,
-              'collector_changes_permitted': False,
-              'may_2026_permitted': False,
-          }
-          failures = [key for key, value in expected.items() if state.get(key) is not value]
-          if state.get('qualification_state') != 'IMPLEMENTED_UNQUALIFIED':
-              failures.append('qualification_state')
-          if state.get('promotion_approval_sha256') is not None:
-              failures.append('promotion_approval_sha256')
-          if failures:
-              raise SystemExit(f"candidate state is not fail-closed: {sorted(set(failures))}")
-          print('candidate state verified: implemented, unqualified, inactive')
-          PY
-
-      - name: Compile isolated candidate modules
-        run: python -m compileall -q dashboard src/omega_contracts infra/omega_staging
-
-      - name: Run isolated candidate tests
+      - name: Create isolated environments
         shell: bash
         run: |
           set -euo pipefail
-          shopt -s nullglob
-          targets=(tests/omega_contracts)
-          test -d tests/dashboard && targets+=(tests/dashboard)
-          test -d tests/omega_dashboard && targets+=(tests/omega_dashboard)
-          for candidate in tests/test_omega_*.py tests/test_dashboard*.py; do
-            targets+=("$candidate")
-          done
-          python -m pytest -q "${targets[@]}"
+          python -m venv "$RUNNER_TEMP/testenv"
+          python -m venv "$RUNNER_TEMP/buildenv"
+          python -m venv "$RUNNER_TEMP/lintenv"
+          python -m venv "$RUNNER_TEMP/installedenv"
+          if [[ "$RUNNER_OS" == 'Windows' ]]; then
+            echo "TESTPY=$RUNNER_TEMP/testenv/Scripts/python.exe" >> "$GITHUB_ENV"
+            echo "BUILDPY=$RUNNER_TEMP/buildenv/Scripts/python.exe" >> "$GITHUB_ENV"
+            echo "LINTPY=$RUNNER_TEMP/lintenv/Scripts/python.exe" >> "$GITHUB_ENV"
+            echo "CFNLINT=$RUNNER_TEMP/lintenv/Scripts/cfn-lint.exe" >> "$GITHUB_ENV"
+            echo "RUFF=$RUNNER_TEMP/lintenv/Scripts/ruff.exe" >> "$GITHUB_ENV"
+            echo "INSTALLEDPY=$RUNNER_TEMP/installedenv/Scripts/python.exe" >> "$GITHUB_ENV"
+          else
+            echo "TESTPY=$RUNNER_TEMP/testenv/bin/python" >> "$GITHUB_ENV"
+            echo "BUILDPY=$RUNNER_TEMP/buildenv/bin/python" >> "$GITHUB_ENV"
+            echo "LINTPY=$RUNNER_TEMP/lintenv/bin/python" >> "$GITHUB_ENV"
+            echo "CFNLINT=$RUNNER_TEMP/lintenv/bin/cfn-lint" >> "$GITHUB_ENV"
+            echo "RUFF=$RUNNER_TEMP/lintenv/bin/ruff" >> "$GITHUB_ENV"
+            echo "INSTALLEDPY=$RUNNER_TEMP/installedenv/bin/python" >> "$GITHUB_ENV"
+          fi
 
-      - name: Build read-only dashboard image
-        run: docker build --build-arg SOURCE_COMMIT="$GITHUB_SHA" --tag omega-dashboard-ci:"$GITHUB_SHA" .
+      - name: Install exact hash-locked tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$TESTPY" -m pip install --require-hashes --no-deps -r requirements/profiles/scaffold-test.lock
+          "$BUILDPY" -m pip install --require-hashes --no-deps -r requirements/profiles/scaffold-build.lock
+          "$LINTPY" -m pip install --require-hashes --no-deps -r requirements/profiles/scaffold-lint.lock
+          "$TESTPY" -m pip check
+          "$BUILDPY" -m pip check
+          "$LINTPY" -m pip check
+
+      - name: Install and verify pinned actionlint
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir "$RUNNER_TEMP/actionlint"
+          if [[ "$RUNNER_OS" == 'Windows' ]]; then
+            asset='actionlint_1.7.12_windows_amd64.zip'
+            expected='6e7241b51e6817ea6a047693d8e6fed13b31819c9a0dd6c5a726e1592d22f6e9'
+          else
+            asset='actionlint_1.7.12_linux_amd64.tar.gz'
+            expected='8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8'
+          fi
+          archive="$RUNNER_TEMP/actionlint/$asset"
+          curl --fail --location --silent --show-error "https://github.com/rhysd/actionlint/releases/download/v1.7.12/$asset" --output "$archive"
+          "$TESTPY" - "$archive" "$expected" "$RUNNER_TEMP/actionlint" "$RUNNER_OS" <<'PY'
+          import hashlib, pathlib, sys, tarfile, zipfile
+          archive, expected, target, os_name = pathlib.Path(sys.argv[1]), sys.argv[2], pathlib.Path(sys.argv[3]), sys.argv[4]
+          if hashlib.sha256(archive.read_bytes()).hexdigest() != expected:
+              raise SystemExit('actionlint release hash mismatch')
+          name = 'actionlint.exe' if os_name == 'Windows' else 'actionlint'
+          if os_name == 'Windows':
+              with zipfile.ZipFile(archive) as package:
+                  data = package.read(name)
+          else:
+              with tarfile.open(archive, 'r:gz') as package:
+                  member = package.getmember(name)
+                  if not member.isfile():
+                      raise SystemExit('actionlint archive member is not a regular file')
+                  data = package.extractfile(member).read()
+          output = target / name
+          output.write_bytes(data)
+          output.chmod(0o755)
+          print(output)
+          PY
+          if [[ "$RUNNER_OS" == 'Windows' ]]; then
+            echo "ACTIONLINT=$RUNNER_TEMP/actionlint/actionlint.exe" >> "$GITHUB_ENV"
+          else
+            echo "ACTIONLINT=$RUNNER_TEMP/actionlint/actionlint" >> "$GITHUB_ENV"
+          fi
+
+      - name: Run exact workflow and CloudFormation linters
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$ACTIONLINT" -version
+          mapfile -d '' workflow_files < <(find .github/workflows -type f -name '*.yml' -print0)
+          "$ACTIONLINT" -color=false "${workflow_files[@]}"
+          "$CFNLINT" --version
+          "$CFNLINT" infra/omega_staging/foundation.yaml infra/omega_staging/service.yaml
+          targets=(dashboard src/omega_contracts scripts/prepare_omega_scaffold_build_context.py scripts/generate_omega_phase4_schemas.py scripts/verify_omega_scaffold_package.py scripts/verify_omega_scaffold_structure.py tests/omega_dashboard tests/omega_contracts)
+          "$RUFF" check --select E4,E7,E9,F,I "${targets[@]}"
+          "$RUFF" format --check "${targets[@]}"
+
+      - name: Verify boundaries, structure, and source tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$TESTPY" scripts/check_tracked_secrets.py
+          PYTHONPATH=. "$TESTPY" scripts/verify_omega_candidate_boundaries.py
+          "$TESTPY" infra/omega_staging/verify_production_boundary.py
+          "$TESTPY" scripts/verify_omega_scaffold_structure.py --root .
+          "$TESTPY" scripts/generate_omega_phase4_schemas.py --output-directory docs/omega_stage2/phase4 --check
+          PYTHONDONTWRITEBYTECODE=1 "$TESTPY" -m pytest -q -p no:cacheprovider tests/omega_contracts tests/omega_dashboard
+
+      - name: Build and inspect exact standalone wheel
+        shell: bash
+        env:
+          SOURCE_DATE_EPOCH: '315532800'
+        run: |
+          set -euo pipefail
+          context="$RUNNER_TEMP/omega-build-context"
+          "$BUILDPY" scripts/prepare_omega_scaffold_build_context.py --repository-root . --destination "$context"
+          (cd "$context" && "$BUILDPY" -m build --no-isolation --wheel)
+          wheel="$context/dist/omega_trust_scaffold-0.4.0-py3-none-any.whl"
+          test -f "$wheel"
+          wheel_sha="$($TESTPY -c 'import hashlib,sys; print(hashlib.sha256(open(sys.argv[1], "rb").read()).hexdigest())' "$wheel")"
+          "$TESTPY" scripts/verify_omega_scaffold_package.py wheel --wheel "$wheel" --allowlist docs/omega_stage2/phase4/WHEEL_CONTENT_ALLOWLIST.txt
+          echo "WHEEL=$wheel" >> "$GITHUB_ENV"
+          echo "WHEEL_SHA256=$wheel_sha" >> "$GITHUB_ENV"
+
+      - name: Verify installed wheel outside checkout
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$INSTALLEDPY" -m pip install --require-hashes --no-deps -r requirements/profiles/scaffold-test.lock
+          "$INSTALLEDPY" -m pip install --no-deps "$WHEEL"
+          "$INSTALLEDPY" -m pip check
+          suite="$RUNNER_TEMP/installed-suite"
+          "$TESTPY" - "$suite" <<'PY'
+          import pathlib, shutil, sys
+          target = pathlib.Path(sys.argv[1])
+          (target / 'tests').mkdir(parents=True)
+          (target / 'tests/__init__.py').touch()
+          shutil.copytree('tests/omega_dashboard', target / 'tests/omega_dashboard')
+          (target / 'tests/omega_contracts').mkdir()
+          (target / 'tests/omega_contracts/__init__.py').touch()
+          for name in ('test_chronology_identity.py', 'test_evaluation_activation.py', 'test_features.py', 'test_properties.py', 'test_receipts_artifacts.py'):
+              shutil.copy2(pathlib.Path('tests/omega_contracts') / name, target / 'tests/omega_contracts' / name)
+          PY
+          cd "$suite"
+          PYTHONPATH= "$INSTALLEDPY" "$GITHUB_WORKSPACE/scripts/verify_omega_scaffold_package.py" installed --runtime-lock "$GITHUB_WORKSPACE/requirements/profiles/scaffold-runtime.lock" --checkout "$GITHUB_WORKSPACE"
+          PYTHONPATH= "$INSTALLEDPY" -m pytest -q -p no:cacheprovider --basetemp="$RUNNER_TEMP/installed-pytest" tests
+
+      - name: Build Linux container only from inspected wheel
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          cp "$WHEEL" dist/omega_trust_scaffold-0.4.0-py3-none-any.whl
+          docker build \
+            --build-arg SOURCE_COMMIT="$GITHUB_SHA" \
+            --build-arg SCAFFOLD_WHEEL_SHA256="$WHEEL_SHA256" \
+            --tag omega-dashboard-ci:"$GITHUB_SHA" .
+          docker run --rm --entrypoint python omega-dashboard-ci:"$GITHUB_SHA" -c "import dashboard, src.omega_contracts; from dashboard.app import create_app; assert create_app().title"

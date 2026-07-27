@@ -9,6 +9,7 @@ import json
 import os
 import secrets
 from dataclasses import dataclass
+from datetime import datetime
 from pathlib import Path
 from typing import Awaitable, Callable, Literal
 
@@ -18,7 +19,6 @@ from fastapi.templating import Jinja2Templates
 
 from .contracts import SUPPORTED_MARKETS, PredictionDisplayRow
 from .snapshot_store import LoadedSnapshot, SnapshotStore, SnapshotUnavailable
-
 
 DASHBOARD_VERSION = "omega-readonly-dashboard-v1"
 PACKAGE_ROOT = Path(__file__).resolve().parent
@@ -39,12 +39,28 @@ class DashboardSettings:
     snapshot_root: Path
     manifest_path: Path | None
     allowed_producers: frozenset[str]
+    trusted_manifest_sha256: str | None
+    maximum_snapshot_age_seconds: int | None
+    maximum_manifest_bytes: int | None
+    maximum_snapshot_bytes: int | None
+    immutability_anchor: Path | None
     auth_secret: str | None
     source_commit: str
 
     @classmethod
     def from_environment(cls) -> "DashboardSettings":
-        root = Path(os.environ.get("DASHBOARD_SNAPSHOT_ROOT", "/var/lib/baseball-dashboard/snapshots"))
+        def optional_positive_integer(name: str) -> int | None:
+            raw = os.environ.get(name)
+            if raw is None or not raw.isascii() or not raw.isdigit():
+                return None
+            parsed = int(raw)
+            return parsed if parsed > 0 else None
+
+        root = Path(
+            os.environ.get(
+                "DASHBOARD_SNAPSHOT_ROOT", "/var/lib/baseball-dashboard/snapshots"
+            )
+        )
         manifest_value = os.environ.get("DASHBOARD_MANIFEST_PATH")
         producers = frozenset(
             item.strip()
@@ -55,6 +71,21 @@ class DashboardSettings:
             snapshot_root=root,
             manifest_path=Path(manifest_value) if manifest_value else None,
             allowed_producers=producers,
+            trusted_manifest_sha256=os.environ.get("DASHBOARD_TRUSTED_MANIFEST_SHA256"),
+            maximum_snapshot_age_seconds=optional_positive_integer(
+                "DASHBOARD_MAXIMUM_SNAPSHOT_AGE_SECONDS"
+            ),
+            maximum_manifest_bytes=optional_positive_integer(
+                "DASHBOARD_MAXIMUM_MANIFEST_BYTES"
+            ),
+            maximum_snapshot_bytes=optional_positive_integer(
+                "DASHBOARD_MAXIMUM_SNAPSHOT_BYTES"
+            ),
+            immutability_anchor=(
+                Path(os.environ["DASHBOARD_IMMUTABILITY_ANCHOR"])
+                if os.environ.get("DASHBOARD_IMMUTABILITY_ANCHOR")
+                else None
+            ),
             auth_secret=os.environ.get("DASHBOARD_AUTH_SECRET"),
             source_commit=os.environ.get("DASHBOARD_SOURCE_COMMIT", "unavailable"),
         )
@@ -112,7 +143,11 @@ def filter_and_sort_rows(
 
     def key(row: PredictionDisplayRow):
         if filters.sort_by == "projection":
-            return (row.point_prediction is None, row.point_prediction or 0.0, row.player_name.casefold())
+            return (
+                row.point_prediction is None,
+                row.point_prediction or 0.0,
+                row.player_name.casefold(),
+            )
         if filters.sort_by == "uncertainty":
             width = _uncertainty_width(row)
             return (width is None, width or 0.0, row.player_name.casefold())
@@ -124,7 +159,9 @@ def filter_and_sort_rows(
     return rows
 
 
-def _row_for_export(row: PredictionDisplayRow, *, snapshot_sha256: str) -> dict[str, object]:
+def _row_for_export(
+    row: PredictionDisplayRow, *, snapshot_sha256: str
+) -> dict[str, object]:
     value = row.model_dump(mode="json")
     value["snapshot_sha256"] = snapshot_sha256
     return value
@@ -178,12 +215,19 @@ def create_app(
     *,
     settings: DashboardSettings | None = None,
     auth_verifier: AuthVerifier | None = None,
+    clock: Callable[[], datetime] | None = None,
 ) -> FastAPI:
     settings = settings or DashboardSettings.from_environment()
     store = SnapshotStore(
         root=settings.snapshot_root,
         manifest_path=settings.manifest_path,
         allowed_producers=settings.allowed_producers,
+        trusted_manifest_sha256=settings.trusted_manifest_sha256,
+        maximum_snapshot_age_seconds=settings.maximum_snapshot_age_seconds,
+        maximum_manifest_bytes=settings.maximum_manifest_bytes,
+        maximum_snapshot_bytes=settings.maximum_snapshot_bytes,
+        immutability_anchor=settings.immutability_anchor,
+        clock=clock,
     )
     templates = Jinja2Templates(directory=str(PACKAGE_ROOT / "templates"))
     app = FastAPI(
@@ -201,7 +245,9 @@ def create_app(
                 result = await result
             if result:
                 return
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="unauthorized")
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED, detail="unauthorized"
+            )
         if not settings.auth_secret:
             raise HTTPException(
                 status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
@@ -214,7 +260,9 @@ def create_app(
             secrets.compare_digest(bearer, settings.auth_secret)
             or secrets.compare_digest(session, settings.auth_secret)
         ):
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="unauthorized")
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED, detail="unauthorized"
+            )
 
     def require_snapshot() -> LoadedSnapshot:
         try:
@@ -258,11 +306,17 @@ def create_app(
             "source_commit": settings.source_commit,
         }
 
-    @app.get("/static/{filename}", name="dashboard_static", dependencies=[Depends(require_auth)])
+    @app.get(
+        "/static/{filename}",
+        name="dashboard_static",
+        dependencies=[Depends(require_auth)],
+    )
     def dashboard_static(filename: str) -> FileResponse:
         if filename != "style.css":
             raise HTTPException(status_code=404, detail="not found")
-        return FileResponse(PACKAGE_ROOT / "static" / "style.css", media_type="text/css")
+        return FileResponse(
+            PACKAGE_ROOT / "static" / "style.css", media_type="text/css"
+        )
 
     @app.get("/", response_class=HTMLResponse, dependencies=[Depends(require_auth)])
     def index(
@@ -413,11 +467,15 @@ def create_app(
         )
 
     @app.get("/exports/predictions.json", dependencies=[Depends(require_auth)])
-    def predictions_json(loaded: LoadedSnapshot = Depends(require_snapshot)) -> Response:
+    def predictions_json(
+        loaded: LoadedSnapshot = Depends(require_snapshot),
+    ) -> Response:
         return Response(
             loaded.snapshot_bytes,
             media_type="application/json",
-            headers={"Content-Disposition": "attachment; filename=prediction-snapshot.json"},
+            headers={
+                "Content-Disposition": "attachment; filename=prediction-snapshot.json"
+            },
         )
 
     @app.get("/exports/manifest.json", dependencies=[Depends(require_auth)])
@@ -425,7 +483,9 @@ def create_app(
         return Response(
             loaded.manifest_bytes,
             media_type="application/json",
-            headers={"Content-Disposition": "attachment; filename=prediction-manifest.json"},
+            headers={
+                "Content-Disposition": "attachment; filename=prediction-manifest.json"
+            },
         )
 
     return app

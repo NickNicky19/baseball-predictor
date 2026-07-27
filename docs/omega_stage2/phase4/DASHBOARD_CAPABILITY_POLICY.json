@@ -1,0 +1,67 @@
+{
+  "allowed_external_import_roots": [
+    "fastapi",
+    "pydantic"
+  ],
+  "allowed_local_modules": [
+    "dashboard.app",
+    "dashboard.contracts",
+    "dashboard.snapshot_store",
+    "src.omega_contracts.canonical",
+    "src.omega_contracts.chronology",
+    "src.omega_contracts.errors"
+  ],
+  "entrypoints": [
+    "dashboard.app",
+    "dashboard.contracts",
+    "dashboard.snapshot_store"
+  ],
+  "forbidden_call_suffixes": [
+    "__import__",
+    "compile",
+    "eval",
+    "exec",
+    "getattr",
+    "import_module",
+    "kill",
+    "popen",
+    "remove",
+    "rename",
+    "replace",
+    "rmdir",
+    "spawn",
+    "system",
+    "terminate",
+    "touch",
+    "unlink",
+    "write_bytes",
+    "write_text"
+  ],
+  "forbidden_import_roots": [
+    "boto3",
+    "botocore",
+    "httpx",
+    "importlib",
+    "requests",
+    "socket",
+    "sqlite3",
+    "subprocess",
+    "urllib3"
+  ],
+  "forbidden_import_modules": [
+    "urllib.request"
+  ],
+  "narrow_call_exceptions": {
+    "dashboard.contracts": [
+      "re.compile"
+    ],
+    "dashboard.snapshot_store": [
+      "ctypes.WinDLL",
+      "os.open"
+    ],
+    "src.omega_contracts.chronology": [
+      "re.compile"
+    ]
+  },
+  "schema_version": "omega-dashboard-capability-policy-v1"
+}

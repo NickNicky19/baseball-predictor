@@ -7,8 +7,19 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 
-from .canonical import canonical_json_bytes, require_nonempty_text, require_sha256, sha256_bytes, strict_json_object_bytes
-from .chronology import assert_may_safe_path, parse_aware_utc, parse_date, require_before
+from .canonical import (
+    canonical_json_bytes,
+    require_nonempty_text,
+    require_sha256,
+    sha256_bytes,
+    strict_json_object_bytes,
+)
+from .chronology import (
+    assert_may_safe_path,
+    parse_aware_utc,
+    parse_date,
+    require_before,
+)
 from .errors import ContractError
 from .identity import positive_int
 
@@ -65,7 +76,9 @@ def resolve_receipt(
     parser: Callable[[bytes], Mapping[str, object]],
     expected_identities: Mapping[str, object],
 ) -> ResolvedReceipt:
-    receipt_path = assert_may_safe_path(receipt_root / reference.relative_path, allowed_root=receipt_root)
+    receipt_path = assert_may_safe_path(
+        receipt_root / reference.relative_path, allowed_root=receipt_root
+    )
     try:
         receipt_bytes = receipt_path.read_bytes()
     except OSError as exc:
@@ -76,30 +89,59 @@ def resolve_receipt(
     if set(payload) != _RECEIPT_FIELDS:
         raise ContractError("receipt fields do not exactly match the approved schema")
     for key, expected in (
-        ("schema_version", require_nonempty_text(expected_schema_version, label="expected schema_version")),
-        ("receipt_type", require_nonempty_text(expected_receipt_type, label="expected receipt_type")),
-        ("source_id", require_nonempty_text(expected_source_id, label="expected source_id")),
-        ("protocol_id", require_nonempty_text(expected_protocol_id, label="expected protocol_id")),
-        ("parser_sha256", require_sha256(expected_parser_sha256, label="expected parser sha256")),
+        (
+            "schema_version",
+            require_nonempty_text(
+                expected_schema_version, label="expected schema_version"
+            ),
+        ),
+        (
+            "receipt_type",
+            require_nonempty_text(expected_receipt_type, label="expected receipt_type"),
+        ),
+        (
+            "source_id",
+            require_nonempty_text(expected_source_id, label="expected source_id"),
+        ),
+        (
+            "protocol_id",
+            require_nonempty_text(expected_protocol_id, label="expected protocol_id"),
+        ),
+        (
+            "parser_sha256",
+            require_sha256(expected_parser_sha256, label="expected parser sha256"),
+        ),
     ):
         if payload[key] != expected:
             raise ContractError(f"receipt {key} mismatch")
-    observed = parse_aware_utc(payload["observed_at_utc"], label="receipt observed_at_utc")
-    horizon = parse_aware_utc(payload["decision_horizon_utc"], label="receipt decision_horizon_utc")
+    observed = parse_aware_utc(
+        payload["observed_at_utc"], label="receipt observed_at_utc"
+    )
+    horizon = parse_aware_utc(
+        payload["decision_horizon_utc"], label="receipt decision_horizon_utc"
+    )
     expected_horizon = parse_aware_utc(
         expected_decision_horizon_utc, label="expected decision_horizon_utc"
     )
     if horizon != expected_horizon:
         raise ContractError("receipt decision horizon does not match the external plan")
     require_before(observed, horizon, label="receipt observed_at_utc")
-    official_date = parse_date(payload["official_date"], label="receipt official_date").isoformat()
-    raw_relative = require_nonempty_text(payload["raw_relative_path"], label="raw_relative_path")
-    raw_path = assert_may_safe_path(receipt_root / raw_relative, allowed_root=receipt_root)
+    official_date = parse_date(
+        payload["official_date"], label="receipt official_date"
+    ).isoformat()
+    raw_relative = require_nonempty_text(
+        payload["raw_relative_path"], label="raw_relative_path"
+    )
+    raw_path = assert_may_safe_path(
+        receipt_root / raw_relative, allowed_root=receipt_root
+    )
     try:
         raw_bytes = raw_path.read_bytes()
     except OSError as exc:
         raise ContractError("receipt raw object cannot be opened") from exc
-    if sha256_bytes(raw_bytes) != require_sha256(payload["raw_sha256"], label="raw_sha256"):
+    if sha256_bytes(raw_bytes) != require_sha256(
+        payload["raw_sha256"], label="raw_sha256"
+    ):
         raise ContractError("raw byte hash mismatch")
     try:
         projection = parser(raw_bytes)
@@ -117,11 +159,17 @@ def resolve_receipt(
     expected_fields = set(expected_identities)
     if not _ESSENTIAL_IDENTITY_FIELDS.issubset(expected_fields):
         missing = sorted(_ESSENTIAL_IDENTITY_FIELDS - expected_fields)
-        raise ContractError(f"expected receipt identities omit essential fields: {missing}")
+        raise ContractError(
+            f"expected receipt identities omit essential fields: {missing}"
+        )
     if set(identities) != expected_fields:
-        raise ContractError("receipt identity fields do not exactly match the positive contract")
+        raise ContractError(
+            "receipt identity fields do not exactly match the positive contract"
+        )
     if identities.get("official_date") != official_date:
-        raise ContractError("receipt identity official_date does not match receipt date")
+        raise ContractError(
+            "receipt identity official_date does not match receipt date"
+        )
     positive_int(identities.get("game_pk"), label="receipt identity game_pk")
     positive_int(identities.get("team_id"), label="receipt identity team_id")
     if identities.get("team_side") not in {"home", "away"}:

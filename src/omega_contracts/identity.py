@@ -87,7 +87,9 @@ class ObservationKey:
         if side not in {"home", "away"}:
             raise ContractError("team_side must be home or away")
         try:
-            market_value = market.value if isinstance(market, Market) else Market(market).value
+            market_value = (
+                market.value if isinstance(market, Market) else Market(market).value
+            )
         except (ValueError, TypeError) as exc:
             raise ContractError("unsupported market") from exc
         if isinstance(line, bool):
@@ -102,7 +104,9 @@ class ObservationKey:
             raise ContractError("HR over 0.5 requires the exact line 0.5")
         doubled = decimal_line * 2
         if doubled != doubled.to_integral_value():
-            raise ContractError("count-market line must use an integer or half-integer threshold")
+            raise ContractError(
+                "count-market line must use an integer or half-integer threshold"
+            )
         return cls(
             official_date=parse_date(official_date).isoformat(),
             mlb_game_pk=positive_int(mlb_game_pk, label="mlb_game_pk"),
