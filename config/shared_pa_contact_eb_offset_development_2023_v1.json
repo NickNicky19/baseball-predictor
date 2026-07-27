@@ -16,7 +16,7 @@
       "other_non_ab"
     ],
     "base_probability": "strict-prior player Dirichlet posterior with outer-training-only league probabilities and outer-training-only fitted concentration",
-    "residual_features": "ordered concatenation of the rejected true-EB-offset residual feature contract and all 44 contact-quality-input-v1 features",
+    "residual_features": "ordered concatenation of the rejected true-EB-offset residual feature contract and the 43 numeric contact-quality-input-v1 fields; history_contact_max_source_date remains a validation certificate only",
     "residual_model": {
       "library": "catboost==1.2.10",
       "loss_function": "MultiClass",
@@ -37,6 +37,7 @@
       "historical estimated outcome probabilities without algorithm-version receipts",
       "spray or pull without a certified coordinate transform",
       "maximum exit velocity",
+      "history_contact_max_source_date as a model feature",
       "target-game realized PA",
       "target-game unreceipted lineup slot",
       "opposing pitcher",
@@ -53,7 +54,9 @@
     "contact_contract": {
       "path": "config/shared_pa_contact_quality_input_v1.json",
       "sha256": "16e3b03389d09772b806d0da021cf24630440f931961e9b7746bcc7cf6d44ccb",
-      "feature_count": 44
+      "panel_field_count": 44,
+      "numeric_model_feature_count": 43,
+      "chronology_certificate_field": "history_contact_max_source_date"
     },
     "contact_registry": {
       "path": "config/shared_pa_contact_quality_input_v1_artifact_registry.json",

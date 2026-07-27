@@ -154,9 +154,19 @@ def feature_contracts(protocol: Mapping[str, Any]) -> tuple[dict[str, Any], dict
     require(registry.get("status") == "HASH_BOUND_2023_RESEARCH_INPUT_NOT_A_MODEL_OR_PROMOTION", "contact registry status changed")
     require(registry["qualification"]["research_input_ready"] is True, "contact input is not research ready")
     require(registry["qualification"]["model_fitted"] is False, "contact registry unexpectedly claims a fitted model")
-    features = [*base_protocol["candidate"]["features"], *contact_contract["features"]]
+    chronology_field = sources["contact_contract"]["chronology_certificate_field"]
+    require(chronology_field == "history_contact_max_source_date", "contact chronology field changed")
+    contact_model_features = [name for name in contact_contract["features"] if name != chronology_field]
+    require(
+        len(contact_contract["features"]) == sources["contact_contract"]["panel_field_count"],
+        "contact panel field count changed",
+    )
+    require(
+        len(contact_model_features) == sources["contact_contract"]["numeric_model_feature_count"],
+        "contact numeric feature count changed",
+    )
+    features = [*base_protocol["candidate"]["features"], *contact_model_features]
     require(len(features) == len(set(features)), "candidate feature contracts overlap")
-    require(len(contact_contract["features"]) == sources["contact_contract"]["feature_count"], "contact feature count changed")
     return base_protocol, registry, features
 
 

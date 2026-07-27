@@ -4,21 +4,21 @@
   "locked_date": "2026-07-27",
   "candidate_id": "shared_pa_contact_eb_offset_catboost_2023_v1",
   "development_years": [2023],
-  "git_parent_before_candidate_commit": "db163b19ae023797a91076d4c4f733121e71c2d9",
+  "git_parent_before_candidate_commit": "b68a212d1072332728683403a302842a17a77af5",
   "required_file_hashes": {
-    "config/shared_pa_contact_eb_offset_development_2023_v1.json": "cf125d459ff169d64aa129e91ebb606451eee7ae6e06e4d3ba50c3f7a86bce3a",
+    "config/shared_pa_contact_eb_offset_development_2023_v1.json": "c0f36d8adc588c216863a1dc40e45901178576c256f78cb9e9b2923040b98a45",
     "config/shared_pa_contact_quality_input_v1.json": "16e3b03389d09772b806d0da021cf24630440f931961e9b7746bcc7cf6d44ccb",
     "config/shared_pa_contact_quality_input_v1_artifact_registry.json": "6c052d2fc53e24ede6a48d8a3e15a1a2b3025de0fe7c499f53ba589b8314458f",
     "config/shared_pa_true_eb_offset_development_2023_v1.json": "7abfa0bca565a0e561655a061ca7e0f3ef7a3da2c3e764f9949ef46bb20a7b27",
     "requirements-shared-pa-offset-research.lock": "53edbfa534459339d98188b14a716a9a9fb72c18510acdb267c67dbac3d33296",
-    "scripts/develop_shared_pa_contact_eb_offset_2023.py": "fe6768100ee8104983b2b0e6715b505766ad7f9e78a3133de69885f9569f6b04",
+    "scripts/develop_shared_pa_contact_eb_offset_2023.py": "b2357ad72e366e57e14092852f2937f9b4beb5df2199bf179e6d1bc9ba6f4d75",
     "scripts/develop_shared_pa_true_eb_offset_2023.py": "2f2c42dd2d43c84b5c61f0c1c2e53953a206740e2e32d9132dd21a9d58a03e92",
     "scripts/validate_shared_pa_contact_quality_panel.py": "d9421266bd2c9f22b2d9b009a3919a622002ad7efbb70b729d9ab22cb085e0cd",
     "src/evaluation/shared_pa_contact_quality.py": "a9240a13d687c0690442c4dc9587b09971c58c88e16219140cf929a190e9bb18",
     "src/evaluation/shared_pa_eb_offset_catboost.py": "711e1e3e71edd137f19d434c4fda4814c57a529b339bd1f342f2193c239442a2",
     "src/evaluation/shared_pa_offset_evaluation.py": "2b90a27ad9e4b35fab61e887414e3a48e40841399c7c0c69b029848ee936668b",
     "src/evaluation/shared_pa_training_data.py": "ce0689ef9d3d296a8d40e9badc2400c73bf57fa648f73d1d43e8c4efd900fac1",
-    "tests/test_develop_shared_pa_contact_eb_offset_2023.py": "21ebc5b502db9ce3ba823eaee527fa05cef446b1582daf41cc20b38040f84459",
+    "tests/test_develop_shared_pa_contact_eb_offset_2023.py": "5619ca589bb560ff7a558f85da3cc0b212cc9e0cc78db9182bcd028712430811",
     "tests/test_shared_pa_contact_quality.py": "8d53cd6c4470730534f0a25e93e562cc8e7e53a46a57b02a81f6ad0ca6e4bd6a",
     "tests/test_shared_pa_eb_offset_catboost.py": "ee03b7c9596c25b88daf6620a62fc119c6acc443399e58ed120fbfcd51290567",
     "tests/test_shared_pa_offset_evaluation.py": "13f8a28fa0ec970e7d89169862334b79f6bd10e0a9dbdd75580485a79fdfae45",
@@ -41,8 +41,8 @@
   },
   "candidate_feature_identity": {
     "construction": "ordered rejected residual-control features followed by ordered contact-quality-input-v1 features",
-    "count": 117,
-    "ordered_names_sha256": "ba26385071002e4086e8af55ed7a6ce0ce436e25296bae6e6e510db70bff5e1d"
+    "count": 116,
+    "ordered_names_sha256": "0327ba0d753f2f8b33e473302e0083c567abd418dd6252c3292fb1f3061198ae"
   },
   "frozen_core_feature_identity": {
     "selection_rule": "ordered base-panel columns beginning history_ and not containing age_days",
@@ -85,7 +85,14 @@
     "rejected_control_required": true,
     "market_specific_gates_locked": true,
     "model_or_threshold_selection": false,
-    "outcomes_scored_before_lock": false
+    "outcomes_scored_before_lock": false,
+    "pre_fit_failure_preserved": {
+      "classification": "CHRONOLOGY_CERTIFICATE_WAS_MISTAKENLY_INCLUDED_IN_NUMERIC_FEATURES",
+      "model_fitted": false,
+      "predictions_generated": false,
+      "scores_computed": false,
+      "repair": "exclude history_contact_max_source_date from model features while retaining it in chronology validation"
+    }
   },
   "protected_boundaries": {
     "selection_or_confirmation_opened": false,

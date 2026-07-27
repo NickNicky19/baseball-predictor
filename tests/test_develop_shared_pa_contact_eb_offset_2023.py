@@ -30,8 +30,10 @@ def _write(path: Path, value: object) -> None:
 def test_locked_protocol_derives_one_exact_nonoverlapping_feature_surface() -> None:
     protocol = load_protocol(PROTOCOL)
     base_protocol, registry, features = feature_contracts(protocol)
-    assert len(features) == len(base_protocol["candidate"]["features"]) + 44
-    assert features[-44:] == list(FEATURE_COLUMNS)
+    numeric_contact = [name for name in FEATURE_COLUMNS if name != "history_contact_max_source_date"]
+    assert len(features) == len(base_protocol["candidate"]["features"]) + 43
+    assert features[-43:] == numeric_contact
+    assert "history_contact_max_source_date" not in features
     assert len(features) == len(set(features))
     assert registry["qualification"]["predictive_improvement_claimed"] is False
     assert ARM_ORDER[1] == "rejected_true_eb_offset_control"
@@ -103,7 +105,7 @@ def test_contact_join_missing_identity_fails_closed() -> None:
 
 def test_execution_lock_matches_exact_code_and_runtime() -> None:
     lock, runtime = verify_execution_lock(LOCK)
-    assert lock["candidate_feature_identity"]["count"] == 117
+    assert lock["candidate_feature_identity"]["count"] == 116
     assert runtime["python_version"] == "3.12.13"
 
 
