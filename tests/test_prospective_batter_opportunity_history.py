@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import base64
 import json
 import hashlib
 from datetime import datetime, timezone
@@ -419,6 +420,18 @@ def test_stored_t4_roster_proof_mutation_is_rejected_on_replay(tmp_path):
     terminal["entry_sha256"] = sha256_value(unsigned)
     plan_path.write_text(json.dumps(bundle), encoding="utf-8")
     with pytest.raises(ProspectiveOpportunityHistoryError, match="semantic identity"):
+        ledger.plans()
+
+
+def test_stored_schedule_proof_mutation_is_rejected_on_replay(tmp_path):
+    ledger = _ledger(tmp_path)
+    plan_path = next((tmp_path / "plans").glob("*.json"))
+    bundle = json.loads(plan_path.read_text(encoding="utf-8"))
+    decoded = bytearray(base64.b64decode(bundle["active_schedule_raw_base64"]))
+    decoded[-1] ^= 1
+    bundle["active_schedule_raw_base64"] = base64.b64encode(decoded).decode("ascii")
+    plan_path.write_text(json.dumps(bundle), encoding="utf-8")
+    with pytest.raises(ProspectiveOpportunityHistoryError, match="schedule raw proof differs"):
         ledger.plans()
 
 

@@ -347,103 +347,121 @@ def run_all(
         }
     if official_date < epoch:
         raise ProspectiveBatterOpportunityRuntimeError("runtime date predates collection epoch")
-    plan_path = plan_dir / f"{official_date.isoformat()}.plan.json"
     planning = {
         "created": 0,
         "already_planned": 0,
         "missed_before_plan": 0,
         "already_terminal_missed": 0,
         "roster_unavailable": 0,
+        "source_plans_seen": 0,
+        "source_ledgers_missing": 0,
+        "source_terminal_coverage_missing": 0,
     }
-    if plan_path.is_file():
+    candidate_date = epoch
+    while candidate_date <= official_date:
+        # The seal is enforced before even constructing a May filesystem path.
+        if candidate_date.year == 2026 and candidate_date.month == 5:
+            candidate_date += timedelta(days=1)
+            continue
+        plan_path = plan_dir / f"{candidate_date.isoformat()}.plan.json"
+        if not plan_path.is_file():
+            candidate_date += timedelta(days=1)
+            continue
+        planning["source_plans_seen"] += 1
         source_plan = _load_plan(plan_path)
-        if source_plan.official_game_date != official_date.isoformat() or source_plan.entry_hours != 4:
+        if source_plan.official_game_date != candidate_date.isoformat() or source_plan.entry_hours != 4:
             raise ProspectiveBatterOpportunityRuntimeError("T-minus-4 plan date or horizon differs")
         source_root = roster_ledger_root / source_plan.official_game_date / source_plan.plan_sha256
         manifest_path = source_root / "ledger_manifest.json"
-        if manifest_path.is_file():
-            manifest = _load_manifest(manifest_path, "source roster ledger")
-            source_binding = runtime["source_roster_evidence"]
-            if (
-                manifest.get("contract_sha256") != source_binding["contract_sha256"]
-                or manifest.get("collector_code_sha256") != source_binding["collector_code_sha256"]
-            ):
-                raise ProspectiveBatterOpportunityRuntimeError("source roster ledger release identity differs")
-            roster_ledger = ProjectedLineupRosterLedger(
-                source_root,
-                plan=source_plan,
-                contract_sha256=manifest["contract_sha256"],
-                collector_code_sha256=manifest["collector_code_sha256"],
+        if not manifest_path.is_file():
+            planning["source_ledgers_missing"] += 1
+            candidate_date += timedelta(days=1)
+            continue
+        manifest = _load_manifest(manifest_path, "source roster ledger")
+        source_binding = runtime["source_roster_evidence"]
+        if (
+            manifest.get("contract_sha256") != source_binding["contract_sha256"]
+            or manifest.get("collector_code_sha256") != source_binding["collector_code_sha256"]
+        ):
+            raise ProspectiveBatterOpportunityRuntimeError("source roster ledger release identity differs")
+        roster_ledger = ProjectedLineupRosterLedger(
+            source_root,
+            plan=source_plan,
+            contract_sha256=manifest["contract_sha256"],
+            collector_code_sha256=manifest["collector_code_sha256"],
+        )
+        roster_counts = roster_ledger.verify()
+        planning["source_terminal_coverage_missing"] += roster_counts["missing"]
+        planning["roster_unavailable"] += roster_counts["missing"]
+        history_root = history_ledger_root / source_plan.official_game_date / source_plan.plan_sha256
+        history_ledger = ProspectiveOpportunityHistoryLedger(
+            history_root,
+            collection_epoch_date=scope["collection_epoch_date"],
+            contract_sha256=runtime["contract"]["sha256"],
+            collector_code_sha256=code_sha,
+            evidence_scope_sha256=scope["evidence_scope_sha256"],
+        )
+        existing = {plan["roster_side_target_id"] for plan in history_ledger.plans()}
+        terminally_missed = history_ledger.planning_exclusion_ids()
+        terminal_dir = source_root / "terminal"
+        for terminal_path in sorted(terminal_dir.glob("*.json")) if terminal_dir.is_dir() else []:
+            terminal = json.loads(terminal_path.read_text(encoding="utf-8"))
+            if terminal.get("terminal_state") != ROSTER_CAPTURED:
+                planning["roster_unavailable"] += 1
+                continue
+            side_id = str(terminal["side_target_id"])
+            if side_id in existing:
+                planning["already_planned"] += 1
+                continue
+            if side_id in terminally_missed:
+                planning["already_terminal_missed"] += 1
+                continue
+            target = next(
+                (item for item in source_plan.targets if item.target_id == terminal.get("target_id")),
+                None,
             )
-            roster_ledger.verify()
-            history_root = history_ledger_root / source_plan.official_game_date / source_plan.plan_sha256
-            history_ledger = ProspectiveOpportunityHistoryLedger(
-                history_root,
-                collection_epoch_date=scope["collection_epoch_date"],
-                contract_sha256=runtime["contract"]["sha256"],
-                collector_code_sha256=code_sha,
-                evidence_scope_sha256=scope["evidence_scope_sha256"],
-            )
-            existing = {plan["roster_side_target_id"] for plan in history_ledger.plans()}
-            terminally_missed = history_ledger.planning_exclusion_ids()
-            terminal_dir = source_root / "terminal"
-            for terminal_path in sorted(terminal_dir.glob("*.json")) if terminal_dir.is_dir() else []:
-                terminal = json.loads(terminal_path.read_text(encoding="utf-8"))
-                if terminal.get("terminal_state") != ROSTER_CAPTURED:
-                    planning["roster_unavailable"] += 1
-                    continue
-                side_id = str(terminal["side_target_id"])
-                if side_id in existing:
-                    planning["already_planned"] += 1
-                    continue
-                if side_id in terminally_missed:
-                    planning["already_terminal_missed"] += 1
-                    continue
-                target = next(
-                    (item for item in source_plan.targets if item.target_id == terminal.get("target_id")),
-                    None,
-                )
-                if target is None:
-                    raise ProspectiveBatterOpportunityRuntimeError("roster terminal target is absent from plan")
-                starts = _utc(target.official_start_time_utc)
-                if current >= starts:
-                    history_ledger.append_planning_exclusion(
-                        source_roster_ledger=roster_ledger,
-                        target_id=target.target_id,
-                        side=str(terminal["side"]),
-                        observed_at_utc=_stamp(current),
-                        detail=(
-                            "receipt-proven roster side was discovered at or after first pitch; "
-                            "no history capture plan was backdated"
-                        ),
-                    )
-                    terminally_missed.add(side_id)
-                    planning["missed_before_plan"] += 1
-                    continue
-                capture_plan = build_history_capture_plan(
-                    created_at_utc=_stamp(current),
-                    mlb_game_pk=target.mlb_game_pk,
-                    official_game_date=target.official_game_date,
-                    official_start_time_utc=target.official_start_time_utc,
-                    capture_deadline_utc=_stamp(
-                        starts
-                        + timedelta(
-                            seconds=runtime["scheduler"]["capture_deadline_after_start_seconds"]
-                        )
-                    ),
-                    side=str(terminal["side"]),
-                    team_id=int(terminal["team_id"]),
-                    source_t4_plan_sha256=source_plan.plan_sha256,
-                    roster_side_target_id=side_id,
-                    active_roster_receipt_sha256=sha256_value(terminal["roster"]),
-                )
-                history_ledger.append_plan(
-                    capture_plan,
-                    published_at_utc=_stamp(current),
+            if target is None:
+                raise ProspectiveBatterOpportunityRuntimeError("roster terminal target is absent from plan")
+            starts = _utc(target.official_start_time_utc)
+            if current >= starts:
+                history_ledger.append_planning_exclusion(
                     source_roster_ledger=roster_ledger,
+                    target_id=target.target_id,
+                    side=str(terminal["side"]),
+                    observed_at_utc=_stamp(current),
+                    detail=(
+                        "receipt-proven roster side was discovered at or after first pitch; "
+                        "no history capture plan was backdated"
+                    ),
                 )
-                existing.add(side_id)
-                planning["created"] += 1
+                terminally_missed.add(side_id)
+                planning["missed_before_plan"] += 1
+                continue
+            capture_plan = build_history_capture_plan(
+                created_at_utc=_stamp(current),
+                mlb_game_pk=target.mlb_game_pk,
+                official_game_date=target.official_game_date,
+                official_start_time_utc=target.official_start_time_utc,
+                capture_deadline_utc=_stamp(
+                    starts
+                    + timedelta(
+                        seconds=runtime["scheduler"]["capture_deadline_after_start_seconds"]
+                    )
+                ),
+                side=str(terminal["side"]),
+                team_id=int(terminal["team_id"]),
+                source_t4_plan_sha256=source_plan.plan_sha256,
+                roster_side_target_id=side_id,
+                active_roster_receipt_sha256=sha256_value(terminal["roster"]),
+            )
+            history_ledger.append_plan(
+                capture_plan,
+                published_at_utc=_stamp(current),
+                source_roster_ledger=roster_ledger,
+            )
+            existing.add(side_id)
+            planning["created"] += 1
+        candidate_date += timedelta(days=1)
     fetch = fetch_final or (
         lambda plan: _official_fetch(plan, runtime["scheduler"]["request_timeout_seconds"])
     )
@@ -469,7 +487,11 @@ def run_all(
             collection[key] += value
     return {
         "schema_version": "prospective-batter-opportunity-tick-v1",
-        "collector_state": "processed",
+        "collector_state": (
+            "blocked_upstream_roster_evidence"
+            if planning["source_ledgers_missing"] or planning["source_terminal_coverage_missing"]
+            else "processed"
+        ),
         "official_date": official_date.isoformat(),
         "runtime_manifest_sha256": runtime_sha,
         "evidence_scope_sha256": scope["evidence_scope_sha256"],
@@ -509,7 +531,11 @@ def main(argv: list[str] | None = None) -> int:
         print(f"[FAIL] {type(exc).__name__}: {exc}", file=sys.stderr)
         return 2
     print(json.dumps(result, sort_keys=True))
-    return 0
+    return _exit_code_for_result(result)
+
+
+def _exit_code_for_result(result: Mapping[str, object]) -> int:
+    return 0 if result.get("collector_state") in {"processed", "sealed_may_no_access"} else 2
 
 
 if __name__ == "__main__":

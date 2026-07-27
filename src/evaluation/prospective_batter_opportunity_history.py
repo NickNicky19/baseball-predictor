@@ -29,6 +29,11 @@ from src.evaluation.projected_lineup_roster_ledger import (
     ProjectedLineupRosterLedgerError,
     roster_side_target_id,
 )
+from src.evaluation.shared_pa_forward_collector import (
+    RawPregameResponse,
+    SharedPAForwardCollectorError,
+    projected_lineups_from_schedule,
+)
 from src.evaluation.shadow_capture_plan import ShadowCapturePlan, ShadowCapturePlanError
 from src.evaluation.prospective_batter_opportunity import (
     ProspectiveBatterOpportunityError,
@@ -219,14 +224,20 @@ class ProspectiveOpportunityHistoryLedger:
         except (OSError, json.JSONDecodeError) as exc:
             raise ProspectiveOpportunityHistoryError("captured source roster terminal is missing") from exc
         roster_reference = terminal.get("roster_raw") if isinstance(terminal, Mapping) else None
+        schedule_reference = terminal.get("schedule_raw") if isinstance(terminal, Mapping) else None
         if not isinstance(roster_reference, Mapping) or set(roster_reference) != {"path", "sha256"}:
             raise ProspectiveOpportunityHistoryError("captured source roster raw reference is invalid")
+        if not isinstance(schedule_reference, Mapping) or set(schedule_reference) != {"path", "sha256"}:
+            raise ProspectiveOpportunityHistoryError("captured source schedule raw reference is invalid")
         roster_path = (source_roster_ledger.root / str(roster_reference["path"])).resolve()
+        schedule_path = (source_roster_ledger.root / str(schedule_reference["path"])).resolve()
         try:
             roster_path.relative_to(source_roster_ledger.root)
+            schedule_path.relative_to(source_roster_ledger.root)
             roster_raw = roster_path.read_bytes()
+            schedule_raw = schedule_path.read_bytes()
         except (ValueError, OSError) as exc:
-            raise ProspectiveOpportunityHistoryError("captured source roster raw is unavailable") from exc
+            raise ProspectiveOpportunityHistoryError("captured source schedule or roster raw is unavailable") from exc
         entry = {
             "schema_version": "prospective-batter-opportunity-planning-terminal-v1",
             "planning_exclusion_id": side_id,
@@ -235,6 +246,7 @@ class ProspectiveOpportunityHistoryLedger:
             "detail": detail.strip(),
             "source_t4_plan": source_plan.to_dict(),
             "active_roster_terminal": terminal,
+            "active_schedule_raw_base64": base64.b64encode(schedule_raw).decode("ascii"),
             "active_roster_raw_base64": base64.b64encode(roster_raw).decode("ascii"),
             "research_only": True,
             "historical_backfill_authorized": False,
@@ -457,6 +469,7 @@ class ProspectiveOpportunityHistoryLedger:
             "plan",
             "source_t4_plan",
             "active_roster_terminal",
+            "active_schedule_raw_base64",
             "active_roster_raw_base64",
         } or bundle.get("schema_version") != "prospective-batter-opportunity-history-plan-proof-v1":
             raise ProspectiveOpportunityHistoryError("stored history plan proof schema changed")
@@ -471,6 +484,7 @@ class ProspectiveOpportunityHistoryLedger:
             validated,
             source_t4_plan=bundle["source_t4_plan"],
             active_roster_terminal=bundle["active_roster_terminal"],
+            active_schedule_raw_base64=bundle["active_schedule_raw_base64"],
             active_roster_raw_base64=bundle["active_roster_raw_base64"],
         )
         return validated
@@ -508,25 +522,33 @@ class ProspectiveOpportunityHistoryLedger:
         except (OSError, json.JSONDecodeError) as exc:
             raise ProspectiveOpportunityHistoryError("captured source roster terminal is missing") from exc
         roster_reference = terminal.get("roster_raw") if isinstance(terminal, Mapping) else None
+        schedule_reference = terminal.get("schedule_raw") if isinstance(terminal, Mapping) else None
         if not isinstance(roster_reference, Mapping) or set(roster_reference) != {"path", "sha256"}:
             raise ProspectiveOpportunityHistoryError("captured source roster raw reference is invalid")
+        if not isinstance(schedule_reference, Mapping) or set(schedule_reference) != {"path", "sha256"}:
+            raise ProspectiveOpportunityHistoryError("captured source schedule raw reference is invalid")
         roster_path = (source_roster_ledger.root / str(roster_reference["path"])).resolve()
+        schedule_path = (source_roster_ledger.root / str(schedule_reference["path"])).resolve()
         try:
             roster_path.relative_to(source_roster_ledger.root)
+            schedule_path.relative_to(source_roster_ledger.root)
             roster_raw = roster_path.read_bytes()
+            schedule_raw = schedule_path.read_bytes()
         except (ValueError, OSError) as exc:
-            raise ProspectiveOpportunityHistoryError("captured source roster raw is unavailable") from exc
+            raise ProspectiveOpportunityHistoryError("captured source schedule or roster raw is unavailable") from exc
         bundle = {
             "schema_version": "prospective-batter-opportunity-history-plan-proof-v1",
             "plan": dict(plan),
             "source_t4_plan": source_plan.to_dict(),
             "active_roster_terminal": terminal,
+            "active_schedule_raw_base64": base64.b64encode(schedule_raw).decode("ascii"),
             "active_roster_raw_base64": base64.b64encode(roster_raw).decode("ascii"),
         }
         self._verify_plan_proof(
             plan,
             source_t4_plan=bundle["source_t4_plan"],
             active_roster_terminal=terminal,
+            active_schedule_raw_base64=bundle["active_schedule_raw_base64"],
             active_roster_raw_base64=bundle["active_roster_raw_base64"],
         )
         return bundle
@@ -537,6 +559,7 @@ class ProspectiveOpportunityHistoryLedger:
         *,
         source_t4_plan: Any,
         active_roster_terminal: Any,
+        active_schedule_raw_base64: Any,
         active_roster_raw_base64: Any,
     ) -> None:
         try:
@@ -585,6 +608,32 @@ class ProspectiveOpportunityHistoryLedger:
             active_roster_terminal.get("committed_utc"), "active roster committed_utc"
         ):
             raise ProspectiveOpportunityHistoryError("history plan predates its active-roster receipt")
+        if not isinstance(active_schedule_raw_base64, str):
+            raise ProspectiveOpportunityHistoryError("active-roster schedule raw proof is missing")
+        try:
+            schedule_raw = base64.b64decode(active_schedule_raw_base64, validate=True)
+        except (ValueError, TypeError) as exc:
+            raise ProspectiveOpportunityHistoryError("active-roster schedule raw proof is not canonical base64") from exc
+        schedule_reference = active_roster_terminal.get("schedule_raw")
+        schedule_received = active_roster_terminal.get("schedule_received_at_utc")
+        if (
+            not schedule_raw
+            or not isinstance(schedule_reference, Mapping)
+            or set(schedule_reference) != {"path", "sha256"}
+            or hashlib.sha256(schedule_raw).hexdigest() != schedule_reference.get("sha256")
+            or not isinstance(schedule_received, str)
+        ):
+            raise ProspectiveOpportunityHistoryError("active-roster schedule raw proof differs")
+        try:
+            schedule_game = projected_lineups_from_schedule(
+                response=RawPregameResponse(schedule_raw, schedule_received),
+                plan=source_plan,
+                target=target,
+            )
+        except (SharedPAForwardCollectorError, TypeError, ValueError) as exc:
+            raise ProspectiveOpportunityHistoryError("active-roster schedule raw proof cannot be replayed") from exc
+        if schedule_game.get(f"{plan['side']}_team_id") != plan["team_id"]:
+            raise ProspectiveOpportunityHistoryError("active-roster schedule team identity differs")
         if not isinstance(active_roster_raw_base64, str):
             raise ProspectiveOpportunityHistoryError("active-roster raw proof is missing")
         try:
@@ -626,6 +675,7 @@ class ProspectiveOpportunityHistoryLedger:
             "detail",
             "source_t4_plan",
             "active_roster_terminal",
+            "active_schedule_raw_base64",
             "active_roster_raw_base64",
             "research_only",
             "historical_backfill_authorized",
@@ -678,19 +728,35 @@ class ProspectiveOpportunityHistoryLedger:
         ):
             raise ProspectiveOpportunityHistoryError("planning exclusion predates first pitch")
         roster_reference = terminal.get("roster_raw")
+        schedule_reference = terminal.get("schedule_raw")
         roster_record = terminal.get("roster")
         try:
             roster_raw = base64.b64decode(value["active_roster_raw_base64"], validate=True)
+            schedule_raw = base64.b64decode(value["active_schedule_raw_base64"], validate=True)
         except (ValueError, TypeError) as exc:
-            raise ProspectiveOpportunityHistoryError("planning exclusion roster raw is not canonical base64") from exc
+            raise ProspectiveOpportunityHistoryError("planning exclusion source raw is not canonical base64") from exc
         if (
             not roster_raw
+            or not schedule_raw
             or not isinstance(roster_reference, Mapping)
             or set(roster_reference) != {"path", "sha256"}
             or hashlib.sha256(roster_raw).hexdigest() != roster_reference.get("sha256")
+            or not isinstance(schedule_reference, Mapping)
+            or set(schedule_reference) != {"path", "sha256"}
+            or hashlib.sha256(schedule_raw).hexdigest() != schedule_reference.get("sha256")
             or not isinstance(roster_record, Mapping)
         ):
-            raise ProspectiveOpportunityHistoryError("planning exclusion roster proof differs")
+            raise ProspectiveOpportunityHistoryError("planning exclusion source proof differs")
+        try:
+            schedule_game = projected_lineups_from_schedule(
+                response=RawPregameResponse(schedule_raw, str(terminal.get("schedule_received_at_utc"))),
+                plan=source_plan,
+                target=target,
+            )
+        except (SharedPAForwardCollectorError, TypeError, ValueError) as exc:
+            raise ProspectiveOpportunityHistoryError("planning exclusion schedule proof cannot be replayed") from exc
+        if schedule_game.get(f"{side}_team_id") != terminal.get("team_id"):
+            raise ProspectiveOpportunityHistoryError("planning exclusion schedule team identity differs")
         try:
             replayed = parse_active_roster_receipt(
                 response=RawOfficialRosterResponse(

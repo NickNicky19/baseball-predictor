@@ -10,6 +10,7 @@ import pytest
 
 from scripts.run_prospective_batter_opportunity_tick import (
     ProspectiveBatterOpportunityRuntimeError,
+    _exit_code_for_result,
     _history_ledgers,
     build_evidence_scope,
     collector_code_sha256,
@@ -46,25 +47,32 @@ def run_all(**kwargs):
     return _runtime_run_all(**kwargs)
 
 
-def _setup_roster_evidence(tmp_path: Path) -> tuple[Path, Path, Path, ShadowCapturePlan]:
+def _setup_roster_evidence(
+    tmp_path: Path,
+    *,
+    game_date: str = GAME_DATE,
+    game_pk: int = GAME_PK,
+    official_start_time_utc: str = "2026-07-27T18:00:00Z",
+    entry_target_at_utc: str = "2026-07-27T14:00:00Z",
+) -> tuple[Path, Path, Path, ShadowCapturePlan]:
     target = CaptureTarget(
-        mlb_game_pk=GAME_PK,
-        official_game_date=GAME_DATE,
-        official_start_time_utc="2026-07-27T18:00:00Z",
-        entry_target_at_utc="2026-07-27T14:00:00Z",
+        mlb_game_pk=game_pk,
+        official_game_date=game_date,
+        official_start_time_utc=official_start_time_utc,
+        entry_target_at_utc=entry_target_at_utc,
         entry_hours=4,
     )
     plan = ShadowCapturePlan(
-        official_game_date=GAME_DATE,
+        official_game_date=game_date,
         entry_hours=4,
         policy_sha256="1" * 64,
         schedule_snapshot_sha256="2" * 64,
         targets=(target,),
     )
     plan_dir = tmp_path / "plans"
-    plan.write(plan_dir / f"{GAME_DATE}.plan.json")
+    plan.write(plan_dir / f"{game_date}.plan.json")
     roster_root = tmp_path / "rosters"
-    source_root = roster_root / GAME_DATE / plan.plan_sha256
+    source_root = roster_root / game_date / plan.plan_sha256
     source_binding = json.loads(RUNTIME.read_text(encoding="utf-8"))["source_roster_evidence"]
     ledger = ProjectedLineupRosterLedger(
         source_root,
@@ -101,8 +109,8 @@ def _setup_roster_evidence(tmp_path: Path) -> tuple[Path, Path, Path, ShadowCapt
         sort_keys=True,
     ).encode()
     roster_record = parse_active_roster_receipt(
-        response=RawOfficialRosterResponse(roster_raw, "2026-07-27T13:59:30Z"),
-        requested_date=GAME_DATE,
+        response=RawOfficialRosterResponse(roster_raw, entry_target_at_utc),
+        requested_date=game_date,
         team_id=AWAY_TEAM_ID,
         target_horizon_utc=target.entry_target_at_utc,
     )
@@ -117,9 +125,9 @@ def _setup_roster_evidence(tmp_path: Path) -> tuple[Path, Path, Path, ShadowCapt
                     {
                         "games": [
                             {
-                                "gamePk": GAME_PK,
-                                "officialDate": GAME_DATE,
-                                "gameDate": "2026-07-27T18:00:00Z",
+                                "gamePk": game_pk,
+                                "officialDate": game_date,
+                                "gameDate": official_start_time_utc,
                                 "teams": {
                                     "away": {"team": {"id": AWAY_TEAM_ID, "name": "Away"}},
                                     "home": {"team": {"id": HOME_TEAM_ID, "name": "Home"}},
@@ -131,9 +139,9 @@ def _setup_roster_evidence(tmp_path: Path) -> tuple[Path, Path, Path, ShadowCapt
             },
             sort_keys=True,
         ).encode(),
-        schedule_received_at_utc="2026-07-27T13:59:00Z",
+        schedule_received_at_utc=entry_target_at_utc,
         roster_raw=roster_raw,
-        committed_utc="2026-07-27T13:59:30Z",
+        committed_utc=entry_target_at_utc,
     )
     return plan_dir, roster_root, tmp_path / "history", plan
 
@@ -532,3 +540,162 @@ def test_runtime_has_no_prediction_price_or_outcome_scoring_authority():
     assert runtime["invariants"]["outcome_scoring_forbidden"] is True
     assert runtime["invariants"]["prices_and_economic_evidence_forbidden"] is True
     assert runtime["invariants"]["betting_authorized"] is False
+
+
+def test_first_run_next_day_records_receipt_proven_miss_once_without_fetch(tmp_path):
+    plan_dir, roster_root, history_root, plan = _setup_roster_evidence(tmp_path)
+    fetch_calls: list[str] = []
+    first = run_all(
+        plan_dir=plan_dir,
+        roster_ledger_root=roster_root,
+        history_ledger_root=history_root,
+        runtime_path=RUNTIME,
+        evidence_scope_path=_scope_path(tmp_path),
+        now=datetime(2026, 7, 28, 12, 0, tzinfo=timezone.utc),
+        fetch_final=lambda row: fetch_calls.append("called") or _final_response(),
+    )
+    assert first["planning"]["missed_before_plan"] == 1
+    assert first["planning"]["created"] == 0
+    assert fetch_calls == []
+    second = run_all(
+        plan_dir=plan_dir,
+        roster_ledger_root=roster_root,
+        history_ledger_root=history_root,
+        runtime_path=RUNTIME,
+        evidence_scope_path=_scope_path(tmp_path),
+        now=datetime(2026, 7, 28, 12, 1, tzinfo=timezone.utc),
+        fetch_final=lambda row: (_ for _ in ()).throw(AssertionError("missed side fetched")),
+    )
+    assert second["planning"]["already_terminal_missed"] == 1
+    assert _history_ledger(history_root, plan).verify()["missed_before_plan"] == 1
+
+
+def test_first_run_after_multiple_plan_dates_records_each_receipt_proven_miss(tmp_path):
+    plan_dir, roster_root, history_root, _ = _setup_roster_evidence(tmp_path)
+    _setup_roster_evidence(
+        tmp_path,
+        game_date="2026-07-28",
+        game_pk=1002,
+        official_start_time_utc="2026-07-28T18:00:00Z",
+        entry_target_at_utc="2026-07-28T14:00:00Z",
+    )
+    result = run_all(
+        plan_dir=plan_dir,
+        roster_ledger_root=roster_root,
+        history_ledger_root=history_root,
+        runtime_path=RUNTIME,
+        evidence_scope_path=_scope_path(tmp_path),
+        now=datetime(2026, 7, 29, 12, 0, tzinfo=timezone.utc),
+        fetch_final=lambda row: (_ for _ in ()).throw(AssertionError("late side fetched")),
+    )
+    assert result["planning"]["source_plans_seen"] == 2
+    assert result["planning"]["missed_before_plan"] == 2
+    assert result["planning"]["created"] == 0
+    assert len(list(history_root.glob("*/**/planning_terminal/*.json"))) == 2
+
+
+def test_missing_roster_manifest_is_explicit_block_and_can_recover(tmp_path):
+    plan_dir, roster_root, history_root, plan = _setup_roster_evidence(tmp_path)
+    manifest_path = roster_root / GAME_DATE / plan.plan_sha256 / "ledger_manifest.json"
+    manifest_bytes = manifest_path.read_bytes()
+    manifest_path.unlink()
+    blocked = run_all(
+        plan_dir=plan_dir,
+        roster_ledger_root=roster_root,
+        history_ledger_root=history_root,
+        runtime_path=RUNTIME,
+        evidence_scope_path=_scope_path(tmp_path),
+        now=datetime(2026, 7, 27, 17, 0, tzinfo=timezone.utc),
+        fetch_final=lambda row: (_ for _ in ()).throw(AssertionError("unproven side fetched")),
+    )
+    assert blocked["collector_state"] == "blocked_upstream_roster_evidence"
+    assert _exit_code_for_result(blocked) == 2
+    assert blocked["planning"]["source_ledgers_missing"] == 1
+    assert not history_root.exists()
+    manifest_path.write_bytes(manifest_bytes)
+    recovered = run_all(
+        plan_dir=plan_dir,
+        roster_ledger_root=roster_root,
+        history_ledger_root=history_root,
+        runtime_path=RUNTIME,
+        evidence_scope_path=_scope_path(tmp_path),
+        now=datetime(2026, 7, 27, 17, 1, tzinfo=timezone.utc),
+        fetch_final=lambda row: (_ for _ in ()).throw(AssertionError("future plan fetched")),
+    )
+    assert recovered["planning"]["created"] == 1
+
+
+def test_unreadable_roster_manifest_fails_closed(tmp_path):
+    plan_dir, roster_root, history_root, plan = _setup_roster_evidence(tmp_path)
+    manifest_path = roster_root / GAME_DATE / plan.plan_sha256 / "ledger_manifest.json"
+    manifest_path.write_bytes(b"not-json")
+    with pytest.raises(ProspectiveBatterOpportunityRuntimeError, match="manifest is unreadable"):
+        run_all(
+            plan_dir=plan_dir,
+            roster_ledger_root=roster_root,
+            history_ledger_root=history_root,
+            runtime_path=RUNTIME,
+            evidence_scope_path=_scope_path(tmp_path),
+            now=datetime(2026, 7, 27, 17, 0, tzinfo=timezone.utc),
+            fetch_final=lambda row: _final_response(),
+        )
+
+
+def test_zero_and_partial_roster_coverage_never_report_healthy(tmp_path):
+    plan_dir, roster_root, history_root, plan = _setup_roster_evidence(tmp_path)
+    partial = run_all(
+        plan_dir=plan_dir,
+        roster_ledger_root=roster_root,
+        history_ledger_root=history_root,
+        runtime_path=RUNTIME,
+        evidence_scope_path=_scope_path(tmp_path),
+        now=datetime(2026, 7, 27, 17, 0, tzinfo=timezone.utc),
+        fetch_final=lambda row: (_ for _ in ()).throw(AssertionError("future plan fetched")),
+    )
+    assert partial["collector_state"] == "blocked_upstream_roster_evidence"
+    assert partial["planning"]["source_terminal_coverage_missing"] == 1
+
+    plan_dir2, roster_root2, history_root2, plan2 = _setup_roster_evidence(tmp_path / "zero")
+    source_root2 = roster_root2 / GAME_DATE / plan2.plan_sha256
+    for path in (source_root2 / "terminal").glob("*.json"):
+        path.unlink()
+    for path in (source_root2 / "raw").glob("*.json"):
+        path.unlink()
+    zero = run_all(
+        plan_dir=plan_dir2,
+        roster_ledger_root=roster_root2,
+        history_ledger_root=history_root2,
+        runtime_path=RUNTIME,
+        evidence_scope_path=_scope_path(tmp_path / "zero"),
+        now=datetime(2026, 7, 27, 17, 0, tzinfo=timezone.utc),
+        fetch_final=lambda row: (_ for _ in ()).throw(AssertionError("unproven side fetched")),
+    )
+    assert zero["collector_state"] == "blocked_upstream_roster_evidence"
+    assert zero["planning"]["source_terminal_coverage_missing"] == 2
+    assert zero["planning"]["created"] == 0
+
+
+def test_plan_scan_skips_may_before_constructing_a_source_path(tmp_path, monkeypatch):
+    plan_dir = tmp_path / "plans"
+    original_is_file = Path.is_file
+
+    def guarded_is_file(path: Path) -> bool:
+        if path.parent == plan_dir and path.name.startswith("2026-05-"):
+            raise AssertionError("May plan path was constructed or inspected")
+        return original_is_file(path)
+
+    monkeypatch.setattr(Path, "is_file", guarded_is_file)
+    result = run_all(
+        plan_dir=plan_dir,
+        roster_ledger_root=tmp_path / "rosters",
+        history_ledger_root=tmp_path / "history",
+        runtime_path=RUNTIME,
+        evidence_scope_path=_scope_path(
+            tmp_path,
+            collection_epoch_date="2026-04-30",
+            created_at_utc="2026-04-30T12:00:00Z",
+        ),
+        now=datetime(2026, 6, 2, 12, 0, tzinfo=timezone.utc),
+        fetch_final=lambda row: (_ for _ in ()).throw(AssertionError("source fetched")),
+    )
+    assert result["collector_state"] == "processed"

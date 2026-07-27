@@ -2,9 +2,9 @@
 
 ## Decision
 
-**INTERNAL ENGINEERING QA: PASS for preservation and independent review.**
+**INTERNAL ENGINEERING QA: PASS for preservation and repaired-candidate re-review.**
 
-**Deployment readiness: NOT READY.** Clean-Linux verification, an independent review of the integrated exact bytes, explicit deployment authorization, and a separately authorized future non-May operational smoke remain mandatory.
+**Deployment readiness: NOT READY.** The first integrated independent review identified three integrity defects. Their source repairs are present in the current local bytes, but clean-Linux verification and independent re-review of those repaired exact bytes remain mandatory before deployment authorization can be considered.
 
 This record does not authorize fitting, calibration, prediction consumption, outcome scoring, market evaluation, production deployment, promotion, activation, or betting.
 
@@ -36,9 +36,21 @@ The runtime now requires a deployment-bound evidence-scope file and expected SHA
 
 The repaired source boundary now replays the retained official schedule bytes using the recorded observation timestamp, requires exact game/date/start/team/side identity, replays retained roster bytes at the terminal commitment time, and binds the exact upstream contract and collector-code hashes. The runtime rejects upstream release mismatches before publishing history evidence.
 
+### 4. A first tick after the target date could omit durable terminal missingness
+
+The runtime now scans every permissible non-May T-4 plan date from the immutable collection epoch through the current date. A receipt-proven captured roster side first discovered at or after first pitch is written exactly once as `missed_before_plan`; no capture plan is backdated and no final source is fetched for that side.
+
+### 5. Missing or incomplete upstream roster evidence could resemble a healthy empty tick
+
+Missing roster manifests and incomplete terminal coverage are now counted explicitly. The collector returns `blocked_upstream_roster_evidence`, and its command-line boundary returns a nonzero status. Valid captured sides may still be preserved, but the tick cannot be represented as healthy while expected upstream evidence is absent.
+
+### 6. Copied history proof omitted the schedule bytes establishing game/team identity
+
+Both capture-plan proofs and planning-miss terminals now retain the exact fields-limited schedule bytes and observation timestamp already referenced by the active-roster terminal. Replay verifies byte identity, chronology, game/date/start, side, and team identity without depending on the mutable upstream filesystem.
+
 ## Fail-closed and mutation proof
 
-The final focused suite exercised:
+The repaired focused suite exercises:
 
 - immutable evidence-scope replacement rejection;
 - upstream roster contract/code release mismatch;
@@ -51,6 +63,11 @@ The final focused suite exercised:
 - May early return before evidence paths are constructed;
 - history scanning that refuses to touch any May path;
 - no probability, price, outcome-scoring, or production authority.
+- first-run-next-day terminal missingness and exact-once behavior;
+- missing, unreadable, zero-coverage, partial-coverage, and later-recovered roster evidence;
+- schedule-proof mutation after proof copying;
+- plan traversal across May without constructing or inspecting a May path;
+- nonzero command status for blocked upstream evidence.
 
 ## Execution evidence
 
@@ -62,13 +79,13 @@ Focused runtime/library suite:
 
 `tests/test_prospective_batter_opportunity.py tests/test_prospective_batter_opportunity_history.py tests/test_run_prospective_batter_opportunity_tick.py`
 
-Result: **64 passed in 0.89s**.
+Result: **71 passed locally**.
 
 Related opportunity, chronology, roster-source, history, and AWS-runtime-contract suite:
 
 `tests/test_prospective_batter_opportunity.py tests/test_prospective_batter_opportunity_history.py tests/test_projected_lineup_contract.py tests/test_projected_lineup_official_roster.py tests/test_projected_lineup_roster_runner.py tests/test_projected_lineup_history.py tests/test_run_prospective_batter_opportunity_tick.py tests/test_aws_projected_lineup_roster_runtime.py`
 
-Result: **95 passed in 1.03s**.
+Result: **102 passed locally**.
 
 ## Exact candidate identities
 
@@ -76,8 +93,8 @@ Result: **95 passed in 1.03s**.
 |---|---|
 | `src/evaluation/prospective_batter_opportunity.py` | `fc5ca7d433a94a2c848635adb37b64a501f0746dfff10e053729a7489943abed` |
 | `src/evaluation/prospective_batter_opportunity_ledger.py` | `268b4c3fd646beeac4f1ffc77a7e55e93a202baa73fd8c5b2a065e3cc1c79d4d` |
-| `src/evaluation/prospective_batter_opportunity_history.py` | `6007dfbcb72321f8365ccb618992616bb3d5765caa10e390245b092bae2f9b12` |
-| `scripts/run_prospective_batter_opportunity_tick.py` | `f00a9fe1aec90419534f6668c364eb22ceb5eb89c0e91b2a3fdddda21f736a79` |
+| `src/evaluation/prospective_batter_opportunity_history.py` | `a8795877305519617ea4415d7f3d322e4194c7da6f3a27966b612a01fe0b4d35` |
+| `scripts/run_prospective_batter_opportunity_tick.py` | `e81d8b2c10d9008bf05aed5bf07c6047419a2dc380a4d843692f5992313ed5f8` |
 | `src/evaluation/projected_lineup_roster_ledger.py` | `66743e99aaaede887cc2c025987521cc257b7318c4d9a2c3c1e3f5639d7a7527` |
 | `src/evaluation/projected_lineup_roster_runner.py` | `a35543aeb4669c083ad1b3287beafc802a173753105c363471b0ec7b8df7a7ed` |
 | `config/prospective_batter_opportunity_contract_v1.json` | `a537015b4189e61f384526509aa89607b99dcbfd378f5457831182532b6d0cf1` |
@@ -85,15 +102,15 @@ Result: **95 passed in 1.03s**.
 | `config/projected_lineup_contract_v1.json` | `88910f66c0a51a7aa33baa1dffe9c6cbe8fc9aebcc90d76df26f41937640182a` |
 | `config/projected_lineup_roster_runtime_v1.json` | `4d7a316170f143df2b9bb8407e887cfcfbd841fa2f2b971b79d8464f63d25f9d` |
 | `.gitattributes` | `8d1ed80058a1704ff073a6739abe10406f60298e1ebc9104479cc9481b9859f9` |
-| `requirements-prospective-batter-opportunity-ci.lock` | `b01968cfd800101e7ebce4d8e2cb14b45d141fda20c7668fc0a24e1241350044` |
-| `.github/workflows/prospective-batter-opportunity-linux.yml` | `f661f1f72655393c5577c765e85e792f43667a12f102a5eeb2a6a393bbc49fab` |
+| `requirements-prospective-batter-opportunity-ci.lock` | `97860e387e41f3feed182c9775ed1dc9de36b50274c3bdfd8b2fc6f870e8fb6e` |
+| `.github/workflows/prospective-batter-opportunity-linux.yml` | `f9cb05f663eead98771e053a6b93a48f8ab7a0505e422c709c994e96d3405350` |
 | `tests/test_prospective_batter_opportunity.py` | `1580eff1008cf5e94f88f9b5c67812d7fd8ec8eb35899c9be67b88a9cf36ab3f` |
-| `tests/test_prospective_batter_opportunity_history.py` | `3c1e8ab5dbbf6e3b11f8fbc64418da63ffcbb9c149486efd9fbe851f56cdf0ad` |
-| `tests/test_run_prospective_batter_opportunity_tick.py` | `caa8dddbb62a55746bc34a9ad32231482221668900e1d848b2e209a164f8e7ba` |
+| `tests/test_prospective_batter_opportunity_history.py` | `41fc0286581484304ff697a84f9e2745112fc57801f1ed859ddbdfa4194707e3` |
+| `tests/test_run_prospective_batter_opportunity_tick.py` | `15510ffb99acf04d35c440540eb02a75c00627dfbf6d4fe379e91e4908f657c3` |
 
 ## Readiness conclusion
 
-The integrated local bytes truthfully implement a future-only, non-economic batter target/opportunity evidence path and close the identified source-to-ledger integrity defects. They do **not** establish predictive improvement and are not yet deployable.
+The repaired local bytes address all three defects from the first integrated independent review. They do **not** establish predictive improvement and are not yet deployable until the exact repaired commit passes Linux CI and independent re-review.
 
 Required next gates, in order:
 
