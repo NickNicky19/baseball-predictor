@@ -46,10 +46,23 @@ def _finite(values: pd.Series) -> np.ndarray:
     return pd.to_numeric(values, errors="coerce").dropna().to_numpy(float)
 
 
-def _moments(values: np.ndarray, prefix: str) -> dict[str, float | None]:
-    if len(values) == 0:
-        return {f"{prefix}_mean": None, f"{prefix}_sd": None}
-    return {f"{prefix}_mean": float(values.mean()), f"{prefix}_sd": float(values.std(ddof=0))}
+def _moments(
+    values: np.ndarray, prefix: str, *, population_count: int,
+) -> dict[str, int | float | None]:
+    """Serialize moments together with their observable denominator lineage."""
+    count = int(len(values))
+    if population_count < count:
+        raise ValueError(f"{prefix} measured count exceeds its population")
+    result: dict[str, int | float | None] = {
+        f"{prefix}_count": count,
+        f"{prefix}_missing_count": int(population_count - count),
+        f"{prefix}_mean": None,
+        f"{prefix}_sd": None,
+    }
+    if count:
+        result[f"{prefix}_mean"] = float(values.mean())
+        result[f"{prefix}_sd"] = float(values.std(ddof=0))
+    return result
 
 
 def _rate(numerator: int, denominator: int) -> float | None:
@@ -113,16 +126,42 @@ def prepare_raw(frame: pd.DataFrame, *, player_id: int) -> pd.DataFrame:
         raise ValueError("direct batter source pitch identity is not integral")
     if numeric_identity.duplicated().any():
         raise ValueError("direct batter source has duplicate pitch identity")
+    if not work["_date"].dt.year.eq(2023).all():
+        raise ValueError("direct batter v4 source may contain only 2023 rows")
     game_type = work["game_type"].astype("string")
     if game_type.isna().any() or game_type.str.len().eq(0).any():
         raise ValueError("direct batter source has missing game_type")
+    known_game_types = {"S", "R", "F", "D", "L", "W", "C", "N", "P", "A", "I", "E"}
+    if unknown := sorted(set(game_type.astype(str)).difference(known_game_types)):
+        raise ValueError(f"direct batter source has unknown game_type: {unknown}")
+
+    # An events value is accepted as a terminal PA only when it appears on the
+    # final pitch in that game/batter/at-bat identity.  This prevents a stale or
+    # duplicated intermediate row from becoming a target or history PA.
+    regular = work.loc[game_type.eq("R")].copy()
+    regular_events = regular["events"].astype("string")
+    observed_events = regular_events.dropna().astype(str)
+    if unknown := sorted(set(observed_events).difference(EVENT_TO_OUTCOME).difference(NON_PA_EVENTS)):
+        raise ValueError(f"unmapped terminal Statcast events: {unknown}")
+    terminal_mask = regular_events.notna() & ~regular_events.isin(NON_PA_EVENTS)
+    terminal = regular.loc[terminal_mask].copy()
+    pa_identity = ["game_pk", "batter", "at_bat_number"]
+    if terminal.duplicated(pa_identity).any():
+        raise ValueError("raw terminal PA identity is duplicated")
+    if not terminal.empty:
+        max_pitch = regular.groupby(pa_identity, sort=False)["pitch_number"].max()
+        terminal_index = pd.MultiIndex.from_frame(terminal[pa_identity])
+        expected_pitch = max_pitch.reindex(terminal_index).to_numpy(float)
+        observed_pitch = pd.to_numeric(terminal["pitch_number"], errors="raise").to_numpy(float)
+        if np.isnan(expected_pitch).any() or not np.equal(observed_pitch, expected_pitch).all():
+            raise ValueError("raw terminal event is not the final pitch of its PA")
     return work
 
 
 def history_features(prepared: pd.DataFrame, *, player_id: int, target_date: str) -> dict[str, Any]:
     target = pd.Timestamp(target_date)
-    if target.year not in {2023, 2024}:
-        raise ValueError("direct batter selection may read only 2023 and 2024 targets")
+    if target.year != 2023:
+        raise ValueError("direct batter v4 development may read only 2023 targets")
     history = prepared.loc[(prepared["_date"] < target) & prepared["game_type"].astype(str).eq("R")].copy()
     if not history.empty and history["_date"].max() >= target:
         raise AssertionError("same-day or future Statcast row entered direct batter history")
@@ -152,20 +191,39 @@ def history_features(prepared: pd.DataFrame, *, player_id: int, target_date: str
         dates = terminal.loc[terminal["outcome"].eq(outcome), "_date"]
         result[f"days_since_{outcome}"] = None if dates.empty else int((target - dates.max()).days)
     ages = (target - terminal["_date"]).dt.days.to_numpy(float) if pa else np.asarray([], dtype=float)
-    result.update(_moments(ages, "history_pa_age_days"))
+    result.update(_moments(ages, "history_pa_age_days", population_count=pa))
     result["days_since_pa"] = None if terminal.empty else int((target - terminal["_date"].max()).days)
 
     descriptions = history["description"].astype("string")
-    swings = descriptions.isin(SWINGS)
-    whiffs = descriptions.isin(WHIFFS)
+    valid_descriptions = descriptions.notna() & descriptions.str.len().fillna(0).gt(0)
+    swings = valid_descriptions & descriptions.isin(SWINGS)
+    whiffs = valid_descriptions & descriptions.isin(WHIFFS)
     zone = pd.to_numeric(history["zone"], errors="coerce")
+    invalid_zone = zone.notna() & (~zone.between(1, 14) | ~zone.mod(1).eq(0))
+    if invalid_zone.any():
+        raise ValueError("direct batter source has invalid zone values")
     outside = zone.isin([11, 12, 13, 14])
     in_zone = zone.between(1, 9)
+    description_denominator = int(valid_descriptions.sum())
+    swing_count = int(swings.sum())
+    zone_denominator = int(zone.notna().sum())
+    chase_denominator = int(outside.sum())
     result.update({
-        "history_swing_rate": _rate(int(swings.sum()), len(history)),
-        "history_whiff_rate": _rate(int(whiffs.sum()), int(swings.sum())),
-        "history_chase_rate": _rate(int((outside & swings).sum()), int(outside.sum())),
-        "history_zone_rate": _rate(int(in_zone.sum()), int(zone.notna().sum())),
+        "history_description_denominator": description_denominator,
+        "history_description_missing_count": int(len(history) - description_denominator),
+        "history_swing_count": swing_count,
+        "history_swing_denominator": description_denominator,
+        "history_swing_rate": _rate(swing_count, description_denominator),
+        "history_whiff_count": int(whiffs.sum()),
+        "history_whiff_denominator": swing_count,
+        "history_whiff_rate": _rate(int(whiffs.sum()), swing_count),
+        "history_chase_count": int((outside & swings).sum()),
+        "history_chase_denominator": chase_denominator,
+        "history_chase_rate": _rate(int((outside & swings).sum()), chase_denominator),
+        "history_zone_count": int(in_zone.sum()),
+        "history_zone_denominator": zone_denominator,
+        "history_zone_missing_count": int(len(history) - zone_denominator),
+        "history_zone_rate": _rate(int(in_zone.sum()), zone_denominator),
     })
     history_events = history["events"].astype("string")
     bip = history.loc[
@@ -176,8 +234,8 @@ def history_features(prepared: pd.DataFrame, *, player_id: int, target_date: str
     ev = _finite(bip["launch_speed"])
     la = _finite(bip["launch_angle"])
     result["history_bip"] = int(len(bip))
-    result.update(_moments(ev, "history_exit_velocity"))
-    result.update(_moments(la, "history_launch_angle"))
+    result.update(_moments(ev, "history_exit_velocity", population_count=len(bip)))
+    result.update(_moments(la, "history_launch_angle", population_count=len(bip)))
     batted_ball_evidence = derive_batted_ball_evidence(bip)
     result["history_batted_ball_denominator"] = (
         None if batted_ball_evidence is None else batted_ball_evidence.measured_batted_balls
@@ -204,10 +262,14 @@ def history_features(prepared: pd.DataFrame, *, player_id: int, target_date: str
         ("release_speed", "release_speed"), ("pfx_x", "pfx_x"), ("pfx_z", "pfx_z"),
         ("plate_x", "plate_x"), ("plate_z", "plate_z"),
     ):
-        result.update(_moments(_finite(history[column]), f"history_{name}"))
+        result.update(_moments(
+            _finite(history[column]), f"history_{name}", population_count=len(history),
+        ))
     pitch_types = [value for value in history["pitch_type"].astype("string").dropna().astype(str) if value]
     frequency = Counter(pitch_types)
     total_types = sum(frequency.values())
+    result["history_pitch_type_denominator"] = int(total_types)
+    result["history_pitch_type_missing_count"] = int(len(history) - total_types)
     result["history_distinct_pitch_types"] = int(len(frequency))
     result["history_pitch_type_entropy"] = None if total_types == 0 else float(-sum((count / total_types) * log(count / total_types) for count in frequency.values()))
     if result["max_source_date"] is not None and result["max_source_date"] >= result["target_date"]:

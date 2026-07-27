@@ -36,6 +36,13 @@ def test_strict_prior_regular_only_and_non_pa_excluded() -> None:
     assert out["history_other_measured_bbe_count"] == 0
     assert out["history_barrel_share_bbe"] == 1.0
     assert out["history_measured_bbe_per_pa"] == 1.0
+    assert out["history_swing_count"] == 2
+    assert out["history_swing_denominator"] == 2
+    assert out["history_description_missing_count"] == 0
+    assert out["history_exit_velocity_count"] == 1
+    assert out["history_exit_velocity_missing_count"] == 0
+    assert out["history_pitch_type_denominator"] == 2
+    assert out["history_pitch_type_missing_count"] == 0
 
 
 def test_same_day_mutation_changes_nothing() -> None:
@@ -54,7 +61,7 @@ def test_unknown_terminal_event_fails_closed() -> None:
 def test_identity_and_year_fail_closed() -> None:
     with pytest.raises(ValueError, match="identity mismatch"):
         prepare_raw(rows(), player_id=8)
-    with pytest.raises(ValueError, match="only 2023 and 2024"):
+    with pytest.raises(ValueError, match="only 2023"):
         history_features(prepare_raw(rows(), player_id=7), player_id=7, target_date="2025-04-04")
 
 
@@ -63,6 +70,26 @@ def test_duplicate_raw_pitch_identity_fails_closed() -> None:
     frame.loc[1, ["game_pk", "at_bat_number", "pitch_number"]] = [1, 1, 1]
     with pytest.raises(ValueError, match="duplicate pitch identity"):
         prepare_raw(frame, player_id=7)
+
+
+def test_missing_description_is_not_silently_counted_as_no_swing() -> None:
+    frame = rows()
+    frame.loc[0, "description"] = None
+    out = history_features(prepare_raw(frame, player_id=7), player_id=7, target_date="2023-04-04")
+    assert out["history_pitch_count"] == 2
+    assert out["history_description_denominator"] == 1
+    assert out["history_description_missing_count"] == 1
+    assert out["history_swing_count"] == 1
+    assert out["history_swing_rate"] == 1.0
+
+
+def test_nonfinal_terminal_event_fails_closed() -> None:
+    frame = rows()
+    extra = frame.iloc[[0]].copy()
+    extra["pitch_number"] = 2
+    extra["events"] = None
+    with pytest.raises(ValueError, match="not the final pitch"):
+        prepare_raw(pd.concat([frame, extra], ignore_index=True), player_id=7)
 
 
 def test_batted_ball_composition_is_mutually_exclusive_and_count_bearing() -> None:
