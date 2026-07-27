@@ -12,11 +12,32 @@ def test_candidate_ci_protects_deletions_as_well_as_writes() -> None:
     assert '--diff-filter=ACMRT"' not in workflow
     assert "os: ubuntu-24.04\n            python-version: '3.12.11'" in workflow
     assert "os: windows-2025\n            python-version: '3.12.10'" in workflow
+    assert (
+        "expected_wheel_sha256: "
+        "3a3bbebfab26aed8767679d20c04a1f21b009a1f62bdf525f3e150b3bbb73759"
+    ) in workflow
+    assert (
+        "expected_wheel_sha256: "
+        "5d12d8012d10a6eeae92509b53ee230eb60ac76266703e7282f0a9936134ebff"
+    ) in workflow
+    assert "expected_wheel_bytes: '40744'" in workflow
+    assert "expected_wheel_bytes: '40759'" in workflow
+    assert "${{ matrix.expected_wheel_sha256 }}" in workflow
+    assert "${{ matrix.expected_wheel_bytes }}" in workflow
     assert "python-version: ${{ matrix.python-version }}" in workflow
     mutated = workflow.replace(
         "python-version: '3.12.10'", "python-version: '3.12.11'", 1
     )
     assert "os: windows-2025\n            python-version: '3.12.10'" not in mutated
+    mutated = workflow.replace(
+        "5d12d8012d10a6eeae92509b53ee230eb60ac76266703e7282f0a9936134ebff",
+        "0" * 64,
+        1,
+    )
+    assert (
+        "expected_wheel_sha256: "
+        "5d12d8012d10a6eeae92509b53ee230eb60ac76266703e7282f0a9936134ebff"
+    ) not in mutated
     assert "context_a=" in workflow and "context_b=" in workflow
     assert "--network none" in workflow
     assert "--read-only" in workflow
