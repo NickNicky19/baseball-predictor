@@ -175,9 +175,14 @@ jobs:
           test -f "$wheel_a" && test -f "$wheel_b"
           wheel_sha_a="$($TESTPY -c 'import hashlib,sys; print(hashlib.sha256(open(sys.argv[1], "rb").read()).hexdigest())' "$wheel_a")"
           wheel_sha_b="$($TESTPY -c 'import hashlib,sys; print(hashlib.sha256(open(sys.argv[1], "rb").read()).hexdigest())' "$wheel_b")"
+          wheel_size_a="$(wc -c < "$wheel_a" | tr -d ' ')"
+          wheel_size_b="$(wc -c < "$wheel_b" | tr -d ' ')"
+          printf 'WHEEL_A_SHA256=%s\nWHEEL_B_SHA256=%s\nWHEEL_A_BYTES=%s\nWHEEL_B_BYTES=%s\n' \
+            "$wheel_sha_a" "$wheel_sha_b" "$wheel_size_a" "$wheel_size_b"
           test "$wheel_sha_a" = "$wheel_sha_b"
           test "$wheel_sha_a" = '6d7d2e86dc4cfc7b87db72d8892b8e2247aa0afac81813b6a9a910ef838de686'
-          test "$(wc -c < "$wheel_a" | tr -d ' ')" = '40763'
+          test "$wheel_size_a" = '40763'
+          test "$wheel_size_b" = '40763'
           "$TESTPY" scripts/verify_omega_scaffold_package.py wheel --wheel "$wheel_a" --allowlist docs/omega_stage2/phase4/WHEEL_CONTENT_ALLOWLIST.txt
           "$TESTPY" scripts/verify_omega_scaffold_package.py wheel --wheel "$wheel_b" --allowlist docs/omega_stage2/phase4/WHEEL_CONTENT_ALLOWLIST.txt
           {
