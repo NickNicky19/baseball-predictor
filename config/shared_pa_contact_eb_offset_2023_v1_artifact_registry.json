@@ -1,0 +1,111 @@
+{
+  "schema_version": "shared-pa-contact-eb-offset-2023-artifact-registry-v1",
+  "status": "HASH_BOUND_2023_DEVELOPMENT_REJECTION_NO_MODEL_PROMOTION",
+  "candidate_id": "shared_pa_contact_eb_offset_catboost_2023_v1",
+  "pre_score_commit": "da788f01043b8f35548a7afa67fb59f349193225",
+  "inputs": {
+    "base_panel_sha256": "643a4c6533dbe59fc4e6b5e5932683c0877ae0a5d982945c799976d36af1ebf6",
+    "base_panel_manifest_sha256": "083fe961b00299f0561130e204e5264dfa05f0b234b72ce2af214ac5f681e9a4",
+    "base_panel_certificate_sha256": "aa3fd225f946b91ab1e1249eb8b7ce415f0fccabb18a041e3960552b2aeaf8ae",
+    "contact_panel_sha256": "a7882dccda3d36b37957261903a8a35644b9d9118c5f80ecb7085ef1cb5bbb89",
+    "contact_manifest_sha256": "a5ec5637ae181838f09429b5846cc8b575561c6202d83ee165cfb215e008abd1",
+    "contact_certificate_sha256": "5324e890023acd5ea84aa9c1c9b2cdee5008c3c51f4f244911dd43d4d601fe4f",
+    "development_protocol_sha256": "048c96ff84c0cf378699b681dd80dea00830e0930eb3fca1bdaa199d6e881fdb",
+    "execution_lock_sha256": "b24e6c918046dd58bf678075883b60c9b51b40ba9b093f42d41d6b7f2d7330f5"
+  },
+  "code_and_test_identity": {
+    "scripts/develop_shared_pa_contact_eb_offset_2023.py": "82d9f3233496a6defa0c1c0f7f2007dd525a397b52ae7dd46c301779ee8e92b1",
+    "scripts/validate_shared_pa_contact_eb_offset_2023.py": "7abdf137c7aa42d706be4d51f9054bf6b0461201e58c550bd852aaeb1a6744b7",
+    "tests/test_develop_shared_pa_contact_eb_offset_2023.py": "22197f9547990fe6a7091db5f30c69f4677a23b60478084e2db2268b848d1c42",
+    "tests/test_validate_shared_pa_contact_eb_offset_2023.py": "d6cb2a7c94502a702b63345f88e624c7059ca5da5592f692fe7beb3daa39cc38"
+  },
+  "artifacts": {
+    "path": "data/analysis/system_integrity_v2/shared_pa_contact_eb_offset_development_2023_v1",
+    "decision.json": {
+      "bytes": 633,
+      "sha256": "aaa853d7c0f7eaa617a1523f81a96164a344bb3a2f0538fb98ced4661626f4ad"
+    },
+    "manifest.json": {
+      "bytes": 6135,
+      "sha256": "cd62059cf10ec44eb6e09256d052c4d21f0d5af7d46db215f093193017532b43"
+    },
+    "oof_predictions.csv.gz": {
+      "bytes": 26228306,
+      "rows": 34673,
+      "sha256": "2b41094b4fd1806f22fda83561b3966eca93c202d620d448c46bcaa777e603c5"
+    },
+    "report.json": {
+      "bytes": 181122,
+      "sha256": "0e48986244eb3754b774fc21a0916afc576d283405f99718a862386223cacab1"
+    }
+  },
+  "evaluation": {
+    "outer_folds": 4,
+    "initial_training_only_rows": 9053,
+    "oof_rows": 34673,
+    "coverage_loss_within_oof_windows": 0,
+    "candidate_feature_count": 116,
+    "market_pass": {
+      "hits": false,
+      "hr_over_0_5": false,
+      "total_bases": false
+    },
+    "representative_components": {
+      "hits_over_0_5": {
+        "candidate_brier": 0.4712622915567981,
+        "candidate_log_loss": 0.6643284803012444,
+        "candidate_auc": 0.5344186399393754,
+        "brier_percent_improvement_vs_rejected_control": -0.08556940192132893,
+        "log_loss_percent_improvement_vs_rejected_control": -0.06678099271764606
+      },
+      "home_runs_over_0_5": {
+        "candidate_brier": 0.21491740320120797,
+        "candidate_log_loss": 0.368569225265126,
+        "candidate_auc": 0.6022736565821158,
+        "brier_percent_improvement_vs_rejected_control": -0.0011444041278624417,
+        "log_loss_percent_improvement_vs_rejected_control": 0.023280598980768372
+      },
+      "per_pa_total_bases_distribution": {
+        "candidate_brier": 0.3738241318705729,
+        "candidate_log_loss": 0.7468898595195858,
+        "candidate_auc": 0.5465267046191407,
+        "brier_percent_improvement_vs_rejected_control": -0.005327697274270462,
+        "log_loss_percent_improvement_vs_rejected_control": 0.004665802109234762
+      }
+    },
+    "hr_tail": {
+      "rows": 3468,
+      "home_runs": 699,
+      "support_passed": true,
+      "all_comparator_gates_passed": false,
+      "candidate_brier": 0.32330784154761477,
+      "candidate_log_loss": 0.5044478281199803,
+      "candidate_absolute_calibration_gap": 0.030291335204802677
+    }
+  },
+  "validation": {
+    "focused_regression_and_mutation_tests": "43 passed",
+    "actual_artifact_validation": "PASS",
+    "all_probability_rows_finite_normalized_and_bounded": true
+  },
+  "rejection_reasons": [
+    "Hits over 0.5 was worse than both the rejected residual control and the fitted empirical-Bayes comparator on Brier score, log loss, discrimination, and calibration.",
+    "HR over 0.5 gained only 0.0233 percent log loss and 0.00048 AUC versus the rejected residual control while Brier was slightly worse, uncertainty crossed zero, calibration ECE worsened, and not every fold was discrimination-noninferior.",
+    "The HR high-probability tail had sufficient support but was worse than the rejected residual control, empirical-Bayes baselines, and frozen core on proper scoring and calibration.",
+    "Per-PA Total Bases was worse than the fitted empirical-Bayes comparator and frozen core on both proper scores, and the tiny mixed changes versus the rejected control were immaterial with uncertainty crossing zero.",
+    "No market cleared every predeclared proper-score, calibration, discrimination, fold, coverage, and uncertainty gate."
+  ],
+  "measured_limiter": "Adding richer marginal batter contact summaries to the empirical-Bayes residual does not supply material conditional signal. The remaining measured gap is pregame opportunity and opponent context, which cannot be truthfully reconstructed from unreceipted historical target lineups or actual postgame starters.",
+  "single_highest_value_next_action": "Do not run another post-hoc 2023 batter-summary variant. Validate and hash-bind the prospective projected-lineup opportunity contract and the receipt-proven probable-starter identity contract, then predeclare a future-only conditional challenger before its first eligible target date while retaining the empirical-Bayes foundation as the benchmark.",
+  "protected_boundaries": {
+    "2024_opened": false,
+    "2025_opened": false,
+    "may_2026_opened": false,
+    "missed_prospective_evidence_backfilled": false,
+    "frozen_baselines_changed": false,
+    "rejected_candidates_changed": false,
+    "operational_collectors_touched": false,
+    "production_changed": false,
+    "betting_authorized": false
+  }
+}
