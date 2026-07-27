@@ -13,11 +13,17 @@ concurrency:
 
 jobs:
   validate:
-    name: Clean ${{ matrix.os }} CPython 3.12.11
+    name: Clean ${{ matrix.os }} CPython ${{ matrix.python-version }}
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-24.04, windows-2025]
+        include:
+          - os: ubuntu-24.04
+            python-version: '3.12.11'
+          # actions/python-versions publishes 3.12.11 only for Linux.
+          # 3.12.10 is the latest 3.12 Windows binary in its signed manifest.
+          - os: windows-2025
+            python-version: '3.12.10'
     runs-on: ${{ matrix.os }}
     timeout-minutes: 35
     steps:
@@ -46,7 +52,7 @@ jobs:
       - name: Set up exact CPython
         uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
-          python-version: '3.12.11'
+          python-version: ${{ matrix.python-version }}
 
       - name: Create isolated environments
         shell: bash
@@ -57,19 +63,23 @@ jobs:
           python -m venv "$RUNNER_TEMP/lintenv"
           python -m venv "$RUNNER_TEMP/installedenv"
           if [[ "$RUNNER_OS" == 'Windows' ]]; then
-            echo "TESTPY=$RUNNER_TEMP/testenv/Scripts/python.exe" >> "$GITHUB_ENV"
-            echo "BUILDPY=$RUNNER_TEMP/buildenv/Scripts/python.exe" >> "$GITHUB_ENV"
-            echo "LINTPY=$RUNNER_TEMP/lintenv/Scripts/python.exe" >> "$GITHUB_ENV"
-            echo "CFNLINT=$RUNNER_TEMP/lintenv/Scripts/cfn-lint.exe" >> "$GITHUB_ENV"
-            echo "RUFF=$RUNNER_TEMP/lintenv/Scripts/ruff.exe" >> "$GITHUB_ENV"
-            echo "INSTALLEDPY=$RUNNER_TEMP/installedenv/Scripts/python.exe" >> "$GITHUB_ENV"
+            {
+              echo "TESTPY=$RUNNER_TEMP/testenv/Scripts/python.exe"
+              echo "BUILDPY=$RUNNER_TEMP/buildenv/Scripts/python.exe"
+              echo "LINTPY=$RUNNER_TEMP/lintenv/Scripts/python.exe"
+              echo "CFNLINT=$RUNNER_TEMP/lintenv/Scripts/cfn-lint.exe"
+              echo "RUFF=$RUNNER_TEMP/lintenv/Scripts/ruff.exe"
+              echo "INSTALLEDPY=$RUNNER_TEMP/installedenv/Scripts/python.exe"
+            } >> "$GITHUB_ENV"
           else
-            echo "TESTPY=$RUNNER_TEMP/testenv/bin/python" >> "$GITHUB_ENV"
-            echo "BUILDPY=$RUNNER_TEMP/buildenv/bin/python" >> "$GITHUB_ENV"
-            echo "LINTPY=$RUNNER_TEMP/lintenv/bin/python" >> "$GITHUB_ENV"
-            echo "CFNLINT=$RUNNER_TEMP/lintenv/bin/cfn-lint" >> "$GITHUB_ENV"
-            echo "RUFF=$RUNNER_TEMP/lintenv/bin/ruff" >> "$GITHUB_ENV"
-            echo "INSTALLEDPY=$RUNNER_TEMP/installedenv/bin/python" >> "$GITHUB_ENV"
+            {
+              echo "TESTPY=$RUNNER_TEMP/testenv/bin/python"
+              echo "BUILDPY=$RUNNER_TEMP/buildenv/bin/python"
+              echo "LINTPY=$RUNNER_TEMP/lintenv/bin/python"
+              echo "CFNLINT=$RUNNER_TEMP/lintenv/bin/cfn-lint"
+              echo "RUFF=$RUNNER_TEMP/lintenv/bin/ruff"
+              echo "INSTALLEDPY=$RUNNER_TEMP/installedenv/bin/python"
+            } >> "$GITHUB_ENV"
           fi
 
       - name: Install exact hash-locked tools
@@ -128,8 +138,9 @@ jobs:
         run: |
           set -euo pipefail
           "$ACTIONLINT" -version
-          mapfile -d '' workflow_files < <(find .github/workflows -type f -name '*.yml' -print0)
-          "$ACTIONLINT" -color=false "${workflow_files[@]}"
+          "$ACTIONLINT" -color=false \
+            .github/workflows/omega-candidate-ci.yml \
+            .github/workflows/omega-staging-deploy.yml
           "$CFNLINT" --version
           "$CFNLINT" infra/omega_staging/foundation.yaml infra/omega_staging/service.yaml
           targets=(dashboard src/omega_contracts scripts/prepare_omega_scaffold_build_context.py scripts/generate_omega_phase4_schemas.py scripts/verify_omega_scaffold_package.py scripts/verify_omega_scaffold_structure.py tests/omega_dashboard tests/omega_contracts)
@@ -153,15 +164,26 @@ jobs:
           SOURCE_DATE_EPOCH: '315532800'
         run: |
           set -euo pipefail
-          context="$RUNNER_TEMP/omega-build-context"
-          "$BUILDPY" scripts/prepare_omega_scaffold_build_context.py --repository-root . --destination "$context"
-          (cd "$context" && "$BUILDPY" -m build --no-isolation --wheel)
-          wheel="$context/dist/omega_trust_scaffold-0.4.0-py3-none-any.whl"
-          test -f "$wheel"
-          wheel_sha="$($TESTPY -c 'import hashlib,sys; print(hashlib.sha256(open(sys.argv[1], "rb").read()).hexdigest())' "$wheel")"
-          "$TESTPY" scripts/verify_omega_scaffold_package.py wheel --wheel "$wheel" --allowlist docs/omega_stage2/phase4/WHEEL_CONTENT_ALLOWLIST.txt
-          echo "WHEEL=$wheel" >> "$GITHUB_ENV"
-          echo "WHEEL_SHA256=$wheel_sha" >> "$GITHUB_ENV"
+          context_a="$RUNNER_TEMP/omega-build-context-a"
+          context_b="$RUNNER_TEMP/omega-build-context-b"
+          "$BUILDPY" scripts/prepare_omega_scaffold_build_context.py --repository-root . --destination "$context_a"
+          "$BUILDPY" scripts/prepare_omega_scaffold_build_context.py --repository-root . --destination "$context_b"
+          (cd "$context_a" && "$BUILDPY" -m build --no-isolation --wheel)
+          (cd "$context_b" && "$BUILDPY" -m build --no-isolation --wheel)
+          wheel_a="$context_a/dist/omega_trust_scaffold-0.4.0-py3-none-any.whl"
+          wheel_b="$context_b/dist/omega_trust_scaffold-0.4.0-py3-none-any.whl"
+          test -f "$wheel_a" && test -f "$wheel_b"
+          wheel_sha_a="$($TESTPY -c 'import hashlib,sys; print(hashlib.sha256(open(sys.argv[1], "rb").read()).hexdigest())' "$wheel_a")"
+          wheel_sha_b="$($TESTPY -c 'import hashlib,sys; print(hashlib.sha256(open(sys.argv[1], "rb").read()).hexdigest())' "$wheel_b")"
+          test "$wheel_sha_a" = "$wheel_sha_b"
+          test "$wheel_sha_a" = '6d7d2e86dc4cfc7b87db72d8892b8e2247aa0afac81813b6a9a910ef838de686'
+          test "$(wc -c < "$wheel_a" | tr -d ' ')" = '40763'
+          "$TESTPY" scripts/verify_omega_scaffold_package.py wheel --wheel "$wheel_a" --allowlist docs/omega_stage2/phase4/WHEEL_CONTENT_ALLOWLIST.txt
+          "$TESTPY" scripts/verify_omega_scaffold_package.py wheel --wheel "$wheel_b" --allowlist docs/omega_stage2/phase4/WHEEL_CONTENT_ALLOWLIST.txt
+          {
+            echo "WHEEL=$wheel_a"
+            echo "WHEEL_SHA256=$wheel_sha_a"
+          } >> "$GITHUB_ENV"
 
       - name: Verify installed wheel outside checkout
         shell: bash
@@ -183,8 +205,8 @@ jobs:
               shutil.copy2(pathlib.Path('tests/omega_contracts') / name, target / 'tests/omega_contracts' / name)
           PY
           cd "$suite"
-          PYTHONPATH= "$INSTALLEDPY" "$GITHUB_WORKSPACE/scripts/verify_omega_scaffold_package.py" installed --runtime-lock "$GITHUB_WORKSPACE/requirements/profiles/scaffold-runtime.lock" --checkout "$GITHUB_WORKSPACE"
-          PYTHONPATH= "$INSTALLEDPY" -m pytest -q -p no:cacheprovider --basetemp="$RUNNER_TEMP/installed-pytest" tests
+          PYTHONPATH='' "$INSTALLEDPY" "$GITHUB_WORKSPACE/scripts/verify_omega_scaffold_package.py" installed --runtime-lock "$GITHUB_WORKSPACE/requirements/profiles/scaffold-runtime.lock" --checkout "$GITHUB_WORKSPACE"
+          PYTHONPATH='' "$INSTALLEDPY" -m pytest -q -p no:cacheprovider --basetemp="$RUNNER_TEMP/installed-pytest" tests
 
       - name: Build Linux container only from inspected wheel
         if: runner.os == 'Linux'
@@ -197,4 +219,11 @@ jobs:
             --build-arg SOURCE_COMMIT="$GITHUB_SHA" \
             --build-arg SCAFFOLD_WHEEL_SHA256="$WHEEL_SHA256" \
             --tag omega-dashboard-ci:"$GITHUB_SHA" .
-          docker run --rm --entrypoint python omega-dashboard-ci:"$GITHUB_SHA" -c "import dashboard, src.omega_contracts; from dashboard.app import create_app; assert create_app().title"
+          docker image inspect --format '{{.Id}}' omega-dashboard-ci:"$GITHUB_SHA"
+          docker run --rm \
+            --network none \
+            --read-only \
+            --tmpfs /tmp:rw,noexec,nosuid,size=16m \
+            --entrypoint python \
+            omega-dashboard-ci:"$GITHUB_SHA" \
+            -c "import os,pathlib,dashboard,src.omega_contracts; from dashboard.app import create_app; assert os.getuid()==10001; assert not any(pathlib.Path('/app/snapshots').iterdir()); assert create_app().title"

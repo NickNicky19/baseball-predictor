@@ -68,10 +68,10 @@ jobs:
           set -euo pipefail
           python infra/omega_staging/verify_production_boundary.py
           for lock in requirements/profiles/scaffold-runtime.lock requirements/profiles/scaffold-test.lock requirements/profiles/scaffold-build.lock requirements/profiles/scaffold-lint.lock; do
-            test -s "$lock" && grep -q -- '--hash=sha256:' "$lock" || {
+            if ! test -s "$lock" || ! grep -q -- '--hash=sha256:' "$lock"; then
               echo "Missing reviewed hash lock: $lock" >&2
               exit 1
-            }
+            fi
           done
 
       - name: Set up CPython 3.12

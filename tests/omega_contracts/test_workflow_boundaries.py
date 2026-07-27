@@ -10,6 +10,14 @@ def test_candidate_ci_protects_deletions_as_well_as_writes() -> None:
     )
     assert "--diff-filter=ACMRTD" in workflow
     assert '--diff-filter=ACMRT"' not in workflow
+    assert "os: ubuntu-24.04\n            python-version: '3.12.11'" in workflow
+    assert "os: windows-2025\n            python-version: '3.12.10'" in workflow
+    assert "python-version: ${{ matrix.python-version }}" in workflow
+    mutated = workflow.replace("python-version: '3.12.10'", "python-version: '3.12.11'", 1)
+    assert "os: windows-2025\n            python-version: '3.12.10'" not in mutated
+    assert "context_a=" in workflow and "context_b=" in workflow
+    assert "--network none" in workflow
+    assert "--read-only" in workflow
 
 
 def test_staging_rollback_reuses_only_a_verified_immutable_image() -> None:
