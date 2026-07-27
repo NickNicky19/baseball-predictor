@@ -1,7 +1,7 @@
 {
   "schema_version": "prospective-batter-opportunity-evidence-report-v1",
   "candidate_id": "prospective_batter_opportunity_evidence_v1",
-  "status": "INTEGRATED_ENGINEERING_RUNTIME_REPAIRED_AFTER_INDEPENDENT_QA_AWAITING_EXACT_LINUX_AND_INDEPENDENT_RECHECK",
+  "status": "INTEGRATED_ENGINEERING_RUNTIME_REPAIRED_LINUX_AND_INDEPENDENT_RECHECK_PASSED_AWAITING_EXPLICIT_SMOKE_AUTHORIZATION",
   "research_only": true,
   "betting_authorized": false,
   "production_probability_consumption_authorized": false,
@@ -96,8 +96,9 @@
       "reports/prospective_opportunity_real_source_audit_v1.json": "cb385e41dd056996f9813333d08cb16fa2d8d999129166e908d11da632b9d674",
       "reports/prospective_batter_opportunity_independent_qa_v1.md": "c4cceb742203bec5b898b45b58af3ad86a5cd82410ac256a58f318aaaaeaadf0",
       "reports/prospective_batter_opportunity_independent_qa_recheck_v1.md": "34627408d52547f77b6a12bd4807bc756ac8ed60ad121b05eb7bc16df006a429",
-      "reports/prospective_batter_opportunity_runtime_integration_qa_v1.md": "651de58a0b9ba1335d0fb3b66950171be5f5a70c539d8ea777b8581d1d2aabb2",
-      "reports/prospective_batter_opportunity_integrated_independent_qa_v1.md": "fab0317b7ea11483aaa0600a1f47ce40e6db80847e183792fa841829965efd1a"
+      "reports/prospective_batter_opportunity_runtime_integration_qa_v1.md": "f01b516200b69ab848ae5053ff975e79dd94b73839b20099ea7d308ae7f643c3",
+      "reports/prospective_batter_opportunity_integrated_independent_qa_v1.md": "fab0317b7ea11483aaa0600a1f47ce40e6db80847e183792fa841829965efd1a",
+      "reports/prospective_batter_opportunity_integrated_independent_qa_recheck_v1.md": "28bc18eae9e594cbb1dfbc7a71210c4b2422d66e9f0dfe8cc556575de26bb4ee"
     }
   },
   "verification": {
@@ -109,7 +110,10 @@
     "test_corpus": "synthetic regression and mutation tests plus one sanitized pre-2026 static source-surface fixture",
     "real_source_surface_audited": true,
     "real_source_fixture_persisted_for_offline_replay": true,
-    "linux_tested": false,
+    "linux_tested": true,
+    "linux_run_id": "30267258778",
+    "linux_job_id": "89980816958",
+    "linux_tested_git_tree": "dc405394e6adb3cfdce061ad6c7f3e6b6fbfc0df",
     "linux_supply_chain": "workflow actions pinned to immutable commits; test-only wheels exact-version and SHA-256 bound",
     "initial_independent_qa_completed": true,
     "initial_independent_qa_decision": "NOT_READY_FOR_RUNTIME_DEPLOYMENT_OR_EVIDENCE_COLLECTION",
@@ -119,7 +123,8 @@
       "QA-PBO-004 missing direct source-invalid no-retention regression"
     ],
     "earlier_library_repair_independently_rechecked_before_runtime_integration": true,
-    "integrated_runtime_bytes_independently_rechecked": false,
+    "integrated_runtime_bytes_independently_rechecked": true,
+    "integrated_independent_recheck_decision": "PBO-IQA-001_THROUGH_004_VERIFIED_REPAIRED_ELIGIBLE_TO_SEEK_EXPLICIT_FUTURE_ONLY_SMOKE_AUTHORIZATION",
     "integrated_independent_qa_findings_repaired_locally": [
       "PBO-IQA-001 prior-day plan traversal and durable missed-before-plan",
       "PBO-IQA-002 explicit missing/incomplete upstream roster health failure",
@@ -156,17 +161,15 @@
   },
   "deployment": {
     "github_pushed": true,
-    "current_repaired_bytes_pushed": false,
+    "current_repaired_bytes_pushed": true,
     "aws_changed": false,
     "active_collectors_changed": false,
     "future_collection_active": false
   },
   "remaining_gates": [
-    "independent re-review of the repaired exact runtime bytes",
     "future non-May operational smoke under a separately authorized deployment",
-    "Linux runtime and dependency verification",
     "explicit human deployment authorization",
     "untouched prospective evidence accumulation before any fitting or model claim"
   ],
-  "highest_value_next_action": "Commit and push the repaired exact bytes, require their clean Ubuntu 24.04 gate to pass, then obtain an independent re-review. Only if both pass should explicit authorization be sought for a separate non-economic future-only smoke."
+  "highest_value_next_action": "Seek explicit human authorization for a separately isolated, future-only, non-May, non-economic smoke of the exact reviewed candidate; preserve all successes, terminal missingness, and failures without backfill."
 }

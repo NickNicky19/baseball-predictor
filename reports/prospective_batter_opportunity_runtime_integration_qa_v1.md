@@ -2,9 +2,9 @@
 
 ## Decision
 
-**INTERNAL ENGINEERING QA: PASS for preservation and repaired-candidate re-review.**
+**INTERNAL ENGINEERING QA: PASS. Independent repaired-candidate re-review and clean-Linux verification passed.**
 
-**Deployment readiness: NOT READY.** The first integrated independent review identified three integrity defects. Their source repairs are present in the current local bytes, but clean-Linux verification and independent re-review of those repaired exact bytes remain mandatory before deployment authorization can be considered.
+**Deployment readiness: ELIGIBLE TO SEEK EXPLICIT AUTHORIZATION FOR A SEPARATE FUTURE-ONLY, NON-MAY, NON-ECONOMIC SMOKE.** No deployment or collection is authorized by this report.
 
 This record does not authorize fitting, calibration, prediction consumption, outcome scoring, market evaluation, production deployment, promotion, activation, or betting.
 
@@ -87,6 +87,10 @@ Related opportunity, chronology, roster-source, history, and AWS-runtime-contrac
 
 Result: **102 passed locally**.
 
+GitHub Actions run `30267258778`, job `89980816958`, passed on Ubuntu 24.04.4 and CPython 3.12.3: **71 focused passed**, **102 related passed**, exact hash-locked dependencies installed, 748 tracked files passed the credential scan, and the checkout remained clean. The tested synthetic-merge tree `dc405394e6adb3cfdce061ad6c7f3e6b6fbfc0df` exactly equals repaired head `80c94b37bf9d685e382d8e34e6d92862b49a5629`'s tree.
+
+Independent recheck report: `reports/prospective_batter_opportunity_integrated_independent_qa_recheck_v1.md`, SHA-256 `28bc18eae9e594cbb1dfbc7a71210c4b2422d66e9f0dfe8cc556575de26bb4ee`. Decision: PBO-IQA-001 through PBO-IQA-004 are `VERIFIED_REPAIRED`; targeted recheck 8/8 passed and 22/22 declared hashes matched.
+
 ## Exact candidate identities
 
 | Artifact | SHA-256 |
@@ -110,12 +114,10 @@ Result: **102 passed locally**.
 
 ## Readiness conclusion
 
-The repaired local bytes address all three defects from the first integrated independent review. They do **not** establish predictive improvement and are not yet deployable until the exact repaired commit passes Linux CI and independent re-review.
+The repaired exact bytes passed Linux CI and independent re-review. They do **not** establish predictive improvement and are not deployed. The next gate is explicit human authorization for a separately isolated, future-only, non-May, non-economic smoke.
 
 Required next gates, in order:
 
-1. independent review of these integrated exact bytes;
-2. clean Ubuntu 24.04 / CPython 3.12.3 execution of the hash-bound Linux gate;
-3. explicit human authorization for a separate future-only, non-May, non-economic operational smoke;
-4. preserve the smoke result, including terminal missingness, without backfill;
-5. only after those gates, begin collecting untouched prospective inputs for a predeclared market-specific research protocol.
+1. explicit human authorization for a separate future-only, non-May, non-economic operational smoke;
+2. preserve the smoke result, including terminal missingness, without backfill;
+3. only after those gates, begin collecting untouched prospective inputs for a predeclared market-specific research protocol.
