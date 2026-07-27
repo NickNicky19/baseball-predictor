@@ -93,4 +93,6 @@ def _reject_nonfinite(value: Any, *, path: str = "$") -> None:
         for index, item in enumerate(value):
             _reject_nonfinite(item, path=f"{path}[{index}]")
         return
-    raise ContractError(f"unsupported canonical JSON value at {path}: {type(value).__name__}")
+    raise ContractError(
+        f"unsupported canonical JSON value at {path}: {type(value).__name__}"
+    )

@@ -1,0 +1,11 @@
+qa_id,status,limitation,impact,evidence_path,test_reference
+QA-004,CLOSED_BY_EXECUTABLE_ENFORCEMENT,Pinned actionlint 1.7.12 and cfn-lint 1.53.2 executed on Windows,Local workflow and CloudFormation lint are evidenced,docs/omega_stage2/phase4/PHASE4_TEST_RESULTS.txt,tests/omega_contracts/test_phase4_structural.py
+QA-005,OPEN,AWS account region budget OIDC and foundation were not verified,AWS deployment remains blocked,docs/omega_stage2/phase4/PHASE4_BLOCKERS.md,not authorized in Phase 4
+QA-006,OPEN,No deployed private-ingress or authentication proof,Runtime exposure remains unverified,docs/omega_stage2/phase4/STAGING_DEPLOYMENT_PROHIBITION.md,not deployable in Phase 4
+QA-007,OPEN,No one-way immutable publisher or store exists,Reader trust does not qualify a producer,docs/omega_stage2/phase4/SNAPSHOT_TRUST_MODEL.md,publisher intentionally absent
+QA-008,OPEN,No deployed runtime role or production-exclusion proof,Structural IAM does not prove deployed isolation,docs/omega_stage2/phase4/STAGING_IAM_BOUNDARY.json,not deployable in Phase 4
+QA-009,OPEN,No official source-bound game-history resolver,Identity-history evidence remains unavailable,docs/omega_stage2/phase4/PHASE4_BLOCKERS.md,out of Phase 4 scope
+QA-010,OPEN,Qualified research dependency lock remains absent,Scaffold locks do not qualify the research model environment,docs/omega_stage2/phase4/DEPENDENCY_LOCK_ATTESTATION.md,out of Phase 4 scope
+QA-011,OPEN,Predictive scoring pricing execution and settlement qualification remain absent,No model or betting authorization exists,docs/omega_stage2/phase4/PHASE4_BLOCKERS.md,out of Phase 4 scope
+P4-PLATFORM-UBUNTU,OPEN,Clean Ubuntu CPython 3.12 gate unavailable locally,QA-013 and QA-016 cannot fully close,docs/omega_stage2/phase4/CROSS_PLATFORM_SOURCE_VERIFICATION.md,verification sequence step 15
+P4-PLATFORM-CONTAINER,OPEN,Docker absent and WSL not installed,Linux inspected-wheel container build cannot execute,docs/omega_stage2/phase4/PHASE4_BLOCKERS.md,verification sequence step 16

@@ -1,0 +1,12 @@
+{
+  "canonical_base_commit": "67efa1427987517d2c283cd502c1898b97c6bb2b",
+  "entries": [
+    {
+      "byte_size": 22434,
+      "git_blob_oid_sha1": "0ca57fbb06bf04edbc28ddd6a1e0512be0e68ee0",
+      "path": "src/evaluation/shadow_capture_plan.py",
+      "sha256": "491a73556cab02b8295eee695f0474345defbc15f5d9bd01aae011cdff2b17e0"
+    }
+  ],
+  "schema_version": "omega-retained-live-plan-hash-manifest-v1"
+}

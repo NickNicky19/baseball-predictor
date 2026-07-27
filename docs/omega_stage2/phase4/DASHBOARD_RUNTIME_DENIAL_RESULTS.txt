@@ -1,0 +1,8 @@
+schema_version=omega-dashboard-runtime-denial-results-v1
+platform=Windows
+python=CPython 3.12.13
+test=tests/omega_dashboard/test_runtime_denial.py
+result=PASS
+forbidden_calls_observed=0
+clean_ubuntu_result=PENDING_UNAVAILABLE_LOCAL_RUNTIME
+linux_container_result=PENDING_UNAVAILABLE_LOCAL_RUNTIME

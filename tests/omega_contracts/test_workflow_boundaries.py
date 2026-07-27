@@ -1,7 +1,6 @@
 import json
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[2]
 
 
@@ -10,7 +9,51 @@ def test_candidate_ci_protects_deletions_as_well_as_writes() -> None:
         encoding="utf-8"
     )
     assert "--diff-filter=ACMRTD" in workflow
-    assert "--diff-filter=ACMRT\"" not in workflow
+    assert '--diff-filter=ACMRT"' not in workflow
+    assert "os: ubuntu-24.04\n            python-version: '3.12.11'" in workflow
+    assert "os: windows-2025\n            python-version: '3.12.10'" in workflow
+    assert (
+        "expected_wheel_sha256: "
+        "3a3bbebfab26aed8767679d20c04a1f21b009a1f62bdf525f3e150b3bbb73759"
+    ) in workflow
+    assert (
+        "expected_wheel_sha256: "
+        "5d12d8012d10a6eeae92509b53ee230eb60ac76266703e7282f0a9936134ebff"
+    ) in workflow
+    assert "expected_wheel_bytes: '40744'" in workflow
+    assert "expected_wheel_bytes: '40759'" in workflow
+    assert "${{ matrix.expected_wheel_sha256 }}" in workflow
+    assert "${{ matrix.expected_wheel_bytes }}" in workflow
+    assert "python-version: ${{ matrix.python-version }}" in workflow
+    mutated = workflow.replace(
+        "python-version: '3.12.10'", "python-version: '3.12.11'", 1
+    )
+    assert "os: windows-2025\n            python-version: '3.12.10'" not in mutated
+    mutated = workflow.replace(
+        "5d12d8012d10a6eeae92509b53ee230eb60ac76266703e7282f0a9936134ebff",
+        "0" * 64,
+        1,
+    )
+    assert (
+        "expected_wheel_sha256: "
+        "5d12d8012d10a6eeae92509b53ee230eb60ac76266703e7282f0a9936134ebff"
+    ) not in mutated
+    assert "context_a=" in workflow and "context_b=" in workflow
+    assert "--network none" in workflow
+    assert "--read-only" in workflow
+    schema_commands = {
+        ".github/workflows/omega-candidate-ci.yml": (
+            'PYTHONPATH=. "$TESTPY" scripts/generate_omega_phase4_schemas.py'
+        ),
+        ".github/workflows/omega-staging-deploy.yml": (
+            'PYTHONPATH=. "$testpy" scripts/generate_omega_phase4_schemas.py'
+        ),
+    }
+    for path, expected in schema_commands.items():
+        workflow = (ROOT / path).read_text(encoding="utf-8")
+        assert expected in workflow
+        mutated = workflow.replace(expected, expected.removeprefix("PYTHONPATH=. "), 1)
+        assert expected not in mutated
 
 
 def test_staging_rollback_reuses_only_a_verified_immutable_image() -> None:
@@ -18,17 +61,47 @@ def test_staging_rollback_reuses_only_a_verified_immutable_image() -> None:
         encoding="utf-8"
     )
     required_fragments = (
-        "docker pull \"$REPOSITORY_URI@$digest\"",
+        'docker pull "$REPOSITORY_URI@$digest"',
         "org.opencontainers.image.revision",
-        "test \"$revision\" = \"$SOURCE_COMMIT\"",
-        "image_identifier=\"$REPOSITORY_URI@$digest\"",
+        'test "$revision" = "$SOURCE_COMMIT"',
+        'image_identifier="$REPOSITORY_URI@$digest"',
     )
     for fragment in required_fragments:
         assert fragment in workflow
     assert "refusing a second build or overwrite" not in workflow
 
 
-def test_deploy_policy_can_verify_foundation_and_pull_for_rollback_only_in_staging() -> None:
+def test_ci_and_deploy_build_only_the_inspected_standalone_wheel() -> None:
+    candidate = (ROOT / ".github/workflows/omega-candidate-ci.yml").read_text(
+        encoding="utf-8"
+    )
+    deploy = (ROOT / ".github/workflows/omega-staging-deploy.yml").read_text(
+        encoding="utf-8"
+    )
+    for workflow in (candidate, deploy):
+        assert "scaffold-build.lock" in workflow
+        assert "prepare_omega_scaffold_build_context.py" in workflow
+        assert "verify_omega_scaffold_package.py wheel" in workflow
+        assert "SCAFFOLD_WHEEL_SHA256" in workflow
+        assert "dashboard.lock" not in workflow
+        assert "requirements/profiles/test.lock" not in workflow
+
+
+def test_staging_workflow_binds_the_dedicated_vpc_connector() -> None:
+    workflow = (ROOT / ".github/workflows/omega-staging-deploy.yml").read_text(
+        encoding="utf-8"
+    )
+    for fragment in (
+        "AppRunnerVpcConnectorArn",
+        'VpcConnectorArn="$VPC_CONNECTOR"',
+        "egress.get('EgressType') != 'VPC'",
+    ):
+        assert fragment in workflow
+
+
+def test_deploy_policy_can_verify_foundation_and_pull_for_rollback_only_in_staging() -> (
+    None
+):
     policy = json.loads(
         (ROOT / "infra/omega_staging/github-deploy-policy.template.json").read_text(
             encoding="utf-8"

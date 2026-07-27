@@ -1,0 +1,32 @@
+schema_version=omega-phase4-test-results-v1
+input_commit=1ff7a2b9d064a53d1e26d961c7e511651ea2f0d7
+working_directory=C:\Projects\baseball_predictor_omega_phase4_trust_remediation_20260726
+platform=Windows
+python=CPython 3.12.13
+
+source_formatting_ruff_0_16_0=PASS exit=0 37 files formatted
+source_static_ruff_0_16_0=PASS exit=0
+schema_generation_check=PASS exit=0
+complete_contract_suite=PASS exit=0 collected=132
+complete_dashboard_suite=PASS exit=0 collected=53
+combined_source_suite=PASS exit=0 passed=185 duration_seconds=2.73
+snapshot_trust_and_semantic_mutations=PASS included=tests/omega_dashboard/test_snapshot_contract.py collected=45
+chronology_mutations=PASS included=tests/omega_contracts/test_phase4_chronology_authority.py collected=17
+capability_and_iac_mutations=PASS included=tests/omega_contracts/test_phase4_structural.py collected=43
+actionlint_1_7_12=PASS exit=0
+cfn_lint_1_53_2=PASS exit=0
+exact_build_lock_install=PASS exit=0
+deterministic_wheel_build=PASS exit=0 builds=2 sha256=6d7d2e86dc4cfc7b87db72d8892b8e2247aa0afac81813b6a9a910ef838de686 bytes=40763
+wheel_content_inspection=PASS exit=0 entries=22
+installed_runtime_pip_check=PASS exit=0
+installed_wheel_import_to_lock=PASS exit=0 direct_requirements=4
+installed_wheel_tests_outside_checkout=PASS exit=0 passed=111 duration_seconds=1.03
+tracked_secret_scan=PASS exit=0 inspected=780
+untracked_candidate_secret_scan=PASS exit=0 inspected=66
+candidate_and_frozen_production_boundary=PASS included_in_185_test_suite
+retained_live_plan_identity=PASS path=src/evaluation/shadow_capture_plan.py sha256=491a73556cab02b8295eee695f0474345defbc15f5d9bd01aae011cdff2b17e0 git_blob=0ca57fbb06bf04edbc28ddd6a1e0512be0e68ee0
+phase4_csv_json_consistency=PASS exit=0 required_outputs=46 json_files=8 csv_files=12
+clean_windows_cpython=PASS
+clean_ubuntu_cpython=NOT_EXECUTED_WSL_NOT_INSTALLED
+linux_container_build=NOT_EXECUTED_DOCKER_NOT_INSTALLED
+overall=HOLD_WITH_REMEDIABLE_BLOCKERS

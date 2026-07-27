@@ -1,0 +1,11 @@
+{
+  "graph": {
+    "dashboard.app": ["dashboard.contracts", "dashboard.snapshot_store"],
+    "dashboard.contracts": ["src.omega_contracts.canonical", "src.omega_contracts.chronology", "src.omega_contracts.errors"],
+    "dashboard.snapshot_store": ["dashboard.contracts", "src.omega_contracts.canonical", "src.omega_contracts.chronology", "src.omega_contracts.errors"],
+    "src.omega_contracts.canonical": ["src.omega_contracts.errors"],
+    "src.omega_contracts.chronology": ["src.omega_contracts.errors"],
+    "src.omega_contracts.errors": []
+  },
+  "schema_version": "omega-dashboard-transitive-import-graph-v1"
+}

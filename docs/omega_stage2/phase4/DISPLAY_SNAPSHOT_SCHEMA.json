@@ -1,0 +1,707 @@
+{
+  "$defs": {
+    "ComparisonValues": {
+      "additionalProperties": false,
+      "properties": {
+        "current_live_prediction": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Current Live Prediction"
+        },
+        "frozen_comparator_prediction": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Frozen Comparator Prediction"
+        },
+        "research_candidate_prediction": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Research Candidate Prediction"
+        },
+        "research_candidate_state": {
+          "enum": [
+            "not_present",
+            "research_only",
+            "unqualified"
+          ],
+          "title": "Research Candidate State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "current_live_prediction",
+        "frozen_comparator_prediction",
+        "research_candidate_prediction",
+        "research_candidate_state"
+      ],
+      "title": "ComparisonValues",
+      "type": "object"
+    },
+    "DiscreteProbability": {
+      "additionalProperties": false,
+      "properties": {
+        "probability": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Probability",
+          "type": "number"
+        },
+        "value": {
+          "minimum": 0,
+          "title": "Value",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "value",
+        "probability"
+      ],
+      "title": "DiscreteProbability",
+      "type": "object"
+    },
+    "ModelBanner": {
+      "additionalProperties": false,
+      "properties": {
+        "betting_authorized": {
+          "const": false,
+          "title": "Betting Authorized",
+          "type": "boolean"
+        },
+        "current_live_model_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Current Live Model Id"
+        },
+        "frozen_comparator_model_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Frozen Comparator Model Id"
+        },
+        "model_id": {
+          "title": "Model Id",
+          "type": "string"
+        },
+        "model_version": {
+          "title": "Model Version",
+          "type": "string"
+        },
+        "qualification_state": {
+          "enum": [
+            "frozen_production_baseline",
+            "current_live_research",
+            "research_only",
+            "unqualified"
+          ],
+          "title": "Qualification State",
+          "type": "string"
+        },
+        "research_candidate_model_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Research Candidate Model Id"
+        },
+        "research_candidate_state": {
+          "enum": [
+            "not_present",
+            "research_only",
+            "unqualified"
+          ],
+          "title": "Research Candidate State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "model_id",
+        "model_version",
+        "qualification_state",
+        "betting_authorized",
+        "current_live_model_id",
+        "frozen_comparator_model_id",
+        "research_candidate_model_id",
+        "research_candidate_state"
+      ],
+      "title": "ModelBanner",
+      "type": "object"
+    },
+    "OpposingStarter": {
+      "additionalProperties": false,
+      "properties": {
+        "identity_receipt_sha256": {
+          "title": "Identity Receipt Sha256",
+          "type": "string"
+        },
+        "identity_state": {
+          "const": "RESOLVED",
+          "title": "Identity State",
+          "type": "string"
+        },
+        "mlb_player_id": {
+          "exclusiveMinimum": 0,
+          "title": "Mlb Player Id",
+          "type": "integer"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "probable_receipt_verified",
+            "confirmed_receipt_verified"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "mlb_player_id",
+        "name",
+        "identity_state",
+        "identity_receipt_sha256",
+        "status"
+      ],
+      "title": "OpposingStarter",
+      "type": "object"
+    },
+    "PredictionDisplayRow": {
+      "additionalProperties": false,
+      "properties": {
+        "abstention_reason": {
+          "anyOf": [
+            {
+              "enum": [
+                "MISSING_REQUIRED_RECEIPT",
+                "STALE_SOURCE",
+                "IDENTITY_UNRESOLVED",
+                "CHRONOLOGY_INELIGIBLE",
+                "SOURCE_CONTRADICTION",
+                "UNQUALIFIED_MODEL",
+                "NO_AUTHORIZED_VALUE"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Abstention Reason"
+        },
+        "batting_slot": {
+          "anyOf": [
+            {
+              "maximum": 9,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Batting Slot"
+        },
+        "chronology_decision_receipt_sha256": {
+          "title": "Chronology Decision Receipt Sha256",
+          "type": "string"
+        },
+        "comparison": {
+          "$ref": "#/$defs/ComparisonValues"
+        },
+        "count_distribution": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/DiscreteProbability"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Count Distribution"
+        },
+        "data_health_tier": {
+          "enum": [
+            "healthy",
+            "degraded",
+            "quarantined",
+            "unknown"
+          ],
+          "title": "Data Health Tier",
+          "type": "string"
+        },
+        "decision_horizon_utc": {
+          "title": "Decision Horizon Utc",
+          "type": "string"
+        },
+        "event_start_utc": {
+          "title": "Event Start Utc",
+          "type": "string"
+        },
+        "exclusion_flags": {
+          "items": {
+            "enum": [
+              "MISSING_SOURCE_RECEIPT",
+              "IDENTITY_UNRESOLVED",
+              "CHRONOLOGY_INELIGIBLE",
+              "SOURCE_CONTRADICTION",
+              "INPUT_QUARANTINED"
+            ],
+            "type": "string"
+          },
+          "title": "Exclusion Flags",
+          "type": "array"
+        },
+        "fallback_flags": {
+          "items": {
+            "const": "BATTER_ONLY_PITCHER_BLOCK_EXCLUDED",
+            "type": "string"
+          },
+          "title": "Fallback Flags",
+          "type": "array"
+        },
+        "game_pk": {
+          "exclusiveMinimum": 0,
+          "title": "Game Pk",
+          "type": "integer"
+        },
+        "home_away": {
+          "enum": [
+            "home",
+            "away"
+          ],
+          "title": "Home Away",
+          "type": "string"
+        },
+        "identity_receipt_sha256": {
+          "title": "Identity Receipt Sha256",
+          "type": "string"
+        },
+        "identity_state": {
+          "const": "RESOLVED",
+          "title": "Identity State",
+          "type": "string"
+        },
+        "lineup_status": {
+          "enum": [
+            "projected",
+            "confirmed",
+            "unknown",
+            "not_applicable"
+          ],
+          "title": "Lineup Status",
+          "type": "string"
+        },
+        "market": {
+          "enum": [
+            "hits",
+            "home_runs",
+            "total_bases",
+            "hrr",
+            "pitcher_strikeouts"
+          ],
+          "title": "Market",
+          "type": "string"
+        },
+        "market_line": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Market Line"
+        },
+        "market_side": {
+          "anyOf": [
+            {
+              "enum": [
+                "over",
+                "under"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Market Side"
+        },
+        "mlb_opponent_team_id": {
+          "exclusiveMinimum": 0,
+          "title": "Mlb Opponent Team Id",
+          "type": "integer"
+        },
+        "mlb_player_id": {
+          "exclusiveMinimum": 0,
+          "title": "Mlb Player Id",
+          "type": "integer"
+        },
+        "mlb_team_id": {
+          "exclusiveMinimum": 0,
+          "title": "Mlb Team Id",
+          "type": "integer"
+        },
+        "model_id": {
+          "title": "Model Id",
+          "type": "string"
+        },
+        "opponent": {
+          "title": "Opponent",
+          "type": "string"
+        },
+        "opposing_starter": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/OpposingStarter"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "pa_distribution": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/DiscreteProbability"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Pa Distribution"
+        },
+        "player_name": {
+          "title": "Player Name",
+          "type": "string"
+        },
+        "point_prediction": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Point Prediction"
+        },
+        "point_prediction_kind": {
+          "enum": [
+            "probability",
+            "expected_count"
+          ],
+          "title": "Point Prediction Kind",
+          "type": "string"
+        },
+        "product_id": {
+          "title": "Product Id",
+          "type": "string"
+        },
+        "projected_pa": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Projected Pa"
+        },
+        "row_content_sha256": {
+          "title": "Row Content Sha256",
+          "type": "string"
+        },
+        "row_id": {
+          "title": "Row Id",
+          "type": "string"
+        },
+        "row_schema_version": {
+          "const": "prediction-display-row-v2",
+          "title": "Row Schema Version",
+          "type": "string"
+        },
+        "source_freshness_seconds": {
+          "minimum": 0,
+          "title": "Source Freshness Seconds",
+          "type": "integer"
+        },
+        "source_observed_utc": {
+          "title": "Source Observed Utc",
+          "type": "string"
+        },
+        "source_receipt_sha256": {
+          "title": "Source Receipt Sha256",
+          "type": "string"
+        },
+        "team": {
+          "title": "Team",
+          "type": "string"
+        },
+        "uncertainty": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/UncertaintyInterval"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "row_schema_version",
+        "row_content_sha256",
+        "row_id",
+        "game_pk",
+        "player_name",
+        "mlb_player_id",
+        "mlb_team_id",
+        "mlb_opponent_team_id",
+        "team",
+        "opponent",
+        "identity_state",
+        "identity_receipt_sha256",
+        "source_receipt_sha256",
+        "chronology_decision_receipt_sha256",
+        "event_start_utc",
+        "decision_horizon_utc",
+        "home_away",
+        "market",
+        "product_id",
+        "market_side",
+        "market_line",
+        "lineup_status",
+        "batting_slot",
+        "projected_pa",
+        "pa_distribution",
+        "opposing_starter",
+        "point_prediction_kind",
+        "point_prediction",
+        "count_distribution",
+        "uncertainty",
+        "data_health_tier",
+        "source_observed_utc",
+        "source_freshness_seconds",
+        "exclusion_flags",
+        "fallback_flags",
+        "abstention_reason",
+        "model_id",
+        "comparison"
+      ],
+      "title": "PredictionDisplayRow",
+      "type": "object"
+    },
+    "ProducerIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "producer_id": {
+          "title": "Producer Id",
+          "type": "string"
+        },
+        "producer_version": {
+          "title": "Producer Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "producer_id",
+        "producer_version"
+      ],
+      "title": "ProducerIdentity",
+      "type": "object"
+    },
+    "SourceHealth": {
+      "additionalProperties": false,
+      "properties": {
+        "latest_refresh_utc": {
+          "title": "Latest Refresh Utc",
+          "type": "string"
+        },
+        "reason_codes": {
+          "items": {
+            "enum": [
+              "ALL_REQUIRED_RECEIPTS_VALID",
+              "SOURCE_BLOCK_EXCLUDED",
+              "SOURCE_RECEIPT_MISSING",
+              "SOURCE_CONTRADICTION",
+              "IDENTITY_QUARANTINED",
+              "CHRONOLOGY_QUARANTINED"
+            ],
+            "type": "string"
+          },
+          "title": "Reason Codes",
+          "type": "array"
+        },
+        "status": {
+          "enum": [
+            "healthy",
+            "degraded",
+            "unavailable"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "reason_codes",
+        "latest_refresh_utc"
+      ],
+      "title": "SourceHealth",
+      "type": "object"
+    },
+    "UncertaintyInterval": {
+      "additionalProperties": false,
+      "properties": {
+        "lower": {
+          "title": "Lower",
+          "type": "number"
+        },
+        "method": {
+          "enum": [
+            "bootstrap_interval",
+            "conformal_interval",
+            "posterior_interval",
+            "display_bound"
+          ],
+          "title": "Method",
+          "type": "string"
+        },
+        "upper": {
+          "title": "Upper",
+          "type": "number"
+        }
+      },
+      "required": [
+        "method",
+        "lower",
+        "upper"
+      ],
+      "title": "UncertaintyInterval",
+      "type": "object"
+    }
+  },
+  "$id": "urn:omega:prediction-display-snapshot:v2",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "artifact_sha256s": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Artifact Sha256S",
+      "type": "object"
+    },
+    "captured_at_utc": {
+      "title": "Captured At Utc",
+      "type": "string"
+    },
+    "config_sha256": {
+      "title": "Config Sha256",
+      "type": "string"
+    },
+    "model_banner": {
+      "$ref": "#/$defs/ModelBanner"
+    },
+    "official_slate_date": {
+      "title": "Official Slate Date",
+      "type": "string"
+    },
+    "producer": {
+      "$ref": "#/$defs/ProducerIdentity"
+    },
+    "rows": {
+      "items": {
+        "$ref": "#/$defs/PredictionDisplayRow"
+      },
+      "title": "Rows",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "prediction-display-snapshot-v2",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_commit": {
+      "title": "Source Commit",
+      "type": "string"
+    },
+    "source_health": {
+      "$ref": "#/$defs/SourceHealth"
+    },
+    "supported_markets": {
+      "items": {
+        "enum": [
+          "hits",
+          "home_runs",
+          "total_bases",
+          "hrr",
+          "pitcher_strikeouts"
+        ],
+        "type": "string"
+      },
+      "title": "Supported Markets",
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "official_slate_date",
+    "captured_at_utc",
+    "source_commit",
+    "producer",
+    "model_banner",
+    "source_health",
+    "config_sha256",
+    "artifact_sha256s",
+    "supported_markets",
+    "rows"
+  ],
+  "title": "PredictionDisplaySnapshot",
+  "type": "object",
+  "x-document-schema-version": "omega-phase4-schema-document-v1"
+}

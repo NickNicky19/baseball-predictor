@@ -1,8 +1,8 @@
 **
 !Dockerfile
 !.dockerignore
-!dashboard/
-!dashboard/**
 !requirements/
 !requirements/profiles/
-!requirements/profiles/dashboard.lock
+!requirements/profiles/scaffold-runtime.lock
+!dist/
+!dist/omega_trust_scaffold-0.4.0-py3-none-any.whl

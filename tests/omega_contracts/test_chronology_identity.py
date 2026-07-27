@@ -11,7 +11,12 @@ from src.omega_contracts.chronology import (
     require_ordered_dates,
 )
 from src.omega_contracts.errors import ContractError
-from src.omega_contracts.identity import GameIdentity, Market, ObservationKey, positive_int
+from src.omega_contracts.identity import (
+    GameIdentity,
+    Market,
+    ObservationKey,
+    positive_int,
+)
 
 
 @pytest.mark.parametrize(
@@ -23,7 +28,9 @@ def test_may_date_is_sealed(value):
         parse_date(value)
 
 
-@pytest.mark.parametrize("value", ["2026/05/12", "2026_05_12", "20260512", "2026-99-99"])
+@pytest.mark.parametrize(
+    "value", ["2026/05/12", "2026_05_12", "20260512", "2026-99-99"]
+)
 def test_noncanonical_or_invalid_date_is_rejected(value):
     with pytest.raises(ContractError):
         parse_date(value)
@@ -31,7 +38,13 @@ def test_noncanonical_or_invalid_date_is_rejected(value):
 
 @pytest.mark.parametrize(
     "name",
-    ["2026-05-12.json", "2026_05_12.json", "2026/05/12.json", "20260512.json", "2026%2F05%2F12.json"],
+    [
+        "2026-05-12.json",
+        "2026_05_12.json",
+        "2026/05/12.json",
+        "20260512.json",
+        "2026%2F05%2F12.json",
+    ],
 )
 def test_may_path_representation_is_rejected_without_opening(tmp_path: Path, name: str):
     with pytest.raises(ContractError, match="sealed May"):
@@ -86,7 +99,9 @@ def test_noncanonical_or_naive_timestamp_text_is_rejected(value: str):
         "2026 May",
     ],
 )
-def test_month_level_may_path_tokens_are_rejected_without_opening(tmp_path: Path, name: str):
+def test_month_level_may_path_tokens_are_rejected_without_opening(
+    tmp_path: Path, name: str
+):
     with pytest.raises(ContractError, match="sealed May"):
         assert_may_safe_path(tmp_path / name, allowed_root=tmp_path)
 
@@ -135,7 +150,6 @@ def test_count_market_lines_are_integer_or_half_integer():
 
 
 def test_game_identity_rejects_same_team_and_requires_schedule_day():
-    digest = "a" * 64
     with pytest.raises(ContractError, match="must differ"):
         GameIdentity.create(
             official_date="2026-07-26",

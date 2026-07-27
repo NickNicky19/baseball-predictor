@@ -1,0 +1,29 @@
+{
+  "application_egress": {
+    "app_runner_egress_type": "VPC",
+    "connector_security_groups": ["DenyAllConnectorSecurityGroup"],
+    "default_ipv4_route": false,
+    "default_ipv6_route": false,
+    "internet_gateway": false,
+    "nat_gateway": false,
+    "peering": false,
+    "public_ip_assignment": false,
+    "transit_gateway": false,
+    "unreviewed_vpc_endpoints": false,
+    "vpn": false
+  },
+  "connector_security_group": {
+    "ingress_rules": [],
+    "restricted_egress": {
+      "destination": "UnattachedIsolationSinkSecurityGroup",
+      "destination_attached_to_resources": false,
+      "port": 9,
+      "protocol": "tcp"
+    }
+  },
+  "ingress": "PRIVATE_TEMPLATE_ONLY",
+  "network_acl_allow_entries": [],
+  "schema_version": "omega-staging-network-boundary-v1",
+  "state": "DESIGNED_NOT_DEPLOYMENT_VERIFIED",
+  "subnets": ["PrivateSubnetOne", "PrivateSubnetTwo"]
+}

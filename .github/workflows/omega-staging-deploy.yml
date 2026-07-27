@@ -67,11 +67,11 @@ jobs:
         run: |
           set -euo pipefail
           python infra/omega_staging/verify_production_boundary.py
-          for lock in requirements/profiles/dashboard.lock requirements/profiles/test.lock; do
-            test -s "$lock" && grep -q -- '--hash=sha256:' "$lock" || {
+          for lock in requirements/profiles/scaffold-runtime.lock requirements/profiles/scaffold-test.lock requirements/profiles/scaffold-build.lock requirements/profiles/scaffold-lint.lock; do
+            if ! test -s "$lock" || ! grep -q -- '--hash=sha256:' "$lock"; then
               echo "Missing reviewed hash lock: $lock" >&2
               exit 1
-            }
+            fi
           done
 
       - name: Set up CPython 3.12
@@ -79,23 +79,48 @@ jobs:
         with:
           python-version: '3.12.11'
           cache: pip
-          cache-dependency-path: requirements/profiles/test.lock
+          cache-dependency-path: |
+            requirements/profiles/scaffold-test.lock
+            requirements/profiles/scaffold-build.lock
+            requirements/profiles/scaffold-lint.lock
 
       - name: Re-run isolated release checks
         shell: bash
+        env:
+          SOURCE_DATE_EPOCH: '315532800'
         run: |
           set -euo pipefail
-          python -m pip install --require-hashes --no-deps -r requirements/profiles/test.lock
-          python -m pip check
-          python scripts/check_tracked_secrets.py
-          PYTHONPATH=. python scripts/verify_omega_candidate_boundaries.py
-          python -m compileall -q dashboard src/omega_contracts infra/omega_staging
-          shopt -s nullglob
-          targets=(tests/omega_contracts)
-          test -d tests/dashboard && targets+=(tests/dashboard)
-          test -d tests/omega_dashboard && targets+=(tests/omega_dashboard)
-          for candidate in tests/test_omega_*.py tests/test_dashboard*.py; do targets+=("$candidate"); done
-          python -m pytest -q "${targets[@]}"
+          python -m venv "$RUNNER_TEMP/testenv"
+          python -m venv "$RUNNER_TEMP/buildenv"
+          python -m venv "$RUNNER_TEMP/lintenv"
+          testpy="$RUNNER_TEMP/testenv/bin/python"
+          buildpy="$RUNNER_TEMP/buildenv/bin/python"
+          lintpy="$RUNNER_TEMP/lintenv/bin/python"
+          "$testpy" -m pip install --require-hashes --no-deps -r requirements/profiles/scaffold-test.lock
+          "$buildpy" -m pip install --require-hashes --no-deps -r requirements/profiles/scaffold-build.lock
+          "$lintpy" -m pip install --require-hashes --no-deps -r requirements/profiles/scaffold-lint.lock
+          "$testpy" -m pip check
+          "$buildpy" -m pip check
+          "$lintpy" -m pip check
+          "$testpy" scripts/check_tracked_secrets.py
+          PYTHONPATH=. "$testpy" scripts/verify_omega_candidate_boundaries.py
+          "$testpy" infra/omega_staging/verify_production_boundary.py
+          "$testpy" scripts/verify_omega_scaffold_structure.py --root .
+          "$RUNNER_TEMP/lintenv/bin/cfn-lint" infra/omega_staging/foundation.yaml infra/omega_staging/service.yaml
+          targets=(dashboard src/omega_contracts scripts/prepare_omega_scaffold_build_context.py scripts/generate_omega_phase4_schemas.py scripts/verify_omega_scaffold_package.py scripts/verify_omega_scaffold_structure.py tests/omega_dashboard tests/omega_contracts)
+          "$RUNNER_TEMP/lintenv/bin/ruff" check --select E4,E7,E9,F,I "${targets[@]}"
+          "$RUNNER_TEMP/lintenv/bin/ruff" format --check "${targets[@]}"
+          PYTHONPATH=. "$testpy" scripts/generate_omega_phase4_schemas.py --output-directory docs/omega_stage2/phase4 --check
+          PYTHONDONTWRITEBYTECODE=1 "$testpy" -m pytest -q -p no:cacheprovider tests/omega_contracts tests/omega_dashboard
+          context="$RUNNER_TEMP/omega-build-context"
+          "$buildpy" scripts/prepare_omega_scaffold_build_context.py --repository-root . --destination "$context"
+          (cd "$context" && "$buildpy" -m build --no-isolation --wheel)
+          wheel="$context/dist/omega_trust_scaffold-0.4.0-py3-none-any.whl"
+          wheel_sha="$($testpy -c 'import hashlib,sys; print(hashlib.sha256(open(sys.argv[1], "rb").read()).hexdigest())' "$wheel")"
+          "$testpy" scripts/verify_omega_scaffold_package.py wheel --wheel "$wheel" --allowlist docs/omega_stage2/phase4/WHEEL_CONTENT_ALLOWLIST.txt
+          mkdir -p dist
+          cp "$wheel" dist/omega_trust_scaffold-0.4.0-py3-none-any.whl
+          echo "WHEEL_SHA256=$wheel_sha" >> "$GITHUB_ENV"
 
       - name: Configure dedicated AWS staging identity
         uses: aws-actions/configure-aws-credentials@7474bc4690e29a8392af63c5b98e7449536d5c3a
@@ -146,18 +171,21 @@ jobs:
           instance_role="$(output AppRunnerInstanceRoleArn)"
           auth_secret="$(output DashboardAuthSecretArn)"
           cfn_role="$(output ServiceCloudFormationRoleArn)"
+          vpc_connector="$(output AppRunnerVpcConnectorArn)"
           expected_repository="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$REPOSITORY_NAME"
           test "$repository_uri" = "$expected_repository" || { echo 'Foundation ECR repository mismatch' >&2; exit 1; }
           test "$ecr_access_role" = "arn:aws:iam::$AWS_ACCOUNT_ID:role/baseball-predictor-omega-staging-ecr-access" || exit 1
           test "$instance_role" = "arn:aws:iam::$AWS_ACCOUNT_ID:role/baseball-predictor-omega-staging-instance" || exit 1
           test "$cfn_role" = "arn:aws:iam::$AWS_ACCOUNT_ID:role/baseball-predictor-omega-staging-cfn" || exit 1
           [[ "$auth_secret" == arn:aws:secretsmanager:"$AWS_REGION":"$AWS_ACCOUNT_ID":secret:* ]] || exit 1
+          [[ "$vpc_connector" == arn:aws:apprunner:"$AWS_REGION":"$AWS_ACCOUNT_ID":vpcconnector/* ]] || exit 1
           {
             echo "repository_uri=$repository_uri"
             echo "ecr_access_role=$ecr_access_role"
             echo "instance_role=$instance_role"
             echo "auth_secret=$auth_secret"
             echo "cfn_role=$cfn_role"
+            echo "vpc_connector=$vpc_connector"
           } >> "$GITHUB_OUTPUT"
 
       - name: Build and push immutable exact-commit image
@@ -176,7 +204,10 @@ jobs:
             test "$revision" = "$SOURCE_COMMIT" || { echo 'Existing immutable image revision label does not match source commit' >&2; exit 1; }
             echo 'Verified and reusing the existing immutable exact-commit image.'
           else
-            docker build --build-arg SOURCE_COMMIT="$SOURCE_COMMIT" --tag "$REPOSITORY_URI:$SOURCE_COMMIT" .
+            docker build \
+              --build-arg SOURCE_COMMIT="$SOURCE_COMMIT" \
+              --build-arg SCAFFOLD_WHEEL_SHA256="$WHEEL_SHA256" \
+              --tag "$REPOSITORY_URI:$SOURCE_COMMIT" .
             revision="$(docker image inspect "$REPOSITORY_URI:$SOURCE_COMMIT" --format '{{ index .Config.Labels "org.opencontainers.image.revision" }}')"
             test "$revision" = "$SOURCE_COMMIT" || { echo 'Built image revision label does not match source commit' >&2; exit 1; }
             docker push "$REPOSITORY_URI:$SOURCE_COMMIT"
@@ -194,6 +225,7 @@ jobs:
           INSTANCE_ROLE: ${{ steps.foundation.outputs.instance_role }}
           AUTH_SECRET: ${{ steps.foundation.outputs.auth_secret }}
           CFN_ROLE: ${{ steps.foundation.outputs.cfn_role }}
+          VPC_CONNECTOR: ${{ steps.foundation.outputs.vpc_connector }}
         shell: bash
         run: |
           set -euo pipefail
@@ -208,7 +240,8 @@ jobs:
               SourceCommit="$SOURCE_COMMIT" \
               EcrAccessRoleArn="$ECR_ACCESS_ROLE" \
               InstanceRoleArn="$INSTANCE_ROLE" \
-              DashboardAuthSecretArn="$AUTH_SECRET"
+              DashboardAuthSecretArn="$AUTH_SECRET" \
+              VpcConnectorArn="$VPC_CONNECTOR"
 
       - name: Verify deployed identity and private boundary
         env:
@@ -241,6 +274,11 @@ jobs:
           public = service['NetworkConfiguration']['IngressConfiguration']['IsPubliclyAccessible']
           if public is not False:
               raise SystemExit('staging service is unexpectedly public')
+          egress = service['NetworkConfiguration']['EgressConfiguration']
+          if egress.get('EgressType') != 'VPC':
+              raise SystemExit('staging service is not bound to isolated VPC egress')
+          if not str(egress.get('VpcConnectorArn', '')).startswith('arn:aws:apprunner:'):
+              raise SystemExit('staging service has no bound VPC connector')
           print('private exact-commit App Runner deployment verified')
           PY
           {

@@ -8,8 +8,13 @@ from datetime import datetime
 from enum import Enum
 from typing import Mapping
 
-from .canonical import canonical_json_bytes, require_nonempty_text, require_sha256, sha256_bytes
-from .chronology import parse_aware_utc, require_before
+from .canonical import (
+    canonical_json_bytes,
+    require_nonempty_text,
+    require_sha256,
+    sha256_bytes,
+)
+from .chronology import require_before
 from .errors import ContractError, FeatureAbstentionRequired
 
 
@@ -56,14 +61,23 @@ class FeatureSpec:
         require_nonempty_text(self.unit, label=f"{self.name}.unit")
         require_nonempty_text(self.source_kind, label=f"{self.name}.source_kind")
         require_nonempty_text(self.receipt_type, label=f"{self.name}.receipt_type")
-        if not self.consumer_nodes or tuple(sorted(set(self.consumer_nodes))) != self.consumer_nodes:
+        if (
+            not self.consumer_nodes
+            or tuple(sorted(set(self.consumer_nodes))) != self.consumer_nodes
+        ):
             raise ContractError(f"{self.name}.consumer_nodes must be sorted and unique")
         for node in self.consumer_nodes:
             require_nonempty_text(node, label=f"{self.name}.consumer_node")
         for bound, label in ((self.minimum, "minimum"), (self.maximum, "maximum")):
-            if bound is not None and (isinstance(bound, bool) or not math.isfinite(bound)):
+            if bound is not None and (
+                isinstance(bound, bool) or not math.isfinite(bound)
+            ):
                 raise ContractError(f"{self.name}.{label} must be finite")
-        if self.minimum is not None and self.maximum is not None and self.minimum > self.maximum:
+        if (
+            self.minimum is not None
+            and self.maximum is not None
+            and self.minimum > self.maximum
+        ):
             raise ContractError(f"{self.name} has reversed bounds")
         if self.subset_of == self.name:
             raise ContractError(f"{self.name} cannot be a subset of itself")
@@ -141,7 +155,9 @@ class FeatureRegistry:
         require_sha256(schema_sha256, label="feature schema sha256")
         schema = self._by_hash.get(schema_sha256)
         if schema is None or schema.candidate_id != candidate_id:
-            raise ContractError("feature schema reference is unresolved or has wrong candidate")
+            raise ContractError(
+                "feature schema reference is unresolved or has wrong candidate"
+            )
         if self._by_candidate.get(candidate_id) != schema_sha256:
             raise ContractError("feature registry candidate binding mismatch")
         return schema
@@ -169,10 +185,15 @@ def validate_feature_vector(
         spec = specs[name]
         if consumer_node not in spec.consumer_nodes:
             raise ContractError(f"feature {name} is not authorized for {consumer_node}")
-        if item.source_kind != spec.source_kind or item.receipt_type != spec.receipt_type:
+        if (
+            item.source_kind != spec.source_kind
+            or item.receipt_type != spec.receipt_type
+        ):
             raise ContractError(f"feature {name} source/receipt type mismatch")
         require_sha256(item.receipt_sha256, label=f"{name}.receipt_sha256")
-        require_before(item.observed_at_utc, decision_horizon_utc, label=f"{name}.observed_at_utc")
+        require_before(
+            item.observed_at_utc, decision_horizon_utc, label=f"{name}.observed_at_utc"
+        )
         if isinstance(item.value, bool) or not isinstance(item.value, (int, float)):
             raise ContractError(f"feature {name} must be numeric")
         numeric = float(item.value)
@@ -185,33 +206,59 @@ def validate_feature_vector(
         if spec.maximum is not None and numeric > spec.maximum:
             raise ContractError(f"feature {name} is above its declared maximum")
         if spec.kind is FeatureKind.RATE:
-            if item.numerator is None or item.denominator is None or item.sample_size is None:
-                raise ContractError(f"rate feature {name} requires counts and sample size")
+            if (
+                item.numerator is None
+                or item.denominator is None
+                or item.sample_size is None
+            ):
+                raise ContractError(
+                    f"rate feature {name} requires counts and sample size"
+                )
             if any(
                 isinstance(count, bool) or not isinstance(count, int)
                 for count in (item.numerator, item.denominator, item.sample_size)
             ):
                 raise ContractError(f"rate feature {name} counts must be integers")
-            if item.numerator < 0 or item.denominator <= 0 or item.numerator > item.denominator:
+            if (
+                item.numerator < 0
+                or item.denominator <= 0
+                or item.numerator > item.denominator
+            ):
                 raise ContractError(f"rate feature {name} has invalid counts")
             if item.sample_size != item.denominator:
-                raise ContractError(f"rate feature {name} sample size must equal denominator")
+                raise ContractError(
+                    f"rate feature {name} sample size must equal denominator"
+                )
             if numeric != item.numerator / item.denominator:
-                raise ContractError(f"rate feature {name} is inconsistent with its counts")
+                raise ContractError(
+                    f"rate feature {name} is inconsistent with its counts"
+                )
         elif any(
             count is not None
             for count in (item.numerator, item.denominator, item.sample_size)
         ):
-            raise ContractError(f"non-rate feature {name} cannot carry rate count metadata")
+            raise ContractError(
+                f"non-rate feature {name} cannot carry rate count metadata"
+            )
     for name, spec in specs.items():
         if spec.subset_of is None or name not in values or spec.subset_of not in values:
             continue
         child = values[name]
         parent = values[spec.subset_of]
-        if child.denominator != parent.denominator or child.numerator is None or parent.numerator is None:
-            raise ContractError(f"subset features {name}/{spec.subset_of} require the same denominator")
-        if child.numerator > parent.numerator or float(child.value) > float(parent.value):
-            raise ContractError(f"feature {name} cannot exceed its superset {spec.subset_of}")
+        if (
+            child.denominator != parent.denominator
+            or child.numerator is None
+            or parent.numerator is None
+        ):
+            raise ContractError(
+                f"subset features {name}/{spec.subset_of} require the same denominator"
+            )
+        if child.numerator > parent.numerator or float(child.value) > float(
+            parent.value
+        ):
+            raise ContractError(
+                f"feature {name} cannot exceed its superset {spec.subset_of}"
+            )
     abstain_missing = tuple(
         sorted(
             name

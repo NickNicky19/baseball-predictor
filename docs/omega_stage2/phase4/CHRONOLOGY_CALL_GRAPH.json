@@ -1,0 +1,11 @@
+{
+  "authority_module": "src.omega_contracts.chronology",
+  "edges": [
+    {"caller": "dashboard.contracts", "functions": ["parse_canonical_utc", "require_event_eligibility"]},
+    {"caller": "dashboard.snapshot_store", "functions": ["assert_may_safe_path", "parse_canonical_utc", "require_event_eligibility", "require_load_freshness"]},
+    {"caller": "src.omega_contracts.artifacts", "functions": ["assert_may_safe_path", "parse_aware_utc", "parse_date"]},
+    {"caller": "src.omega_contracts.production", "functions": ["assert_may_safe_path"]},
+    {"caller": "src.omega_contracts.receipts", "functions": ["assert_may_safe_path", "parse_aware_utc", "parse_date", "require_before"]}
+  ],
+  "schema_version": "omega-chronology-call-graph-v1"
+}

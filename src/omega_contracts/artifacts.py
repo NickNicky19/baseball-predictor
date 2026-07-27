@@ -6,7 +6,6 @@ fail-closed boundary and are exercised only with synthetic fixtures.
 
 from __future__ import annotations
 
-import json
 import os
 import tempfile
 from dataclasses import dataclass
@@ -15,7 +14,13 @@ from pathlib import Path
 from typing import Mapping
 
 from .activation import assert_research_only_manifest
-from .canonical import canonical_json_bytes, require_nonempty_text, require_sha256, sha256_bytes, sha256_file
+from .canonical import (
+    canonical_json_bytes,
+    require_nonempty_text,
+    require_sha256,
+    sha256_bytes,
+    sha256_file,
+)
 from .chronology import assert_may_safe_path, parse_aware_utc, parse_date
 from .durability import flush_sync_and_harden
 from .errors import ContractError
@@ -62,13 +67,19 @@ class ArtifactManifest:
         expected = set(cls.__dataclass_fields__)
         if set(payload) != expected:
             raise ContractError("artifact manifest fields do not exactly match schema")
-        hashes = {field: require_sha256(payload[field], label=field) for field in _HASH_FIELDS}
+        hashes = {
+            field: require_sha256(payload[field], label=field) for field in _HASH_FIELDS
+        }
         comparator = payload["frozen_comparator_sha256"]
         if comparator is not None:
             comparator = require_sha256(comparator, label="frozen_comparator_sha256")
         if payload["promotion_approval_sha256"] is not None:
-            raise ContractError("unqualified candidate cannot carry a promotion approval")
-        if isinstance(payload["artifact_size"], bool) or not isinstance(payload["artifact_size"], int):
+            raise ContractError(
+                "unqualified candidate cannot carry a promotion approval"
+            )
+        if isinstance(payload["artifact_size"], bool) or not isinstance(
+            payload["artifact_size"], int
+        ):
             raise ContractError("artifact_size must be an integer")
         if payload["artifact_size"] <= 0:
             raise ContractError("artifact_size must be positive")
@@ -77,13 +88,19 @@ class ArtifactManifest:
         select_start = parse_date(payload["selection_start"], label="selection_start")
         select_end = parse_date(payload["selection_end"], label="selection_end")
         if not fit_start <= fit_end < select_start <= select_end:
-            raise ContractError("artifact fit and selection windows are not strictly ordered")
+            raise ContractError(
+                "artifact fit and selection windows are not strictly ordered"
+            )
         created = parse_aware_utc(payload["created_at_utc"], label="created_at_utc")
-        published = parse_aware_utc(payload["published_at_utc"], label="published_at_utc")
+        published = parse_aware_utc(
+            payload["published_at_utc"], label="published_at_utc"
+        )
         if created > published:
             raise ContractError("artifact creation cannot follow publication")
         if created.date() <= select_end:
-            raise ContractError("artifact creation must follow completion of selection inputs")
+            raise ContractError(
+                "artifact creation must follow completion of selection inputs"
+            )
         state_payload = {
             "qualification_state": payload["qualification_state"],
             "active": payload["active"],
@@ -93,8 +110,12 @@ class ArtifactManifest:
         assert_research_only_manifest(state_payload)
         return cls(
             schema_version=_require_artifact_schema(payload["schema_version"]),
-            artifact_type=require_nonempty_text(payload["artifact_type"], label="artifact_type"),
-            candidate_id=require_nonempty_text(payload["candidate_id"], label="candidate_id"),
+            artifact_type=require_nonempty_text(
+                payload["artifact_type"], label="artifact_type"
+            ),
+            candidate_id=require_nonempty_text(
+                payload["candidate_id"], label="candidate_id"
+            ),
             qualification_state=str(payload["qualification_state"]),
             active=False,
             betting_authorized=False,
@@ -131,7 +152,9 @@ class ArtifactManifest:
             "selection_start": self.selection_start.isoformat(),
             "selection_end": self.selection_end.isoformat(),
             "created_at_utc": self.created_at_utc.isoformat().replace("+00:00", "Z"),
-            "published_at_utc": self.published_at_utc.isoformat().replace("+00:00", "Z"),
+            "published_at_utc": self.published_at_utc.isoformat().replace(
+                "+00:00", "Z"
+            ),
             "frozen_comparator_sha256": self.frozen_comparator_sha256,
             "promotion_approval_sha256": self.promotion_approval_sha256,
         }
@@ -177,11 +200,15 @@ def validate_artifact(
             manifest.frozen_comparator_sha256
         )
     if set(referenced_files) != set(expected_reference_hashes):
-        raise ContractError("artifact referenced-file set does not exactly match its manifest")
+        raise ContractError(
+            "artifact referenced-file set does not exactly match its manifest"
+        )
     for field, expected_hash in expected_reference_hashes.items():
         reference_path = assert_may_safe_path(referenced_files[field])
         if reference_path.is_symlink() or not reference_path.is_file():
-            raise ContractError(f"artifact reference is not an eligible regular file: {field}")
+            raise ContractError(
+                f"artifact reference is not an eligible regular file: {field}"
+            )
         if sha256_file(reference_path) != expected_hash:
             raise ContractError(f"artifact referenced bytes mismatch: {field}")
     target_date = parse_date(evaluation_date, label="evaluation_date")
@@ -189,7 +216,9 @@ def validate_artifact(
     if manifest.selection_end >= target_date:
         raise ContractError("artifact selection window must end before evaluation date")
     if manifest.published_at_utc >= horizon:
-        raise ContractError("artifact must be published strictly before the decision horizon")
+        raise ContractError(
+            "artifact must be published strictly before the decision horizon"
+        )
     path = assert_may_safe_path(artifact_path)
     if path.is_symlink() or not path.is_file():
         raise ContractError("artifact is not an eligible regular file")
@@ -198,7 +227,10 @@ def validate_artifact(
     except OSError as exc:
         raise ContractError("artifact cannot be opened") from exc
     digest = sha256_bytes(artifact_bytes)
-    if len(artifact_bytes) != manifest.artifact_size or digest != manifest.artifact_sha256:
+    if (
+        len(artifact_bytes) != manifest.artifact_size
+        or digest != manifest.artifact_sha256
+    ):
         raise ContractError("artifact bytes do not match manifest")
     return ValidatedArtifact(manifest, artifact_bytes, digest)
 
@@ -210,21 +242,31 @@ def _require_artifact_schema(value: object) -> str:
 
 
 def publish_immutable_artifact(
-    *, artifact_bytes: bytes, manifest_payload: Mapping[str, object], artifact_root: Path
+    *,
+    artifact_bytes: bytes,
+    manifest_payload: Mapping[str, object],
+    artifact_root: Path,
 ) -> tuple[Path, Path]:
     """Publish content-addressed bytes first and its authoritative manifest last.
 
     A crash can leave an unreferenced artifact object, never a trusted partial pair.
     """
     manifest = ArtifactManifest.from_mapping(manifest_payload)
-    if sha256_bytes(artifact_bytes) != manifest.artifact_sha256 or len(artifact_bytes) != manifest.artifact_size:
+    if (
+        sha256_bytes(artifact_bytes) != manifest.artifact_sha256
+        or len(artifact_bytes) != manifest.artifact_size
+    ):
         raise ContractError("artifact payload does not match proposed manifest")
     root = assert_may_safe_path(artifact_root)
     root.mkdir(parents=True, exist_ok=True)
-    artifact_path = assert_may_safe_path(root / f"{manifest.artifact_sha256}.artifact", allowed_root=root)
+    artifact_path = assert_may_safe_path(
+        root / f"{manifest.artifact_sha256}.artifact", allowed_root=root
+    )
     manifest_bytes = canonical_json_bytes(manifest.canonical_dict())
     manifest_hash = sha256_bytes(manifest_bytes)
-    manifest_path = assert_may_safe_path(root / f"{manifest_hash}.manifest.json", allowed_root=root)
+    manifest_path = assert_may_safe_path(
+        root / f"{manifest_hash}.manifest.json", allowed_root=root
+    )
     _publish_once(artifact_path, artifact_bytes, root)
     _publish_once(manifest_path, manifest_bytes, root)
     return artifact_path, manifest_path

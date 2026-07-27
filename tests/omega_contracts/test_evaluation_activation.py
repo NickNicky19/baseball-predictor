@@ -1,13 +1,13 @@
 import pytest
 
 from src.omega_contracts.activation import assert_research_only_manifest
+from src.omega_contracts.canonical import canonical_json_bytes, sha256_bytes
 from src.omega_contracts.errors import ContractError
 from src.omega_contracts.evaluation import (
     EvaluationObservation,
     ObservationDisposition,
     validate_complete_coverage,
 )
-from src.omega_contracts.canonical import canonical_json_bytes, sha256_bytes
 from src.omega_contracts.identity import Market, ObservationKey
 
 

@@ -1,0 +1,7 @@
+# OPERATIONAL build-only profile for the standalone Omega scaffold wheel.
+build==1.2.2.post1
+colorama==0.4.6
+packaging==25.0
+pyproject-hooks==1.2.0
+setuptools==80.9.0
+wheel==0.45.1

@@ -1,0 +1,8 @@
+qa_id,decision,scope,evidence_path,test_reference,status
+QA-012,CLOSED_BY_EXECUTABLE_ENFORCEMENT,Independent raw-manifest authorization and replacement resistance,docs/omega_stage2/phase4/MANIFEST_AUTHORIZATION_CONTRACT.md,tests/omega_dashboard/test_snapshot_contract.py,CLOSED
+QA-013,PARTIALLY_REMEDIATED,Freshness and immutable-source enforcement passes Windows but POSIX execution is unavailable,docs/omega_stage2/phase4/CROSS_PLATFORM_SOURCE_VERIFICATION.md,tests/omega_dashboard/test_snapshot_contract.py,PARTIAL
+QA-014,CLOSED_BY_EXECUTABLE_ENFORCEMENT,Hard IDs receipt bindings closed schemas and controlled semantics,docs/omega_stage2/phase4/DISPLAY_ROW_IDENTITY_CONTRACT.md,tests/omega_dashboard/test_snapshot_contract.py,CLOSED
+QA-015,CLOSED_BY_EXECUTABLE_ENFORCEMENT,Single chronology kernel and retained live-plan Git identity,docs/omega_stage2/phase4/CANONICAL_CHRONOLOGY_AUTHORITY.md,tests/omega_contracts/test_phase4_chronology_authority.py,CLOSED
+QA-016,PARTIALLY_REMEDIATED,Exact wheel locks allowlist and Windows installed verification pass but Ubuntu and container gates are unavailable,docs/omega_stage2/phase4/SCAFFOLD_PACKAGING_CONTRACT.md,tests/omega_contracts/test_phase4_packaging.py,PARTIAL
+QA-017,CLOSED_BY_EXECUTABLE_ENFORCEMENT,Transitive import AST runtime denial and mutations,docs/omega_stage2/phase4/DASHBOARD_CAPABILITY_AUDIT.md,tests/omega_contracts/test_phase4_structural.py,CLOSED
+QA-018,CLOSED_BY_EXECUTABLE_ENFORCEMENT,Deny-by-default staging design verified structurally and not deployed,docs/omega_stage2/phase4/STAGING_DENY_BY_DEFAULT_EGRESS.md,tests/omega_contracts/test_phase4_structural.py,CLOSED_STRUCTURAL_ONLY

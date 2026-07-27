@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 
 import pytest
 
@@ -87,7 +87,10 @@ def test_valid_rates_require_truthful_counts_and_same_denominator():
     with pytest.raises(ContractError, match="inconsistent"):
         validate_feature_vector(
             schema=schema(),
-            values={"barrel_rate": value(0.2, 1, 10), "hard_hit_rate": value(0.4, 4, 10)},
+            values={
+                "barrel_rate": value(0.2, 1, 10),
+                "hard_hit_rate": value(0.4, 4, 10),
+            },
             decision_horizon_utc=horizon,
             consumer_node="coherent_pa",
         )
@@ -98,7 +101,10 @@ def test_kwan_shaped_barrel_hard_hit_contradiction_fails_closed():
     with pytest.raises(ContractError, match="cannot exceed"):
         validate_feature_vector(
             schema=schema(),
-            values={"barrel_rate": value(0.5, 50, 100), "hard_hit_rate": value(0.09, 9, 100)},
+            values={
+                "barrel_rate": value(0.5, 50, 100),
+                "hard_hit_rate": value(0.09, 9, 100),
+            },
             decision_horizon_utc=horizon,
             consumer_node="coherent_pa",
         )
@@ -130,7 +136,10 @@ def test_unknown_nonfinite_late_and_unauthorized_features_fail():
         )
     with pytest.raises(ContractError, match="not authorized"):
         validate_feature_vector(
-            schema=schema(), values=valid, decision_horizon_utc=horizon, consumer_node="dashboard"
+            schema=schema(),
+            values=valid,
+            decision_horizon_utc=horizon,
+            consumer_node="dashboard",
         )
 
 

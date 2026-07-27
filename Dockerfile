@@ -1,6 +1,7 @@
 FROM python:3.12.11-slim-bookworm@sha256:519591d6871b7bc437060736b9f7456b8731f1499a57e22e6c285135ae657bf7
 
 ARG SOURCE_COMMIT
+ARG SCAFFOLD_WHEEL_SHA256
 LABEL org.opencontainers.image.title="baseball-predictor-omega-staging-dashboard" \
       org.opencontainers.image.revision="${SOURCE_COMMIT}" \
       org.opencontainers.image.description="Read-only research dashboard; no prediction execution"
@@ -15,15 +16,19 @@ RUN printf '%s' "${SOURCE_COMMIT}" | grep -Eq '^[0-9a-f]{40}$' \
     && useradd --uid 10001 --gid dashboard --no-create-home --shell /usr/sbin/nologin dashboard
 
 WORKDIR /app
-COPY requirements/profiles/dashboard.lock /tmp/dashboard.lock
-RUN python -m pip install --no-cache-dir --require-hashes -r /tmp/dashboard.lock \
+COPY requirements/profiles/scaffold-runtime.lock /tmp/scaffold-runtime.lock
+COPY dist/omega_trust_scaffold-0.4.0-py3-none-any.whl /tmp/omega_trust_scaffold-0.4.0-py3-none-any.whl
+RUN printf '%s  %s\n' "${SCAFFOLD_WHEEL_SHA256}" /tmp/omega_trust_scaffold-0.4.0-py3-none-any.whl | sha256sum -c - \
+    && python -m pip install --no-cache-dir --require-hashes --no-deps -r /tmp/scaffold-runtime.lock \
+    && python -m pip install --no-cache-dir --no-deps /tmp/omega_trust_scaffold-0.4.0-py3-none-any.whl \
     && python -m pip check \
-    && rm /tmp/dashboard.lock
+    && rm /tmp/scaffold-runtime.lock /tmp/omega_trust_scaffold-0.4.0-py3-none-any.whl
 
-COPY --chown=root:root dashboard/ /app/dashboard/
 RUN install -d -o root -g root -m 0555 /app/snapshots \
-    && find /app/dashboard -type d -exec chmod 0555 {} + \
-    && find /app/dashboard -type f -exec chmod 0444 {} +
+    && find /usr/local/lib/python3.12/site-packages/dashboard -type d -exec chmod 0555 {} + \
+    && find /usr/local/lib/python3.12/site-packages/dashboard -type f -exec chmod 0444 {} + \
+    && find /usr/local/lib/python3.12/site-packages/src/omega_contracts -type d -exec chmod 0555 {} + \
+    && find /usr/local/lib/python3.12/site-packages/src/omega_contracts -type f -exec chmod 0444 {} +
 
 USER 10001:10001
 EXPOSE 8080
