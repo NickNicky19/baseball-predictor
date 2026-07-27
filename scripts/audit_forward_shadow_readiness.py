@@ -144,8 +144,22 @@ def main(argv: list[str] | None = None) -> int:
     if "NOT the primary T-4h" not in workflow or "future external shadow collector" not in workflow:
         raise ValueError("workflow no longer declares its non-primary capture role")
     verifier_workflow = (ROOT / ".github/workflows/shadow-evidence-verifier.yml").read_text(encoding="utf-8")
-    if 'cron: "17 * * * *"' not in verifier_workflow:
-        raise ValueError("GitHub evidence verifier schedule drifted")
+    activation = json.loads(
+        (ROOT / "config/forward_shadow_verifier_activation.json").read_text(encoding="utf-8")
+    )
+    if activation != {
+        "schema_version": "forward-shadow-verifier-activation-v1",
+        "lane": "legacy-forward-shadow",
+        "producer_state": "NOT_DEPLOYED",
+        "unattended_schedule_allowed": False,
+        "evidence_root": "/srv/baseball-shadow",
+        "protocol_entrypoint": "scripts/verify_shadow_lifecycle_tree.py",
+    }:
+        raise ValueError("GitHub evidence verifier activation contract drifted")
+    if "schedule:" in verifier_workflow:
+        raise ValueError("undeployed forward-shadow lane cannot have an unattended schedule")
+    if "workflow_dispatch:" not in verifier_workflow:
+        raise ValueError("manual fail-closed verifier dispatch is missing")
     if "NEVER fetches" not in verifier_workflow or "NOT the primary T-4h" not in verifier_workflow:
         raise ValueError("GitHub verifier no longer declares its independent non-primary role")
     if (

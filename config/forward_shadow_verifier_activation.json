@@ -1,0 +1,8 @@
+{
+  "schema_version": "forward-shadow-verifier-activation-v1",
+  "lane": "legacy-forward-shadow",
+  "producer_state": "NOT_DEPLOYED",
+  "unattended_schedule_allowed": false,
+  "evidence_root": "/srv/baseball-shadow",
+  "protocol_entrypoint": "scripts/verify_shadow_lifecycle_tree.py"
+}
