@@ -1,0 +1,201 @@
+{
+  "schema_version": "shared-pa-evidence-spend-ledger-v1",
+  "status": "LOCKED_GLOBAL_LINEAGE_SPEND_REGISTER",
+  "as_of_utc": "2026-07-27T18:00:00Z",
+  "scope": {
+    "candidate_lineage": "shared_batter_pa_outcome_foundation",
+    "markets": ["hits", "hr_over_0_5", "total_bases"],
+    "market_pooling_allowed": false
+  },
+  "rules": {
+    "spend_is_global_across_branches_worktrees_repairs_and_renames": true,
+    "derived_markets_inherit_parent_lineage_spend": true,
+    "repair_does_not_restore_untouched_status": true,
+    "unknown_is_ineligible_until_proven": true,
+    "historical_or_missed_prospective_backfill_allowed": false,
+    "sealed_month_access_allowed": false,
+    "betting_authorized": false
+  },
+  "windows": [
+    {
+      "window_id": "shared_pa_canonical_2024_selection",
+      "period": "2024 regular season",
+      "role": "selection",
+      "lineage_scope": ["shared_pa_canonical_v1", "hits", "hr_over_0_5", "total_bases"],
+      "state": "SELECTION_SPENT",
+      "permitted_use": ["audit_metadata", "reproduce_existing_rejection"],
+      "prohibited_use": ["new_candidate_selection", "independent_confirmation"],
+      "evidence": [
+        {
+          "commit": "a18a4a518d03e97a6df34c1a18340974b15d383c",
+          "path": "config/shared_pa_canonical_selection_protocol.json",
+          "sha256": "744ca06fce9b6b102cbe303f1ee6ccc9b55f5982c2412d8ebf130d9f429fca91",
+          "claim": "Protocol designates 2024 as the rolling selection window."
+        }
+      ],
+      "limitation": "The ledger records spend metadata only and does not open selection rows."
+    },
+    {
+      "window_id": "shared_pa_cumulative_2024_selection",
+      "period": "2024 regular season",
+      "role": "selection",
+      "lineage_scope": ["shared_pa_cumulative_v1", "shared_pa_cumulative_v3", "hits", "hr_over_0_5", "total_bases"],
+      "state": "SELECTION_SPENT",
+      "permitted_use": ["audit_metadata", "reproduce_existing_rejection"],
+      "prohibited_use": ["new_candidate_selection", "independent_confirmation"],
+      "evidence": [
+        {
+          "commit": "e356b2d09a39369c381ac65b9c47b78abb8c24bf",
+          "path": "config/shared_pa_cumulative_selection_protocol.json",
+          "sha256": "e7ce92e73825004bb029a45e8f4bf2e154bb25865581aed84989a6b10cd52100",
+          "claim": "Protocol designates the reused 2024 selection window."
+        }
+      ],
+      "limitation": "No outcome rows were inspected to create this ledger."
+    },
+    {
+      "window_id": "shared_pa_hierarchical_2024_selection",
+      "period": "2024 regular season",
+      "role": "selection",
+      "lineage_scope": ["shared_pa_hierarchical_v1", "hits", "hr_over_0_5", "total_bases"],
+      "state": "SELECTION_SPENT",
+      "permitted_use": ["audit_metadata", "reproduce_existing_rejection"],
+      "prohibited_use": ["new_candidate_selection", "independent_confirmation"],
+      "evidence": [
+        {
+          "commit": "aade7a7c2992b26a2a829d15fdf3ee1ccfb96bd4",
+          "path": "config/shared_pa_hierarchical_selection_protocol.json",
+          "sha256": "dadc5ed00e85e5d7faf177fd385eda7313a1f32c9862b5392a23f4fe1526130a",
+          "claim": "Protocol designates 2024 selection for the hierarchical family."
+        }
+      ],
+      "limitation": "The result payload remains outside this metadata-only registry."
+    },
+    {
+      "window_id": "direct_batter_pa_2024_selection",
+      "period": "2024 regular season",
+      "role": "selection_and_integrity_repair_readjudication",
+      "lineage_scope": ["direct_batter_pa_v1", "direct_batter_pa_v2", "hits", "hr_over_0_5", "total_bases"],
+      "state": "SELECTION_SPENT",
+      "permitted_use": ["audit_metadata", "reproduce_existing_rejection"],
+      "prohibited_use": ["reset_untouched_status_after_repair", "new_candidate_selection", "independent_confirmation"],
+      "evidence": [
+        {
+          "commit": "fbfebc86c6b165a4b4427dabaf5783e3d9e86a59",
+          "path": "reports/direct_batter_pa_foundation_v2_CERTIFIED_REJECTION.json",
+          "sha256": "6b94bac94b735c9cfb527b42c0cf06d16f0ae96f6a3b9552ab7c1c8a5e619b90",
+          "claim": "The repaired family was re-adjudicated on the already designated 2024 window."
+        }
+      ],
+      "limitation": "A legitimate integrity repair does not restore independent holdout status."
+    },
+    {
+      "window_id": "post_2024_shared_pa_hypotheses",
+      "period": "2024 regular season",
+      "role": "unavailable_parent_lineage_selection",
+      "lineage_scope": ["direct_batter_pa_development_2023", "shared_pa_eb_residual_2023", "shared_pa_eb_augmented_2023", "shared_pa_core_attribution_2023"],
+      "state": "NOT_ACCESSED_BUT_NOT_INDEPENDENT",
+      "permitted_use": ["none_for_new_selection"],
+      "prohibited_use": ["claim_freshness_because_a_local_script_did_not_read_2024", "selection", "confirmation"],
+      "evidence": [
+        {
+          "commit": "1fde8f4c06a10098aa6648c21ea2fd9d82736d1f",
+          "path": "config/shared_pa_eb_augmented_development_2023_v3.json",
+          "sha256": "626ea7dc5e5434826e1ff76e0ab1626b36af0509053f8cac41e4016f0a87be6e",
+          "claim": "The later 2023-only hypothesis explicitly cannot reopen the parent lineage's 2024 selection."
+        }
+      ],
+      "limitation": "Local non-access does not create independence after parent-lineage exposure."
+    },
+    {
+      "window_id": "hits_1_5_open_2026_diagnostic_confirmation",
+      "period": "open nonsealed 2026 diagnostic and 19-date confirmation blocks",
+      "role": "diagnostic_and_confirmation",
+      "lineage_scope": ["hits_1_5_rolling_empirical_bayes", "hits"],
+      "state": "CONFIRMATION_SPENT",
+      "permitted_use": ["audit_metadata", "reproduce_existing_rejection"],
+      "prohibited_use": ["new_hits_confirmation", "candidate_rescue"],
+      "evidence": [
+        {
+          "commit": "3c0f0ffbff7ca6cc844f51fb6c16926fc6732db6",
+          "path": "reports/hits_1_5_eb_open_v1_CERTIFIED.json",
+          "sha256": "e7708c197558dccfca9169f1bb70482cd0cb1e833a4bc1c64a68ccb532d10d9a",
+          "claim": "The named Hits confirmation block was opened and adjudicated."
+        }
+      ],
+      "limitation": "The ledger records only the confirmation-spend state and does not expose its rows."
+    },
+    {
+      "window_id": "hr_eb_2025_confirmation",
+      "period": "12 locked 2025 dates",
+      "role": "confirmation",
+      "lineage_scope": ["hr_per_pa_rolling_empirical_bayes_v1", "hr_over_0_5", "shared_batter_pa_outcome_foundation"],
+      "state": "CONFIRMATION_SPENT",
+      "permitted_use": ["audit_metadata"],
+      "prohibited_use": ["new_hr_confirmation", "shared_pa_candidate_confirmation", "rename_or_repair_reset"],
+      "evidence": [
+        {
+          "commit": "83428c142be1bb3c5f34cbd2f046e5c696e98d0c",
+          "path": "config/hr_eb_per_pa_2025_confirmation_protocol.json",
+          "sha256": "4eb44ed92b7270d990b79ce2b834487e637f14d4a56e11dada377839c08e465f",
+          "claim": "The HR confirmation was locked and later opened once; its result is not reread here."
+        }
+      ],
+      "limitation": "This registry records the spent state without opening the confirmation result."
+    },
+    {
+      "window_id": "legacy_gbm_2025_sampled_dates",
+      "period": "20 sampled 2025 dates",
+      "role": "legacy_diagnostic",
+      "lineage_scope": ["legacy_gbm_benchmark"],
+      "state": "DEVELOPMENT_USED",
+      "permitted_use": ["legacy_diagnostic_reproduction"],
+      "prohibited_use": ["modern_probability_confirmation", "promotion_evidence"],
+      "evidence": [
+        {
+          "commit": "70449da0daf501240dcba1ab9019add2319781fd",
+          "path": "reports/benchmark_gbm.json",
+          "sha256": "543a0387b040cb5b0ecb0b58c2500d27fad1dece4f4f86084a2a04d2c30034d7",
+          "claim": "Legacy sampled-date metrics are diagnostic and not a modern confirmation."
+        }
+      ],
+      "limitation": "The legacy report does not implement the current market-specific probability protocol."
+    },
+    {
+      "window_id": "shared_pa_forward_2026_07_23_to_09_16",
+      "period": "2026-07-23 through 2026-09-16",
+      "role": "prospective_reserved",
+      "lineage_scope": ["shared_pa_forward_adjudication_v1", "hits", "hr_over_0_5", "total_bases"],
+      "state": "RESERVED_OUTCOME_SEALED",
+      "permitted_use": ["receipt_integrity", "source_lineage", "prospective_collection_metadata"],
+      "prohibited_use": ["retrofit_challenger_outputs", "backfill_missed_records", "open_outcomes_before_locked_boundary"],
+      "evidence": [
+        {
+          "commit": "a6d56efec25e4ff5061fc26b84e9eb620f70040a",
+          "path": "config/shared_pa_forward_adjudication_v1.json",
+          "sha256": "4c6668cb708480aa0fb090f0ad767e405bf33ce21b2e190af1dc674967751587",
+          "claim": "The outcome-blind prospective window is reserved by a pre-target contract."
+        }
+      ],
+      "limitation": "Collector completeness and challenger coverage were not inspected."
+    },
+    {
+      "window_id": "shared_pa_regular_season_intervention_2024",
+      "period": "2024 regular season",
+      "role": "execution_state_unknown",
+      "lineage_scope": ["shared_pa_regular_season_intervention"],
+      "state": "UNKNOWN_REQUIRES_PROOF",
+      "permitted_use": ["metadata_investigation_only"],
+      "prohibited_use": ["selection", "confirmation", "promotion"],
+      "evidence": [
+        {
+          "commit": "130bb9ad9249051efe7614b1eb52eb9965440f01",
+          "path": "config/shared_pa_regular_season_selection_protocol_v1.json",
+          "sha256": "e4b578fc0b57a83533d145523d88e27c5d7f2d949a4da9fd5354bbdd9e9c0ea8",
+          "claim": "A protocol exists, but no certified execution disposition has yet been located."
+        }
+      ],
+      "limitation": "The exact protocol is bound, but no certified execution disposition was located; unknown remains ineligible."
+    }
+  ]
+}

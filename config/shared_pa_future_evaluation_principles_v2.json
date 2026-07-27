@@ -1,0 +1,50 @@
+{
+  "schema_version": "shared-pa-future-evaluation-principles-v2",
+  "status": "PREDECLARED_DESIGN_ONLY_NOT_BOUND_TO_A_WINDOW",
+  "markets": {
+    "evaluate_separately": ["hits", "hr_over_0_5", "total_bases"],
+    "pooling_allowed": false,
+    "cross_market_rescue_allowed": false
+  },
+  "proper_scores": {
+    "metrics": ["brier", "log_loss"],
+    "material_fraction": 0.01,
+    "candidate_point_and_paired_upper_95_must_both_clear": true,
+    "unit": "official_date_cluster",
+    "method": "paired_percentile_bootstrap"
+  },
+  "discrimination": {
+    "metric": "auc",
+    "undefined_disposition": "INSUFFICIENT_EVIDENCE_BLOCKS_PROMOTION",
+    "both_candidate_and_comparator_undefined_is_a_pass": false
+  },
+  "hr_high_probability_tail": {
+    "cohort": "candidate_fixed_top_decile_reused_for_every_comparator",
+    "uncertainty_unit": "official_date_cluster",
+    "uncertainty_method": "paired_percentile_bootstrap",
+    "confidence": 0.95,
+    "support_requires_both_outcome_classes": true,
+    "support_requires_at_least_two_official_date_clusters": true,
+    "insufficient_support_disposition": "INSUFFICIENT_EVIDENCE_BLOCKS_PROMOTION"
+  },
+  "coverage": {
+    "planned_gradeable_and_terminal_missingness_required": true,
+    "silent_row_deletion_allowed": false,
+    "minimum_gradeable_fraction": 0.95
+  },
+  "comparators": {
+    "league_rate": "required",
+    "time_safe_player_empirical_bayes": "required",
+    "frozen_production_probability": "required_exact_pregame_capture",
+    "market_implied_probability": "required_only_when_receipt_verified",
+    "missing_required_comparator_disposition": "BLOCK_PROMOTION"
+  },
+  "protected_boundaries": {
+    "retrofit_existing_forward_window_allowed": false,
+    "historical_or_missed_prospective_backfill_allowed": false,
+    "sealed_month_access_allowed": false,
+    "spent_confirmation_reuse_allowed": false,
+    "historical_prices_executable": false,
+    "betting_authorized": false
+  }
+}
