@@ -1,7 +1,7 @@
 {
   "schema_version": "shared-pa-evidence-spend-ledger-v1",
   "status": "LOCKED_GLOBAL_LINEAGE_SPEND_REGISTER",
-  "as_of_utc": "2026-07-27T18:00:00Z",
+  "as_of_utc": "2026-07-27T21:27:46Z",
   "scope": {
     "candidate_lineage": "shared_batter_pa_outcome_foundation",
     "markets": ["hits", "hr_over_0_5", "total_bases"],
@@ -196,6 +196,24 @@
         }
       ],
       "limitation": "The exact protocol is bound, but no certified execution disposition was located; unknown remains ineligible."
+    },
+    {
+      "window_id": "shared_pa_true_eb_offset_2023_v1_development",
+      "period": "2023 regular season four-fold chronological development",
+      "role": "development_and_rejection",
+      "lineage_scope": ["shared_pa_true_eb_offset_catboost_2023_v1", "shared_batter_pa_outcome_foundation", "hits", "hr_over_0_5", "total_bases"],
+      "state": "DEVELOPMENT_USED",
+      "permitted_use": ["audit_metadata", "reproduce_exact_rejection", "diagnose_missing_input_layer"],
+      "prohibited_use": ["retune_rejected_candidate", "claim_selection", "claim_confirmation", "promotion", "activation", "betting_authorization"],
+      "evidence": [
+        {
+          "commit": "565416707fdb3f150d4a1bcfc843debcee7f68a2",
+          "path": "docs/SHARED_PA_TRUE_EB_OFFSET_2023_V1_DECISION.md",
+          "sha256": "1b7ffb0a62db4ebf05e2f03a9969620b903aeafe99e87a75e7d604785133c9e3",
+          "claim": "The predeclared true-EB-offset CatBoost challenger was rejected separately for Hits, HR over 0.5, and Total Bases."
+        }
+      ],
+      "limitation": "The 2023 result is development evidence only. It cannot serve as independent selection or confirmation for a repaired, renamed, or new challenger."
     }
   ]
 }
