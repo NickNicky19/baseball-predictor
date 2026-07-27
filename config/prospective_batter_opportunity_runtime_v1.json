@@ -1,0 +1,36 @@
+{
+  "schema_version": "prospective-batter-opportunity-runtime-v1",
+  "status": "RESEARCH_ONLY_NOT_DEPLOYED",
+  "collector_instance_id": "prospective-batter-opportunity-evidence-v1",
+  "scheduler": {
+    "entry_hours": 4,
+    "tick_seconds": 60,
+    "request_timeout_seconds": 20,
+    "capture_deadline_after_start_seconds": 86400
+  },
+  "contract": {
+    "path": "config/prospective_batter_opportunity_contract_v1.json",
+    "sha256": "a537015b4189e61f384526509aa89607b99dcbfd378f5457831182532b6d0cf1"
+  },
+  "source_roster_evidence": {
+    "contract_sha256": "88910f66c0a51a7aa33baa1dffe9c6cbe8fc9aebcc90d76df26f41937640182a",
+    "collector_code_sha256": "adb894089139cbfe62e0f241c9d46c4541ed45d97dbc9290422a27fd90282527"
+  },
+  "invariants": {
+    "read_existing_t4_plan_and_roster_ledger_only": true,
+    "persist_replayed_roster_proof_with_each_history_plan": true,
+    "persist_replayed_roster_proof_with_each_planning_miss": true,
+    "planning_miss_is_terminal_and_not_backfilled": true,
+    "same_day_history_plan_created_before_first_pitch_only": true,
+    "scan_only_non_may_prospective_history_ledgers": true,
+    "full_transport_retention_forbidden": true,
+    "source_invalid_transport_hash_and_size_only": true,
+    "late_backfill_forbidden": true,
+    "probability_generation_forbidden": true,
+    "outcome_scoring_forbidden": true,
+    "prices_and_economic_evidence_forbidden": true,
+    "research_only": true,
+    "betting_authorized": false,
+    "production_changed": false
+  }
+}

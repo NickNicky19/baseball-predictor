@@ -1,0 +1,175 @@
+{
+  "schema_version": "prospective-batter-opportunity-evidence-report-v1",
+  "candidate_id": "prospective_batter_opportunity_evidence_v1",
+  "status": "INTEGRATED_ENGINEERING_RUNTIME_REPAIRED_LINUX_AND_INDEPENDENT_RECHECK_PASSED_AWAITING_EXPLICIT_SMOKE_AUTHORIZATION",
+  "research_only": true,
+  "betting_authorized": false,
+  "production_probability_consumption_authorized": false,
+  "source_branch": "codex/prospective-target-opportunity-evidence-v1",
+  "base_commit": "adb4f481009927102bc400eca5bf1766cd2aafe6",
+  "finding": {
+    "root_cause": "The target-player and PA-opportunity path had no positive, replayable contract binding prior-game opportunity records to predeclared capture windows and no raw official-schedule denominator proving which prior games were expected. Real-source inspection also proved that MLB's fields query still returns unrequested nested player fields, so the transport body was not truthfully opportunity-only. Runtime integration then exposed that the upstream active-roster ledger verified schedule byte hashes but did not replay schedule chronology and game/team identity, and did not bind its manifest contract/code fields during verification.",
+    "affected_scope": [
+      "future batter target-player eligibility research",
+      "future PA-opportunity research",
+      "Hits research inputs",
+      "HR over 0.5 research inputs",
+      "Total Bases research inputs"
+    ],
+    "historical_reconstruction_required": false,
+    "historical_reconstruction_permitted": false,
+    "reason": "Prospective evidence cannot be backfilled. This candidate begins only after an independently reviewed future deployment."
+  },
+  "repair": {
+    "classification": "SOURCE_TRUTH_AND_FAIL_CLOSED_EVIDENCE_REPAIR",
+    "source_level_changes": [
+      "exact HTTPS host, path, query, HTTP status, content type and raw-body identity",
+      "predeclared history capture plan created before each source game",
+      "history plans bound to replayed T-4 plans, captured side terminals, active-roster receipts and retained roster raw bytes",
+      "history proof bundles retain and replay the fields-limited schedule bytes and observation timestamp that establish game and team identity",
+      "future-only final-receipt runner with terminal missed windows and no backfill path",
+      "immutable evidence scope binding the collection epoch, runtime, contract, code and upstream roster collector identities",
+      "durable self-contained terminal records when a receipt-proven roster side is discovered too late to create a truthful pregame plan",
+      "collection-epoch-through-current plan traversal records prior-day receipt-proven misses exactly once without late plans or fetches",
+      "missing manifests and incomplete roster terminal coverage produce explicit blocked health state and nonzero command status",
+      "transport sanitizer that persists only the canonical positive opportunity projection",
+      "strict opportunity-only final-feed schema with both teams validated",
+      "receipt-replayed official prior-schedule denominator at T-4",
+      "explicit captured versus terminal-missing game partition",
+      "receipt-replayed T-4 active-roster identity",
+      "source-level active-roster ledger repair that replays retained schedule bytes, observation time, game/date/start/team identity, roster bytes and commit time",
+      "source active-roster manifest verification now binds exact contract and collector-code identities",
+      "publish-once raw and terminal ledger with orphan detection",
+      "full source-to-snapshot replay before any immutable raw or terminal publication",
+      "descriptive-only active-roster opportunity snapshot"
+    ],
+    "fail_closed_boundaries": [
+      "May 2026",
+      "same-day or future history",
+      "late or stale T-4 schedule receipts",
+      "post-deadline historical capture",
+      "replacement of the deployment-bound evidence-scope file",
+      "upstream roster collector or contract release mismatch",
+      "history ledger contract, code or evidence-scope mismatch",
+      "unplanned or mutated history capture",
+      "digest-shaped T-4 or active-roster claims without replayable proof",
+      "rehashed but semantically false snapshot publication",
+      "unexpected required-source mutations and downstream access to discarded outcome/season fields",
+      "source, game, team, side or player identity mismatch",
+      "denominator gaps, overlaps or partition mismatch",
+      "raw, record, coverage, snapshot or ledger hash mismatch",
+      "missing raw replay inputs",
+      "healthy all-zero reporting when an expected roster ledger or terminal is absent",
+      "implicit zero substitution for missing games",
+      "probability or production consumption"
+    ]
+  },
+  "hashes": {
+    "code": {
+      "src/evaluation/prospective_batter_opportunity.py": "fc5ca7d433a94a2c848635adb37b64a501f0746dfff10e053729a7489943abed",
+      "src/evaluation/prospective_batter_opportunity_ledger.py": "268b4c3fd646beeac4f1ffc77a7e55e93a202baa73fd8c5b2a065e3cc1c79d4d",
+      "src/evaluation/prospective_batter_opportunity_history.py": "a8795877305519617ea4415d7f3d322e4194c7da6f3a27966b612a01fe0b4d35",
+      "scripts/run_prospective_batter_opportunity_tick.py": "e81d8b2c10d9008bf05aed5bf07c6047419a2dc380a4d843692f5992313ed5f8",
+      "src/evaluation/projected_lineup_roster_ledger.py": "66743e99aaaede887cc2c025987521cc257b7318c4d9a2c3c1e3f5639d7a7527",
+      "src/evaluation/projected_lineup_roster_runner.py": "a35543aeb4669c083ad1b3287beafc802a173753105c363471b0ec7b8df7a7ed"
+    },
+    "configuration": {
+      "config/prospective_batter_opportunity_contract_v1.json": "a537015b4189e61f384526509aa89607b99dcbfd378f5457831182532b6d0cf1",
+      "config/prospective_batter_opportunity_runtime_v1.json": "fba9cc301043989bc7293a173747e68cb587b71f94ed1f56060533a6b72d986d",
+      "config/projected_lineup_contract_v1.json": "88910f66c0a51a7aa33baa1dffe9c6cbe8fc9aebcc90d76df26f41937640182a",
+      "config/projected_lineup_roster_runtime_v1.json": "4d7a316170f143df2b9bb8407e887cfcfbd841fa2f2b971b79d8464f63d25f9d",
+      ".gitattributes": "8d1ed80058a1704ff073a6739abe10406f60298e1ebc9104479cc9481b9859f9",
+      "requirements-prospective-batter-opportunity-ci.lock": "97860e387e41f3feed182c9775ed1dc9de36b50274c3bdfd8b2fc6f870e8fb6e"
+    },
+    "data": {
+      "tests/fixtures/prospective_batter_opportunity/official_mlb_717545_sanitized_v1.json": "37a1a9f7b8c713c154fd0e1c4ec2ac70dc1030c5787dfdf062b41aaee5a5158b",
+      "classification": "PRE_2026_STATIC_SOURCE_SURFACE_AUDIT_NOT_PROSPECTIVE_EVIDENCE"
+    },
+    "features": "NOT_APPLICABLE_NO_LIVE_OR_HISTORICAL_FEATURE_ARTIFACT_CREATED",
+    "tests": {
+      "tests/test_prospective_batter_opportunity.py": "1580eff1008cf5e94f88f9b5c67812d7fd8ec8eb35899c9be67b88a9cf36ab3f",
+      "tests/test_prospective_batter_opportunity_history.py": "41fc0286581484304ff697a84f9e2745112fc57801f1ed859ddbdfa4194707e3",
+      "tests/test_run_prospective_batter_opportunity_tick.py": "15510ffb99acf04d35c440540eb02a75c00627dfbf6d4fe379e91e4908f657c3",
+      ".github/workflows/prospective-batter-opportunity-linux.yml": "f9cb05f663eead98771e053a6b93a48f8ab7a0505e422c709c994e96d3405350"
+    },
+    "source_audit": {
+      "reports/prospective_opportunity_real_source_audit_v1.json": "cb385e41dd056996f9813333d08cb16fa2d8d999129166e908d11da632b9d674",
+      "reports/prospective_batter_opportunity_independent_qa_v1.md": "c4cceb742203bec5b898b45b58af3ad86a5cd82410ac256a58f318aaaaeaadf0",
+      "reports/prospective_batter_opportunity_independent_qa_recheck_v1.md": "34627408d52547f77b6a12bd4807bc756ac8ed60ad121b05eb7bc16df006a429",
+      "reports/prospective_batter_opportunity_runtime_integration_qa_v1.md": "f01b516200b69ab848ae5053ff975e79dd94b73839b20099ea7d308ae7f643c3",
+      "reports/prospective_batter_opportunity_integrated_independent_qa_v1.md": "fab0317b7ea11483aaa0600a1f47ce40e6db80847e183792fa841829965efd1a",
+      "reports/prospective_batter_opportunity_integrated_independent_qa_recheck_v1.md": "28bc18eae9e594cbb1dfbc7a71210c4b2422d66e9f0dfe8cc556575de26bb4ee"
+    }
+  },
+  "verification": {
+    "focused_regression_and_mutation_suite": "71 passed",
+    "related_chronology_and_contract_suite": "102 passed",
+    "runtime_end_to_end_suite": "13 passed",
+    "syntax_compilation": "AST parse passed for 6 changed source/runtime files",
+    "git_diff_check": "passed",
+    "test_corpus": "synthetic regression and mutation tests plus one sanitized pre-2026 static source-surface fixture",
+    "real_source_surface_audited": true,
+    "real_source_fixture_persisted_for_offline_replay": true,
+    "linux_tested": true,
+    "linux_run_id": "30267258778",
+    "linux_job_id": "89980816958",
+    "linux_tested_git_tree": "dc405394e6adb3cfdce061ad6c7f3e6b6fbfc0df",
+    "linux_supply_chain": "workflow actions pinned to immutable commits; test-only wheels exact-version and SHA-256 bound",
+    "initial_independent_qa_completed": true,
+    "initial_independent_qa_decision": "NOT_READY_FOR_RUNTIME_DEPLOYMENT_OR_EVIDENCE_COLLECTION",
+    "initial_independent_qa_blockers_repaired_in_current_bytes": [
+      "QA-PBO-001 unproven T-4 roster binding",
+      "QA-PBO-002 post-publication-only semantic snapshot rejection",
+      "QA-PBO-004 missing direct source-invalid no-retention regression"
+    ],
+    "earlier_library_repair_independently_rechecked_before_runtime_integration": true,
+    "integrated_runtime_bytes_independently_rechecked": true,
+    "integrated_independent_recheck_decision": "PBO-IQA-001_THROUGH_004_VERIFIED_REPAIRED_ELIGIBLE_TO_SEEK_EXPLICIT_FUTURE_ONLY_SMOKE_AUTHORIZATION",
+    "integrated_independent_qa_findings_repaired_locally": [
+      "PBO-IQA-001 prior-day plan traversal and durable missed-before-plan",
+      "PBO-IQA-002 explicit missing/incomplete upstream roster health failure",
+      "PBO-IQA-003 self-contained schedule raw proof replay",
+      "PBO-IQA-004 immutable CI action and dependency identities"
+    ],
+    "test_command_provenance": {
+      "python": "C:/Users/nicho/AppData/Local/Python/pythoncore-3.14-64/python.exe",
+      "environment": ["PYTHONDONTWRITEBYTECODE=1", "PYTHONPATH=."],
+      "pytest_options": ["-q", "-p", "no:cacheprovider"],
+      "focused_test_paths": [
+        "tests/test_prospective_batter_opportunity.py",
+        "tests/test_prospective_batter_opportunity_history.py",
+        "tests/test_run_prospective_batter_opportunity_tick.py"
+      ],
+      "related_test_paths": [
+        "tests/test_prospective_batter_opportunity.py",
+        "tests/test_prospective_batter_opportunity_history.py",
+        "tests/test_projected_lineup_contract.py",
+        "tests/test_projected_lineup_official_roster.py",
+        "tests/test_projected_lineup_roster_runner.py",
+        "tests/test_projected_lineup_history.py",
+        "tests/test_run_prospective_batter_opportunity_tick.py",
+        "tests/test_aws_projected_lineup_roster_runtime.py"
+      ]
+    }
+  },
+  "numerical_effect": {
+    "current_production_probabilities_changed": false,
+    "candidate_probabilities_created": false,
+    "model_fitted_or_calibrated": false,
+    "historical_or_holdout_outcomes_scored": false,
+    "market_improvement_claimed": false
+  },
+  "deployment": {
+    "github_pushed": true,
+    "current_repaired_bytes_pushed": true,
+    "aws_changed": false,
+    "active_collectors_changed": false,
+    "future_collection_active": false
+  },
+  "remaining_gates": [
+    "future non-May operational smoke under a separately authorized deployment",
+    "explicit human deployment authorization",
+    "untouched prospective evidence accumulation before any fitting or model claim"
+  ],
+  "highest_value_next_action": "Seek explicit human authorization for a separately isolated, future-only, non-May, non-economic smoke of the exact reviewed candidate; preserve all successes, terminal missingness, and failures without backfill."
+}

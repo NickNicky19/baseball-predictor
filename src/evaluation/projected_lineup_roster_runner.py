@@ -62,7 +62,7 @@ def run_tick(*, plan: ShadowCapturePlan, ledger: ProjectedLineupRosterLedger, ma
             try:
                 roster = fetch_roster(team_id, target.official_game_date)
                 record = parse_active_roster_receipt(response=roster, requested_date=target.official_game_date, team_id=team_id, target_horizon_utc=target.entry_target_at_utc)
-                ledger.append_capture(target=target, side=side, team_id=team_id, roster_record=record, schedule_raw=schedule.body, roster_raw=roster.body, committed_utc=roster.received_at_utc)
+                ledger.append_capture(target=target, side=side, team_id=team_id, roster_record=record, schedule_raw=schedule.body, schedule_received_at_utc=schedule.received_at_utc, roster_raw=roster.body, committed_utc=roster.received_at_utc)
                 result[CAPTURED] += 1
             except Exception as exc:
                 state = "roster_malformed"
