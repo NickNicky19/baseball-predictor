@@ -1,0 +1,101 @@
+{
+  "schema_version": "shared-pa-contact-eb-offset-execution-lock-v1",
+  "status": "LOCKED_BEFORE_FIRST_CONTACT_CANDIDATE_OUTCOME_SCORE",
+  "locked_date": "2026-07-27",
+  "candidate_id": "shared_pa_contact_eb_offset_catboost_2023_v1",
+  "development_years": [2023],
+  "git_parent_before_candidate_commit": "db163b19ae023797a91076d4c4f733121e71c2d9",
+  "required_file_hashes": {
+    "config/shared_pa_contact_eb_offset_development_2023_v1.json": "cf125d459ff169d64aa129e91ebb606451eee7ae6e06e4d3ba50c3f7a86bce3a",
+    "config/shared_pa_contact_quality_input_v1.json": "16e3b03389d09772b806d0da021cf24630440f931961e9b7746bcc7cf6d44ccb",
+    "config/shared_pa_contact_quality_input_v1_artifact_registry.json": "6c052d2fc53e24ede6a48d8a3e15a1a2b3025de0fe7c499f53ba589b8314458f",
+    "config/shared_pa_true_eb_offset_development_2023_v1.json": "7abfa0bca565a0e561655a061ca7e0f3ef7a3da2c3e764f9949ef46bb20a7b27",
+    "requirements-shared-pa-offset-research.lock": "53edbfa534459339d98188b14a716a9a9fb72c18510acdb267c67dbac3d33296",
+    "scripts/develop_shared_pa_contact_eb_offset_2023.py": "fe6768100ee8104983b2b0e6715b505766ad7f9e78a3133de69885f9569f6b04",
+    "scripts/develop_shared_pa_true_eb_offset_2023.py": "2f2c42dd2d43c84b5c61f0c1c2e53953a206740e2e32d9132dd21a9d58a03e92",
+    "scripts/validate_shared_pa_contact_quality_panel.py": "d9421266bd2c9f22b2d9b009a3919a622002ad7efbb70b729d9ab22cb085e0cd",
+    "src/evaluation/shared_pa_contact_quality.py": "a9240a13d687c0690442c4dc9587b09971c58c88e16219140cf929a190e9bb18",
+    "src/evaluation/shared_pa_eb_offset_catboost.py": "711e1e3e71edd137f19d434c4fda4814c57a529b339bd1f342f2193c239442a2",
+    "src/evaluation/shared_pa_offset_evaluation.py": "2b90a27ad9e4b35fab61e887414e3a48e40841399c7c0c69b029848ee936668b",
+    "src/evaluation/shared_pa_training_data.py": "ce0689ef9d3d296a8d40e9badc2400c73bf57fa648f73d1d43e8c4efd900fac1",
+    "tests/test_develop_shared_pa_contact_eb_offset_2023.py": "21ebc5b502db9ce3ba823eaee527fa05cef446b1582daf41cc20b38040f84459",
+    "tests/test_shared_pa_contact_quality.py": "8d53cd6c4470730534f0a25e93e562cc8e7e53a46a57b02a81f6ad0ca6e4bd6a",
+    "tests/test_shared_pa_eb_offset_catboost.py": "ee03b7c9596c25b88daf6620a62fc119c6acc443399e58ed120fbfcd51290567",
+    "tests/test_shared_pa_offset_evaluation.py": "13f8a28fa0ec970e7d89169862334b79f6bd10e0a9dbdd75580485a79fdfae45",
+    "tests/test_validate_shared_pa_contact_quality_panel.py": "da607b8c5749b093586c7796f334cebdecaf5e435f13eae9d05d77e883f2a351"
+  },
+  "base_panel_identity": {
+    "panel_sha256": "643a4c6533dbe59fc4e6b5e5932683c0877ae0a5d982945c799976d36af1ebf6",
+    "panel_manifest_sha256": "083fe961b00299f0561130e204e5264dfa05f0b234b72ce2af214ac5f681e9a4",
+    "panel_certificate_sha256": "aa3fd225f946b91ab1e1249eb8b7ce415f0fccabb18a041e3960552b2aeaf8ae",
+    "physical_rows": 43740,
+    "fit_eligible_rows": 43726,
+    "zero_pa_rows_excluded": 14
+  },
+  "contact_input_identity": {
+    "panel_sha256": "a7882dccda3d36b37957261903a8a35644b9d9118c5f80ecb7085ef1cb5bbb89",
+    "manifest_sha256": "a5ec5637ae181838f09429b5846cc8b575561c6202d83ee165cfb215e008abd1",
+    "certificate_sha256": "5324e890023acd5ea84aa9c1c9b2cdee5008c3c51f4f244911dd43d4d601fe4f",
+    "physical_rows": 43740,
+    "feature_columns": 44
+  },
+  "candidate_feature_identity": {
+    "construction": "ordered rejected residual-control features followed by ordered contact-quality-input-v1 features",
+    "count": 117,
+    "ordered_names_sha256": "ba26385071002e4086e8af55ed7a6ce0ce436e25296bae6e6e510db70bff5e1d"
+  },
+  "frozen_core_feature_identity": {
+    "selection_rule": "ordered base-panel columns beginning history_ and not containing age_days",
+    "count": 77,
+    "ordered_names_sha256": "243e9f0c050853ee36de0228edc060027cce426ac383b54791cfe3b45b9cfc6e"
+  },
+  "runtime": {
+    "python_version": "3.12.13",
+    "python_executable_sha256_observed_on_lock_host": "5912d0884b23c0343983a864c6064242391e2265536f50b88624857e353882c9",
+    "distributions": {
+      "catboost": "1.2.10",
+      "colorama": "0.4.6",
+      "contourpy": "1.3.3",
+      "cycler": "0.12.1",
+      "fonttools": "4.63.0",
+      "graphviz": "0.21",
+      "iniconfig": "2.3.0",
+      "kiwisolver": "1.5.0",
+      "matplotlib": "3.11.1",
+      "narwhals": "2.24.0",
+      "numpy": "2.3.5",
+      "packaging": "26.2",
+      "pandas": "3.0.1",
+      "pillow": "12.3.0",
+      "pip": "25.0.1",
+      "plotly": "6.9.0",
+      "pluggy": "1.6.0",
+      "Pygments": "2.20.0",
+      "pyparsing": "3.3.2",
+      "pytest": "8.4.2",
+      "python-dateutil": "2.9.0.post0",
+      "scipy": "1.18.0",
+      "six": "1.17.0",
+      "tzdata": "2026.3"
+    }
+  },
+  "pre_score_checks": {
+    "focused_tests": "40 passed",
+    "compile": "PASS",
+    "rejected_control_required": true,
+    "market_specific_gates_locked": true,
+    "model_or_threshold_selection": false,
+    "outcomes_scored_before_lock": false
+  },
+  "protected_boundaries": {
+    "selection_or_confirmation_opened": false,
+    "spent_2024_not_reused": true,
+    "spent_2025_hr_not_reused": true,
+    "may_2026_sealed": true,
+    "missed_prospective_evidence_not_backfilled": true,
+    "frozen_baselines_and_rejections_preserved": true,
+    "operational_collectors_untouched": true,
+    "production_changed": false,
+    "betting_authorized": false
+  }
+}
