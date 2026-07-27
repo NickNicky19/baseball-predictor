@@ -147,6 +147,10 @@ def feature_contracts(protocol: Mapping[str, Any]) -> tuple[dict[str, Any], dict
     ):
         require(path.is_file() and sha256_file(path) == expected, f"feature-source identity mismatch: {path.name}")
     base_protocol = base.load_protocol(base_path)
+    require(
+        protocol["candidate"]["residual_model"] == base_protocol["candidate"]["residual_model"],
+        "candidate residual parameters differ from the frozen control",
+    )
     contact_contract = load_json(contact_path)
     require(contact_contract.get("status") == "LOCKED_BEFORE_2023_FEATURE_PANEL_BUILD", "contact contract is not locked")
     require(contact_contract.get("features") == list(FEATURE_COLUMNS), "contact feature contract changed")

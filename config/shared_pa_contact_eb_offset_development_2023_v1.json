@@ -27,7 +27,7 @@
       "thread_count": 2,
       "random_seed": 20260721,
       "allow_writing_files": false,
-      "parameter_selection": "none; inherited unchanged from the frozen all-prior CatBoost core comparator"
+      "parameter_selection": "none; inherited once from the frozen all-prior CatBoost core comparator"
     },
     "model_or_threshold_selection": "none",
     "missing_value_policy": "native CatBoost missing values for denominator-zero rates; counts and denominators are never imputed",

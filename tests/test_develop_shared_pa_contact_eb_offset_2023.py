@@ -76,6 +76,15 @@ def test_contact_contract_hash_mutation_fails_before_data_use(tmp_path: Path) ->
         feature_contracts(load_protocol(path))
 
 
+def test_residual_parameter_mutation_fails_before_data_use(tmp_path: Path) -> None:
+    value = json.loads(PROTOCOL.read_text(encoding="utf-8"))
+    value["candidate"]["residual_model"]["depth"] = 5
+    path = tmp_path / "protocol.json"
+    _write(path, value)
+    with pytest.raises(ValueError, match="residual parameters differ"):
+        feature_contracts(load_protocol(path))
+
+
 def test_contact_join_preserves_identity_and_valid_missing_rates() -> None:
     base = pd.DataFrame(
         [
