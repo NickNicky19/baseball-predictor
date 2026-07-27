@@ -110,7 +110,7 @@ jobs:
           targets=(dashboard src/omega_contracts scripts/prepare_omega_scaffold_build_context.py scripts/generate_omega_phase4_schemas.py scripts/verify_omega_scaffold_package.py scripts/verify_omega_scaffold_structure.py tests/omega_dashboard tests/omega_contracts)
           "$RUNNER_TEMP/lintenv/bin/ruff" check --select E4,E7,E9,F,I "${targets[@]}"
           "$RUNNER_TEMP/lintenv/bin/ruff" format --check "${targets[@]}"
-          "$testpy" scripts/generate_omega_phase4_schemas.py --output-directory docs/omega_stage2/phase4 --check
+          PYTHONPATH=. "$testpy" scripts/generate_omega_phase4_schemas.py --output-directory docs/omega_stage2/phase4 --check
           PYTHONDONTWRITEBYTECODE=1 "$testpy" -m pytest -q -p no:cacheprovider tests/omega_contracts tests/omega_dashboard
           context="$RUNNER_TEMP/omega-build-context"
           "$buildpy" scripts/prepare_omega_scaffold_build_context.py --repository-root . --destination "$context"

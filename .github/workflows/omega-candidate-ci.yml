@@ -155,7 +155,7 @@ jobs:
           PYTHONPATH=. "$TESTPY" scripts/verify_omega_candidate_boundaries.py
           "$TESTPY" infra/omega_staging/verify_production_boundary.py
           "$TESTPY" scripts/verify_omega_scaffold_structure.py --root .
-          "$TESTPY" scripts/generate_omega_phase4_schemas.py --output-directory docs/omega_stage2/phase4 --check
+          PYTHONPATH=. "$TESTPY" scripts/generate_omega_phase4_schemas.py --output-directory docs/omega_stage2/phase4 --check
           PYTHONDONTWRITEBYTECODE=1 "$TESTPY" -m pytest -q -p no:cacheprovider tests/omega_contracts tests/omega_dashboard
 
       - name: Build and inspect exact standalone wheel

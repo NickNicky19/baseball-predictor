@@ -20,6 +20,19 @@ def test_candidate_ci_protects_deletions_as_well_as_writes() -> None:
     assert "context_a=" in workflow and "context_b=" in workflow
     assert "--network none" in workflow
     assert "--read-only" in workflow
+    schema_commands = {
+        ".github/workflows/omega-candidate-ci.yml": (
+            'PYTHONPATH=. "$TESTPY" scripts/generate_omega_phase4_schemas.py'
+        ),
+        ".github/workflows/omega-staging-deploy.yml": (
+            'PYTHONPATH=. "$testpy" scripts/generate_omega_phase4_schemas.py'
+        ),
+    }
+    for path, expected in schema_commands.items():
+        workflow = (ROOT / path).read_text(encoding="utf-8")
+        assert expected in workflow
+        mutated = workflow.replace(expected, expected.removeprefix("PYTHONPATH=. "), 1)
+        assert expected not in mutated
 
 
 def test_staging_rollback_reuses_only_a_verified_immutable_image() -> None:
