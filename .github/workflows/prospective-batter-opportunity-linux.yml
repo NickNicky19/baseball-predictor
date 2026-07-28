@@ -11,7 +11,6 @@ name: Prospective Batter Opportunity Linux Gate
       - "config/prospective_batter_opportunity_runtime_v1.json"
       - "config/projected_lineup_contract_v1.json"
       - "config/projected_lineup_roster_runtime_v1.json"
-      - "config/shared_pa_opportunity_matchup_protocol_v1.json"
       - "reports/prospective_batter_opportunity_*.json"
       - "reports/prospective_batter_opportunity_*.md"
       - "reports/prospective_opportunity_real_source_audit_v1.json"
@@ -19,12 +18,8 @@ name: Prospective Batter Opportunity Linux Gate
       - "src/evaluation/prospective_batter_opportunity*.py"
       - "src/evaluation/projected_lineup_roster_ledger.py"
       - "src/evaluation/projected_lineup_roster_runner.py"
-      - "src/evaluation/forward_pitcher_context_v2.py"
-      - "src/evaluation/projected_lineup_contract_v2.py"
-      - "src/evaluation/shared_pa_opportunity_matchup_contract.py"
       - "tests/fixtures/prospective_batter_opportunity/**"
       - "tests/test_prospective_batter_opportunity*.py"
-      - "tests/test_shared_pa_opportunity_matchup_contract.py"
       - "tests/test_run_prospective_batter_opportunity_tick.py"
       - "tests/test_projected_lineup_contract.py"
       - "tests/test_projected_lineup_official_roster.py"
@@ -69,7 +64,6 @@ jobs:
           python -m pytest -q -p no:cacheprovider \
             tests/test_prospective_batter_opportunity.py \
             tests/test_prospective_batter_opportunity_history.py \
-            tests/test_shared_pa_opportunity_matchup_contract.py \
             tests/test_run_prospective_batter_opportunity_tick.py
 
       - name: Run related chronology and source-truth suite
@@ -81,7 +75,6 @@ jobs:
             tests/test_projected_lineup_official_roster.py \
             tests/test_projected_lineup_roster_runner.py \
             tests/test_projected_lineup_history.py \
-            tests/test_shared_pa_opportunity_matchup_contract.py \
             tests/test_run_prospective_batter_opportunity_tick.py \
             tests/test_aws_projected_lineup_roster_runtime.py
 
