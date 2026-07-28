@@ -30,15 +30,15 @@
       "role": "minimum_version_dependencies_not_an_exact_lock"
     },
     {
-      "path": "requirements-prospective-batter-opportunity-ci.lock",
-      "size": 839,
-      "sha256": "c86f1f5f4f844097d61332c461b8f62d9d761fa581985bd8dcd7ad90a5a2a2f3",
+      "path": "requirements-shared-pa-projected-opportunity-ci.lock",
+      "size": 840,
+      "sha256": "c552e651e9dd80b39cfdfa0e4af1a3ea316111c984233656c549e4fa934df7d5",
       "role": "exact_linux_test_dependency_lock"
     },
     {
       "path": ".github/workflows/shared-pa-projected-opportunity-linux.yml",
-      "size": 2571,
-      "sha256": "bda663fa7be5cb222187677f8234c0eea08a41e54cec5992744dbbc7d266c889",
+      "size": 2574,
+      "sha256": "e37e1538eb9e4bd73161584e9bddd4b9ae6d56e60220f0959a378bc017899783",
       "role": "exact_linux_candidate_gate"
     },
     {

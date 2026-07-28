@@ -6,7 +6,7 @@ name: Shared PA Projected Opportunity Linux Gate
       - main
     paths:
       - ".github/workflows/shared-pa-projected-opportunity-linux.yml"
-      - "requirements-prospective-batter-opportunity-ci.lock"
+      - "requirements-shared-pa-projected-opportunity-ci.lock"
       - "config/shared_pa_projected_opportunity_forward_v1.json"
       - "reports/shared_pa_projected_opportunity_candidate_v1_hash_manifest.json"
       - "src/data/odds/base.py"
@@ -48,11 +48,11 @@ jobs:
       - name: Install exact test-only dependencies
         run: |
           python -m pip install --disable-pip-version-check --no-deps --require-hashes \
-            -r requirements-prospective-batter-opportunity-ci.lock
+            -r requirements-shared-pa-projected-opportunity-ci.lock
           python -m pip check
           python --version
           python -m pytest --version
-          sha256sum requirements-prospective-batter-opportunity-ci.lock
+          sha256sum requirements-shared-pa-projected-opportunity-ci.lock
 
       - name: Validate bound protocol and candidate tests
         run: |
