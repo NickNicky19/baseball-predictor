@@ -23,7 +23,7 @@
     {"path": "src/evaluation/shared_pa_forward_evidence.py", "size": 31965, "sha256": "9b8f79ce7b12d8ead102a4c2cbfedb227a18c6e1ebb47e70b19f24910fea59f1"},
     {"path": "src/evaluation/shadow_capture_plan.py", "size": 22434, "sha256": "491a73556cab02b8295eee695f0474345defbc15f5d9bd01aae011cdff2b17e0"},
     {"path": "tests/test_prospective_batter_opportunity_history.py", "size": 18385, "sha256": "41fc0286581484304ff697a84f9e2745112fc57801f1ed859ddbdfa4194707e3"},
-    {"path": "tests/test_shared_pa_batter_evidence_inventory.py", "size": 27856, "sha256": "68a512b7802c06eb8d1204c4a329c3ea647a92881f0669be54dc7533a7718310"}
+    {"path": "tests/test_shared_pa_batter_evidence_inventory.py", "size": 27855, "sha256": "dc6ab1e4a6e35272fb4c8bf61b6eba8d7f82b9494c511e0512c4e24f84bc9675"}
   ],
   "protected_boundaries": {
     "aws_changed": false,

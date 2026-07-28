@@ -227,7 +227,7 @@ def test_source_symlink_is_rejected(tmp_path, monkeypatch):
         target.symlink_to(history / "ledger_manifest.json")
     except OSError:
         pytest.skip("symlink creation is unavailable")
-    with pytest.raises(BatterEvidenceInventoryError, match="symlink"):
+    with pytest.raises(BatterEvidenceInventoryError, match="linked"):
         assemble_side_inventory(
             official_game_date=GAME_DATE,
             plan_path=plan_dir / f"{GAME_DATE}.plan.json",
