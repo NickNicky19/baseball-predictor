@@ -36,7 +36,7 @@ EXPECTED_MANIFEST_KEYS = {
     "population", "production_changed", "protocol", "raw_root", "raw_source_sha256",
     "schema_version", "script_sha256", "status", "zero_pa_evidence",
 }
-IMPLEMENTATION_SOURCE_BASE_COMMIT = "4df186b138eb3ed226f764dbe6591ee81a27edba"
+IMPLEMENTATION_SOURCE_BASE_COMMIT = "3ae769f172a0550e23ea094af9f6e8fd6618bca4"
 IMPLEMENTATION_FILES = (
     "config/direct_batter_pa_source_binding_v1.json",
     "scripts/validate_direct_batter_pa_source_binding.py",

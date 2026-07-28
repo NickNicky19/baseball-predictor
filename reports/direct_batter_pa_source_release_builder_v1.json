@@ -16,8 +16,8 @@
     "prospective_evidence_opened": false
   },
   "implementation": {
-    "base_commit": "4df186b138eb3ed226f764dbe6591ee81a27edba",
-    "branch": "codex/batter-feature-source-binding-v1",
+    "base_commit": "3ae769f172a0550e23ea094af9f6e8fd6618bca4",
+    "branch": "codex/batter-source-authority-mainline-v1",
     "files": {
       "config/direct_batter_pa_source_release_v1.json": {
         "bytes": 1844,

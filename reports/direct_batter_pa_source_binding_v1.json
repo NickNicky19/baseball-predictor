@@ -22,10 +22,10 @@
   "eligible_for_protocol_locking": false,
   "implementation_sha256": {
     "config/direct_batter_pa_source_binding_v1.json": "996bc9014a8c9825c89f83b254f88bcf695254a81d3f7b027eda992edf7caa3f",
-    "scripts/validate_direct_batter_pa_source_binding.py": "d32e371ae3c42c2d0c3ed78b65e454d301e7d0e72b18076604ae303d6eec0259",
+    "scripts/validate_direct_batter_pa_source_binding.py": "8eaf5f2d3cc01b9ae0d007e6d1d50b3e1a381f176fdd952da2d3dd7fbd925f0a",
     "tests/test_direct_batter_pa_source_binding.py": "73b9433898ca45cfebb88c35baddb572f9a9ad3e3a055195ed1df3a3dba90d6d"
   },
-  "implementation_source_base_commit": "4df186b138eb3ed226f764dbe6591ee81a27edba",
+  "implementation_source_base_commit": "3ae769f172a0550e23ea094af9f6e8fd6618bca4",
   "local_integrity": {
     "official_2023": {
       "files_rehashed": 205,
