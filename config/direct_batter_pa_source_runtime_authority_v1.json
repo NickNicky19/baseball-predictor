@@ -50,7 +50,7 @@
     "scripts/verify_direct_batter_pa_source_runtime_authority.py": "20cbe564ec1376f366c1938991a293c866aa4893bda11ffecd8d3d874855b0f1",
     "tests/test_direct_batter_pa_source_binding.py": "73b9433898ca45cfebb88c35baddb572f9a9ad3e3a055195ed1df3a3dba90d6d",
     "tests/test_direct_batter_pa_source_release.py": "dae6dd90b2cbb820d1d8c8f38ff9d977555a1ac1a9e7bf29e7c91e91d818e6fa",
-    "tests/test_direct_batter_pa_source_runtime_authority.py": "b6386ea64123a56746cb46c115e4793bf46f7b0587d97682ed824ada925819e5"
+    "tests/test_direct_batter_pa_source_runtime_authority.py": "a9b5435a3378f78691f7de9ba8bd26cf26958faa2ae873b6385c2665f6044138"
   },
   "runtime_requirements": {
     "tls_context_initialization_required": true,

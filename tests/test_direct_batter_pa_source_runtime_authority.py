@@ -280,6 +280,7 @@ def test_ci_uses_clean_no_pip_environment_and_isolated_pytest() -> None:
     workflow = (ROOT / ".github/workflows/direct-batter-pa-source-authority-linux.yml").read_text(encoding="utf-8")
     assert "venv --without-pip" in workflow
     assert "PYTEST_DISABLE_PLUGIN_AUTOLOAD" in workflow
+    assert workflow.count("unset LD_LIBRARY_PATH") == 5
     assert " -I -B -m pytest" in workflow
     assert "--check-manifest" in workflow
     assert '"reports/direct_batter_pa_source_runtime_authority_v1_hash_manifest.json"' in workflow

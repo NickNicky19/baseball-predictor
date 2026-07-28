@@ -7,8 +7,8 @@
   "network_fetch_authorized": false,
   "files": {
     ".github/workflows/direct-batter-pa-source-authority-linux.yml": {
-      "bytes": 3870,
-      "sha256": "1acc5fa607ccd091921f1776aa1b3829abc4b1f70ea8bf9126e0a8b236f01497"
+      "bytes": 4030,
+      "sha256": "4e8421bc27d4ff9634104551f8d1548608f5ea6709f39a3c978f00540e13fbca"
     },
     "config/direct_batter_pa_source_binding_v1.json": {
       "bytes": 3483,
@@ -20,7 +20,7 @@
     },
     "config/direct_batter_pa_source_runtime_authority_v1.json": {
       "bytes": 2726,
-      "sha256": "0050c14a5c2c7d2002b56db10785294d1913d303fe5b65f999bf2568bde5319f"
+      "sha256": "92c033774240d90818f7bd8ca70727f52ecfbc720e962716b158dccb1143fd33"
     },
     "reports/direct_batter_pa_source_runtime_authority_v1.md": {
       "bytes": 4115,
@@ -59,8 +59,8 @@
       "sha256": "dae6dd90b2cbb820d1d8c8f38ff9d977555a1ac1a9e7bf29e7c91e91d818e6fa"
     },
     "tests/test_direct_batter_pa_source_runtime_authority.py": {
-      "bytes": 13420,
-      "sha256": "b6386ea64123a56746cb46c115e4793bf46f7b0587d97682ed824ada925819e5"
+      "bytes": 13476,
+      "sha256": "a9b5435a3378f78691f7de9ba8bd26cf26958faa2ae873b6385c2665f6044138"
     }
   },
   "limitations": [
