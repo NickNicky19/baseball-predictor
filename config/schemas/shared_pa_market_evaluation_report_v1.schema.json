@@ -1,0 +1,225 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "shared-pa-market-evaluation-report-v1",
+  "$defs": {
+    "nonnegativeInteger": {"type": "integer", "minimum": 0},
+    "positiveInteger": {"type": "integer", "minimum": 1},
+    "unit": {"type": "number", "minimum": 0, "maximum": 1},
+    "nullableUnit": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/unit"}]},
+    "line": {"type": "string", "pattern": "^(0|[1-9][0-9]*)(\\.[0-9]*[1-9])?$"},
+    "calibrationBin": {
+      "type": "object", "additionalProperties": false,
+      "required": ["lower", "upper", "count", "mean_probability", "observed_rate"],
+      "properties": {
+        "lower": {"$ref": "#/$defs/unit"}, "upper": {"$ref": "#/$defs/unit"},
+        "count": {"$ref": "#/$defs/nonnegativeInteger"},
+        "mean_probability": {"$ref": "#/$defs/nullableUnit"},
+        "observed_rate": {"$ref": "#/$defs/nullableUnit"}
+      }
+    },
+    "interceptSlope": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "intercept", "slope", "iterations"],
+      "properties": {
+        "status": {"enum": ["OK", "INSUFFICIENT_CLASSES", "UNIDENTIFIABLE_CONSTANT_PREDICTION", "UNIDENTIFIABLE_OR_SEPARATED", "NONCONVERGED"]},
+        "intercept": {"type": ["number", "null"]}, "slope": {"type": ["number", "null"]},
+        "iterations": {"type": "integer", "minimum": 0, "maximum": 100}
+      },
+      "allOf": [{
+        "if": {"properties": {"status": {"const": "OK"}}, "required": ["status"]},
+        "then": {"properties": {"intercept": {"type": "number"}, "slope": {"type": "number"}}},
+        "else": {"properties": {"intercept": {"type": "null"}, "slope": {"type": "null"}}}
+      }]
+    },
+    "calibration": {
+      "type": "object", "additionalProperties": false,
+      "required": ["mean_probability", "observed_rate", "calibration_in_the_large", "intercept_slope", "bins"],
+      "properties": {
+        "mean_probability": {"$ref": "#/$defs/unit"}, "observed_rate": {"$ref": "#/$defs/unit"},
+        "calibration_in_the_large": {"type": "number", "minimum": -1, "maximum": 1},
+        "intercept_slope": {"$ref": "#/$defs/interceptSlope"},
+        "bins": {"type": "array", "minItems": 10, "maxItems": 10, "items": {"$ref": "#/$defs/calibrationBin"}}
+      }
+    },
+    "discrimination": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "auc", "positive_count", "negative_count"],
+      "properties": {
+        "status": {"enum": ["OK", "INSUFFICIENT_CLASSES"]}, "auc": {"$ref": "#/$defs/nullableUnit"},
+        "positive_count": {"$ref": "#/$defs/nonnegativeInteger"}, "negative_count": {"$ref": "#/$defs/nonnegativeInteger"}
+      },
+      "allOf": [{
+        "if": {"properties": {"status": {"const": "OK"}}, "required": ["status"]},
+        "then": {"properties": {"auc": {"$ref": "#/$defs/unit"}}},
+        "else": {"properties": {"auc": {"type": "null"}}}
+      }]
+    },
+    "binaryMetrics": {
+      "type": "object", "additionalProperties": false,
+      "required": ["count", "brier", "log_loss", "calibration", "discrimination"],
+      "properties": {
+        "count": {"$ref": "#/$defs/positiveInteger"}, "brier": {"type": "number", "minimum": 0, "maximum": 1},
+        "log_loss": {"type": "number", "minimum": 0}, "calibration": {"$ref": "#/$defs/calibration"},
+        "discrimination": {"$ref": "#/$defs/discrimination"}
+      }
+    },
+    "distributionMetrics": {
+      "type": "object", "additionalProperties": false,
+      "required": ["count", "multiclass_brier", "ranked_probability_score", "log_loss", "log_loss_status", "zero_realized_mass_count"],
+      "properties": {
+        "count": {"$ref": "#/$defs/positiveInteger"}, "multiclass_brier": {"type": "number", "minimum": 0, "maximum": 2},
+        "ranked_probability_score": {"type": "number", "minimum": 0}, "log_loss": {"type": ["number", "null"], "minimum": 0},
+        "log_loss_status": {"enum": ["OK", "ZERO_REALIZED_MASS_FAIL_CLOSED"]},
+        "zero_realized_mass_count": {"$ref": "#/$defs/nonnegativeInteger"}
+      },
+      "allOf": [{
+        "if": {"properties": {"log_loss_status": {"const": "OK"}}, "required": ["log_loss_status"]},
+        "then": {"properties": {"log_loss": {"type": "number", "minimum": 0}, "zero_realized_mass_count": {"const": 0}}},
+        "else": {"properties": {"log_loss": {"type": "null"}, "zero_realized_mass_count": {"type": "integer", "minimum": 1}}}
+      }]
+    },
+    "totalBasesMetrics": {
+      "type": "object", "additionalProperties": false,
+      "required": ["count", "brier", "log_loss", "calibration", "discrimination", "full_distribution"],
+      "properties": {
+        "count": {"$ref": "#/$defs/positiveInteger"}, "brier": {"type": "number", "minimum": 0, "maximum": 1},
+        "log_loss": {"type": "number", "minimum": 0}, "calibration": {"$ref": "#/$defs/calibration"},
+        "discrimination": {"$ref": "#/$defs/discrimination"}, "full_distribution": {"$ref": "#/$defs/distributionMetrics"}
+      }
+    },
+    "comparisonCoverage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["eligible_universe", "candidate_available", "baseline_available", "common_support_all_settlements", "common_support_graded", "candidate_only", "baseline_only", "neither", "ungradeable_common_support"],
+      "properties": {
+        "eligible_universe": {"$ref": "#/$defs/nonnegativeInteger"}, "candidate_available": {"$ref": "#/$defs/nonnegativeInteger"},
+        "baseline_available": {"$ref": "#/$defs/nonnegativeInteger"}, "common_support_all_settlements": {"$ref": "#/$defs/nonnegativeInteger"},
+        "common_support_graded": {"$ref": "#/$defs/nonnegativeInteger"}, "candidate_only": {"$ref": "#/$defs/nonnegativeInteger"},
+        "baseline_only": {"$ref": "#/$defs/nonnegativeInteger"}, "neither": {"$ref": "#/$defs/nonnegativeInteger"},
+        "ungradeable_common_support": {"$ref": "#/$defs/nonnegativeInteger"}
+      }
+    },
+    "interval": {
+      "oneOf": [
+        {"type": "object", "additionalProperties": false, "required": ["status", "cluster_count", "draws", "interval"], "properties": {"status": {"const": "OK"}, "cluster_count": {"type": "integer", "minimum": 2}, "draws": {"const": 2000}, "interval": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number"}}}},
+        {"type": "object", "additionalProperties": false, "required": ["status", "cluster_count", "interval"], "properties": {"status": {"enum": ["INSUFFICIENT_CLUSTERS", "ZERO_REALIZED_MASS_FAIL_CLOSED"]}, "cluster_count": {"$ref": "#/$defs/nonnegativeInteger"}, "interval": {"type": "null"}}}
+      ]
+    },
+    "binaryCluster": {
+      "type": "object", "additionalProperties": false, "required": ["brier", "log_loss"],
+      "properties": {"brier": {"$ref": "#/$defs/interval"}, "log_loss": {"$ref": "#/$defs/interval"}}
+    },
+    "distributionCluster": {
+      "type": "object", "additionalProperties": false,
+      "required": ["multiclass_brier", "ranked_probability_score", "log_loss"],
+      "properties": {"multiclass_brier": {"$ref": "#/$defs/interval"}, "ranked_probability_score": {"$ref": "#/$defs/interval"}, "log_loss": {"$ref": "#/$defs/interval"}}
+    },
+    "noSupportComparison": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "common_support", "coverage"],
+      "properties": {"status": {"const": "NO_GRADED_COMMON_SUPPORT"}, "common_support": {"const": 0}, "coverage": {"$ref": "#/$defs/comparisonCoverage"}}
+    },
+    "scoredBinaryComparison": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "common_support", "coverage", "candidate_common_support_metrics", "baseline_common_support_metrics", "candidate_minus_baseline_brier", "candidate_minus_baseline_log_loss", "date_cluster", "game_cluster"],
+      "properties": {
+        "status": {"const": "SCORED_COMMON_SUPPORT"}, "common_support": {"$ref": "#/$defs/positiveInteger"},
+        "coverage": {"$ref": "#/$defs/comparisonCoverage"}, "candidate_common_support_metrics": {"$ref": "#/$defs/binaryMetrics"},
+        "baseline_common_support_metrics": {"$ref": "#/$defs/binaryMetrics"}, "candidate_minus_baseline_brier": {"type": "number"},
+        "candidate_minus_baseline_log_loss": {"type": "number"}, "date_cluster": {"$ref": "#/$defs/binaryCluster"},
+        "game_cluster": {"$ref": "#/$defs/binaryCluster"}
+      }
+    },
+    "fullDistributionComparison": {
+      "type": "object", "additionalProperties": false,
+      "required": ["candidate", "baseline", "candidate_minus_baseline_multiclass_brier", "candidate_minus_baseline_ranked_probability_score", "candidate_minus_baseline_log_loss", "date_cluster", "game_cluster"],
+      "properties": {
+        "candidate": {"$ref": "#/$defs/distributionMetrics"}, "baseline": {"$ref": "#/$defs/distributionMetrics"},
+        "candidate_minus_baseline_multiclass_brier": {"type": "number"}, "candidate_minus_baseline_ranked_probability_score": {"type": "number"},
+        "candidate_minus_baseline_log_loss": {"type": ["number", "null"]}, "date_cluster": {"$ref": "#/$defs/distributionCluster"},
+        "game_cluster": {"$ref": "#/$defs/distributionCluster"}
+      }
+    },
+    "scoredTotalBasesComparison": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "common_support", "coverage", "candidate_common_support_metrics", "baseline_common_support_metrics", "candidate_minus_baseline_brier", "candidate_minus_baseline_log_loss", "date_cluster", "game_cluster", "full_distribution"],
+      "properties": {
+        "status": {"const": "SCORED_COMMON_SUPPORT"}, "common_support": {"$ref": "#/$defs/positiveInteger"},
+        "coverage": {"$ref": "#/$defs/comparisonCoverage"}, "candidate_common_support_metrics": {"$ref": "#/$defs/binaryMetrics"},
+        "baseline_common_support_metrics": {"$ref": "#/$defs/binaryMetrics"}, "candidate_minus_baseline_brier": {"type": "number"},
+        "candidate_minus_baseline_log_loss": {"type": "number"}, "date_cluster": {"$ref": "#/$defs/binaryCluster"},
+        "game_cluster": {"$ref": "#/$defs/binaryCluster"}, "full_distribution": {"$ref": "#/$defs/fullDistributionComparison"}
+      }
+    },
+    "binaryComparison": {"oneOf": [{"$ref": "#/$defs/noSupportComparison"}, {"$ref": "#/$defs/scoredBinaryComparison"}]},
+    "totalBasesModelComparison": {"oneOf": [{"$ref": "#/$defs/noSupportComparison"}, {"$ref": "#/$defs/scoredTotalBasesComparison"}]},
+    "binaryComparisons": {
+      "type": "object", "additionalProperties": false, "required": ["league_rate", "player_time_safe_eb", "frozen_simulator", "valid_market_implied"],
+      "properties": {"league_rate": {"$ref": "#/$defs/binaryComparison"}, "player_time_safe_eb": {"$ref": "#/$defs/binaryComparison"}, "frozen_simulator": {"$ref": "#/$defs/binaryComparison"}, "valid_market_implied": {"$ref": "#/$defs/binaryComparison"}}
+    },
+    "totalBasesComparisons": {
+      "type": "object", "additionalProperties": false, "required": ["league_rate", "player_time_safe_eb", "frozen_simulator", "valid_market_implied"],
+      "properties": {"league_rate": {"$ref": "#/$defs/totalBasesModelComparison"}, "player_time_safe_eb": {"$ref": "#/$defs/totalBasesModelComparison"}, "frozen_simulator": {"$ref": "#/$defs/totalBasesModelComparison"}, "valid_market_implied": {"$ref": "#/$defs/binaryComparison"}}
+    },
+    "hrTailRow": {
+      "type": "object", "additionalProperties": false,
+      "required": ["threshold", "count", "mean_probability", "observed_rate"],
+      "properties": {"threshold": {"enum": [0.1, 0.2, 0.3]}, "count": {"$ref": "#/$defs/nonnegativeInteger"}, "mean_probability": {"$ref": "#/$defs/nullableUnit"}, "observed_rate": {"$ref": "#/$defs/nullableUnit"}}
+    },
+    "hrTailRows": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/hrTailRow"}},
+    "hrTail": {
+      "type": "object", "additionalProperties": false, "required": ["candidate", "baselines"],
+      "properties": {"candidate": {"$ref": "#/$defs/hrTailRows"}, "baselines": {"type": "object", "additionalProperties": false, "required": ["league_rate", "player_time_safe_eb", "frozen_simulator", "valid_market_implied"], "properties": {"league_rate": {"$ref": "#/$defs/hrTailRows"}, "player_time_safe_eb": {"$ref": "#/$defs/hrTailRows"}, "frozen_simulator": {"$ref": "#/$defs/hrTailRows"}, "valid_market_implied": {"$ref": "#/$defs/hrTailRows"}}}}
+    },
+    "reasonCounts": {
+      "type": "object", "additionalProperties": false,
+      "properties": {"MISSING_POINT_IN_TIME_INPUT": {"$ref": "#/$defs/positiveInteger"}, "IDENTITY_UNRESOLVED": {"$ref": "#/$defs/positiveInteger"}, "CONTRADICTORY_INPUT": {"$ref": "#/$defs/positiveInteger"}, "PITCHER_RECEIPT_UNAVAILABLE": {"$ref": "#/$defs/positiveInteger"}, "LINEUP_OPPORTUNITY_UNAVAILABLE": {"$ref": "#/$defs/positiveInteger"}, "CANDIDATE_NOT_APPLICABLE": {"$ref": "#/$defs/positiveInteger"}}
+    },
+    "baselineCounts": {"type": "object", "additionalProperties": false, "required": ["league_rate", "player_time_safe_eb", "frozen_simulator", "valid_market_implied"], "properties": {"league_rate": {"$ref": "#/$defs/nonnegativeInteger"}, "player_time_safe_eb": {"$ref": "#/$defs/nonnegativeInteger"}, "frozen_simulator": {"$ref": "#/$defs/nonnegativeInteger"}, "valid_market_implied": {"$ref": "#/$defs/nonnegativeInteger"}}},
+    "settlementCounts": {"type": "object", "additionalProperties": false, "required": ["GRADED", "PUSH", "VOID", "UNMATCHED"], "properties": {"GRADED": {"$ref": "#/$defs/nonnegativeInteger"}, "PUSH": {"$ref": "#/$defs/nonnegativeInteger"}, "VOID": {"$ref": "#/$defs/nonnegativeInteger"}, "UNMATCHED": {"$ref": "#/$defs/nonnegativeInteger"}}},
+    "coverage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["eligible_universe", "candidate_available", "candidate_available_graded", "candidate_abstained", "candidate_coverage", "reason_coded_abstentions", "baseline_available", "settlement_status", "ungradeable"],
+      "properties": {"eligible_universe": {"$ref": "#/$defs/nonnegativeInteger"}, "candidate_available": {"$ref": "#/$defs/nonnegativeInteger"}, "candidate_available_graded": {"$ref": "#/$defs/nonnegativeInteger"}, "candidate_abstained": {"$ref": "#/$defs/nonnegativeInteger"}, "candidate_coverage": {"$ref": "#/$defs/unit"}, "reason_coded_abstentions": {"$ref": "#/$defs/reasonCounts"}, "baseline_available": {"$ref": "#/$defs/baselineCounts"}, "settlement_status": {"$ref": "#/$defs/settlementCounts"}, "ungradeable": {"$ref": "#/$defs/nonnegativeInteger"}}
+    },
+    "product": {
+      "type": "object", "additionalProperties": false,
+      "required": ["market", "line", "product_key", "state", "coverage", "candidate_metrics", "comparisons", "hr_upper_tail", "qualification"],
+      "properties": {
+        "market": {"enum": ["hits", "hr_over_0_5", "total_bases"]}, "line": {"$ref": "#/$defs/line"},
+        "product_key": {"type": "string", "pattern": "^over_(0|[1-9][0-9]*)(\\.[0-9]*[1-9])?$"},
+        "state": {"const": "METRICS_ONLY_UNBOUND_NO_QUALIFICATION"}, "coverage": {"$ref": "#/$defs/coverage"},
+        "candidate_metrics": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/binaryMetrics"}, {"$ref": "#/$defs/totalBasesMetrics"}]},
+        "comparisons": {"anyOf": [{"$ref": "#/$defs/binaryComparisons"}, {"$ref": "#/$defs/totalBasesComparisons"}]},
+        "hr_upper_tail": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/hrTail"}]},
+        "qualification": {"const": "REFUSED_EXTERNAL_MATERIALITY_AND_EVIDENCE_AUTHORITIES_ABSENT"}
+      },
+      "allOf": [
+        {"if": {"properties": {"market": {"const": "hits"}}, "required": ["market"]}, "then": {"properties": {"candidate_metrics": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/binaryMetrics"}]}, "comparisons": {"$ref": "#/$defs/binaryComparisons"}, "hr_upper_tail": {"type": "null"}}}},
+        {"if": {"properties": {"market": {"const": "hr_over_0_5"}}, "required": ["market"]}, "then": {"properties": {"line": {"const": "0.5"}, "candidate_metrics": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/binaryMetrics"}]}, "comparisons": {"$ref": "#/$defs/binaryComparisons"}, "hr_upper_tail": {"$ref": "#/$defs/hrTail"}}}},
+        {"if": {"properties": {"market": {"const": "total_bases"}}, "required": ["market"]}, "then": {"properties": {"candidate_metrics": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/totalBasesMetrics"}]}, "comparisons": {"$ref": "#/$defs/totalBasesComparisons"}, "hr_upper_tail": {"type": "null"}}}}
+      ]
+    },
+    "market": {
+      "type": "object", "additionalProperties": false,
+      "required": ["market", "products", "pooled_across_products", "cross_product_rescue", "qualification"],
+      "properties": {
+        "market": {"enum": ["hits", "hr_over_0_5", "total_bases"]},
+        "products": {"type": "object", "patternProperties": {"^over_(0|[1-9][0-9]*)(\\.[0-9]*[1-9])?$": {"$ref": "#/$defs/product"}}, "additionalProperties": false},
+        "pooled_across_products": {"type": "null"}, "cross_product_rescue": {"const": false},
+        "qualification": {"const": "REFUSED_PRODUCTS_REMAIN_INDEPENDENT_AND_ENGINE_UNBOUND"}
+      }
+    }
+  },
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "contract_id", "authority_state", "evidence_class", "source_authority_id", "source_authority_manifest_sha256", "research_only", "betting_authorized", "capture_lower_bound_minimum", "market_order", "markets", "pooled_summary", "cross_market_rescue", "overall_qualification"],
+  "properties": {
+    "schema_version": {"const": "shared-pa-market-evaluation-report-v1"}, "contract_id": {"const": "shared_pa_market_evaluation_contract_v1"},
+    "authority_state": {"const": "UNBOUND_EXTERNAL_AUTHORITIES_REQUIRED"}, "evidence_class": {"const": "SYNTHETIC_STRUCTURAL_MECHANICS_ONLY"},
+    "source_authority_id": {"type": "string", "minLength": 1}, "source_authority_manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "research_only": {"const": true}, "betting_authorized": {"const": false}, "capture_lower_bound_minimum": {"const": 0.1},
+    "market_order": {"const": ["hits", "hr_over_0_5", "total_bases"]},
+    "markets": {"type": "object", "additionalProperties": false, "required": ["hits", "hr_over_0_5", "total_bases"], "properties": {"hits": {"$ref": "#/$defs/market"}, "hr_over_0_5": {"$ref": "#/$defs/market"}, "total_bases": {"$ref": "#/$defs/market"}}},
+    "pooled_summary": {"type": "null"}, "cross_market_rescue": {"const": false},
+    "overall_qualification": {"const": "REFUSED_MARKETS_REMAIN_INDEPENDENT_AND_ENGINE_UNBOUND"}
+  }
+}

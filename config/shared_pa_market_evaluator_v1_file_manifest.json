@@ -1,0 +1,19 @@
+{
+  "schema_version": "shared-pa-market-evaluator-file-manifest-v1",
+  "component_id": "shared_pa_market_evaluator_v1",
+  "state": "UNBOUND_EXTERNAL_AUTHORITIES_REQUIRED",
+  "source_base_commit": "9f86f6a34fc71151b76debf48059829aa4fa91da",
+  "research_only": true,
+  "betting_authorized": false,
+  "files": [
+    {"path": "config/shared_pa_market_evaluation_contract_v1.json", "size": 1746, "sha256": "c7ff6c8d9cf6f5d0678050a8be71d0bc49596267ef9cbba7b34650eb7c378846", "purpose": "locked inert evaluation contract"},
+    {"path": "config/schemas/shared_pa_market_evaluation_contract_v1.schema.json", "size": 3878, "sha256": "b28b567d54bba876a11b13c8b83ad69115d613ede6f31337922aacc71c5b8b61", "purpose": "contract schema"},
+    {"path": "config/schemas/shared_pa_market_evaluation_row_v1.schema.json", "size": 9069, "sha256": "94da7d4a505ed48ff60b195fa62c3cf28cbade2a5a30c9dc913deeb4a72ac45a", "purpose": "evaluation row schema"},
+    {"path": "config/schemas/shared_pa_market_evaluation_authority_v1.schema.json", "size": 1410, "sha256": "d77ab31fe2271e6f7dffe301b5a28a40b6758ab2385a104d8553eb435e2dde2d", "purpose": "future external authority schema; not bound"},
+    {"path": "config/schemas/shared_pa_market_evaluation_report_v1.schema.json", "size": 18576, "sha256": "b3edb5824f9d374cf3d3987a36ffa1b45e1e2492c553c93bd6ce5b4510aa799a", "purpose": "research-only report schema"},
+    {"path": "src/evaluation/shared_pa_market_evaluator.py", "size": 60176, "sha256": "64ab64911bd74abfe6508000984387c3ee7959720f4121c7b4e8fd8cc92ff3ed", "purpose": "fail-closed market-separated evaluator"},
+    {"path": "tests/test_shared_pa_market_evaluator.py", "size": 46382, "sha256": "6cc9a4b68e8f76ecb18b22df8449e69b17c15cdd8434e4176d4b6e3449005886", "purpose": "synthetic adversarial regression and mutation suite"},
+    {"path": "docs/research/SHARED_PA_MARKET_EVALUATION_ENGINE_V1.md", "size": 6852, "sha256": "691be4a0a5b753ae8d3227739c4053e68c4ea5ef1cc691332639979935b477b7", "purpose": "scope, invariants, and authority boundary"},
+    {"path": "scripts/check_shared_pa_market_evaluator_offline.py", "size": 3655, "sha256": "83b7a5a991d3f9b65bf38739d6e3bde1cd03cbb71382f3e5202c4f9d7b10c0c0", "purpose": "offline exact-byte and JSON verification"}
+  ]
+}

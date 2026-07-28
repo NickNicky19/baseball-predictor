@@ -1,0 +1,44 @@
+{
+  "schema_version": "shared-pa-market-evaluation-contract-v1",
+  "contract_id": "shared_pa_market_evaluation_contract_v1",
+  "status": "UNBOUND_EXTERNAL_AUTHORITIES_REQUIRED",
+  "source_base_commit": "9f86f6a34fc71151b76debf48059829aa4fa91da",
+  "markets": ["hits", "hr_over_0_5", "total_bases"],
+  "markets_must_be_evaluated_separately": true,
+  "pooling_forbidden": true,
+  "cross_market_rescue_forbidden": true,
+  "required_baselines": ["league_rate", "player_time_safe_eb", "frozen_simulator", "valid_market_implied"],
+  "valid_market_baseline_optional_only_when_terminally_unavailable": true,
+  "canonical_test_evidence_window_ids": ["synthetic_test_only"],
+  "protected_boundaries": {
+    "may_2026_forbidden": true,
+    "spent_2024_selection_reusable": false,
+    "spent_2025_hr_confirmation_reusable": false,
+    "historical_prices_executable": false,
+    "missed_prospective_backfill_allowed": false,
+    "frozen_baselines_mutable": false,
+    "betting_authorized": false
+  },
+  "probability_epsilon": 0.000000000001,
+  "calibration_bin_edges": [0.0, 0.05, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5, 0.65, 0.8, 1.0],
+  "hr_upper_tail_thresholds": [0.1, 0.2, 0.3],
+  "uncertainty": {
+    "bootstrap_draws": 2000,
+    "bootstrap_seed": 20260728,
+    "confidence_level": 0.95,
+    "date_cluster_required": true,
+    "game_cluster_required": true
+  },
+  "economic_boundary": {
+    "capture_lower_bound_minimum": 0.1,
+    "historical_prices_executable": false,
+    "roi_or_betting_decision_permitted": false
+  },
+  "qualification": {
+    "materiality_thresholds_supplied_by_external_authority": true,
+    "unbound_engine_may_qualify_or_promote": false,
+    "all_markets_must_pass_independently": true,
+    "one_market_may_rescue_another": false
+  }
+}
+
