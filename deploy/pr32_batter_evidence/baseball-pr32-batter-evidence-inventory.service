@@ -1,0 +1,23 @@
+[Unit]
+Description=Publish-once research-only PR32 batter evidence inventory
+After=network.target
+
+[Service]
+Type=oneshot
+User=baseball-shadow
+Group=baseball-shadow
+WorkingDirectory=/opt/baseball-predictor-pr32-batter-evidence/current
+UnsetEnvironment=PYTHONPATH PYTHONHOME PYTHONINSPECT PYTHONSTARTUP PYTHONWARNINGS PYTHONHASHSEED PYTHONBREAKPOINT PYTHONCASEOK PYTHONDONTWRITEBYTECODE PYTHONUSERBASE SSL_CERT_FILE SSL_CERT_DIR REQUESTS_CA_BUNDLE CURL_CA_BUNDLE HTTPS_PROXY HTTP_PROXY ALL_PROXY NO_PROXY LD_PRELOAD LD_LIBRARY_PATH
+UMask=0027
+ExecStart=/opt/baseball-predictor-pr32-batter-evidence/current-venv/bin/python -I -B /opt/baseball-predictor-pr32-batter-evidence/current/scripts/run_shared_pa_batter_evidence_inventory.py --plan-dir /srv/baseball-shadow/pitcher-receipts/plans --roster-ledger-root /srv/baseball-shadow/projected-lineup-roster-receipts --history-ledger-root /srv/baseball-shadow/prospective-batter-opportunity-history --inventory-root /srv/baseball-shadow/pr32-batter-evidence-inventory
+
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateNetwork=true
+ProtectSystem=strict
+ProtectHome=true
+ReadOnlyPaths=/srv/baseball-shadow/pitcher-receipts/plans /srv/baseball-shadow/projected-lineup-roster-receipts /srv/baseball-shadow/prospective-batter-opportunity-history
+ReadWritePaths=/srv/baseball-shadow/pr32-batter-evidence-inventory
+RestrictSUIDSGID=true
+LockPersonality=true
+CapabilityBoundingSet=

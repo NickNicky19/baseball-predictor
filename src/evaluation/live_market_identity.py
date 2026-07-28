@@ -23,6 +23,8 @@ from datetime import date, datetime, timezone
 from decimal import Decimal, InvalidOperation
 from typing import Any, Iterable
 
+from src.evaluation.market_economics import MarketEconomicsError, american_odds
+
 
 _SHA256 = re.compile(r"^[0-9a-f]{64}$")
 
@@ -71,12 +73,9 @@ def _positive_int(value: Any, label: str) -> int:
 
 def _american_odds(value: Any, label: str) -> int:
     try:
-        out = int(value)
-    except (TypeError, ValueError) as exc:
-        raise LiveMarketIdentityError(f"{label} must be an integer American price") from exc
-    if out == 0:
-        raise LiveMarketIdentityError(f"{label} cannot be zero")
-    return out
+        return american_odds(value, label)
+    except MarketEconomicsError as exc:
+        raise LiveMarketIdentityError(str(exc)) from exc
 
 
 def _line(value: Any) -> str:

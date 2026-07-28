@@ -16,6 +16,7 @@ from typing import Any, Optional
 import requests
 
 from src.data.odds.base import OddsAPISettings, OddsProvider, normalize_category
+from src.evaluation.market_economics import MarketEconomicsError, american_odds
 from src.models.dataclasses import OddsLine, PropCategory
 from src.utils.errors import OddsLoadError
 from src.utils.logging import get_logger
@@ -135,7 +136,16 @@ class OddsAPIProvider(OddsProvider):
                     if not player:
                         continue
                     point = float(outcome.get("point", 0))
-                    price = int(outcome.get("price", 0))
+                    try:
+                        price = american_odds(
+                            outcome.get("price"),
+                            f"Odds API {book_key or book_title} {market_key} price",
+                        )
+                    except MarketEconomicsError as exc:
+                        raise OddsLoadError(
+                            f"Invalid American price in Odds API event payload ({book_title}/{market_key})",
+                            hint="Prices must be canonical integers with absolute value at least 100",
+                        ) from exc
                     name = str(outcome.get("name", "")).lower()
 
                     if name == "over":
