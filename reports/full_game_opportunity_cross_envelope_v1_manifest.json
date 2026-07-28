@@ -1,0 +1,26 @@
+{
+  "schema_version": "full-game-opportunity-cross-envelope-release-v1",
+  "status": "INERT_UNBOUND_NO_PROBABILITY_CONSUMPTION",
+  "base_commits": {
+    "projected_lineup_pr32": "1ebeb255bf3ecf17adb82f644f9dc2ff11c7491c",
+    "pitcher_source_truth_pr33": "506ebb40203582d25ff01c0a8c2d1dec4c44ed7d",
+    "pitcher_joint_pr35": "0e6a40d5cd1b00d3b1f1128f97a12e7b897aaf55"
+  },
+  "files": [
+    {"path": "config/full_game_opportunity_cross_envelope_v1_authority.json", "size_bytes": 504, "sha256": "b1523651debd3cd2c4f10ded2fe4ce2bdbf8f2d299143576678f535d1409e7d1"},
+    {"path": "config/schemas/full_game_opportunity_cross_envelope_v1.schema.json", "size_bytes": 13692, "sha256": "1769885d9b30d506ad1984aea562c8f52316a832a57deb91dfd781743cedf88c"},
+    {"path": "reports/full_game_opportunity_cross_envelope_v1.md", "size_bytes": 4342, "sha256": "99e52432b27cc6e1e387f02976fef6f5f39ec9b30116cc15e97e5fe2115ccae6"},
+    {"path": "src/evaluation/full_game_opportunity_cross_envelope_release.py", "size_bytes": 4580, "sha256": "1eae5255eeecc4fb873d560865e8f27027737748a97a44b9e9bd05960d94fbe2"},
+    {"path": "src/evaluation/full_game_opportunity_cross_envelope_v1.py", "size_bytes": 43203, "sha256": "005edbb0dff77362ee0ee9685793ec1624ab6945e5a189ea1a0de4a911cf9bcc"},
+    {"path": "tests/test_full_game_opportunity_cross_envelope_release.py", "size_bytes": 2251, "sha256": "8960fb670c2ede8559ceb2732fe127048e154ab726b460440fc6735dd80969af"},
+    {"path": "tests/test_full_game_opportunity_cross_envelope_v1.py", "size_bytes": 36782, "sha256": "4cba032fc6cf148bad50cd774555a004819491921d0ae60afa80a1eacf32a6bc"}
+  ],
+  "limitations": [
+    "external authority is unbound",
+    "public probability consumption abstains",
+    "batter and starter PMFs remain separate",
+    "complete PR32 retained-evidence replay types are not delivered in this source tree",
+    "bullpen quality and reliever identity are not modeled",
+    "no fitting, scoring, promotion, deployment, or betting authorization"
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "schema_version": "full-game-opportunity-receipt-replay-release-v1",
+  "status": "LOCAL_VALIDATOR_REPAIRED_LINUX_GATE_DECLARED_REAL_RECEIPT_REPLAY_TERMINALLY_BLOCKED",
+  "base_commit": "b95f3589a99d4c0ca6055462d492a4e3f0593c09",
+  "source_commits": {
+    "projected_lineup_pr32": "1ebeb255bf3ecf17adb82f644f9dc2ff11c7491c",
+    "pitcher_source_truth_pr33": "506ebb40203582d25ff01c0a8c2d1dec4c44ed7d",
+    "pitcher_joint_pr35": "0e6a40d5cd1b00d3b1f1128f97a12e7b897aaf55"
+  },
+  "files": [
+    {
+      "path": ".github/workflows/full-game-opportunity-receipt-replay-v1-linux.yml",
+      "size_bytes": 4792,
+      "sha256": "4de3f307a570872b8c7f355bd6f108f8cd8baf53692d02cc886a6dab731980ad"
+    },
+    {
+      "path": "config/full_game_opportunity_receipt_replay_v1.json",
+      "size_bytes": 1770,
+      "sha256": "fe6788d115ae1db76cb282e216545c706a8bb1ff7fefb7be99476373e2322cd3"
+    },
+    {
+      "path": "src/evaluation/full_game_opportunity_receipt_replay_v1.py",
+      "size_bytes": 59092,
+      "sha256": "bec32394eca823c80bd3f660d2a0af320a02165aa2f99ae42054600ba4fb6eca"
+    },
+    {
+      "path": "tests/test_full_game_opportunity_receipt_replay_v1.py",
+      "size_bytes": 21564,
+      "sha256": "f332ec3a8d6da6be357cc4f9ee6940f0436456bebadfc7c877dfbabc247504e3"
+    },
+    {
+      "path": "reports/full_game_opportunity_receipt_replay_v1.md",
+      "size_bytes": 8037,
+      "sha256": "5f79d30674cfc3b195397d6a65c6eb3ca0647faa0e598b811743fa3d0cbaf558"
+    }
+  ],
+  "verification": {
+    "new_focused_tests_passed": 48,
+    "combined_tests_passed": 106,
+    "combined_tests_skipped_platform_specific": 2,
+    "inherited_non_regression_tests_passed": 179,
+    "branch_specific_exact_delta_tests_deselected": 2,
+    "linux_gate_declared": true,
+    "linux_gate_executed": false,
+    "network_calls": 0,
+    "real_receipts_opened": 0
+  },
+  "authorization": {
+    "research_only": true,
+    "semantic_replay_authorized": false,
+    "probability_consumption_authorized": false,
+    "model_fitting_authorized": false,
+    "network_fetch_authorized": false,
+    "betting_authorized": false
+  },
+  "terminal_blocker": "No legitimate retained receipt inventory or externally authorized inventory digest was delivered. PR32 is not in this branch ancestry, Linux CI has not run, and missed prospective receipts cannot be reconstructed or backfilled."
+}
