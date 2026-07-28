@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "shared-pa-experiment-registry-append-receipt-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "authority_id", "registry_id", "append_sequence", "expected_previous_checkpoint_hash", "entry_type", "payload_semantic_sha256", "payload_canonical_sha256", "trusted_recorded_at_utc"],
+  "properties": {
+    "schema_version": {"const": "shared-pa-experiment-registry-append-receipt-v1"},
+    "authority_id": {"type": "string", "minLength": 1},
+    "registry_id": {"const": "shared_pa_experiment_registry_v1"},
+    "append_sequence": {"type": "integer", "minimum": 1},
+    "expected_previous_checkpoint_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "entry_type": {"enum": ["EXPERIMENT_PREDECLARED", "CANDIDATE_FROZEN", "SELECTION_TOKEN_ISSUED", "SELECTION_TOKEN_CONSUMED", "TERMINAL_DISPOSITION"]},
+    "payload_semantic_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "payload_canonical_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "trusted_recorded_at_utc": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"}
+  }
+}

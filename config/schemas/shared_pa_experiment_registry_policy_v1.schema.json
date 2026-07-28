@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "shared-pa-experiment-registry-policy-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "registry_id", "status", "authority_state", "source_base_commit", "root_parent_candidate_id", "canonical_evidence_window_ids", "markets", "selection_authority", "protected_boundaries", "artifact_rules", "evaluator_binding", "external_checkpoint_rule"],
+  "properties": {
+    "schema_version": {"const": "shared-pa-experiment-registry-policy-v1"},
+    "registry_id": {"type": "string", "minLength": 1},
+    "status": {"const": "LOCKED_RESEARCH_ONLY_SCAFFOLD"},
+    "authority_state": {"const": "UNBOUND_EXTERNAL_TRUST_REQUIRED"},
+    "source_base_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "root_parent_candidate_id": {"const": "frozen_shared_pa_foundation"},
+    "canonical_evidence_window_ids": {"const": ["development_2023_only"]},
+    "markets": {"type": "object"},
+    "selection_authority": {"type": "object"},
+    "protected_boundaries": {"type": "object"},
+    "artifact_rules": {"type": "object"},
+    "evaluator_binding": {"$ref": "#/$defs/binding"},
+    "external_checkpoint_rule": {"type": "object"}
+  },
+  "$defs": {
+    "binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "state"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "state": {"const": "INTERFACE_ONLY_FULL_EVALUATOR_NOT_IMPLEMENTED"}
+      }
+    }
+  }
+}
