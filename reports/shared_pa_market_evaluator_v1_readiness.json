@@ -1,0 +1,73 @@
+{
+  "schema_version": "shared-pa-market-evaluator-readiness-v1",
+  "component_id": "shared_pa_market_evaluator_v1",
+  "created_utc": "2026-07-28T12:37:34Z",
+  "source_base_commit": "9f86f6a34fc71151b76debf48059829aa4fa91da",
+  "branch": "codex/shared-pa-market-evaluator-v1",
+  "authority_state": "UNBOUND_EXTERNAL_AUTHORITIES_REQUIRED",
+  "qualification": "INERT_SYNTHETIC_MECHANICS_ONLY",
+  "research_only": true,
+  "betting_authorized": false,
+  "real_evidence_opened": false,
+  "may_2026_opened": false,
+  "model_fit_or_prediction_generated": false,
+  "file_manifest": {
+    "path": "config/shared_pa_market_evaluator_v1_file_manifest.json",
+    "size": 2248,
+    "sha256": "b23568bf721750c88b1895cc4fd7d6ca67cba19ffdae4b90738f873e9f9e78b0",
+    "verified_file_count": 9
+  },
+  "verification": [
+    {
+      "command": "python -B scripts/check_shared_pa_market_evaluator_offline.py",
+      "exit_code": 0,
+      "result": "OK: 9 exact files; evaluator remains externally unbound"
+    },
+    {
+      "command": "python -B -m pytest tests/test_shared_pa_market_evaluator.py -q -p no:cacheprovider",
+      "exit_code": 0,
+      "result": "80 passed"
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0,
+      "result": "clean"
+    }
+  ],
+  "implemented_mechanics": [
+    "strict canonical identity, canonical decimal-string product lines, and chronology validation",
+    "market and product separation with no pooling or rescue",
+    "explicit abstention, settlement, unequal-coverage, and common-support accounting",
+    "binary Brier, log loss, calibration, discrimination, and HR upper-tail reporting",
+    "Total Bases full-distribution multiclass Brier, ranked probability score, and log loss",
+    "deterministic date-cluster and game-cluster uncertainty",
+    "separate league-rate, time-safe player-rate, frozen-simulator, and valid-market baselines",
+    "synthetic structural source-authority manifest with safe contained regular-file paths and referenced receipt-byte rehash",
+    "typed synthetic available-pair receipts with semantic source/book/product/date/event/player/market/line/timestamp/side/price validation and no-vig recomputation",
+    "typed synthetic terminal-unavailability receipts with semantic source/book/product/date/event/player/market/line/timestamp/reason validation",
+    "row-schema parity for exact epsilon probabilities, availability and abstention, market-specific distributions and baselines, HR line, and settlement outcome nullability",
+    "fully typed conditional report surfaces for metrics, comparisons, coverage, uncertainty, calibration, discrimination, HR tail, and Total Bases full distributions",
+    "standard-library schema validation and adversarial schema mutation coverage without an undeclared jsonschema dependency",
+    "exact locked calibration-bin edges",
+    "fail-closed pushes, voids, unmatched rows, degeneracy, malformed distributions, and zero realized mass",
+    "preserved +0.10 capture lower-bound and refusal of economic or promotion decisions"
+  ],
+  "external_authorities_required_before_real_evaluation": [
+    "candidate release and probability artifact",
+    "experiment-registry checkpoint",
+    "point-in-time data and identity manifest",
+    "untouched evidence window",
+    "official settlement authority",
+    "baseline artifact authorities",
+    "valid market receipt authority when available",
+    "predeclared materiality and promotion policy"
+  ],
+  "explicit_limitations": [
+    "no qualified real source-authority root, manifest, or receipt protocol is delivered",
+    "candidate, model baselines, settlement, registry, dataset, and materiality authorities remain externally unbound",
+    "cross-field arithmetic, chronology, settlement equality versus line, receipt semantics, coverage arithmetic, and deterministic ordering remain runtime-only invariants with direct tests",
+    "all passing evaluator outputs are synthetic structural mechanics only",
+    "real evaluation, source trust, qualification, promotion, economic use, and betting authorization remain impossible"
+  ],
+  "decision": "READY_FOR_INDEPENDENT_CODE_REVIEW_NOT_READY_FOR_REAL_DATA_OR_QUALIFICATION"
+}

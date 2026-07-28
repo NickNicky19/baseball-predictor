@@ -1,7 +1,7 @@
 {
   "schema_version": "shared-pa-experiment-registry-policy-v1",
   "registry_id": "shared_pa_experiment_registry_v1",
-  "status": "LOCKED_RESEARCH_ONLY_SCAFFOLD",
+  "status": "LOCKED_RESEARCH_ONLY_REGISTRY_WITH_SYNTHETIC_EVALUATOR",
   "authority_state": "UNBOUND_EXTERNAL_TRUST_REQUIRED",
   "source_base_commit": "9f9d839187550f7a7a6da3b4bfdb25b2dff3e794",
   "root_parent_candidate_id": "frozen_shared_pa_foundation",
@@ -44,9 +44,16 @@
     "external_authority_required_for_authoritative_append": true
   },
   "evaluator_binding": {
-    "path": "config/shared_pa_market_evaluator_binding_interface_v1.json",
-    "sha256": "0f747252c1abe5a970f8344366b63bf70e10f6ef291b41b6ac3d55e50eb97289",
-    "state": "INTERFACE_ONLY_FULL_EVALUATOR_NOT_IMPLEMENTED"
+    "path": "config/shared_pa_market_evaluation_contract_v1.json",
+    "sha256": "53673c56b90e48d593c4355e0fb2c6152e69dbf165c15125db065d9059b5b34d",
+    "file_manifest_path": "config/shared_pa_market_evaluator_v1_file_manifest.json",
+    "file_manifest_sha256": "83cf0ca50a67f7f3c905d2f2cf189045ba9983ad5fc4a5718682a0b79cd7eec1",
+    "state": "IMPLEMENTED_SYNTHETIC_ONLY_EXTERNALLY_UNBOUND",
+    "evidence_class": "SYNTHETIC_STRUCTURAL_MECHANICS_ONLY",
+    "external_authority_required_before_real_evaluation": true,
+    "real_evaluation_authorized": false,
+    "model_fitting_authorized": false,
+    "promotion_authorized": false
   },
   "external_checkpoint_rule": {
     "authoritative_replay_requires_trusted_checkpoint": true,

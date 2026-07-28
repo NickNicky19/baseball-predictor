@@ -51,9 +51,25 @@ Evidence windows use a positive exact allowlist. Version 1 permits only `develop
 
 ## Evaluator binding
 
-`config/shared_pa_market_evaluator_binding_interface_v1.json` is only a hash-bound interface. It requires market-separated rows, identity and probability lineage, coverage and abstention accounting, proper scores, calibration (including the HR upper tail), discrimination, clustered uncertainty, chronology checks, and valid receipt-bound market comparisons where available.
+The registry now binds the exact synthetic evaluator contract at
+`config/shared_pa_market_evaluation_contract_v1.json` and its exact file
+manifest at `config/shared_pa_market_evaluator_v1_file_manifest.json`. The
+bound implementation provides market-separated structural mechanics for
+identity and probability lineage, coverage and abstention accounting, proper
+scores, calibration (including the HR upper tail), discrimination, clustered
+uncertainty, chronology checks, and receipt-bound market comparisons in
+synthetic fixtures only.
 
-The full evaluator is intentionally not implemented here. This scaffold cannot fit, score, consume the real 2024 authority, promote, activate, settle, or authorize betting.
+Its truthful state is `IMPLEMENTED_SYNTHETIC_ONLY_EXTERNALLY_UNBOUND`. The
+binding is not a real evidence authority, does not authorize opening outcomes
+or prices, and cannot fit, consume the spent 2024 authority, qualify, promote,
+activate, settle real observations, or authorize betting. A predeclaration
+continues to bind the exact evaluator contract as one of its semantic inputs;
+the registry additionally rehashes the evaluator file-manifest bytes and every
+exact regular, non-link file named by that manifest whenever the registry is
+initialized or replayed. This transitive closure includes the hash-locked Linux
+CI dependency file. Duplicate keys at evaluator contract, source-authority, and
+receipt JSON ingresses are rejected before semantic validation.
 
 ## Command-line operations
 
