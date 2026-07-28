@@ -1,0 +1,4 @@
+# Exact direct requirements for the offline source-authority audit and its tests.
+# The runtime fetch boundary itself uses only the CPython standard library.
+pandas==3.0.5
+pytest==9.1.1

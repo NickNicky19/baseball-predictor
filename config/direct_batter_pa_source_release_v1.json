@@ -1,0 +1,52 @@
+{
+  "schema_version": "direct-batter-pa-source-release-contract-v1",
+  "status": "LOCKED_HISTORICAL_2023_SOURCE_CAPTURE_ONLY",
+  "season": 2023,
+  "research_only": true,
+  "betting_authorized": false,
+  "prospective_evidence_claimed": false,
+  "model_fitting_permitted": false,
+  "protected_data": {
+    "may_2026_opened": false,
+    "selection_2024_opened": false,
+    "spent_hr_confirmation_2025_opened": false,
+    "prices_opened": false,
+    "prospective_evidence_opened": false
+  },
+  "sources": {
+    "baseball_savant_statcast_csv": {
+      "scheme": "https",
+      "host": "baseballsavant.mlb.com",
+      "path": "/statcast_search/csv",
+      "parser_id": "direct-batter-statcast-csv-2023-v1",
+      "content_type_prefixes": ["text/csv", "application/octet-stream"],
+      "required_query": {
+        "all": "true",
+        "hfGT": "R|",
+        "type": "details",
+        "player_type": "pitcher"
+      }
+    },
+    "mlb_statsapi_feed_live": {
+      "scheme": "https",
+      "host": "statsapi.mlb.com",
+      "path_pattern": "^/api/v1\\.1/game/[1-9][0-9]*/feed/live$",
+      "parser_id": "direct-batter-mlb-feed-2023-v1",
+      "content_type_prefixes": ["application/json"]
+    }
+  },
+  "release_requirements": {
+    "external_expected_release_digest_required": true,
+    "external_expected_runtime_lock_digest_required": true,
+    "exact_file_set_required": true,
+    "raw_response_bytes_retained": true,
+    "request_and_response_receipts_retained": true,
+    "parser_source_hash_retained": true,
+    "zero_pa_targets_preserved": true,
+    "external_schedule_manifest_digest_required": true,
+    "external_identity_index_digest_required": true,
+    "external_zero_pa_identity_map_digest_required": true,
+    "exact_identity_and_statcast_coverage_required": true,
+    "network_fetch_blocked_until_transitive_tls_authority": true
+  }
+}

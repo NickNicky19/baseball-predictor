@@ -1,0 +1,71 @@
+{
+  "schema_version": "direct-batter-pa-source-runtime-authority-hash-manifest-v1",
+  "status": "UNCOMMITTED_CANDIDATE_BYTES_NETWORK_BLOCKED",
+  "parent_commit": "9562b79c0d4e5042bb6ae9cac5c40332c7dabc9d",
+  "research_only": true,
+  "betting_authorized": false,
+  "network_fetch_authorized": false,
+  "files": {
+    ".github/workflows/direct-batter-pa-source-authority-linux.yml": {
+      "bytes": 4030,
+      "sha256": "4e8421bc27d4ff9634104551f8d1548608f5ea6709f39a3c978f00540e13fbca"
+    },
+    "config/direct_batter_pa_source_binding_v1.json": {
+      "bytes": 3483,
+      "sha256": "996bc9014a8c9825c89f83b254f88bcf695254a81d3f7b027eda992edf7caa3f"
+    },
+    "config/direct_batter_pa_source_release_v1.json": {
+      "bytes": 1844,
+      "sha256": "91913d83b9892f2058db0cb880a14d3e26ae7ba84d70a06e05473c3eef6f8623"
+    },
+    "config/direct_batter_pa_source_runtime_authority_v1.json": {
+      "bytes": 2726,
+      "sha256": "92c033774240d90818f7bd8ca70727f52ecfbc720e962716b158dccb1143fd33"
+    },
+    "reports/direct_batter_pa_source_runtime_authority_v1.md": {
+      "bytes": 4115,
+      "sha256": "79e5767e50c308114230064e2fafb89fcfa9eff2e4b74fba06ef97c429f3391e"
+    },
+    "requirements-direct-batter-pa-source-authority.in": {
+      "bytes": 186,
+      "sha256": "046dc104623ea27382a51f94902a9d3b9e5a9778795d562773ee057ad7cf9633"
+    },
+    "requirements-direct-batter-pa-source-authority.lock": {
+      "bytes": 9581,
+      "sha256": "0847ea7c8fe05649a94293b2adbba0164f10f420ca984ecf35f105f1aabc2a1f"
+    },
+    "scripts/build_direct_batter_pa_source_release.py": {
+      "bytes": 86076,
+      "sha256": "3ba8dc390fb53e65ac4e56dba0caa546cd92e1b144432fb0708e267c7aa71ace"
+    },
+    "scripts/check_tracked_secrets.py": {
+      "bytes": 2523,
+      "sha256": "9433c860c36bdb5cfa4d79515036ca937428e87ed121bc17344dc9a976d2d047"
+    },
+    "scripts/validate_direct_batter_pa_source_binding.py": {
+      "bytes": 18230,
+      "sha256": "8eaf5f2d3cc01b9ae0d007e6d1d50b3e1a381f176fdd952da2d3dd7fbd925f0a"
+    },
+    "scripts/verify_direct_batter_pa_source_runtime_authority.py": {
+      "bytes": 25055,
+      "sha256": "20cbe564ec1376f366c1938991a293c866aa4893bda11ffecd8d3d874855b0f1"
+    },
+    "tests/test_direct_batter_pa_source_binding.py": {
+      "bytes": 3035,
+      "sha256": "73b9433898ca45cfebb88c35baddb572f9a9ad3e3a055195ed1df3a3dba90d6d"
+    },
+    "tests/test_direct_batter_pa_source_release.py": {
+      "bytes": 33594,
+      "sha256": "dae6dd90b2cbb820d1d8c8f38ff9d977555a1ac1a9e7bf29e7c91e91d818e6fa"
+    },
+    "tests/test_direct_batter_pa_source_runtime_authority.py": {
+      "bytes": 13476,
+      "sha256": "a9b5435a3378f78691f7de9ba8bd26cf26958faa2ae873b6385c2665f6044138"
+    }
+  },
+  "limitations": [
+    "The Linux CI gate has not been executed for these uncommitted bytes.",
+    "The manifest is candidate-local and is not an independent trust anchor.",
+    "Historical source and identity authority blockers remain open."
+  ]
+}
