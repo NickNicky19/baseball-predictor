@@ -1,6 +1,6 @@
 {
   "schema_version": "shared-pa-projected-opportunity-candidate-hash-manifest-v1",
-  "status": "LOCAL_WINDOWS_VALIDATED_LINUX_AND_RELEASE_PENDING",
+  "status": "LOCAL_WINDOWS_VALIDATED_LINUX_GATE_DECLARED_RELEASE_PENDING",
   "created_at_utc": "2026-07-28T04:18:57.6108036Z",
   "parent_commit": "9f9d839187550f7a7a6da3b4bfdb25b2dff3e794",
   "candidate_id": "shared_pa_projected_opportunity_eb200_v1",
@@ -28,6 +28,18 @@
       "size": 108,
       "sha256": "d815c10261635e34a2bca28fc91ae8d3eb70511314c68b93bea336150e05b19d",
       "role": "minimum_version_dependencies_not_an_exact_lock"
+    },
+    {
+      "path": "requirements-prospective-batter-opportunity-ci.lock",
+      "size": 839,
+      "sha256": "c86f1f5f4f844097d61332c461b8f62d9d761fa581985bd8dcd7ad90a5a2a2f3",
+      "role": "exact_linux_test_dependency_lock"
+    },
+    {
+      "path": ".github/workflows/shared-pa-projected-opportunity-linux.yml",
+      "size": 2571,
+      "sha256": "bda663fa7be5cb222187677f8234c0eea08a41e54cec5992744dbbc7d266c889",
+      "role": "exact_linux_candidate_gate"
     },
     {
       "path": "src/data/odds/base.py",
@@ -111,8 +123,7 @@
     }
   },
   "release_blockers": [
-    "exact dependency lock is not delivered in this branch",
-    "clean Ubuntu CI has not yet run on these exact bytes",
+    "clean Ubuntu CI must pass on the final PR head before release",
     "append-only persistence and AWS scheduling are not part of this candidate-core change",
     "no eligible outcome has been observed or scored",
     "no model promotion or betting authorization exists"
