@@ -1,0 +1,116 @@
+{
+  "schema_version": "pitcher-joint-opportunity-predeclared-release-v1",
+  "release_id": "pitcher_joint_opportunity_v1_predeclared",
+  "classification": "PREDECLARED_RESEARCH_SCAFFOLD_ONLY",
+  "status": "NO_FIT_NO_SELECTION_NO_PREDICTION",
+  "base_commit": "506ebb40203582d25ff01c0a8c2d1dec4c44ed7d",
+  "changed_files": {
+    "config": {
+      "config/pitcher_joint_opportunity_v1_evidence_authority.json": "9c29e53656f70ce30bf1db4a415c814ab825f32288b3f482965d6cd5bc452a18",
+      "config/pitcher_joint_opportunity_v1_protocol.json": "d349c81b0168b9924f387cbec6973ed5ea7e29d8194905992960e0605b75dbf8"
+    },
+    "source": {
+      "src/evaluation/pitcher_joint_opportunity_release.py": "c6b1133da3c7b106aa4be85384ae0091d48f93cc0cc0b71929ff39e219ae2108",
+      "src/evaluation/pitcher_joint_opportunity_v1.py": "5f3976c296837013d6ed604e6e74268933cdd96c23196962ff4a860f4d24130b"
+    },
+    "tests": {
+      "tests/test_pitcher_joint_opportunity_release.py": "5d3f174bb13ba71b9b9d75afb422c034e3363226412eff0adc6c57512e2ae180",
+      "tests/test_pitcher_joint_opportunity_v1.py": "cadc48969572549badd47abce417b40b673ba7a2d5d2218c1c0e897f855c8b5b"
+    }
+  },
+  "protocol": {
+    "path": "config/pitcher_joint_opportunity_v1_protocol.json",
+    "sha256": "d349c81b0168b9924f387cbec6973ed5ea7e29d8194905992960e0605b75dbf8",
+    "bytes_frozen_before_2024_access": true
+  },
+  "evidence_authority": {
+    "path": "config/pitcher_joint_opportunity_v1_evidence_authority.json",
+    "sha256": "9c29e53656f70ce30bf1db4a415c814ab825f32288b3f482965d6cd5bc452a18",
+    "status": "UNBOUND_NO_APPROVED_ARCHIVE_ERA",
+    "authorized_receipt_sha256": null
+  },
+  "runtime_dependency_bindings": {
+    "src/evaluation/forward_pitcher_context.py": "cfe56c92fbfa0702f36cf226fabe9e77f0202d2172f70f7b4a2d51ee941378cb",
+    "src/evaluation/forward_pitcher_context_ledger.py": "ff34f4c9b7dea869b5c66ace5d3769e03212646ddb7cf8c58e80f074dae685dd",
+    "src/evaluation/forward_pitcher_context_v2.py": "68ca25dff40a041ccc20717252898a45dfd58b772c35755bce19f8f6a8fb2c9a",
+    "src/evaluation/shadow_capture_plan.py": "491a73556cab02b8295eee695f0474345defbc15f5d9bd01aae011cdff2b17e0"
+  },
+  "external_authorization": {
+    "evidence_authority_required_for_probability": true,
+    "authorized_evidence_authority_receipt_sha256": null,
+    "runtime_release_required_for_probability": true,
+    "authorized_runtime_release_sha256": null,
+    "artifact_release_required_for_probability": true,
+    "authorized_artifact_release_sha256": null,
+    "synthetic_self_promotion_allowed": false
+  },
+  "frozen_production_bindings": {
+    "src/prediction/prop_engine.py": "189f371575337259e5f290c219e2678cbe252502633fe10fad83b0ba4454759f",
+    "src/prediction/role_innings.py": "ba6c221389f0f01fe71e785cb221a67683fe6c90c3d448c17e861047db36e5ab",
+    "config/config.json": "afcf0f969f9ee28fd00ca2644315f9e7d36aefb19b1f693143c2337a4a34754f",
+    "config/config.kbb.json": "ff65d440b7571aa490300b26b1cf8a6271c5979e564c1a74d1d0988a0b743bad"
+  },
+  "report": {
+    "path": "reports/pitcher_joint_opportunity_v1_predeclared.md",
+    "sha256": "b26d581eab816e0c3714930f7fad21978b7b2ac3703314dab4b8bf5a679005d9"
+  },
+  "test_evidence": [
+    {
+      "suite": "final_predeclared_scaffold_evidence_authority_math_identity_and_mutations",
+      "command": "C:\\tmp\\shared-pa-offset-env-v1\\Scripts\\python.exe -m pytest -q -p no:cacheprovider --basetemp .pytest-pitcher-workload-api-focused-final tests/test_pitcher_joint_opportunity_v1.py tests/test_pitcher_joint_opportunity_release.py",
+      "result": "73 passed in 1.44s",
+      "python": "Python 3.12.13",
+      "network": "DISABLED"
+    },
+    {
+      "suite": "frozen_pitcher_source_truth_and_projection_regression",
+      "command": "C:\\tmp\\shared-pa-offset-env-v1\\Scripts\\python.exe -m pytest -q -p no:cacheprovider --basetemp .pytest-pitcher-workload-api-source tests/test_pitching_source_truth.py tests/test_pitcher_projection.py",
+      "result": "78 passed in 0.76s",
+      "python": "Python 3.12.13",
+      "network": "DISABLED"
+    },
+    {
+      "suite": "final_impacted_pitcher_evidence_authority_shared_pa_and_daily_prediction_regression",
+      "command": "C:\\tmp\\shared-pa-offset-env-v1\\Scripts\\python.exe -m pytest -q -p no:cacheprovider --basetemp .pytest-pitcher-workload-api-impacted tests/test_pitcher_joint_opportunity_v1.py tests/test_pitcher_joint_opportunity_release.py tests/test_pitching_source_truth.py tests/test_pitcher_projection.py tests/test_shared_pa_opportunity_matchup_contract.py tests/test_daily_predictor.py",
+      "result": "171 passed in 2.20s",
+      "python": "Python 3.12.13",
+      "network": "DISABLED"
+    }
+  ],
+  "read_boundaries": {
+    "may_2026_read": false,
+    "2024_outcomes_read": false,
+    "any_outcomes_read": false,
+    "model_fit": false,
+    "historical_or_prospective_receipts_backfilled": false,
+    "prices_or_settlements_read": false,
+    "aws_or_collector_runtime_touched": false
+  },
+  "delivered_artifacts": {
+    "fitted_model": null,
+    "training_data": null,
+    "feature_panel": null,
+    "2024_selection": null,
+    "prediction_archive": null
+  },
+  "blockers": [
+    "Current PIT pitcher game logs do not retain source-truth-valid batters faced, pitch count, complete PA events, or exact outs transitions.",
+    "The new raw live-feed replay contract has synthetic mutation proof only; no independently validated 2023 receipt archive is delivered.",
+    "Current historical pitcher rows use the actual box-score starter and have no receipt-proven T-4 probable-starter identity.",
+    "Aggregate game logs remain ineligible for source-lineaged exact PA-to-outs transitions or intervening outs.",
+    "The seven requested PA classes need a truthful treatment for reach-on-error, catcher interference, and other nonstandard BF before fitting.",
+    "No externally authorized runtime release or artifact release digest exists; synthetic self-promotion is forbidden.",
+    "No independently approved archive era, service-owned evidence root, collector release/runtime digest, target binding, or evidence-authority receipt exists; application is terminally abstaining before probability consumption.",
+    "No hash-bound 2023-only fitted artifact, one-time 2024 selection, or fresh untouched confirmation exists.",
+    "No executable pitcher-market price and settlement contract is delivered for an economic claim."
+  ],
+  "promotion": {
+    "evidence_collection_authorized": false,
+    "protocol_locking_authorized": true,
+    "fitting_authorized": false,
+    "shadow_use_authorized": false,
+    "production_changed": false,
+    "betting_authorized": false
+  },
+  "single_highest_value_next_action": "Establish an independently approved future-only immutable evidence archive era that binds the service-owned root, collector release/runtime, target identity, retained plan/ledger/context/workload bytes, T-4 cutoffs, parser/schema identities, and protocol; otherwise keep probability application terminally abstaining."
+}

@@ -1,0 +1,199 @@
+{
+  "schema_version": "pitcher-joint-opportunity-protocol-v1",
+  "candidate_id": "pitcher_joint_opportunity_v1",
+  "status": "PREDECLARED_SCAFFOLD_ONLY_NO_FIT_NO_SELECTION",
+  "source_commit": "506ebb40203582d25ff01c0a8c2d1dec4c44ed7d",
+  "research_boundary": {
+    "production_probability_consumption_authorized": false,
+    "shadow_probability_consumption_authorized": false,
+    "betting_authorized": false,
+    "outcomes_inspected_by_this_release": false,
+    "model_fitted_by_this_release": false,
+    "2024_opened_by_this_release": false,
+    "may_2026_access_allowed": false,
+    "historical_or_prospective_receipt_backfill_allowed": false,
+    "actual_postgame_starter_allowed": false,
+    "guessed_or_substituted_starter_allowed": false,
+    "hand_tuned_baseball_effects_allowed": false,
+    "probability_clipping_or_renormalization_allowed": false,
+    "market_pooling_or_cross_market_rescue_allowed": false,
+    "historical_prices_treated_as_executable": false
+  },
+  "candidate_application": {
+    "decision_horizon": "T-4h",
+    "receipt_schema": "forward-pitcher-context-v2",
+    "receipt_ledger_schema": "forward-pitcher-context-ledger-v1",
+    "plan_receipt_schema": "aws-pitcher-receipt-plan-receipt-v1",
+    "required_receipt_source": "mlb_statsapi_schedule",
+    "receipt_consumption": "derive immutable plan from retained plan-source bytes; verify the append-only ledger; replay the target-time raw schedule into forward-pitcher-context-v2",
+    "caller_supplied_plan_or_context_assertions_allowed": false,
+    "evidence_authority_contract_path": "config/pitcher_joint_opportunity_v1_evidence_authority.json",
+    "evidence_authority_contract_sha256": "9c29e53656f70ce30bf1db4a415c814ab825f32288b3f482965d6cd5bc452a18",
+    "evidence_authority_required_for_probability": true,
+    "external_runtime_release_required_for_probability": true,
+    "authorized_runtime_release_sha256": null,
+    "required_exact_identities": [
+      "target_id",
+      "plan_sha256",
+      "official_game_date",
+      "mlb_game_pk",
+      "official_start_time_utc",
+      "pitching_side",
+      "pitching_team_id",
+      "opposing_team_id",
+      "probable_pitcher_mlb_id"
+    ],
+    "missing_or_contradictory_receipt_policy": "TERMINAL_ABSTENTION_NO_FALLBACK",
+    "missing_or_invalid_workload_policy": "TERMINAL_ABSTENTION_NO_FALLBACK",
+    "missing_or_unqualified_model_policy": "TERMINAL_ABSTENTION_NO_FALLBACK"
+  },
+  "point_in_time_workload_schema": {
+    "schema_version": "pitcher-pit-workload-history-v1",
+    "source_kind": "official_mlb_pitching_game_log_point_in_time",
+    "required_lineage": [
+      "raw_receipt_manifest_sha256",
+      "source_schema_sha256",
+      "parser_code_sha256",
+      "feature_code_sha256",
+      "history_payload_sha256",
+      "protocol_sha256"
+    ],
+    "required_prior_appearance_fields": [
+      "official_game_date",
+      "mlb_game_pk",
+      "role",
+      "outs_recorded",
+      "batters_faced",
+      "pitch_count",
+      "strikeouts",
+      "walks_hbp",
+      "singles_allowed",
+      "doubles_allowed",
+      "triples_allowed",
+      "home_runs_allowed",
+      "other_out_events",
+      "unclassified_batters_faced",
+      "batters_faced_source_truth_valid",
+      "pitch_count_source_truth_valid",
+      "source_record_sha256",
+      "source_receipt_sha256"
+    ],
+    "chronology": "every source game date is canonical and strictly before the target date; assembly receipt is no later than T-4",
+    "duplicate_policy": "REJECT_ENTIRE_INPUT",
+    "missing_value_policy": "ABSTAIN_NOT_IMPUTE",
+    "unclassified_batters_faced_policy": "ABSTAIN_UNTIL_OUTCOME_SCHEMA_IS_TRUTHFULLY_EXHAUSTIVE"
+  },
+  "learned_model": {
+    "opportunity": "discrete_time_logistic_removal_hazard_over_exact_batters_faced_and_exact_outs",
+    "conditional_pa_outcomes": [
+      "K",
+      "BB_HBP",
+      "1B",
+      "2B",
+      "3B",
+      "HR",
+      "OTHER_OUT"
+    ],
+    "conditional_outs_transition": "learned_given_state_and_pa_outcome; only the exact predeclared structurally possible increment support is normalized",
+    "outs_transition_support": {
+      "K": [0, 1, 2, 3],
+      "BB_HBP": [0, 1, 2, 3],
+      "1B": [0, 1, 2, 3],
+      "2B": [0, 1, 2, 3],
+      "3B": [0, 1, 2, 3],
+      "HR": [0],
+      "OTHER_OUT": [1, 2, 3]
+    },
+    "workload_inputs": [
+      "batters_faced_before",
+      "outs_before",
+      "rest_days",
+      "prior_appearance_count",
+      "prior_start_count",
+      "prior_relief_count",
+      "last_outs",
+      "last_batters_faced",
+      "last_pitch_count",
+      "last_role_start",
+      "rolling_mean_outs",
+      "rolling_sd_outs",
+      "rolling_mean_batters_faced",
+      "rolling_sd_batters_faced",
+      "rolling_mean_pitch_count",
+      "rolling_sd_pitch_count",
+      "rolling_start_share",
+      "rolling_k_per_bf",
+      "rolling_bb_hbp_per_bf",
+      "rolling_1b_per_bf",
+      "rolling_2b_per_bf",
+      "rolling_3b_per_bf",
+      "rolling_hr_per_bf",
+      "rolling_other_out_per_bf"
+    ],
+    "rolling_window": "selected only inside 2023 chronological development and stored in the fitted artifact; runtime has no default",
+    "coefficient_policy": "all intercepts, coefficients, standardizers, and the rolling window come from a hash-bound fitted artifact",
+    "artifact_authorization": "an independent receipt must match the externally fixed authorized artifact-release digest and bind training bytes, fit code, fit tests, protocol, qualification report, and artifact bytes",
+    "authorized_artifact_release_sha256": null,
+    "game_complete_state": "27 exact outs is the only structural absorbing state",
+    "numerical_tail_policy": "return no probability when unresolved active mass remains above the protocol numerical tolerance",
+    "joint_derivations": {
+      "strikeouts": "sum(K)",
+      "walks_hbp": "sum(BB_HBP)",
+      "hits_allowed": "sum(1B+2B+3B+HR)",
+      "home_runs_allowed": "sum(HR)",
+      "total_bases_allowed": "sum(1B+2*2B+3*3B+4*HR)",
+      "outs_recorded": "absorbing opportunity-state outs",
+      "innings_pitched": "outs_recorded/3"
+    }
+  },
+  "numerical_contract": {
+    "active_mass_tolerance": 1e-12,
+    "probability_sum_tolerance": 1e-12,
+    "maximum_batters_faced_iterations": 200,
+    "constant_origin": "numerical_safety_only_not_baseball_effect",
+    "failure_policy": "FAIL_CLOSED_WITHOUT_PROBABILITY"
+  },
+  "development_and_selection": {
+    "development_data": "2023_regular_season_only",
+    "development_method": "strictly_chronological_expanding_rolling_origin_folds",
+    "development_feature_rule": "features use completed appearances strictly before each target game",
+    "candidate_family": "one predeclared regularized shared joint model",
+    "protocol_freeze_required_before_2024_access": true,
+    "selection_data": "2024_regular_season_once_only",
+    "selection_rule": "one simultaneous frozen candidate adjudication with separately reported market decisions",
+    "post_selection_tuning_allowed": false,
+    "spent_2025_hr_confirmation_reusable": false,
+    "confirmation": "fresh untouched future confirmation or prospective forward evidence only"
+  },
+  "market_gates": {
+    "pitcher_strikeouts": {
+      "baselines": ["league_rate", "time_safe_pitcher_empirical_bayes", "frozen_production_simulator", "valid_receipt_bound_market_probability_when_available"],
+      "required": ["material_brier_improvement", "material_log_loss_improvement", "calibration", "discrimination", "coverage", "chronology", "identity", "fallback", "clustered_uncertainty", "valid_market_behavior_when_available"]
+    },
+    "pitcher_walks_hbp": {
+      "baselines": ["league_rate", "time_safe_pitcher_empirical_bayes", "valid_receipt_bound_market_probability_when_available"],
+      "required": ["material_brier_improvement", "material_log_loss_improvement", "calibration", "discrimination", "coverage", "chronology", "identity", "fallback", "clustered_uncertainty", "valid_market_behavior_when_available"]
+    },
+    "pitcher_hits_allowed": {
+      "baselines": ["league_rate", "time_safe_pitcher_empirical_bayes", "valid_receipt_bound_market_probability_when_available"],
+      "required": ["material_brier_improvement", "material_log_loss_improvement", "calibration", "discrimination", "coverage", "chronology", "identity", "fallback", "clustered_uncertainty", "valid_market_behavior_when_available"]
+    },
+    "pitcher_home_runs_allowed": {
+      "baselines": ["league_rate", "time_safe_pitcher_empirical_bayes", "frozen_production_simulator_when_exactly_comparable", "valid_receipt_bound_market_probability_when_available"],
+      "required": ["material_brier_improvement", "material_log_loss_improvement", "high_probability_tail_calibration", "discrimination", "coverage", "chronology", "identity", "fallback", "clustered_uncertainty", "valid_market_behavior_when_available"]
+    },
+    "pitcher_total_bases_allowed": {
+      "baselines": ["league_rate", "time_safe_pitcher_empirical_bayes", "valid_receipt_bound_market_probability_when_available"],
+      "required": ["material_brier_improvement", "material_log_loss_improvement", "calibration", "discrimination", "coverage", "chronology", "identity", "fallback", "clustered_uncertainty", "valid_market_behavior_when_available"]
+    }
+  },
+  "shared_gate_rules": {
+    "each_market_adjudicated_separately": true,
+    "one_market_may_rescue_another": false,
+    "materiality_thresholds_fit_or_declared_before_2024": true,
+    "uncertainty_resampling_unit": "official_game_date_cluster_with_game_identity_retained",
+    "capture_lower_bound_must_exceed": 0.10,
+    "roi_lower_bound_must_exceed": 0.0,
+    "prices_must_be_receipt_verified_and_executable_for_economic_claims": true
+  }
+}
