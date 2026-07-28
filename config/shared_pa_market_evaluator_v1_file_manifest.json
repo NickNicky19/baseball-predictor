@@ -6,7 +6,7 @@
   "research_only": true,
   "betting_authorized": false,
   "files": [
-    {"path": "config/shared_pa_market_evaluation_contract_v1.json", "size": 1746, "sha256": "c7ff6c8d9cf6f5d0678050a8be71d0bc49596267ef9cbba7b34650eb7c378846", "purpose": "locked inert evaluation contract"},
+    {"path": "config/shared_pa_market_evaluation_contract_v1.json", "size": 1745, "sha256": "53673c56b90e48d593c4355e0fb2c6152e69dbf165c15125db065d9059b5b34d", "purpose": "locked inert evaluation contract"},
     {"path": "config/schemas/shared_pa_market_evaluation_contract_v1.schema.json", "size": 3878, "sha256": "b28b567d54bba876a11b13c8b83ad69115d613ede6f31337922aacc71c5b8b61", "purpose": "contract schema"},
     {"path": "config/schemas/shared_pa_market_evaluation_row_v1.schema.json", "size": 9069, "sha256": "94da7d4a505ed48ff60b195fa62c3cf28cbade2a5a30c9dc913deeb4a72ac45a", "purpose": "evaluation row schema"},
     {"path": "config/schemas/shared_pa_market_evaluation_authority_v1.schema.json", "size": 1410, "sha256": "d77ab31fe2271e6f7dffe301b5a28a40b6758ab2385a104d8553eb435e2dde2d", "purpose": "future external authority schema; not bound"},
