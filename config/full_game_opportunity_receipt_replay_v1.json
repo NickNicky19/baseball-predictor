@@ -1,0 +1,36 @@
+{
+  "schema_version": "full-game-opportunity-receipt-replay-authority-v1",
+  "status": "BLOCKED_LEGITIMATE_RETAINED_RECEIPTS_NOT_DELIVERED",
+  "source_commits": {
+    "projected_lineup_pr32": "1ebeb255bf3ecf17adb82f644f9dc2ff11c7491c",
+    "pitcher_source_truth_pr33": "506ebb40203582d25ff01c0a8c2d1dec4c44ed7d",
+    "pitcher_joint_pr35": "0e6a40d5cd1b00d3b1f1128f97a12e7b897aaf55"
+  },
+  "required_receipt_types": [
+    "pr32_protocol", "pr32_source_manifest", "pr32_runtime_release_receipt",
+    "shared_plan", "batter_side_bundle", "batter_candidate_record",
+    "batter_projected_lineup", "batter_active_roster_receipt",
+    "batter_active_roster_raw", "batter_history_coverage_receipt",
+    "batter_history_schedule_receipt", "batter_history_schedule_raw",
+    "batter_history_game_receipt", "batter_history_game_raw",
+    "batter_stats_transport_receipt", "batter_stats_raw",
+    "batter_stats_terminal_attempt", "pr35_protocol",
+    "pr35_evidence_authority_receipt", "pr35_runtime_release_receipt",
+    "pr35_model_authorization_receipt", "starter_plan_source_receipt",
+    "starter_plan_source_raw", "starter_ledger_manifest",
+    "starter_ledger_terminal_record", "starter_context_receipt",
+    "starter_context_raw", "starter_workload_transport_receipt",
+    "starter_workload_raw", "starter_workload_receipt_manifest",
+    "starter_workload_feature_artifact"
+  ],
+  "available_legitimate_receipt_types": [],
+  "authorized_inventory_sha256": null,
+  "semantic_replay_authorized": false,
+  "probability_consumption_authorized": false,
+  "model_fitting_authorized": false,
+  "network_fetch_authorized": false,
+  "historical_or_prospective_backfill_authorized": false,
+  "research_only": true,
+  "betting_authorized": false,
+  "may_2026_access_allowed": false
+}
