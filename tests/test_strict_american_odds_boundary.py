@@ -6,7 +6,8 @@ from decimal import Decimal
 
 import pytest
 
-from src.data.odds.base import OddsLoadError, parse_odds_row
+from src.data.odds.base import OddsAPISettings, OddsLoadError, parse_odds_row
+from src.data.odds.odds_api_provider import OddsAPIProvider
 from src.evaluation.live_market_identity import LiveMarketIdentityError, _american_odds as live_price
 from src.evaluation.market_economics import MarketEconomicsError, american_odds
 from src.evaluation.shadow_ledger import ShadowLedgerError, _american_odds as ledger_price
@@ -48,3 +49,86 @@ def test_raw_odds_row_cannot_reintroduce_float_truncation() -> None:
     }
     with pytest.raises(OddsLoadError, match="Invalid odds values"):
         parse_odds_row(row, "synthetic.json")
+
+
+@pytest.mark.parametrize("field", ["over_odds", "under_odds"])
+@pytest.mark.parametrize("value", [True, False, 0.0, -0.0, Decimal("0")])
+def test_raw_odds_row_rejects_values_equal_to_the_exact_zero_sentinel(
+    field: str, value: object
+) -> None:
+    row = {
+        "player_name": "Test Player",
+        "category": "hits",
+        "line": 1.5,
+        "over_odds": -115,
+        "under_odds": -120,
+    }
+    row[field] = value
+    with pytest.raises(OddsLoadError, match="Invalid odds values"):
+        parse_odds_row(row, "synthetic.json")
+
+
+def test_raw_odds_row_preserves_exact_integer_zero_as_an_absent_side() -> None:
+    row = {
+        "player_name": "Test Player",
+        "category": "hits",
+        "line": 1.5,
+        "over_odds": 0,
+        "under_odds": -120,
+    }
+    parsed = parse_odds_row(row, "synthetic.json")
+    assert parsed.over_odds_american == 0
+    assert parsed.under_odds_american == -120
+
+
+def _odds_api_payload(over_price: object, under_price: object = -120) -> dict:
+    return {
+        "bookmakers": [{
+            "key": "synthetic_book",
+            "title": "Synthetic Book",
+            "markets": [{
+                "key": "batter_hits",
+                "outcomes": [
+                    {
+                        "name": "Over",
+                        "description": "Test Player",
+                        "point": 1.5,
+                        "price": over_price,
+                    },
+                    {
+                        "name": "Under",
+                        "description": "Test Player",
+                        "point": 1.5,
+                        "price": under_price,
+                    },
+                ],
+            }],
+        }]
+    }
+
+
+@pytest.mark.parametrize("value", [105.9, -110.0, True, False, 0, 0.0])
+def test_live_odds_api_rejects_noncanonical_prices_without_truncation(value: object) -> None:
+    provider = OddsAPIProvider(
+        settings=OddsAPISettings(
+            enabled=True,
+            api_key="synthetic",
+            market_category_map={"batter_hits": "hits"},
+        )
+    )
+    with pytest.raises(OddsLoadError, match="Invalid American price"):
+        provider._parse_event_odds(_odds_api_payload(value))
+
+
+def test_live_odds_api_preserves_exact_integer_prices() -> None:
+    provider = OddsAPIProvider(
+        settings=OddsAPISettings(
+            enabled=True,
+            api_key="synthetic",
+            market_category_map={"batter_hits": "hits"},
+        )
+    )
+    lines = provider._parse_event_odds(_odds_api_payload(125, -120))
+    assert len(lines) == 1
+    assert lines[0].over_odds_american == 125
+    assert lines[0].under_odds_american == -120

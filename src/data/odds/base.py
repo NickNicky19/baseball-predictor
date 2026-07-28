@@ -183,10 +183,22 @@ def parse_odds_row(row: dict[str, Any], source: Path | str) -> OddsLine:
         line = float(row["line"] if "line" in row else row.get("point", 0))
         raw_over_odds = row.get("over_odds", row.get("over_odds_american", 0))
         raw_under_odds = row.get("under_odds", row.get("under_odds_american", 0))
-        # Preserve the established zero sentinel for a genuinely absent side,
-        # but never coerce a supplied non-integral or malformed price.
-        over_odds = 0 if raw_over_odds in (None, "", 0, "0") else american_odds(raw_over_odds, "over_odds")
-        under_odds = 0 if raw_under_odds in (None, "", 0, "0") else american_odds(raw_under_odds, "under_odds")
+        # Preserve only the exact legacy sentinels for a genuinely absent side.
+        # Equality membership is unsafe here because ``False == 0`` and
+        # ``0.0 == 0``; those supplied values must reach the strict parser and
+        # fail instead of silently becoming a missing quote.
+        over_missing = (
+            raw_over_odds is None
+            or (type(raw_over_odds) is int and raw_over_odds == 0)
+            or (type(raw_over_odds) is str and raw_over_odds in {"", "0"})
+        )
+        under_missing = (
+            raw_under_odds is None
+            or (type(raw_under_odds) is int and raw_under_odds == 0)
+            or (type(raw_under_odds) is str and raw_under_odds in {"", "0"})
+        )
+        over_odds = 0 if over_missing else american_odds(raw_over_odds, "over_odds")
+        under_odds = 0 if under_missing else american_odds(raw_under_odds, "under_odds")
     except (KeyError, TypeError, ValueError, MarketEconomicsError) as exc:
         raise OddsLoadError(
             f"Invalid odds values for {player} ({category}) in {source_name}",

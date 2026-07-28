@@ -8,18 +8,38 @@ name: Shared PA Projected Opportunity Linux Gate
       - ".github/workflows/shared-pa-projected-opportunity-linux.yml"
       - "requirements-shared-pa-projected-opportunity-ci.lock"
       - "config/shared_pa_projected_opportunity_forward_v1.json"
+      - "config/shared_pa_projected_opportunity_forward_v2.json"
       - "reports/shared_pa_projected_opportunity_candidate_v1_hash_manifest.json"
+      - "reports/shared_pa_projected_opportunity_candidate_v2_hash_manifest.json"
+      - "scripts/check_shared_pa_projected_opportunity_manifest.py"
       - "src/data/odds/base.py"
+      - "src/data/odds/odds_api_provider.py"
       - "src/evaluation/live_market_identity.py"
       - "src/evaluation/market_economics.py"
       - "src/evaluation/shadow_ledger.py"
       - "src/evaluation/shared_pa_batter_skill.py"
       - "src/evaluation/shared_pa_projected_opportunity_candidate.py"
       - "src/evaluation/shared_pa_projected_opportunity_runner.py"
+      - "src/evaluation/shared_pa_projected_opportunity_candidate_v2.py"
+      - "src/evaluation/shared_pa_projected_opportunity_evidence_v2.py"
+      - "src/evaluation/shared_pa_projected_opportunity_release_v2.py"
+      - "src/evaluation/shared_pa_projected_opportunity_runner_v2.py"
+      - "src/evaluation/projected_lineup_contract.py"
+      - "src/evaluation/projected_lineup_empirical_joint.py"
+      - "src/evaluation/projected_lineup_history.py"
+      - "src/evaluation/projected_lineup_official_roster.py"
+      - "src/evaluation/prospective_batter_opportunity.py"
+      - "src/evaluation/shadow_capture_plan.py"
+      - "src/evaluation/shared_pa_forward_collector.py"
+      - "src/evaluation/shared_pa_forward_evidence.py"
       - "tests/test_market_economics_properties.py"
       - "tests/test_shared_pa_projected_opportunity_candidate.py"
       - "tests/test_shared_pa_projected_opportunity_runner.py"
+      - "tests/test_shared_pa_projected_opportunity_candidate_v2.py"
+      - "tests/test_shared_pa_projected_opportunity_runner_v2.py"
+      - "tests/test_prospective_batter_opportunity.py"
       - "tests/test_strict_american_odds_boundary.py"
+      - "tests/test_odds_loader.py"
   workflow_dispatch:
 
 permissions:
@@ -38,6 +58,13 @@ jobs:
     steps:
       - name: Check out exact candidate commit
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Verify exact requested head
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
 
       - name: Set up exact Python
         uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
@@ -57,10 +84,24 @@ jobs:
       - name: Validate bound protocol and candidate tests
         run: |
           python -m pytest -q -p no:cacheprovider \
+            tests/test_projected_lineup_contract.py \
+            tests/test_projected_lineup_empirical_joint.py \
+            tests/test_projected_lineup_history.py \
+            tests/test_projected_lineup_official_roster.py \
+            tests/test_projected_lineup_roster_runner.py \
+            tests/test_prospective_batter_opportunity.py \
+            tests/test_shared_pa_forward_collector.py \
+            tests/test_shared_pa_forward_evidence.py \
             tests/test_shared_pa_projected_opportunity_candidate.py \
+            tests/test_shared_pa_projected_opportunity_candidate_v2.py \
             tests/test_shared_pa_projected_opportunity_runner.py \
+            tests/test_shared_pa_projected_opportunity_runner_v2.py \
             tests/test_strict_american_odds_boundary.py \
-            tests/test_market_economics_properties.py
+            tests/test_market_economics_properties.py \
+            tests/test_odds_loader.py
+
+      - name: Validate versioned candidate manifest
+        run: python scripts/check_shared_pa_projected_opportunity_manifest.py
 
       - name: Verify tracked source contains no likely credentials
         run: python scripts/check_tracked_secrets.py
