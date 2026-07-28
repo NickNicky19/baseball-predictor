@@ -31,8 +31,8 @@
     },
     {
       "path": "requirements-shared-pa-projected-opportunity-ci.lock",
-      "size": 840,
-      "sha256": "c552e651e9dd80b39cfdfa0e4af1a3ea316111c984233656c549e4fa934df7d5",
+      "size": 1707,
+      "sha256": "c72e64492726d384e72331fec5615c3653c61a2986cb44d9429f3ff53df60d53",
       "role": "exact_linux_test_dependency_lock"
     },
     {
