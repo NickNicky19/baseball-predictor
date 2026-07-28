@@ -40,6 +40,11 @@ distribution passes the existing projected-lineup contract.
 - May 2026 is rejected before construction.
 - The active roster, team, target date, completed-lineup bytes, and feature
   store hashes must agree.
+- The downstream candidate independently rebuilds the historical feature store
+  and requires exact semantic equality; a self-consistent forged feature-store
+  hash is insufficient.
+- The projection records the SHA-256 of the code bytes actually executing,
+  rather than accepting a caller-supplied code identity.
 - A late projection is terminally unavailable.
 - No eligible historical joint lineup produces an explicit terminal record
   without probabilities.

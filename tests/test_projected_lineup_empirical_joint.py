@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from src.evaluation.projected_lineup_contract import load_contract, validate_projection
+from src.evaluation.projected_lineup_contract import load_contract, sha256_value, validate_projection
 from src.evaluation.projected_lineup_empirical_joint import (
     EmpiricalJointLineupError,
     build_empirical_joint_projection,
@@ -75,7 +75,6 @@ def _build(*, roster=None, history=None, store=None) -> dict:
         active_roster_receipt=roster or default_roster,
         historical_feature_store=store or default_store,
         completed_lineups=history or default_history,
-        model_code_sha256=_sha("code"),
         contract=load_contract(ROOT / "config/projected_lineup_contract_v1.json"),
     )
 
@@ -88,6 +87,9 @@ def test_empirical_joint_frequency_combines_duplicate_lineups_without_coefficien
     )
     assert derived["start_probability"]["1"] == pytest.approx(2 / 3)
     assert derived["start_probability"]["10"] == pytest.approx(1 / 3)
+    assert record["model_code_sha256"] == hashlib.sha256(
+        (ROOT / "src/evaluation/projected_lineup_empirical_joint.py").read_bytes()
+    ).hexdigest()
 
 
 def test_no_eligible_joint_lineup_is_terminal_missing_not_a_fallback() -> None:
@@ -120,6 +122,17 @@ def test_lineage_and_chronology_mutations_fail_closed(mutation: str) -> None:
         _build(roster=roster, history=history, store=store)
 
 
+def test_hash_consistent_but_semantically_mutated_feature_store_fails_replay() -> None:
+    roster, history, store = _inputs()
+    store = deepcopy(store)
+    store["features"][0]["prior_completed_starts"] += 1
+    unsigned = dict(store)
+    unsigned.pop("feature_store_sha256")
+    store["feature_store_sha256"] = sha256_value(unsigned)
+    with pytest.raises(EmpiricalJointLineupError, match="semantic replay"):
+        _build(roster=roster, history=history, store=store)
+
+
 def test_late_projection_is_terminal_and_never_backfilled() -> None:
     roster, history, store = _inputs()
     record = build_empirical_joint_projection(
@@ -131,7 +144,6 @@ def test_late_projection_is_terminal_and_never_backfilled() -> None:
         active_roster_receipt=roster,
         historical_feature_store=store,
         completed_lineups=history,
-        model_code_sha256=_sha("code"),
         contract=load_contract(ROOT / "config/projected_lineup_contract_v1.json"),
     )
     assert record["terminal_state"] == "projected_unavailable"
@@ -150,6 +162,21 @@ def test_may_is_rejected_before_projection() -> None:
             active_roster_receipt=roster,
             historical_feature_store=store,
             completed_lineups=history,
-            model_code_sha256=_sha("code"),
+            contract=load_contract(ROOT / "config/projected_lineup_contract_v1.json"),
+        )
+
+
+def test_noncanonical_date_is_rejected_even_when_projection_is_late() -> None:
+    roster, history, store = _inputs()
+    with pytest.raises(EmpiricalJointLineupError, match="canonical"):
+        build_empirical_joint_projection(
+            official_game_date="2023-7-10",
+            mlb_game_pk=200,
+            team_id=147,
+            target_horizon_utc="2023-07-10T15:00:00Z",
+            projection_receipt_utc="2023-07-10T15:00:01Z",
+            active_roster_receipt=roster,
+            historical_feature_store=store,
+            completed_lineups=history,
             contract=load_contract(ROOT / "config/projected_lineup_contract_v1.json"),
         )

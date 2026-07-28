@@ -27,9 +27,9 @@
   },
   "hashes": {
     "protocol_sha256": "f324cef59bf5d931ba68fe83b623417ac17a2f40f65ffba4b320322851982b46",
-    "candidate_code_sha256": "59ee827dd8999a0fb5490d69456e709f7ffe9c561b489412c1d2315ed63edf61",
-    "candidate_tests_sha256": "bded8def7697dbb54849ac9e881d438d76c29574244063ed07a2338392db6ea1",
-    "decision_document_sha256": "221e08a476bdd2a85412d335a209b939b0e9cfdf93a362b38eb9cc1aaef7f801",
+    "candidate_code_sha256": "2c30a02db03b2b58db115df36cf80c136ea2cfef7d9d8c4ba84a98dfff86f195",
+    "candidate_tests_sha256": "cbeb04612a5bbfc5d0356085fc0f4154251fc130618dbc1c5cbb0997468e3d5a",
+    "decision_document_sha256": "5b9bcc6ce95e6c4dc13c03e644fc1ff02bf83f118328879a9f258ba5dfe61515",
     "linux_workflow_sha256": "fc6976b04919e059d5bb5cd5d93da31f1b94a140d3bfab87465a590b5e79612c",
     "preserved_history_normalizer_sha256": "7110803d0d3391fdbf4c87c12790d4a1e132dbc06f442009d930cb3d192a2764",
     "preserved_projection_validator_sha256": "b123406d521c77cc3793bc00db2db5c046808e6f7502d487b61328376d50bbfc",
@@ -42,12 +42,14 @@
       "test_projected_lineup_contract",
       "test_shared_pa_opportunity_matchup_contract"
     ],
-    "passed": 34,
+    "passed": 36,
     "failed": 0,
     "mutations_rejected": [
       "completed-lineup content differs from feature-store hash",
       "active-roster identity differs from feature-store receipt",
+      "hash-consistent feature-store semantics differ from source replay",
       "same-day completed lineup",
+      "noncanonical target date on a late record",
       "late projection",
       "no eligible complete joint lineup"
     ]

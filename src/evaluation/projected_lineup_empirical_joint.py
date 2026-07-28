@@ -12,8 +12,10 @@ any downstream Hits, HR, or Total Bases candidate may consume it.
 
 from __future__ import annotations
 
+import hashlib
 from collections import Counter, defaultdict
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
+from pathlib import Path
 from typing import Any, Mapping, Sequence
 
 from src.evaluation.projected_lineup_contract import (
@@ -24,6 +26,7 @@ from src.evaluation.projected_lineup_contract import (
 from src.evaluation.projected_lineup_history import (
     HistoricalLineupFeatureError,
     _normalize_completed_lineups,
+    build_feature_store,
 )
 
 
@@ -45,6 +48,20 @@ def _utc(value: Any, label: str) -> datetime:
     if parsed.tzinfo is None or parsed.utcoffset() is None:
         raise EmpiricalJointLineupError(f"{label} must include a timezone")
     return parsed.astimezone(timezone.utc)
+
+
+def _target_date(value: Any) -> date:
+    if not isinstance(value, str):
+        raise EmpiricalJointLineupError("official_game_date must be canonical YYYY-MM-DD")
+    try:
+        parsed = datetime.strptime(value, "%Y-%m-%d").date()
+    except ValueError as exc:
+        raise EmpiricalJointLineupError("official_game_date must be canonical YYYY-MM-DD") from exc
+    if parsed.isoformat() != value:
+        raise EmpiricalJointLineupError("official_game_date must be canonical YYYY-MM-DD")
+    if value.startswith("2026-05-"):
+        raise EmpiricalJointLineupError("May 2026 is sealed")
+    return parsed
 
 
 def _receipt_without_players(receipt: Mapping[str, Any]) -> dict[str, Any]:
@@ -125,7 +142,6 @@ def build_empirical_joint_projection(
     active_roster_receipt: Mapping[str, Any],
     historical_feature_store: Mapping[str, Any],
     completed_lineups: Sequence[Mapping[str, Any]],
-    model_code_sha256: str,
     contract: Mapping[str, Any],
 ) -> dict[str, Any]:
     """Build and validate one future-only empirical joint projection.
@@ -133,6 +149,7 @@ def build_empirical_joint_projection(
     Invalid evidence raises.  A structurally valid input with no eligible joint
     historical lineup returns an explicit terminal unavailable record.
     """
+    target_date = _target_date(official_game_date)
     horizon = _utc(target_horizon_utc, "target_horizon_utc")
     observed = _utc(projection_receipt_utc, "projection_receipt_utc")
     if observed > horizon:
@@ -146,11 +163,6 @@ def build_empirical_joint_projection(
         )
 
     try:
-        target_date = datetime.strptime(official_game_date, "%Y-%m-%d").date()
-        if target_date.isoformat() != official_game_date:
-            raise ValueError("date is not canonical")
-        if official_game_date.startswith("2026-05-"):
-            raise ValueError("May 2026 is sealed")
         normalized = _normalize_completed_lineups(
             completed_lineups, target_date=target_date, team_id=team_id
         )
@@ -174,14 +186,19 @@ def build_empirical_joint_projection(
     ):
         raise EmpiricalJointLineupError("active roster player identities are invalid")
 
-    if historical_feature_store.get("official_game_date") != official_game_date:
-        raise EmpiricalJointLineupError("historical feature store target date differs")
-    if historical_feature_store.get("team_id") != team_id:
-        raise EmpiricalJointLineupError("historical feature store team identity differs")
-    if historical_feature_store.get("history_input_sha256") != sha256_value(normalized):
-        raise EmpiricalJointLineupError("historical feature store does not bind completed lineups")
-    if historical_feature_store.get("active_roster_receipt") != _receipt_without_players(active_roster_receipt):
-        raise EmpiricalJointLineupError("historical feature store does not bind active roster receipt")
+    try:
+        replayed_feature_store = build_feature_store(
+            official_game_date=official_game_date,
+            team_id=team_id,
+            active_roster_receipt=active_roster_receipt,
+            completed_lineups=completed_lineups,
+        )
+    except HistoricalLineupFeatureError as exc:
+        raise EmpiricalJointLineupError("historical feature store replay failed") from exc
+    if historical_feature_store != replayed_feature_store:
+        raise EmpiricalJointLineupError(
+            "historical feature store differs from independent semantic replay"
+        )
 
     scenarios = _joint_scenarios(normalized, roster_ids=roster_ids)
     if not scenarios:
@@ -200,6 +217,7 @@ def build_empirical_joint_projection(
         "historical_feature_store_sha256": historical_feature_store["feature_store_sha256"],
         "eligible_joint_scenarios": scenarios,
     })
+    model_code_sha256 = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
     record = {
         "schema_version": "projected-lineup-projection-v1",
         "terminal_state": "projected_complete",
