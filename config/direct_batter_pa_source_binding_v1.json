@@ -1,0 +1,64 @@
+{
+  "schema_version": "direct-batter-pa-source-binding-contract-v1",
+  "status": "LOCKED_2023_SOURCE_BINDING_AUDIT_NO_FIT",
+  "research_only": true,
+  "betting_authorized": false,
+  "model_fitting_permitted": false,
+  "protected_data": {
+    "may_2026_opened": false,
+    "selection_2024_opened": false,
+    "spent_hr_confirmation_2025_opened": false,
+    "prices_opened": false,
+    "prospective_evidence_opened": false
+  },
+  "upstream_release": {
+    "registry_path": "config/direct_batter_pa_foundation_v4_1_artifact_registry.json",
+    "registry_sha256": "f62983689106e37e57eb6ae2374c688f00c4764f75ee1a412b0f7542648e8096",
+    "source_commit": "c394dea5a0028b8f78e8ab78daed0d44cde5d771",
+    "panel_path": "data/analysis/system_integrity_v2/direct_batter_pa_foundation_v4_1/panel_2023.csv.gz",
+    "panel_sha256": "643a4c6533dbe59fc4e6b5e5932683c0877ae0a5d982945c799976d36af1ebf6",
+    "panel_bytes": 14364814,
+    "panel_rows": 43740,
+    "manifest_path": "data/analysis/system_integrity_v2/direct_batter_pa_foundation_v4_1/panel_manifest.json",
+    "manifest_sha256": "083fe961b00299f0561130e204e5264dfa05f0b234b72ce2af214ac5f681e9a4",
+    "certificate_path": "data/analysis/system_integrity_v2/direct_batter_pa_foundation_v4_1/panel_certificate.json",
+    "certificate_sha256": "aa3fd225f946b91ab1e1249eb8b7ce415f0fccabb18a041e3960552b2aeaf8ae"
+  },
+  "permitted_2023_sources": {
+    "raw_statcast_relative_prefix": "2023/",
+    "raw_statcast_files": 643,
+    "official_daily_filename_pattern": "hitters_2023-YYYY-MM-DD_statcast.csv",
+    "official_daily_directory": "2023",
+    "official_daily_files": 205,
+    "official_rows": 43740,
+    "official_daily_tree_sha256": "b1deaed7c16eb35ec75351a37c5d7549d8f47932ba9fbd69ab4bd309eb698408",
+    "official_manifest_filename": "manifest_2023.json",
+    "official_manifest_sha256": "b383c2205b9c97bc12b76cea964f364adb50185b7d81a656fe7a4aad3488a515",
+    "zero_pa_receipts": 14,
+    "zero_pa_manifest_sha256": "4866080b74a4f1dd6f92f83ac40603f8522c67a5d33b944f6dadb3718ad8c3b1",
+    "zero_pa_evidence_sha256": "ccda3dff18a07a790b9a684873db2dffcb55f5f92dfd0f6a2339119c371fdb35"
+  },
+  "required_authority": {
+    "raw_transport_request_and_response_receipts": true,
+    "independent_official_source_receipts": true,
+    "exact_reproducible_dependency_lock": true,
+    "external_expected_release_digest": true
+  },
+  "observed_authority": {
+    "raw_statcast_local_byte_hashes": true,
+    "raw_transport_request_and_response_receipts": false,
+    "official_2023_daily_local_byte_hashes": true,
+    "independent_official_source_receipts": false,
+    "zero_pa_official_response_receipts": true,
+    "exact_reproducible_dependency_lock": false,
+    "external_expected_release_digest": false
+  },
+  "expected_decision": "BLOCKED_INCOMPLETE_SOURCE_AND_DEPENDENCY_AUTHORITY",
+  "limitations": [
+    "The legacy panel manifest names and hashes a mixed 2023-2025 official aggregate even though only its 2023 prefix was consumed.",
+    "The 643 historical Statcast CSVs are byte-bound but do not have receipt-complete request, response, timestamp, parser, and source-protocol provenance.",
+    "The 205 season-only official daily files are locally byte-verifiable but lack independent retained transport receipts.",
+    "requirements.txt and pyproject.toml are declarations, not an exact reproducible dependency lock.",
+    "No independent external expected digest anchors the complete release against wholesale replacement or rollback."
+  ]
+}
