@@ -1,0 +1,137 @@
+{
+  "schema_version": "shared-pa-contact-eb-offset-development-protocol-v1",
+  "status": "DESIGN_LOCKED_BEFORE_ANY_CONTACT_CANDIDATE_OUTCOME_SCORING",
+  "locked_date": "2026-07-27",
+  "candidate": {
+    "id": "shared_pa_contact_eb_offset_catboost_2023_v1",
+    "kind": "eight_class_empirical_bayes_offset_catboost_with_hash_bound_contact_block",
+    "outcomes": [
+      "strikeout",
+      "walk",
+      "single",
+      "double",
+      "triple",
+      "home_run",
+      "bip_out",
+      "other_non_ab"
+    ],
+    "base_probability": "strict-prior player Dirichlet posterior with outer-training-only league probabilities and outer-training-only fitted concentration",
+    "residual_features": "ordered concatenation of the rejected true-EB-offset residual feature contract and the 43 numeric contact-quality-input-v1 fields; history_contact_max_source_date remains a validation certificate only",
+    "residual_model": {
+      "library": "catboost==1.2.10",
+      "loss_function": "MultiClass",
+      "iterations": 1200,
+      "depth": 4,
+      "learning_rate": 0.03,
+      "l2_leaf_reg": 10.0,
+      "thread_count": 2,
+      "random_seed": 20260721,
+      "allow_writing_files": false,
+      "parameter_selection": "none; inherited once from the frozen all-prior CatBoost core comparator"
+    },
+    "model_or_threshold_selection": "none",
+    "missing_value_policy": "native CatBoost missing values for denominator-zero rates; counts and denominators are never imputed",
+    "explicitly_excluded": [
+      "player_id as a model feature",
+      "history outcome counts and rates already consumed by the empirical-Bayes offset",
+      "historical estimated outcome probabilities without algorithm-version receipts",
+      "spray or pull without a certified coordinate transform",
+      "maximum exit velocity",
+      "history_contact_max_source_date as a model feature",
+      "target-game realized PA",
+      "target-game unreceipted lineup slot",
+      "opposing pitcher",
+      "park, weather, umpire, team, market price",
+      "same-day, postgame, and future features"
+    ]
+  },
+  "feature_sources": {
+    "base_residual": {
+      "path": "config/shared_pa_true_eb_offset_development_2023_v1.json",
+      "sha256": "7abfa0bca565a0e561655a061ca7e0f3ef7a3da2c3e764f9949ef46bb20a7b27",
+      "role": "exact rejected residual-control features and unchanged model parameters"
+    },
+    "contact_contract": {
+      "path": "config/shared_pa_contact_quality_input_v1.json",
+      "sha256": "16e3b03389d09772b806d0da021cf24630440f931961e9b7746bcc7cf6d44ccb",
+      "panel_field_count": 44,
+      "numeric_model_feature_count": 43,
+      "chronology_certificate_field": "history_contact_max_source_date"
+    },
+    "contact_registry": {
+      "path": "config/shared_pa_contact_quality_input_v1_artifact_registry.json",
+      "sha256": "6c052d2fc53e24ede6a48d8a3e15a1a2b3025de0fe7c499f53ba589b8314458f"
+    }
+  },
+  "data": {
+    "development_years": [2023],
+    "base_panel_sha256": "643a4c6533dbe59fc4e6b5e5932683c0877ae0a5d982945c799976d36af1ebf6",
+    "base_panel_manifest_sha256": "083fe961b00299f0561130e204e5264dfa05f0b234b72ce2af214ac5f681e9a4",
+    "base_panel_certificate_sha256": "aa3fd225f946b91ab1e1249eb8b7ce415f0fccabb18a041e3960552b2aeaf8ae",
+    "contact_panel_sha256": "a7882dccda3d36b37957261903a8a35644b9d9118c5f80ecb7085ef1cb5bbb89",
+    "contact_manifest_sha256": "a5ec5637ae181838f09429b5846cc8b575561c6202d83ee165cfb215e008abd1",
+    "contact_certificate_sha256": "5324e890023acd5ea84aa9c1c9b2cdee5008c3c51f4f244911dd43d4d601fe4f",
+    "physical_rows": 43740,
+    "fit_eligible_positive_pa_rows": 43726,
+    "receipt_proven_zero_pa_rows_excluded_from_scoring": 14,
+    "selection_year_opened": false,
+    "confirmation_year_opened": false
+  },
+  "chronological_evaluation": {
+    "outer_folds": 4,
+    "algorithm": "deterministic expanding split over sorted unique 2023 dates matching sklearn TimeSeriesSplit default boundaries",
+    "inner_model_or_parameter_selection": "none",
+    "bootstrap_draws": 2000,
+    "bootstrap_unit": "official_game_date",
+    "bootstrap_seed": 20260727,
+    "coverage_loss_within_oof_windows_allowed": 0
+  },
+  "pa_opportunity": {
+    "kind": "outer-training pooled empirical PA-count distribution",
+    "same_distribution_for_candidate_and_all_comparators": true,
+    "realized_validation_pa_consumed_as_feature": false,
+    "target_game_lineup_slot_consumed": false,
+    "status": "HISTORICAL_RESEARCH_SCREEN_ONLY_NOT_DEPLOYABLE_MARKET_PROOF"
+  },
+  "comparators": [
+    "exact rejected true-EB-offset residual control refitted within each outer fold",
+    "outer-training league PA outcome rate",
+    "row-wise strict-prior empirical-Bayes player posterior with fitted concentration",
+    "row-wise strict-prior empirical-Bayes player posterior with frozen 200-PA concentration",
+    "frozen all-prior CatBoost core family refitted within each outer fold"
+  ],
+  "markets": {
+    "hits": ["per_pa_hit_event", "hits_over_0_5", "hits_over_1_5"],
+    "hr_over_0_5": ["per_pa_home_run_event", "home_runs_over_0_5"],
+    "total_bases": [
+      "per_pa_total_bases_distribution",
+      "total_bases_over_0_5",
+      "total_bases_over_1_5",
+      "total_bases_over_2_5",
+      "total_bases_over_3_5",
+      "total_bases_over_4_5",
+      "total_bases_over_5_5"
+    ],
+    "adjudicate_separately": true,
+    "market_rescue_forbidden": true
+  },
+  "gates": {
+    "proper_score_materiality": "For Brier and log loss separately, candidate-minus-each comparator point estimate and date-block 95 percent upper bound must be below negative one percent of that comparator score for every required component.",
+    "discrimination": "Candidate AUC must be defined and no lower than every comparator in aggregate and every outer fold for every required component.",
+    "calibration": "Candidate absolute bias and prediction-decile ECE must be no worse than every comparator for every required component.",
+    "hr_high_probability_tail": "Candidate top-decile support must contain at least 500 player-games and 20 home runs; calibration gap and proper-score point and upper bounds must be noninferior to every comparator.",
+    "chronology_identity_fallback": "Every chronology, identity, probability, denominator, missingness, coverage, and no-fallback boundary must pass.",
+    "development_only": "A 2023 survivor is only a locked research challenger and requires genuinely future untouched evidence for confirmation."
+  },
+  "protected_boundaries": {
+    "never_open_2024_for_this_candidate": true,
+    "spent_2025_hr_not_reused": true,
+    "may_2026_sealed": true,
+    "missed_prospective_evidence_not_backfilled": true,
+    "pitcher_features_require_receipt_proven_starter": true,
+    "frozen_baselines_and_rejections_preserved": true,
+    "operational_collectors_untouched": true,
+    "production_changed": false,
+    "betting_authorized": false
+  }
+}

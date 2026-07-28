@@ -1,0 +1,110 @@
+{
+  "schema_version": "shared-pa-contact-quality-input-artifact-registry-v1",
+  "status": "HASH_BOUND_2023_RESEARCH_INPUT_NOT_A_MODEL_OR_PROMOTION",
+  "input_id": "shared_pa_contact_quality_input_v1",
+  "build_commit": "1cc5949b2dddc7ca5693dd78dcaddeba06c39ad4",
+  "source_foundation": {
+    "panel_sha256": "643a4c6533dbe59fc4e6b5e5932683c0877ae0a5d982945c799976d36af1ebf6",
+    "panel_manifest_sha256": "083fe961b00299f0561130e204e5264dfa05f0b234b72ce2af214ac5f681e9a4",
+    "panel_certificate_sha256": "aa3fd225f946b91ab1e1249eb8b7ce415f0fccabb18a041e3960552b2aeaf8ae",
+    "raw_files_rehashed": 643
+  },
+  "code_and_test_identity": {
+    "config/shared_pa_contact_quality_input_v1.json": "16e3b03389d09772b806d0da021cf24630440f931961e9b7746bcc7cf6d44ccb",
+    "scripts/build_shared_pa_contact_quality_panel.py": "b7af7a60e51993bcea8284b34690661e4303f846f911b60bf91a9b81455e55f5",
+    "scripts/validate_shared_pa_contact_quality_panel.py": "d9421266bd2c9f22b2d9b009a3919a622002ad7efbb70b729d9ab22cb085e0cd",
+    "src/evaluation/shared_pa_contact_quality.py": "a9240a13d687c0690442c4dc9587b09971c58c88e16219140cf929a190e9bb18",
+    "tests/test_shared_pa_contact_quality.py": "8d53cd6c4470730534f0a25e93e562cc8e7e53a46a57b02a81f6ad0ca6e4bd6a",
+    "tests/test_validate_shared_pa_contact_quality_panel.py": "da607b8c5749b093586c7796f334cebdecaf5e435f13eae9d05d77e883f2a351"
+  },
+  "artifacts": {
+    "path": "data/analysis/system_integrity_v2/shared_pa_contact_quality_input_v1",
+    "contact_quality_panel_2023.csv.gz": {
+      "bytes": 4160809,
+      "rows": 43740,
+      "sha256": "a7882dccda3d36b37957261903a8a35644b9d9118c5f80ecb7085ef1cb5bbb89"
+    },
+    "contact_quality_manifest.json": {
+      "bytes": 72065,
+      "sha256": "a5ec5637ae181838f09429b5846cc8b575561c6202d83ee165cfb215e008abd1"
+    },
+    "contact_quality_certificate.json": {
+      "bytes": 995,
+      "sha256": "5324e890023acd5ea84aa9c1c9b2cdee5008c3c51f4f244911dd43d4d601fe4f"
+    }
+  },
+  "population": {
+    "years": [2023],
+    "date_min": "2023-03-30",
+    "date_max": "2023-10-01",
+    "rows": 43740,
+    "feature_columns": 44,
+    "identity_duplicates": 0,
+    "chronology_violations": 0,
+    "outcome_columns": 0,
+    "target_rows_dropped": 0
+  },
+  "validation": {
+    "focused_regression_and_mutation_tests": "16 passed",
+    "actual_artifact_validation": "PASS",
+    "deterministic_rebuild": "PASS_BYTE_IDENTICAL",
+    "barrel_not_above_classified_hard_hit": "PASS_ALL_ROWS",
+    "counts_rates_denominators_and_missingness": "PASS_ALL_ROWS"
+  },
+  "build_failures_preserved": [
+    {
+      "commit": "4e11fc51f53360a3dbe85aa02e078176dbf2ee58",
+      "classification": "VALIDATOR_DEFECT_DIFFERENT_MISSINGNESS_POPULATIONS",
+      "disposition": "REPAIRED_AT_SOURCE_WITH_REGRESSION_TEST",
+      "accepted_artifact_written": false,
+      "repair_commit": "be3dc94ccad710af5df3985dde8be3c9ccc8ad08"
+    },
+    {
+      "commit": "be3dc94ccad710af5df3985dde8be3c9ccc8ad08",
+      "classification": "NONDETERMINISTIC_FEATURE_INSERTION_ORDER",
+      "disposition": "REPAIRED_AT_CONSTRUCTOR_WITH_REGRESSION_ASSERTION",
+      "accepted_artifact_written": false,
+      "repair_commit": "1cc5949b2dddc7ca5693dd78dcaddeba06c39ad4"
+    }
+  ],
+  "feature_policy": {
+    "included": [
+      "joint_exit_velocity_launch_angle_counts",
+      "hard_hit_counts_and_rates",
+      "sweet_spot_counts_and_rates",
+      "barrel_counts_and_rates",
+      "batted_ball_type_counts_and_rates",
+      "ev50_robust_tail_mean",
+      "explicit_denominators_and_missingness"
+    ],
+    "excluded": [
+      "retroactively_computed_expected_statistics_without_algorithm_version_receipts",
+      "spray_or_pull_without_a_certified_coordinate_transform",
+      "single_observation_maximum_exit_velocity",
+      "same_day_or_future_rows",
+      "target_game_lineup",
+      "pitcher_context"
+    ]
+  },
+  "qualification": {
+    "strict_prior_timing_contract": "PASSED",
+    "research_input_ready": true,
+    "model_fitted": false,
+    "predictive_improvement_claimed": false,
+    "selection_claimed": false,
+    "confirmation_claimed": false,
+    "promotion_claimed": false,
+    "production_changed": false,
+    "betting_authorized": false
+  },
+  "protected_boundaries": {
+    "2024_opened": false,
+    "2025_opened": false,
+    "may_2026_opened": false,
+    "missed_prospective_evidence_backfilled": false,
+    "operational_collectors_touched": false,
+    "frozen_baselines_changed": false,
+    "rejected_candidates_changed": false
+  },
+  "single_highest_value_next_action": "Predeclare exactly one regularized 2023-only shared-PA challenger that adds this hash-bound contact block to the fitted empirical-Bayes baseline, freezes its feature consumption and market-specific gates before scoring, and requires genuinely future untouched evidence for any confirmation claim."
+}

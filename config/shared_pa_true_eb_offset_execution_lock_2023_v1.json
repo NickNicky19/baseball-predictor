@@ -1,0 +1,83 @@
+{
+  "schema_version": "shared-pa-true-eb-offset-execution-lock-v1",
+  "status": "LOCKED_BEFORE_FIRST_V4_1_OUTCOME_SCORE",
+  "locked_date": "2026-07-27",
+  "candidate_id": "shared_pa_true_eb_offset_catboost_2023_v1",
+  "development_years": [2023],
+  "git_parent_before_candidate_commit": "e935f15",
+  "required_file_hashes": {
+    "config/direct_batter_pa_foundation_v4_1_integration_closure.json": "4e65b83835fdef2b46192685e491b2ba403eadfaddc34732830125847a58c6b2",
+    "config/shared_pa_true_eb_offset_development_2023_v1.json": "7abfa0bca565a0e561655a061ca7e0f3ef7a3da2c3e764f9949ef46bb20a7b27",
+    "requirements-shared-pa-offset-research.lock": "53edbfa534459339d98188b14a716a9a9fb72c18510acdb267c67dbac3d33296",
+    "scripts/check_direct_batter_pa_integration_closure.py": "0d3990f0dc6430f7d33a3e9a3b623341c35999b2ec93207bff4d88a11801b7ae",
+    "scripts/develop_shared_pa_true_eb_offset_2023.py": "2f2c42dd2d43c84b5c61f0c1c2e53953a206740e2e32d9132dd21a9d58a03e92",
+    "src/evaluation/shared_pa_eb_offset_catboost.py": "711e1e3e71edd137f19d434c4fda4814c57a529b339bd1f342f2193c239442a2",
+    "src/evaluation/shared_pa_offset_evaluation.py": "2b90a27ad9e4b35fab61e887414e3a48e40841399c7c0c69b029848ee936668b",
+    "src/evaluation/shared_pa_training_data.py": "ce0689ef9d3d296a8d40e9badc2400c73bf57fa648f73d1d43e8c4efd900fac1",
+    "tests/test_develop_shared_pa_true_eb_offset_2023.py": "24e1b6ed91dc16e8f734bc2714c5b1376b89990e02175e749e7f4a5657e24811",
+    "tests/test_direct_batter_pa_integration_closure.py": "84d08c941e71890ce08d645b185c98a6bff4f2de38c624baee4e990b076c1bc0",
+    "tests/test_shared_pa_eb_offset_catboost.py": "ee03b7c9596c25b88daf6620a62fc119c6acc443399e58ed120fbfcd51290567",
+    "tests/test_shared_pa_offset_evaluation.py": "13f8a28fa0ec970e7d89169862334b79f6bd10e0a9dbdd75580485a79fdfae45"
+  },
+  "panel_identity": {
+    "panel_sha256": "643a4c6533dbe59fc4e6b5e5932683c0877ae0a5d982945c799976d36af1ebf6",
+    "panel_manifest_sha256": "083fe961b00299f0561130e204e5264dfa05f0b234b72ce2af214ac5f681e9a4",
+    "panel_certificate_sha256": "aa3fd225f946b91ab1e1249eb8b7ce415f0fccabb18a041e3960552b2aeaf8ae",
+    "physical_rows": 43740,
+    "fit_eligible_rows": 43726,
+    "zero_pa_rows_excluded": 14
+  },
+  "frozen_core_feature_identity": {
+    "selection_rule": "ordered panel columns beginning history_ and not containing age_days",
+    "count": 77,
+    "ordered_names_sha256": "243e9f0c050853ee36de0228edc060027cce426ac383b54791cfe3b45b9cfc6e"
+  },
+  "runtime": {
+    "python_version": "3.12.13",
+    "python_executable_sha256_observed_on_lock_host": "5912d0884b23c0343983a864c6064242391e2265536f50b88624857e353882c9",
+    "distributions": {
+      "catboost": "1.2.10",
+      "colorama": "0.4.6",
+      "contourpy": "1.3.3",
+      "cycler": "0.12.1",
+      "fonttools": "4.63.0",
+      "graphviz": "0.21",
+      "iniconfig": "2.3.0",
+      "kiwisolver": "1.5.0",
+      "matplotlib": "3.11.1",
+      "narwhals": "2.24.0",
+      "numpy": "2.3.5",
+      "packaging": "26.2",
+      "pandas": "3.0.1",
+      "pillow": "12.3.0",
+      "pip": "25.0.1",
+      "plotly": "6.9.0",
+      "pluggy": "1.6.0",
+      "Pygments": "2.20.0",
+      "pyparsing": "3.3.2",
+      "pytest": "8.4.2",
+      "python-dateutil": "2.9.0.post0",
+      "scipy": "1.18.0",
+      "six": "1.17.0",
+      "tzdata": "2026.3"
+    }
+  },
+  "pre_score_checks": {
+    "focused_tests": "22 passed",
+    "compileall": "PASS",
+    "target_game_lineup_slot_consumed": false,
+    "model_or_threshold_selection": false,
+    "outcomes_scored_before_lock": false
+  },
+  "protected_boundaries": {
+    "selection_or_confirmation_opened": false,
+    "spent_2024_not_reused": true,
+    "spent_2025_hr_not_reused": true,
+    "may_2026_sealed": true,
+    "missed_prospective_evidence_not_backfilled": true,
+    "frozen_baselines_and_rejections_preserved": true,
+    "operational_collectors_untouched": true,
+    "production_changed": false,
+    "betting_authorized": false
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "schema_version": "direct-batter-pa-foundation-protocol-v4",
+  "status": "LOCKED_BEFORE_2023_ONLY_PANEL_V4_BUILD",
+  "locked_date": "2026-07-27",
+  "research_only": true,
+  "betting_authorized": false,
+  "production_changed": false,
+  "purpose": "Repair and rebuild the reusable 2023-only batter PA development panel without reopening any spent selection or confirmation window.",
+  "chronology": {
+    "development_years": [
+      2023
+    ],
+    "historical_selection_windows": [],
+    "historical_confirmation_windows": [],
+    "spent_selection_years": [
+      2024
+    ],
+    "spent_hr_confirmation_years": [
+      2025
+    ],
+    "future_confirmation_required": true,
+    "forbidden_dates": [
+      "2026-05"
+    ],
+    "feature_source_rule": "2023 regular-season source rows with canonical game_date strictly before the 2023 target game_date"
+  },
+  "source_truth_repairs": {
+    "identity": [
+      "season",
+      "game_date",
+      "game_pk",
+      "player_id"
+    ],
+    "terminal_pa": "one mapped terminal event on the final pitch of each unique game/batter/at-bat identity",
+    "zero_pa": "missing raw terminal groups require separately hashed official-final-boxscore zero-PA evidence",
+    "denominators": "all serialized rates and moments carry count, denominator or missingness lineage",
+    "history_scope": "available_2023_regular_season_to_date",
+    "silent_zero_fill": false,
+    "league_value_imputation": false
+  },
+  "permitted_inputs": [
+    "historical 2023 per-pitch batter Statcast rows",
+    "historical 2023 target identity and outcome rows",
+    "receipt-bound official-final-boxscore zero-PA evidence"
+  ],
+  "prohibited_inputs": [
+    "2024 selection outcomes",
+    "2025 HR confirmation outcomes",
+    "May 2026 artifacts or payloads",
+    "opposing pitcher without receipt-proven pregame identity",
+    "same-day or future source rows",
+    "market prices",
+    "manual baseball coefficients",
+    "fabricated or league-average fallbacks"
+  ],
+  "candidate_policy": {
+    "candidate_locked_by_this_protocol": false,
+    "next_candidate_requires_separate_predeclared_manifest": true,
+    "historical_selection_permitted": false,
+    "prospective_window_must_begin_after_candidate_lock": true
+  },
+  "protected_invariants": {
+    "may_2026_skipped_entirely": true,
+    "spent_2024_not_reused": true,
+    "spent_2025_hr_not_reused": true,
+    "frozen_baselines_preserved": true,
+    "existing_rejections_preserved": true,
+    "operational_smoke_non_economic": true,
+    "collectors_untouched": true,
+    "no_betting_authorization": true
+  }
+}

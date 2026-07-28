@@ -1,0 +1,66 @@
+name: Shared PA Opportunity Matchup Linux Gate
+
+"on":
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/shared-pa-opportunity-matchup-linux.yml"
+      - "requirements-prospective-batter-opportunity-ci.lock"
+      - "config/shared_pa_opportunity_matchup_protocol_v1.json"
+      - "config/projected_lineup_contract_v1.json"
+      - "config/projected_lineup_empirical_joint_v1.json"
+      - "src/evaluation/forward_pitcher_context_v2.py"
+      - "src/evaluation/projected_lineup_empirical_joint.py"
+      - "src/evaluation/projected_lineup_contract_v2.py"
+      - "src/evaluation/prospective_batter_opportunity_v2.py"
+      - "src/evaluation/shared_pa_opportunity_matchup_contract.py"
+      - "tests/test_shared_pa_opportunity_matchup_contract.py"
+      - "tests/test_projected_lineup_empirical_joint.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-candidate:
+    name: Ubuntu 24.04 / CPython 3.12.3
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONPATH: "."
+
+    steps:
+      - name: Check out exact candidate commit
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+
+      - name: Set up exact Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: "3.12.3"
+          architecture: "x64"
+
+      - name: Install exact test-only dependencies
+        run: |
+          python -m pip install --disable-pip-version-check --no-deps --require-hashes \
+            -r requirements-prospective-batter-opportunity-ci.lock
+          python -m pip check
+          python --version
+          python -m pytest --version
+          sha256sum requirements-prospective-batter-opportunity-ci.lock
+
+      - name: Run opportunity and matchup regression and mutation suite
+        run: |
+          python -m pytest -q -p no:cacheprovider \
+            tests/test_projected_lineup_contract.py \
+            tests/test_projected_lineup_history.py \
+            tests/test_projected_lineup_empirical_joint.py \
+            tests/test_prospective_batter_opportunity.py \
+            tests/test_shared_pa_opportunity_matchup_contract.py
+
+      - name: Verify tracked source contains no likely credentials
+        run: python scripts/check_tracked_secrets.py
+
+      - name: Prove tests did not mutate the checkout
+        run: git diff --exit-code

@@ -1,0 +1,57 @@
+{
+  "schema_version": "shared-pa-opportunity-matchup-protocol-v1",
+  "status": "PREDECLARED_RESEARCH_ONLY_NOT_ACTIVE",
+  "candidate_id": "shared_pa_opportunity_matchup_hierarchical_v1",
+  "markets": ["hits", "hr_over_0_5", "total_bases"],
+  "decision_horizon": "T-4h",
+  "required_input_blocks": [
+    "time_safe_batter_core",
+    "receipt_bound_opportunity",
+    "receipt_bound_projected_lineup",
+    "receipt_bound_probable_pitcher_v2"
+  ],
+  "missing_input_policy": "TERMINAL_ABSTENTION_NO_SUBSTITUTION",
+  "development": {
+    "permitted_window": "2023_regular_season_chronological_folds_only",
+    "historical_lineup_or_probable_starter_backfill_allowed": false,
+    "actual_target_lineup_or_starter_allowed": false,
+    "status": "BLOCKED_UNTIL_RECEIPT_EQUIVALENT_INPUTS_EXIST",
+    "historical_results_are": "DEVELOPMENT_EVIDENCE_ONLY"
+  },
+  "selection_and_confirmation": {
+    "2024_state": "SPENT_NOT_REUSABLE",
+    "2025_hr_confirmation_state": "SPENT_NOT_REUSABLE",
+    "existing_2026_forward_window_retrofit_allowed": false,
+    "new_untouched_window": "MUST_BE_LOCKED_AFTER_IMPLEMENTATION_AND_BEFORE_FIRST_ELIGIBLE_TARGET"
+  },
+  "model_policy": {
+    "single_predeclared_challenger": true,
+    "hierarchical_shared_pa_outcomes": true,
+    "regularized_learned_effects_only": true,
+    "hand_tuned_baseball_coefficients_allowed": false,
+    "post_result_threshold_changes_allowed": false,
+    "market_pooling_allowed": false,
+    "cross_market_rescue_allowed": false
+  },
+  "evaluation": {
+    "principles_config": "config/shared_pa_future_evaluation_principles_v2.json",
+    "separate_markets_required": true,
+    "hr_comparators": [
+      "league_rate",
+      "time_safe_player_empirical_bayes",
+      "frozen_production_probability",
+      "valid_market_implied_probability_when_receipt_verified"
+    ]
+  },
+  "protected_boundaries": {
+    "may_2026_access_allowed": false,
+    "missed_prospective_backfill_allowed": false,
+    "same_day_or_future_input_allowed": false,
+    "guessed_pitcher_allowed": false,
+    "postgame_actual_pitcher_allowed": false,
+    "final_target_lineup_allowed": false,
+    "historical_prices_executable": false,
+    "production_probability_changes_allowed": false,
+    "betting_authorized": false
+  }
+}

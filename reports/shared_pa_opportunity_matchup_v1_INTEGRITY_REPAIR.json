@@ -1,0 +1,73 @@
+{
+  "schema_version": "shared-pa-opportunity-matchup-integrity-repair-v1",
+  "candidate_id": "shared_pa_opportunity_matchup_hierarchical_v1",
+  "status": "INPUT_INTEGRITY_REPAIRED_PREDECLARED_NOT_FIT_NOT_ACTIVE",
+  "classification": "source_truth_repair_and_research_predeclaration",
+  "betting_authorized": false,
+  "production_changed": false,
+  "historical_feature_artifacts_rebuilt": false,
+  "findings": [
+    {
+      "finding_id": "OM-001",
+      "root_cause": "The hash-preserved projected-lineup v1 validator used a raw prefix check rather than canonical typed date validation.",
+      "affected_scope": "Standalone downstream validation of attacker-rehashed noncanonical projected-lineup records.",
+      "repair": "A versioned v2 wrapper canonicalizes the complete date before invoking the preserved v1 validator.",
+      "regression_proof": "Sealed and noncanonical date mutation tests fail after recomputing the record hash.",
+      "historical_reconstruction": "NOT_REQUIRED_AND_NOT_PERFORMED"
+    },
+    {
+      "finding_id": "OM-002",
+      "root_cause": "The hash-preserved opportunity v1 replay builder enforced timing, but its standalone validator did not independently recheck assembly time or prior-game chronology.",
+      "affected_scope": "Downstream consumers presented with an independently rehashed opportunity snapshot.",
+      "repair": "A versioned v2 wrapper independently validates canonical dates, assembly time, and every declared prior-game date.",
+      "regression_proof": "Late assembly and same-day prior-history mutations fail after recomputing the snapshot hash.",
+      "historical_reconstruction": "NOT_REQUIRED_AND_NOT_PERFORMED"
+    },
+    {
+      "finding_id": "OM-003",
+      "root_cause": "Forward pitcher context v1 discarded official home and away team IDs at the schedule parser boundary.",
+      "affected_scope": "Any batter-side matchup consumer attempting to prove which probable pitcher opposes which team.",
+      "repair": "Forward pitcher context v2 retains official team IDs and names, pitcher IDs, raw payload hash, target identity, and T-4 chronology.",
+      "regression_proof": "Missing or swapped team identity cannot reach the matchup feature bundle; the source-parser test proves IDs are retained.",
+      "historical_reconstruction": "PROHIBITED_FOR_MISSED_PROSPECTIVE_RECEIPTS"
+    }
+  ],
+  "candidate_boundary": {
+    "required_blocks": ["time_safe_batter_core", "receipt_bound_opportunity", "receipt_bound_projected_lineup", "receipt_bound_probable_pitcher_v2"],
+    "missing_block": "TERMINAL_ABSTENTION_NO_SUBSTITUTION",
+    "actual_target_lineup_or_starter": "FORBIDDEN",
+    "historical_projected_lineup_or_probable_starter_backfill": "FORBIDDEN",
+    "2024": "SPENT",
+    "2025_hr_confirmation": "SPENT",
+    "may_2026": "SEALED",
+    "existing_2026_forward_window_retrofit": "FORBIDDEN"
+  },
+  "hashes": {
+    "configuration": {
+      "config/shared_pa_opportunity_matchup_protocol_v1.json": "0b23524b091c11e0532b64ac90976887b722c038f4ead2bbe08104e17b1bda1d",
+      "config/kimi_selective_component_intake_v1.json": "0b23268f37d03832fec09f4fad5692bb752e1b84263dc28b877ed62a0f023bec",
+      "config/shared_pa_future_evaluation_principles_v2.json": "e2b034d2a46d6e6dcf5d0ebaf93e426dae533efd36d5d0db9626ee56a0035a69",
+      "config/shared_pa_evidence_spend_ledger_v1.json": "2920a7a163b49f51782cd86078581979d4c780f4eed1b94786bb41157bd66a62"
+    },
+    "code": {
+      "src/evaluation/forward_pitcher_context_v2.py": "68ca25dff40a041ccc20717252898a45dfd58b772c35755bce19f8f6a8fb2c9a",
+      "src/evaluation/projected_lineup_contract_v2.py": "cc6d8f148e87cbba5da8919b01faabe92fe423419eae49c87b6a87699e78e24d",
+      "src/evaluation/prospective_batter_opportunity_v2.py": "03c6ff7374b2d3a424added53bcb8fc53d3f943a72b95610b5cc26f96dbee455",
+      "src/evaluation/shared_pa_opportunity_matchup_contract.py": "d02b13ab25565efc4d0d2c425b9e66a18527a6675fcc469f7ff3f81aa6cf422f"
+    },
+    "tests": {
+      "tests/test_shared_pa_opportunity_matchup_contract.py": "058b6efb12b608e34632ac18192ee4c3a6a71746112233365b304ae06dc32359"
+    },
+    "preserved_v1_evidence_bytes": {
+      "src/evaluation/prospective_batter_opportunity.py": "fc5ca7d433a94a2c848635adb37b64a501f0746dfff10e053729a7489943abed"
+    }
+  },
+  "verification": {
+    "cross_platform_targeted_tests": "84 passed",
+    "windows_expanded_tests": "91 passed, 32 POSIX-permission tests not executable on Windows because os.fchmod is unavailable",
+    "linux_verification": "REQUIRED_NOT_YET_RUN",
+    "model_metrics": "NOT_APPLICABLE_NO_MODEL_WAS_FIT"
+  },
+  "kimi_disposition": "No Kimi source was copied. Existing local market arithmetic is canonical; other Kimi components remain reference-only or rejected pending independent repair and recertification.",
+  "highest_value_next_action": "Independently review and clean-Linux test these exact bytes, then implement a future-only v2 receipt collector and projected-lineup qualification stream before fitting the one predeclared challenger."
+}

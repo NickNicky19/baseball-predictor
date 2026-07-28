@@ -1,0 +1,72 @@
+{
+  "schema_version": "direct-batter-pa-foundation-v4.1-artifact-registry-v1",
+  "status": "HASH_BOUND_2023_RESEARCH_PANEL_NOT_A_MODEL_PROMOTION",
+  "source_commit": "c394dea5a0028b8f78e8ab78daed0d44cde5d771",
+  "artifacts": {
+    "panel": {
+      "path": "data/analysis/system_integrity_v2/direct_batter_pa_foundation_v4_1/panel_2023.csv.gz",
+      "bytes": 14364814,
+      "rows": 43740,
+      "sha256": "643a4c6533dbe59fc4e6b5e5932683c0877ae0a5d982945c799976d36af1ebf6"
+    },
+    "panel_manifest": {
+      "path": "data/analysis/system_integrity_v2/direct_batter_pa_foundation_v4_1/panel_manifest.json",
+      "bytes": 68197,
+      "sha256": "083fe961b00299f0561130e204e5264dfa05f0b234b72ce2af214ac5f681e9a4"
+    },
+    "panel_certificate": {
+      "path": "data/analysis/system_integrity_v2/direct_batter_pa_foundation_v4_1/panel_certificate.json",
+      "bytes": 1176,
+      "sha256": "aa3fd225f946b91ab1e1249eb8b7ce415f0fccabb18a041e3960552b2aeaf8ae"
+    },
+    "zero_pa_receipt_manifest": {
+      "path": "data/analysis/system_integrity_v2/direct_batter_pa_foundation_v4/zero_pa_receipts/manifest.json",
+      "bytes": 2217,
+      "sha256": "4866080b74a4f1dd6f92f83ac40603f8522c67a5d33b944f6dadb3718ad8c3b1"
+    },
+    "zero_pa_evidence": {
+      "path": "data/analysis/system_integrity_v2/direct_batter_pa_foundation_v4/zero_pa_receipts/zero_pa_evidence.csv",
+      "bytes": 3606,
+      "rows": 14,
+      "sha256": "ccda3dff18a07a790b9a684873db2dffcb55f5f92dfd0f6a2339119c371fdb35"
+    }
+  },
+  "source_and_test_hashes": {
+    "config/direct_batter_pa_foundation_v4.json": "694a2c10b1eace35ada3a8523e2ae90c72f094314f2128616a8b85dcf7d8d49c",
+    "scripts/build_direct_batter_pa_panel.py": "b015f63302e2167445c849da1825adf426acf536cc2ecbc5be9b99cd47577c3d",
+    "scripts/collect_direct_batter_zero_pa_receipts.py": "97c0df92a868d996d0e03658dd27880ef90f2730026595e110873967a70da0f7",
+    "scripts/validate_direct_batter_pa_panel.py": "83f87e384452429d66296fbef8709d21d6500b2d80b20f254156052342e29d10",
+    "src/data/statcast_integrity.py": "63a8f5bb02dba8c317fecd1155caf2e1c55ad8753794b58b2fb86727b4505d1c",
+    "src/features/direct_batter_pa_history.py": "4b89ffcb6d1b1e6a0ee708547e779850dfafd91d82b9f2266c607eb32dd55921",
+    "tests/test_build_direct_batter_pa_panel.py": "abef7f2d1475b4b455e06507ba0254fa1918014ab07bd031a3a757ec2e133200",
+    "tests/test_collect_direct_batter_zero_pa_receipts.py": "62e711c25edf159a670e19082f913907e841c55095cfe39ddbc24afc6186c5e2",
+    "tests/test_direct_batter_pa_history.py": "25ed76a35d1bec2e77da473576b599ce265b063e43193b73bc88878a320cd1c1",
+    "tests/test_statcast_integrity_repair.py": "eb89e2bb5bbb01d8b8017a441abadcb792afea5f7d88ad05f0898f63b72e66c4"
+  },
+  "population": {
+    "physical_target_rows_2023": 43740,
+    "fit_eligible_rows_2023": 43726,
+    "receipt_proven_zero_pa_rows": 14,
+    "raw_files_rehashed": 643,
+    "feature_columns": 90,
+    "chronology_violations": 0,
+    "identity_duplicates": 0,
+    "selection_rows_2024": 0
+  },
+  "tests": {
+    "focused_pytest": "35 passed",
+    "research_registry_pytest": "14 passed",
+    "actual_artifact_mutations": "PASS",
+    "deterministic_rebuild": "PASS_BYTE_IDENTICAL"
+  },
+  "boundaries": {
+    "development_years": [
+      2023
+    ],
+    "historical_selection_available": false,
+    "fresh_confirmation_required": true,
+    "may_2026_opened": false,
+    "production_changed": false,
+    "betting_authorized": false
+  }
+}

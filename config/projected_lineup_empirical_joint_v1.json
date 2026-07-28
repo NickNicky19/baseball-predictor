@@ -1,0 +1,51 @@
+{
+  "schema_version": "projected-lineup-empirical-joint-protocol-v1",
+  "status": "PREDECLARED_RESEARCH_ONLY_NOT_PRODUCTION",
+  "candidate_id": "projected_lineup_empirical_joint_v1",
+  "purpose": "Convert receipt-bound active-roster eligibility and strictly prior completed lineups into a joint lineup-scenario distribution for future prospective evaluation.",
+  "estimator": {
+    "family": "empirical_joint_frequency",
+    "observation_unit": "completed_prior_team_game",
+    "eligible_history": "strictly_prior_complete_lineups_whose_nine_players_are_all_in_target_receipted_active_roster",
+    "scenario_weight": "equal_per_eligible_prior_team_game",
+    "duplicate_scenarios": "combine_counts_before_normalization",
+    "recency_weighting": false,
+    "hand_tuned_coefficients": false,
+    "league_average_fallback": false,
+    "last_lineup_fallback": false,
+    "partial_lineup_imputation": false
+  },
+  "failure_policy": {
+    "missing_receipt": "quarantine",
+    "invalid_identity_or_chronology": "quarantine",
+    "no_eligible_joint_history": "projected_quarantined_before_horizon_or_unavailable_after_horizon",
+    "probability_substitution": false
+  },
+  "evaluation": {
+    "development_window": "future receipt-paired observations only",
+    "required_metrics": [
+      "multiclass_log_loss",
+      "start_probability_brier",
+      "slot_probability_log_loss",
+      "calibration",
+      "coverage",
+      "quarantine_rate"
+    ],
+    "required_baselines": [
+      "time_safe_last_lineup_when_eligible",
+      "time_safe_player_historical_start_rate"
+    ],
+    "downstream_markets_evaluated_separately": [
+      "hits",
+      "hr_over_0_5",
+      "total_bases"
+    ]
+  },
+  "boundaries": {
+    "may_2026_access": false,
+    "historical_t4_roster_reconstruction": false,
+    "missed_prospective_backfill": false,
+    "production_probability_consumption": false,
+    "betting_authorized": false
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "schema_version": "projected-lineup-empirical-joint-engineering-decision-v1",
+  "candidate_id": "projected_lineup_empirical_joint_v1",
+  "decision": "ENGINEERING_READY_FOR_FUTURE_PROSPECTIVE_EVALUATION_ONLY",
+  "research_only": true,
+  "production_probability_changed": false,
+  "predictive_improvement_claimed": false,
+  "betting_authorized": false,
+  "hypothesis": "A coefficient-free empirical distribution over complete prior joint lineups that remain eligible under a receipt-proven target active roster can improve T-minus-4 start and slot probability inputs without guessing availability.",
+  "estimator": {
+    "unit": "strictly_prior_complete_team_game_lineup",
+    "eligibility": "all nine historical starters are present on the target receipted active roster",
+    "weighting": "one equal observation per eligible prior team game",
+    "duplicate_handling": "identical joint lineups combined before probability normalization",
+    "hand_tuned_coefficients": false,
+    "fallback": false
+  },
+  "source_truth_boundaries": {
+    "target_active_roster": "official_mlb_active_roster_t4 receipt required",
+    "completed_lineups": "strictly earlier same-team complete lineups only",
+    "joint_constraint": "exactly nine unique active-roster players and slots one through nine",
+    "late_projection": "terminal unavailable without probabilities",
+    "no_eligible_history": "terminal quarantine or unavailable without probabilities",
+    "may_2026_accessed": false,
+    "historical_t4_roster_reconstructed": false,
+    "prospective_backfill_performed": false
+  },
+  "hashes": {
+    "protocol_sha256": "f324cef59bf5d931ba68fe83b623417ac17a2f40f65ffba4b320322851982b46",
+    "candidate_code_sha256": "2c30a02db03b2b58db115df36cf80c136ea2cfef7d9d8c4ba84a98dfff86f195",
+    "candidate_tests_sha256": "cbeb04612a5bbfc5d0356085fc0f4154251fc130618dbc1c5cbb0997468e3d5a",
+    "decision_document_sha256": "5b9bcc6ce95e6c4dc13c03e644fc1ff02bf83f118328879a9f258ba5dfe61515",
+    "linux_workflow_sha256": "fc6976b04919e059d5bb5cd5d93da31f1b94a140d3bfab87465a590b5e79612c",
+    "preserved_history_normalizer_sha256": "7110803d0d3391fdbf4c87c12790d4a1e132dbc06f442009d930cb3d192a2764",
+    "preserved_projection_validator_sha256": "b123406d521c77cc3793bc00db2db5c046808e6f7502d487b61328376d50bbfc",
+    "preserved_projection_contract_sha256": "88910f66c0a51a7aa33baa1dffe9c6cbe8fc9aebcc90d76df26f41937640182a"
+  },
+  "local_regression_and_mutation_proof": {
+    "command_scope": [
+      "test_projected_lineup_empirical_joint",
+      "test_projected_lineup_history",
+      "test_projected_lineup_contract",
+      "test_shared_pa_opportunity_matchup_contract"
+    ],
+    "passed": 36,
+    "failed": 0,
+    "mutations_rejected": [
+      "completed-lineup content differs from feature-store hash",
+      "active-roster identity differs from feature-store receipt",
+      "hash-consistent feature-store semantics differ from source replay",
+      "same-day completed lineup",
+      "noncanonical target date on a late record",
+      "late projection",
+      "no eligible complete joint lineup"
+    ]
+  },
+  "required_before_downstream_consumption": [
+    "independent review of exact candidate bytes",
+    "green Ubuntu 24.04 regression and mutation gate",
+    "separately authorized future-only non-May projection collection",
+    "prospective start, slot, joint-distribution, calibration, coverage, and quarantine evaluation",
+    "separate locked Hits, HR over 0.5, and Total Bases downstream adjudication"
+  ],
+  "highest_value_next_action": "Run the expanded Linux gate on the exact commit and independently review the candidate. If both pass, authorize future-only shadow collection of lineup projections and final-lineup labels without connecting the candidate to production player-prop probabilities."
+}

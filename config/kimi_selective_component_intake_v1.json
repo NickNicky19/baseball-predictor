@@ -1,0 +1,31 @@
+{
+  "schema_version": "kimi-selective-component-intake-v1",
+  "status": "DISPOSITION_ONLY_NO_EXTERNAL_CODE_COPIED",
+  "source_packages": {
+    "rotowire_lineups_v2_repaired_v2.zip": "3ced49232906bd4d0492cb02e9e06c3ac79ff61183317990fc6dd21bb024a4d0",
+    "player_props_v2_repaired_v2.zip": "d0fda572c259dd9f7fbb8b0a91f123277112e1fae6ce2f2ab6412d4ec66973be",
+    "dual_track_repair_handoff.zip": "6c5d9dba3cafc121a3738fac0fed03a3a7e0b84ed570a5ff1551a7cb2842c27a"
+  },
+  "keep_as_design_or_test_reference_only": [
+    "rotowire_offline_parser_patterns",
+    "rotowire_chronology_identity_lifecycle_and_coverage_tests",
+    "market_registry_and_schema_vocabulary",
+    "quote_outcome_separation_architecture",
+    "hostile_mutation_test_ideas"
+  ],
+  "already_has_canonical_local_implementation_do_not_copy": [
+    "american_odds_conversion",
+    "posted_price_break_even_probability",
+    "two_sided_proportional_no_vig",
+    "payout_aware_expected_value"
+  ],
+  "reject_until_independently_repaired_and_recertified": [
+    "fabricated_or_placeholder_smartstake_receipts",
+    "live_rotowire_source_qualification",
+    "unofficial_or_zero_identity_mappings",
+    "outcome_or_settlement_authority_claims",
+    "historical_price_execution_claims",
+    "package_level_production_qualification"
+  ],
+  "integration_rule": "NO_WHOLE_PACKAGE_MERGE"
+}
