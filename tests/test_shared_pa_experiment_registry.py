@@ -4,7 +4,7 @@ import json
 import os
 import shutil
 import stat
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 import pytest
 
@@ -13,7 +13,8 @@ from src.evaluation import shared_pa_experiment_registry as registry
 
 ROOT = Path(__file__).resolve().parents[1]
 POLICY = ROOT / "config/shared_pa_experiment_registry_v1.json"
-EVALUATOR = ROOT / "config/shared_pa_market_evaluator_binding_interface_v1.json"
+EVALUATOR_CONTRACT = ROOT / "config/shared_pa_market_evaluation_contract_v1.json"
+EVALUATOR_MANIFEST = ROOT / "config/shared_pa_market_evaluator_v1_file_manifest.json"
 MANIFEST = ROOT / "config/shared_pa_experiment_registry_v1_artifact_manifest.json"
 
 
@@ -28,12 +29,18 @@ def _write(path: Path, value: bytes) -> dict[str, str]:
 
 def _artifacts(tmp_path: Path) -> tuple[Path, dict[str, dict[str, str]]]:
     root = tmp_path / "artifacts"
-    evaluator = root / "config/shared_pa_market_evaluator_binding_interface_v1.json"
-    evaluator.parent.mkdir(parents=True)
-    shutil.copyfile(EVALUATOR, evaluator)
+    evaluator = root / "config/shared_pa_market_evaluation_contract_v1.json"
+    evaluator_manifest = root / "config/shared_pa_market_evaluator_v1_file_manifest.json"
+    manifest = json.loads(EVALUATOR_MANIFEST.read_text(encoding="utf-8"))
+    for row in manifest["files"]:
+        destination = root.joinpath(*PurePosixPath(row["path"]).parts)
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(ROOT / row["path"], destination)
+    evaluator_manifest.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(EVALUATOR_MANIFEST, evaluator_manifest)
     bindings = {
         "evaluator": {
-            "path": "config/shared_pa_market_evaluator_binding_interface_v1.json",
+            "path": "config/shared_pa_market_evaluation_contract_v1.json",
             "sha256": registry.sha256_file(evaluator),
         }
     }
@@ -225,6 +232,62 @@ def test_policy_keeps_spent_2024_token_unissued_and_unconsumed() -> None:
     assert authority["issuance_enabled"] is False
     assert authority["initial_issuance_state"] == "UNISSUED"
     assert authority["initial_consumption_state"] == "UNCONSUMED"
+
+
+def test_policy_binds_only_the_exact_synthetic_unbound_evaluator() -> None:
+    binding = registry.load_policy(POLICY)["evaluator_binding"]
+    assert binding == {
+        "path": "config/shared_pa_market_evaluation_contract_v1.json",
+        "sha256": "53673c56b90e48d593c4355e0fb2c6152e69dbf165c15125db065d9059b5b34d",
+        "file_manifest_path": "config/shared_pa_market_evaluator_v1_file_manifest.json",
+        "file_manifest_sha256": "83cf0ca50a67f7f3c905d2f2cf189045ba9983ad5fc4a5718682a0b79cd7eec1",
+        "state": registry.EVALUATOR_STATE,
+        "evidence_class": registry.EVALUATOR_EVIDENCE_CLASS,
+        "external_authority_required_before_real_evaluation": True,
+        "real_evaluation_authorized": False,
+        "model_fitting_authorized": False,
+        "promotion_authorized": False,
+    }
+
+
+@pytest.mark.parametrize(
+    ("field", "mutated"),
+    [
+        ("state", "PRODUCTION_READY"),
+        ("evidence_class", "REAL_EVIDENCE"),
+        ("external_authority_required_before_real_evaluation", False),
+        ("real_evaluation_authorized", True),
+        ("model_fitting_authorized", True),
+        ("promotion_authorized", True),
+        ("sha256", "0" * 64),
+        ("file_manifest_sha256", "0" * 64),
+    ],
+)
+def test_policy_evaluator_authority_mutations_fail_closed(
+    field: str, mutated: object
+) -> None:
+    policy = registry.load_policy(POLICY)
+    policy["evaluator_binding"][field] = mutated
+    with pytest.raises(registry.SharedPAExperimentRegistryError, match="evaluator binding"):
+        registry.validate_policy(policy)
+
+
+@pytest.mark.parametrize(
+    "relative",
+    [
+        "config/shared_pa_market_evaluation_contract_v1.json",
+        "config/shared_pa_market_evaluator_v1_file_manifest.json",
+        "requirements-prospective-batter-opportunity-ci.lock",
+        "src/evaluation/shared_pa_market_evaluator.py",
+    ],
+)
+def test_registry_replay_rehashes_every_evaluator_manifest_authority(
+    tmp_path: Path, relative: str
+) -> None:
+    root, artifact_root, _, _ = _initialize(tmp_path)
+    (artifact_root / relative).write_bytes(b"mutated\n")
+    with pytest.raises(registry.SharedPAExperimentRegistryError, match="bytes changed"):
+        registry.verify_registry(root=root, artifact_root=artifact_root)
 
 
 def test_initialize_replay_and_external_checkpoint_are_exact(tmp_path: Path) -> None:

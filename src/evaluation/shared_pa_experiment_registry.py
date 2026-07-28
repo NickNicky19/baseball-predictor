@@ -40,6 +40,21 @@ MARKETS = ("hits", "hr_over_0_5", "total_bases")
 CANONICAL_EVIDENCE_WINDOWS = ("development_2023_only",)
 UNBOUND_AUTHORITY = "UNBOUND_EXTERNAL_TRUST_REQUIRED"
 BOUND_AUTHORITY = "BOUND_EXTERNAL_TRUST_VERIFIED"
+EVALUATOR_STATE = "IMPLEMENTED_SYNTHETIC_ONLY_EXTERNALLY_UNBOUND"
+EVALUATOR_EVIDENCE_CLASS = "SYNTHETIC_STRUCTURAL_MECHANICS_ONLY"
+EVALUATOR_SOURCE_BASE_COMMIT = "9f86f6a34fc71151b76debf48059829aa4fa91da"
+EVALUATOR_MANIFEST_PATHS = frozenset({
+    "config/shared_pa_market_evaluation_contract_v1.json",
+    "config/schemas/shared_pa_market_evaluation_contract_v1.schema.json",
+    "config/schemas/shared_pa_market_evaluation_row_v1.schema.json",
+    "config/schemas/shared_pa_market_evaluation_authority_v1.schema.json",
+    "config/schemas/shared_pa_market_evaluation_report_v1.schema.json",
+    "src/evaluation/shared_pa_market_evaluator.py",
+    "tests/test_shared_pa_market_evaluator.py",
+    "docs/research/SHARED_PA_MARKET_EVALUATION_ENGINE_V1.md",
+    "scripts/check_shared_pa_market_evaluator_offline.py",
+    "requirements-prospective-batter-opportunity-ci.lock",
+})
 ENTRY_TYPES = {
     "EXPERIMENT_PREDECLARED",
     "CANDIDATE_FROZEN",
@@ -214,7 +229,7 @@ def validate_policy(policy: Mapping[str, Any]) -> dict[str, Any]:
     if set(policy) != required or policy.get("schema_version") != POLICY_SCHEMA:
         raise SharedPAExperimentRegistryError("registry policy surface or schema changed")
     _nonempty(policy.get("registry_id"), "registry_id")
-    if policy.get("status") != "LOCKED_RESEARCH_ONLY_SCAFFOLD":
+    if policy.get("status") != "LOCKED_RESEARCH_ONLY_REGISTRY_WITH_SYNTHETIC_EVALUATOR":
         raise SharedPAExperimentRegistryError("registry policy is not locked research-only")
     commit = policy.get("source_base_commit")
     if not isinstance(commit, str) or len(commit) != 40 or any(c not in "0123456789abcdef" for c in commit):
@@ -259,12 +274,24 @@ def validate_policy(policy: Mapping[str, Any]) -> dict[str, Any]:
     }:
         raise SharedPAExperimentRegistryError("artifact identity rules changed")
     evaluator = policy.get("evaluator_binding")
-    if not isinstance(evaluator, Mapping) or set(evaluator) != {"path", "sha256", "state"}:
+    expected_evaluator = {
+        "path": "config/shared_pa_market_evaluation_contract_v1.json",
+        "sha256": "53673c56b90e48d593c4355e0fb2c6152e69dbf165c15125db065d9059b5b34d",
+        "file_manifest_path": "config/shared_pa_market_evaluator_v1_file_manifest.json",
+        "file_manifest_sha256": "83cf0ca50a67f7f3c905d2f2cf189045ba9983ad5fc4a5718682a0b79cd7eec1",
+        "state": EVALUATOR_STATE,
+        "evidence_class": EVALUATOR_EVIDENCE_CLASS,
+        "external_authority_required_before_real_evaluation": True,
+        "real_evaluation_authorized": False,
+        "model_fitting_authorized": False,
+        "promotion_authorized": False,
+    }
+    if not isinstance(evaluator, Mapping) or dict(evaluator) != expected_evaluator:
         raise SharedPAExperimentRegistryError("evaluator binding is malformed")
     _relative_path(evaluator.get("path"), "evaluator_binding.path")
     _sha256(evaluator.get("sha256"), "evaluator_binding.sha256")
-    if evaluator.get("state") != "INTERFACE_ONLY_FULL_EVALUATOR_NOT_IMPLEMENTED":
-        raise SharedPAExperimentRegistryError("full evaluator was falsely activated")
+    _relative_path(evaluator.get("file_manifest_path"), "evaluator_binding.file_manifest_path")
+    _sha256(evaluator.get("file_manifest_sha256"), "evaluator_binding.file_manifest_sha256")
     if policy.get("external_checkpoint_rule") != {
         "authoritative_replay_requires_trusted_checkpoint": True,
         "local_chain_cannot_detect_wholesale_suffix_rollback": True,
@@ -288,6 +315,100 @@ def _binding(value: Any, label: str) -> dict[str, str]:
         "path": _relative_path(value.get("path"), f"{label}.path"),
         "sha256": _sha256(value.get("sha256"), f"{label}.sha256"),
     }
+
+
+def _policy_evaluator_bindings(policy: Mapping[str, Any]) -> list[dict[str, str]]:
+    evaluator = policy["evaluator_binding"]
+    return [
+        {"path": evaluator["path"], "sha256": evaluator["sha256"]},
+        {
+            "path": evaluator["file_manifest_path"],
+            "sha256": evaluator["file_manifest_sha256"],
+        },
+    ]
+
+
+def _validate_policy_evaluator_artifacts(
+    policy: Mapping[str, Any], artifact_root: Path
+) -> None:
+    bindings = _policy_evaluator_bindings(policy)
+    _validate_artifact_bytes(bindings, artifact_root)
+    evaluator = policy["evaluator_binding"]
+    manifest_path = artifact_root.absolute().joinpath(
+        *PurePosixPath(evaluator["file_manifest_path"]).parts
+    )
+    manifest = _load_unique_json(manifest_path, "market evaluator file manifest")
+    if (
+        set(manifest)
+        != {
+            "schema_version", "component_id", "state", "source_base_commit",
+            "research_only", "betting_authorized", "files",
+        }
+        or manifest.get("schema_version")
+        != "shared-pa-market-evaluator-file-manifest-v1"
+        or manifest.get("component_id") != "shared_pa_market_evaluator_v1"
+        or manifest.get("state") != "UNBOUND_EXTERNAL_AUTHORITIES_REQUIRED"
+        or manifest.get("source_base_commit") != EVALUATOR_SOURCE_BASE_COMMIT
+        or manifest.get("research_only") is not True
+        or manifest.get("betting_authorized") is not False
+    ):
+        raise SharedPAExperimentRegistryError(
+            "market evaluator file manifest authority changed"
+        )
+    files = manifest.get("files")
+    if not isinstance(files, list) or not files:
+        raise SharedPAExperimentRegistryError("market evaluator file manifest is malformed")
+    rows_by_path: dict[str, dict[str, Any]] = {}
+    file_bindings: list[dict[str, str]] = []
+    for index, row in enumerate(files):
+        if not isinstance(row, Mapping) or set(row) != {
+            "path", "size", "sha256", "purpose",
+        }:
+            raise SharedPAExperimentRegistryError(
+                "market evaluator file manifest row surface changed"
+            )
+        relative = _relative_path(
+            row.get("path"), f"market evaluator file manifest files[{index}].path"
+        )
+        if relative in rows_by_path:
+            raise SharedPAExperimentRegistryError(
+                f"market evaluator file manifest has duplicate path: {relative}"
+            )
+        size = row.get("size")
+        if isinstance(size, bool) or not isinstance(size, int) or size < 0:
+            raise SharedPAExperimentRegistryError(
+                f"market evaluator file manifest has invalid size: {relative}"
+            )
+        digest = _sha256(
+            row.get("sha256"),
+            f"market evaluator file manifest files[{index}].sha256",
+        )
+        _nonempty(
+            row.get("purpose"),
+            f"market evaluator file manifest files[{index}].purpose",
+        )
+        rows_by_path[relative] = dict(row)
+        file_bindings.append({"path": relative, "sha256": digest})
+    if frozenset(rows_by_path) != EVALUATOR_MANIFEST_PATHS:
+        raise SharedPAExperimentRegistryError(
+            "market evaluator file manifest exact file surface changed"
+        )
+    _validate_artifact_bytes(file_bindings, artifact_root)
+    root = artifact_root.absolute()
+    for relative, row in rows_by_path.items():
+        target = root.joinpath(*PurePosixPath(relative).parts)
+        if target.stat().st_size != row["size"]:
+            raise SharedPAExperimentRegistryError(
+                f"market evaluator file size changed: {relative}"
+            )
+    contract_row = rows_by_path.get(evaluator["path"])
+    if (
+        contract_row is None
+        or contract_row.get("sha256") != evaluator["sha256"]
+    ):
+        raise SharedPAExperimentRegistryError(
+            "market evaluator manifest does not bind the exact contract"
+        )
 
 
 def _binding_list(value: Any, label: str, *, nonempty: bool = True) -> list[dict[str, str]]:
@@ -822,7 +943,7 @@ def initialize_registry(
     if root.exists():
         raise SharedPAExperimentRegistryError("registry root must not already exist")
     policy = load_policy(policy_path)
-    _validate_artifact_bytes([policy["evaluator_binding"]], artifact_root)
+    _validate_policy_evaluator_artifacts(policy, artifact_root)
     if (external_release_expectation_path is None) != (expected_release_expectation_sha256 is None):
         raise SharedPAExperimentRegistryError("external release expectation path and digest are both required")
     release_expectation_sha256: str | None = None
@@ -921,7 +1042,7 @@ def verify_registry(
     }:
         raise SharedPAExperimentRegistryError("registry configured authority state changed")
     if artifact_root is not None:
-        _validate_artifact_bytes([policy["evaluator_binding"]], artifact_root)
+        _validate_policy_evaluator_artifacts(policy, artifact_root)
     entries: list[dict[str, Any]] = []
     previous_entry_hash = ZERO_HASH
     for sequence, path in enumerate(sorted((root / "entries").iterdir()), start=1):

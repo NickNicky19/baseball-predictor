@@ -13,6 +13,7 @@ sys.path.insert(0, str(ROOT))
 from src.evaluation.shared_pa_market_evaluator import (  # noqa: E402
     UNBOUND,
     load_contract,
+    load_unique_json_file,
     safe_regular_file,
     sha256_file,
 )
@@ -27,6 +28,7 @@ REQUIRED_FILES = {
     "src/evaluation/shared_pa_market_evaluator.py",
     "tests/test_shared_pa_market_evaluator.py",
     "docs/research/SHARED_PA_MARKET_EVALUATION_ENGINE_V1.md",
+    "requirements-prospective-batter-opportunity-ci.lock",
     "scripts/check_shared_pa_market_evaluator_offline.py",
 }
 
@@ -37,7 +39,7 @@ def validate_component_manifest(root: Path) -> int:
         "config/shared_pa_market_evaluator_v1_file_manifest.json",
         context="component manifest",
     )
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest = load_unique_json_file(manifest_path, "component file manifest")
     if set(manifest) != {
         "schema_version", "component_id", "state", "source_base_commit",
         "research_only", "betting_authorized", "files",
@@ -76,7 +78,7 @@ def validate_component_manifest(root: Path) -> int:
         if path.stat().st_size != item["size"] or sha256_file(path) != item["sha256"]:
             raise RuntimeError(f"byte identity mismatch: {relative}")
         if relative.endswith(".json"):
-            json.loads(path.read_text(encoding="utf-8"))
+            load_unique_json_file(path, f"component JSON artifact {relative}")
     if observed != REQUIRED_FILES:
         raise RuntimeError("component manifest file set differs from exact required set")
     load_contract(root / "config/shared_pa_market_evaluation_contract_v1.json")

@@ -7,7 +7,7 @@
   "properties": {
     "schema_version": {"const": "shared-pa-experiment-registry-policy-v1"},
     "registry_id": {"type": "string", "minLength": 1},
-    "status": {"const": "LOCKED_RESEARCH_ONLY_SCAFFOLD"},
+    "status": {"const": "LOCKED_RESEARCH_ONLY_REGISTRY_WITH_SYNTHETIC_EVALUATOR"},
     "authority_state": {"const": "UNBOUND_EXTERNAL_TRUST_REQUIRED"},
     "source_base_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
     "root_parent_candidate_id": {"const": "frozen_shared_pa_foundation"},
@@ -23,11 +23,18 @@
     "binding": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["path", "sha256", "state"],
+      "required": ["path", "sha256", "file_manifest_path", "file_manifest_sha256", "state", "evidence_class", "external_authority_required_before_real_evaluation", "real_evaluation_authorized", "model_fitting_authorized", "promotion_authorized"],
       "properties": {
         "path": {"type": "string", "minLength": 1},
         "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
-        "state": {"const": "INTERFACE_ONLY_FULL_EVALUATOR_NOT_IMPLEMENTED"}
+        "file_manifest_path": {"type": "string", "minLength": 1},
+        "file_manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "state": {"const": "IMPLEMENTED_SYNTHETIC_ONLY_EXTERNALLY_UNBOUND"},
+        "evidence_class": {"const": "SYNTHETIC_STRUCTURAL_MECHANICS_ONLY"},
+        "external_authority_required_before_real_evaluation": {"const": true},
+        "real_evaluation_authorized": {"const": false},
+        "model_fitting_authorized": {"const": false},
+        "promotion_authorized": {"const": false}
       }
     }
   }

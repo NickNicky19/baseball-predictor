@@ -782,6 +782,58 @@ def test_source_authority_rehashes_referenced_receipt_bytes() -> None:
             )
 
 
+def test_contract_duplicate_json_key_is_rejected() -> None:
+    with tempfile.TemporaryDirectory(prefix="shared-pa-contract-duplicate-") as temp:
+        path = Path(temp) / "contract.json"
+        original = CONTRACT_PATH.read_bytes()
+        needle = b'"contract_id": "shared_pa_market_evaluation_contract_v1"'
+        replacement = needle + b',\n  ' + needle
+        assert original.count(needle) == 1
+        path.write_bytes(original.replace(needle, replacement))
+        with pytest.raises(evaluator.SharedPAMarketEvaluationError, match="duplicate JSON key: contract_id"):
+            evaluator.load_contract(path)
+
+
+def test_source_authority_manifest_duplicate_json_key_is_rejected() -> None:
+    with tempfile.TemporaryDirectory(prefix="shared-pa-authority-duplicate-") as temp:
+        root = Path(temp)
+        _source_authority([_row()], root)
+        path = root / "source_authority.json"
+        original = path.read_bytes()
+        needle = b'"authority_id":"synthetic-structural-authority-v1"'
+        replacement = needle + b"," + needle
+        assert original.count(needle) == 1
+        path.write_bytes(original.replace(needle, replacement))
+        with pytest.raises(evaluator.SharedPAMarketEvaluationError, match="duplicate JSON key: authority_id"):
+            evaluator.load_source_authority(
+                root=root,
+                manifest_relative_path="source_authority.json",
+                expected_manifest_sha256=evaluator.sha256_file(path),
+            )
+
+
+def test_source_receipt_duplicate_json_key_is_rejected() -> None:
+    with tempfile.TemporaryDirectory(prefix="shared-pa-receipt-duplicate-") as temp:
+        root = Path(temp)
+        _source_authority([_row()], root)
+        receipt_path = root / "receipts/0000.json"
+        original = receipt_path.read_bytes()
+        needle = b'"schema_version":"shared-pa-market-available-quote-receipt-v1"'
+        replacement = needle + b"," + needle
+        assert original.count(needle) == 1
+        receipt_path.write_bytes(original.replace(needle, replacement))
+        manifest_path = root / "source_authority.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        manifest["receipts"][0]["receipt_sha256"] = evaluator.sha256_file(receipt_path)
+        manifest_path.write_bytes(evaluator.canonical_bytes(manifest))
+        with pytest.raises(evaluator.SharedPAMarketEvaluationError, match="duplicate JSON key: schema_version"):
+            evaluator.load_source_authority(
+                root=root,
+                manifest_relative_path="source_authority.json",
+                expected_manifest_sha256=evaluator.sha256_file(manifest_path),
+            )
+
+
 def test_source_authority_rejects_semantically_malformed_quote_pair() -> None:
     with tempfile.TemporaryDirectory(prefix="shared-pa-authority-") as temp:
         root = Path(temp)

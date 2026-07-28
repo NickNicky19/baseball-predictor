@@ -11,9 +11,10 @@
     {"path": "config/schemas/shared_pa_market_evaluation_row_v1.schema.json", "size": 9069, "sha256": "94da7d4a505ed48ff60b195fa62c3cf28cbade2a5a30c9dc913deeb4a72ac45a", "purpose": "evaluation row schema"},
     {"path": "config/schemas/shared_pa_market_evaluation_authority_v1.schema.json", "size": 1410, "sha256": "d77ab31fe2271e6f7dffe301b5a28a40b6758ab2385a104d8553eb435e2dde2d", "purpose": "future external authority schema; not bound"},
     {"path": "config/schemas/shared_pa_market_evaluation_report_v1.schema.json", "size": 18576, "sha256": "b3edb5824f9d374cf3d3987a36ffa1b45e1e2492c553c93bd6ce5b4510aa799a", "purpose": "research-only report schema"},
-    {"path": "src/evaluation/shared_pa_market_evaluator.py", "size": 60176, "sha256": "64ab64911bd74abfe6508000984387c3ee7959720f4121c7b4e8fd8cc92ff3ed", "purpose": "fail-closed market-separated evaluator"},
-    {"path": "tests/test_shared_pa_market_evaluator.py", "size": 46382, "sha256": "6cc9a4b68e8f76ecb18b22df8449e69b17c15cdd8434e4176d4b6e3449005886", "purpose": "synthetic adversarial regression and mutation suite"},
+    {"path": "src/evaluation/shared_pa_market_evaluator.py", "size": 60392, "sha256": "aa153eb3b4e3f3d709116ce95e1479400526cc6fe2691f73846d3993307ad82a", "purpose": "fail-closed market-separated evaluator"},
+    {"path": "tests/test_shared_pa_market_evaluator.py", "size": 49065, "sha256": "2543f3e8038277bb3f2084595b59aa60642b5c3a608c46db999e79416f2b1925", "purpose": "synthetic adversarial regression and mutation suite"},
     {"path": "docs/research/SHARED_PA_MARKET_EVALUATION_ENGINE_V1.md", "size": 6852, "sha256": "691be4a0a5b753ae8d3227739c4053e68c4ea5ef1cc691332639979935b477b7", "purpose": "scope, invariants, and authority boundary"},
-    {"path": "scripts/check_shared_pa_market_evaluator_offline.py", "size": 3655, "sha256": "83b7a5a991d3f9b65bf38739d6e3bde1cd03cbb71382f3e5202c4f9d7b10c0c0", "purpose": "offline exact-byte and JSON verification"}
+    {"path": "scripts/check_shared_pa_market_evaluator_offline.py", "size": 3773, "sha256": "fa36614827eb2beb9c00a279aba30d36db36bfab5fd7476190f5b0861259df66", "purpose": "offline exact-byte and JSON verification"},
+    {"path": "requirements-prospective-batter-opportunity-ci.lock", "size": 637, "sha256": "97860e387e41f3feed182c9775ed1dc9de36b50274c3bdfd8b2fc6f870e8fb6e", "purpose": "exact hash-locked Linux CI test dependencies"}
   ]
 }

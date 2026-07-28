@@ -1,20 +1,23 @@
 {
   "artifact_id": "shared_pa_experiment_registry_v1",
   "artifacts": [
+    {"path": ".github/workflows/shared-pa-registry-evaluator-linux.yml", "sha256": "3c126309abae54258439d67c67015777c748233952f0ba1586db8da18c8bbfb8", "size_bytes": 2786},
     {"path": "config/schemas/shared_pa_experiment_registry_append_receipt_v1.schema.json", "sha256": "246a9b6d8d9774a1cd76b284dbd9ecb0e9c686c7cf065b48a720d1294219ebc7", "size_bytes": 1207},
     {"path": "config/schemas/shared_pa_experiment_registry_checkpoint_v1.schema.json", "sha256": "eedd700a2ac49a77bf8d43f3b7a7084b2515054720e6dcb7bea6f7b91ef19cd3", "size_bytes": 739},
     {"path": "config/schemas/shared_pa_experiment_registry_entry_v1.schema.json", "sha256": "456df63c2199299d50ef276daac049c5c74f74e5f341f02203eb4111f891e088", "size_bytes": 978},
     {"path": "config/schemas/shared_pa_experiment_registry_identity_v1.schema.json", "sha256": "52b04344aa22324793443a097f9c2b1c76a712b9aedb78e722c44a9bd809c61a", "size_bytes": 671},
-    {"path": "config/schemas/shared_pa_experiment_registry_policy_v1.schema.json", "sha256": "8e274337d53684471247ef1394193b7c1f676db8b4c0815ebafa9f0e1a6d3f4e", "size_bytes": 1611},
+    {"path": "config/schemas/shared_pa_experiment_registry_policy_v1.schema.json", "sha256": "cdb541d2e06b75ff9083c483ef93c3109f9bd9fa2aaf76ee6fdd20f25256e3aa", "size_bytes": 2298},
     {"path": "config/schemas/shared_pa_experiment_registry_release_expectation_v1.schema.json", "sha256": "69f81a3de84d75a348ff38a33654b682e4fcc15351e37510971652b8d8e0017e", "size_bytes": 1365},
     {"path": "config/schemas/shared_pa_experiment_registry_trusted_checkpoint_v1.schema.json", "sha256": "51487b912ef43101dd05f24f726c86421abac8b41f02dcf5cc2e2af8200316cb", "size_bytes": 646},
-    {"path": "config/shared_pa_experiment_registry_v1.json", "sha256": "9024161efebe93ac4e5431e316519fda3cd002d0e204b20992f2a87ca7ebc567", "size_bytes": 2394},
-    {"path": "config/shared_pa_market_evaluator_binding_interface_v1.json", "sha256": "0f747252c1abe5a970f8344366b63bf70e10f6ef291b41b6ac3d55e50eb97289", "size_bytes": 3153},
-    {"path": "docs/research/SHARED_PA_EXPERIMENT_REGISTRY_V1.md", "sha256": "ec89ccb2951edf6f8e15e87f0d27cb67bfd269374a6a1363e8eff7b0315c8b1d", "size_bytes": 7118},
-    {"path": "reports/shared_pa_experiment_registry_v1_IMPLEMENTED.json", "sha256": "de2e8e16f3ac48897e9a54e55672ee26c4726f00932937c0b1189b53aabfe6d3", "size_bytes": 2918},
+    {"path": "config/shared_pa_experiment_registry_v1.json", "sha256": "a8a875928f27731dce85635d4fce9ab7f6bb95da9a3cd60c2a08d37bbbe400e1", "size_bytes": 2832},
+    {"path": "config/shared_pa_market_evaluation_contract_v1.json", "sha256": "53673c56b90e48d593c4355e0fb2c6152e69dbf165c15125db065d9059b5b34d", "size_bytes": 1745},
+    {"path": "config/shared_pa_market_evaluator_v1_file_manifest.json", "sha256": "83cf0ca50a67f7f3c905d2f2cf189045ba9983ad5fc4a5718682a0b79cd7eec1", "size_bytes": 2467},
+    {"path": "docs/research/SHARED_PA_EXPERIMENT_REGISTRY_V1.md", "sha256": "a7168c9742153fccfe14fa470ef942cd4e162c611ba8d99a901f7195ed54feb0", "size_bytes": 7871},
+    {"path": "reports/shared_pa_experiment_registry_v1_IMPLEMENTED.json", "sha256": "21648c3fdb8d9e10193607e1205b8d994dacbc40d1d473bdea63d1ecf1998871", "size_bytes": 3308},
+    {"path": "requirements-prospective-batter-opportunity-ci.lock", "sha256": "97860e387e41f3feed182c9775ed1dc9de36b50274c3bdfd8b2fc6f870e8fb6e", "size_bytes": 637},
     {"path": "scripts/manage_shared_pa_experiment_registry.py", "sha256": "ac023d329c993e086ff55c5d64ea6ce1bfd370f18afa7aef020134d48e2cc6fc", "size_bytes": 4904},
-    {"path": "src/evaluation/shared_pa_experiment_registry.py", "sha256": "573c29b2cd801e54e36a3190a81bc50fea29e2561ec6fa9ff226385508588a71", "size_bytes": 58716},
-    {"path": "tests/test_shared_pa_experiment_registry.py", "sha256": "54d784772e14c365af79b655743549d327a6736905d8a7c2dc21133122fb05d7", "size_bytes": 37835}
+    {"path": "src/evaluation/shared_pa_experiment_registry.py", "sha256": "b24c70600afe6e1bfe422895f061398a660a256e2efde9803d05d9cd8efd7798", "size_bytes": 64197},
+    {"path": "tests/test_shared_pa_experiment_registry.py", "sha256": "62badd87a1cdf43b8fdb0e6c7ee61708260ac898dc487238b7847aad49a83350", "size_bytes": 40619}
   ],
   "manifest_schema_version": 1,
   "source_base_commit": "9f9d839187550f7a7a6da3b4bfdb25b2dff3e794"

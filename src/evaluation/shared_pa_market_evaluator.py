@@ -76,6 +76,26 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def load_unique_json_file(path: Path, label: str) -> Any:
+    def unique(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+        output: dict[str, Any] = {}
+        for key, value in pairs:
+            if key in output:
+                raise SharedPAMarketEvaluationError(
+                    f"{label} has duplicate JSON key: {key}"
+                )
+            output[key] = value
+        return output
+
+    try:
+        text = path.read_bytes().decode("utf-8")
+        return json.loads(text, object_pairs_hook=unique)
+    except SharedPAMarketEvaluationError:
+        raise
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise SharedPAMarketEvaluationError(f"{label} is unreadable") from exc
+
+
 def _sha(value: Any, label: str) -> str:
     if not isinstance(value, str) or len(value) != 64 or any(char not in "0123456789abcdef" for char in value):
         raise SharedPAMarketEvaluationError(f"{label} must be lowercase SHA-256")
@@ -284,10 +304,7 @@ def load_source_authority(
     manifest_path = safe_regular_file(root, manifest_relative_path, context="source-authority manifest")
     if sha256_file(manifest_path) != expected_manifest_sha256:
         raise SharedPAMarketEvaluationError("source-authority manifest differs from expected external digest")
-    try:
-        payload = json.loads(manifest_path.read_text(encoding="utf-8"))
-    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
-        raise SharedPAMarketEvaluationError("source-authority manifest is unreadable") from exc
+    payload = load_unique_json_file(manifest_path, "source-authority manifest")
     required = {
         "schema_version", "authority_id", "authority_state", "protocol_id",
         "evidence_window_id", "receipts",
@@ -319,10 +336,7 @@ def load_source_authority(
         path = safe_regular_file(root, relative, context="source receipt")
         if sha256_file(path) != digest:
             raise SharedPAMarketEvaluationError("source receipt bytes differ from manifest")
-        try:
-            receipt_payload = json.loads(path.read_text(encoding="utf-8"))
-        except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
-            raise SharedPAMarketEvaluationError("source receipt is unreadable") from exc
+        receipt_payload = load_unique_json_file(path, "source receipt")
         receipts[digest] = _validate_receipt_payload(receipt_payload, kind)
         kinds[digest] = kind
         seen_paths.add(relative)
@@ -406,10 +420,7 @@ def validate_contract(value: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def load_contract(path: Path) -> dict[str, Any]:
-    try:
-        value = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
-        raise SharedPAMarketEvaluationError("evaluation contract is unreadable") from exc
+    value = load_unique_json_file(path, "evaluation contract")
     if not isinstance(value, Mapping):
         raise SharedPAMarketEvaluationError("evaluation contract must be an object")
     return validate_contract(value)
