@@ -62,3 +62,68 @@ def test_pitcher_projection_reasonable_bounds():
     # Even an elite starter over 5.5 IP faces ~23 batters; K projection
     # should be high single digits, not double digits every night.
     assert elite.projected_value <= 5.5 * PA_PER_INNING * 0.45
+
+
+def test_frozen_projection_preserves_legacy_zero_rate_fallback():
+    """Source repair must not silently fork the frozen probability output."""
+
+    engine = PropEngine(config={"simulation": {"n_sims": 500}})
+    season = PitchingStatsSnapshot(
+        innings_pitched=90,
+        k_per_9=10.0,
+        bb_per_9=3.0,
+        games_started=15,
+    )
+    observed_zero = PitchingStatsSnapshot(
+        innings_pitched=5,
+        k_per_9=0.0,
+        bb_per_9=0.0,
+        games_started=1,
+    )
+    missing = PitchingStatsSnapshot(
+        innings_pitched=0,
+        k_per_9=None,
+        bb_per_9=None,
+        games_started=None,
+    )
+
+    zero_projection = engine.project_pitcher_strikeouts(
+        _pitcher("Observed zero"), season, observed_zero
+    )
+    missing_projection = engine.project_pitcher_strikeouts(
+        _pitcher("Missing"), season, missing
+    )
+    assert zero_projection.projected_value == missing_projection.projected_value
+
+
+def test_frozen_projection_preserves_legacy_zero_bb_fallback(monkeypatch):
+    """The zero-aware semantics are candidate-only, not a production fork."""
+
+    import src.prediction.prop_engine as prop_engine_module
+
+    captured = {}
+
+    class _CapturePASimulator:
+        def __init__(self, **_kwargs):
+            pass
+
+        def expected_rates(self, **kwargs):
+            captured.update(kwargs)
+            return {"k_prob": 0.20}
+
+    monkeypatch.setattr(prop_engine_module, "HybridPASimulator", _CapturePASimulator)
+    engine = PropEngine(config={"simulation": {"n_sims": 500}})
+    season = PitchingStatsSnapshot(
+        innings_pitched=90,
+        k_per_9=9.0,
+        bb_per_9=3.0,
+        games_started=15,
+    )
+    recent = PitchingStatsSnapshot(
+        innings_pitched=5,
+        k_per_9=9.0,
+        bb_per_9=0.0,
+        games_started=1,
+    )
+    engine.project_pitcher_strikeouts(_pitcher("Zero BB"), season, recent)
+    assert captured["pitcher_bb_pct"] == rate_per_9_to_pct(3.0)

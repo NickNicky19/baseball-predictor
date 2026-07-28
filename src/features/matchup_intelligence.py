@@ -13,6 +13,7 @@ from dataclasses import dataclass
 from typing import Any, Optional, Protocol
 
 from src.data.mlb_api import HittingStatsSnapshot
+from src.data.pitching_source_truth import frozen_legacy_rate_fallback
 from src.models.dataclasses import (
     HitterGameContext,
     LeagueBaselines,
@@ -267,9 +268,12 @@ class MatchupIntelligence:
 
         lg = self.league
         pitcher_vec = [
-            (pitcher.k_rate or lg.k_pct / 100.0) - lg.k_pct / 100.0,
-            (pitcher.bb_rate or lg.bb_pct / 100.0) - lg.bb_pct / 100.0,
-            (pitcher.hr_per_9 or lg.hr_per_9) - lg.hr_per_9,
+            frozen_legacy_rate_fallback(pitcher.k_rate, default=lg.k_pct / 100.0)
+            - lg.k_pct / 100.0,
+            frozen_legacy_rate_fallback(pitcher.bb_rate, default=lg.bb_pct / 100.0)
+            - lg.bb_pct / 100.0,
+            frozen_legacy_rate_fallback(pitcher.hr_per_9, default=lg.hr_per_9)
+            - lg.hr_per_9,
         ]
         contact = (
             hitter_statcast.contact_rate

@@ -18,6 +18,7 @@ import pandas as pd
 
 from src.data.injury_client import InjuryClient
 from src.data.mlb_api import MLBStatsAPI
+from src.data.pitching_source_truth import frozen_legacy_rate_fallback
 from src.data.odds import CompositeOddsProvider
 from src.data.savant import SavantClient
 from src.data.umpire_client import UmpireClient
@@ -602,9 +603,17 @@ class DailyPredictor:
             )
             return None
 
-        k_pct = recent.k_pct or season.k_pct or self.league.k_pct
-        bb_pct = recent.bb_pct or season.bb_pct or self.league.bb_pct
-        hr_per_9 = recent.hr_per_9 or season.hr_per_9 or self.league.hr_per_9
+        # Frozen probability compatibility only. Candidate-ready research must
+        # validate source snapshots and consume zeros through first_observed_rate.
+        k_pct = frozen_legacy_rate_fallback(
+            recent.k_pct, season.k_pct, default=self.league.k_pct
+        )
+        bb_pct = frozen_legacy_rate_fallback(
+            recent.bb_pct, season.bb_pct, default=self.league.bb_pct
+        )
+        hr_per_9 = frozen_legacy_rate_fallback(
+            recent.hr_per_9, season.hr_per_9, default=self.league.hr_per_9
+        )
 
         return self._savant_client.build_pitcher_profile_from_rates(
             player_id=pitcher_id,

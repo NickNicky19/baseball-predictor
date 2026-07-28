@@ -30,6 +30,7 @@ import time
 from collections import Counter
 from dataclasses import dataclass, field
 from datetime import date, timedelta
+from numbers import Integral
 from pathlib import Path
 from typing import Any, Iterable, Optional
 
@@ -39,14 +40,17 @@ from src.data.mlb_api import (
     PitchingStatsSnapshot,
     _parse_hitting,
     _parse_pitching,
+    _parse_pitching_frozen_compatibility,
 )
 from src.data.http_cache import DiskCachedGetMixin
+from src.data.pitching_source_truth import PitchingSourceValidationError
 from src.data.point_in_time import PointInTimeStats
 from src.utils.logging import get_logger
 
 logger = get_logger(__name__)
 
 BUILDER_SCHEMA = "a3.2"
+PITCHER_SOURCE_TRUTH_BUILDER_SCHEMA = "a3.3-pitcher-source-truth-v1"
 
 # Generous windows; the gameType == "R" filter is the real gate.
 SEASON_WINDOWS: dict[int, tuple[str, str]] = {
@@ -97,6 +101,16 @@ PITCHER_COLUMNS = [
     "out_ip", "out_k", "out_bb", "out_hr",
 ]
 
+PITCHER_SOURCE_TRUTH_HITTER_COLUMNS = HITTER_COLUMNS + [
+    "opp_sp_outs",
+    "opp_sp_recent_outs",
+]
+PITCHER_SOURCE_TRUTH_PITCHER_COLUMNS = PITCHER_COLUMNS + [
+    "pit_outs",
+    "pit_recent_outs",
+    "out_outs",
+]
+
 
 class CachedMLBAPI(DiskCachedGetMixin, MLBStatsAPI):
     """Disk-cached, rate-limited MLB API for immutable historical lookups."""
@@ -125,12 +139,17 @@ class TrainingSetBuilder:
         pit: PointInTimeStats,
         config: dict[str, Any],
         out_dir: str | Path = "data/training",
+        *,
+        builder_schema: str = BUILDER_SCHEMA,
     ):
+        if builder_schema not in (BUILDER_SCHEMA, PITCHER_SOURCE_TRUTH_BUILDER_SCHEMA):
+            raise ValueError(f"unsupported builder schema: {builder_schema}")
         self.api = api
         self.pit = pit
         self.config = config or {}
         self.out_dir = Path(out_dir)
         self.season = api.season
+        self.builder_schema = builder_schema
         self._manifest_path = self.out_dir / f"manifest_{self.season}.json"
         self._shard_dir = self.out_dir / str(self.season)
         self._shard_dir.mkdir(parents=True, exist_ok=True)
@@ -218,8 +237,14 @@ class TrainingSetBuilder:
             pitcher_rows.extend(p_rows)
             result.games += 1
 
-        self._write_shard("hitters", game_date, HITTER_COLUMNS, hitter_rows)
-        self._write_shard("pitchers", game_date, PITCHER_COLUMNS, pitcher_rows)
+        if self.builder_schema == PITCHER_SOURCE_TRUTH_BUILDER_SCHEMA:
+            hitter_columns = PITCHER_SOURCE_TRUTH_HITTER_COLUMNS
+            pitcher_columns = PITCHER_SOURCE_TRUTH_PITCHER_COLUMNS
+        else:
+            hitter_columns = HITTER_COLUMNS
+            pitcher_columns = PITCHER_COLUMNS
+        self._write_shard("hitters", game_date, hitter_columns, hitter_rows)
+        self._write_shard("pitchers", game_date, pitcher_columns, pitcher_rows)
         result.hitter_rows = len(hitter_rows)
         result.pitcher_rows = len(pitcher_rows)
         return result
@@ -244,6 +269,17 @@ class TrainingSetBuilder:
             target = out_dir / f"training_{kind}_{span}.csv.gz"
             if frames:
                 combined = pd.concat(frames, ignore_index=True)
+                schemas = set(combined["builder_schema"].dropna().astype(str))
+                if schemas != {self.builder_schema}:
+                    raise ValueError(
+                        f"{kind} training assembly schema mismatch: {sorted(schemas)}"
+                    )
+                if (
+                    self.builder_schema == PITCHER_SOURCE_TRUTH_BUILDER_SCHEMA
+                    and kind == "pitchers"
+                ):
+                    for row in combined.to_dict(orient="records"):
+                        validate_pitcher_source_truth_training_row(row)
                 if combined["game_pk"].isna().any():
                     raise ValueError(f"{kind} training assembly has null game_pk values")
                 bad_game_dates = combined.groupby("game_pk")["game_date"].nunique()
@@ -364,8 +400,13 @@ class TrainingSetBuilder:
         else:
             resolution["hitter_actual_resolved"] += 1
 
-        return {
-            "builder_schema": BUILDER_SCHEMA,
+        source_truth_schema = self.builder_schema == PITCHER_SOURCE_TRUTH_BUILDER_SCHEMA
+        rate = lambda value: (  # noqa: E731 - local schema serializer
+            _round(value, 2) if source_truth_schema else round(value or 0.0, 2)
+        )
+        gs = lambda value: value if source_truth_schema else int(value or 0)  # noqa: E731
+        row = {
+            "builder_schema": self.builder_schema,
             "season": self.season,
             "game_date": game_date,
             "game_pk": game_pk,
@@ -399,14 +440,14 @@ class TrainingSetBuilder:
             "opp_sp_id": opp_sp_id, "opp_sp_name": sp_name,
             "opp_sp_throws": sp_throws, "opp_sp_source": opp_sp_source,
             "opp_sp_ip": round(sp_season.innings_pitched, 1),
-            "opp_sp_k9": round(sp_season.k_per_9, 2),
-            "opp_sp_bb9": round(sp_season.bb_per_9, 2),
-            "opp_sp_hr9": round(sp_season.hr_per_9, 2),
-            "opp_sp_gs": sp_season.games_started,
+            "opp_sp_k9": rate(sp_season.k_per_9),
+            "opp_sp_bb9": rate(sp_season.bb_per_9),
+            "opp_sp_hr9": rate(sp_season.hr_per_9),
+            "opp_sp_gs": gs(sp_season.games_started),
             "opp_sp_recent_ip": round(sp_recent.innings_pitched, 1),
-            "opp_sp_recent_k9": round(sp_recent.k_per_9, 2),
-            "opp_sp_recent_bb9": round(sp_recent.bb_per_9, 2),
-            "opp_sp_recent_hr9": round(sp_recent.hr_per_9, 2),
+            "opp_sp_recent_k9": rate(sp_recent.k_per_9),
+            "opp_sp_recent_bb9": rate(sp_recent.bb_per_9),
+            "opp_sp_recent_hr9": rate(sp_recent.hr_per_9),
             "platoon_adv": platoon_adv,
             **env,
             "has_prior_data": 1 if season.pa > 0 else 0,
@@ -415,6 +456,14 @@ class TrainingSetBuilder:
             "out_hr": out.home_runs, "out_rbi": out.rbi, "out_runs": out.runs,
             "out_bb": out.walks, "out_k": out.strikeouts,
         }
+        if source_truth_schema:
+            row.update(
+                {
+                    "opp_sp_outs": sp_season.outs_recorded,
+                    "opp_sp_recent_outs": sp_recent.outs_recorded,
+                }
+            )
+        return row
 
     def _pitcher_row(
         self,
@@ -430,7 +479,12 @@ class TrainingSetBuilder:
         resolution: Counter,
     ) -> dict[str, Any]:
         identity = self.api.get_player_identity(player_id, team=team)
-        season, recent = self.pit.get_pitching_stats_as_of(player_id, game_date)
+        source_truth_schema = self.builder_schema == PITCHER_SOURCE_TRUTH_BUILDER_SCHEMA
+        season, recent = self.pit.get_pitching_stats_as_of(
+            player_id,
+            game_date,
+            source_truth_required=source_truth_schema,
+        )
         resolution[
             "pitching_as_of_resolved" if season.innings_pitched > 0 else "pitching_as_of_empty"
         ] += 1
@@ -438,13 +492,21 @@ class TrainingSetBuilder:
         out = self._pitching_actual(players, player_id)
         if out is None:
             resolution["pitcher_actual_missing"] += 1
+            if source_truth_schema:
+                raise PitchingSourceValidationError(
+                    "candidate-schema pitcher outcome source is missing"
+                )
             out = PitchingStatsSnapshot()
         else:
             resolution["pitcher_actual_resolved"] += 1
 
         recent_gs = recent.games_started
-        return {
-            "builder_schema": BUILDER_SCHEMA,
+        rate = lambda value: (  # noqa: E731 - local schema serializer
+            _round(value, 2) if source_truth_schema else round(value or 0.0, 2)
+        )
+        gs = lambda value: value if source_truth_schema else int(value or 0)  # noqa: E731
+        row = {
+            "builder_schema": self.builder_schema,
             "season": self.season,
             "game_date": game_date,
             "game_pk": game_pk,
@@ -457,19 +519,33 @@ class TrainingSetBuilder:
             "throws": identity.throws,
             "pit_ip": round(season.innings_pitched, 1),
             "pit_k": season.strikeouts, "pit_bb": season.walks, "pit_hr": season.home_runs,
-            "pit_k9": round(season.k_per_9, 2), "pit_bb9": round(season.bb_per_9, 2),
-            "pit_hr9": round(season.hr_per_9, 2), "pit_gs": season.games_started,
+            "pit_k9": rate(season.k_per_9), "pit_bb9": rate(season.bb_per_9),
+            "pit_hr9": rate(season.hr_per_9), "pit_gs": gs(season.games_started),
             "pit_recent_ip": round(recent.innings_pitched, 1),
-            "pit_recent_k9": round(recent.k_per_9, 2),
-            "pit_recent_bb9": round(recent.bb_per_9, 2),
-            "pit_recent_hr9": round(recent.hr_per_9, 2),
-            "pit_recent_gs": recent_gs,
-            "pit_recent_ip_per_gs": round(recent.innings_pitched / recent_gs, 2) if recent_gs else 0.0,
+            "pit_recent_k9": rate(recent.k_per_9),
+            "pit_recent_bb9": rate(recent.bb_per_9),
+            "pit_recent_hr9": rate(recent.hr_per_9),
+            "pit_recent_gs": gs(recent_gs),
+            "pit_recent_ip_per_gs": (
+                round(recent.innings_pitched / recent_gs, 2)
+                if recent_gs is not None and recent_gs > 0
+                else ("" if source_truth_schema else 0.0)
+            ),
             **env,
             "has_prior_data": 1 if season.innings_pitched > 0 else 0,
             "out_ip": round(out.innings_pitched, 1),
             "out_k": out.strikeouts, "out_bb": out.walks, "out_hr": out.home_runs,
         }
+        if source_truth_schema:
+            row.update(
+                {
+                    "pit_outs": season.outs_recorded,
+                    "pit_recent_outs": recent.outs_recorded,
+                    "out_outs": out.outs_recorded,
+                }
+            )
+            validate_pitcher_source_truth_training_row(row)
+        return row
 
     # ------------------------------------------------------------------
     # Feed parsing helpers
@@ -514,6 +590,9 @@ class TrainingSetBuilder:
         if probable:
             resolution["opp_sp_probable"] += 1
             return int(probable), "probable"
+        if self.builder_schema == PITCHER_SOURCE_TRUTH_BUILDER_SCHEMA:
+            resolution["opp_sp_missing_candidate_abstention"] += 1
+            return None, "missing"
         if actual_starter:
             resolution["opp_sp_actual_starter"] += 1
             return actual_starter, "actual_starter"
@@ -528,9 +607,19 @@ class TrainingSetBuilder:
         resolution: Counter,
     ) -> tuple[PitchingStatsSnapshot, PitchingStatsSnapshot, str, str]:
         if sp_id is None:
+            if self.builder_schema == PITCHER_SOURCE_TRUTH_BUILDER_SCHEMA:
+                raise PitchingSourceValidationError(
+                    "candidate-schema opposing starter identity is missing"
+                )
             return PitchingStatsSnapshot(), PitchingStatsSnapshot(), "", ""
         identity = self.api.get_player_identity(sp_id, team=team)
-        season, recent = self.pit.get_pitching_stats_as_of(sp_id, game_date)
+        season, recent = self.pit.get_pitching_stats_as_of(
+            sp_id,
+            game_date,
+            source_truth_required=(
+                self.builder_schema == PITCHER_SOURCE_TRUTH_BUILDER_SCHEMA
+            ),
+        )
         resolution[
             "opp_sp_as_of_resolved" if season.innings_pitched > 0 else "opp_sp_as_of_empty"
         ] += 1
@@ -544,13 +633,20 @@ class TrainingSetBuilder:
         batting = stats.get("batting")
         return _parse_hitting(batting) if batting else None
 
-    @staticmethod
     def _pitching_actual(
+        self,
         players: dict[str, Any], player_id: int
     ) -> Optional[PitchingStatsSnapshot]:
         stats = (players.get(f"ID{player_id}", {}) or {}).get("stats", {})
         pitching = stats.get("pitching")
-        return _parse_pitching(pitching) if pitching else None
+        if not pitching:
+            return None
+        if self.builder_schema != PITCHER_SOURCE_TRUTH_BUILDER_SCHEMA:
+            return _parse_pitching_frozen_compatibility(pitching)
+        candidate_payload = dict(pitching)
+        candidate_payload.setdefault("gamesStarted", 1)
+        candidate_payload.setdefault("gamesPlayed", 1)
+        return _parse_pitching(candidate_payload)
 
     def _park_factors(self, venue: str) -> tuple[float, float, float]:
         """Config park lookup; mirrors FeatureFactory._park_factors' config branch."""
@@ -593,10 +689,20 @@ class TrainingSetBuilder:
     def _load_manifest(self) -> dict[str, Any]:
         if self._manifest_path.exists():
             try:
-                return json.loads(self._manifest_path.read_text(encoding="utf-8"))
+                manifest = json.loads(self._manifest_path.read_text(encoding="utf-8"))
+                if manifest.get("builder_schema") != self.builder_schema:
+                    raise ValueError(
+                        "training manifest schema does not match requested builder schema"
+                    )
+                return manifest
             except json.JSONDecodeError:
                 logger.warning("Corrupt manifest %s; starting fresh", self._manifest_path)
-        return {"season": self.season, "builder_schema": BUILDER_SCHEMA, "dates": {}, "resolution": {}}
+        return {
+            "season": self.season,
+            "builder_schema": self.builder_schema,
+            "dates": {},
+            "resolution": {},
+        }
 
     def _record(self, result: DateResult) -> None:
         status = "done" if result.games else "empty"
@@ -639,6 +745,47 @@ def season_dates(season: int, start: Optional[str] = None, end: Optional[str] = 
 
 def _round(value: Any, digits: int = 4) -> Any:
     return round(value, digits) if isinstance(value, (int, float)) else ""
+
+
+def validate_pitcher_source_truth_training_row(row: dict[str, Any]) -> None:
+    """Validate the exact-outs round trip for the opt-in candidate schema."""
+
+    if row.get("builder_schema") != PITCHER_SOURCE_TRUTH_BUILDER_SCHEMA:
+        raise PitchingSourceValidationError(
+            "pitcher source-truth row has the wrong builder schema"
+        )
+    for outs_field, innings_field in (
+        ("pit_outs", "pit_ip"),
+        ("pit_recent_outs", "pit_recent_ip"),
+        ("out_outs", "out_ip"),
+    ):
+        outs = row.get(outs_field)
+        if isinstance(outs, bool) or not isinstance(outs, Integral) or outs < 0:
+            raise PitchingSourceValidationError(
+                f"{outs_field} must be a non-negative exact-out count"
+            )
+        try:
+            serialized_innings = float(row[innings_field])
+        except (KeyError, TypeError, ValueError) as exc:
+            raise PitchingSourceValidationError(
+                f"{innings_field} is required for exact-outs validation"
+            ) from exc
+        if serialized_innings != round(int(outs) / 3.0, 1):
+            raise PitchingSourceValidationError(
+                f"{outs_field} does not round-trip to {innings_field}"
+            )
+    if row["pit_outs"] == 0 and any(
+        int(row.get(field, 0) or 0) > 0 for field in ("pit_k", "pit_bb", "pit_hr")
+    ):
+        raise PitchingSourceValidationError(
+            "positive season counts cannot have zero exact outs"
+        )
+    if row["out_outs"] == 0 and any(
+        int(row.get(field, 0) or 0) > 0 for field in ("out_k", "out_bb", "out_hr")
+    ):
+        raise PitchingSourceValidationError(
+            "positive outcome counts cannot have zero exact outs"
+        )
 
 
 def _to_float(value: Any) -> Any:
