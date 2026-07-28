@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "shared-pa-market-evaluation-contract-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "contract_id", "status", "source_base_commit", "markets", "markets_must_be_evaluated_separately", "pooling_forbidden", "cross_market_rescue_forbidden", "required_baselines", "valid_market_baseline_optional_only_when_terminally_unavailable", "canonical_test_evidence_window_ids", "protected_boundaries", "probability_epsilon", "calibration_bin_edges", "hr_upper_tail_thresholds", "uncertainty", "economic_boundary", "qualification"],
+  "properties": {
+    "schema_version": {"const": "shared-pa-market-evaluation-contract-v1"},
+    "contract_id": {"const": "shared_pa_market_evaluation_contract_v1"},
+    "status": {"const": "UNBOUND_EXTERNAL_AUTHORITIES_REQUIRED"},
+    "source_base_commit": {"const": "9f86f6a34fc71151b76debf48059829aa4fa91da"},
+    "markets": {"const": ["hits", "hr_over_0_5", "total_bases"]},
+    "markets_must_be_evaluated_separately": {"const": true},
+    "pooling_forbidden": {"const": true},
+    "cross_market_rescue_forbidden": {"const": true},
+    "required_baselines": {"const": ["league_rate", "player_time_safe_eb", "frozen_simulator", "valid_market_implied"]},
+    "valid_market_baseline_optional_only_when_terminally_unavailable": {"const": true},
+    "canonical_test_evidence_window_ids": {"const": ["synthetic_test_only"]},
+    "protected_boundaries": {
+      "type": "object", "additionalProperties": false,
+      "required": ["may_2026_forbidden", "spent_2024_selection_reusable", "spent_2025_hr_confirmation_reusable", "historical_prices_executable", "missed_prospective_backfill_allowed", "frozen_baselines_mutable", "betting_authorized"],
+      "properties": {
+        "may_2026_forbidden": {"const": true},
+        "spent_2024_selection_reusable": {"const": false},
+        "spent_2025_hr_confirmation_reusable": {"const": false},
+        "historical_prices_executable": {"const": false},
+        "missed_prospective_backfill_allowed": {"const": false},
+        "frozen_baselines_mutable": {"const": false},
+        "betting_authorized": {"const": false}
+      }
+    },
+    "probability_epsilon": {"const": 0.000000000001},
+    "calibration_bin_edges": {"const": [0.0, 0.05, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5, 0.65, 0.8, 1.0]},
+    "hr_upper_tail_thresholds": {"const": [0.1, 0.2, 0.3]},
+    "uncertainty": {
+      "type": "object", "additionalProperties": false,
+      "required": ["bootstrap_draws", "bootstrap_seed", "confidence_level", "date_cluster_required", "game_cluster_required"],
+      "properties": {
+        "bootstrap_draws": {"const": 2000}, "bootstrap_seed": {"const": 20260728},
+        "confidence_level": {"const": 0.95}, "date_cluster_required": {"const": true},
+        "game_cluster_required": {"const": true}
+      }
+    },
+    "economic_boundary": {
+      "type": "object", "additionalProperties": false,
+      "required": ["capture_lower_bound_minimum", "historical_prices_executable", "roi_or_betting_decision_permitted"],
+      "properties": {
+        "capture_lower_bound_minimum": {"const": 0.1},
+        "historical_prices_executable": {"const": false},
+        "roi_or_betting_decision_permitted": {"const": false}
+      }
+    },
+    "qualification": {
+      "type": "object", "additionalProperties": false,
+      "required": ["materiality_thresholds_supplied_by_external_authority", "unbound_engine_may_qualify_or_promote", "all_markets_must_pass_independently", "one_market_may_rescue_another"],
+      "properties": {
+        "materiality_thresholds_supplied_by_external_authority": {"const": true},
+        "unbound_engine_may_qualify_or_promote": {"const": false},
+        "all_markets_must_pass_independently": {"const": true},
+        "one_market_may_rescue_another": {"const": false}
+      }
+    }
+  }
+}

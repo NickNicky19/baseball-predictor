@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "shared-pa-market-evaluation-row-v1",
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "utc": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+    "date": {"type": "string", "format": "date", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+    "line": {"type": "string", "pattern": "^(0|[1-9][0-9]*)(\\.[0-9]*[1-9])?$"},
+    "probability": {"type": "number", "minimum": 0.000000000001, "maximum": 0.999999999999},
+    "distribution": {
+      "type": "object", "minProperties": 1,
+      "propertyNames": {"pattern": "^(0|[1-9][0-9]*)$"},
+      "additionalProperties": {"type": "number", "minimum": 0, "maximum": 1}
+    },
+    "binaryModelBaseline": {
+      "type": "object", "additionalProperties": false,
+      "required": ["available", "probability", "artifact_sha256", "probability_scale", "distribution"],
+      "properties": {
+        "available": {"const": true}, "probability": {"$ref": "#/$defs/probability"},
+        "artifact_sha256": {"$ref": "#/$defs/sha256"},
+        "probability_scale": {"const": "binary_market_tail_v1"}, "distribution": {"type": "null"}
+      }
+    },
+    "totalBasesModelBaseline": {
+      "type": "object", "additionalProperties": false,
+      "required": ["available", "probability", "artifact_sha256", "probability_scale", "distribution"],
+      "properties": {
+        "available": {"const": true}, "probability": {"$ref": "#/$defs/probability"},
+        "artifact_sha256": {"$ref": "#/$defs/sha256"},
+        "probability_scale": {"const": "total_bases_count_distribution_v1"},
+        "distribution": {"$ref": "#/$defs/distribution"}
+      }
+    },
+    "marketAvailable": {
+      "type": "object", "additionalProperties": false,
+      "required": ["available", "probability", "unavailable_reason", "sportsbook", "source_market_id", "receipt_sha256", "quote_observed_at_utc", "line", "over_decimal_price", "under_decimal_price", "no_vig_method", "probability_scale", "official_game_pk", "player_id", "market", "source_id", "product_contract_id", "availability_observed_at_utc", "availability_receipt_sha256"],
+      "properties": {
+        "available": {"const": true}, "probability": {"$ref": "#/$defs/probability"},
+        "unavailable_reason": {"type": "null"}, "sportsbook": {"type": "string", "minLength": 1},
+        "source_market_id": {"type": "string", "minLength": 1}, "receipt_sha256": {"$ref": "#/$defs/sha256"},
+        "quote_observed_at_utc": {"$ref": "#/$defs/utc"}, "line": {"$ref": "#/$defs/line"},
+        "over_decimal_price": {"type": "number", "exclusiveMinimum": 1},
+        "under_decimal_price": {"type": "number", "exclusiveMinimum": 1},
+        "no_vig_method": {"const": "normalized_inverse_decimal_v1"},
+        "probability_scale": {"const": "binary_market_tail_v1"},
+        "official_game_pk": {"type": "integer", "minimum": 1}, "player_id": {"type": "integer", "minimum": 1},
+        "market": {"enum": ["hits", "hr_over_0_5", "total_bases"]},
+        "source_id": {"type": "string", "minLength": 1}, "product_contract_id": {"type": "string", "minLength": 1},
+        "availability_observed_at_utc": {"type": "null"}, "availability_receipt_sha256": {"type": "null"}
+      }
+    },
+    "marketUnavailable": {
+      "type": "object", "additionalProperties": false,
+      "required": ["available", "probability", "unavailable_reason", "sportsbook", "source_market_id", "receipt_sha256", "quote_observed_at_utc", "line", "over_decimal_price", "under_decimal_price", "no_vig_method", "probability_scale", "official_game_pk", "player_id", "market", "source_id", "product_contract_id", "availability_observed_at_utc", "availability_receipt_sha256"],
+      "properties": {
+        "available": {"const": false}, "probability": {"type": "null"},
+        "unavailable_reason": {"enum": ["TERMINAL_SOURCE_UNAVAILABLE", "NO_MATCHING_MARKET", "QUOTE_AFTER_DECISION_HORIZON", "BOOK_OR_PRODUCT_UNVERIFIED"]},
+        "sportsbook": {"type": "string", "minLength": 1}, "source_market_id": {"type": "null"},
+        "receipt_sha256": {"type": "null"}, "quote_observed_at_utc": {"type": "null"},
+        "line": {"$ref": "#/$defs/line"}, "over_decimal_price": {"type": "null"}, "under_decimal_price": {"type": "null"},
+        "no_vig_method": {"type": "null"}, "probability_scale": {"const": "binary_market_tail_v1"},
+        "official_game_pk": {"type": "integer", "minimum": 1}, "player_id": {"type": "integer", "minimum": 1},
+        "market": {"enum": ["hits", "hr_over_0_5", "total_bases"]},
+        "source_id": {"type": "string", "minLength": 1}, "product_contract_id": {"type": "string", "minLength": 1},
+        "availability_observed_at_utc": {"$ref": "#/$defs/utc"},
+        "availability_receipt_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "validMarket": {"oneOf": [{"$ref": "#/$defs/marketAvailable"}, {"$ref": "#/$defs/marketUnavailable"}]},
+    "binaryBaselines": {
+      "type": "object", "additionalProperties": false,
+      "required": ["league_rate", "player_time_safe_eb", "frozen_simulator", "valid_market_implied"],
+      "properties": {
+        "league_rate": {"$ref": "#/$defs/binaryModelBaseline"},
+        "player_time_safe_eb": {"$ref": "#/$defs/binaryModelBaseline"},
+        "frozen_simulator": {"$ref": "#/$defs/binaryModelBaseline"},
+        "valid_market_implied": {"$ref": "#/$defs/validMarket"}
+      }
+    },
+    "totalBasesBaselines": {
+      "type": "object", "additionalProperties": false,
+      "required": ["league_rate", "player_time_safe_eb", "frozen_simulator", "valid_market_implied"],
+      "properties": {
+        "league_rate": {"$ref": "#/$defs/totalBasesModelBaseline"},
+        "player_time_safe_eb": {"$ref": "#/$defs/totalBasesModelBaseline"},
+        "frozen_simulator": {"$ref": "#/$defs/totalBasesModelBaseline"},
+        "valid_market_implied": {"$ref": "#/$defs/validMarket"}
+      }
+    }
+  },
+  "type": "object", "additionalProperties": false,
+  "required": ["official_game_date", "official_game_pk", "player_id", "market", "line", "settlement_status", "outcome_value", "prediction_created_at_utc", "decision_horizon_utc", "scheduled_start_utc", "outcome_observed_at_utc", "evidence_window_id", "candidate_available", "candidate_probability", "candidate_distribution", "abstention_reason", "baselines"],
+  "properties": {
+    "official_game_date": {"$ref": "#/$defs/date"},
+    "official_game_pk": {"type": "integer", "minimum": 1}, "player_id": {"type": "integer", "minimum": 1},
+    "market": {"enum": ["hits", "hr_over_0_5", "total_bases"]}, "line": {"$ref": "#/$defs/line"},
+    "settlement_status": {"enum": ["GRADED", "PUSH", "VOID", "UNMATCHED"]},
+    "outcome_value": {"type": ["integer", "null"], "minimum": 0},
+    "prediction_created_at_utc": {"$ref": "#/$defs/utc"}, "decision_horizon_utc": {"$ref": "#/$defs/utc"},
+    "scheduled_start_utc": {"$ref": "#/$defs/utc"}, "outcome_observed_at_utc": {"$ref": "#/$defs/utc"},
+    "evidence_window_id": {"const": "synthetic_test_only"}, "candidate_available": {"type": "boolean"},
+    "candidate_probability": {"type": ["number", "null"]},
+    "candidate_distribution": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/distribution"}]},
+    "abstention_reason": {"type": ["string", "null"]},
+    "baselines": {"oneOf": [{"$ref": "#/$defs/binaryBaselines"}, {"$ref": "#/$defs/totalBasesBaselines"}]}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"candidate_available": {"const": true}}, "required": ["candidate_available"]},
+      "then": {"properties": {"candidate_probability": {"$ref": "#/$defs/probability"}, "abstention_reason": {"type": "null"}}},
+      "else": {"properties": {"candidate_probability": {"type": "null"}, "candidate_distribution": {"type": "null"}, "abstention_reason": {"enum": ["MISSING_POINT_IN_TIME_INPUT", "IDENTITY_UNRESOLVED", "CONTRADICTORY_INPUT", "PITCHER_RECEIPT_UNAVAILABLE", "LINEUP_OPPORTUNITY_UNAVAILABLE", "CANDIDATE_NOT_APPLICABLE"]}}}
+    },
+    {
+      "if": {"properties": {"market": {"const": "total_bases"}}, "required": ["market"]},
+      "then": {"properties": {"baselines": {"$ref": "#/$defs/totalBasesBaselines"}}},
+      "else": {"properties": {"baselines": {"$ref": "#/$defs/binaryBaselines"}, "candidate_distribution": {"type": "null"}}}
+    },
+    {
+      "if": {"allOf": [{"properties": {"market": {"const": "total_bases"}}, "required": ["market"]}, {"properties": {"candidate_available": {"const": true}}, "required": ["candidate_available"]}]},
+      "then": {"properties": {"candidate_distribution": {"$ref": "#/$defs/distribution"}}}
+    },
+    {
+      "if": {"properties": {"market": {"const": "hr_over_0_5"}}, "required": ["market"]},
+      "then": {"properties": {"line": {"const": "0.5"}}}
+    },
+    {
+      "if": {"properties": {"settlement_status": {"enum": ["VOID", "UNMATCHED"]}}, "required": ["settlement_status"]},
+      "then": {"properties": {"outcome_value": {"type": "null"}}},
+      "else": {"properties": {"outcome_value": {"type": "integer", "minimum": 0}}}
+    }
+  ]
+}

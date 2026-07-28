@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "shared-pa-experiment-registry-checkpoint-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "registry_id", "entry_count", "head_entry_hash", "previous_checkpoint_hash", "checkpoint_hash"],
+  "properties": {
+    "schema_version": {"const": "shared-pa-experiment-registry-checkpoint-v1"},
+    "registry_id": {"type": "string", "minLength": 1},
+    "entry_count": {"type": "integer", "minimum": 0},
+    "head_entry_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "previous_checkpoint_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "checkpoint_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

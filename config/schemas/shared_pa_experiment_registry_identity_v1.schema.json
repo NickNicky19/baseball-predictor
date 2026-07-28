@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "shared-pa-experiment-registry-identity-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "registry_id", "configured_authority_state", "release_expectation_sha256"],
+  "properties": {
+    "schema_version": {"const": "shared-pa-experiment-registry-identity-v1"},
+    "registry_id": {"const": "shared_pa_experiment_registry_v1"},
+    "configured_authority_state": {"enum": ["UNBOUND_EXTERNAL_TRUST_REQUIRED", "EXTERNAL_RELEASE_CONFIGURED_CHECKPOINT_REQUIRED"]},
+    "release_expectation_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"}
+  }
+}
