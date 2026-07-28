@@ -1,7 +1,7 @@
 {
   "artifact_id": "shared_pa_experiment_registry_v1",
   "artifacts": [
-    {"path": ".github/workflows/shared-pa-registry-evaluator-linux.yml", "sha256": "3c126309abae54258439d67c67015777c748233952f0ba1586db8da18c8bbfb8", "size_bytes": 2786},
+    {"path": ".github/workflows/shared-pa-registry-evaluator-linux.yml", "sha256": "b0777f889c7eb373c856ed39fded4683d3b0f125af0430d3fde3a9fd5f43751a", "size_bytes": 2811},
     {"path": "config/schemas/shared_pa_experiment_registry_append_receipt_v1.schema.json", "sha256": "246a9b6d8d9774a1cd76b284dbd9ecb0e9c686c7cf065b48a720d1294219ebc7", "size_bytes": 1207},
     {"path": "config/schemas/shared_pa_experiment_registry_checkpoint_v1.schema.json", "sha256": "eedd700a2ac49a77bf8d43f3b7a7084b2515054720e6dcb7bea6f7b91ef19cd3", "size_bytes": 739},
     {"path": "config/schemas/shared_pa_experiment_registry_entry_v1.schema.json", "sha256": "456df63c2199299d50ef276daac049c5c74f74e5f341f02203eb4111f891e088", "size_bytes": 978},
@@ -17,7 +17,7 @@
     {"path": "requirements-prospective-batter-opportunity-ci.lock", "sha256": "97860e387e41f3feed182c9775ed1dc9de36b50274c3bdfd8b2fc6f870e8fb6e", "size_bytes": 637},
     {"path": "scripts/manage_shared_pa_experiment_registry.py", "sha256": "ac023d329c993e086ff55c5d64ea6ce1bfd370f18afa7aef020134d48e2cc6fc", "size_bytes": 4904},
     {"path": "src/evaluation/shared_pa_experiment_registry.py", "sha256": "b24c70600afe6e1bfe422895f061398a660a256e2efde9803d05d9cd8efd7798", "size_bytes": 64197},
-    {"path": "tests/test_shared_pa_experiment_registry.py", "sha256": "62badd87a1cdf43b8fdb0e6c7ee61708260ac898dc487238b7847aad49a83350", "size_bytes": 40619}
+    {"path": "tests/test_shared_pa_experiment_registry.py", "sha256": "8ec0068a1d9d8348b0f23c84c26e70bd26350c35429b6b7b3b040ac86a481bec", "size_bytes": 40926}
   ],
   "manifest_schema_version": 1,
   "source_base_commit": "9f9d839187550f7a7a6da3b4bfdb25b2dff3e794"

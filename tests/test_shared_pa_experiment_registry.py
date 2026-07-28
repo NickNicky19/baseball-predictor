@@ -250,6 +250,14 @@ def test_policy_binds_only_the_exact_synthetic_unbound_evaluator() -> None:
     }
 
 
+def test_linux_gate_preserves_complete_history_for_spend_ledger_verification() -> None:
+    workflow = (
+        ROOT / ".github/workflows/shared-pa-registry-evaluator-linux.yml"
+    ).read_text(encoding="utf-8")
+    assert "fetch-depth: 0" in workflow
+    assert "persist-credentials: false" in workflow
+
+
 @pytest.mark.parametrize(
     ("field", "mutated"),
     [
