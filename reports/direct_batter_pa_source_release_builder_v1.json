@@ -1,0 +1,58 @@
+{
+  "schema_version": "direct-batter-pa-source-release-builder-report-v1",
+  "decision": "OFFLINE_BOUNDARY_PASSED_NETWORK_FETCH_TERMINALLY_BLOCKED",
+  "research_only": true,
+  "betting_authorized": false,
+  "model_fitting_performed": false,
+  "model_scoring_performed": false,
+  "network_backfill_run": false,
+  "network_fetch_authorized": false,
+  "runtime_authority_status": "BLOCKED_UNPROVEN_TRANSITIVE_TLS_SHARED_LIBRARIES",
+  "protected_data": {
+    "may_2026_opened": false,
+    "selection_2024_opened": false,
+    "spent_hr_confirmation_2025_opened": false,
+    "prices_opened": false,
+    "prospective_evidence_opened": false
+  },
+  "implementation": {
+    "base_commit": "4df186b138eb3ed226f764dbe6591ee81a27edba",
+    "branch": "codex/batter-feature-source-binding-v1",
+    "files": {
+      "config/direct_batter_pa_source_release_v1.json": {
+        "bytes": 1844,
+        "sha256": "91913d83b9892f2058db0cb880a14d3e26ae7ba84d70a06e05473c3eef6f8623"
+      },
+      "scripts/build_direct_batter_pa_source_release.py": {
+        "bytes": 86076,
+        "sha256": "3ba8dc390fb53e65ac4e56dba0caa546cd92e1b144432fb0708e267c7aa71ace"
+      },
+      "tests/test_direct_batter_pa_source_release.py": {
+        "bytes": 33594,
+        "sha256": "dae6dd90b2cbb820d1d8c8f38ff9d977555a1ac1a9e7bf29e7c91e91d818e6fa"
+      },
+      "reports/direct_batter_pa_source_release_builder_v1.md": {
+        "bytes": 10183,
+        "sha256": "aa6e71309d91bac8352b2391a9ea35e6f9c66c2290cecc1ad70224a52e645a38"
+      }
+    }
+  },
+  "verification": {
+    "source_release_tests": 71,
+    "combined_source_authority_tests": 82,
+    "passed": 82,
+    "failed": 0,
+    "python_compile_passed": true,
+    "git_diff_check_passed": true,
+    "network_calls": 0
+  },
+  "full_2023_fetch": {
+    "feasible": false,
+    "executed": false,
+    "terminal_blockers": [
+      "The real externally digest-anchored official 2023 schedule-receipt manifest, exact outcome-free identity index, and separately anchored existing zero-PA identity map are not safely available in this lane.",
+      "Complete transitive TLS/shared-library and CA-directory authority is unproven; the runtime lock therefore forbids network fetch."
+    ]
+  },
+  "highest_value_next_action": "Externally construct and review the three real 2023 authority artifacts without outcome-panel access, then separately certify a platform-specific network runtime with complete transitive TLS/shared-library and CA authority. Keep fetch blocked until both are complete."
+}

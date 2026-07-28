@@ -1,0 +1,59 @@
+{
+  "betting_authorized": false,
+  "blockers": [
+    "LEGACY_OFFICIAL_SOURCE_HASH_SPANS_2023_2025",
+    "RAW_STATCAST_TRANSPORT_RECEIPTS_NOT_DELIVERED",
+    "INDEPENDENT_OFFICIAL_TRANSPORT_RECEIPTS_NOT_DELIVERED",
+    "EXACT_REPRODUCIBLE_DEPENDENCY_LOCK_NOT_DELIVERED",
+    "EXTERNAL_EXPECTED_RELEASE_DIGEST_NOT_DELIVERED"
+  ],
+  "decision": "BLOCKED_INCOMPLETE_SOURCE_AND_DEPENDENCY_AUTHORITY",
+  "dependency_declaration_sha256": {
+    "pyproject.toml": "d889234343d1072f60a45ee090773b5ecca0e2c7c887f865a2d515cb34abad96",
+    "requirements.txt": "d815c10261635e34a2bca28fc91ae8d3eb70511314c68b93bea336150e05b19d"
+  },
+  "dependency_state": {
+    "exact_reproducible_lock_available": false,
+    "observed_pandas": "3.0.1",
+    "observed_python": "3.12.13 (main, Mar  3 2026, 15:01:35) [MSC v.1944 64 bit (AMD64)]"
+  },
+  "eligible_for_feature_fitting": false,
+  "eligible_for_model_consumption": false,
+  "eligible_for_protocol_locking": false,
+  "implementation_sha256": {
+    "config/direct_batter_pa_source_binding_v1.json": "996bc9014a8c9825c89f83b254f88bcf695254a81d3f7b027eda992edf7caa3f",
+    "scripts/validate_direct_batter_pa_source_binding.py": "d32e371ae3c42c2d0c3ed78b65e454d301e7d0e72b18076604ae303d6eec0259",
+    "tests/test_direct_batter_pa_source_binding.py": "73b9433898ca45cfebb88c35baddb572f9a9ad3e3a055195ed1df3a3dba90d6d"
+  },
+  "implementation_source_base_commit": "4df186b138eb3ed226f764dbe6591ee81a27edba",
+  "local_integrity": {
+    "official_2023": {
+      "files_rehashed": 205,
+      "rows": 43740,
+      "tree_sha256": "b1deaed7c16eb35ec75351a37c5d7549d8f47932ba9fbd69ab4bd309eb698408"
+    },
+    "raw_statcast_2023": {
+      "files_rehashed": 643,
+      "local_bytes_match": true,
+      "transport_receipts_complete": false
+    },
+    "upstream_certificate_sha256": "aa3fd225f946b91ab1e1249eb8b7ce415f0fccabb18a041e3960552b2aeaf8ae",
+    "upstream_manifest_sha256": "083fe961b00299f0561130e204e5264dfa05f0b234b72ce2af214ac5f681e9a4",
+    "upstream_panel_sha256": "643a4c6533dbe59fc4e6b5e5932683c0877ae0a5d982945c799976d36af1ebf6",
+    "zero_pa": {
+      "official_response_receipts_complete": true,
+      "receipts_rehashed": 14,
+      "semantic_rows": 14
+    }
+  },
+  "model_fitting_permitted": false,
+  "protected_data": {
+    "may_2026_opened": false,
+    "prices_opened": false,
+    "prospective_evidence_opened": false,
+    "selection_2024_opened": false,
+    "spent_hr_confirmation_2025_opened": false
+  },
+  "research_only": true,
+  "schema_version": "direct-batter-pa-source-binding-audit-v1"
+}
