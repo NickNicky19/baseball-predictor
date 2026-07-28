@@ -9,11 +9,14 @@ name: Shared PA Opportunity Matchup Linux Gate
       - "requirements-prospective-batter-opportunity-ci.lock"
       - "config/shared_pa_opportunity_matchup_protocol_v1.json"
       - "config/projected_lineup_contract_v1.json"
+      - "config/projected_lineup_empirical_joint_v1.json"
       - "src/evaluation/forward_pitcher_context_v2.py"
+      - "src/evaluation/projected_lineup_empirical_joint.py"
       - "src/evaluation/projected_lineup_contract_v2.py"
       - "src/evaluation/prospective_batter_opportunity_v2.py"
       - "src/evaluation/shared_pa_opportunity_matchup_contract.py"
       - "tests/test_shared_pa_opportunity_matchup_contract.py"
+      - "tests/test_projected_lineup_empirical_joint.py"
   workflow_dispatch:
 
 permissions:
@@ -51,6 +54,8 @@ jobs:
         run: |
           python -m pytest -q -p no:cacheprovider \
             tests/test_projected_lineup_contract.py \
+            tests/test_projected_lineup_history.py \
+            tests/test_projected_lineup_empirical_joint.py \
             tests/test_prospective_batter_opportunity.py \
             tests/test_shared_pa_opportunity_matchup_contract.py
 
