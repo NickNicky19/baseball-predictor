@@ -40,6 +40,138 @@ def contract() -> dict:
     return load_contract(CONTRACT_PATH)
 
 
+def valid_manifest_envelope() -> dict:
+    """Build the delivered contract envelope without unshipped data artifacts."""
+    loaded = contract()
+    implementation = {
+        path: "1" * 64 for path in sorted(feature_builder.IMPLEMENTATION_FILES)
+    }
+    declarations = {
+        path: "2" * 64 for path in sorted(feature_builder.DEPENDENCY_FILES)
+    }
+    return {
+        "schema_version": "direct-batter-pa-feature-view-manifest-v1",
+        "status": "LOCAL_UNBOUND_LABEL_FREE_2023_FEATURE_VIEW_RESEARCH_ONLY",
+        "research_only": True,
+        "betting_authorized": False,
+        "production_changed": False,
+        "implementation_source_base_commit": feature_builder.BASE_COMMIT,
+        "upstream": {
+            "registry_path": feature_builder.UPSTREAM_REGISTRY_PATH,
+            "registry_sha256": feature_builder.UPSTREAM_REGISTRY_SHA256,
+            "foundation_source_commit": feature_builder.UPSTREAM_SOURCE_COMMIT,
+            "panel_logical_path": feature_builder.UPSTREAM_PANEL_PATH,
+            "panel_sha256": feature_builder.UPSTREAM_PANEL_SHA256,
+            "panel_manifest_sha256": feature_builder.UPSTREAM_MANIFEST_SHA256,
+            "panel_certificate_sha256": feature_builder.UPSTREAM_CERTIFICATE_SHA256,
+        },
+        "contract": {
+            "path": feature_builder.CONTRACT_PATH,
+            "sha256": "54355ea512df8d92ef16c68430079cfa54c88ed6315d017017527ff30a0da20c",
+        },
+        "implementation_sha256": implementation,
+        "dependency_identity": {
+            "declaration_sha256": declarations,
+            "build_environment_observation": {
+                "exact_environment_lock_claimed": False,
+                "python_version": "test-only",
+                "python_implementation": "test-only",
+                "python_executable_sha256": "3" * 64,
+                "platform": "test-only",
+                "distributions_used": {},
+                "limitation": "synthetic envelope fixture; no environment claim",
+            },
+        },
+        "outputs": {
+            "features": {
+                "path": feature_builder.FEATURE_OUTPUT_PATH,
+                "sha256": "4" * 64,
+                "bytes": 1,
+                "rows": 43740,
+                "columns": [*IDENTITY, *LINEAGE, *loaded["feature_columns"]],
+            },
+            "targets": {
+                "path": feature_builder.TARGET_OUTPUT_PATH,
+                "sha256": "5" * 64,
+                "bytes": 1,
+                "rows": 43740,
+                "columns": [*IDENTITY, *TARGETS],
+            },
+        },
+        "population": {
+            "physical_rows_2023": 43740,
+            "fit_eligible_positive_pa_rows": 43726,
+            "explicit_zero_pa_rows": 14,
+            "identity_duplicates": 0,
+            "feature_columns": 90,
+            "lineage_columns": 1,
+        },
+        "separation": {
+            "join_keys": IDENTITY,
+            "feature_artifact_contains_labels": False,
+            "feature_artifact_contains_actual_lineup_slot": False,
+            "feature_artifact_contains_target_day_context": False,
+            "target_artifact_contains_features": False,
+        },
+        "limitations": loaded["limitations"],
+        "full_game_boundary": loaded["full_game_boundary"],
+        "release_binding": {
+            "state": feature_builder.RELEASE_BINDING_STATE,
+            "expected_external_release_digest": None,
+            "source_panel_present_in_release_root": False,
+            "release_certifiable": False,
+            "reason": "the immutable upstream source panel is not delivered inside this worktree/release",
+        },
+    }
+
+
+def valid_package_documents() -> tuple[dict, dict]:
+    manifest = valid_manifest_envelope()
+    certificate = {
+        "schema_version": "direct-batter-pa-feature-view-certificate-v1",
+        "status": "LOCAL_VALIDATION_PASSED_RELEASE_UNBOUND_NOT_CERTIFIABLE",
+        "manifest": {"path": feature_builder.MANIFEST_OUTPUT_PATH, "sha256": "6" * 64},
+        "features": {"path": feature_builder.FEATURE_OUTPUT_PATH, "sha256": "4" * 64, "rows": 43740},
+        "targets": {"path": feature_builder.TARGET_OUTPUT_PATH, "sha256": "5" * 64, "rows": 43740},
+        "validation": {},
+        "limitations": manifest["limitations"],
+        "full_game_boundary": manifest["full_game_boundary"],
+        "release_binding": deepcopy(manifest["release_binding"]),
+        "implementation_sha256": manifest["implementation_sha256"],
+        "dependency_identity": manifest["dependency_identity"],
+        "protected_invariants": {
+            "selection_2024_opened": False,
+            "spent_confirmation_2025_opened": False,
+            "may_2026_opened": False,
+            "economic_evidence_opened": False,
+            "collectors_touched": False,
+            "model_fitted": False,
+            "betting_authorized": False,
+        },
+    }
+    registered = {
+        "schema_version": "direct-batter-pa-feature-view-v1-artifact-registry-v1",
+        "status": "LOCAL_HASH_BOUND_RESEARCH_INPUT_RELEASE_UNBOUND_NOT_CERTIFIABLE",
+        "implementation_source_base_commit": feature_builder.BASE_COMMIT,
+        "artifacts": {
+            "features": {"path": feature_builder.FEATURE_OUTPUT_PATH, "sha256": "4" * 64, "bytes": 1},
+            "targets": {"path": feature_builder.TARGET_OUTPUT_PATH, "sha256": "5" * 64, "bytes": 1},
+            "manifest": {"path": feature_builder.MANIFEST_OUTPUT_PATH, "sha256": "6" * 64, "bytes": 1},
+            "certificate": {"path": feature_builder.CERTIFICATE_OUTPUT_PATH, "sha256": "7" * 64, "bytes": 1},
+        },
+        "contract": manifest["contract"],
+        "implementation_sha256": manifest["implementation_sha256"],
+        "dependency_identity": manifest["dependency_identity"],
+        "release_binding": manifest["release_binding"],
+        "limitations": manifest["limitations"],
+        "full_game_boundary": manifest["full_game_boundary"],
+        "research_only": True,
+        "model_fitted": False,
+        "betting_authorized": False,
+    }
+    return certificate, registered
+
+
 def valid_history(*, game_date: str = "2023-06-02", game_pk: int = 1) -> dict:
     row = {column: np.nan for column in [*IDENTITY, *LINEAGE, *contract()["feature_columns"]]}
     row.update({
@@ -300,8 +432,8 @@ def test_upstream_authority_is_fixed_independently_of_registry_contents() -> Non
     "dependency_extra", "output_traversal", "safety_flip",
 ])
 def test_manifest_schema_identity_and_path_mutations_fail(mutation: str) -> None:
-    path = ROOT / "data/analysis/system_integrity_v2/direct_batter_pa_feature_view_v1/manifest.json"
-    value = json.loads(path.read_text(encoding="utf-8"))
+    value = valid_manifest_envelope()
+    validate_manifest_envelope(deepcopy(value), contract())
     if mutation == "extra_top":
         value["unexpected"] = True
     elif mutation == "missing_top":
@@ -326,11 +458,8 @@ def test_manifest_schema_identity_and_path_mutations_fail(mutation: str) -> None
     ("registry", "binding_disagreement"),
 ])
 def test_certificate_and_registry_exact_schema_mutations_fail(document: str, mutation: str) -> None:
-    base = ROOT / "data/analysis/system_integrity_v2/direct_batter_pa_feature_view_v1"
-    cert = json.loads((base / "certificate.json").read_text(encoding="utf-8"))
-    registered = json.loads(
-        (ROOT / "config/direct_batter_pa_feature_view_v1_artifact_registry.json").read_text(encoding="utf-8")
-    )
+    cert, registered = valid_package_documents()
+    validate_package_document_envelopes(deepcopy(cert), deepcopy(registered))
     target = cert if document == "certificate" else registered
     if mutation == "extra_top":
         target["unexpected"] = True

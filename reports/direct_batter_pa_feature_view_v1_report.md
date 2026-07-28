@@ -35,7 +35,7 @@ worktree/release and no external expected release digest exists.
 
 ## Fixed expected upstream identity
 
-- Repository base: `7ad2b847e8422169955114c01dea80bcf3751661`
+- Original feature-view implementation base: `7ad2b847e8422169955114c01dea80bcf3751661`
 - Repaired panel source commit: `c394dea5a0028b8f78e8ab78daed0d44cde5d771`
 - Repaired panel SHA-256:
   `643a4c6533dbe59fc4e6b5e5932683c0877ae0a5d982945c799976d36af1ebf6`
@@ -53,20 +53,23 @@ deterministic-release-rebuild claim is made.
 
 ## Output identity
 
-| Artifact | Rows | Bytes | SHA-256 |
-|---|---:|---:|---|
-| `features_2023.csv.gz` | 43,740 | 14,246,866 | `662ce3b0305e477dd7905a726fcaa3031498260fc5079ae28cf3f36069dca57f` |
-| `targets_2023.csv.gz` | 43,740 | 260,522 | `c51be0f96ef6b15b2b0f4bea3aa7f2219ddf570928e0f66db6e47eedf598d316` |
-| `manifest.json` | — | 8,030 | `08e57f8355edea345562e6a9f00f005a89507fb686f3c73fdb3eff786f29c72a` |
-| `certificate.json` | — | 3,669 | `f56c9c8deb0fd33ac161061ec868a72434a6d6143c402998424ede4d2adc59d1` |
-| artifact registry | — | 3,659 | `bd2b9d013149775f8bca323fefbe2442fb63ccfaf81a47853c1e8bfc867c782f` |
+No derived feature, target, manifest, certificate, or registry artifact is
+shipped by this code-only boundary. An earlier local build produced candidate
+bytes, but the tracked mutation test changed afterward and the source and
+dependency authorities remain incomplete. Those earlier hashes are therefore
+stale and are deliberately not published as current release identities.
 
-The feature artifact has 4 identity columns, one chronology-lineage column,
+The builder and validator may create a new, atomic, non-overwriting package
+only after the exact upstream panel is supplied. Any such package remains
+unbound and ineligible for fitting unless the separate source-authority gate
+also passes.
+
+The previously inspected, unshipped local feature artifact has 4 identity columns, one chronology-lineage column,
 and exactly 90 allowlisted batter-history features. The target artifact has the
 same four identities plus only the eight PA outcome counts. The only permitted
 join is one-to-one on `season`, `game_date`, `game_pk`, `player_id`.
 
-The feature artifact physically excludes:
+That previously inspected artifact physically excludes:
 
 - actual `lineup_slot`;
 - every `out_*` and `target_*` value;
@@ -97,7 +100,7 @@ model consumption of identity or lineage columns.
   the release.
 - Focused feature-view suite: 50 passed.
 - Combined feature-view, upstream panel/history, and Statcast integrity suite:
-  87 passed.
+  93 passed.
 
 ## Bound implementation identity
 
