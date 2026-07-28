@@ -1,0 +1,80 @@
+{
+  "schema_version": "pitcher-source-truth-repair-release-v1",
+  "release_id": "pitcher_source_truth_repair_v1",
+  "classification": "REPAIR_ONLY_NO_PREDICTIVE_PROMOTION",
+  "status": "SOURCE_TRUTH_REPAIR_VERIFIED_NOT_ACTIVE",
+  "base_commit": "9f9d839187550f7a7a6da3b4bfdb25b2dff3e794",
+  "changed_files": {
+    "source": {
+      "src/data/mlb_api.py": "2b32e4a01a3f17c92d7f85d17724b3d58b9a15e4f9283a6dc62b98fe7f0df342",
+      "src/data/pitching_source_truth.py": "d9c9acbf017a1aee3bc73c34ea5e32fb2b3378a84349745c35fb2522b06ff214",
+      "src/data/point_in_time.py": "247cccbff155c7e61769daf275165fe300bceabc77913b77251cd2d8b3b6b0ae",
+      "src/evaluation/pitcher_source_truth_release.py": "2491fdaf06d75c661c5f4442a15c2bb7d6f6cc637a45606bc3524828b00294ac",
+      "src/features/feature_factory.py": "d77a444527020f2c8bb50f3c90beced9445667a28a87b103d9f4815c35f690e3",
+      "src/features/matchup_intelligence.py": "1ddbdfd964310b543c9151f6a62e7c2936620ae1e46c80f6eae6a80c9beb86d2",
+      "src/learning/training_set_builder.py": "c5ba30a5359c5142123450d633a3daa0f9e72bab7661d3c294faaf613d8a0f32",
+      "src/prediction/daily_predictor.py": "6a2de323429848e63a5e14c4ca317fe6bfcbc1bf429acee6cc5861e136ffa0b7",
+      "src/prediction/prop_engine.py": "189f371575337259e5f290c219e2678cbe252502633fe10fad83b0ba4454759f",
+      "src/prediction/role_innings.py": "ba6c221389f0f01fe71e785cb221a67683fe6c90c3d448c17e861047db36e5ab"
+    },
+    "tests": {
+      "tests/test_pitcher_projection.py": "b9effe0f50f514c4d4f7d381368375bbb59798ac3918a286fe2f69a7bbf6f87a",
+      "tests/test_pitcher_source_truth_release.py": "0476696769541d92aee548df56c01bb5e16e842f108c2e82e4f4a2da728eaaf0",
+      "tests/test_pitching_source_truth.py": "b352a64ea64495b49c59aa86f73125be6758b2d5273860b1183b8dfb894a885f"
+    }
+  },
+  "artifact_identities": {
+    "configuration": {
+      "status": "NOT_APPLICABLE",
+      "reason": "No configuration file, coefficient, threshold, or probability policy was changed or required by this source-parser repair."
+    },
+    "data": {
+      "status": "NOT_APPLICABLE",
+      "reason": "No raw, historical, prospective, outcome, May 2026, price, or settlement data was read, created, rebuilt, or mutated."
+    },
+    "feature_artifacts": {
+      "status": "NOT_APPLICABLE",
+      "reason": "Feature-construction code was repaired, but no point-in-time or production feature artifact was created or rebuilt."
+    },
+    "model": {
+      "status": "NOT_APPLICABLE",
+      "reason": "No workload candidate or other model was fit, scored, calibrated, selected, or promoted."
+    },
+    "market_policy": {
+      "status": "NOT_APPLICABLE",
+      "reason": "No market threshold, price, ROI, execution, settlement, or betting-authorization policy was changed."
+    }
+  },
+  "test_evidence": [
+    {
+      "suite": "final_release_focused",
+      "command": "C:\\tmp\\shared-pa-offset-env-v1\\Scripts\\python.exe -m pytest -q --basetemp .pytest-codex-pitcher-release-focused-20260728 tests/test_pitching_source_truth.py tests/test_pitcher_projection.py tests/test_pitcher_source_truth_release.py",
+      "python": "Python 3.12.13",
+      "result": "81 passed in 1.15s",
+      "network": "DISABLED"
+    },
+    {
+      "suite": "final_release_impacted",
+      "command": "C:\\tmp\\shared-pa-offset-env-v1\\Scripts\\python.exe -m pytest -q --basetemp .pytest-codex-pitcher-release-impacted-20260728 tests/test_pitching_source_truth.py tests/test_pitcher_projection.py tests/test_pitcher_source_truth_release.py tests/test_daily_predictor.py tests/test_phase10.py tests/test_projected_lineups.py",
+      "python": "Python 3.12.13",
+      "result": "103 passed in 1.66s",
+      "network": "DISABLED"
+    }
+  ],
+  "promotion": {
+    "model_fit": false,
+    "outcomes_scored": false,
+    "production_changed": false,
+    "betting_authorized": false
+  },
+  "report": {
+    "path": "reports/pitcher_source_truth_repair_v1.md",
+    "sha256": "39d6db6d7a679a57f047aedaa840bfa8d456e947affd61c20b5d60a589c1fa59"
+  },
+  "limitations": [
+    "The release validates arithmetic and source-field semantics after a pitching payload reaches the parser; it does not prove receipt timestamp, upstream source authenticity, probable-starter identity, or decision-horizon eligibility.",
+    "Frozen compatibility paths still substitute explicit league/default rates or legacy expected innings when source values are missing; they no longer substitute for legitimate zero, but those fallback values are not observed source truth.",
+    "ERA, WHIP, and hitter parsing remain on older permissive paths and are outside this repair tranche.",
+    "The full Windows suite is not claimed green: independent QA observed unrelated POSIX os.fchmod incompatibilities in ledger tests."
+  ]
+}

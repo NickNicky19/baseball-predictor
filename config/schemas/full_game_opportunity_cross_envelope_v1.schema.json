@@ -1,0 +1,268 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "full-game-opportunity-cross-envelope-v1",
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "date": {"type": "string", "format": "date", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+    "utc": {"type": "string", "format": "date-time", "pattern": "Z$"},
+    "positiveInteger": {"type": "integer", "minimum": 1},
+    "reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "relative_path", "sha256"],
+      "properties": {
+        "role": {
+          "enum": [
+            "pr32_protocol", "pr32_source_manifest", "pr32_runtime_release_receipt",
+            "pr35_protocol", "pr35_evidence_authority_receipt",
+            "pr35_runtime_release_receipt", "pr35_model_authorization_receipt",
+            "batter_side_bundle", "batter_candidate_record", "shared_plan",
+            "batter_projected_lineup", "batter_active_roster_receipt",
+            "batter_history_receipt_manifest", "batter_stats_transport_receipt",
+            "starter_plan_source_receipt", "starter_ledger_manifest",
+            "starter_ledger_terminal_record", "starter_context",
+            "starter_context_raw_payload", "starter_workload_raw_receipt_manifest",
+            "starter_workload_feature_artifact", "starter_workload_parser_code",
+            "starter_workload_source_schema", "starter_workload_feature_code"
+          ]
+        },
+        "relative_path": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\).+$"
+        },
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "paState": {
+      "type": "object", "additionalProperties": false,
+      "required": ["pa", "probability"],
+      "properties": {
+        "pa": {"type": "integer", "minimum": 0},
+        "probability": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "starterState": {
+      "type": "object", "additionalProperties": false,
+      "required": ["batters_faced", "outs_recorded", "probability"],
+      "properties": {
+        "batters_faced": {"type": "integer", "minimum": 0},
+        "outs_recorded": {"type": "integer", "minimum": 0},
+        "probability": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "research_only", "betting_authorized",
+    "production_probability_consumption_authorized", "authority_state",
+    "target", "release_bindings", "batter", "starter",
+    "bullpen_transition_boundary", "protected_boundaries",
+    "evidence_references", "envelope_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "full-game-opportunity-cross-envelope-v1"},
+    "research_only": {"const": true},
+    "betting_authorized": {"const": false},
+    "production_probability_consumption_authorized": {"const": false},
+    "authority_state": {"const": "UNBOUND_EXTERNAL_TRUST_REQUIRED"},
+    "target": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "official_game_date", "mlb_game_pk", "official_start_utc",
+        "target_horizon_utc", "batter_side", "batting_team_id",
+        "pitching_side", "pitching_team_id", "batter_opponent_team_id",
+        "pitcher_opponent_team_id"
+      ],
+      "properties": {
+        "official_game_date": {"$ref": "#/$defs/date"},
+        "mlb_game_pk": {"$ref": "#/$defs/positiveInteger"},
+        "official_start_utc": {"$ref": "#/$defs/utc"},
+        "target_horizon_utc": {"$ref": "#/$defs/utc"},
+        "batter_side": {"enum": ["home", "away"]},
+        "batting_team_id": {"$ref": "#/$defs/positiveInteger"},
+        "pitching_side": {"enum": ["home", "away"]},
+        "pitching_team_id": {"$ref": "#/$defs/positiveInteger"},
+        "batter_opponent_team_id": {"$ref": "#/$defs/positiveInteger"},
+        "pitcher_opponent_team_id": {"$ref": "#/$defs/positiveInteger"}
+      }
+    },
+    "release_bindings": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "pr32_source_commit", "pr32_candidate_id", "pr32_protocol_sha256",
+        "pr32_source_manifest_sha256", "pr32_runtime_release_receipt_sha256",
+        "pr33_source_commit", "pr35_source_commit", "pr35_candidate_id",
+        "pr35_protocol_sha256", "pr35_evidence_authority_receipt_sha256",
+        "pr35_runtime_release_receipt_sha256", "pr35_model_authorization_receipt_sha256",
+        "cross_envelope_authority_receipt_sha256"
+      ],
+      "properties": {
+        "pr32_source_commit": {"const": "1ebeb255bf3ecf17adb82f644f9dc2ff11c7491c"},
+        "pr32_candidate_id": {"const": "shared_pa_projected_opportunity_eb200_v2"},
+        "pr32_protocol_sha256": {"$ref": "#/$defs/sha256"},
+        "pr32_source_manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "pr32_runtime_release_receipt_sha256": {"$ref": "#/$defs/sha256"},
+        "pr33_source_commit": {"const": "506ebb40203582d25ff01c0a8c2d1dec4c44ed7d"},
+        "pr35_source_commit": {"const": "0e6a40d5cd1b00d3b1f1128f97a12e7b897aaf55"},
+        "pr35_candidate_id": {"const": "pitcher_joint_opportunity_v1"},
+        "pr35_protocol_sha256": {"const": "d349c81b0168b9924f387cbec6973ed5ea7e29d8194905992960e0605b75dbf8"},
+        "pr35_evidence_authority_receipt_sha256": {"$ref": "#/$defs/sha256"},
+        "pr35_runtime_release_receipt_sha256": {"$ref": "#/$defs/sha256"},
+        "pr35_model_authorization_receipt_sha256": {"$ref": "#/$defs/sha256"},
+        "cross_envelope_authority_receipt_sha256": {"type": "null"}
+      }
+    },
+    "batter": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "side_bundle_sha256", "candidate_record_sha256", "plan_sha256", "target_id",
+        "official_game_date", "mlb_game_pk", "official_start_utc", "target_horizon_utc",
+        "prediction_generated_at_utc", "side", "team_id", "player_id",
+        "projected_lineup_content_sha256", "active_roster_receipt_sha256",
+        "history_receipt_manifest_sha256", "stats_transport_receipt_sha256s",
+        "source_kinds", "actual_target_lineup_consumed", "fallback_used",
+        "pa_pmf", "pa_pmf_sha256"
+      ],
+      "properties": {
+        "side_bundle_sha256": {"$ref": "#/$defs/sha256"},
+        "candidate_record_sha256": {"$ref": "#/$defs/sha256"},
+        "plan_sha256": {"$ref": "#/$defs/sha256"},
+        "target_id": {"type": "string", "minLength": 1},
+        "official_game_date": {"$ref": "#/$defs/date"},
+        "mlb_game_pk": {"$ref": "#/$defs/positiveInteger"},
+        "official_start_utc": {"$ref": "#/$defs/utc"},
+        "target_horizon_utc": {"$ref": "#/$defs/utc"},
+        "prediction_generated_at_utc": {"$ref": "#/$defs/utc"},
+        "side": {"enum": ["home", "away"]},
+        "team_id": {"$ref": "#/$defs/positiveInteger"},
+        "player_id": {"$ref": "#/$defs/positiveInteger"},
+        "projected_lineup_content_sha256": {"$ref": "#/$defs/sha256"},
+        "active_roster_receipt_sha256": {"$ref": "#/$defs/sha256"},
+        "history_receipt_manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "stats_transport_receipt_sha256s": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": {"$ref": "#/$defs/sha256"}
+        },
+        "source_kinds": {
+          "type": "object", "additionalProperties": false,
+          "required": ["schedule", "active_roster", "lineup_history", "batter_stats"],
+          "properties": {
+            "schedule": {"const": "official_mlb_schedule_t4"},
+            "active_roster": {"const": "official_mlb_active_roster_t4"},
+            "lineup_history": {"const": "official_mlb_final_lineups_strictly_prior"},
+            "batter_stats": {"const": "official_mlb_statsapi_dated_game_log_segmented_v2"}
+          }
+        },
+        "actual_target_lineup_consumed": {"const": false},
+        "fallback_used": {"const": false},
+        "pa_pmf": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/paState"}},
+        "pa_pmf_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "starter": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "target_id", "official_game_date", "mlb_game_pk", "official_start_utc",
+        "target_horizon_utc", "pitching_side", "pitching_team_id", "opposing_team_id",
+        "probable_pitcher_mlb_id", "starter_identity_source", "plan_sha256",
+        "plan_source_receipt_sha256", "ledger_manifest_sha256", "ledger_terminal_record_sha256",
+        "context_sha256", "context_raw_payload_sha256", "plan_received_at_utc",
+        "context_received_at_utc", "workload_assembled_at_utc",
+        "workload_observation_cutoff_utc", "workload_max_source_game_date",
+        "workload_raw_receipt_manifest_sha256", "workload_feature_artifact_sha256",
+        "workload_parser_code_sha256", "workload_source_schema_sha256",
+        "workload_feature_code_sha256", "source_kinds", "may_2026_interval_excluded",
+        "may_2026_accessed", "actual_postgame_starter_consumed", "fallback_used",
+        "starter_removal_pmf", "starter_removal_pmf_sha256"
+      ],
+      "properties": {
+        "target_id": {"type": "string", "minLength": 1},
+        "official_game_date": {"$ref": "#/$defs/date"},
+        "mlb_game_pk": {"$ref": "#/$defs/positiveInteger"},
+        "official_start_utc": {"$ref": "#/$defs/utc"},
+        "target_horizon_utc": {"$ref": "#/$defs/utc"},
+        "pitching_side": {"enum": ["home", "away"]},
+        "pitching_team_id": {"$ref": "#/$defs/positiveInteger"},
+        "opposing_team_id": {"$ref": "#/$defs/positiveInteger"},
+        "probable_pitcher_mlb_id": {"$ref": "#/$defs/positiveInteger"},
+        "starter_identity_source": {"const": "receipt_proven_probable_starter_t4"},
+        "plan_sha256": {"$ref": "#/$defs/sha256"},
+        "plan_source_receipt_sha256": {"$ref": "#/$defs/sha256"},
+        "ledger_manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "ledger_terminal_record_sha256": {"$ref": "#/$defs/sha256"},
+        "context_sha256": {"$ref": "#/$defs/sha256"},
+        "context_raw_payload_sha256": {"$ref": "#/$defs/sha256"},
+        "plan_received_at_utc": {"$ref": "#/$defs/utc"},
+        "context_received_at_utc": {"$ref": "#/$defs/utc"},
+        "workload_assembled_at_utc": {"$ref": "#/$defs/utc"},
+        "workload_observation_cutoff_utc": {"$ref": "#/$defs/utc"},
+        "workload_max_source_game_date": {"$ref": "#/$defs/date"},
+        "workload_raw_receipt_manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "workload_feature_artifact_sha256": {"$ref": "#/$defs/sha256"},
+        "workload_parser_code_sha256": {"$ref": "#/$defs/sha256"},
+        "workload_source_schema_sha256": {"$ref": "#/$defs/sha256"},
+        "workload_feature_code_sha256": {"$ref": "#/$defs/sha256"},
+        "source_kinds": {
+          "type": "object", "additionalProperties": false,
+          "required": ["plan", "context", "workload"],
+          "properties": {
+            "plan": {"const": "mlb_statsapi_schedule"},
+            "context": {"const": "forward_pitcher_context_v2_t4"},
+            "workload": {"const": "official_mlb_pitching_game_feed_strictly_prior"}
+          }
+        },
+        "may_2026_interval_excluded": {"const": true},
+        "may_2026_accessed": {"const": false},
+        "actual_postgame_starter_consumed": {"const": false},
+        "fallback_used": {"const": false},
+        "starter_removal_pmf": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/starterState"}},
+        "starter_removal_pmf_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "bullpen_transition_boundary": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "status", "transition_source", "starter_removal_pmf_sha256",
+        "bullpen_quality_model", "bullpen_identity_receipts",
+        "actual_postgame_relievers_consumed", "fallback_used",
+        "probability_consumption_authorized"
+      ],
+      "properties": {
+        "status": {"const": "TRANSITION_ONLY_QUALITY_NOT_MODELED"},
+        "transition_source": {"const": "starter_removal_pmf"},
+        "starter_removal_pmf_sha256": {"$ref": "#/$defs/sha256"},
+        "bullpen_quality_model": {"type": "null"},
+        "bullpen_identity_receipts": {"const": []},
+        "actual_postgame_relievers_consumed": {"const": false},
+        "fallback_used": {"const": false},
+        "probability_consumption_authorized": {"const": false}
+      }
+    },
+    "protected_boundaries": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "may_2026_accessed", "actual_postgame_starter_consumed",
+        "actual_postgame_relievers_consumed", "post_start_data_consumed",
+        "historical_or_prospective_backfill_used", "fabricated_fallback_used",
+        "batter_and_pitcher_probabilities_combined", "production_probability_changed",
+        "betting_authorized"
+      ],
+      "properties": {
+        "may_2026_accessed": {"const": false},
+        "actual_postgame_starter_consumed": {"const": false},
+        "actual_postgame_relievers_consumed": {"const": false},
+        "post_start_data_consumed": {"const": false},
+        "historical_or_prospective_backfill_used": {"const": false},
+        "fabricated_fallback_used": {"const": false},
+        "batter_and_pitcher_probabilities_combined": {"const": false},
+        "production_probability_changed": {"const": false},
+        "betting_authorized": {"const": false}
+      }
+    },
+    "evidence_references": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/reference"}},
+    "envelope_sha256": {"$ref": "#/$defs/sha256"}
+  }
+}

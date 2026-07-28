@@ -1,0 +1,13 @@
+{
+  "schema_version": "full-game-opportunity-cross-envelope-authority-v1",
+  "status": "UNBOUND_EXTERNAL_TRUST_REQUIRED",
+  "authorized_authority_receipt_sha256": null,
+  "public_probability_consumption_authorized": false,
+  "research_only": true,
+  "betting_authorized": false,
+  "may_2026_access_allowed": false,
+  "historical_or_prospective_backfill_allowed": false,
+  "actual_postgame_starter_allowed": false,
+  "actual_postgame_reliever_allowed": false,
+  "probability_combination_allowed": false
+}

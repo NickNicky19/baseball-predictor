@@ -150,38 +150,43 @@ class PitchingStatsSnapshot:
 
     era: float = 0.0
     whip: float = 0.0
+    # Exact source denominator.  None marks legacy/manual snapshots that did
+    # not pass through the canonical MLB innings parser.
+    outs_recorded: Optional[int] = None
     innings_pitched: float = 0.0
+    # Frozen-only compatibility fields reproduce the pre-repair float-IP and
+    # phantom-start behavior without contaminating candidate-ready source truth.
+    legacy_innings_pitched: Optional[float] = None
+    legacy_games_started: Optional[int] = None
     strikeouts: int = 0
     walks: int = 0
     home_runs: int = 0
-    k_per_9: float = 0.0
-    bb_per_9: float = 0.0
-    hr_per_9: float = 0.0
-    games_started: int = 0
-    # Total appearances (gamesPlayed). Used by B4's role-aware innings estimator
-    # to compute a true start_ratio = games_started / games. Kept UNFLOORED
-    # (unlike games_started) so a reliever/opener with zero starts is visible as
-    # such instead of being masked by a phantom start. Defaults to 0 = unknown.
-    games: int = 0
+    k_per_9: Optional[float] = None
+    bb_per_9: Optional[float] = None
+    hr_per_9: Optional[float] = None
+    games_started: Optional[int] = None
+    # Total appearances (gamesPlayed). The validated live/PIT paths preserve
+    # zero; None is reserved for legacy/manual snapshots with unknown provenance.
+    games: Optional[int] = None
 
     @property
-    def k_pct(self) -> float:
+    def k_pct(self) -> Optional[float]:
         """Approximate K% from K/9 and IP (for PA simulator inputs)."""
         if self.innings_pitched <= 0:
-            return 0.0
+            return None
         estimated_pa = self.innings_pitched * 4.2
         if estimated_pa <= 0:
-            return 0.0
+            return None
         return (self.strikeouts / estimated_pa) * 100.0
 
     @property
-    def bb_pct(self) -> float:
+    def bb_pct(self) -> Optional[float]:
         """Approximate BB% from BB/9 and IP."""
         if self.innings_pitched <= 0:
-            return 0.0
+            return None
         estimated_pa = self.innings_pitched * 4.2
         if estimated_pa <= 0:
-            return 0.0
+            return None
         return (self.walks / estimated_pa) * 100.0
 
 
@@ -646,26 +651,63 @@ class MLBStatsAPI:
         return season, recent
 
     def get_pitching_stats(
-        self, player_id: int
+        self,
+        player_id: int,
+        *,
+        source_truth_required: bool = False,
     ) -> tuple[PitchingStatsSnapshot, PitchingStatsSnapshot]:
-        """Return (season, recent) pitching stat snapshots."""
+        """Return pitching snapshots, optionally requiring candidate-ready truth.
+
+        The default retains the frozen missing-people/missing-block compatibility
+        behavior. Candidate research must set ``source_truth_required=True``;
+        it may not consume those empty compatibility snapshots.
+        """
+
+        from src.data.pitching_source_truth import (
+            PitchingSourceValidationError,
+            validate_candidate_ready_pitching_snapshot,
+        )
+
         hydrate = f"stats(group=[pitching],type=[season,lastXGames],season={self.season})"
         data = self._get(f"{self.BASE_URL}/people/{player_id}", params={"hydrate": hydrate})
         people = data.get("people", [])
         if not people:
+            if source_truth_required:
+                raise PitchingSourceValidationError(
+                    f"pitcher {player_id} has no people record"
+                )
             return PitchingStatsSnapshot(), PitchingStatsSnapshot()
 
         season = PitchingStatsSnapshot()
         recent = PitchingStatsSnapshot()
+        found: set[str] = set()
         for block in people[0].get("stats", []):
             if not isinstance(block, dict):
                 continue
             label = block.get("type", {}).get("displayName", "")
-            parsed = _parse_pitching(_stat_from_splits(block.get("splits")))
+            if label not in ("season", "lastXGames"):
+                continue
+            raw_stat = _stat_from_splits(block.get("splits"))
+            if not raw_stat:
+                if source_truth_required:
+                    raise PitchingSourceValidationError(
+                        f"pitcher {player_id} {label} stat block is empty"
+                    )
+                continue
+            parsed = _parse_pitching(raw_stat)
+            found.add(label)
             if label == "season":
                 season = parsed
             elif label == "lastXGames":
                 recent = parsed
+        if source_truth_required:
+            missing = {"season", "lastXGames"} - found
+            if missing:
+                raise PitchingSourceValidationError(
+                    f"pitcher {player_id} missing stat blocks: {sorted(missing)}"
+                )
+            validate_candidate_ready_pitching_snapshot(season, label="season pitching")
+            validate_candidate_ready_pitching_snapshot(recent, label="recent pitching")
         return season, recent
 
     def get_platoon_splits(
@@ -1186,17 +1228,96 @@ def _parse_hitting(stat: dict[str, Any]) -> HittingStatsSnapshot:
 
 
 def _parse_pitching(stat: dict[str, Any]) -> PitchingStatsSnapshot:
+    from src.data.pitching_source_truth import (
+        PitchingSourceValidationError,
+        innings_from_outs,
+        parse_mlb_innings_to_outs,
+        parse_nonnegative_int,
+        parse_optional_nonnegative_rate,
+        validate_rate_consistency,
+    )
+
+    outs = parse_mlb_innings_to_outs(stat.get("inningsPitched"))
+    ip = innings_from_outs(outs)
+    strikeouts = parse_nonnegative_int(stat.get("strikeOuts"), field="strikeOuts")
+    hits = parse_nonnegative_int(stat.get("hits"), field="hits")
+    home_runs = parse_nonnegative_int(stat.get("homeRuns"), field="homeRuns")
+    walks = parse_nonnegative_int(stat.get("baseOnBalls"), field="baseOnBalls")
+    games_started = parse_nonnegative_int(
+        stat.get("gamesStarted"), field="gamesStarted"
+    )
+    games = parse_nonnegative_int(stat.get("gamesPlayed"), field="gamesPlayed")
+    if games_started > games:
+        raise PitchingSourceValidationError(
+            "gamesStarted cannot exceed gamesPlayed"
+        )
+    if outs == 0 and any((strikeouts, hits, home_runs, walks)):
+        raise PitchingSourceValidationError(
+            "pitching counts cannot be positive when inningsPitched is zero"
+        )
+
+    k9 = parse_optional_nonnegative_rate(
+        stat.get("strikeoutsPer9Inn"), field="strikeoutsPer9Inn"
+    )
+    h9 = parse_optional_nonnegative_rate(
+        stat.get("hitsPer9Inn"), field="hitsPer9Inn"
+    )
+    hr9 = parse_optional_nonnegative_rate(
+        stat.get("homeRunsPer9"), field="homeRunsPer9"
+    )
+    bb9 = parse_optional_nonnegative_rate(
+        stat.get("walksPer9Inn"), field="walksPer9Inn"
+    )
+    validate_rate_consistency(
+        k9, count=strikeouts, outs=outs, field="strikeoutsPer9Inn"
+    )
+    validate_rate_consistency(h9, count=hits, outs=outs, field="hitsPer9Inn")
+    validate_rate_consistency(
+        hr9, count=home_runs, outs=outs, field="homeRunsPer9"
+    )
+    validate_rate_consistency(bb9, count=walks, outs=outs, field="walksPer9Inn")
+
+    # Missing rates can be reproduced truthfully from validated counts and the
+    # exact-outs denominator. Explicit zero is legitimate and is never treated
+    # as missing.
+    if ip > 0:
+        if k9 is None:
+            k9 = strikeouts / ip * 9.0
+        if hr9 is None:
+            hr9 = home_runs / ip * 9.0
+        if bb9 is None:
+            bb9 = walks / ip * 9.0
+
+    return PitchingStatsSnapshot(
+        era=_safe_float(stat.get("era")),
+        whip=_safe_float(stat.get("whip")),
+        outs_recorded=outs,
+        innings_pitched=ip,
+        legacy_innings_pitched=_safe_float(stat.get("inningsPitched")),
+        legacy_games_started=max(_safe_int(stat.get("gamesStarted")), 1),
+        strikeouts=strikeouts,
+        walks=walks,
+        home_runs=home_runs,
+        k_per_9=k9,
+        bb_per_9=bb9,
+        hr_per_9=hr9,
+        games_started=games_started,
+        games=games,
+    )
+
+
+def _parse_pitching_frozen_compatibility(stat: dict[str, Any]) -> PitchingStatsSnapshot:
+    """Exact pre-repair parser retained only for frozen schema/probability replay."""
+
     ip = _safe_float(stat.get("inningsPitched"))
     strikeouts = _safe_int(stat.get("strikeOuts"))
     hits = _safe_int(stat.get("hits"))
     home_runs = _safe_int(stat.get("homeRuns"))
     walks = _safe_int(stat.get("baseOnBalls"))
-
     k9 = _safe_float(stat.get("strikeoutsPer9Inn"))
     h9 = _safe_float(stat.get("hitsPer9Inn"))
     hr9 = _safe_float(stat.get("homeRunsPer9"))
     bb9 = _safe_float(stat.get("walksPer9Inn"))
-
     if ip > 0:
         if k9 <= 0:
             k9 = strikeouts / ip * 9.0
@@ -1206,11 +1327,11 @@ def _parse_pitching(stat: dict[str, Any]) -> PitchingStatsSnapshot:
             hr9 = home_runs / ip * 9.0
         if bb9 <= 0:
             bb9 = walks / ip * 9.0
-
     return PitchingStatsSnapshot(
         era=_safe_float(stat.get("era")),
         whip=_safe_float(stat.get("whip")),
         innings_pitched=ip,
+        legacy_innings_pitched=ip,
         strikeouts=strikeouts,
         walks=walks,
         home_runs=home_runs,
@@ -1218,9 +1339,7 @@ def _parse_pitching(stat: dict[str, Any]) -> PitchingStatsSnapshot:
         bb_per_9=bb9,
         hr_per_9=hr9,
         games_started=max(_safe_int(stat.get("gamesStarted")), 1),
-        # UNFLOORED on purpose: the true appearance count is what lets B4
-        # separate an opener/reliever from a starter. gamesPlayed is already in
-        # this same stat block (the hitter parser reads it), so no new API call.
+        legacy_games_started=max(_safe_int(stat.get("gamesStarted")), 1),
         games=_safe_int(stat.get("gamesPlayed")),
     )
 

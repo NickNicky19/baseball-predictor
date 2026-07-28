@@ -205,8 +205,15 @@ class RoleAwareInningsEstimator:
     @staticmethod
     def _legacy_expected_ip(recent: Any) -> float:
         """Exact reproduction of mlb_api._estimate_expected_ip (pre-B4)."""
-        gs = getattr(recent, "games_started", 0)
-        ip = getattr(recent, "innings_pitched", 0.0)
+        raw_gs = getattr(recent, "legacy_games_started", None)
+        if raw_gs is None:
+            raw_gs = getattr(recent, "games_started", None)
+        # Compatibility boundary: a legacy/manual snapshot can lack the source
+        # count entirely. Preserve the frozen default path, while keeping a
+        # validated zero distinct from missing at the source boundary.
+        gs = 0 if raw_gs is None else int(raw_gs)
+        raw_ip = getattr(recent, "legacy_innings_pitched", None)
+        ip = getattr(recent, "innings_pitched", 0.0) if raw_ip is None else raw_ip
         if gs > 0 and ip > 0:
             avg_ip = ip / gs
             return round(max(_LEGACY_IP_FLOOR, min(_LEGACY_IP_CEIL, avg_ip)), 1)
@@ -222,9 +229,12 @@ class RoleAwareInningsEstimator:
                 used_b4=False,
             )
 
-        gs = int(getattr(recent, "games_started", 0) or 0)
-        ip = float(getattr(recent, "innings_pitched", 0.0) or 0.0)
-        games = int(getattr(recent, "games", 0) or 0)
+        raw_gs = getattr(recent, "games_started", None)
+        raw_ip = getattr(recent, "innings_pitched", None)
+        raw_games = getattr(recent, "games", None)
+        gs = 0 if raw_gs is None else int(raw_gs)
+        ip = 0.0 if raw_ip is None else float(raw_ip)
+        games = 0 if raw_games is None else int(raw_games)
 
         # No usable innings at all -> nothing to estimate from. Default.
         if ip <= 0 or games <= 0:
