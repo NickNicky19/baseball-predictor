@@ -1,0 +1,66 @@
+{
+  "schema_version": "direct-batter-pa-source-runtime-authority-v1",
+  "status": "LOCKED_OFFLINE_RUNTIME_ATTESTATION_NETWORK_BLOCKED",
+  "research_only": true,
+  "betting_authorized": false,
+  "model_fitting_permitted": false,
+  "network_fetch_authorized": false,
+  "target": {
+    "os_id": "ubuntu",
+    "os_version_id": "24.04",
+    "machine": "x86_64",
+    "python_implementation": "CPython",
+    "python_version": "3.12.3"
+  },
+  "dependency_lock": {
+    "path": "requirements-direct-batter-pa-source-authority.lock",
+    "sha256": "0847ea7c8fe05649a94293b2adbba0164f10f420ca984ecf35f105f1aabc2a1f",
+    "exact_packages": {
+      "colorama": "0.4.6",
+      "iniconfig": "2.3.0",
+      "numpy": "2.5.1",
+      "packaging": "26.2",
+      "pandas": "3.0.5",
+      "pluggy": "1.6.0",
+      "pygments": "2.20.0",
+      "pytest": "9.1.1",
+      "python-dateutil": "2.9.0.post0",
+      "six": "1.17.0",
+      "tzdata": "2026.3"
+    }
+  },
+  "import_roots": {
+    "pandas": "pandas",
+    "pytest": "pytest"
+  },
+  "local_import_roots": [
+    "scripts"
+  ],
+  "audited_python_files": [
+    "scripts/build_direct_batter_pa_source_release.py",
+    "scripts/validate_direct_batter_pa_source_binding.py",
+    "scripts/verify_direct_batter_pa_source_runtime_authority.py",
+    "tests/test_direct_batter_pa_source_binding.py",
+    "tests/test_direct_batter_pa_source_release.py",
+    "tests/test_direct_batter_pa_source_runtime_authority.py"
+  ],
+  "audited_python_sha256": {
+    "scripts/build_direct_batter_pa_source_release.py": "3ba8dc390fb53e65ac4e56dba0caa546cd92e1b144432fb0708e267c7aa71ace",
+    "scripts/validate_direct_batter_pa_source_binding.py": "8eaf5f2d3cc01b9ae0d007e6d1d50b3e1a381f176fdd952da2d3dd7fbd925f0a",
+    "scripts/verify_direct_batter_pa_source_runtime_authority.py": "20cbe564ec1376f366c1938991a293c866aa4893bda11ffecd8d3d874855b0f1",
+    "tests/test_direct_batter_pa_source_binding.py": "73b9433898ca45cfebb88c35baddb572f9a9ad3e3a055195ed1df3a3dba90d6d",
+    "tests/test_direct_batter_pa_source_release.py": "dae6dd90b2cbb820d1d8c8f38ff9d977555a1ac1a9e7bf29e7c91e91d818e6fa",
+    "tests/test_direct_batter_pa_source_runtime_authority.py": "b6386ea64123a56746cb46c115e4793bf46f7b0587d97682ed824ada925819e5"
+  },
+  "runtime_requirements": {
+    "tls_context_initialization_required": true,
+    "default_ca_file_or_directory_required": true,
+    "ca_bytes_hashed": true,
+    "loaded_libssl_and_libcrypto_required": true,
+    "loaded_shared_library_bytes_hashed": true,
+    "path_injection_environment_forbidden": true,
+    "executable_and_extension_module_bytes_hashed": true,
+    "deterministic_double_observation_required": true,
+    "external_expected_attestation_digest_required_before_network": true
+  }
+}
