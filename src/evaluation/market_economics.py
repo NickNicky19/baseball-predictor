@@ -16,6 +16,7 @@ let a negative-EV wager become a ``value play``.
 from __future__ import annotations
 
 import math
+import re
 from typing import Any
 
 
@@ -23,17 +24,32 @@ class MarketEconomicsError(ValueError):
     """Raised when a probability or posted American price is invalid."""
 
 
+_AMERICAN_PRICE_RE = re.compile(r"^[+-]?\d+$")
+
+
 def american_odds(value: Any, label: str = "american_odds") -> int:
-    """Validate and return a non-zero integral American price."""
-    # ``bool`` is an ``int`` subclass, but a boolean is never a price.
+    """Validate an American price without coercion or truncation.
+
+    JSON integer values and canonical signed integer strings are accepted.
+    Floats, decimals, booleans, and integer-shaped objects are rejected even
+    when they could be coerced by ``int``.  A price whose absolute value is
+    below 100 is not a valid American-odds representation.
+    """
     if isinstance(value, bool):
-        raise MarketEconomicsError(f"{label} must be an integer American price")
-    try:
-        out = int(value)
-    except (TypeError, ValueError) as exc:
-        raise MarketEconomicsError(f"{label} must be an integer American price") from exc
-    if out == 0:
-        raise MarketEconomicsError(f"{label} cannot be 0")
+        raise MarketEconomicsError(f"{label} must be a canonical integer American price")
+    if isinstance(value, int):
+        out = value
+    elif isinstance(value, str):
+        text = value.strip().replace("\N{MINUS SIGN}", "-")
+        if not _AMERICAN_PRICE_RE.fullmatch(text):
+            raise MarketEconomicsError(f"{label} must be a canonical integer American price")
+        out = int(text)
+    else:
+        raise MarketEconomicsError(f"{label} must be a canonical integer American price")
+    if -100 < out < 100:
+        raise MarketEconomicsError(
+            f"{label} must have absolute value at least 100 in American-odds format"
+        )
     return out
 
 
