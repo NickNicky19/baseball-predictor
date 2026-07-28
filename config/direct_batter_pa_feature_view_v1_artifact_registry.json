@@ -1,0 +1,72 @@
+{
+  "artifacts": {
+    "certificate": {
+      "bytes": 3669,
+      "path": "data/analysis/system_integrity_v2/direct_batter_pa_feature_view_v1/certificate.json",
+      "sha256": "f56c9c8deb0fd33ac161061ec868a72434a6d6143c402998424ede4d2adc59d1"
+    },
+    "features": {
+      "bytes": 14246866,
+      "path": "data/analysis/system_integrity_v2/direct_batter_pa_feature_view_v1/features_2023.csv.gz",
+      "sha256": "662ce3b0305e477dd7905a726fcaa3031498260fc5079ae28cf3f36069dca57f"
+    },
+    "manifest": {
+      "bytes": 8030,
+      "path": "data/analysis/system_integrity_v2/direct_batter_pa_feature_view_v1/manifest.json",
+      "sha256": "08e57f8355edea345562e6a9f00f005a89507fb686f3c73fdb3eff786f29c72a"
+    },
+    "targets": {
+      "bytes": 260522,
+      "path": "data/analysis/system_integrity_v2/direct_batter_pa_feature_view_v1/targets_2023.csv.gz",
+      "sha256": "c51be0f96ef6b15b2b0f4bea3aa7f2219ddf570928e0f66db6e47eedf598d316"
+    }
+  },
+  "betting_authorized": false,
+  "contract": {
+    "path": "config/direct_batter_pa_feature_view_v1.json",
+    "sha256": "54355ea512df8d92ef16c68430079cfa54c88ed6315d017017527ff30a0da20c"
+  },
+  "dependency_identity": {
+    "build_environment_observation": {
+      "distributions_used": {
+        "numpy": "2.3.5",
+        "pandas": "3.0.1"
+      },
+      "exact_environment_lock_claimed": false,
+      "limitation": "requirements.txt contains minimum versions; this observation binds the build environment but is not a reproducible exact dependency lock",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "python_executable_sha256": "5912d0884b23c0343983a864c6064242391e2265536f50b88624857e353882c9",
+      "python_implementation": "CPython",
+      "python_version": "3.12.13"
+    },
+    "declaration_sha256": {
+      "pyproject.toml": "d889234343d1072f60a45ee090773b5ecca0e2c7c887f865a2d515cb34abad96",
+      "requirements.txt": "d815c10261635e34a2bca28fc91ae8d3eb70511314c68b93bea336150e05b19d"
+    }
+  },
+  "full_game_boundary": "This PA foundation cannot produce game-level Hits, HR, or Total Bases probabilities without a separately receipt-bound point-in-time projected-lineup, batting-slot, and PA-opportunity distribution; missing or contradictory opportunity evidence requires abstention.",
+  "implementation_sha256": {
+    "config/direct_batter_pa_feature_view_v1.json": "54355ea512df8d92ef16c68430079cfa54c88ed6315d017017527ff30a0da20c",
+    "scripts/build_direct_batter_pa_feature_view.py": "3409d967c5c9e05899c5f2ed7308527e07250f094864674c586e5a3293146c46",
+    "scripts/validate_direct_batter_pa_feature_view.py": "f2f494bdc083775bc386a6bc7f50ecfcf5e4b297daeaaa926fb31850a2dda4cb",
+    "src/features/direct_batter_pa_feature_view.py": "75930939765f27875eb0c4232343b3c2873fa375fdb8f3d3ec911bc5ea9f0eae",
+    "tests/test_direct_batter_pa_feature_view.py": "c578ae1876492cd0e502024df136e63a3d6eabeecb69dd2732dccf1ed2999ec5"
+  },
+  "implementation_source_base_commit": "7ad2b847e8422169955114c01dea80bcf3751661",
+  "limitations": {
+    "exact_dependency_lock_available": false,
+    "full_game_opportunity_qualified": false,
+    "raw_transport_receipts_complete": false
+  },
+  "model_fitted": false,
+  "release_binding": {
+    "expected_external_release_digest": null,
+    "reason": "the immutable upstream source panel is not delivered inside this worktree/release",
+    "release_certifiable": false,
+    "source_panel_present_in_release_root": false,
+    "state": "UNBOUND_SOURCE_PANEL_NOT_DELIVERED"
+  },
+  "research_only": true,
+  "schema_version": "direct-batter-pa-feature-view-v1-artifact-registry-v1",
+  "status": "LOCAL_HASH_BOUND_RESEARCH_INPUT_RELEASE_UNBOUND_NOT_CERTIFIABLE"
+}
