@@ -1,0 +1,112 @@
+name: PA Volume Source Runtime Linux Gate
+
+"on":
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/pa-volume-source-runtime-linux.yml"
+      - "config/pa_volume_source_runtime_authority_v1.json"
+      - "requirements-direct-batter-pa-source-authority.lock"
+      - "scripts/build_direct_batter_pa_source_release.py"
+      - "scripts/build_pa_volume_official_source_release_v1.py"
+      - "scripts/capture_direct_batter_pa_source_transport_v2.py"
+      - "scripts/capture_pa_volume_official_source_v1.py"
+      - "scripts/qualify_pa_volume_official_source_v1.py"
+      - "scripts/verify_direct_batter_pa_source_runtime_authority.py"
+      - "src/evaluation/pa_volume_historical_source_access_v1.py"
+      - "src/evaluation/pa_volume_official_feed_projection_v1.py"
+      - "src/evaluation/pa_volume_source_truth_v2.py"
+      - "src/evaluation/shared_pa_pa_volume_source_authority_v1.py"
+      - "src/evaluation/shared_pa_source_bound_probability_v3.py"
+      - "tests/test_build_pa_volume_official_source_release_v1.py"
+      - "tests/test_capture_direct_batter_pa_source_transport_v2.py"
+      - "tests/test_capture_pa_volume_official_source_v1.py"
+      - "tests/test_pa_volume_historical_source_access_v1.py"
+      - "tests/test_pa_volume_official_feed_projection_v1.py"
+      - "tests/test_pa_volume_source_truth_team_scope_v2.py"
+      - "tests/test_pa_volume_source_truth_v2.py"
+      - "tests/test_qualify_pa_volume_official_source_v1.py"
+      - "tests/test_shared_pa_pa_volume_source_authority_v1.py"
+      - "tests/test_shared_pa_source_bound_probability_v3.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-runtime:
+    name: Ubuntu 24.04 / CPython 3.12.3 / source-only
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONNOUSERSITE: "1"
+      PYTEST_DISABLE_PLUGIN_AUTOLOAD: "1"
+    steps:
+      - name: Check out exact candidate commit
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+
+      - name: Set up exact Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: "3.12.3"
+          architecture: "x64"
+
+      - name: Install exact hash-locked dependencies
+        run: |
+          unset LD_LIBRARY_PATH
+          audit_python="${RUNNER_TEMP}/pa-source-env/bin/python"
+          python -m venv --without-pip "${RUNNER_TEMP}/pa-source-env"
+          python -m pip --python "$audit_python" install --disable-pip-version-check --no-deps --require-hashes \
+            -r requirements-direct-batter-pa-source-authority.lock
+          python -m pip --python "$audit_python" check
+
+      - name: Verify exact source, dependency, and runtime closure
+        run: |
+          unset LD_LIBRARY_PATH
+          audit_python="${RUNNER_TEMP}/pa-source-env/bin/python"
+          policy="config/pa_volume_source_runtime_authority_v1.json"
+          "$audit_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
+            --policy "$policy" --check-static --check-installed
+          first="${RUNNER_TEMP}/pa-source-runtime-first.json"
+          second="${RUNNER_TEMP}/pa-source-runtime-second.json"
+          "$audit_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
+            --policy "$policy" --write-linux-attestation "$first"
+          "$audit_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
+            --policy "$policy" --write-linux-attestation "$second"
+          cmp --silent "$first" "$second"
+          sha256sum "$first" "$second" | tee "${RUNNER_TEMP}/pa-source-runtime-sha256.txt"
+
+      - name: Run source-chain regression and mutation tests
+        run: |
+          unset LD_LIBRARY_PATH
+          audit_python="${RUNNER_TEMP}/pa-source-env/bin/python"
+          "$audit_python" -I -B -m pytest -q -p no:cacheprovider \
+            tests/test_capture_direct_batter_pa_source_transport_v2.py \
+            tests/test_pa_volume_historical_source_access_v1.py \
+            tests/test_capture_pa_volume_official_source_v1.py \
+            tests/test_build_pa_volume_official_source_release_v1.py \
+            tests/test_pa_volume_official_feed_projection_v1.py \
+            tests/test_pa_volume_source_truth_v2.py \
+            tests/test_pa_volume_source_truth_team_scope_v2.py \
+            tests/test_qualify_pa_volume_official_source_v1.py \
+            tests/test_shared_pa_pa_volume_source_authority_v1.py \
+            tests/test_shared_pa_source_bound_probability_v3.py
+
+      - name: Upload exact runtime attestation
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: pa-volume-source-runtime-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/pa-source-runtime-first.json
+            ${{ runner.temp }}/pa-source-runtime-sha256.txt
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Verify tracked source contains no likely credentials
+        run: |
+          audit_python="${RUNNER_TEMP}/pa-source-env/bin/python"
+          "$audit_python" -I -B scripts/check_tracked_secrets.py
+
+      - name: Prove the gate did not mutate the checkout
+        run: git diff --exit-code
