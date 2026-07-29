@@ -4,7 +4,6 @@
   "integration_base": "e1bff9baefa072e20dc53532d960924e994d8010",
   "component_merge_base": "9f9d839187550f7a7a6da3b4bfdb25b2dff3e794",
   "integration_support_files": [
-    ".gitattributes",
     ".github/workflows/shared-pa-integrated-research-gates-linux.yml",
     "config/shared_pa_integrated_research_gates_v1.json",
     "reports/shared_pa_integrated_research_gates_v1.md",

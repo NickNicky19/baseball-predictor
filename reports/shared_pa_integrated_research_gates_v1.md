@@ -9,8 +9,6 @@ This integration binds four independently reviewed components without changing t
 
 The integration is an integrity gate, not a model candidate, prediction release, receipt producer, evaluation result, promotion, or betting authorization.
 
-The integration also declares `*.in` files as LF-normalized. This closes a Windows checkout defect where the exact source-authority dependency input was converted to CRLF and therefore no longer matched its byte manifest even though its Git blob was unchanged.
-
 The exact component commits and trees are recorded in `config/shared_pa_integrated_research_gates_v1.json`. The binding checker proves that every component is an ancestor, its tree identity is exact, its changed files do not overlap another component, every integrated component blob still matches its component authority, and the complete integration delta contains no unlisted file.
 
 ## Truthful remaining blockers

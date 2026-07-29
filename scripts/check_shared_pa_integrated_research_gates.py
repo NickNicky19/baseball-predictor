@@ -30,7 +30,6 @@ REQUIRED_FALSE_FLAGS = {
     "betting_permitted",
 }
 EXPECTED_INTEGRATION_SUPPORT_FILES = {
-    ".gitattributes",
     ".github/workflows/shared-pa-integrated-research-gates-linux.yml",
     "config/shared_pa_integrated_research_gates_v1.json",
     "reports/shared_pa_integrated_research_gates_v1.md",
