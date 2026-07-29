@@ -281,7 +281,7 @@ jobs:
           python -m venv --without-pip "${RUNNER_TEMP}/feature-view-env"
           python -m pip --python "${RUNNER_TEMP}/feature-view-env/bin/python" install \
             --disable-pip-version-check --no-deps --require-hashes \
-            -r requirements-direct-batter-pa-source-authority.lock
+            -r requirements-shared-pa-projected-opportunity-ci.lock
           python -m pip --python "${RUNNER_TEMP}/feature-view-env/bin/python" check
       - name: Run feature-view regression and mutation tests
         run: |
