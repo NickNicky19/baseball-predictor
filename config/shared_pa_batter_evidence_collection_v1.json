@@ -1,0 +1,29 @@
+{
+  "schema_version": "shared-pa-batter-evidence-collection-contract-v1",
+  "status": "RESEARCH_ONLY_CODE_ONLY_NOT_DEPLOYED",
+  "decision_horizon": "T-4h",
+  "maximum_early_observation_seconds": 120,
+  "source_authorities": [
+    "immutable_shared_t4_plan",
+    "immutable_projected_lineup_roster_ledger",
+    "immutable_prospective_batter_opportunity_history_ledger"
+  ],
+  "surface_numbers": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+  "available_from_existing_automation": [4, 8, 9],
+  "requires_separate_future_integration": [3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17],
+  "invariants": {
+    "may_2026_rejected_before_source_path_access": true,
+    "source_ledgers_read_only": true,
+    "source_bytes_copied_exactly": true,
+    "semantic_ledger_replay_required": true,
+    "publish_once": true,
+    "late_backfill_forbidden": true,
+    "terminal_missingness_explicit": true,
+    "fallback_allowed": false,
+    "outcomes_allowed": false,
+    "prices_allowed": false,
+    "probability_generation_allowed": false,
+    "production_probability_consumption_authorized": false,
+    "betting_authorized": false
+  }
+}

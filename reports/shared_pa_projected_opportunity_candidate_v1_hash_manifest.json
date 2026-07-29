@@ -1,0 +1,139 @@
+{
+  "schema_version": "shared-pa-projected-opportunity-candidate-hash-manifest-v1",
+  "status": "LOCAL_WINDOWS_VALIDATED_LINUX_GATE_DECLARED_RELEASE_PENDING",
+  "created_at_utc": "2026-07-28T04:18:57.6108036Z",
+  "parent_commit": "9f9d839187550f7a7a6da3b4bfdb25b2dff3e794",
+  "candidate_id": "shared_pa_projected_opportunity_eb200_v1",
+  "external_inputs": [
+    {
+      "path": "props_component_repaired.zip",
+      "sha256": "05c03296cc96d1068f30a0fdcdf423f8688a330eff00798c035e0f848bc475f0",
+      "disposition": "SELECTIVE_BEHAVIOR_ONLY"
+    },
+    {
+      "path": "rotowire_component_repaired.zip",
+      "sha256": "c89eb2cdeb3b856fa159a15b2d4134ad3da8d77d80641c39e2de1967b53b5771",
+      "disposition": "DO_NOT_USE_CURRENTLY"
+    }
+  ],
+  "files": [
+    {
+      "path": "config/shared_pa_projected_opportunity_forward_v1.json",
+      "size": 7540,
+      "sha256": "43f2d79cd440750dad65c57126f5077d3d0558093b2cbaa8bc65254aadf6b966",
+      "role": "predeclared_protocol"
+    },
+    {
+      "path": "requirements.txt",
+      "size": 108,
+      "sha256": "d815c10261635e34a2bca28fc91ae8d3eb70511314c68b93bea336150e05b19d",
+      "role": "minimum_version_dependencies_not_an_exact_lock"
+    },
+    {
+      "path": "requirements-shared-pa-projected-opportunity-ci.lock",
+      "size": 1707,
+      "sha256": "c72e64492726d384e72331fec5615c3653c61a2986cb44d9429f3ff53df60d53",
+      "role": "exact_linux_test_dependency_lock"
+    },
+    {
+      "path": ".github/workflows/shared-pa-projected-opportunity-linux.yml",
+      "size": 2574,
+      "sha256": "e37e1538eb9e4bd73161584e9bddd4b9ae6d56e60220f0959a378bc017899783",
+      "role": "exact_linux_candidate_gate"
+    },
+    {
+      "path": "src/data/odds/base.py",
+      "size": 9253,
+      "sha256": "7f0fbcb612a6b37dce9eeeb21a643074405d0a2f34a6c691c78b4a5dd4e67700",
+      "role": "raw_price_boundary_repair"
+    },
+    {
+      "path": "src/evaluation/live_market_identity.py",
+      "size": 9050,
+      "sha256": "3d1e6c5052046f2f97121d0d3451a7deedf1764b0f77e8e2fe7a31853d9772a7",
+      "role": "live_price_consumption_repair"
+    },
+    {
+      "path": "src/evaluation/market_economics.py",
+      "size": 5552,
+      "sha256": "21cd02efe69722f1bcd575ff336416ac37224c105bb5a6ceceec3e133cf05e5e",
+      "role": "canonical_price_validation"
+    },
+    {
+      "path": "src/evaluation/shadow_ledger.py",
+      "size": 32852,
+      "sha256": "6ed104079ea6a1cf51362bd61adcebb100dc25d4899cabf000ee6cabbbac07ed",
+      "role": "shadow_price_consumption_repair"
+    },
+    {
+      "path": "src/evaluation/shared_pa_batter_skill.py",
+      "size": 12810,
+      "sha256": "3cf6e0ea724ce8af2e7b738c246eba414139d8b3b3d4c19012e46e3abdf48776",
+      "role": "lineup_independent_point_in_time_batter_skill"
+    },
+    {
+      "path": "src/evaluation/shared_pa_projected_opportunity_candidate.py",
+      "size": 21391,
+      "sha256": "95c9a8296325689d265dafe929629f63375728c546c0b39875c8333e7e837a8c",
+      "role": "coherent_market_candidate"
+    },
+    {
+      "path": "src/evaluation/shared_pa_projected_opportunity_runner.py",
+      "size": 9084,
+      "sha256": "d17c6fef04c7e90ec546c8b794001bb4fcfe62f2b09671d80489a2e816c2cdfb",
+      "role": "complete_side_accounting_runner"
+    },
+    {
+      "path": "tests/test_market_economics_properties.py",
+      "size": 2916,
+      "sha256": "01174f7350230113b98ca39939b1ce7173722a5eb1328c7948840c61f832c7fd",
+      "role": "price_properties"
+    },
+    {
+      "path": "tests/test_strict_american_odds_boundary.py",
+      "size": 1881,
+      "sha256": "735f488bdfc4c1daaf32691c12384da47b3a7cb49e22116036f81d0477e6ef7a",
+      "role": "price_regression_and_mutation"
+    },
+    {
+      "path": "tests/test_shared_pa_projected_opportunity_candidate.py",
+      "size": 14564,
+      "sha256": "d217d21b82f1e1322f8cb4a3f8a3c76bbbb8a3496f86e3178bc3d5ea7f2479de",
+      "role": "candidate_regression_and_mutation"
+    },
+    {
+      "path": "tests/test_shared_pa_projected_opportunity_runner.py",
+      "size": 4314,
+      "sha256": "f5a4106f50f703296b83d830c8d004a2cb590afa444702c0c6015c598176a05c",
+      "role": "coverage_abstention_and_chronology"
+    }
+  ],
+  "local_validation": {
+    "python": "CPython 3.12.13",
+    "platform": "Windows",
+    "affected_suite": {
+      "passed": 95,
+      "failed": 0
+    },
+    "additional_legacy_linux_permission_tests": {
+      "passed": 95,
+      "failed": 4,
+      "failure": "pre-existing unguarded os.fchmod in shared_pa_forward_ledger.py on Windows",
+      "candidate_changed_file": false
+    }
+  },
+  "release_blockers": [
+    "clean Ubuntu CI must pass on the final PR head before release",
+    "append-only persistence and AWS scheduling are not part of this candidate-core change",
+    "no eligible outcome has been observed or scored",
+    "no model promotion or betting authorization exists"
+  ],
+  "protected_boundaries": {
+    "may_2026_accessed": false,
+    "reserved_window_retrofitted": false,
+    "spent_2025_hr_reused": false,
+    "production_probability_changed": false,
+    "aws_changed": false,
+    "betting_authorized": false
+  }
+}

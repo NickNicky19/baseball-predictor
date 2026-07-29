@@ -1,0 +1,66 @@
+{
+  "artifact_id": "shared_pa_experiment_registry_v1",
+  "branch": "codex/shared-pa-market-evaluator-v1",
+  "authority_state": "UNBOUND_EXTERNAL_TRUST_REQUIRED",
+  "cli_smoke": {
+    "authoritative_append_requires_external_release_checkpoint_and_receipt": true,
+    "help_status": "PASS",
+    "unbound_public_append_refusal_test": "PASS"
+  },
+  "decision": "IMPLEMENTED_REGISTRY_WITH_SYNTHETIC_EVALUATOR_EXTERNALLY_UNBOUND",
+  "evaluator_state": "IMPLEMENTED_SYNTHETIC_ONLY_EXTERNALLY_UNBOUND",
+  "evaluator_evidence_class": "SYNTHETIC_STRUCTURAL_MECHANICS_ONLY",
+  "historical_2024_selection_authority": {
+    "consumption_state": "UNCONSUMED",
+    "eligibility": "INELIGIBLE_ALREADY_SPENT",
+    "issuance_enabled": false,
+    "issuance_state": "UNISSUED",
+    "max_consumptions": 1,
+    "max_issuances": 1
+  },
+  "implementation_scope": [
+    "hash_bound_append_only_registry",
+    "candidate_equivalence_and_multiplicity_tracking",
+    "canonical_semantic_experiment_identity",
+    "derived_nonspoofable_family_identity",
+    "global_atomic_output_namespace_reservation",
+    "positive_exact_evidence_window_allowlist",
+    "artifact_byte_reverification",
+    "single_use_selection_authority_state_machine",
+    "terminal_disposition_immutability",
+    "atomic_append_and_exclusive_writer_boundary",
+    "trusted_external_checkpoint_binding",
+    "external_release_expectation_binding",
+    "externally_timestamped_monotonic_append_receipt",
+    "append_receipt_dual_semantic_and_complete_payload_binding",
+    "exact_market_evaluator_contract_binding",
+    "exact_market_evaluator_file_manifest_binding",
+    "complete_evaluator_manifest_byte_closure",
+    "duplicate_json_key_rejection_at_evaluator_ingresses",
+    "synthetic_market_separated_evaluator_mechanics"
+  ],
+  "limitations": [
+    "The checked-in 2024 selection authority cannot be issued because that historical selection window was already spent.",
+    "The implemented evaluator is synthetic-only and externally unbound; this work does not open real outcomes or prices, fit a candidate, consume the spent 2024 authority, or qualify a model.",
+    "No independent external release expectation, checkpoint authority, or append-receipt authority is delivered; authoritative append and token operations therefore remain refused.",
+    "A local hash chain cannot detect deletion of a complete suffix without an independently retained trusted checkpoint.",
+    "Windows link and junction mutation tests skip if the operating system denies unprivileged link creation; runtime symlink and reparse-point rejection remains implemented."
+  ],
+  "manifest_path": "config/shared_pa_experiment_registry_v1_artifact_manifest.json",
+  "protected_boundaries": [
+    "May 2026 sealed",
+    "spent 2025 HR confirmation not reusable",
+    "historical prices not executable",
+    "no prospective evidence backfill",
+    "markets adjudicated independently",
+    "frozen baselines immutable",
+    "no betting authorization"
+  ],
+  "source_base_commit": "9f9d839187550f7a7a6da3b4bfdb25b2dff3e794",
+  "tests": {
+    "command": "python -B -m pytest -q -p no:cacheprovider tests/test_shared_pa_experiment_registry.py tests/test_shared_pa_research_registry.py tests/test_shared_pa_market_evaluator.py",
+    "passed": 145,
+    "skipped": 2,
+    "status": "PASS"
+  }
+}

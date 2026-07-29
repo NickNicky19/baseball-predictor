@@ -1,0 +1,292 @@
+name: Shared PA integrated research gates Linux
+
+"on":
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  integration-binding:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTEST_DISABLE_PLUGIN_AUTOLOAD: "1"
+      PYTHONPATH: "."
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Verify exact requested head
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: "3.12.3"
+          architecture: x64
+      - name: Install exact test dependencies
+        run: |
+          python -m venv --without-pip "${RUNNER_TEMP}/integration-env"
+          python -m pip --python "${RUNNER_TEMP}/integration-env/bin/python" install --no-deps --require-hashes \
+            -r requirements-prospective-batter-opportunity-ci.lock
+          python -m pip --python "${RUNNER_TEMP}/integration-env/bin/python" check
+      - name: Verify exact non-overlapping Git binding
+        run: |
+          audit_python="${RUNNER_TEMP}/integration-env/bin/python"
+          "$audit_python" -I -B -m pytest -q -p no:cacheprovider tests/test_shared_pa_integrated_research_gates.py
+          "$audit_python" -I -B scripts/check_shared_pa_integrated_research_gates.py
+      - name: Verify credential and clean-tree boundaries
+        run: |
+          audit_python="${RUNNER_TEMP}/integration-env/bin/python"
+          "$audit_python" -I -B scripts/check_tracked_secrets.py
+          git diff --exit-code
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+
+  receipt-and-envelope:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTEST_DISABLE_PLUGIN_AUTOLOAD: "1"
+      PYTHONPATH: "."
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Verify exact requested head
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: "3.12.3"
+          architecture: x64
+      - name: Install exact test dependencies
+        run: |
+          python -m venv --without-pip "${RUNNER_TEMP}/receipt-env"
+          python -m pip --python "${RUNNER_TEMP}/receipt-env/bin/python" install --no-deps --require-hashes \
+            -r requirements-shared-pa-projected-opportunity-ci.lock
+          python -m pip --python "${RUNNER_TEMP}/receipt-env/bin/python" check
+      - name: Run receipt observer, history, and replay gates
+        run: |
+          audit_python="${RUNNER_TEMP}/receipt-env/bin/python"
+          "$audit_python" -I -B -c "import numpy, pandas, requests; print('receipt import closure OK')"
+          "$audit_python" -I -B -m pytest -q -p no:cacheprovider \
+            tests/test_shared_pa_batter_evidence_inventory.py \
+            tests/test_prospective_batter_opportunity_history.py \
+            tests/test_full_game_opportunity_receipt_replay_v1.py \
+            tests/test_full_game_opportunity_cross_envelope_v1.py \
+            tests/test_full_game_opportunity_cross_envelope_release.py \
+            tests/test_projected_lineup_contract.py \
+            tests/test_projected_lineup_empirical_joint.py \
+            tests/test_projected_lineup_history.py \
+            tests/test_projected_lineup_official_roster.py \
+            tests/test_projected_lineup_roster_runner.py \
+            tests/test_prospective_batter_opportunity.py \
+            tests/test_run_prospective_batter_opportunity_tick.py \
+            tests/test_pitching_source_truth.py \
+            tests/test_pitcher_source_truth_release.py \
+            tests/test_pitcher_joint_opportunity_v1.py \
+            tests/test_pitcher_joint_opportunity_release.py \
+            tests/test_pitcher_projection.py \
+            --deselect tests/test_pitcher_source_truth_release.py::test_current_pitcher_source_truth_release_verifies \
+            --deselect tests/test_pitcher_joint_opportunity_release.py::test_release_manifest_and_exact_delta_verify
+          "$audit_python" -I -B scripts/check_shared_pa_batter_evidence_collection_manifest.py
+          git diff --exit-code
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+
+  projected-opportunity:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      HYPOTHESIS_STORAGE_DIRECTORY: /tmp/baseball-hypothesis
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTEST_DISABLE_PLUGIN_AUTOLOAD: "1"
+      PYTHONPATH: "."
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Verify exact requested head
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: "3.12.3"
+          architecture: x64
+      - name: Install exact projected-opportunity dependencies
+        run: |
+          python -m venv --without-pip "${RUNNER_TEMP}/projected-env"
+          python -m pip --python "${RUNNER_TEMP}/projected-env/bin/python" install --no-deps --require-hashes \
+            -r requirements-shared-pa-projected-opportunity-ci.lock
+          python -m pip --python "${RUNNER_TEMP}/projected-env/bin/python" check
+      - name: Run complete projected-opportunity gate
+        run: |
+          audit_python="${RUNNER_TEMP}/projected-env/bin/python"
+          "$audit_python" -I -B -m pytest -q -p no:cacheprovider \
+            tests/test_projected_lineup_contract.py \
+            tests/test_projected_lineup_empirical_joint.py \
+            tests/test_projected_lineup_history.py \
+            tests/test_projected_lineup_official_roster.py \
+            tests/test_projected_lineup_roster_runner.py \
+            tests/test_prospective_batter_opportunity.py \
+            tests/test_shared_pa_forward_collector.py \
+            tests/test_shared_pa_forward_evidence.py \
+            tests/test_shared_pa_projected_opportunity_candidate.py \
+            tests/test_shared_pa_projected_opportunity_candidate_v2.py \
+            tests/test_shared_pa_projected_opportunity_runner.py \
+            tests/test_shared_pa_projected_opportunity_runner_v2.py \
+            tests/test_strict_american_odds_boundary.py \
+            tests/test_market_economics_properties.py \
+            tests/test_odds_loader.py
+          "$audit_python" -B scripts/check_shared_pa_projected_opportunity_manifest.py
+          "$audit_python" -I -B scripts/check_shared_pa_batter_evidence_collection_manifest.py
+          git diff --exit-code
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+
+  registry-and-evaluator:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTEST_DISABLE_PLUGIN_AUTOLOAD: "1"
+      PYTHONPATH: "."
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Verify exact requested head
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: "3.12.3"
+          architecture: x64
+      - name: Install exact test dependencies
+        run: |
+          python -m venv --without-pip "${RUNNER_TEMP}/registry-env"
+          python -m pip --python "${RUNNER_TEMP}/registry-env/bin/python" install --no-deps --require-hashes \
+            -r requirements-prospective-batter-opportunity-ci.lock
+          python -m pip --python "${RUNNER_TEMP}/registry-env/bin/python" check
+      - name: Run registry and evaluator gates
+        run: |
+          audit_python="${RUNNER_TEMP}/registry-env/bin/python"
+          "$audit_python" -I -B scripts/check_shared_pa_market_evaluator_offline.py
+          "$audit_python" -I -B -m pytest -q -p no:cacheprovider \
+            tests/test_shared_pa_experiment_registry.py \
+            tests/test_shared_pa_research_registry.py \
+            tests/test_shared_pa_market_evaluator.py
+          git diff --exit-code
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+
+  source-runtime-authority:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONNOUSERSITE: "1"
+      PYTEST_DISABLE_PLUGIN_AUTOLOAD: "1"
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Verify exact requested head
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: "3.12.3"
+          architecture: x64
+      - name: Install isolated hash-locked source dependencies
+        run: |
+          unset LD_LIBRARY_PATH
+          audit_python="${RUNNER_TEMP}/source-authority-env/bin/python"
+          python -m venv --without-pip "${RUNNER_TEMP}/source-authority-env"
+          python -m pip --python "$audit_python" install --disable-pip-version-check --no-deps --require-hashes \
+            -r requirements-direct-batter-pa-source-authority.lock
+          python -m pip --python "$audit_python" check
+      - name: Verify source dependency and manifest closure
+        run: |
+          unset LD_LIBRARY_PATH
+          audit_python="${RUNNER_TEMP}/source-authority-env/bin/python"
+          "$audit_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
+            --check-static --check-installed --check-manifest
+      - name: Verify deterministic Linux runtime identity
+        run: |
+          unset LD_LIBRARY_PATH
+          audit_python="${RUNNER_TEMP}/source-authority-env/bin/python"
+          first="${RUNNER_TEMP}/source-runtime-first.json"
+          second="${RUNNER_TEMP}/source-runtime-second.json"
+          "$audit_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
+            --write-linux-attestation "$first"
+          "$audit_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
+            --write-linux-attestation "$second"
+          cmp --silent "$first" "$second"
+          sha256sum "$first" "$second"
+      - name: Run exact source-authority regression and mutation tests
+        run: |
+          unset LD_LIBRARY_PATH
+          audit_python="${RUNNER_TEMP}/source-authority-env/bin/python"
+          "$audit_python" -I -B -m pytest -q -p no:cacheprovider \
+            tests/test_direct_batter_pa_source_binding.py \
+            tests/test_direct_batter_pa_source_release.py \
+            tests/test_direct_batter_pa_source_runtime_authority.py
+      - name: Scan source authority for likely credentials
+        run: |
+          unset LD_LIBRARY_PATH
+          audit_python="${RUNNER_TEMP}/source-authority-env/bin/python"
+          "$audit_python" -I -B scripts/check_tracked_secrets.py
+      - name: Prove source gate did not mutate the checkout
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+
+  direct-batter-feature-view:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONNOUSERSITE: "1"
+      PYTEST_DISABLE_PLUGIN_AUTOLOAD: "1"
+      PYTHONPATH: "."
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Verify exact requested head
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: "3.12.3"
+          architecture: x64
+      - name: Install isolated hash-locked feature-view dependencies
+        run: |
+          python -m venv --without-pip "${RUNNER_TEMP}/feature-view-env"
+          python -m pip --python "${RUNNER_TEMP}/feature-view-env/bin/python" install \
+            --disable-pip-version-check --no-deps --require-hashes \
+            -r requirements-shared-pa-projected-opportunity-ci.lock
+          python -m pip --python "${RUNNER_TEMP}/feature-view-env/bin/python" check
+      - name: Run feature-view regression and mutation tests
+        run: |
+          audit_python="${RUNNER_TEMP}/feature-view-env/bin/python"
+          "$audit_python" -B -m pytest -q -p no:cacheprovider \
+            tests/test_direct_batter_pa_feature_view.py
+          git diff --exit-code
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"

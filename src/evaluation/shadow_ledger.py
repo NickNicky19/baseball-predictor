@@ -28,6 +28,7 @@ from typing import Any, Callable, Iterable, Iterator, Literal, Mapping, Optional
 
 from src.evaluation.market_economics import (
     MarketEconomicsError,
+    american_odds as _strict_american_odds,
     expected_profit_per_unit,
     fair_over_probability as _fair_over_probability,
 )
@@ -100,12 +101,9 @@ def _finite_line(value: Any) -> float:
 
 def _american_odds(value: Any, label: str) -> int:
     try:
-        out = int(value)
-    except (TypeError, ValueError) as exc:
-        raise ShadowLedgerError(f"{label} must be an integer American price") from exc
-    if out == 0:
-        raise ShadowLedgerError(f"{label} cannot be 0")
-    return out
+        return _strict_american_odds(value, label)
+    except MarketEconomicsError as exc:
+        raise ShadowLedgerError(str(exc)) from exc
 
 
 def fair_over_probability(over_odds_american: int, under_odds_american: int) -> float:

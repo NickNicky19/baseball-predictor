@@ -1,0 +1,60 @@
+{
+  "schema_version": "shared-pa-market-evaluator-binding-interface-v1",
+  "status": "INTERFACE_ONLY_FULL_EVALUATOR_NOT_IMPLEMENTED",
+  "research_only": true,
+  "betting_authorized": false,
+  "registry_input": {
+    "candidate_predeclaration_entry_hash_required": true,
+    "candidate_frozen_entry_hash_required": true,
+    "selection_token_consumption_entry_hash_required_before_2024_read": true,
+    "external_release_expectation_digest_required": true,
+    "registry_trusted_checkpoint_required": true,
+    "trusted_checkpoint_fixed_path_digest_and_sequence_required": true,
+    "trusted_monotonic_append_receipt_required": true,
+    "append_receipt_binds_semantic_and_complete_canonical_payload": true,
+    "unbound_registry_refused": true,
+    "canonical_semantic_experiment_fingerprint_required": true,
+    "derived_multiplicity_family_required": true,
+    "exact_output_namespace_required": true
+  },
+  "market_contract": {
+    "markets": ["hits", "hr_over_0_5", "total_bases"],
+    "evaluate_each_market_separately": true,
+    "pooling_allowed": false,
+    "cross_market_rescue_allowed": false,
+    "failed_market_retains_frozen_baseline": true
+  },
+  "required_predictive_outputs": {
+    "identity": ["official_game_pk", "player_id", "official_game_date", "market", "line"],
+    "probability": ["candidate_probability", "league_rate_probability", "time_safe_player_eb_probability", "frozen_simulator_probability"],
+    "availability": ["candidate_available", "baseline_available", "abstention_reason"],
+    "lineage": ["prediction_created_at_utc", "decision_horizon_utc", "candidate_frozen_entry_hash", "input_receipt_hashes"]
+  },
+  "required_market_comparator": {
+    "use_only_when_receipt_bound_and_available": true,
+    "historical_price_is_executable": false,
+    "missing_market_probability_disposition": "TERMINAL_UNAVAILABLE_NOT_FABRICATED",
+    "fields": ["sportsbook", "source_market_id", "line", "over_price", "under_price", "quote_observed_at_utc", "no_vig_probability", "receipt_sha256"]
+  },
+  "required_evaluation": {
+    "proper_scores": ["brier", "log_loss"],
+    "calibration": ["intercept", "slope", "predeclared_probability_bands", "hr_predeclared_upper_tail"],
+    "discrimination": ["auc", "insufficient_class_disposition"],
+    "coverage": ["eligible_universe", "candidate_coverage", "baseline_coverage", "common_support", "reason_coded_abstentions", "unequal_coverage_sensitivity"],
+    "uncertainty": ["paired_official_date_cluster_bootstrap", "predeclared_confidence", "predeclared_materiality"],
+    "chronology": ["prediction_before_target", "outcome_after_target", "may_2026_forbidden", "no_backfill"]
+  },
+  "price_and_settlement_boundary": {
+    "predictive_gate_runs_without_economic_evidence": true,
+    "price_comparator_is_optional_only_when_genuinely_unavailable": true,
+    "settlement_is_downstream_and_cannot_change_prediction": true,
+    "executable_price_or_roi_claims_require_separate_authorized_contract": true
+  },
+  "implementation_state": {
+    "full_evaluator_exists": false,
+    "may_fit_or_score": false,
+    "may_consume_2024": false,
+    "may_promote": false,
+    "may_activate": false
+  }
+}

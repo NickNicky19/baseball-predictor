@@ -1,0 +1,72 @@
+{
+  "schema_version": "shared-pa-projected-opportunity-protocol-v2",
+  "status": "RESEARCH_ONLY_EXACT_BYTES_RELEASE_PENDING",
+  "candidate_id": "shared_pa_projected_opportunity_eb200_v2",
+  "purpose": "Change only projected PA opportunity after semantic replay of the immutable T-4 plan, official schedule side/team, active roster bytes, strictly-prior lineup history, projected lineup, and prior-date-bounded official batter counts.",
+  "decision_horizon": "T-4h",
+  "confirmation_window": {
+    "first_official_date": "2026-09-17",
+    "last_official_date": "2026-09-27",
+    "postseason_eligible": false
+  },
+  "evaluation_contract": {
+    "path": "config/shared_pa_projected_opportunity_forward_v1.json",
+    "sha256": "43f2d79cd440750dad65c57126f5077d3d0558093b2cbaa8bc65254aadf6b966",
+    "inheritance": "all_market_baseline_metric_uncertainty_coverage_and_window_gates"
+  },
+  "release_contract": {
+    "source_manifest_path": "reports/shared_pa_projected_opportunity_candidate_v2_hash_manifest.json",
+    "runtime_release_receipt_schema": "shared-pa-projected-opportunity-runtime-release-v2",
+    "published_status_requires_external_runtime_receipt": true,
+    "exact_clean_git_head_required": true
+  },
+  "stats_contract": {
+    "source": "official_mlb_statsapi_dated_game_log_segmented_v2",
+    "start_date": "target season January 1",
+    "end_date": "calendar date strictly before target official date",
+    "may_2026_segments": "skip 2026-05-01 through 2026-05-31 entirely",
+    "required_semantic_rows": "each split carries an in-range canonical date and unique official game id",
+    "transport_receipt_required": true,
+    "same_day_outcomes_allowed": false,
+    "season_or_cutoff_fallback_allowed": false
+  },
+  "numerical_contract": {
+    "only_changed_quantity": "game_pa_distribution",
+    "per_pa_control": "empirical_bayes_player_rate_pa_200_2023_control_v1",
+    "pa_volume": "pa_volume_2023_only_v1",
+    "pitcher_features": "excluded_batter_only",
+    "manual_coefficients": false
+  },
+  "protected_boundaries": {
+    "may_2026_access_allowed": false,
+    "outcomes_allowed": false,
+    "prices_allowed_in_probability": false,
+    "missed_receipt_backfill_allowed": false,
+    "production_probability_changes_allowed": false,
+    "betting_authorized": false
+  },
+  "immutable_bindings": [
+    {"path": "config/projected_lineup_contract_v1.json", "sha256": "88910f66c0a51a7aa33baa1dffe9c6cbe8fc9aebcc90d76df26f41937640182a"},
+    {"path": "config/shared_pa_projected_opportunity_forward_v1.json", "sha256": "43f2d79cd440750dad65c57126f5077d3d0558093b2cbaa8bc65254aadf6b966"},
+    {"path": "config/shared_pa_forward_evidence_contract_v1.json", "sha256": "b93827a465e5145d1e725f84cbed53d413f0c2e8601e41021221e3d13d079401"},
+    {"path": "data/analysis/system_integrity_v2/pa_volume_chronology_v1/pa_distribution_fit_2023.json", "sha256": "7ffd6a8fecb1c4f8aed1966c234a61499050346f87f884f731c440daca793c90"},
+    {"path": "src/evaluation/projected_lineup_contract.py", "sha256": "b123406d521c77cc3793bc00db2db5c046808e6f7502d487b61328376d50bbfc"},
+    {"path": "src/evaluation/projected_lineup_contract_v2.py", "sha256": "cc6d8f148e87cbba5da8919b01faabe92fe423419eae49c87b6a87699e78e24d"},
+    {"path": "src/evaluation/projected_lineup_empirical_joint.py", "sha256": "2c30a02db03b2b58db115df36cf80c136ea2cfef7d9d8c4ba84a98dfff86f195"},
+    {"path": "src/evaluation/projected_lineup_history.py", "sha256": "7110803d0d3391fdbf4c87c12790d4a1e132dbc06f442009d930cb3d192a2764"},
+    {"path": "src/evaluation/projected_lineup_official_roster.py", "sha256": "7262291152725333c3c024369ceef5ba208dcb188cf161e8caeee9d9be640af6"},
+    {"path": "src/evaluation/prospective_batter_opportunity.py", "sha256": "fc5ca7d433a94a2c848635adb37b64a501f0746dfff10e053729a7489943abed"},
+    {"path": "src/evaluation/shadow_capture_plan.py", "sha256": "491a73556cab02b8295eee695f0474345defbc15f5d9bd01aae011cdff2b17e0"},
+    {"path": "src/evaluation/shared_pa_batter_skill.py", "sha256": "3cf6e0ea724ce8af2e7b738c246eba414139d8b3b3d4c19012e46e3abdf48776"},
+    {"path": "src/evaluation/shared_pa_forward_collector.py", "sha256": "c3b7b7297f57c154885fc1811a22a9a15329e2d95f2afc65f1d996d9152f1c23"},
+    {"path": "src/evaluation/shared_pa_forward_evidence.py", "sha256": "9b8f79ce7b12d8ead102a4c2cbfedb227a18c6e1ebb47e70b19f24910fea59f1"},
+    {"path": "src/evaluation/shared_pa_projected_opportunity_candidate.py", "sha256": "95c9a8296325689d265dafe929629f63375728c546c0b39875c8333e7e837a8c"},
+    {"path": "src/evaluation/shared_pa_projected_opportunity_candidate_v2.py", "sha256": "5630fe964285375eacc23b7eb15c07b57da036ccd76a6342bdb93e658c712f00"},
+    {"path": "src/evaluation/shared_pa_projected_opportunity_evidence_v2.py", "sha256": "69d1e7f915942a0d6a0d04e62d15d410fcfdc44f177cf9335deda7ccdee58afa"},
+    {"path": "src/evaluation/shared_pa_projected_opportunity_release_v2.py", "sha256": "68a63d8feddd9a98672e38942248ce68aee66930067721a15f3cc563fc278a4a"},
+    {"path": "src/evaluation/shared_pa_projected_opportunity_runner_v2.py", "sha256": "0201e10659cdb44e4169e1c16572d553d9c50c8a4586e44e4fa9928a27db7974"},
+    {"path": "tests/test_prospective_batter_opportunity.py", "sha256": "1580eff1008cf5e94f88f9b5c67812d7fd8ec8eb35899c9be67b88a9cf36ab3f"},
+    {"path": "tests/test_shared_pa_projected_opportunity_candidate_v2.py", "sha256": "7b81d2a961491185f91ae221d6992e3af7442aa4e5eaab799ef4a27a77cd5bd5"},
+    {"path": "tests/test_shared_pa_projected_opportunity_runner_v2.py", "sha256": "2b3e8f1ae1017862a844a9333e67756f00da3bbcd650da2d8121b82dfb265586"}
+  ]
+}

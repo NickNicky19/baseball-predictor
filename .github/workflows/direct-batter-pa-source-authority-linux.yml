@@ -1,0 +1,94 @@
+name: Direct Batter PA Source Authority Linux Gate
+
+"on":
+  pull_request:
+    branches:
+      - main
+      - codex/batter-feature-view-mainline-v1
+    paths:
+      - ".github/workflows/direct-batter-pa-source-authority-linux.yml"
+      - "requirements-direct-batter-pa-source-authority.in"
+      - "requirements-direct-batter-pa-source-authority.lock"
+      - "config/direct_batter_pa_source_binding_v1.json"
+      - "config/direct_batter_pa_source_release_v1.json"
+      - "config/direct_batter_pa_source_runtime_authority_v1.json"
+      - "reports/direct_batter_pa_source_runtime_authority_v1.md"
+      - "reports/direct_batter_pa_source_runtime_authority_v1_hash_manifest.json"
+      - "scripts/build_direct_batter_pa_source_release.py"
+      - "scripts/check_tracked_secrets.py"
+      - "scripts/validate_direct_batter_pa_source_binding.py"
+      - "scripts/verify_direct_batter_pa_source_runtime_authority.py"
+      - "tests/test_direct_batter_pa_source_binding.py"
+      - "tests/test_direct_batter_pa_source_release.py"
+      - "tests/test_direct_batter_pa_source_runtime_authority.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-runtime:
+    name: Ubuntu 24.04 / CPython 3.12.3 / offline authority
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONNOUSERSITE: "1"
+      PYTEST_DISABLE_PLUGIN_AUTOLOAD: "1"
+
+    steps:
+      - name: Check out exact candidate commit
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+
+      - name: Set up exact Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: "3.12.3"
+          architecture: "x64"
+
+      - name: Install exact hash-locked audit dependencies
+        run: |
+          unset LD_LIBRARY_PATH
+          audit_python="${RUNNER_TEMP}/source-authority-env/bin/python"
+          python -m venv --without-pip "${RUNNER_TEMP}/source-authority-env"
+          python -m pip --python "$audit_python" install --disable-pip-version-check --no-deps --require-hashes \
+            -r requirements-direct-batter-pa-source-authority.lock
+          python -m pip --python "$audit_python" check
+
+      - name: Verify dependency, import, source, and candidate-manifest closure
+        run: |
+          unset LD_LIBRARY_PATH
+          audit_python="${RUNNER_TEMP}/source-authority-env/bin/python"
+          "$audit_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
+            --check-static --check-installed --check-manifest
+
+      - name: Prove deterministic TLS CA and shared-library runtime identity
+        run: |
+          unset LD_LIBRARY_PATH
+          audit_python="${RUNNER_TEMP}/source-authority-env/bin/python"
+          first="${RUNNER_TEMP}/source-runtime-first.json"
+          second="${RUNNER_TEMP}/source-runtime-second.json"
+          "$audit_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
+            --write-linux-attestation "$first"
+          "$audit_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
+            --write-linux-attestation "$second"
+          cmp --silent "$first" "$second"
+          sha256sum "$first" "$second"
+
+      - name: Run focused fail-closed regression and mutation tests
+        run: |
+          unset LD_LIBRARY_PATH
+          audit_python="${RUNNER_TEMP}/source-authority-env/bin/python"
+          "$audit_python" -I -B -m pytest -q -p no:cacheprovider \
+            tests/test_direct_batter_pa_source_binding.py \
+            tests/test_direct_batter_pa_source_release.py \
+            tests/test_direct_batter_pa_source_runtime_authority.py
+
+      - name: Verify tracked source contains no likely credentials
+        run: |
+          unset LD_LIBRARY_PATH
+          audit_python="${RUNNER_TEMP}/source-authority-env/bin/python"
+          "$audit_python" -I -B scripts/check_tracked_secrets.py
+
+      - name: Prove the gate did not mutate the checkout
+        run: git diff --exit-code

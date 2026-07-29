@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "shared-pa-experiment-registry-entry-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "sequence", "previous_entry_hash", "entry_type", "recorded_at_utc", "payload_sha256", "payload", "entry_hash"],
+  "properties": {
+    "schema_version": {"const": "shared-pa-experiment-registry-entry-v1"},
+    "sequence": {"type": "integer", "minimum": 1},
+    "previous_entry_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "entry_type": {"enum": ["EXPERIMENT_PREDECLARED", "CANDIDATE_FROZEN", "SELECTION_TOKEN_ISSUED", "SELECTION_TOKEN_CONSUMED", "TERMINAL_DISPOSITION"]},
+    "recorded_at_utc": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+    "payload_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "payload": {"type": "object"},
+    "entry_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

@@ -1,0 +1,12 @@
+[Unit]
+Description=Run read-only PR32 batter evidence inventory each minute
+
+[Timer]
+OnCalendar=*-*-* *:*:20
+AccuracySec=1s
+RandomizedDelaySec=0
+Persistent=true
+Unit=baseball-pr32-batter-evidence-inventory.service
+
+[Install]
+WantedBy=timers.target

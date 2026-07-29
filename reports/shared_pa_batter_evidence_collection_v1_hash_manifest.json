@@ -1,0 +1,36 @@
+{
+  "schema_version": "shared-pa-batter-evidence-collection-hash-manifest-v1",
+  "status": "EXACT_BYTES_CODE_ONLY_NOT_DEPLOYED",
+  "files": [
+    {"path": ".github/workflows/shared-pa-batter-evidence-collection-linux.yml", "size": 2431, "sha256": "f6bcc218fe460b892f02f3e88608897b0ea54f821a72b121cf6447872bab03ed"},
+    {"path": "config/shared_pa_batter_evidence_collection_v1.json", "size": 1127, "sha256": "d577e8ce11c3da0a703bfc1c0c5ac3abd1a686c229a92a7cb98ae707eb518fca"},
+    {"path": "deploy/pr32_batter_evidence/README.md", "size": 1577, "sha256": "36bbab0e91414c85713d55f12bf80f361db3f5d89d788d4b7105cda5f05cb8fa"},
+    {"path": "deploy/pr32_batter_evidence/baseball-pr32-batter-evidence-inventory.service", "size": 1413, "sha256": "2fe7ee50663a6db8badf714d55fc520a7f4474ae34e99c2b71a4106cf97c7078"},
+    {"path": "deploy/pr32_batter_evidence/baseball-pr32-batter-evidence-inventory.timer", "size": 248, "sha256": "1caa8e72fd6b797e317087be9d630277d5536d20d481665a479be2def524612a"},
+    {"path": "requirements-shared-pa-batter-evidence-collection-ci.lock", "size": 630, "sha256": "a39f7f301fc10528d8fd4603fe7f9f9ea8ebc394db14756bd904de3d7fe984e9"},
+    {"path": "scripts/check_shared_pa_batter_evidence_collection_manifest.py", "size": 5557, "sha256": "89dda6782ebac1eb2b47f5129edb9453b94abdb79f6af4aec3770180c6b95125"},
+    {"path": "scripts/check_tracked_secrets.py", "size": 2523, "sha256": "9433c860c36bdb5cfa4d79515036ca937428e87ed121bc17344dc9a976d2d047"},
+    {"path": "scripts/run_shared_pa_batter_evidence_inventory.py", "size": 6596, "sha256": "c1253d623c6312ff8482806341c98108a38ad347df52205bb3519f225a9e6934"},
+    {"path": "src/__init__.py", "size": 91, "sha256": "c6a7072a55d50503a75b38b822a179048bcbfa4be7eb0a406278313ebea94c62"},
+    {"path": "src/evaluation/__init__.py", "size": 1415, "sha256": "8370f884317b213bcc31cc884355aa4805a5e8014ed0c18cd05e3db742711819"},
+    {"path": "src/evaluation/projected_lineup_contract.py", "size": 12638, "sha256": "b123406d521c77cc3793bc00db2db5c046808e6f7502d487b61328376d50bbfc"},
+    {"path": "src/evaluation/projected_lineup_official_roster.py", "size": 5486, "sha256": "7262291152725333c3c024369ceef5ba208dcb188cf161e8caeee9d9be640af6"},
+    {"path": "src/evaluation/projected_lineup_roster_ledger.py", "size": 14110, "sha256": "66743e99aaaede887cc2c025987521cc257b7318c4d9a2c3c1e3f5639d7a7527"},
+    {"path": "src/evaluation/prospective_batter_opportunity.py", "size": 50213, "sha256": "fc5ca7d433a94a2c848635adb37b64a501f0746dfff10e053729a7489943abed"},
+    {"path": "src/evaluation/prospective_batter_opportunity_history.py", "size": 45167, "sha256": "a8795877305519617ea4415d7f3d322e4194c7da6f3a27966b612a01fe0b4d35"},
+    {"path": "src/evaluation/shared_pa_batter_evidence_inventory.py", "size": 47450, "sha256": "49441bf3d4fac80b0da3117a97b961bd673ef7cf00850ae4ac62c28fbe824028"},
+    {"path": "src/evaluation/shared_pa_forward_collector.py", "size": 20545, "sha256": "c3b7b7297f57c154885fc1811a22a9a15329e2d95f2afc65f1d996d9152f1c23"},
+    {"path": "src/evaluation/shared_pa_forward_evidence.py", "size": 31965, "sha256": "9b8f79ce7b12d8ead102a4c2cbfedb227a18c6e1ebb47e70b19f24910fea59f1"},
+    {"path": "src/evaluation/shadow_capture_plan.py", "size": 22434, "sha256": "491a73556cab02b8295eee695f0474345defbc15f5d9bd01aae011cdff2b17e0"},
+    {"path": "tests/test_prospective_batter_opportunity_history.py", "size": 18385, "sha256": "41fc0286581484304ff697a84f9e2745112fc57801f1ed859ddbdfa4194707e3"},
+    {"path": "tests/test_shared_pa_batter_evidence_inventory.py", "size": 27855, "sha256": "dc6ab1e4a6e35272fb4c8bf61b6eba8d7f82b9494c511e0512c4e24f84bc9675"}
+  ],
+  "protected_boundaries": {
+    "aws_changed": false,
+    "may_2026_accessed": false,
+    "outcomes_accessed": false,
+    "probabilities_generated": false,
+    "process_20872_touched": false,
+    "betting_authorized": false
+  }
+}

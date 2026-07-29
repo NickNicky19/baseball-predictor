@@ -22,8 +22,8 @@ from src.evaluation.market_economics import (
 
 
 VALID_AMERICAN_ODDS = st.one_of(
-    st.integers(min_value=-10_000, max_value=-1),
-    st.integers(min_value=1, max_value=10_000),
+    st.integers(min_value=-10_000, max_value=-100),
+    st.integers(min_value=100, max_value=10_000),
 )
 PROBABILITIES = st.floats(
     min_value=0.0,

@@ -41,6 +41,7 @@ from pathlib import Path
 from typing import Any, Optional
 
 from src.data.mlb_api import PitchingStatsSnapshot
+from src.data.pitching_source_truth import frozen_legacy_rate_fallback
 from src.models.dataclasses import (
     LeagueBaselines,
     MonteCarloResult,
@@ -502,8 +503,15 @@ class PropEngine:
         season_w = float(weights.get("season", 0.35))
         recent_w = float(weights.get("recent", 0.65))
 
-        season_k9 = season_stats.k_per_9 or self._league_k9()
-        recent_k9 = recent_stats.k_per_9 or season_k9
+        # Explicit frozen-compatibility boundary: source truth retains zero and
+        # missing distinctly, but the unchanged production model historically
+        # treated both as fallback. Candidate-ready code must not use this path.
+        season_k9 = frozen_legacy_rate_fallback(
+            season_stats.k_per_9, default=self._league_k9()
+        )
+        recent_k9 = frozen_legacy_rate_fallback(
+            recent_stats.k_per_9, default=season_k9
+        )
         blended_k9 = (season_w * season_k9) + (recent_w * recent_k9)
 
         reg = self.config.get("pitcher_regression", {})
@@ -515,11 +523,12 @@ class PropEngine:
 
         # FIX: per-9 rate -> per-PA percentage (divide by PA/inning, don't multiply).
         pitcher_k_pct = rate_per_9_to_pct(regressed_k9)
-        bb_per_9 = recent_stats.bb_per_9 or season_stats.bb_per_9
-        if bb_per_9 is not None:
-            pitcher_bb_pct = rate_per_9_to_pct(bb_per_9)
-        else:
-            pitcher_bb_pct = self.league.bb_pct
+        bb_per_9 = frozen_legacy_rate_fallback(
+            recent_stats.bb_per_9,
+            season_stats.bb_per_9,
+            default=self.league.bb_pct * 9.0 * PA_PER_INNING / 100.0,
+        )
+        pitcher_bb_pct = rate_per_9_to_pct(bb_per_9)
 
         expected_ip = pitcher.expected_innings
         batters_faced = expected_ip * PA_PER_INNING
@@ -666,7 +675,7 @@ class PropEngine:
         conf = 0.50
         if recent.innings_pitched >= 15:
             conf += 0.12
-        if season.games_started >= 8:
+        if season.games_started is not None and season.games_started >= 8:
             conf += 0.10
         return round(min(0.85, conf), 3)
 

@@ -1,0 +1,61 @@
+name: Shared PA Batter Evidence Collection Linux Gate
+
+"on":
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/shared-pa-batter-evidence-collection-linux.yml"
+      - "config/shared_pa_batter_evidence_collection_v1.json"
+      - "deploy/pr32_batter_evidence/**"
+      - "requirements-shared-pa-batter-evidence-collection-ci.lock"
+      - "reports/shared_pa_batter_evidence_collection_v1_hash_manifest.json"
+      - "scripts/check_shared_pa_batter_evidence_collection_manifest.py"
+      - "scripts/run_shared_pa_batter_evidence_inventory.py"
+      - "src/__init__.py"
+      - "src/evaluation/**"
+      - "tests/test_prospective_batter_opportunity_history.py"
+      - "tests/test_shared_pa_batter_evidence_inventory.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-code-only-collector:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTEST_DISABLE_PLUGIN_AUTOLOAD: "1"
+      PYTHONPATH: "."
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Verify exact requested head
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: "3.12.3"
+          architecture: x64
+      - name: Install exact test dependencies
+        run: |
+          python -m pip install --disable-pip-version-check --no-deps --require-hashes \
+            -r requirements-shared-pa-batter-evidence-collection-ci.lock
+          python -m pip check
+      - name: Run collection regression and mutation gates
+        run: |
+          python -m pytest -q -p no:cacheprovider \
+            tests/test_shared_pa_batter_evidence_inventory.py \
+            tests/test_prospective_batter_opportunity_history.py
+      - name: Validate exact manifest and credential boundary
+        run: |
+          python scripts/check_shared_pa_batter_evidence_collection_manifest.py
+          python scripts/check_tracked_secrets.py
+      - name: Prove tests did not mutate tracked bytes
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"

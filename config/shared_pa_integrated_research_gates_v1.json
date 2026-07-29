@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "authority_state": "INTEGRATED_INTEGRITY_GATE_ONLY",
+  "integration_base": "e1bff9baefa072e20dc53532d960924e994d8010",
+  "component_merge_base": "9f9d839187550f7a7a6da3b4bfdb25b2dff3e794",
+  "integration_support_files": [
+    ".github/workflows/shared-pa-integrated-research-gates-linux.yml",
+    "config/shared_pa_integrated_research_gates_v1.json",
+    "reports/shared_pa_integrated_research_gates_v1.md",
+    "scripts/check_shared_pa_integrated_research_gates.py",
+    "tests/test_shared_pa_integrated_research_gates.py"
+  ],
+  "components": [
+    {
+      "component_id": "projected_opportunity_receipt_inventory",
+      "commit": "6696e1dd5561db393ab2e8075ed95ec8a8d1f620",
+      "tree": "c51068e52384c42a657bbd48cd20a9d9188670d3",
+      "changed_file_count": 37
+    },
+    {
+      "component_id": "full_game_opportunity_receipt_replay",
+      "commit": "49789b83a6c559bd38588e3b3adcf118346b7bef",
+      "tree": "93f68d6f7adccadd7c481f7ef5728e93100868eb",
+      "changed_file_count": 37
+    },
+    {
+      "component_id": "direct_batter_pa_source_authority",
+      "commit": "4877938fa81212b6df726ac0606f7b3cf690bdf6",
+      "tree": "723affbe121e0be2f5f7c50d2c694f82d8e65660",
+      "changed_file_count": 24
+    },
+    {
+      "component_id": "experiment_registry_and_synthetic_evaluator",
+      "commit": "7390ee603224d8e168b9ee7838ec25b387bc58a5",
+      "tree": "abda1185cc73a888f081dc90e55ae448ccf3c672",
+      "changed_file_count": 27
+    }
+  ],
+  "required_truth_state": {
+    "candidate_family_locked": false,
+    "evaluation_protocol_locked": false,
+    "genuine_receipt_producers_complete": false,
+    "historical_results_permitted": false,
+    "future_predictions_permitted": false,
+    "promotion_permitted": false,
+    "betting_permitted": false
+  },
+  "protected_boundaries": {
+    "may_2026": "SKIP_ENTIRELY",
+    "spent_2024_selection": "DO_NOT_REUSE",
+    "spent_2025_hr_confirmation": "DO_NOT_REUSE_AS_FRESH_PROOF",
+    "operational_smoke": "PERMANENTLY_NON_ECONOMIC",
+    "process_20872": "DO_NOT_TOUCH",
+    "missing_receipts": "TERMINAL_MISSING_NO_BACKFILL"
+  }
+}

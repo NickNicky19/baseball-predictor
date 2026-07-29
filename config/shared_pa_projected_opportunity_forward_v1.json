@@ -1,0 +1,184 @@
+{
+  "schema_version": "shared-pa-projected-opportunity-protocol-v1",
+  "status": "PREDECLARED_RESEARCH_ONLY_PENDING_EXACT_RELEASE",
+  "predeclared_at_utc": "2026-07-28T04:18:57.6108036Z",
+  "candidate_id": "shared_pa_projected_opportunity_eb200_v1",
+  "purpose": "Test whether receipt-bound projected start and batting-slot probabilities improve game-level Hits, HR over 0.5, and Total Bases probabilities while the locked batter per-PA empirical-Bayes control remains unchanged.",
+  "decision_horizon": "T-4h",
+  "markets": [
+    "hits",
+    "home_runs_over_0_5",
+    "total_bases"
+  ],
+  "immutable_bindings": [
+    {
+      "path": "config/projected_lineup_contract_v1.json",
+      "sha256": "88910f66c0a51a7aa33baa1dffe9c6cbe8fc9aebcc90d76df26f41937640182a"
+    },
+    {
+      "path": "config/projected_lineup_empirical_joint_v1.json",
+      "sha256": "f324cef59bf5d931ba68fe83b623417ac17a2f40f65ffba4b320322851982b46"
+    },
+    {
+      "path": "config/shared_pa_forward_evidence_contract_v1.json",
+      "sha256": "b93827a465e5145d1e725f84cbed53d413f0c2e8601e41021221e3d13d079401"
+    },
+    {
+      "path": "config/shared_pa_forward_eb_control_v1.json",
+      "sha256": "033934ec8dc06bc49d02fd46e223f840ef5cef01bb545c09054fe9b740628c6c"
+    },
+    {
+      "path": "config/shared_pa_forward_runtime_v1.json",
+      "sha256": "4dbaeb60c8b0dab0a22dbd3d92485bd5be2e6b1d51c2de5f6dd2124c669d615a"
+    },
+    {
+      "path": "data/analysis/system_integrity_v2/pa_volume_chronology_v1/pa_distribution_fit_2023.json",
+      "sha256": "7ffd6a8fecb1c4f8aed1966c234a61499050346f87f884f731c440daca793c90"
+    },
+    {
+      "path": "src/evaluation/projected_lineup_contract.py",
+      "sha256": "b123406d521c77cc3793bc00db2db5c046808e6f7502d487b61328376d50bbfc"
+    },
+    {
+      "path": "src/evaluation/projected_lineup_contract_v2.py",
+      "sha256": "cc6d8f148e87cbba5da8919b01faabe92fe423419eae49c87b6a87699e78e24d"
+    },
+    {
+      "path": "src/evaluation/projected_lineup_empirical_joint.py",
+      "sha256": "2c30a02db03b2b58db115df36cf80c136ea2cfef7d9d8c4ba84a98dfff86f195"
+    },
+    {
+      "path": "src/evaluation/projected_lineup_history.py",
+      "sha256": "7110803d0d3391fdbf4c87c12790d4a1e132dbc06f442009d930cb3d192a2764"
+    },
+    {
+      "path": "src/evaluation/shared_pa_batter_skill.py",
+      "sha256": "3cf6e0ea724ce8af2e7b738c246eba414139d8b3b3d4c19012e46e3abdf48776"
+    },
+    {
+      "path": "src/evaluation/shared_pa_forward_collector.py",
+      "sha256": "c3b7b7297f57c154885fc1811a22a9a15329e2d95f2afc65f1d996d9152f1c23"
+    },
+    {
+      "path": "src/evaluation/shared_pa_forward_evidence.py",
+      "sha256": "9b8f79ce7b12d8ead102a4c2cbfedb227a18c6e1ebb47e70b19f24910fea59f1"
+    },
+    {
+      "path": "src/evaluation/shared_pa_projected_opportunity_candidate.py",
+      "sha256": "95c9a8296325689d265dafe929629f63375728c546c0b39875c8333e7e837a8c"
+    },
+    {
+      "path": "src/evaluation/shared_pa_projected_opportunity_runner.py",
+      "sha256": "d17c6fef04c7e90ec546c8b794001bb4fcfe62f2b09671d80489a2e816c2cdfb"
+    }
+  ],
+  "lineup_model": {
+    "candidate_id": "projected_lineup_empirical_joint_v1",
+    "method": "equal mass over each distinct strictly prior complete historical lineup still eligible under the receipt-proven active roster",
+    "hand_tuned_coefficients": false,
+    "required_outputs": [
+      "complete_joint_lineup_distribution",
+      "player_start_probability",
+      "player_slot_probability",
+      "explicit_terminal_abstention"
+    ],
+    "evaluation": [
+      "multiclass_log_loss_for_slot_including_nonstarter",
+      "start_probability_brier",
+      "start_probability_log_loss",
+      "start_probability_calibration",
+      "slot_probability_calibration",
+      "coverage_and_terminal_missingness"
+    ]
+  },
+  "market_model": {
+    "only_changed_quantity": "game_pa_distribution",
+    "nonstart_pa_mass": "1 - projected_start_probability",
+    "started_pa_mass": "sum over projected slot probability times locked 2023 slot-specific PA distribution",
+    "per_pa_probability": "unchanged empirical_bayes_player_rate_pa_200_2023_control_v1",
+    "coherence": "one PA distribution and one per-PA outcome simplex jointly derive Hits, HR, and Total Bases",
+    "pitcher_features": "excluded_batter_only"
+  },
+  "baselines": {
+    "all_markets": [
+      "league_rate_2023_same_pa_volume",
+      "time_safe_player_empirical_bayes_with_pooled_projected_pa_volume",
+      "frozen_production_simulator_when_exact_pregame_probability_is_available"
+    ],
+    "home_runs_over_0_5_additional": [
+      "valid_two_sided_market_implied_probability_when_receipt_verified"
+    ],
+    "missing_required_baseline": "gate_unassessable_no_promotion"
+  },
+  "evaluation": {
+    "markets_scored_separately": true,
+    "one_market_cannot_rescue_another": true,
+    "probability_metrics": [
+      "brier",
+      "log_loss",
+      "absolute_bias",
+      "equal_frequency_decile_ece",
+      "auc"
+    ],
+    "hr_tail_metric": "candidate-fixed upper-decile absolute calibration error",
+    "distribution_metrics": [
+      "ranked_probability_score"
+    ],
+    "coverage": [
+      "planned_rows",
+      "predicted_rows",
+      "gradeable_rows",
+      "explicit_terminal_abstentions"
+    ],
+    "uncertainty": {
+      "unit": "official_date_cluster",
+      "method": "paired_percentile_bootstrap",
+      "confidence": 0.95,
+      "resamples": 10000,
+      "seed": 20260722
+    },
+    "material_proper_score_fraction": 0.01,
+    "point_and_upper_confidence_bound_must_clear": true,
+    "post_outcome_threshold_changes_allowed": false
+  },
+  "prospective_windows": {
+    "reserved_smoke": {
+      "first_official_date": "2026-07-23",
+      "last_official_date": "2026-09-16",
+      "confirmation_eligible": false,
+      "outcome_scoring_authorized": false
+    },
+    "first_fresh_confirmation_date": "2026-09-17",
+    "first_fresh_confirmation_last_official_date": "2026-09-27",
+    "first_fresh_window_limitation": "eleven calendar dates at the end of the 2026 regular season; insufficient evidence cannot be repaired by including postseason, extending backward, or lowering gates",
+    "independent_forward_replication_after_first_window": true,
+    "first_candidate_record_rule": "target_horizon_utc must occur after an exact release-bound append-only evidence scope is published"
+  },
+  "terminal_abstention_conditions": [
+    "missing_or_late_T_minus_4_plan",
+    "missing_or_invalid_active_roster_receipt",
+    "missing_or_invalid_strictly_prior_lineup_history",
+    "no_complete_projected_lineup_scenario",
+    "player_absent_from_projected_lineup_support",
+    "game_team_side_or_player_identity_mismatch",
+    "source_parser_protocol_or_code_hash_mismatch",
+    "contradictory_or_post_horizon_evidence"
+  ],
+  "outcome_and_settlement": {
+    "pregame_predictions_immutable_before_outcomes": true,
+    "official_final_lineup_pa_hits_hr_total_bases_captured_after_game": true,
+    "settlement_requires_verified_market_line_and_rules": true,
+    "valid_price_requires_two_sided_same_book_same_market_same_line_same_observation": true,
+    "predictions_may_be_displayed_immediately": true,
+    "display_label": "RESEARCH_ONLY_NOT_BETTING_AUTHORIZED"
+  },
+  "protected_boundaries": {
+    "may_2026_access_allowed": false,
+    "reserved_window_retrofit_allowed": false,
+    "missed_prospective_backfill_allowed": false,
+    "pitcher_features_in_candidate": false,
+    "historical_prices_executable": false,
+    "production_probability_changes_allowed": false,
+    "betting_authorized": false
+  }
+}
