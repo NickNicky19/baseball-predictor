@@ -605,7 +605,7 @@ def _runtime_release_receipt(**updates: object) -> dict:
         "candidate_protocol_path": "config/shared_pa_projected_opportunity_forward_v2.json",
         "candidate_protocol_sha256": "a" * 64,
         "candidate_protocol_status": PUBLISHED_PROTOCOL_STATUS,
-        "created_at_utc": "2026-09-17T15:00:00Z",
+        "created_at_utc": "2026-09-17T15:00:00.000000Z",
         "research_only": True,
         "betting_authorized": False,
     }

@@ -61,12 +61,12 @@
     {"path": "src/evaluation/shared_pa_forward_collector.py", "sha256": "c3b7b7297f57c154885fc1811a22a9a15329e2d95f2afc65f1d996d9152f1c23"},
     {"path": "src/evaluation/shared_pa_forward_evidence.py", "sha256": "9b8f79ce7b12d8ead102a4c2cbfedb227a18c6e1ebb47e70b19f24910fea59f1"},
     {"path": "src/evaluation/shared_pa_projected_opportunity_candidate.py", "sha256": "95c9a8296325689d265dafe929629f63375728c546c0b39875c8333e7e837a8c"},
-    {"path": "src/evaluation/shared_pa_projected_opportunity_candidate_v2.py", "sha256": "5630fe964285375eacc23b7eb15c07b57da036ccd76a6342bdb93e658c712f00"},
+    {"path": "src/evaluation/shared_pa_projected_opportunity_candidate_v2.py", "sha256": "e6f6e139af4851983d9a2ad5bebf284fa02c3581d1cb6435808445c55d520edc"},
     {"path": "src/evaluation/shared_pa_projected_opportunity_evidence_v2.py", "sha256": "69d1e7f915942a0d6a0d04e62d15d410fcfdc44f177cf9335deda7ccdee58afa"},
-    {"path": "src/evaluation/shared_pa_projected_opportunity_release_v2.py", "sha256": "68a63d8feddd9a98672e38942248ce68aee66930067721a15f3cc563fc278a4a"},
-    {"path": "src/evaluation/shared_pa_projected_opportunity_runner_v2.py", "sha256": "0201e10659cdb44e4169e1c16572d553d9c50c8a4586e44e4fa9928a27db7974"},
+    {"path": "src/evaluation/shared_pa_projected_opportunity_release_v2.py", "sha256": "91aa583553edf67e57207d767e462b61fe6352ab3484e2271b90bf412aa5c24c"},
+    {"path": "src/evaluation/shared_pa_projected_opportunity_runner_v2.py", "sha256": "0b8afc29da183f189eaac6547d83c9c8ddc92bebfd64e97964c276e1d0b5a40e"},
     {"path": "tests/test_prospective_batter_opportunity.py", "sha256": "1580eff1008cf5e94f88f9b5c67812d7fd8ec8eb35899c9be67b88a9cf36ab3f"},
-    {"path": "tests/test_shared_pa_projected_opportunity_candidate_v2.py", "sha256": "7b81d2a961491185f91ae221d6992e3af7442aa4e5eaab799ef4a27a77cd5bd5"},
+    {"path": "tests/test_shared_pa_projected_opportunity_candidate_v2.py", "sha256": "56a66a6524bfb7a372777fe88a93481edcfa4ae3f5362024ad02d8ab80d14376"},
     {"path": "tests/test_shared_pa_projected_opportunity_runner_v2.py", "sha256": "2b3e8f1ae1017862a844a9333e67756f00da3bbcd650da2d8121b82dfb265586"}
   ]
 }

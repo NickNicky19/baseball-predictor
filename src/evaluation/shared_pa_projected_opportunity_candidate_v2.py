@@ -11,7 +11,7 @@ from __future__ import annotations
 import hashlib
 import json
 from dataclasses import dataclass
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
@@ -69,6 +69,34 @@ V2_RUNTIME_SOURCE_CLOSURE = frozenset({
     "src/evaluation/shared_pa_projected_opportunity_release_v2.py",
     "src/evaluation/shared_pa_projected_opportunity_runner_v2.py",
 })
+
+
+def validate_prediction_release_chronology_v2(
+    *, release_identity: Mapping[str, Any], prediction_generated_at_utc: str,
+    target_horizon_utc: str,
+) -> None:
+    """Require an exact published release before prediction and prediction by T-4."""
+    if release_identity.get("confirmation_release_eligible") is not True:
+        return
+    created_raw = release_identity.get("release_created_at_utc")
+    try:
+        created = datetime.fromisoformat(str(created_raw).replace("Z", "+00:00"))
+        generated = datetime.fromisoformat(
+            str(prediction_generated_at_utc).replace("Z", "+00:00")
+        )
+        horizon = datetime.fromisoformat(str(target_horizon_utc).replace("Z", "+00:00"))
+    except (TypeError, ValueError) as exc:
+        raise ProjectedOpportunityCandidateV2Error(
+            "release-to-prediction chronology is invalid"
+        ) from exc
+    if any(value.tzinfo is None or value.utcoffset() is None for value in (created, generated, horizon)):
+        raise ProjectedOpportunityCandidateV2Error(
+            "release-to-prediction chronology contains a naive timestamp"
+        )
+    if created > generated or generated > horizon:
+        raise ProjectedOpportunityCandidateV2Error(
+            "exact release, prediction, and T-4 chronology is invalid"
+        )
 
 
 def validate_inherited_evaluation_contract_v2(value: Mapping[str, Any]) -> None:
@@ -356,6 +384,7 @@ def build_projected_opportunity_candidate_v2(
             protocol_sha256=verified_protocol.sha256,
             protocol_source_path=verified_protocol.source_path,
             runtime_release_receipt_path=runtime_release_receipt_path,
+            decision_time_utc=prediction_generated_at_utc,
         )
     except ProjectedOpportunityReleaseV2Error as exc:
         raise ProjectedOpportunityCandidateV2Error(
@@ -413,6 +442,11 @@ def build_projected_opportunity_candidate_v2(
         mass=baseline_mass,
     )
     official_date = date.fromisoformat(envelope["official_game_date"])
+    validate_prediction_release_chronology_v2(
+        release_identity=release_identity,
+        prediction_generated_at_utc=envelope["prediction_generated_at_utc"],
+        target_horizon_utc=envelope["target_horizon_utc"],
+    )
     evidence_class, confirmation_eligible = classify_evidence_date(official_date)
     release_status = str(verified_protocol.value["status"])
     if release_identity["confirmation_release_eligible"] is not True:
@@ -429,6 +463,7 @@ def build_projected_opportunity_candidate_v2(
         "candidate_protocol_status": release_status,
         "source_manifest_sha256": release_identity["source_manifest_sha256"],
         "source_release_commit": release_identity["source_commit"],
+        "release_created_at_utc": release_identity["release_created_at_utc"],
         "runtime_release_receipt_sha256": release_identity[
             "runtime_release_receipt_sha256"
         ],
