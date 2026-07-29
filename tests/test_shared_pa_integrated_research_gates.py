@@ -29,6 +29,7 @@ def test_exact_integration_binding_is_valid() -> None:
         (("required_truth_state", "future_predictions_permitted"), True),
         (("required_truth_state", "promotion_permitted"), True),
         (("integration_support_files",), []),
+        (("integration_release_commit",), "not-a-commit"),
         (("protected_boundaries", "may_2026"), "EXCLUDE_FROM_SCORING"),
         (("protected_boundaries", "missing_receipts"), "BACKFILL_ALLOWED"),
         (("components", 0, "changed_file_count"), 0),
@@ -97,6 +98,13 @@ def test_wrong_but_well_formed_merge_base_fails_closed() -> None:
     validate_static(payload)
     with pytest.raises(GateError, match="merge base"):
         verify_git_binding(ROOT, payload)
+
+
+def test_wrong_but_well_formed_integration_release_fails_closed() -> None:
+    payload = copy.deepcopy(load_config())
+    payload["integration_release_commit"] = payload["integration_base"]
+    with pytest.raises(GateError, match="immutable PR #42"):
+        validate_static(payload)
 
 
 @pytest.mark.parametrize(

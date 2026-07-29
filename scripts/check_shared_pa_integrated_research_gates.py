@@ -14,6 +14,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "config" / "shared_pa_integrated_research_gates_v1.json"
 HEX40 = re.compile(r"^[0-9a-f]{40}$")
+EXPECTED_INTEGRATION_RELEASE_COMMIT = "31ef1c298cc20863f2da8f932238fd27d8ff9298"
 EXPECTED_COMPONENT_IDS = {
     "projected_opportunity_receipt_inventory",
     "full_game_opportunity_receipt_replay",
@@ -66,9 +67,11 @@ def validate_static(payload: dict[str, Any]) -> None:
         raise GateError("unsupported schema_version")
     if payload.get("authority_state") != "INTEGRATED_INTEGRITY_GATE_ONLY":
         raise GateError("authority_state may not imply research, prediction, or promotion readiness")
-    for field in ("integration_base", "component_merge_base"):
+    for field in ("integration_release_commit", "integration_base", "component_merge_base"):
         if not isinstance(payload.get(field), str) or not HEX40.fullmatch(payload[field]):
             raise GateError(f"{field} must be an exact lowercase commit identity")
+    if payload["integration_release_commit"] != EXPECTED_INTEGRATION_RELEASE_COMMIT:
+        raise GateError("integration_release_commit differs from the immutable PR #42 merge authority")
     support_files = payload.get("integration_support_files")
     if (
         not isinstance(support_files, list)
@@ -151,9 +154,16 @@ def validate_complete_delta(actual: set[str], expected: set[str]) -> None:
 
 def verify_git_binding(repo: Path, payload: dict[str, Any]) -> None:
     head = _git(repo, "rev-parse", "HEAD")
+    integration_release_commit = payload["integration_release_commit"]
     integration_base = payload["integration_base"]
-    if subprocess.run(["git", "merge-base", "--is-ancestor", integration_base, head], cwd=repo).returncode:
-        raise GateError("integration base is not an ancestor of the candidate")
+    if subprocess.run(
+        ["git", "merge-base", "--is-ancestor", integration_release_commit, head], cwd=repo
+    ).returncode:
+        raise GateError("immutable integration release is not an ancestor of the candidate")
+    if subprocess.run(
+        ["git", "merge-base", "--is-ancestor", integration_base, integration_release_commit], cwd=repo
+    ).returncode:
+        raise GateError("integration base is not an ancestor of the immutable integration release")
 
     ownership: dict[str, str] = {}
     for component in payload["components"]:
@@ -173,13 +183,15 @@ def verify_git_binding(repo: Path, payload: dict[str, Any]) -> None:
         for relative in changed:
             claim_file_ownership(ownership, relative, component_id)
             component_blob = _git(repo, "rev-parse", f"{commit}:{relative}")
-            integrated_blob = _git(repo, "rev-parse", f"HEAD:{relative}")
+            integrated_blob = _git(repo, "rev-parse", f"{integration_release_commit}:{relative}")
             if component_blob != integrated_blob:
-                raise GateError(f"integrated bytes differ from component authority: {relative}")
+                raise GateError(f"immutable integration bytes differ from component authority: {relative}")
 
     complete_delta = {
         line
-        for line in _git(repo, "diff", "--name-only", integration_base, "HEAD").splitlines()
+        for line in _git(
+            repo, "diff", "--name-only", integration_base, integration_release_commit
+        ).splitlines()
         if line
     }
     expected_delta = set(ownership) | set(payload["integration_support_files"])
