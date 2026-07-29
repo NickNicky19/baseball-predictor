@@ -1,0 +1,5899 @@
+{
+  "game_date": "2026-07-29",
+  "hitter_projections": [
+    {
+      "player_id": 607208,
+      "player_name": "Trea Turner",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 1.024,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.024125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.673375,
+          "2.0": 0.27425
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22182670989024184,
+        "walk": 0.06823021757950352,
+        "home_run": 0.0331772166729878,
+        "single": 0.15025147757996216,
+        "double": 0.04815758435531605,
+        "triple": 0.005087411844494313,
+        "out_on_bip": 0.47326938207749436
+      }
+    },
+    {
+      "player_id": 607208,
+      "player_name": "Trea Turner",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.952,
+      "confidence": 0.7,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.951875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.494375,
+          "3.0": 0.315375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22182670989024184,
+        "walk": 0.06823021757950352,
+        "home_run": 0.0331772166729878,
+        "single": 0.15025147757996216,
+        "double": 0.04815758435531605,
+        "triple": 0.005087411844494313,
+        "out_on_bip": 0.47326938207749436
+      }
+    },
+    {
+      "player_id": 607208,
+      "player_name": "Trea Turner",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.142,
+      "confidence": 0.86,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.141875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.133125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22182670989024184,
+        "walk": 0.06823021757950352,
+        "home_run": 0.0331772166729878,
+        "single": 0.15025147757996216,
+        "double": 0.04815758435531605,
+        "triple": 0.005087411844494313,
+        "out_on_bip": 0.47326938207749436
+      }
+    },
+    {
+      "player_id": 681082,
+      "player_name": "Bryson Stott",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 1.071,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.070875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.693125,
+          "2.0": 0.291625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19491737056712047,
+        "walk": 0.07305117948141802,
+        "home_run": 0.037332122448022094,
+        "single": 0.1566631615494639,
+        "double": 0.05054546077875144,
+        "triple": 0.005313041598159368,
+        "out_on_bip": 0.4821776635770647
+      }
+    },
+    {
+      "player_id": 681082,
+      "player_name": "Bryson Stott",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 2.054,
+      "confidence": 0.7,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.0545,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.514625,
+          "3.0": 0.339375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19491737056712047,
+        "walk": 0.07305117948141802,
+        "home_run": 0.037332122448022094,
+        "single": 0.1566631615494639,
+        "double": 0.05054546077875144,
+        "triple": 0.005313041598159368,
+        "out_on_bip": 0.4821776635770647
+      }
+    },
+    {
+      "player_id": 681082,
+      "player_name": "Bryson Stott",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.166,
+      "confidence": 0.86,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.166125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.154
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19491737056712047,
+        "walk": 0.07305117948141802,
+        "home_run": 0.037332122448022094,
+        "single": 0.1566631615494639,
+        "double": 0.05054546077875144,
+        "triple": 0.005313041598159368,
+        "out_on_bip": 0.4821776635770647
+      }
+    },
+    {
+      "player_id": 547180,
+      "player_name": "Bryce Harper",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.954,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.954375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.652875,
+          "2.0": 0.244875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20917489656616547,
+        "walk": 0.11570218994120672,
+        "home_run": 0.04651327744254028,
+        "single": 0.13146474657483245,
+        "double": 0.04399638942303791,
+        "triple": 0.004499003487124881,
+        "out_on_bip": 0.44864949656509223
+      }
+    },
+    {
+      "player_id": 547180,
+      "player_name": "Bryce Harper",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 2.0,
+      "confidence": 0.7,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.9995,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.498625,
+          "3.0": 0.334
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20917489656616547,
+        "walk": 0.11570218994120672,
+        "home_run": 0.04651327744254028,
+        "single": 0.13146474657483245,
+        "double": 0.04399638942303791,
+        "triple": 0.004499003487124881,
+        "out_on_bip": 0.44864949656509223
+      }
+    },
+    {
+      "player_id": 547180,
+      "player_name": "Bryce Harper",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.193,
+      "confidence": 0.86,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.193375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1795
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20917489656616547,
+        "walk": 0.11570218994120672,
+        "home_run": 0.04651327744254028,
+        "single": 0.13146474657483245,
+        "double": 0.04399638942303791,
+        "triple": 0.004499003487124881,
+        "out_on_bip": 0.44864949656509223
+      }
+    },
+    {
+      "player_id": 664761,
+      "player_name": "Alec Bohm",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 1.008,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.007625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.67025,
+          "2.0": 0.269125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17062881330557403,
+        "walk": 0.06996704136151091,
+        "home_run": 0.0344634998938073,
+        "single": 0.15626385376270907,
+        "double": 0.04993046164561116,
+        "triple": 0.005287033728418467,
+        "out_on_bip": 0.5134592963023691
+      }
+    },
+    {
+      "player_id": 664761,
+      "player_name": "Alec Bohm",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.877,
+      "confidence": 0.7,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.8765,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.478625,
+          "3.0": 0.303625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17062881330557403,
+        "walk": 0.06996704136151091,
+        "home_run": 0.0344634998938073,
+        "single": 0.15626385376270907,
+        "double": 0.04993046164561116,
+        "triple": 0.005287033728418467,
+        "out_on_bip": 0.5134592963023691
+      }
+    },
+    {
+      "player_id": 664761,
+      "player_name": "Alec Bohm",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.142,
+      "confidence": 0.86,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.14225,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.134125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17062881330557403,
+        "walk": 0.06996704136151091,
+        "home_run": 0.0344634998938073,
+        "single": 0.15626385376270907,
+        "double": 0.04993046164561116,
+        "triple": 0.005287033728418467,
+        "out_on_bip": 0.5134592963023691
+      }
+    },
+    {
+      "player_id": 592663,
+      "player_name": "J.T. Realmuto",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.978,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.977625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.659875,
+          "2.0": 0.255
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2052942964375529,
+        "walk": 0.07344738665099679,
+        "home_run": 0.034268873346887,
+        "single": 0.15723302092455713,
+        "double": 0.05038466879830318,
+        "triple": 0.005323530505714368,
+        "out_on_bip": 0.47404822333598856
+      }
+    },
+    {
+      "player_id": 592663,
+      "player_name": "J.T. Realmuto",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.87,
+      "confidence": 0.7,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.87025,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.48375,
+          "3.0": 0.310375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2052942964375529,
+        "walk": 0.07344738665099679,
+        "home_run": 0.034268873346887,
+        "single": 0.15723302092455713,
+        "double": 0.05038466879830318,
+        "triple": 0.005323530505714368,
+        "out_on_bip": 0.47404822333598856
+      }
+    },
+    {
+      "player_id": 592663,
+      "player_name": "J.T. Realmuto",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.132,
+      "confidence": 0.86,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.13225,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.125375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2052942964375529,
+        "walk": 0.07344738665099679,
+        "home_run": 0.034268873346887,
+        "single": 0.15723302092455713,
+        "double": 0.05038466879830318,
+        "triple": 0.005323530505714368,
+        "out_on_bip": 0.47404822333598856
+      }
+    },
+    {
+      "player_id": 669016,
+      "player_name": "Brandon Marsh",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.848,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.84825,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.598875,
+          "2.0": 0.206625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2533901205070432,
+        "walk": 0.06565249152122347,
+        "home_run": 0.03768527136987942,
+        "single": 0.13221853389950236,
+        "double": 0.04359039948396339,
+        "triple": 0.004507921368806815,
+        "out_on_bip": 0.4629552618495813
+      }
+    },
+    {
+      "player_id": 669016,
+      "player_name": "Brandon Marsh",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.624,
+      "confidence": 0.74,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.624,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.414875,
+          "3.0": 0.262625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2533901205070432,
+        "walk": 0.06565249152122347,
+        "home_run": 0.03768527136987942,
+        "single": 0.13221853389950236,
+        "double": 0.04359039948396339,
+        "triple": 0.004507921368806815,
+        "out_on_bip": 0.4629552618495813
+      }
+    },
+    {
+      "player_id": 669016,
+      "player_name": "Brandon Marsh",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.148,
+      "confidence": 0.86,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.14775,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.140625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2533901205070432,
+        "walk": 0.06565249152122347,
+        "home_run": 0.03768527136987942,
+        "single": 0.13221853389950236,
+        "double": 0.04359039948396339,
+        "triple": 0.004507921368806815,
+        "out_on_bip": 0.4629552618495813
+      }
+    },
+    {
+      "player_id": 650559,
+      "player_name": "Bryan De La Cruz",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.87,
+      "confidence": 0.61,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.87025,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.613125,
+          "2.0": 0.209
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17947183615761356,
+        "walk": 0.07895115818447337,
+        "home_run": 0.03563486882111403,
+        "single": 0.14877810593738106,
+        "double": 0.04906643845818484,
+        "triple": 0.005072937035783741,
+        "out_on_bip": 0.5030246554054495
+      }
+    },
+    {
+      "player_id": 650559,
+      "player_name": "Bryan De La Cruz",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.709,
+      "confidence": 0.53,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.708875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.441875,
+          "3.0": 0.274
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17947183615761356,
+        "walk": 0.07895115818447337,
+        "home_run": 0.03563486882111403,
+        "single": 0.14877810593738106,
+        "double": 0.04906643845818484,
+        "triple": 0.005072937035783741,
+        "out_on_bip": 0.5030246554054495
+      }
+    },
+    {
+      "player_id": 650559,
+      "player_name": "Bryan De La Cruz",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.127,
+      "confidence": 0.65,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.127375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.121
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17947183615761356,
+        "walk": 0.07895115818447337,
+        "home_run": 0.03563486882111403,
+        "single": 0.14877810593738106,
+        "double": 0.04906643845818484,
+        "triple": 0.005072937035783741,
+        "out_on_bip": 0.5030246554054495
+      }
+    },
+    {
+      "player_id": 702222,
+      "player_name": "Justin Crawford",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.884,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.883875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6165,
+          "2.0": 0.221875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20060522118813093,
+        "walk": 0.06572237815650524,
+        "home_run": 0.02824543044599544,
+        "single": 0.16964030411041872,
+        "double": 0.05147851585882103,
+        "triple": 0.005669713332544609,
+        "out_on_bip": 0.47863843690758395
+      }
+    },
+    {
+      "player_id": 702222,
+      "player_name": "Justin Crawford",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.61,
+      "confidence": 0.74,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.609875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.429125,
+          "3.0": 0.2555
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20060522118813093,
+        "walk": 0.06572237815650524,
+        "home_run": 0.02824543044599544,
+        "single": 0.16964030411041872,
+        "double": 0.05147851585882103,
+        "triple": 0.005669713332544609,
+        "out_on_bip": 0.47863843690758395
+      }
+    },
+    {
+      "player_id": 702222,
+      "player_name": "Justin Crawford",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.099,
+      "confidence": 0.88,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.0985,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.09325
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20060522118813093,
+        "walk": 0.06572237815650524,
+        "home_run": 0.02824543044599544,
+        "single": 0.16964030411041872,
+        "double": 0.05147851585882103,
+        "triple": 0.005669713332544609,
+        "out_on_bip": 0.47863843690758395
+      }
+    },
+    {
+      "player_id": 624641,
+      "player_name": "Edmundo Sosa",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.819,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.819,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.586,
+          "2.0": 0.194875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20986189344659703,
+        "walk": 0.05512332400024609,
+        "home_run": 0.032298708950359266,
+        "single": 0.15643921982618839,
+        "double": 0.05032005746650531,
+        "triple": 0.0053015199305818895,
+        "out_on_bip": 0.49065527637952205
+      }
+    },
+    {
+      "player_id": 624641,
+      "player_name": "Edmundo Sosa",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.498,
+      "confidence": 0.74,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.498125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.394125,
+          "3.0": 0.23
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20986189344659703,
+        "walk": 0.05512332400024609,
+        "home_run": 0.032298708950359266,
+        "single": 0.15643921982618839,
+        "double": 0.05032005746650531,
+        "triple": 0.0053015199305818895,
+        "out_on_bip": 0.49065527637952205
+      }
+    },
+    {
+      "player_id": 624641,
+      "player_name": "Edmundo Sosa",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.1,
+      "confidence": 0.88,
+      "team": "Philadelphia Phillies",
+      "opponent": "Miami Marlins",
+      "opposing_pitcher": "Ryan Gusto",
+      "opposing_pitcher_id": 687473,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.10025,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.0965
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20986189344659703,
+        "walk": 0.05512332400024609,
+        "home_run": 0.032298708950359266,
+        "single": 0.15643921982618839,
+        "double": 0.05032005746650531,
+        "triple": 0.0053015199305818895,
+        "out_on_bip": 0.49065527637952205
+      }
+    },
+    {
+      "player_id": 672640,
+      "player_name": "Otto Lopez",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.967,
+      "confidence": 0.82,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.966625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.650375,
+          "2.0": 0.24625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18569241177586265,
+        "walk": 0.06375458529869413,
+        "home_run": 0.033513823984876026,
+        "single": 0.14460653952986224,
+        "double": 0.04361450144153958,
+        "triple": 0.004826180537728253,
+        "out_on_bip": 0.523991957431437
+      }
+    },
+    {
+      "player_id": 672640,
+      "player_name": "Otto Lopez",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.894,
+      "confidence": 0.7,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.893625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.485875,
+          "3.0": 0.312
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18569241177586265,
+        "walk": 0.06375458529869413,
+        "home_run": 0.033513823984876026,
+        "single": 0.14460653952986224,
+        "double": 0.04361450144153958,
+        "triple": 0.004826180537728253,
+        "out_on_bip": 0.523991957431437
+      }
+    },
+    {
+      "player_id": 672640,
+      "player_name": "Otto Lopez",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.139,
+      "confidence": 0.86,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.139375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1315
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18569241177586265,
+        "walk": 0.06375458529869413,
+        "home_run": 0.033513823984876026,
+        "single": 0.14460653952986224,
+        "double": 0.04361450144153958,
+        "triple": 0.004826180537728253,
+        "out_on_bip": 0.523991957431437
+      }
+    },
+    {
+      "player_id": 681715,
+      "player_name": "Heriberto Hern\u00e1ndez",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.912,
+      "confidence": 0.82,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.91175,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.627375,
+          "2.0": 0.232625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2827510641086852,
+        "walk": 0.08024216178713116,
+        "home_run": 0.05910422488045872,
+        "single": 0.10930181822639831,
+        "double": 0.040624487553185984,
+        "triple": 0.003844264250758572,
+        "out_on_bip": 0.42413197919338197
+      }
+    },
+    {
+      "player_id": 681715,
+      "player_name": "Heriberto Hern\u00e1ndez",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 2.021,
+      "confidence": 0.7,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.021375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.486875,
+          "3.0": 0.343
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2827510641086852,
+        "walk": 0.08024216178713116,
+        "home_run": 0.05910422488045872,
+        "single": 0.10930181822639831,
+        "double": 0.040624487553185984,
+        "triple": 0.003844264250758572,
+        "out_on_bip": 0.42413197919338197
+      }
+    },
+    {
+      "player_id": 681715,
+      "player_name": "Heriberto Hern\u00e1ndez",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.256,
+      "confidence": 0.86,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.255875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.232875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2827510641086852,
+        "walk": 0.08024216178713116,
+        "home_run": 0.05910422488045872,
+        "single": 0.10930181822639831,
+        "double": 0.040624487553185984,
+        "triple": 0.003844264250758572,
+        "out_on_bip": 0.42413197919338197
+      }
+    },
+    {
+      "player_id": 689414,
+      "player_name": "Liam Hicks",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.973,
+      "confidence": 0.82,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.97275,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.666125,
+          "2.0": 0.24625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16123716915247008,
+        "walk": 0.08307345716678853,
+        "home_run": 0.021778965601518895,
+        "single": 0.15706786116554589,
+        "double": 0.04484532926803778,
+        "triple": 0.005177261293168813,
+        "out_on_bip": 0.5268199563524699
+      }
+    },
+    {
+      "player_id": 689414,
+      "player_name": "Liam Hicks",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.747,
+      "confidence": 0.74,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.747125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.467875,
+          "3.0": 0.2805
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16123716915247008,
+        "walk": 0.08307345716678853,
+        "home_run": 0.021778965601518895,
+        "single": 0.15706786116554589,
+        "double": 0.04484532926803778,
+        "triple": 0.005177261293168813,
+        "out_on_bip": 0.5268199563524699
+      }
+    },
+    {
+      "player_id": 689414,
+      "player_name": "Liam Hicks",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.086,
+      "confidence": 0.88,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.086125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.084125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16123716915247008,
+        "walk": 0.08307345716678853,
+        "home_run": 0.021778965601518895,
+        "single": 0.15706786116554589,
+        "double": 0.04484532926803778,
+        "triple": 0.005177261293168813,
+        "out_on_bip": 0.5268199563524699
+      }
+    },
+    {
+      "player_id": 669364,
+      "player_name": "Xavier Edwards",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.878,
+      "confidence": 0.82,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.877625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.615,
+          "2.0": 0.216
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18471287871876718,
+        "walk": 0.09762881113767116,
+        "home_run": 0.02232637557807658,
+        "single": 0.14555386260621195,
+        "double": 0.04171044557219185,
+        "triple": 0.00480164892765138,
+        "out_on_bip": 0.5032659774594298
+      }
+    },
+    {
+      "player_id": 669364,
+      "player_name": "Xavier Edwards",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.617,
+      "confidence": 0.74,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.6175,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.436625,
+          "3.0": 0.252625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18471287871876718,
+        "walk": 0.09762881113767116,
+        "home_run": 0.02232637557807658,
+        "single": 0.14555386260621195,
+        "double": 0.04171044557219185,
+        "triple": 0.00480164892765138,
+        "out_on_bip": 0.5032659774594298
+      }
+    },
+    {
+      "player_id": 669364,
+      "player_name": "Xavier Edwards",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.092,
+      "confidence": 0.88,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.092375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.0895
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18471287871876718,
+        "walk": 0.09762881113767116,
+        "home_run": 0.02232637557807658,
+        "single": 0.14555386260621195,
+        "double": 0.04171044557219185,
+        "triple": 0.00480164892765138,
+        "out_on_bip": 0.5032659774594298
+      }
+    },
+    {
+      "player_id": 691594,
+      "player_name": "Javier Sanoja",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.942,
+      "confidence": 0.82,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.942125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.64825,
+          "2.0": 0.240375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15196539073763426,
+        "walk": 0.06461074564891647,
+        "home_run": 0.02545673961438699,
+        "single": 0.1604614574791301,
+        "double": 0.04573130611866442,
+        "triple": 0.005286993938404988,
+        "out_on_bip": 0.5464873664628628
+      }
+    },
+    {
+      "player_id": 691594,
+      "player_name": "Javier Sanoja",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.679,
+      "confidence": 0.74,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.678875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.44975,
+          "3.0": 0.26275
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15196539073763426,
+        "walk": 0.06461074564891647,
+        "home_run": 0.02545673961438699,
+        "single": 0.1604614574791301,
+        "double": 0.04573130611866442,
+        "triple": 0.005286993938404988,
+        "out_on_bip": 0.5464873664628628
+      }
+    },
+    {
+      "player_id": 691594,
+      "player_name": "Javier Sanoja",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.096,
+      "confidence": 0.88,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.09575,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.091375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15196539073763426,
+        "walk": 0.06461074564891647,
+        "home_run": 0.02545673961438699,
+        "single": 0.1604614574791301,
+        "double": 0.04573130611866442,
+        "triple": 0.005286993938404988,
+        "out_on_bip": 0.5464873664628628
+      }
+    },
+    {
+      "player_id": 677870,
+      "player_name": "Leo Jim\u00e9nez",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.822,
+      "confidence": 0.787,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.822375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.592375,
+          "2.0": 0.193875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22076939802636603,
+        "walk": 0.08008240451902504,
+        "home_run": 0.030424245355717826,
+        "single": 0.14045996024508667,
+        "double": 0.043045109873287885,
+        "triple": 0.004705258208163451,
+        "out_on_bip": 0.480513623772353
+      }
+    },
+    {
+      "player_id": 677870,
+      "player_name": "Leo Jim\u00e9nez",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.586,
+      "confidence": 0.707,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.58625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.416,
+          "3.0": 0.244
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22076939802636603,
+        "walk": 0.08008240451902504,
+        "home_run": 0.030424245355717826,
+        "single": 0.14045996024508667,
+        "double": 0.043045109873287885,
+        "triple": 0.004705258208163451,
+        "out_on_bip": 0.480513623772353
+      }
+    },
+    {
+      "player_id": 677870,
+      "player_name": "Leo Jim\u00e9nez",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.116,
+      "confidence": 0.827,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1155,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.111625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22076939802636603,
+        "walk": 0.08008240451902504,
+        "home_run": 0.030424245355717826,
+        "single": 0.14045996024508667,
+        "double": 0.043045109873287885,
+        "triple": 0.004705258208163451,
+        "out_on_bip": 0.480513623772353
+      }
+    },
+    {
+      "player_id": 669065,
+      "player_name": "Kyle Stowers",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.756,
+      "confidence": 0.82,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.75625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.559375,
+          "2.0": 0.1685
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3352863535528181,
+        "walk": 0.081967499335985,
+        "home_run": 0.05064963585147885,
+        "single": 0.11088705024080525,
+        "double": 0.04128048104272863,
+        "triple": 0.003901731571372664,
+        "out_on_bip": 0.37602724840481144
+      }
+    },
+    {
+      "player_id": 669065,
+      "player_name": "Kyle Stowers",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.652,
+      "confidence": 0.74,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.652,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.40875,
+          "3.0": 0.27025
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3352863535528181,
+        "walk": 0.081967499335985,
+        "home_run": 0.05064963585147885,
+        "single": 0.11088705024080525,
+        "double": 0.04128048104272863,
+        "triple": 0.003901731571372664,
+        "out_on_bip": 0.37602724840481144
+      }
+    },
+    {
+      "player_id": 669065,
+      "player_name": "Kyle Stowers",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.182,
+      "confidence": 0.86,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.18175,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.169375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3352863535528181,
+        "walk": 0.081967499335985,
+        "home_run": 0.05064963585147885,
+        "single": 0.11088705024080525,
+        "double": 0.04128048104272863,
+        "triple": 0.003901731571372664,
+        "out_on_bip": 0.37602724840481144
+      }
+    },
+    {
+      "player_id": 665923,
+      "player_name": "Esteury Ruiz",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.687,
+      "confidence": 0.817,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.68675,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.523125,
+          "2.0": 0.1415
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.31105839374312394,
+        "walk": 0.0917648548964372,
+        "home_run": 0.03761939055191463,
+        "single": 0.12072907191526897,
+        "double": 0.03972340572956782,
+        "triple": 0.004114166093457354,
+        "out_on_bip": 0.39499071707023015
+      }
+    },
+    {
+      "player_id": 665923,
+      "player_name": "Esteury Ruiz",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.478,
+      "confidence": 0.737,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.478125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.38275,
+          "3.0": 0.237375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.31105839374312394,
+        "walk": 0.0917648548964372,
+        "home_run": 0.03761939055191463,
+        "single": 0.12072907191526897,
+        "double": 0.03972340572956782,
+        "triple": 0.004114166093457354,
+        "out_on_bip": 0.39499071707023015
+      }
+    },
+    {
+      "player_id": 665923,
+      "player_name": "Esteury Ruiz",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.131,
+      "confidence": 0.857,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.131375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.124375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.31105839374312394,
+        "walk": 0.0917648548964372,
+        "home_run": 0.03761939055191463,
+        "single": 0.12072907191526897,
+        "double": 0.03972340572956782,
+        "triple": 0.004114166093457354,
+        "out_on_bip": 0.39499071707023015
+      }
+    },
+    {
+      "player_id": 640459,
+      "player_name": "Brian Navarreto",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.636,
+      "confidence": 0.62,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.63575,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.490625,
+          "2.0": 0.129875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2838061678815032,
+        "walk": 0.07042025462862361,
+        "home_run": 0.012464460798085594,
+        "single": 0.1401663997594204,
+        "double": 0.03620640555790345,
+        "triple": 0.0045223796235211245,
+        "out_on_bip": 0.4524139317509426
+      }
+    },
+    {
+      "player_id": 640459,
+      "player_name": "Brian Navarreto",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.123,
+      "confidence": 0.58,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.123,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.3085,
+          "3.0": 0.153375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2838061678815032,
+        "walk": 0.07042025462862361,
+        "home_run": 0.012464460798085594,
+        "single": 0.1401663997594204,
+        "double": 0.03620640555790345,
+        "triple": 0.0045223796235211245,
+        "out_on_bip": 0.4524139317509426
+      }
+    },
+    {
+      "player_id": 640459,
+      "player_name": "Brian Navarreto",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.042,
+      "confidence": 0.7,
+      "team": "Miami Marlins",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.042,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.041
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2838061678815032,
+        "walk": 0.07042025462862361,
+        "home_run": 0.012464460798085594,
+        "single": 0.1401663997594204,
+        "double": 0.03620640555790345,
+        "triple": 0.0045223796235211245,
+        "out_on_bip": 0.4524139317509426
+      }
+    },
+    {
+      "player_id": 682998,
+      "player_name": "Corbin Carroll",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.92,
+      "confidence": 0.82,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.92025,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.62575,
+          "2.0": 0.2365
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24323719419489506,
+        "walk": 0.09386140903327629,
+        "home_run": 0.03287951128261375,
+        "single": 0.13024009587873092,
+        "double": 0.042539697818965,
+        "triple": 0.004430251120453742,
+        "out_on_bip": 0.4528118406710651
+      }
+    },
+    {
+      "player_id": 682998,
+      "player_name": "Corbin Carroll",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.799,
+      "confidence": 0.74,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.799125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.461625,
+          "3.0": 0.28575
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24323719419489506,
+        "walk": 0.09386140903327629,
+        "home_run": 0.03287951128261375,
+        "single": 0.13024009587873092,
+        "double": 0.042539697818965,
+        "triple": 0.004430251120453742,
+        "out_on_bip": 0.4528118406710651
+      }
+    },
+    {
+      "player_id": 682998,
+      "player_name": "Corbin Carroll",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.142,
+      "confidence": 0.86,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.142125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.13225
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24323719419489506,
+        "walk": 0.09386140903327629,
+        "home_run": 0.03287951128261375,
+        "single": 0.13024009587873092,
+        "double": 0.042539697818965,
+        "triple": 0.004430251120453742,
+        "out_on_bip": 0.4528118406710651
+      }
+    },
+    {
+      "player_id": 672695,
+      "player_name": "Geraldo Perdomo",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.851,
+      "confidence": 0.82,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.850875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.60225,
+          "2.0": 0.206375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1693627266773417,
+        "walk": 0.11691288117216521,
+        "home_run": 0.02194318003103731,
+        "single": 0.1337817969971722,
+        "double": 0.038497828213158176,
+        "triple": 0.004417426287444369,
+        "out_on_bip": 0.515084160621681
+      }
+    },
+    {
+      "player_id": 672695,
+      "player_name": "Geraldo Perdomo",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.607,
+      "confidence": 0.74,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.606625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.42225,
+          "3.0": 0.248375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1693627266773417,
+        "walk": 0.11691288117216521,
+        "home_run": 0.02194318003103731,
+        "single": 0.1337817969971722,
+        "double": 0.038497828213158176,
+        "triple": 0.004417426287444369,
+        "out_on_bip": 0.515084160621681
+      }
+    },
+    {
+      "player_id": 672695,
+      "player_name": "Geraldo Perdomo",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.096,
+      "confidence": 0.88,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.096,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.0915
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1693627266773417,
+        "walk": 0.11691288117216521,
+        "home_run": 0.02194318003103731,
+        "single": 0.1337817969971722,
+        "double": 0.038497828213158176,
+        "triple": 0.004417426287444369,
+        "out_on_bip": 0.515084160621681
+      }
+    },
+    {
+      "player_id": 672515,
+      "player_name": "Gabriel Moreno",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 1.046,
+      "confidence": 0.82,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.046,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.686,
+          "2.0": 0.28925
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1852176676700759,
+        "walk": 0.09513398456494299,
+        "home_run": 0.03431849595045937,
+        "single": 0.16081676796061692,
+        "double": 0.05058325703659422,
+        "triple": 0.005420513461466953,
+        "out_on_bip": 0.4685093133558437
+      }
+    },
+    {
+      "player_id": 672515,
+      "player_name": "Gabriel Moreno",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 2.015,
+      "confidence": 0.7,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.015375,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.513625,
+          "3.0": 0.331875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1852176676700759,
+        "walk": 0.09513398456494299,
+        "home_run": 0.03431849595045937,
+        "single": 0.16081676796061692,
+        "double": 0.05058325703659422,
+        "triple": 0.005420513461466953,
+        "out_on_bip": 0.4685093133558437
+      }
+    },
+    {
+      "player_id": 672515,
+      "player_name": "Gabriel Moreno",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.143,
+      "confidence": 0.86,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.14275,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.134
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1852176676700759,
+        "walk": 0.09513398456494299,
+        "home_run": 0.03431849595045937,
+        "single": 0.16081676796061692,
+        "double": 0.05058325703659422,
+        "triple": 0.005420513461466953,
+        "out_on_bip": 0.4685093133558437
+      }
+    },
+    {
+      "player_id": 606466,
+      "player_name": "Ketel Marte",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.97,
+      "confidence": 0.82,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.97,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.653125,
+          "2.0": 0.255125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1845831181741752,
+        "walk": 0.07059345678983553,
+        "home_run": 0.03245728797410356,
+        "single": 0.14969542445073633,
+        "double": 0.04745490763601548,
+        "triple": 0.005055136720173124,
+        "out_on_bip": 0.5101606682549609
+      }
+    },
+    {
+      "player_id": 606466,
+      "player_name": "Ketel Marte",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.835,
+      "confidence": 0.74,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.835375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.467875,
+          "3.0": 0.295625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1845831181741752,
+        "walk": 0.07059345678983553,
+        "home_run": 0.03245728797410356,
+        "single": 0.14969542445073633,
+        "double": 0.04745490763601548,
+        "triple": 0.005055136720173124,
+        "out_on_bip": 0.5101606682549609
+      }
+    },
+    {
+      "player_id": 606466,
+      "player_name": "Ketel Marte",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.133,
+      "confidence": 0.86,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.133375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.127
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1845831181741752,
+        "walk": 0.07059345678983553,
+        "home_run": 0.03245728797410356,
+        "single": 0.14969542445073633,
+        "double": 0.04745490763601548,
+        "triple": 0.005055136720173124,
+        "out_on_bip": 0.5101606682549609
+      }
+    },
+    {
+      "player_id": 596146,
+      "player_name": "Max Kepler",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.85,
+      "confidence": 0.82,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.84975,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.60375,
+          "2.0": 0.206
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21972346013349908,
+        "walk": 0.07833029492117775,
+        "home_run": 0.029972740184428904,
+        "single": 0.13789493540688028,
+        "double": 0.043465880941391345,
+        "triple": 0.004650277342263375,
+        "out_on_bip": 0.48596241107035937
+      }
+    },
+    {
+      "player_id": 596146,
+      "player_name": "Max Kepler",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.671,
+      "confidence": 0.74,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.671,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.432875,
+          "3.0": 0.2675
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21972346013349908,
+        "walk": 0.07833029492117775,
+        "home_run": 0.029972740184428904,
+        "single": 0.13789493540688028,
+        "double": 0.043465880941391345,
+        "triple": 0.004650277342263375,
+        "out_on_bip": 0.48596241107035937
+      }
+    },
+    {
+      "player_id": 596146,
+      "player_name": "Max Kepler",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.115,
+      "confidence": 0.86,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.115375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.111
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21972346013349908,
+        "walk": 0.07833029492117775,
+        "home_run": 0.029972740184428904,
+        "single": 0.13789493540688028,
+        "double": 0.043465880941391345,
+        "triple": 0.004650277342263375,
+        "out_on_bip": 0.48596241107035937
+      }
+    },
+    {
+      "player_id": 571448,
+      "player_name": "Nolan Arenado",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.823,
+      "confidence": 0.82,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.823125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.592,
+          "2.0": 0.191625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22993253144747322,
+        "walk": 0.08093301936134023,
+        "home_run": 0.024350295509270238,
+        "single": 0.14152005587793726,
+        "double": 0.0429677585075008,
+        "triple": 0.004730456779113797,
+        "out_on_bip": 0.4755658825173645
+      }
+    },
+    {
+      "player_id": 571448,
+      "player_name": "Nolan Arenado",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.49,
+      "confidence": 0.74,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.490375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.398125,
+          "3.0": 0.22775
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22993253144747322,
+        "walk": 0.08093301936134023,
+        "home_run": 0.024350295509270238,
+        "single": 0.14152005587793726,
+        "double": 0.0429677585075008,
+        "triple": 0.004730456779113797,
+        "out_on_bip": 0.4755658825173645
+      }
+    },
+    {
+      "player_id": 571448,
+      "player_name": "Nolan Arenado",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.096,
+      "confidence": 0.88,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.095875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.092125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22993253144747322,
+        "walk": 0.08093301936134023,
+        "home_run": 0.024350295509270238,
+        "single": 0.14152005587793726,
+        "double": 0.0429677585075008,
+        "triple": 0.004730456779113797,
+        "out_on_bip": 0.4755658825173645
+      }
+    },
+    {
+      "player_id": 694374,
+      "player_name": "Tim Tawa",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.811,
+      "confidence": 0.81,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.811125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.583,
+          "2.0": 0.192625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23537733607989886,
+        "walk": 0.07401358803332977,
+        "home_run": 0.03438275513094302,
+        "single": 0.13760454808983855,
+        "double": 0.04570701139569094,
+        "triple": 0.004700296397064859,
+        "out_on_bip": 0.468214464873234
+      }
+    },
+    {
+      "player_id": 694374,
+      "player_name": "Tim Tawa",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.563,
+      "confidence": 0.73,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.5635,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.404875,
+          "3.0": 0.24775
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23537733607989886,
+        "walk": 0.07401358803332977,
+        "home_run": 0.03438275513094302,
+        "single": 0.13760454808983855,
+        "double": 0.04570701139569094,
+        "triple": 0.004700296397064859,
+        "out_on_bip": 0.468214464873234
+      }
+    },
+    {
+      "player_id": 694374,
+      "player_name": "Tim Tawa",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.13,
+      "confidence": 0.85,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.13,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.124
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23537733607989886,
+        "walk": 0.07401358803332977,
+        "home_run": 0.03438275513094302,
+        "single": 0.13760454808983855,
+        "double": 0.04570701139569094,
+        "triple": 0.004700296397064859,
+        "out_on_bip": 0.468214464873234
+      }
+    },
+    {
+      "player_id": 545121,
+      "player_name": "Ildemaro Vargas",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.902,
+      "confidence": 0.82,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.901625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.617875,
+          "2.0": 0.231875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15055982830293685,
+        "walk": 0.0648411308048643,
+        "home_run": 0.02570615475396764,
+        "single": 0.17373878713350943,
+        "double": 0.051357487572999676,
+        "triple": 0.0057716993514489515,
+        "out_on_bip": 0.5280249120802731
+      }
+    },
+    {
+      "player_id": 545121,
+      "player_name": "Ildemaro Vargas",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.609,
+      "confidence": 0.74,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.609375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.433,
+          "3.0": 0.25275
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15055982830293685,
+        "walk": 0.0648411308048643,
+        "home_run": 0.02570615475396764,
+        "single": 0.17373878713350943,
+        "double": 0.051357487572999676,
+        "triple": 0.0057716993514489515,
+        "out_on_bip": 0.5280249120802731
+      }
+    },
+    {
+      "player_id": 545121,
+      "player_name": "Ildemaro Vargas",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.088,
+      "confidence": 0.88,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.08775,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.0845
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15055982830293685,
+        "walk": 0.0648411308048643,
+        "home_run": 0.02570615475396764,
+        "single": 0.17373878713350943,
+        "double": 0.051357487572999676,
+        "triple": 0.0057716993514489515,
+        "out_on_bip": 0.5280249120802731
+      }
+    },
+    {
+      "player_id": 678489,
+      "player_name": "Jorge Barrosa",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.632,
+      "confidence": 0.673,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.631875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.491,
+          "2.0": 0.12225
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2771367271346465,
+        "walk": 0.08123705735541352,
+        "home_run": 0.01891768192567482,
+        "single": 0.1308254686291827,
+        "double": 0.03795811391618729,
+        "triple": 0.00432778416783,
+        "out_on_bip": 0.44959716687106516
+      }
+    },
+    {
+      "player_id": 678489,
+      "player_name": "Jorge Barrosa",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.181,
+      "confidence": 0.633,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.18075,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.320875,
+          "3.0": 0.171375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2771367271346465,
+        "walk": 0.08123705735541352,
+        "home_run": 0.01891768192567482,
+        "single": 0.1308254686291827,
+        "double": 0.03795811391618729,
+        "triple": 0.00432778416783,
+        "out_on_bip": 0.44959716687106516
+      }
+    },
+    {
+      "player_id": 678489,
+      "player_name": "Jorge Barrosa",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.063,
+      "confidence": 0.753,
+      "team": "Arizona Diamondbacks",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Jared Jones",
+      "opposing_pitcher_id": 683003,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.06325,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.060625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2771367271346465,
+        "walk": 0.08123705735541352,
+        "home_run": 0.01891768192567482,
+        "single": 0.1308254686291827,
+        "double": 0.03795811391618729,
+        "triple": 0.00432778416783,
+        "out_on_bip": 0.44959716687106516
+      }
+    },
+    {
+      "player_id": 650402,
+      "player_name": "Gleyber Torres",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.994,
+      "confidence": 0.697,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.993875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.662,
+          "2.0": 0.26375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1914893548687485,
+        "walk": 0.12035541607284914,
+        "home_run": 0.027586509686297868,
+        "single": 0.14914527860358434,
+        "double": 0.04623026824664821,
+        "triple": 0.00500962940641622,
+        "out_on_bip": 0.46018354311545573
+      }
+    },
+    {
+      "player_id": 650402,
+      "player_name": "Gleyber Torres",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.895,
+      "confidence": 0.617,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.8945,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4915,
+          "3.0": 0.30725
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1914893548687485,
+        "walk": 0.12035541607284914,
+        "home_run": 0.027586509686297868,
+        "single": 0.14914527860358434,
+        "double": 0.04623026824664821,
+        "triple": 0.00500962940641622,
+        "out_on_bip": 0.46018354311545573
+      }
+    },
+    {
+      "player_id": 650402,
+      "player_name": "Gleyber Torres",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.12,
+      "confidence": 0.737,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.120375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.11475
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1914893548687485,
+        "walk": 0.12035541607284914,
+        "home_run": 0.027586509686297868,
+        "single": 0.14914527860358434,
+        "double": 0.04623026824664821,
+        "triple": 0.00500962940641622,
+        "out_on_bip": 0.46018354311545573
+      }
+    },
+    {
+      "player_id": 805808,
+      "player_name": "Kevin McGonigle",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 1.043,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.042875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.676125,
+          "2.0": 0.28375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15479615726885548,
+        "walk": 0.11139910958513834,
+        "home_run": 0.03197452329196027,
+        "single": 0.15356752520208913,
+        "double": 0.04828315766256494,
+        "triple": 0.005175658534991131,
+        "out_on_bip": 0.49480386845440083
+      }
+    },
+    {
+      "player_id": 805808,
+      "player_name": "Kevin McGonigle",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.988,
+      "confidence": 0.7,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.9885,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.51275,
+          "3.0": 0.326625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15479615726885548,
+        "walk": 0.11139910958513834,
+        "home_run": 0.03197452329196027,
+        "single": 0.15356752520208913,
+        "double": 0.04828315766256494,
+        "triple": 0.005175658534991131,
+        "out_on_bip": 0.49480386845440083
+      }
+    },
+    {
+      "player_id": 805808,
+      "player_name": "Kevin McGonigle",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.132,
+      "confidence": 0.86,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.13225,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.123625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15479615726885548,
+        "walk": 0.11139910958513834,
+        "home_run": 0.03197452329196027,
+        "single": 0.15356752520208913,
+        "double": 0.04828315766256494,
+        "triple": 0.005175658534991131,
+        "out_on_bip": 0.49480386845440083
+      }
+    },
+    {
+      "player_id": 701678,
+      "player_name": "Hao-Yu Lee",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.968,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.968,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.651125,
+          "2.0": 0.251375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2233866315646054,
+        "walk": 0.06186504420928638,
+        "home_run": 0.03153446669920867,
+        "single": 0.1494485733903903,
+        "double": 0.04722512404409618,
+        "triple": 0.005042915318832987,
+        "out_on_bip": 0.4814972447735801
+      }
+    },
+    {
+      "player_id": 701678,
+      "player_name": "Hao-Yu Lee",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.823,
+      "confidence": 0.7,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.823375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.46575,
+          "3.0": 0.29525
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2233866315646054,
+        "walk": 0.06186504420928638,
+        "home_run": 0.03153446669920867,
+        "single": 0.1494485733903903,
+        "double": 0.04722512404409618,
+        "triple": 0.005042915318832987,
+        "out_on_bip": 0.4814972447735801
+      }
+    },
+    {
+      "player_id": 701678,
+      "player_name": "Hao-Yu Lee",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.138,
+      "confidence": 0.86,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.137625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1285
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2233866315646054,
+        "walk": 0.06186504420928638,
+        "home_run": 0.03153446669920867,
+        "single": 0.1494485733903903,
+        "double": 0.04722512404409618,
+        "triple": 0.005042915318832987,
+        "out_on_bip": 0.4814972447735801
+      }
+    },
+    {
+      "player_id": 693307,
+      "player_name": "Dillon Dingler",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 1.054,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.054125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.688875,
+          "2.0": 0.290375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20433154642666757,
+        "walk": 0.06888484905963412,
+        "home_run": 0.04014914451035232,
+        "single": 0.15665036647931044,
+        "double": 0.052172203858972435,
+        "triple": 0.0053544248804687925,
+        "out_on_bip": 0.4724574647845944
+      }
+    },
+    {
+      "player_id": 693307,
+      "player_name": "Dillon Dingler",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 2.025,
+      "confidence": 0.7,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.024875,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.5075,
+          "3.0": 0.335625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20433154642666757,
+        "walk": 0.06888484905963412,
+        "home_run": 0.04014914451035232,
+        "single": 0.15665036647931044,
+        "double": 0.052172203858972435,
+        "triple": 0.0053544248804687925,
+        "out_on_bip": 0.4724574647845944
+      }
+    },
+    {
+      "player_id": 693307,
+      "player_name": "Dillon Dingler",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.161,
+      "confidence": 0.86,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.161125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.151375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20433154642666757,
+        "walk": 0.06888484905963412,
+        "home_run": 0.04014914451035232,
+        "single": 0.15665036647931044,
+        "double": 0.052172203858972435,
+        "triple": 0.0053544248804687925,
+        "out_on_bip": 0.4724574647845944
+      }
+    },
+    {
+      "player_id": 682985,
+      "player_name": "Riley Greene",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.926,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.926125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.635875,
+          "2.0": 0.24025
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24025505044191403,
+        "walk": 0.0999963349349601,
+        "home_run": 0.05810620415019776,
+        "single": 0.1263078848293191,
+        "double": 0.047283280920570075,
+        "triple": 0.004451055532048441,
+        "out_on_bip": 0.42360018919099046
+      }
+    },
+    {
+      "player_id": 682985,
+      "player_name": "Riley Greene",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 2.041,
+      "confidence": 0.7,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.041375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.49175,
+          "3.0": 0.342125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24025505044191403,
+        "walk": 0.0999963349349601,
+        "home_run": 0.05810620415019776,
+        "single": 0.1263078848293191,
+        "double": 0.047283280920570075,
+        "triple": 0.004451055532048441,
+        "out_on_bip": 0.42360018919099046
+      }
+    },
+    {
+      "player_id": 682985,
+      "player_name": "Riley Greene",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.226,
+      "confidence": 0.86,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.22575,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.206875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24025505044191403,
+        "walk": 0.0999963349349601,
+        "home_run": 0.05810620415019776,
+        "single": 0.1263078848293191,
+        "double": 0.047283280920570075,
+        "triple": 0.004451055532048441,
+        "out_on_bip": 0.42360018919099046
+      }
+    },
+    {
+      "player_id": 680664,
+      "player_name": "Eduardo Valencia",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.899,
+      "confidence": 0.63,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.899,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6245,
+          "2.0": 0.226125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24989376914818184,
+        "walk": 0.04675000000000001,
+        "home_run": 0.06526041249372748,
+        "single": 0.11646475696248125,
+        "double": 0.051140062232115285,
+        "triple": 0.004297559466528117,
+        "out_on_bip": 0.466193439696966
+      }
+    },
+    {
+      "player_id": 680664,
+      "player_name": "Eduardo Valencia",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.968,
+      "confidence": 0.51,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.968,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.47125,
+          "3.0": 0.335125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24989376914818184,
+        "walk": 0.04675000000000001,
+        "home_run": 0.06526041249372748,
+        "single": 0.11646475696248125,
+        "double": 0.051140062232115285,
+        "triple": 0.004297559466528117,
+        "out_on_bip": 0.466193439696966
+      }
+    },
+    {
+      "player_id": 680664,
+      "player_name": "Eduardo Valencia",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.251,
+      "confidence": 0.67,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.251375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.226
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24989376914818184,
+        "walk": 0.04675000000000001,
+        "home_run": 0.06526041249372748,
+        "single": 0.11646475696248125,
+        "double": 0.051140062232115285,
+        "triple": 0.004297559466528117,
+        "out_on_bip": 0.466193439696966
+      }
+    },
+    {
+      "player_id": 679529,
+      "player_name": "Spencer Torkelson",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.763,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.762875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.5595,
+          "2.0": 0.174125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2844115771097175,
+        "walk": 0.09120212817011947,
+        "home_run": 0.03827315354776918,
+        "single": 0.12219855903310707,
+        "double": 0.0419323446323114,
+        "triple": 0.004208484709369705,
+        "out_on_bip": 0.4177737527976057
+      }
+    },
+    {
+      "player_id": 679529,
+      "player_name": "Spencer Torkelson",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.515,
+      "confidence": 0.74,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.514875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.38925,
+          "3.0": 0.24075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2844115771097175,
+        "walk": 0.09120212817011947,
+        "home_run": 0.03827315354776918,
+        "single": 0.12219855903310707,
+        "double": 0.0419323446323114,
+        "triple": 0.004208484709369705,
+        "out_on_bip": 0.4177737527976057
+      }
+    },
+    {
+      "player_id": 679529,
+      "player_name": "Spencer Torkelson",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.142,
+      "confidence": 0.86,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.141875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.134
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2844115771097175,
+        "walk": 0.09120212817011947,
+        "home_run": 0.03827315354776918,
+        "single": 0.12219855903310707,
+        "double": 0.0419323446323114,
+        "triple": 0.004208484709369705,
+        "out_on_bip": 0.4177737527976057
+      }
+    },
+    {
+      "player_id": 663837,
+      "player_name": "Matt Vierling",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.835,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.835125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.595875,
+          "2.0": 0.20075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17319013485665435,
+        "walk": 0.06991560007079854,
+        "home_run": 0.02791842120962542,
+        "single": 0.16180728058240718,
+        "double": 0.0489572573608963,
+        "triple": 0.005404218921623166,
+        "out_on_bip": 0.512807086997995
+      }
+    },
+    {
+      "player_id": 663837,
+      "player_name": "Matt Vierling",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.55,
+      "confidence": 0.74,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.54975,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.411875,
+          "3.0": 0.23925
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17319013485665435,
+        "walk": 0.06991560007079854,
+        "home_run": 0.02791842120962542,
+        "single": 0.16180728058240718,
+        "double": 0.0489572573608963,
+        "triple": 0.005404218921623166,
+        "out_on_bip": 0.512807086997995
+      }
+    },
+    {
+      "player_id": 663837,
+      "player_name": "Matt Vierling",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.095,
+      "confidence": 0.88,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.09475,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.09125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17319013485665435,
+        "walk": 0.06991560007079854,
+        "home_run": 0.02791842120962542,
+        "single": 0.16180728058240718,
+        "double": 0.0489572573608963,
+        "triple": 0.005404218921623166,
+        "out_on_bip": 0.512807086997995
+      }
+    },
+    {
+      "player_id": 595879,
+      "player_name": "Javier B\u00e1ez",
+      "category": "hits",
+      "game_date": "2026-07-29",
+      "projected_value": 0.804,
+      "confidence": 0.5,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_statcast_league_fallback",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.803625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.5815,
+          "2.0": 0.185
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18355282245140042,
+        "walk": 0.05319593057999691,
+        "home_run": 0.02461687347774221,
+        "single": 0.16633628979249235,
+        "double": 0.04915928853063611,
+        "triple": 0.005525527649310987,
+        "out_on_bip": 0.5176132675184208
+      }
+    },
+    {
+      "player_id": 595879,
+      "player_name": "Javier B\u00e1ez",
+      "category": "hrr",
+      "game_date": "2026-07-29",
+      "projected_value": 1.456,
+      "confidence": 0.42,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_statcast_league_fallback",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.455625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.39275,
+          "3.0": 0.21925
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18355282245140042,
+        "walk": 0.05319593057999691,
+        "home_run": 0.02461687347774221,
+        "single": 0.16633628979249235,
+        "double": 0.04915928853063611,
+        "triple": 0.005525527649310987,
+        "out_on_bip": 0.5176132675184208
+      }
+    },
+    {
+      "player_id": 595879,
+      "player_name": "Javier B\u00e1ez",
+      "category": "home_runs",
+      "game_date": "2026-07-29",
+      "projected_value": 0.078,
+      "confidence": 0.58,
+      "team": "Detroit Tigers",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_statcast_league_fallback",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.077875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.075375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18355282245140042,
+        "walk": 0.05319593057999691,
+        "home_run": 0.02461687347774221,
+        "single": 0.16633628979249235,
+        "double": 0.04915928853063611,
+        "triple": 0.005525527649310987,
+        "out_on_bip": 0.5176132675184208
+      }
+    }
+  ],
+  "pitcher_projections": [
+    {
+      "player_id": 666200,
+      "player_name": "Jes\u00fas Luzardo",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 6.71,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.707046566911888,
+        "median": 7.0,
+        "p10": 4.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.7985682099740311,
+          "6.0": 0.6603255605987902,
+          "7.0": 0.5057922461166213
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 687473,
+      "player_name": "Ryan Gusto",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 3.26,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823837,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.2588563214510904,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.22994450257758636,
+          "6.0": 0.11222687433959322,
+          "7.0": 0.04828940151799099
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 593958,
+      "player_name": "Eduardo Rodriguez",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 4.67,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.665505309451858,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.4989960927321727,
+          "6.0": 0.3255721790535573,
+          "7.0": 0.19072048071130743
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 683003,
+      "player_name": "Jared Jones",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 5.02,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823351,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.021909224494116,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5633426095977561,
+          "6.0": 0.3878836377863948,
+          "7.0": 0.24102713294310707
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 702056,
+      "player_name": "Trey Yesavage",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 5.32,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822702,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.317435701367994,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6133369997139556,
+          "6.0": 0.43955811467238726,
+          "7.0": 0.28554844009506053
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 641793,
+      "player_name": "Zack Littell",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 2.72,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822702,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.721669493155306,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.1403336401917018,
+          "6.0": 0.058489114090327754,
+          "7.0": 0.021363489111683953
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669432,
+      "player_name": "Trevor Rogers",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 4.74,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.7448838017483235,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5136631799789306,
+          "6.0": 0.33937424804359195,
+          "7.0": 0.20154412638292452
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669373,
+      "player_name": "Tarik Skubal",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 6.85,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824242,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.850878931164434,
+        "median": 7.0,
+        "p10": 4.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.812964897155633,
+          "6.0": 0.6798424472229515,
+          "7.0": 0.5278414826381517
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 700363,
+      "player_name": "AJ Smith-Shawver",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 5.35,
+      "confidence": 0.5,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823596,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.352797402615396,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6190898637964853,
+          "6.0": 0.4456965247467386,
+          "7.0": 0.29100662226402274
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 640455,
+      "player_name": "Sean Manaea",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 3.41,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823596,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.4114053386640135,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.2579398634903336,
+          "6.0": 0.13090267791666965,
+          "7.0": 0.058673455737528246
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 519242,
+      "player_name": "Chris Sale",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 6.56,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823598,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.557234018394305,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.7826579651904816,
+          "6.0": 0.6392241270944363,
+          "7.0": 0.48246925333572843
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 681035,
+      "player_name": "Christian Scott",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 5.17,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823598,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.1672435422366885,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.588346153395907,
+          "6.0": 0.41335823990612763,
+          "7.0": 0.26265737891453833
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 675660,
+      "player_name": "Shane Drohan",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 3.46,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823192,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.457360404317675,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.2665294356807194,
+          "6.0": 0.13680270363155822,
+          "7.0": 0.062050692503508476
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 657277,
+      "player_name": "Logan Webb",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 5.38,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823192,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.384951007372607,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6242764012633171,
+          "6.0": 0.45126567540488816,
+          "7.0": 0.295989961655286
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 687312,
+      "player_name": "Gabriel Hughes",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 3.42,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823273,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.416490341069505,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.2588870785442916,
+          "6.0": 0.13154942654421387,
+          "7.0": 0.059041450192091394
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669022,
+      "player_name": "MacKenzie Gore",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 5.58,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822947,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.584914083052525,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6555591272528553,
+          "6.0": 0.48557676204938993,
+          "7.0": 0.32735394450015487
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 668984,
+      "player_name": "Casey Legumina",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 2.09,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822947,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.09249973825613,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "5.0": 0.06138438229499732,
+          "6.0": 0.020138107965447904,
+          "7.0": 0.005753471592344184
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 676282,
+      "player_name": "Joey Cantillo",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 5.13,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824487,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.13216180693099,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5823825501534341,
+          "6.0": 0.40721611050220874,
+          "7.0": 0.2573856919298587
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 663903,
+      "player_name": "Brady Singer",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 4.64,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824487,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.6436713762107305,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4949318242299261,
+          "6.0": 0.3217886842362938,
+          "7.0": 0.1877853770403478
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 677976,
+      "player_name": "Randy Dobnak",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 2.48,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823677,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.4849097325679628,
+        "median": 2.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.10681504119452279,
+          "6.0": 0.041020592168598546,
+          "7.0": 0.013771714379687605
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 657746,
+      "player_name": "Joe Ryan",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 5.87,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823677,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.869927676319839,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6971557221133606,
+          "6.0": 0.5332080303635035,
+          "7.0": 0.37281451481829686
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 693645,
+      "player_name": "Cam Schlittler",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 6.66,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824567,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.660836770803839,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.793761397255416,
+          "6.0": 0.6538999381261593,
+          "7.0": 0.49863421316175405
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 663436,
+      "player_name": "Davis Martin",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 5.08,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824567,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.082501681864166,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5738617162333346,
+          "6.0": 0.398512441318964,
+          "7.0": 0.2499769438746391
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 571510,
+      "player_name": "Matthew Boyd",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 5.1,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823022,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.0966090927345125,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5762916209391454,
+          "6.0": 0.4009858665107364,
+          "7.0": 0.25207504950598414
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669160,
+      "player_name": "Dustin May",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 5.1,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823022,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.1024323082439205,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5772924854524123,
+          "6.0": 0.40200665224953247,
+          "7.0": 0.2529426358308944
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669713,
+      "player_name": "Hayden Wesneski",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 5.35,
+      "confidence": 0.5,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824002,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.352797402615396,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6190898637964853,
+          "6.0": 0.4456965247467386,
+          "7.0": 0.29100662226402274
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 680570,
+      "player_name": "Grayson Rodriguez",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 3.63,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824002,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.6274042981841497,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.29880964851053804,
+          "6.0": 0.15967448588870747,
+          "7.0": 0.07555790473487767
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 663776,
+      "player_name": "Patrick Sandoval",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 4.43,
+      "confidence": 0.5,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824973,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.425937593973138,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4537833895616171,
+          "6.0": 0.28447249282888243,
+          "7.0": 0.15957924900909692
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 682052,
+      "player_name": "Jacob Lopez",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 4.37,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824973,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.370325929064406,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4431190950349315,
+          "6.0": 0.2750919480883596,
+          "7.0": 0.15270304857380668
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 676106,
+      "player_name": "Emerson Hancock",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 5.15,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823924,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.152056841021743,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5857702758157567,
+          "6.0": 0.41070011668151163,
+          "7.0": 0.2603715481771194
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 641778,
+      "player_name": "Eric Lauer",
+      "category": "strikeouts",
+      "game_date": "2026-07-29",
+      "projected_value": 2.79,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823924,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.7877855818342114,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.15042668067209353,
+          "6.0": 0.06405016180776957,
+          "7.0": 0.023916959491270706
+        }
+      },
+      "outcome_probs": null
+    }
+  ],
+  "value_plays": [],
+  "market_status": "RESEARCH_ONLY",
+  "market_policy_sha256": "08bc0c9d56eb21c7fb438eccd8d89539e98da111f72cdf6735af9cbeb02f154c",
+  "market_policy_reason": "policy verdict is 'RESEARCH_ONLY', not BETTING_AUTHORIZED",
+  "prediction_provenance": {
+    "schema_version": "daily-prediction-provenance-v1",
+    "captured_at_utc": "2026-07-29T14:26:51.254019+00:00",
+    "model_version": "8c7eed9bb0c3",
+    "effective_config_sha256": "3a62fc507956752086919b757ae683e60f9df8fb2143f83292ac61f07830a60c",
+    "config_source_path": "/home/runner/work/baseball-predictor/baseball-predictor/config/config.kbb.json",
+    "code": {
+      "status": "available",
+      "head": "45f45a4caa41ce8f85360cb346eeb3ce5fc5221b",
+      "tracked_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked": [],
+      "snapshot_sha256": "d11b88908edee63d8e49dac4f72e47814e5997b006789af70ce727cf5f97d082"
+    },
+    "run_options": {
+      "game_date": "2026-07-29",
+      "hitter_categories": [
+        "hits",
+        "hrr",
+        "home_runs"
+      ],
+      "include_pitchers": true,
+      "corrections_active": false,
+      "edges_requested": false,
+      "use_projected_lineups": false
+    }
+  }
+}
