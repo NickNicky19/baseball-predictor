@@ -1,6 +1,7 @@
 {
   "schema_version": 1,
   "authority_state": "INTEGRATED_INTEGRITY_GATE_ONLY",
+  "integration_release_commit": "31ef1c298cc20863f2da8f932238fd27d8ff9298",
   "integration_base": "e1bff9baefa072e20dc53532d960924e994d8010",
   "component_merge_base": "9f9d839187550f7a7a6da3b4bfdb25b2dff3e794",
   "integration_support_files": [

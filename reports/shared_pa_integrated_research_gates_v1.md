@@ -9,7 +9,7 @@ This integration binds four independently reviewed components without changing t
 
 The integration is an integrity gate, not a model candidate, prediction release, receipt producer, evaluation result, promotion, or betting authorization.
 
-The exact component commits and trees are recorded in `config/shared_pa_integrated_research_gates_v1.json`. The binding checker proves that every component is an ancestor, its tree identity is exact, its changed files do not overlap another component, every integrated component blob still matches its component authority, and the complete integration delta contains no unlisted file.
+The exact component commits and trees are recorded in `config/shared_pa_integrated_research_gates_v1.json`. The immutable integration snapshot is the exact PR #42 merge commit recorded as `integration_release_commit`. The binding checker proves that this snapshot remains an ancestor of the current candidate, every component is an ancestor of that snapshot, its tree identity is exact, its changed files do not overlap another component, every integrated component blob at that snapshot still matches its component authority, and the snapshot's complete integration delta contains no unlisted file. Later descendant files are not retroactively treated as part of the closed PR #42 integration.
 
 ## Truthful remaining blockers
 
