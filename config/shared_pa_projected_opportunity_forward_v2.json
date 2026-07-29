@@ -1,6 +1,6 @@
 {
   "schema_version": "shared-pa-projected-opportunity-protocol-v2",
-  "status": "RESEARCH_ONLY_EXACT_BYTES_RELEASE_PENDING",
+  "status": "EXACT_RELEASE_PUBLISHED",
   "candidate_id": "shared_pa_projected_opportunity_eb200_v2",
   "purpose": "Change only projected PA opportunity after semantic replay of the immutable T-4 plan, official schedule side/team, active roster bytes, strictly-prior lineup history, projected lineup, and prior-date-bounded official batter counts.",
   "decision_horizon": "T-4h",
@@ -66,7 +66,7 @@
     {"path": "src/evaluation/shared_pa_projected_opportunity_release_v2.py", "sha256": "91aa583553edf67e57207d767e462b61fe6352ab3484e2271b90bf412aa5c24c"},
     {"path": "src/evaluation/shared_pa_projected_opportunity_runner_v2.py", "sha256": "0b8afc29da183f189eaac6547d83c9c8ddc92bebfd64e97964c276e1d0b5a40e"},
     {"path": "tests/test_prospective_batter_opportunity.py", "sha256": "1580eff1008cf5e94f88f9b5c67812d7fd8ec8eb35899c9be67b88a9cf36ab3f"},
-    {"path": "tests/test_shared_pa_projected_opportunity_candidate_v2.py", "sha256": "56a66a6524bfb7a372777fe88a93481edcfa4ae3f5362024ad02d8ab80d14376"},
-    {"path": "tests/test_shared_pa_projected_opportunity_runner_v2.py", "sha256": "2b3e8f1ae1017862a844a9333e67756f00da3bbcd650da2d8121b82dfb265586"}
+    {"path": "tests/test_shared_pa_projected_opportunity_candidate_v2.py", "sha256": "dcb86678a6fdce5a91a722fb8166cbc05fb16a888c721dc126a9780c18f62702"},
+    {"path": "tests/test_shared_pa_projected_opportunity_runner_v2.py", "sha256": "e2b704b25919a4169c0753b4a4882b1288201102bee197517d2305932cb93894"}
   ]
 }

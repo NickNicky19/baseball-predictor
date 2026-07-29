@@ -7,6 +7,8 @@ import copy
 import hashlib
 import json
 import shutil
+import tempfile
+from contextlib import contextmanager
 from datetime import date
 from pathlib import Path
 from urllib.parse import urlencode
@@ -53,7 +55,9 @@ from src.evaluation.shared_pa_projected_opportunity_release_v2 import (
     PUBLISHED_PROTOCOL_STATUS,
     ProjectedOpportunityReleaseV2Error,
     SOURCE_MANIFEST_RELATIVE,
+    build_runtime_release_receipt_v2,
     load_source_manifest_v2,
+    observe_clean_git_release_v2,
     validate_release_claim_v2,
     validate_source_manifest_payload_v2,
 )
@@ -398,23 +402,53 @@ def _protocol() -> ProjectedOpportunityProtocolV2:
     )
 
 
+@contextmanager
+def _published_release_context(
+    *, created_at_utc: str = "2026-09-17T15:00:00Z",
+):
+    """Provide a synthetic external receipt while preserving production checks."""
+    protocol = _protocol()
+    _, manifest_sha256 = load_source_manifest_v2(root=ROOT)
+    commit, clean = observe_clean_git_release_v2(root=ROOT)
+    receipt = build_runtime_release_receipt_v2(
+        protocol_status=PUBLISHED_PROTOCOL_STATUS,
+        protocol_sha256=protocol.sha256,
+        protocol_path="config/shared_pa_projected_opportunity_forward_v2.json",
+        source_manifest_sha256=manifest_sha256,
+        observed_commit=commit,
+        observed_clean=clean,
+        created_at_utc=created_at_utc,
+    )
+    with tempfile.TemporaryDirectory(prefix="shared-pa-v2-release-test-") as temporary:
+        receipt_path = Path(temporary) / "runtime-release.json"
+        receipt_path.write_text(
+            json.dumps(receipt, sort_keys=True, separators=(",", ":")) + "\n",
+            encoding="utf-8",
+        )
+        yield receipt_path
+
+
 def test_replayable_envelope_and_candidate_are_coherent() -> None:
     inputs = _inputs()
     envelope = build_evidence_envelope_v2(**inputs)
     assert envelope["official_start_utc"] == START
     assert envelope["target_horizon_utc"] == HORIZON
     assert envelope["stats_cutoff_date"] == "2026-09-16"
-    record = build_projected_opportunity_candidate_v2(
-        **inputs,
-        protocol=_protocol(),
-        loaded_forward_contract=load_forward_contract(
-            root=ROOT,
-            contract_path=ROOT / "config/shared_pa_forward_evidence_contract_v1.json",
-        ),
-    )
+    with _published_release_context() as receipt_path:
+        record = build_projected_opportunity_candidate_v2(
+            **inputs,
+            protocol=_protocol(),
+            loaded_forward_contract=load_forward_contract(
+                root=ROOT,
+                contract_path=ROOT / "config/shared_pa_forward_evidence_contract_v1.json",
+            ),
+            runtime_release_receipt_path=receipt_path,
+        )
     assert record["candidate_id"].endswith("_v2")
-    assert record["confirmation_eligible"] is False
-    assert record["evidence_class"] == "nonqualifying_exact_release_pending"
+    assert record["confirmation_eligible"] is True
+    assert record["evidence_class"] == "future_untouched_candidate_observation"
+    assert record["source_release_commit"] is not None
+    assert record["runtime_release_receipt_sha256"] is not None
     assert record["per_pa_probability"]["home_run"] > 0
 
 
@@ -630,6 +664,36 @@ def test_published_protocol_with_null_release_receipt_fails() -> None:
         _validate_runtime_release(None)
 
 
+def test_published_candidate_without_external_receipt_fails_closed() -> None:
+    inputs = _inputs()
+    with pytest.raises(ProjectedOpportunityCandidateV2Error, match="release identity failed"):
+        build_projected_opportunity_candidate_v2(
+            **inputs,
+            protocol=_protocol(),
+            loaded_forward_contract=load_forward_contract(
+                root=ROOT,
+                contract_path=ROOT / "config/shared_pa_forward_evidence_contract_v1.json",
+            ),
+        )
+
+
+def test_receipt_created_after_prediction_fails_at_candidate_consumer() -> None:
+    inputs = _inputs()
+    with _published_release_context(created_at_utc="2026-09-17T15:59:30Z") as receipt_path:
+        with pytest.raises(ProjectedOpportunityCandidateV2Error) as failure:
+            build_projected_opportunity_candidate_v2(
+                **inputs,
+                protocol=_protocol(),
+                loaded_forward_contract=load_forward_contract(
+                    root=ROOT,
+                    contract_path=ROOT / "config/shared_pa_forward_evidence_contract_v1.json",
+                ),
+                runtime_release_receipt_path=receipt_path,
+            )
+    assert failure.value.__cause__ is not None
+    assert "created after the prediction" in str(failure.value.__cause__)
+
+
 @pytest.mark.parametrize(
     "receipt,clean",
     [
@@ -675,14 +739,16 @@ def test_rehashed_probability_mutation_fails_candidate_replay() -> None:
             contract_path=ROOT / "config/shared_pa_forward_evidence_contract_v1.json",
         ),
     }
-    record = build_projected_opportunity_candidate_v2(**build_inputs)
-    forged = copy.deepcopy(record)
-    forged["candidate_market_distributions"]["tails"]["home_runs_over_0.5"] += 0.01
-    unsigned = dict(forged)
-    unsigned.pop("candidate_record_sha256")
-    forged["candidate_record_sha256"] = sha256_value(unsigned)
-    with pytest.raises(ProjectedOpportunityCandidateV2Error, match="retained-evidence replay"):
-        replay_and_validate_candidate_record_v2(record=forged, **build_inputs)
+    with _published_release_context() as receipt_path:
+        build_inputs["runtime_release_receipt_path"] = receipt_path
+        record = build_projected_opportunity_candidate_v2(**build_inputs)
+        forged = copy.deepcopy(record)
+        forged["candidate_market_distributions"]["tails"]["home_runs_over_0.5"] += 0.01
+        unsigned = dict(forged)
+        unsigned.pop("candidate_record_sha256")
+        forged["candidate_record_sha256"] = sha256_value(unsigned)
+        with pytest.raises(ProjectedOpportunityCandidateV2Error, match="retained-evidence replay"):
+            replay_and_validate_candidate_record_v2(record=forged, **build_inputs)
 
 
 def test_arbitrary_horizon_fails_in_typed_target() -> None:

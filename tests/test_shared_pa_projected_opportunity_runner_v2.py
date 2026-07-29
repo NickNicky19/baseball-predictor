@@ -19,7 +19,12 @@ from src.evaluation.shared_pa_projected_opportunity_runner_v2 import (
     ProjectedOpportunityRunnerV2Error,
     build_side_candidate_bundle_v2,
 )
-from tests.test_shared_pa_projected_opportunity_candidate_v2 import ROOT, _inputs, _stats
+from tests.test_shared_pa_projected_opportunity_candidate_v2 import (
+    ROOT,
+    _inputs,
+    _published_release_context,
+    _stats,
+)
 
 
 def _support(projection: dict) -> list[int]:
@@ -52,32 +57,34 @@ def _batch(projection: dict, *, error_player: int | None = None) -> DateBoundedS
 def _run(*, batch: DateBoundedStatsBatchV2 | None = None) -> dict:
     inputs = _inputs()
     projection = inputs["projected_lineup_record"]
-    return build_side_candidate_bundle_v2(
-        root=ROOT,
-        protocol=load_protocol_v2(
+    with _published_release_context() as receipt_path:
+        return build_side_candidate_bundle_v2(
             root=ROOT,
-            path=ROOT / "config/shared_pa_projected_opportunity_forward_v2.json",
-        ),
-        plan=inputs["plan"],
-        target=inputs["target"],
-        side=inputs["side"],
-        team_id=inputs["team_id"],
-        schedule_response=inputs["schedule_response"],
-        active_roster_receipt=inputs["active_roster_receipt"],
-        active_roster_raw=inputs["active_roster_raw"],
-        history_records=inputs["history_records"],
-        history_raw_by_sha256=inputs["history_raw_by_sha256"],
-        history_coverage=inputs["history_coverage"],
-        history_schedule_raw_by_sha256=inputs["history_schedule_raw_by_sha256"],
-        opportunity_snapshot=inputs["opportunity_snapshot"],
-        projected_lineup_record=projection,
-        stats_batch=batch or _batch(projection),
-        prediction_generated_at_utc=inputs["prediction_generated_at_utc"],
-        loaded_forward_contract=load_forward_contract(
-            root=ROOT,
-            contract_path=ROOT / "config/shared_pa_forward_evidence_contract_v1.json",
-        ),
-    )
+            protocol=load_protocol_v2(
+                root=ROOT,
+                path=ROOT / "config/shared_pa_projected_opportunity_forward_v2.json",
+            ),
+            plan=inputs["plan"],
+            target=inputs["target"],
+            side=inputs["side"],
+            team_id=inputs["team_id"],
+            schedule_response=inputs["schedule_response"],
+            active_roster_receipt=inputs["active_roster_receipt"],
+            active_roster_raw=inputs["active_roster_raw"],
+            history_records=inputs["history_records"],
+            history_raw_by_sha256=inputs["history_raw_by_sha256"],
+            history_coverage=inputs["history_coverage"],
+            history_schedule_raw_by_sha256=inputs["history_schedule_raw_by_sha256"],
+            opportunity_snapshot=inputs["opportunity_snapshot"],
+            projected_lineup_record=projection,
+            stats_batch=batch or _batch(projection),
+            prediction_generated_at_utc=inputs["prediction_generated_at_utc"],
+            loaded_forward_contract=load_forward_contract(
+                root=ROOT,
+                contract_path=ROOT / "config/shared_pa_forward_evidence_contract_v1.json",
+            ),
+            runtime_release_receipt_path=receipt_path,
+        )
 
 
 def test_v2_side_runner_accounts_for_every_projected_player() -> None:
@@ -90,7 +97,41 @@ def test_v2_side_runner_accounts_for_every_projected_player() -> None:
         "abstained_players": 0,
     }
     assert all(record["schema_version"].endswith("-v2") for record in bundle["candidate_records"])
-    assert all(record["confirmation_eligible"] is False for record in bundle["candidate_records"])
+    assert all(record["confirmation_eligible"] is True for record in bundle["candidate_records"])
+
+
+def test_published_runner_without_external_receipt_fails_the_whole_side() -> None:
+    inputs = _inputs()
+    projection = inputs["projected_lineup_record"]
+    with pytest.raises(ProjectedOpportunityRunnerV2Error, match="plan, chronology") as failure:
+        build_side_candidate_bundle_v2(
+            root=ROOT,
+            protocol=load_protocol_v2(
+                root=ROOT,
+                path=ROOT / "config/shared_pa_projected_opportunity_forward_v2.json",
+            ),
+            plan=inputs["plan"],
+            target=inputs["target"],
+            side=inputs["side"],
+            team_id=inputs["team_id"],
+            schedule_response=inputs["schedule_response"],
+            active_roster_receipt=inputs["active_roster_receipt"],
+            active_roster_raw=inputs["active_roster_raw"],
+            history_records=inputs["history_records"],
+            history_raw_by_sha256=inputs["history_raw_by_sha256"],
+            history_coverage=inputs["history_coverage"],
+            history_schedule_raw_by_sha256=inputs["history_schedule_raw_by_sha256"],
+            opportunity_snapshot=inputs["opportunity_snapshot"],
+            projected_lineup_record=projection,
+            stats_batch=_batch(projection),
+            prediction_generated_at_utc=inputs["prediction_generated_at_utc"],
+            loaded_forward_contract=load_forward_contract(
+                root=ROOT,
+                contract_path=ROOT / "config/shared_pa_forward_evidence_contract_v1.json",
+            ),
+        )
+    assert failure.value.__cause__ is not None
+    assert "no runtime release receipt" in str(failure.value.__cause__)
 
 
 def test_v2_runner_never_calls_the_v1_candidate_builder(monkeypatch: pytest.MonkeyPatch) -> None:
