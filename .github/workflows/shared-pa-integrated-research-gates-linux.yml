@@ -216,19 +216,77 @@ jobs:
           unset LD_LIBRARY_PATH
           audit_python="${RUNNER_TEMP}/source-authority-env/bin/python"
           python -m venv --without-pip "${RUNNER_TEMP}/source-authority-env"
-          python -m pip --python "$audit_python" install --no-deps --require-hashes \
+          python -m pip --python "$audit_python" install --disable-pip-version-check --no-deps --require-hashes \
             -r requirements-direct-batter-pa-source-authority.lock
           python -m pip --python "$audit_python" check
-      - name: Run source and runtime authority gates
+      - name: Verify source dependency and manifest closure
         run: |
           unset LD_LIBRARY_PATH
           audit_python="${RUNNER_TEMP}/source-authority-env/bin/python"
           "$audit_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
             --check-static --check-installed --check-manifest
+      - name: Verify deterministic Linux runtime identity
+        run: |
+          unset LD_LIBRARY_PATH
+          audit_python="${RUNNER_TEMP}/source-authority-env/bin/python"
+          first="${RUNNER_TEMP}/source-runtime-first.json"
+          second="${RUNNER_TEMP}/source-runtime-second.json"
+          "$audit_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
+            --write-linux-attestation "$first"
+          "$audit_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
+            --write-linux-attestation "$second"
+          cmp --silent "$first" "$second"
+          sha256sum "$first" "$second"
+      - name: Run exact source-authority regression and mutation tests
+        run: |
+          unset LD_LIBRARY_PATH
+          audit_python="${RUNNER_TEMP}/source-authority-env/bin/python"
           "$audit_python" -I -B -m pytest -q -p no:cacheprovider \
             tests/test_direct_batter_pa_source_binding.py \
             tests/test_direct_batter_pa_source_release.py \
-            tests/test_direct_batter_pa_source_runtime_authority.py \
+            tests/test_direct_batter_pa_source_runtime_authority.py
+      - name: Scan source authority for likely credentials
+        run: |
+          unset LD_LIBRARY_PATH
+          audit_python="${RUNNER_TEMP}/source-authority-env/bin/python"
+          "$audit_python" -I -B scripts/check_tracked_secrets.py
+      - name: Prove source gate did not mutate the checkout
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+
+  direct-batter-feature-view:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONNOUSERSITE: "1"
+      PYTEST_DISABLE_PLUGIN_AUTOLOAD: "1"
+      PYTHONPATH: "."
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Verify exact requested head
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: "3.12.3"
+          architecture: x64
+      - name: Install isolated hash-locked feature-view dependencies
+        run: |
+          python -m venv --without-pip "${RUNNER_TEMP}/feature-view-env"
+          python -m pip --python "${RUNNER_TEMP}/feature-view-env/bin/python" install \
+            --disable-pip-version-check --no-deps --require-hashes \
+            -r requirements-direct-batter-pa-source-authority.lock
+          python -m pip --python "${RUNNER_TEMP}/feature-view-env/bin/python" check
+      - name: Run feature-view regression and mutation tests
+        run: |
+          audit_python="${RUNNER_TEMP}/feature-view-env/bin/python"
+          "$audit_python" -B -m pytest -q -p no:cacheprovider \
             tests/test_direct_batter_pa_feature_view.py
           git diff --exit-code
           test -z "$(git status --porcelain=v1 --untracked-files=all)"
