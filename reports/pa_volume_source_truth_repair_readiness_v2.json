@@ -1,0 +1,99 @@
+{
+  "schema_version": "pa-volume-source-truth-repair-readiness-v2",
+  "status": "CODE_READY_CLEAN_LINUX_AND_EXPLICIT_SOURCE_ACCESS_APPROVAL_REQUIRED",
+  "classification": "SOURCE_TRUTH_INTEGRITY_REPAIR_NOT_MODEL_IMPROVEMENT",
+  "research_only": true,
+  "betting_authorized": false,
+  "production_promotion_authorized": false,
+  "network_capture_performed": false,
+  "model_fitting_performed": false,
+  "predictions_generated": false,
+  "outcomes_scored": false,
+  "protected_data": {
+    "may_2026_accessed": false,
+    "selection_2024_accessed": false,
+    "spent_hr_confirmation_2025_accessed": false,
+    "prices_accessed": false,
+    "prospective_evidence_accessed": false,
+    "prospective_backfill_performed": false
+  },
+  "root_cause": {
+    "finding_id": "PA-SOURCE-001",
+    "defect": "The opportunity candidate accepted a hash-matching PA artifact whose own source authority was incomplete and whose declared upstream input was a machine-specific mixed-season aggregate rather than a reproducible 2023-only source release.",
+    "affected_scope": [
+      "projected plate-appearance distributions",
+      "Hits opportunity probabilities",
+      "HR-over-0.5 opportunity probabilities",
+      "Total Bases opportunity probabilities"
+    ],
+    "old_candidate_disposition": "BLOCKED_DO_NOT_DEPLOY_OR_SCORE",
+    "prohibited_shortcuts": [
+      "do not clip or renormalize malformed source rows",
+      "do not substitute league-average plate appearances",
+      "do not delete inconvenient players or games",
+      "do not reuse actual postgame starters as pregame evidence",
+      "do not treat a matching PA artifact hash as sufficient source authority"
+    ]
+  },
+  "repair": {
+    "official_source": "MLB Stats API 2023 regular-season schedule plus one retained final feed per distinct gamePk",
+    "source_rows": [
+      "game_pk",
+      "official_date",
+      "side",
+      "team_id",
+      "player_id",
+      "lineup_slot",
+      "out_pa"
+    ],
+    "required_game_shape": "exactly two teams, nine sequence-zero original starters per side, slots 1 through 9 exactly once, zero PA preserved",
+    "identity_boundary": "gamePk plus team side plus MLB player ID; doubleheaders remain distinct by gamePk",
+    "chronology_boundary": "canonical officialDate in 2023 only; regular-season coded-final feeds only",
+    "publication_boundary": "immutable raw bytes and receipts, exact file sets, atomic completion, external digest anchors, independent source-release verification before PA artifact construction",
+    "source_access_boundary": "historical network access requires a separately supplied, externally digest-anchored authorization whose exact runtime-policy and source-bundle bindings, activation, expiry, official MLB Stats API endpoint allowlist, 2023-only scope, and explicit prohibitions are validated before the first request",
+    "consumption_boundary": "downstream probability builder is never invoked unless source release semantics, copied schedule and projection bytes, source-access bindings, independently reviewed source files, independent verification, qualified deterministic rebuild, exact dependency lock, active builder, and PA artifact bytes all agree",
+    "selection_boundary": "no 2024 selection was performed or claimed by this source repair"
+  },
+  "runtime_authority": {
+    "policy_path": "config/pa_volume_source_runtime_authority_v1.json",
+    "policy_sha256": "9cd6011487624b95b4b0db950fc974ad1977590e872daff5cd052225f7beb6f5",
+    "dependency_lock_path": "requirements-direct-batter-pa-source-authority.lock",
+    "dependency_lock_sha256": "0847ea7c8fe05649a94293b2adbba0164f10f420ca984ecf35f105f1aabc2a1f",
+    "linux_workflow_path": ".github/workflows/pa-volume-source-runtime-linux.yml",
+    "linux_workflow_sha256": "9ad0cef1773dbd74e0497cb00f01253493aee649e47e6f57ccdfd5948ce9e1d1",
+    "network_fetch_authorized_by_this_report": false,
+    "external_expected_linux_attestation_required_before_capture": true
+  },
+  "verification": {
+    "focused_tests": {
+      "passed": 93,
+      "failed": 0,
+      "coverage": [
+        "transport failures and immutable receipt replay",
+        "2023-only and May-2026 mutation rejection",
+        "schedule and feed identity contradiction rejection",
+        "zero-PA preservation",
+        "original-starter and team-scoped identity",
+        "doubleheader separation",
+        "external-verification mutation rejection",
+        "externally anchored source-access scope, timing, and source binding",
+        "consistently rehashed fabricated source, verification, lock, and builder mutation rejection",
+        "deterministic PA artifact reconstruction and byte equality",
+        "clean isolated-process command-line launch for capture, release build, and qualification",
+        "blocked or drifted authority prevents Hits, HR, and Total Bases probability consumption"
+      ]
+    },
+    "static_runtime_closure": "PASSED_LOCALLY",
+    "clean_linux_runtime": "REQUIRED_NOT_YET_OBSERVED",
+    "historical_source_access_approval": "REQUIRED_NOT_YET_GRANTED_FOR_THE_FINAL_EXACT_BYTES",
+    "real_2023_capture": "REQUIRED_NOT_YET_AUTHORIZED_OR_PERFORMED",
+    "independent_source_release_verification": "REQUIRED_AFTER_CAPTURE"
+  },
+  "scientific_disposition": {
+    "historical_score_improvement_claim": "NONE",
+    "predictive_rating_change": "NONE",
+    "candidate_version": "NOT_CREATED_UNTIL_TRUTHFUL_2023_ARTIFACT_EXISTS",
+    "evaluation_rule": "2024 and the spent 2025 HR confirmation cannot become fresh proof; repaired probabilities require untouched prospective confirmation and separate Hits, HR, and Total Bases adjudication"
+  },
+  "single_highest_value_next_action": "Obtain the clean-Linux attestation for these exact bytes; only afterward prepare and explicitly approve an exact digest-bound historical source-access authorization before capturing and independently qualifying the complete official 2023 schedule/feed source release."
+}
