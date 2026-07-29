@@ -13,6 +13,7 @@
 *.toml text eol=lf
 *.md text eol=lf
 *.txt text eol=lf
+*.in text eol=lf
 *.lock text eol=lf
 *.csv text eol=lf
 *.sql text eol=lf
