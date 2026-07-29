@@ -12,6 +12,7 @@ name: Shared PA Projected Opportunity Linux Gate
       - "reports/shared_pa_projected_opportunity_candidate_v1_hash_manifest.json"
       - "reports/shared_pa_projected_opportunity_candidate_v2_hash_manifest.json"
       - "scripts/check_shared_pa_projected_opportunity_manifest.py"
+      - "scripts/publish_shared_pa_projected_opportunity_release_v2.py"
       - "src/data/odds/base.py"
       - "src/data/odds/odds_api_provider.py"
       - "src/evaluation/live_market_identity.py"
@@ -37,6 +38,7 @@ name: Shared PA Projected Opportunity Linux Gate
       - "tests/test_shared_pa_projected_opportunity_runner.py"
       - "tests/test_shared_pa_projected_opportunity_candidate_v2.py"
       - "tests/test_shared_pa_projected_opportunity_runner_v2.py"
+      - "tests/test_shared_pa_projected_opportunity_release_observer_v2.py"
       - "tests/test_prospective_batter_opportunity.py"
       - "tests/test_strict_american_odds_boundary.py"
       - "tests/test_odds_loader.py"
@@ -96,6 +98,7 @@ jobs:
             tests/test_shared_pa_projected_opportunity_candidate_v2.py \
             tests/test_shared_pa_projected_opportunity_runner.py \
             tests/test_shared_pa_projected_opportunity_runner_v2.py \
+            tests/test_shared_pa_projected_opportunity_release_observer_v2.py \
             tests/test_strict_american_odds_boundary.py \
             tests/test_market_economics_properties.py \
             tests/test_odds_loader.py

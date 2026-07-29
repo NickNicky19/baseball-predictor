@@ -177,6 +177,7 @@ def _abstention(
         "candidate_protocol_status": protocol.value["status"],
         "source_manifest_sha256": release_identity["source_manifest_sha256"],
         "source_release_commit": release_identity["source_commit"],
+        "release_created_at_utc": release_identity["release_created_at_utc"],
         "runtime_release_receipt_sha256": release_identity[
             "runtime_release_receipt_sha256"
         ],
@@ -233,6 +234,7 @@ def build_side_candidate_bundle_v2(
             protocol_sha256=verified_protocol.sha256,
             protocol_source_path=verified_protocol.source_path,
             runtime_release_receipt_path=runtime_release_receipt_path,
+            decision_time_utc=prediction_generated_at_utc,
         )
         context = replay_projected_context_v2(
             root=root,
@@ -394,6 +396,7 @@ def build_side_candidate_bundle_v2(
         "candidate_protocol_status": verified_protocol.value["status"],
         "source_manifest_sha256": release_identity["source_manifest_sha256"],
         "source_release_commit": release_identity["source_commit"],
+        "release_created_at_utc": release_identity["release_created_at_utc"],
         "runtime_release_receipt_sha256": release_identity[
             "runtime_release_receipt_sha256"
         ],

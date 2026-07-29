@@ -11,9 +11,10 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import re
 import subprocess
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -63,9 +64,11 @@ REQUIRED_FILE_ROLES: dict[str, str] = {
     "src/evaluation/shared_pa_projected_opportunity_evidence_v2.py": "typed_raw_replay_envelope",
     "src/evaluation/shared_pa_projected_opportunity_release_v2.py": "runtime_exact_release_boundary",
     "src/evaluation/shared_pa_projected_opportunity_runner_v2.py": "v2_side_population_consumer",
+    "scripts/publish_shared_pa_projected_opportunity_release_v2.py": "external_runtime_release_observer",
     "tests/test_prospective_batter_opportunity.py": "raw_history_replay_regressions",
     "tests/test_shared_pa_projected_opportunity_candidate_v2.py": "v2_integrity_mutations",
     "tests/test_shared_pa_projected_opportunity_runner_v2.py": "v2_consumer_boundary_mutations",
+    "tests/test_shared_pa_projected_opportunity_release_observer_v2.py": "external_release_receipt_mutations",
     "tests/test_strict_american_odds_boundary.py": "price_boundary_mutations",
     "tests/test_odds_loader.py": "odds_source_regressions",
     "tests/test_market_economics_properties.py": "price_math_properties",
@@ -236,6 +239,7 @@ def validate_release_claim_v2(
             "confirmation_release_eligible": False,
             "source_manifest_sha256": source_manifest_sha256,
             "source_commit": None,
+            "release_created_at_utc": None,
             "runtime_release_receipt_sha256": None,
         }
     if protocol_status != PUBLISHED_PROTOCOL_STATUS:
@@ -262,6 +266,9 @@ def validate_release_claim_v2(
         ) from exc
     if created.tzinfo is None or created.utcoffset() is None:
         raise ProjectedOpportunityReleaseV2Error("runtime release receipt timestamp is naive")
+    canonical_created = created.astimezone(timezone.utc).isoformat(
+        timespec="microseconds"
+    ).replace("+00:00", "Z")
     source_commit = _full_commit(receipt_payload.get("source_commit"), "receipt source_commit")
     if (
         receipt_payload.get("schema_version") != RUNTIME_RECEIPT_SCHEMA
@@ -272,6 +279,7 @@ def validate_release_claim_v2(
         or receipt_payload.get("candidate_protocol_path") != protocol_path
         or receipt_payload.get("candidate_protocol_sha256") != protocol_sha256
         or receipt_payload.get("candidate_protocol_status") != PUBLISHED_PROTOCOL_STATUS
+        or receipt_payload.get("created_at_utc") != canonical_created
         or receipt_payload.get("research_only") is not True
         or receipt_payload.get("betting_authorized") is not False
         or receipt_sha != sha256_value(unsigned)
@@ -285,13 +293,83 @@ def validate_release_claim_v2(
         "confirmation_release_eligible": True,
         "source_manifest_sha256": source_manifest_sha256,
         "source_commit": source_commit,
+        "release_created_at_utc": canonical_created,
         "runtime_release_receipt_sha256": receipt_sha,
     }
+
+
+def build_runtime_release_receipt_v2(
+    *,
+    protocol_status: str,
+    protocol_sha256: str,
+    protocol_path: str,
+    source_manifest_sha256: str,
+    observed_commit: str,
+    observed_clean: bool,
+    created_at_utc: str,
+) -> dict[str, Any]:
+    """Create and self-validate one external exact-release receipt payload."""
+    if protocol_status != PUBLISHED_PROTOCOL_STATUS:
+        raise ProjectedOpportunityReleaseV2Error(
+            "only the published protocol can receive a runtime release receipt"
+        )
+    if observed_clean is not True:
+        raise ProjectedOpportunityReleaseV2Error(
+            "runtime release receipt requires an observed clean source tree"
+        )
+    source_commit = _full_commit(observed_commit, "observed HEAD")
+    for value, label in (
+        (protocol_sha256, "protocol_sha256"),
+        (source_manifest_sha256, "source_manifest_sha256"),
+    ):
+        if not isinstance(value, str) or re.fullmatch(r"[0-9a-f]{64}", value) is None:
+            raise ProjectedOpportunityReleaseV2Error(f"{label} must be a lowercase SHA-256")
+    if protocol_path != PROTOCOL_RELATIVE:
+        raise ProjectedOpportunityReleaseV2Error("runtime receipt protocol path changed")
+    try:
+        created = datetime.fromisoformat(str(created_at_utc).replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise ProjectedOpportunityReleaseV2Error(
+            "runtime release receipt timestamp is invalid"
+        ) from exc
+    if created.tzinfo is None or created.utcoffset() is None:
+        raise ProjectedOpportunityReleaseV2Error("runtime release receipt timestamp is naive")
+    if not math.isfinite(created.timestamp()):
+        raise ProjectedOpportunityReleaseV2Error("runtime release receipt timestamp is not finite")
+    canonical_created = created.astimezone(timezone.utc).isoformat(
+        timespec="microseconds"
+    ).replace("+00:00", "Z")
+    unsigned = {
+        "schema_version": RUNTIME_RECEIPT_SCHEMA,
+        "candidate_id": CANDIDATE_ID,
+        "source_commit": source_commit,
+        "source_tree_clean": True,
+        "source_manifest_path": SOURCE_MANIFEST_RELATIVE,
+        "source_manifest_sha256": source_manifest_sha256,
+        "candidate_protocol_path": protocol_path,
+        "candidate_protocol_sha256": protocol_sha256,
+        "candidate_protocol_status": PUBLISHED_PROTOCOL_STATUS,
+        "created_at_utc": canonical_created,
+        "research_only": True,
+        "betting_authorized": False,
+    }
+    receipt = {**unsigned, "release_receipt_sha256": sha256_value(unsigned)}
+    validate_release_claim_v2(
+        protocol_status=protocol_status,
+        protocol_sha256=protocol_sha256,
+        protocol_path=protocol_path,
+        source_manifest_sha256=source_manifest_sha256,
+        receipt_payload=receipt,
+        observed_commit=source_commit,
+        observed_clean=True,
+    )
+    return receipt
 
 
 def resolve_release_identity_v2(
     *, root: Path, protocol_status: str, protocol_sha256: str,
     protocol_source_path: Path, runtime_release_receipt_path: Path | None,
+    decision_time_utc: str | None = None,
 ) -> dict[str, Any]:
     repository = root.resolve()
     _, manifest_sha = load_source_manifest_v2(root=repository)
@@ -325,7 +403,7 @@ def resolve_release_identity_v2(
     except json.JSONDecodeError as exc:
         raise ProjectedOpportunityReleaseV2Error("runtime release receipt is invalid JSON") from exc
     observed_commit, observed_clean = observe_clean_git_release_v2(root=repository)
-    return validate_release_claim_v2(
+    identity = validate_release_claim_v2(
         protocol_status=protocol_status,
         protocol_sha256=protocol_sha256,
         protocol_path=relative_protocol,
@@ -334,3 +412,24 @@ def resolve_release_identity_v2(
         observed_commit=observed_commit,
         observed_clean=observed_clean,
     )
+    if decision_time_utc is not None:
+        try:
+            decision = datetime.fromisoformat(
+                str(decision_time_utc).replace("Z", "+00:00")
+            )
+        except ValueError as exc:
+            raise ProjectedOpportunityReleaseV2Error(
+                "release decision timestamp is invalid"
+            ) from exc
+        if decision.tzinfo is None or decision.utcoffset() is None:
+            raise ProjectedOpportunityReleaseV2Error(
+                "release decision timestamp is naive"
+            )
+        created = datetime.fromisoformat(
+            str(identity["release_created_at_utc"]).replace("Z", "+00:00")
+        )
+        if created > decision:
+            raise ProjectedOpportunityReleaseV2Error(
+                "runtime release receipt was created after the prediction decision time"
+            )
+    return identity
