@@ -30,6 +30,11 @@ V3_AUTHORIZATION = (
     / "config"
     / "pa_volume_historical_source_access_authorization_20260730_v3.json"
 )
+CURRENT_AUTHORIZATION = (
+    ROOT
+    / "config"
+    / "pa_volume_historical_source_access_authorization_20260730_v4.json"
+)
 POLICY = ROOT / "config" / "pa_volume_source_runtime_authority_v1.json"
 EXPECTED_AUTHORIZATION_SHA256 = (
     "6f07bf2f50444c7059295dda146b07ffb0648834917b8f1220168fba7bd5b5ab"
@@ -39,6 +44,9 @@ EXPECTED_V2_AUTHORIZATION_SHA256 = (
 )
 EXPECTED_V3_AUTHORIZATION_SHA256 = (
     "fc0f0bfb233ccec1cd27c4708ccfc77b9fb2202a28fd0152402e48d3794bb300"
+)
+EXPECTED_CURRENT_AUTHORIZATION_SHA256 = (
+    "94c980b1ff8db84312eb325bae6ebc56ab44e1dfdb33fe86973308f469fca949"
 )
 
 
@@ -93,6 +101,20 @@ def test_v3_capture_authorization_cannot_authorize_duplicate_listing_repair() ->
         )
 
 
+def test_v4_capture_authorization_binds_duplicate_listing_repair() -> None:
+    assert hashlib.sha256(CURRENT_AUTHORIZATION.read_bytes()).hexdigest() == (
+        EXPECTED_CURRENT_AUTHORIZATION_SHA256
+    )
+    verified = verify_historical_source_access_authorization(
+        authorization_path=CURRENT_AUTHORIZATION,
+        expected_authorization_sha256=EXPECTED_CURRENT_AUTHORIZATION_SHA256,
+        expected_runtime_policy_sha256=hashlib.sha256(POLICY.read_bytes()).hexdigest(),
+        expected_source_bundle_sha256=capture_source_bundle_sha256(),
+        access_time_utc="2026-07-30T21:45:00.000000Z",
+    )
+    assert verified.authorization_id.endswith("-v4")
+
+
 def test_capture_workflow_is_manual_and_never_fits_or_predicts() -> None:
     workflow = (
         ROOT / ".github" / "workflows" / "pa-volume-official-2023-capture.yml"
@@ -110,7 +132,7 @@ def test_capture_workflow_is_manual_and_never_fits_or_predicts() -> None:
     assert "Retain rejected schedule bytes for identity diagnosis" in workflow
     assert "rejected-official-2023-schedule-${{ github.sha }}" in workflow
     assert (
-        "config/pa_volume_historical_source_access_authorization_20260730_v3.json"
+        "config/pa_volume_historical_source_access_authorization_20260730_v4.json"
         in workflow
     )
     runtime_workflow = (
