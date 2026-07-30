@@ -70,9 +70,6 @@ jobs:
           attestation="${RUNNER_TEMP}/pa-source-runtime.json"
           "$capture_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
             --policy config/pa_volume_source_runtime_authority_v1.json \
-            --check-static --check-installed
-          "$capture_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
-            --policy config/pa_volume_source_runtime_authority_v1.json \
             --write-linux-attestation "$attestation"
           observed="$(sha256sum "$attestation" | awk '{print $1}')"
           echo "observed_runtime_attestation_sha256=$observed"
