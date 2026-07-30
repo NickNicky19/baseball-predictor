@@ -104,6 +104,8 @@ def test_capture_workflow_is_manual_and_never_fits_or_predicts() -> None:
     assert "run_slate.py" not in workflow
     assert "--no-compile" in workflow
     assert "Retain rejected pre-request attestation for diagnosis" in workflow
+    assert "Retain rejected schedule bytes for identity diagnosis" in workflow
+    assert "rejected-official-2023-schedule-${{ github.sha }}" in workflow
     assert (
         "config/pa_volume_historical_source_access_authorization_20260730_v3.json"
         in workflow

@@ -116,6 +116,16 @@ jobs:
             --expected-schedule-capture-digest "$schedule_digest" \
             --output-plan "$root/feed-plan.json"
 
+      - name: Retain rejected schedule bytes for identity diagnosis
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: rejected-official-2023-schedule-${{ github.sha }}
+          path: ${{ runner.temp }}/official-2023-pa-volume/schedule
+          if-no-files-found: warn
+          include-hidden-files: true
+          retention-days: 7
+
       - name: Capture and verify all 2430 coded-final official feeds
         shell: bash
         run: |
