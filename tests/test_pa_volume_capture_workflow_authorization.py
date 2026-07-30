@@ -51,3 +51,8 @@ def test_capture_workflow_is_manual_and_never_fits_or_predicts() -> None:
     assert "build-source-release" in workflow
     assert "build-pa-artifact" not in workflow
     assert "run_slate.py" not in workflow
+    assert "--no-compile" in workflow
+    runtime_workflow = (
+        ROOT / ".github" / "workflows" / "pa-volume-source-runtime-linux.yml"
+    ).read_text(encoding="utf-8")
+    assert "--no-compile" in runtime_workflow

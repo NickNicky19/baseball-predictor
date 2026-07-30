@@ -57,7 +57,7 @@ jobs:
           unset LD_LIBRARY_PATH
           audit_python="${RUNNER_TEMP}/pa-source-env/bin/python"
           python -m venv --without-pip "${RUNNER_TEMP}/pa-source-env"
-          python -m pip --python "$audit_python" install --disable-pip-version-check --no-deps --require-hashes \
+          python -m pip --python "$audit_python" install --disable-pip-version-check --no-compile --no-deps --require-hashes \
             -r requirements-direct-batter-pa-source-authority.lock
           python -m pip --python "$audit_python" check
 
