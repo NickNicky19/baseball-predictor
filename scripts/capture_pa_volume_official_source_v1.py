@@ -50,7 +50,11 @@ SCHEDULE_INDEX_SCHEMA = "pa-volume-2023-schedule-candidates-v1"
 AUTHORIZATION = "RESEARCH_ONLY_NO_BETTING"
 SHA256_RE = re.compile(r"[0-9a-f]{64}\Z")
 EXPECTED_GAMES = 2430
-MAX_RESPONSE_BYTES = 5_000_000
+# The official full-season schedule is a single bounded response and is larger
+# than an individual game feed.  Keep separate ceilings so accepting that
+# legitimate schedule does not loosen the per-game feed boundary.
+SCHEDULE_MAX_RESPONSE_BYTES = 32 * 1024 * 1024
+FEED_MAX_RESPONSE_BYTES = 5_000_000
 MIN_REQUEST_INTERVAL_SECONDS = 1.0
 MAX_REQUEST_ATTEMPTS = 4
 RETRY_BASE_SECONDS = 1.0
@@ -1293,7 +1297,13 @@ def _validate_attempt_history(
         raise OfficialSourceCaptureError("retained final request attempt differs")
 
 
-def _verify_receipt(root: Path, receipt: Mapping[str, Any], request: Mapping[str, Any]) -> bytes:
+def _verify_receipt(
+    root: Path,
+    receipt: Mapping[str, Any],
+    request: Mapping[str, Any],
+    *,
+    max_bytes: int,
+) -> bytes:
     receipt_keys = {
         "schema_version", "authorization", "season", "research_only",
         "betting_authorized", "model_fitting_performed", "probabilities_generated",
@@ -1577,7 +1587,7 @@ def _verify_receipt(root: Path, receipt: Mapping[str, Any], request: Mapping[str
         str(response.get("final_url")), str(response.get("requested_at_utc")),
         str(response.get("observed_at_utc")),
     )
-    _validate_response(captured, request, max_bytes=MAX_RESPONSE_BYTES)
+    _validate_response(captured, request, max_bytes=max_bytes)
     if (
         attempts[-1]["requested_at_utc"] != response["requested_at_utc"]
         or attempts[-1]["observed_at_utc"] != response["observed_at_utc"]
@@ -1633,7 +1643,7 @@ def capture_schedule(
     _storage_preflight(
         work_path=staging,
         output_path=output,
-        required_bytes=MAX_RESPONSE_BYTES,
+        required_bytes=SCHEDULE_MAX_RESPONSE_BYTES,
         disk_usage=active_disk_usage,
     )
     lock_path = output.with_name("." + output.name + ".capture.lock")
@@ -1697,7 +1707,7 @@ def capture_schedule(
             request=request,
             transport=transport,
             timeout_seconds=timeout_seconds,
-            max_bytes=MAX_RESPONSE_BYTES,
+            max_bytes=SCHEDULE_MAX_RESPONSE_BYTES,
             source_access=source_access,
             deadline=deadline,
             minimum_request_interval_seconds=minimum_request_interval_seconds,
@@ -1788,7 +1798,12 @@ def verify_schedule_capture(root: Path, expected_digest: str | None = None) -> d
         raise OfficialSourceCaptureError("schedule capture differs from external digest")
     request = manifest.get("request")
     receipt = json.loads((value / "receipt.json").read_bytes())
-    raw = _verify_receipt(value, receipt, request)
+    raw = _verify_receipt(
+        value,
+        receipt,
+        request,
+        max_bytes=SCHEDULE_MAX_RESPONSE_BYTES,
+    )
     journal = receipt.get("attempt_journal") or {}
     expected_files = {
         "manifest.json", "receipt.json", "response.json",
@@ -1961,7 +1976,12 @@ def _preflight_resumable_work(
                     "partial retained feed pair is contradictory"
                 )
             receipt = json.loads(receipt_path.read_bytes())
-            _verify_receipt(work, receipt, request)
+            _verify_receipt(
+                work,
+                receipt,
+                request,
+                max_bytes=FEED_MAX_RESPONSE_BYTES,
+            )
             if receipt.get("runtime_attestation_sha256") != runtime.attestation_sha256:
                 raise OfficialSourceCaptureError(
                     "resumed feed used a different runtime"
@@ -2136,7 +2156,7 @@ def capture_feeds(
         _storage_preflight(
             work_path=work,
             output_path=output,
-            required_bytes=remaining * MAX_RESPONSE_BYTES,
+            required_bytes=remaining * FEED_MAX_RESPONSE_BYTES,
             disk_usage=active_disk_usage,
         )
         last_attempt_started: datetime | None = None
@@ -2192,7 +2212,7 @@ def capture_feeds(
                 request=request,
                 transport=transport,
                 timeout_seconds=timeout_seconds,
-                max_bytes=MAX_RESPONSE_BYTES,
+                max_bytes=FEED_MAX_RESPONSE_BYTES,
                 source_access=source_access,
                 deadline=deadline,
                 minimum_request_interval_seconds=(
@@ -2243,6 +2263,7 @@ def capture_feeds(
                 work,
                 json.loads((base / "receipt.json").read_bytes()),
                 request,
+                max_bytes=FEED_MAX_RESPONSE_BYTES,
             )
             entries.append({
                 "request_id": request["request_id"],
@@ -2317,7 +2338,12 @@ def verify_feed_capture(root: Path, expected_digest: str | None = None) -> dict[
     for request in requests:
         base = value / "feeds" / request["request_id"]
         receipt = json.loads((base / "receipt.json").read_bytes())
-        raw = _verify_receipt(value, receipt, request)
+        raw = _verify_receipt(
+            value,
+            receipt,
+            request,
+            max_bytes=FEED_MAX_RESPONSE_BYTES,
+        )
         journal_binding = receipt.get("attempt_journal") or {}
         journal_relative = journal_binding.get("path")
         expected_files.add(f"feeds/{request['request_id']}/response.json")

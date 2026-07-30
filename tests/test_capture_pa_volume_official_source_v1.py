@@ -79,11 +79,13 @@ class FakeTransport:
     def __init__(self, bodies: dict[str, bytes], fail_after: int | None = None, clock=None):
         self.bodies = bodies
         self.calls = 0
+        self.max_bytes_seen: list[int] = []
         self.fail_after = fail_after
         self.clock = clock or capture._clock_now
 
     def fetch(self, request, *, timeout_seconds: float, max_bytes: int):
         self.calls += 1
+        self.max_bytes_seen.append(max_bytes)
         if self.fail_after is not None and self.calls > self.fail_after:
             raise capture.OfficialSourceCaptureError("synthetic transport failure")
         body = self.bodies[request["full_url"]]
@@ -157,6 +159,7 @@ def test_schedule_capture_is_immutable_and_revalidates(tmp_path: Path) -> None:
         transport=transport,
     )
     assert first == second and transport.calls == 1
+    assert transport.max_bytes_seen == [capture.SCHEDULE_MAX_RESPONSE_BYTES]
     (root / "response.json").write_bytes(b"{}")
     with pytest.raises(capture.OfficialSourceCaptureError, match="body bytes differ"):
         capture.verify_schedule_capture(root)
@@ -260,6 +263,7 @@ def test_feed_capture_resumes_partial_work_and_finalizes_atomically(tmp_path: Pa
         jitter=lambda _request_id, _attempt, _base: 0.0,
     )
     assert manifest["game_count"] == 2 and resumed.calls == 1
+    assert resumed.max_bytes_seen == [capture.FEED_MAX_RESPONSE_BYTES]
     assert not work.exists() and output.is_dir()
     assert capture.verify_feed_capture(output)["observed_capture_digest"] == manifest["observed_capture_digest"]
 
