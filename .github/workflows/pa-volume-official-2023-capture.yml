@@ -1,0 +1,169 @@
+name: Authorized Official 2023 PA Volume Capture
+
+"on":
+  workflow_dispatch:
+    inputs:
+      expected_commit_sha:
+        description: Exact reviewed commit to execute
+        required: true
+        type: string
+      expected_runtime_attestation_sha256:
+        description: Externally observed clean-Linux attestation SHA-256
+        required: true
+        type: string
+      expected_source_authorization_sha256:
+        description: Externally observed source-authorization file SHA-256
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: authorized-official-2023-pa-volume-capture
+  cancel-in-progress: false
+
+jobs:
+  capture:
+    name: Ubuntu 24.04 / exact 2023 official source capture
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONNOUSERSITE: "1"
+      PYTEST_DISABLE_PLUGIN_AUTOLOAD: "1"
+    steps:
+      - name: Check out the dispatched immutable commit
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+
+      - name: Reject a moving or substituted source identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          observed="$(git rev-parse HEAD)"
+          test "$observed" = "${{ inputs.expected_commit_sha }}"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+
+      - name: Set up exact Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: "3.12.3"
+          architecture: "x64"
+
+      - name: Install the exact hash-locked capture environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          unset LD_LIBRARY_PATH
+          capture_python="${RUNNER_TEMP}/pa-source-env/bin/python"
+          python -m venv --without-pip "${RUNNER_TEMP}/pa-source-env"
+          python -m pip --python "$capture_python" install --disable-pip-version-check --no-deps --require-hashes \
+            -r requirements-direct-batter-pa-source-authority.lock
+          python -m pip --python "$capture_python" check
+
+      - name: Reproduce and bind the externally approved Linux runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          unset LD_LIBRARY_PATH
+          capture_python="${RUNNER_TEMP}/pa-source-env/bin/python"
+          attestation="${RUNNER_TEMP}/pa-source-runtime.json"
+          "$capture_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
+            --policy config/pa_volume_source_runtime_authority_v1.json \
+            --check-static --check-installed
+          "$capture_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
+            --policy config/pa_volume_source_runtime_authority_v1.json \
+            --write-linux-attestation "$attestation"
+          observed="$(sha256sum "$attestation" | awk '{print $1}')"
+          test "$observed" = "${{ inputs.expected_runtime_attestation_sha256 }}"
+
+      - name: Verify the external source authorization before any request
+        shell: bash
+        run: |
+          set -euo pipefail
+          auth="config/pa_volume_historical_source_access_authorization_20260730_v1.json"
+          observed="$(sha256sum "$auth" | awk '{print $1}')"
+          test "$observed" = "${{ inputs.expected_source_authorization_sha256 }}"
+
+      - name: Capture and verify the official 2023 regular-season schedule
+        shell: bash
+        run: |
+          set -euo pipefail
+          unset LD_LIBRARY_PATH
+          capture_python="${RUNNER_TEMP}/pa-source-env/bin/python"
+          root="${RUNNER_TEMP}/official-2023-pa-volume"
+          mkdir -p "$root"
+          "$capture_python" -I -B scripts/capture_pa_volume_official_source_v1.py capture-schedule \
+            --runtime-policy config/pa_volume_source_runtime_authority_v1.json \
+            --runtime-attestation "${RUNNER_TEMP}/pa-source-runtime.json" \
+            --expected-runtime-attestation-sha256 "${{ inputs.expected_runtime_attestation_sha256 }}" \
+            --source-access-authorization config/pa_volume_historical_source_access_authorization_20260730_v1.json \
+            --expected-source-access-authorization-sha256 "${{ inputs.expected_source_authorization_sha256 }}" \
+            --output-dir "$root/schedule"
+          schedule_digest="$("$capture_python" -I -B -c 'import json,sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["observed_capture_digest"])' "$root/schedule/manifest.json")"
+          "$capture_python" -I -B scripts/capture_pa_volume_official_source_v1.py verify-schedule \
+            --capture-dir "$root/schedule" \
+            --expected-capture-digest "$schedule_digest"
+          "$capture_python" -I -B scripts/capture_pa_volume_official_source_v1.py build-feed-plan \
+            --schedule-capture-dir "$root/schedule" \
+            --expected-schedule-capture-digest "$schedule_digest" \
+            --output-plan "$root/feed-plan.json"
+
+      - name: Capture and verify all 2430 coded-final official feeds
+        shell: bash
+        run: |
+          set -euo pipefail
+          unset LD_LIBRARY_PATH
+          capture_python="${RUNNER_TEMP}/pa-source-env/bin/python"
+          root="${RUNNER_TEMP}/official-2023-pa-volume"
+          "$capture_python" -I -B scripts/capture_pa_volume_official_source_v1.py capture-feeds \
+            --runtime-policy config/pa_volume_source_runtime_authority_v1.json \
+            --runtime-attestation "${RUNNER_TEMP}/pa-source-runtime.json" \
+            --expected-runtime-attestation-sha256 "${{ inputs.expected_runtime_attestation_sha256 }}" \
+            --source-access-authorization config/pa_volume_historical_source_access_authorization_20260730_v1.json \
+            --expected-source-access-authorization-sha256 "${{ inputs.expected_source_authorization_sha256 }}" \
+            --plan "$root/feed-plan.json" \
+            --output-dir "$root/feeds" \
+            --work-dir "$root/feed-work"
+          feed_digest="$("$capture_python" -I -B -c 'import json,sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["observed_capture_digest"])' "$root/feeds/manifest.json")"
+          "$capture_python" -I -B scripts/capture_pa_volume_official_source_v1.py verify-feeds \
+            --capture-dir "$root/feeds" \
+            --expected-capture-digest "$feed_digest"
+
+      - name: Build the deterministic source release without fitting
+        shell: bash
+        run: |
+          set -euo pipefail
+          unset LD_LIBRARY_PATH
+          capture_python="${RUNNER_TEMP}/pa-source-env/bin/python"
+          root="${RUNNER_TEMP}/official-2023-pa-volume"
+          schedule_digest="$("$capture_python" -I -B -c 'import json,sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["observed_capture_digest"])' "$root/schedule/manifest.json")"
+          feed_digest="$("$capture_python" -I -B -c 'import json,sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["observed_capture_digest"])' "$root/feeds/manifest.json")"
+          "$capture_python" -I -B scripts/build_pa_volume_official_source_release_v1.py build-source-release \
+            --schedule-capture-dir "$root/schedule" \
+            --expected-schedule-capture-digest "$schedule_digest" \
+            --feed-capture-dir "$root/feeds" \
+            --expected-feed-capture-digest "$feed_digest" \
+            --dependency-lock requirements-direct-batter-pa-source-authority.lock \
+            --output-dir "$root/source-release"
+          cp "${RUNNER_TEMP}/pa-source-runtime.json" "$root/runtime-attestation.json"
+          cp config/pa_volume_historical_source_access_authorization_20260730_v1.json "$root/source-access-authorization.json"
+          cp config/pa_volume_source_runtime_authority_v1.json "$root/runtime-policy.json"
+          cp requirements-direct-batter-pa-source-authority.lock "$root/requirements.lock"
+          git rev-parse HEAD > "$root/executed-commit.txt"
+
+      - name: Upload immutable capture bytes for independent verification
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: official-2023-pa-volume-${{ github.sha }}
+          path: ${{ runner.temp }}/official-2023-pa-volume
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 30
+
+      - name: Prove source checkout and protected systems were not mutated
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --exit-code
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"

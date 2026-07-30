@@ -31,15 +31,24 @@ betting; the market-output policy remains fail closed.
 from __future__ import annotations
 
 import argparse
+import json
 import logging
 import sys
 from datetime import date, datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Mapping
 
 from src.models.dataclasses import PropCategory
 from src.learning.prediction_archive import PredictionArchive
 from src.prediction import DailyPredictor
+from src.prediction.integrated_shared_pa_candidate import (
+    FROZEN_MODEL_ID,
+    MODEL_ID as SHARED_PA_MODEL_ID,
+    CandidateEvidenceError,
+    atomic_write_json,
+    load_candidate_archive,
+    unavailable_candidate_archive,
+)
 from src.utils.errors import ConfigError, DataFetchError, PredictorError
 from src.utils.logging import setup_logging
 
@@ -136,6 +145,24 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         epilog=__doc__,
     )
     parser.add_argument(
+        "--model",
+        choices=(FROZEN_MODEL_ID, SHARED_PA_MODEL_ID),
+        help=(
+            "Select one explicit research arm. Omit to preserve the legacy frozen "
+            "runner interface. The candidate requires --candidate-evidence."
+        ),
+    )
+    parser.add_argument(
+        "--compare-models",
+        action="store_true",
+        help="Run the frozen arm and compare it with the retained candidate evidence.",
+    )
+    parser.add_argument(
+        "--candidate-evidence",
+        metavar="PATH",
+        help="Hash-bound projected-opportunity side bundle or directory of bundles.",
+    )
+    parser.add_argument(
         "--date",
         default=date.today().isoformat(),
         metavar="YYYY-MM-DD",
@@ -183,12 +210,163 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     return parser.parse_args(argv)
 
 
+def _is_may_2026(value: str) -> bool:
+    parsed = date.fromisoformat(value)
+    return parsed.year == 2026 and parsed.month == 5
+
+
+def _candidate_output_path(args: argparse.Namespace) -> Path:
+    root = Path(args.archive_dir).resolve() if args.archive_dir else Path("data/learning/predictions")
+    return root / SHARED_PA_MODEL_ID / f"predictions_{args.date}.json"
+
+
+def _frozen_output_path(args: argparse.Namespace) -> Path:
+    root = Path(args.archive_dir).resolve() if args.archive_dir else Path("data/learning/predictions")
+    return root / FROZEN_MODEL_ID / f"predictions_{args.date}.json"
+
+
+def _load_candidate(args: argparse.Namespace) -> dict[str, Any]:
+    if not args.candidate_evidence:
+        return unavailable_candidate_archive(
+            game_date=args.date,
+            reason_code="QUALIFIED_OPPORTUNITY_EVIDENCE_UNAVAILABLE",
+            detail=(
+                "No --candidate-evidence bundle was supplied; frozen artifacts and guessed "
+                "lineups are prohibited fallbacks"
+            ),
+        )
+    return load_candidate_archive(Path(args.candidate_evidence), expected_date=args.date)
+
+
+def _run_frozen(args: argparse.Namespace, *, archive_predictions: bool | None) -> Any:
+    config_path = Path(args.config) if args.config else DEFAULT_RESEARCH_CONFIG
+    predictor = DailyPredictor(config_path=config_path)
+    assert_full_slate_is_pregame(mlb_api=predictor.mlb_api, game_date=args.date)
+    if args.refresh:
+        predictor.mlb_api.clear_cache(args.date)
+    return predictor.predict(
+        args.date,
+        hitter_categories=HITTER_CATEGORIES,
+        include_pitchers=INCLUDE_PITCHERS,
+        persist_features=True,
+        archive_predictions=archive_predictions,
+        capture_prediction_provenance=True,
+        apply_corrections=True if args.apply_corrections else None,
+        use_projected_lineups=args.include_projected_lineups,
+    )
+
+
+def _frozen_envelope(result: Any) -> dict[str, Any]:
+    payload = result.to_dict()
+    payload["model_id"] = FROZEN_MODEL_ID
+    provenance = dict(payload.get("prediction_provenance") or {})
+    provenance["model_id"] = FROZEN_MODEL_ID
+    payload["prediction_provenance"] = provenance
+    payload["research_only"] = True
+    payload["betting_authorized"] = False
+    return payload
+
+
+def _comparison_rows(frozen: Any, candidate: Mapping[str, Any]) -> list[dict[str, Any]]:
+    frozen_by_key: dict[tuple[int, int, str], Any] = {}
+    player_display: dict[tuple[int, int], Any] = {}
+    for projection in [*frozen.hitter_projections, *frozen.pitcher_projections]:
+        if projection.mlb_game_pk is None:
+            continue
+        key = (int(projection.mlb_game_pk), int(projection.player_id), str(projection.category))
+        if key in frozen_by_key:
+            raise CandidateEvidenceError("frozen arm contains a duplicate hard market identity")
+        frozen_by_key[key] = projection
+        player_display[(key[0], key[1])] = projection
+    rows: list[dict[str, Any]] = []
+    for prediction in candidate.get("predictions", []):
+        game_pk = int(prediction["mlb_game_pk"])
+        player_id = int(prediction["player_id"])
+        display = player_display.get((game_pk, player_id))
+        for market, candidate_market in prediction["markets"].items():
+            frozen_projection = frozen_by_key.get((game_pk, player_id, market))
+            frozen_mean = None
+            frozen_thresholds = None
+            if frozen_projection is not None:
+                frozen_mean = (
+                    float(frozen_projection.simulation.mean)
+                    if frozen_projection.simulation is not None
+                    else float(frozen_projection.projected_value)
+                )
+                frozen_thresholds = (
+                    {str(k): float(v) for k, v in frozen_projection.simulation.p_ge_threshold.items()}
+                    if frozen_projection.simulation is not None
+                    else None
+                )
+            candidate_mean = float(candidate_market["mean"])
+            rows.append({
+                "mlb_game_pk": game_pk,
+                "team_id": prediction["team_id"],
+                "side": prediction["side"],
+                "player_id": player_id,
+                "player_name": getattr(display, "player_name", None),
+                "team": getattr(display, "team", None),
+                "opponent": getattr(display, "opponent", None),
+                "lineup_state": getattr(display, "lineup_status", None),
+                "probable_starter_evidence_state": "excluded_batter_only",
+                "market": market,
+                "frozen_mean": frozen_mean,
+                "candidate_mean": candidate_mean,
+                "absolute_change": None if frozen_mean is None else candidate_mean - frozen_mean,
+                "frozen_threshold_probabilities": frozen_thresholds,
+                "candidate_threshold_probabilities": candidate_market["threshold_probabilities"],
+                "opportunity_model_change": "receipt-bound start/slot/PA mixture replaces scalar PA",
+                "major_change_reason": "batter-only EB outcomes; mutable Savant and unreceipted pitcher effects excluded",
+                "candidate_input_health": prediction["input_health"],
+                "comparison_status": "paired" if frozen_projection is not None else "candidate_only_market",
+            })
+    return rows
+
+
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     setup_logging(level=logging.DEBUG if args.verbose else logging.INFO)
     log = logging.getLogger("run_slate")
 
     try:
+        if _is_may_2026(args.date):
+            raise CandidateEvidenceError("May 2026 is sealed and cannot be run or inspected")
+        if args.compare_models and args.model is not None:
+            raise CandidateEvidenceError("use either --model or --compare-models, not both")
+        if args.model == SHARED_PA_MODEL_ID:
+            candidate = _load_candidate(args)
+            destination = atomic_write_json(candidate, _candidate_output_path(args))
+            print(
+                f"Candidate slate {args.date}: {candidate['coverage']['predicted_players']} predicted + "
+                f"{candidate['coverage']['abstained_players']} abstained players."
+            )
+            print(f"Archive: {destination}")
+            return EXIT_OK if candidate["predictions"] else EXIT_NO_DATA
+        if args.compare_models:
+            candidate = _load_candidate(args)
+            frozen = _run_frozen(args, archive_predictions=False)
+            frozen_path = atomic_write_json(_frozen_envelope(frozen), _frozen_output_path(args))
+            candidate_path = atomic_write_json(candidate, _candidate_output_path(args))
+            comparison = {
+                "schema_version": "frozen-versus-shared-pa-candidate-v1",
+                "game_date": args.date,
+                "research_only": True,
+                "betting_authorized": False,
+                "model_ids": [FROZEN_MODEL_ID, SHARED_PA_MODEL_ID],
+                "rows": _comparison_rows(frozen, candidate),
+                "candidate_abstentions": candidate["abstentions"],
+                "warning": "Changed probabilities are not evidence of improvement.",
+            }
+            compare_root = Path(args.archive_dir).resolve() if args.archive_dir else Path("data/learning/predictions")
+            comparison_path = atomic_write_json(
+                comparison, compare_root / "comparisons" / f"comparison_{args.date}.json"
+            )
+            print(f"Comparison {args.date}: {len(comparison['rows'])} market rows.")
+            print(f"Frozen archive: {frozen_path}")
+            print(f"Candidate archive: {candidate_path}")
+            print(f"Comparison archive: {comparison_path}")
+            return EXIT_OK
+
         config_path = Path(args.config) if args.config else DEFAULT_RESEARCH_CONFIG
         predictor = DailyPredictor(config_path=config_path)
         # Do this before the first feature or stats request.  A post-start
@@ -229,7 +407,13 @@ def main(argv: list[str] | None = None) -> int:
             capture_prediction_provenance=True,
             apply_corrections=True if args.apply_corrections else None,
             use_projected_lineups=args.include_projected_lineups,
+            archive_predictions=False if args.model == FROZEN_MODEL_ID else None,
         )
+
+        # Explicit named-arm runs use a model-separated envelope.  The legacy
+        # no-flag command above retains its historical archive behavior.
+        if args.model == FROZEN_MODEL_ID:
+            atomic_write_json(_frozen_envelope(result), _frozen_output_path(args))
 
         n_hit = len(result.hitter_projections)
         n_pit = len(result.pitcher_projections)
@@ -245,7 +429,12 @@ def main(argv: list[str] | None = None) -> int:
             f"Slate {args.date}: {n_hit} hitter + {n_pit} pitcher projections "
             f"across {cats}."
         )
-        print(f"Archive: {archive_dir / f'predictions_{args.date}.json'} (includes simulation blocks).")
+        reported_archive = (
+            _frozen_output_path(args)
+            if args.model == FROZEN_MODEL_ID
+            else archive_dir / f"predictions_{args.date}.json"
+        )
+        print(f"Archive: {reported_archive} (includes simulation blocks).")
         print(
             f"Feature snapshot: data/features/{args.date}/ "
             "(manifest-verified input-health evidence)."
@@ -258,6 +447,9 @@ def main(argv: list[str] | None = None) -> int:
     except PregameArchiveBoundaryError as exc:
         print(str(exc), file=sys.stderr)
         return EXIT_NO_DATA
+    except (CandidateEvidenceError, ValueError, json.JSONDecodeError) as exc:
+        print(f"Candidate input error: {exc}", file=sys.stderr)
+        return EXIT_CONFIG
     except (DataFetchError, PredictorError) as exc:
         print(f"Prediction error: {exc}", file=sys.stderr)
         return EXIT_ERROR

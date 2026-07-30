@@ -1,0 +1,45 @@
+{
+  "schema_version": "model-arms-v1",
+  "research_only": true,
+  "betting_authorized": false,
+  "frozen_baseline": {
+    "model_id": "frozen_baseline",
+    "source_commit": "62535c3626c875e694a37bc9922f5881c22c59fb",
+    "git_blobs": {
+      "run_slate.py": "0efb7082946257b5d97dac287320c2a8d2ca2f60",
+      "config/config.kbb.json": "23bccd3207620cfe9087750500252d9829a3f50d",
+      "data/learning/k_bb_pre2026.json": "5a54db158e23dcab8eaebab99c9fb788c7d57b89",
+      "data/learning/pa_distribution.json": "739283afd2cd9201e8fc5daed46a6dd44c55d913",
+      "src/prediction/daily_predictor.py": "13638180b4e2857cefe670746a40ddef7d6b79fc",
+      "src/prediction/prop_engine.py": "efc67f6a3472f4209d033d2adf0fd8bf530f9fd3",
+      "src/simulation/game_simulator.py": "2746690aa4c4578216c970ca97a26412c4e6a8d4",
+      "src/simulation/pa_simulator.py": "6cce2c17192b527f17b8188c621983da6b443c2e"
+    },
+    "artifact_sha256": {
+      "config/config.kbb.json": "ff65d440b7571aa490300b26b1cf8a6271c5979e564c1a74d1d0988a0b743bad",
+      "data/learning/pa_distribution.json": "c2af0a73fdadd78b762a2da4effc10b3befc6d197eb61fef723504ad3b8c7f4d",
+      "data/learning/k_bb_pre2026.json": "a6448d39d9ce1f0666b9656e848e10ac5ab2c9518a0bbff8eadeb753c2d08cc1"
+    },
+    "candidate_configuration_may_not_override": true
+  },
+  "shared_pa_candidate_v1": {
+    "model_id": "shared_pa_candidate_v1",
+    "entry_point": "src/prediction/integrated_shared_pa_candidate.py",
+    "required_opportunity_source_authority": "QUALIFIED_2023_OFFICIAL_SOURCE_RELEASE",
+    "blocked_pa_volume_artifact_sha256": [
+      "7ffd6a8fecb1c4f8aed1966c234a61499050346f87f884f731c440daca793c90"
+    ],
+    "mutable_savant_override": "excluded",
+    "direct_bvp": "excluded",
+    "pitcher_matchup": "excluded_until_receipt_proven_and_qualified",
+    "markets": ["hits", "home_runs", "total_bases", "hitter_strikeouts", "hitter_walks"],
+    "deferred": ["rbi", "hrr", "pitcher_earned_runs", "all_pitcher_candidate_markets"]
+  },
+  "rejection_authorities": [
+    "reports/direct_batter_pa_foundation_v1_CERTIFIED_REJECTION.json",
+    "reports/shared_pa_hierarchical_selection_v1_CERTIFIED_REJECTION.json",
+    "docs/SHARED_PA_CONTACT_EB_OFFSET_2023_V1_DECISION.md",
+    "docs/SHARED_PA_TRUE_EB_OFFSET_2023_V1_DECISION.md",
+    "reports/pa_volume_source_truth_repair_readiness_v2.json"
+  ]
+}
