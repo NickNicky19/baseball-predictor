@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 
 import pytest
@@ -73,11 +74,13 @@ def feed_body() -> bytes:
 
 def captured(tmp_path: Path, monkeypatch):
     monkeypatch.setattr(capture, "EXPECTED_GAMES", 1)
+    fixed_clock = lambda: datetime(2026, 7, 29, 12, 0, tzinfo=timezone.utc)
     schedule_root = tmp_path / "schedule"
     schedule_manifest = capture.capture_schedule(
         output_dir=schedule_root, runtime=runtime(), source_access=source_access(),
         source_bundle_sha256=capture.capture_source_bundle_sha256(),
         transport=FakeTransport({capture.SCHEDULE_FULL_URL: schedule_body()}),
+        clock=fixed_clock,
     )
     plan = capture.build_feed_plan(
         schedule_capture_dir=schedule_root,
@@ -89,6 +92,7 @@ def captured(tmp_path: Path, monkeypatch):
         source_access=source_access(),
         source_bundle_sha256=capture.capture_source_bundle_sha256(),
         transport=FakeTransport({plan["requests"][0]["full_url"]: feed_body()}),
+        clock=fixed_clock,
     )
     return schedule_root, schedule_manifest, feed_root, feed_manifest
 

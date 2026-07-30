@@ -57,6 +57,28 @@ class CaptureError(ValueError):
     """The historical source capture boundary was violated."""
 
 
+class TransportFailure(CaptureError):
+    """Sanitized transport failure suitable for bounded retry decisions."""
+
+    def __init__(
+        self,
+        *,
+        error_kind: str,
+        retryable: bool,
+        requested_at_utc: str,
+        observed_at_utc: str,
+        status: int | None = None,
+        retry_after: str | None = None,
+    ) -> None:
+        super().__init__(f"source request failed closed: {error_kind}")
+        self.error_kind = error_kind
+        self.retryable = retryable
+        self.requested_at_utc = requested_at_utc
+        self.observed_at_utc = observed_at_utc
+        self.status = status
+        self.retry_after = retry_after
+
+
 @dataclass(frozen=True)
 class RuntimeAuthorization:
     attestation_sha256: str
@@ -238,8 +260,42 @@ class HTTPSHistoricalTransport:
                 body = _read_limited(response, max_bytes=max_bytes)
         except CaptureError:
             raise
-        except (OSError, urllib.error.URLError, urllib.error.HTTPError) as exc:
-            raise CaptureError(f"source request failed closed: {type(exc).__name__}") from exc
+        except urllib.error.HTTPError as exc:
+            observed = _now_utc()
+            status = int(exc.code)
+            retry_after = exc.headers.get("Retry-After") if exc.headers else None
+            raise TransportFailure(
+                error_kind=f"http_{status}",
+                retryable=status in {408, 425, 429, 500, 502, 503, 504},
+                requested_at_utc=requested,
+                observed_at_utc=observed,
+                status=status,
+                retry_after=retry_after,
+            ) from exc
+        except urllib.error.URLError as exc:
+            observed = _now_utc()
+            reason = exc.reason
+            tls_failure = isinstance(reason, ssl.SSLError)
+            raise TransportFailure(
+                error_kind="tls_failure" if tls_failure else "transport_io",
+                retryable=not tls_failure,
+                requested_at_utc=requested,
+                observed_at_utc=observed,
+            ) from exc
+        except ssl.SSLError as exc:
+            raise TransportFailure(
+                error_kind="tls_failure",
+                retryable=False,
+                requested_at_utc=requested,
+                observed_at_utc=_now_utc(),
+            ) from exc
+        except OSError as exc:
+            raise TransportFailure(
+                error_kind="transport_io",
+                retryable=True,
+                requested_at_utc=requested,
+                observed_at_utc=_now_utc(),
+            ) from exc
         observed = _now_utc()
         return CapturedResponse(status, body, headers, final_url, requested, observed)
 
