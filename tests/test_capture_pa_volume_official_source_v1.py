@@ -212,10 +212,10 @@ def test_schedule_builds_exact_sorted_feed_plan(tmp_path: Path, monkeypatch) -> 
     assert [row["request_id"] for row in plan["requests"]] == ["game-1", "game-2"]
     assert plan["requests"][0]["expected"] == {
         "game_pk": 1,
-        "schedule_group_date": "2023-03-30",
         "schedule_official_date": "2023-03-30",
         "away_team_id": 11,
         "home_team_id": 21,
+        "schedule_group_dates": ["2023-03-30"],
     }
 
 
@@ -291,6 +291,33 @@ def test_repeated_schedule_identity_must_agree(tmp_path: Path, monkeypatch) -> N
         )
 
 
+def test_rescheduled_listing_dates_are_retained_under_one_game_identity(
+    tmp_path: Path, monkeypatch
+) -> None:
+    monkeypatch.setattr(capture, "EXPECTED_GAMES", 1)
+    body = json.loads(schedule_body(1))
+    duplicate = json.loads(json.dumps(body["dates"][0]["games"][0]))
+    body["dates"].append({"date": "2023-04-01", "games": [duplicate]})
+    root = tmp_path / "schedule"
+    manifest = capture.capture_schedule(
+        output_dir=root,
+        runtime=runtime(),
+        source_access=source_access(),
+        source_bundle_sha256=capture.capture_source_bundle_sha256(),
+        transport=FakeTransport(
+            {capture.SCHEDULE_FULL_URL: json.dumps(body).encode()}
+        ),
+    )
+    plan = capture.build_feed_plan(
+        schedule_capture_dir=root,
+        expected_schedule_capture_digest=manifest["observed_capture_digest"],
+    )
+    assert plan["requests"][0]["expected"]["schedule_group_dates"] == [
+        "2023-03-30",
+        "2023-04-01",
+    ]
+
+
 def test_non_2023_or_wrong_game_type_never_enters_plan(tmp_path: Path, monkeypatch) -> None:
     monkeypatch.setattr(capture, "EXPECTED_GAMES", 1)
     body = json.loads(schedule_body(1))
@@ -363,7 +390,7 @@ def test_schedule_group_date_may_differ_from_official_date(
         expected_schedule_capture_digest=manifest["observed_capture_digest"],
     )
     expected = plan["requests"][0]["expected"]
-    assert expected["schedule_group_date"] == "2023-08-07"
+    assert expected["schedule_group_dates"] == ["2023-08-07"]
     assert expected["schedule_official_date"] == "2023-04-17"
 
 

@@ -1867,15 +1867,36 @@ def build_feed_plan(
             # feed must confirm ``schedule_official_date`` before release.
             candidate = {
                 "game_pk": game_pk,
-                "schedule_group_date": group_date.isoformat(),
                 "schedule_official_date": official_date.isoformat(),
                 "away_team_id": away,
                 "home_team_id": home,
+                "schedule_group_dates": [group_date.isoformat()],
             }
             prior = candidates.get(game_pk)
-            if prior is not None and prior != candidate:
-                raise OfficialSourceCaptureError("repeated schedule game identity contradicts")
-            candidates[game_pk] = candidate
+            if prior is None:
+                candidates[game_pk] = candidate
+                continue
+            for field in (
+                "game_pk",
+                "schedule_official_date",
+                "away_team_id",
+                "home_team_id",
+            ):
+                if prior.get(field) != candidate[field]:
+                    raise OfficialSourceCaptureError(
+                        "repeated schedule game identity contradicts"
+                    )
+            group_text = group_date.isoformat()
+            prior_group_dates = prior.get("schedule_group_dates")
+            if (
+                not isinstance(prior_group_dates, list)
+                or group_text in prior_group_dates
+            ):
+                raise OfficialSourceCaptureError(
+                    "repeated schedule listing is not uniquely attributable"
+                )
+            prior_group_dates.append(group_text)
+            prior_group_dates.sort()
     if len(candidates) != EXPECTED_GAMES:
         raise OfficialSourceCaptureError(
             f"2023 regular-season schedule coverage differs: {len(candidates)}"
