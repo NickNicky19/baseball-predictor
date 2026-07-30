@@ -20,17 +20,25 @@ AUTHORIZATION = (
     / "config"
     / "pa_volume_historical_source_access_authorization_20260730_v1.json"
 )
-CURRENT_AUTHORIZATION = (
+V2_AUTHORIZATION = (
     ROOT
     / "config"
     / "pa_volume_historical_source_access_authorization_20260730_v2.json"
+)
+CURRENT_AUTHORIZATION = (
+    ROOT
+    / "config"
+    / "pa_volume_historical_source_access_authorization_20260730_v3.json"
 )
 POLICY = ROOT / "config" / "pa_volume_source_runtime_authority_v1.json"
 EXPECTED_AUTHORIZATION_SHA256 = (
     "6f07bf2f50444c7059295dda146b07ffb0648834917b8f1220168fba7bd5b5ab"
 )
-EXPECTED_CURRENT_AUTHORIZATION_SHA256 = (
+EXPECTED_V2_AUTHORIZATION_SHA256 = (
     "1f0e787743a427f36a17fd36703da8b607b49b33b425c3aa44cf9ccadd3355e7"
+)
+EXPECTED_CURRENT_AUTHORIZATION_SHA256 = (
+    "fc0f0bfb233ccec1cd27c4708ccfc77b9fb2202a28fd0152402e48d3794bb300"
 )
 
 
@@ -52,20 +60,34 @@ def test_prior_capture_authorization_cannot_authorize_repaired_source_bytes() ->
 
 
 def test_v2_capture_authorization_cannot_authorize_date_semantics_repair() -> None:
-    assert hashlib.sha256(CURRENT_AUTHORIZATION.read_bytes()).hexdigest() == (
-        EXPECTED_CURRENT_AUTHORIZATION_SHA256
+    assert hashlib.sha256(V2_AUTHORIZATION.read_bytes()).hexdigest() == (
+        EXPECTED_V2_AUTHORIZATION_SHA256
     )
     with pytest.raises(
         HistoricalSourceAccessError,
         match="different runtime or source bytes",
     ):
         verify_historical_source_access_authorization(
-            authorization_path=CURRENT_AUTHORIZATION,
-            expected_authorization_sha256=EXPECTED_CURRENT_AUTHORIZATION_SHA256,
+            authorization_path=V2_AUTHORIZATION,
+            expected_authorization_sha256=EXPECTED_V2_AUTHORIZATION_SHA256,
             expected_runtime_policy_sha256=hashlib.sha256(POLICY.read_bytes()).hexdigest(),
             expected_source_bundle_sha256=capture_source_bundle_sha256(),
             access_time_utc="2026-07-30T20:00:00.000000Z",
         )
+
+
+def test_v3_capture_authorization_binds_the_date_semantics_repair() -> None:
+    assert hashlib.sha256(CURRENT_AUTHORIZATION.read_bytes()).hexdigest() == (
+        EXPECTED_CURRENT_AUTHORIZATION_SHA256
+    )
+    verified = verify_historical_source_access_authorization(
+        authorization_path=CURRENT_AUTHORIZATION,
+        expected_authorization_sha256=EXPECTED_CURRENT_AUTHORIZATION_SHA256,
+        expected_runtime_policy_sha256=hashlib.sha256(POLICY.read_bytes()).hexdigest(),
+        expected_source_bundle_sha256=capture_source_bundle_sha256(),
+        access_time_utc="2026-07-30T20:30:00.000000Z",
+    )
+    assert verified.authorization_id.endswith("-v3")
 
 
 def test_capture_workflow_is_manual_and_never_fits_or_predicts() -> None:
@@ -83,7 +105,7 @@ def test_capture_workflow_is_manual_and_never_fits_or_predicts() -> None:
     assert "--no-compile" in workflow
     assert "Retain rejected pre-request attestation for diagnosis" in workflow
     assert (
-        "config/pa_volume_historical_source_access_authorization_20260730_v2.json"
+        "config/pa_volume_historical_source_access_authorization_20260730_v3.json"
         in workflow
     )
     runtime_workflow = (
