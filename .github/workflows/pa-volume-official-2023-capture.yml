@@ -88,7 +88,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          auth="config/pa_volume_historical_source_access_authorization_20260730_v1.json"
+          auth="config/pa_volume_historical_source_access_authorization_20260730_v2.json"
           observed="$(sha256sum "$auth" | awk '{print $1}')"
           test "$observed" = "${{ inputs.expected_source_authorization_sha256 }}"
 
@@ -104,7 +104,7 @@ jobs:
             --runtime-policy config/pa_volume_source_runtime_authority_v1.json \
             --runtime-attestation "${RUNNER_TEMP}/pa-source-runtime.json" \
             --expected-runtime-attestation-sha256 "${{ inputs.expected_runtime_attestation_sha256 }}" \
-            --source-access-authorization config/pa_volume_historical_source_access_authorization_20260730_v1.json \
+            --source-access-authorization config/pa_volume_historical_source_access_authorization_20260730_v2.json \
             --expected-source-access-authorization-sha256 "${{ inputs.expected_source_authorization_sha256 }}" \
             --output-dir "$root/schedule"
           schedule_digest="$("$capture_python" -I -B -c 'import json,sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["observed_capture_digest"])' "$root/schedule/manifest.json")"
@@ -127,7 +127,7 @@ jobs:
             --runtime-policy config/pa_volume_source_runtime_authority_v1.json \
             --runtime-attestation "${RUNNER_TEMP}/pa-source-runtime.json" \
             --expected-runtime-attestation-sha256 "${{ inputs.expected_runtime_attestation_sha256 }}" \
-            --source-access-authorization config/pa_volume_historical_source_access_authorization_20260730_v1.json \
+            --source-access-authorization config/pa_volume_historical_source_access_authorization_20260730_v2.json \
             --expected-source-access-authorization-sha256 "${{ inputs.expected_source_authorization_sha256 }}" \
             --plan "$root/feed-plan.json" \
             --output-dir "$root/feeds" \
@@ -154,7 +154,7 @@ jobs:
             --dependency-lock requirements-direct-batter-pa-source-authority.lock \
             --output-dir "$root/source-release"
           cp "${RUNNER_TEMP}/pa-source-runtime.json" "$root/runtime-attestation.json"
-          cp config/pa_volume_historical_source_access_authorization_20260730_v1.json "$root/source-access-authorization.json"
+          cp config/pa_volume_historical_source_access_authorization_20260730_v2.json "$root/source-access-authorization.json"
           cp config/pa_volume_source_runtime_authority_v1.json "$root/runtime-policy.json"
           cp requirements-direct-batter-pa-source-authority.lock "$root/requirements.lock"
           git rev-parse HEAD > "$root/executed-commit.txt"
