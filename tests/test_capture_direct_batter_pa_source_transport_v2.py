@@ -5,6 +5,8 @@ from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
+import ssl
+import urllib.error
 
 import pytest
 
@@ -305,3 +307,55 @@ def test_invalid_timeout_fails_before_reading_inputs(tmp_path: Path) -> None:
             request_plan_path=tmp_path / "missing.json", source_contract_path=CONTRACT,
             runtime=runtime(), output_dir=tmp_path / "out", transport=FakeTransport(), timeout_seconds=0,
         )
+
+
+def test_https_transport_exposes_only_sanitized_retry_metadata() -> None:
+    class HTTP429Opener:
+        def open(self, request, timeout):
+            del timeout
+            raise urllib.error.HTTPError(
+                request.full_url,
+                429,
+                "secret upstream text",
+                {"Retry-After": "7", "Set-Cookie": "secret"},
+                None,
+            )
+
+    transport = capture.HTTPSHistoricalTransport.__new__(
+        capture.HTTPSHistoricalTransport
+    )
+    transport._opener = HTTP429Opener()
+    request = {
+        "full_url": "https://statsapi.mlb.com/example",
+    }
+    with pytest.raises(capture.TransportFailure) as raised:
+        transport.fetch(request, timeout_seconds=10, max_bytes=100)
+    failure = raised.value
+    assert failure.retryable is True
+    assert failure.status == 429
+    assert failure.retry_after == "7"
+    assert failure.error_kind == "http_429"
+    assert "secret" not in str(failure)
+    assert not hasattr(failure, "headers")
+
+
+def test_tls_failures_are_explicitly_nonretryable() -> None:
+    class TLSFailureOpener:
+        def open(self, request, timeout):
+            del request, timeout
+            raise urllib.error.URLError(
+                ssl.SSLCertVerificationError("synthetic certificate failure")
+            )
+
+    transport = capture.HTTPSHistoricalTransport.__new__(
+        capture.HTTPSHistoricalTransport
+    )
+    transport._opener = TLSFailureOpener()
+    with pytest.raises(capture.TransportFailure) as raised:
+        transport.fetch(
+            {"full_url": "https://statsapi.mlb.com/example"},
+            timeout_seconds=10,
+            max_bytes=100,
+        )
+    assert raised.value.retryable is False
+    assert raised.value.error_kind == "tls_failure"

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 import subprocess
 import sys
@@ -77,8 +78,14 @@ def runtime(policy_sha256: str) -> RuntimeAuthorization:
 def source_access(
     tmp_path: Path,
 ) -> tuple[Path, Path, historical_access.VerifiedHistoricalSourceAccess]:
+    tmp_path.mkdir(parents=True, exist_ok=True)
     policy_path = tmp_path / "runtime-policy.json"
-    write_json(policy_path, {"runtime": "synthetic"})
+    policy_path.write_bytes(
+        (
+            Path(__file__).resolve().parents[1]
+            / "config/direct_batter_pa_source_runtime_authority_v1.json"
+        ).read_bytes()
+    )
     policy_sha = digest(policy_path)
     unsigned = {
         "schema_version": historical_access.SCHEMA,
@@ -196,6 +203,7 @@ def make_inputs(tmp_path: Path, monkeypatch) -> dict[str, Path | str]:
     monkeypatch.setattr(capture, "EXPECTED_GAMES", 1)
     policy_path, authorization_path, verified_access = source_access(tmp_path)
     runtime_authorization = runtime(digest(policy_path))
+    fixed_clock = lambda: datetime(2026, 7, 29, 12, 0, tzinfo=timezone.utc)
     schedule_root = tmp_path / "schedule"
     schedule_manifest = capture.capture_schedule(
         output_dir=schedule_root,
@@ -203,6 +211,7 @@ def make_inputs(tmp_path: Path, monkeypatch) -> dict[str, Path | str]:
         source_access=verified_access,
         source_bundle_sha256=capture.capture_source_bundle_sha256(),
         transport=FakeTransport({capture.SCHEDULE_FULL_URL: schedule_body()}),
+        clock=fixed_clock,
     )
     plan = capture.build_feed_plan(
         schedule_capture_dir=schedule_root,
@@ -219,6 +228,7 @@ def make_inputs(tmp_path: Path, monkeypatch) -> dict[str, Path | str]:
         source_access=verified_access,
         source_bundle_sha256=capture.capture_source_bundle_sha256(),
         transport=FakeTransport({plan["requests"][0]["full_url"]: feed_body()}),
+        clock=fixed_clock,
     )
     lock = tmp_path / "requirements.lock"
     lock.write_bytes(
@@ -320,6 +330,15 @@ def attestation(authority_root: Path, *, observed: str = OBSERVED_TIME) -> dict:
         "runtime_policy_sha256": digest(
             authority_root / "source_access/runtime_policy.json"
         ),
+        "capture_receipt_evidence_sha256": digest(
+            authority_root / qualify.CAPTURE_EVIDENCE_MANIFEST_RELATIVE
+        ),
+        "first_source_request_at_utc": authority["source_capture_window"][
+            "first_request_at_utc"
+        ],
+        "latest_source_observation_at_utc": authority[
+            "source_capture_window"
+        ]["latest_observation_at_utc"],
         "observed_at_utc": observed,
         "decision_time_utc": DECISION_TIME,
     }
@@ -352,6 +371,15 @@ def test_qualification_and_external_receipt_complete_downstream_authority(
     )
     assert result["pa_volume_artifact_sha256"] == digest(artifact_path)
     assert receipt["authority_manifest_sha256"] == digest(authority_path)
+    assert receipt["source_access_authorization_sha256"] == digest(
+        authority_root / "source_access/authorization.json"
+    )
+    assert receipt["runtime_policy_sha256"] == digest(
+        authority_root / "source_access/runtime_policy.json"
+    )
+    assert receipt["capture_receipt_evidence_sha256"] == digest(
+        authority_root / qualify.CAPTURE_EVIDENCE_MANIFEST_RELATIVE
+    )
     assert verified.pa_volume_artifact_sha256 == digest(artifact_path)
     artifact = json.loads(artifact_path.read_bytes())
     assert artifact["source"]["fit_rows"] == 18
@@ -487,6 +515,58 @@ def test_source_access_must_be_active_by_first_retained_request(
             **inputs,
             qualified_at_utc=QUALIFIED_TIME,
             output_dir=tmp_path / "qualified",
+        )
+
+
+def test_claimed_capture_window_is_recomputed_from_retained_receipts(
+    tmp_path: Path, monkeypatch
+) -> None:
+    authority_root, _ = build_qualified(tmp_path, monkeypatch)
+    authority_path = authority_root / qualify.AUTHORITY_MANIFEST_RELATIVE
+    authority = json.loads(authority_path.read_bytes())
+    authority["source_capture_window"] = {
+        "first_request_at_utc": "2026-07-29T11:00:00.000000Z",
+        "latest_observation_at_utc": "2026-07-29T12:30:00.000000Z",
+    }
+    write_json(authority_path, authority)
+    with pytest.raises(
+        qualify.PAVolumeQualificationError,
+        match="differs from retained receipt bytes",
+    ):
+        qualify.verify_qualified_bundle(
+            authority_root=authority_root,
+            authority_manifest_relative=qualify.AUTHORITY_MANIFEST_RELATIVE,
+        )
+
+
+def test_rehashed_copied_retry_metadata_cannot_pass_qualification(
+    tmp_path: Path, monkeypatch
+) -> None:
+    authority_root, _ = build_qualified(tmp_path, monkeypatch)
+    evidence_path = authority_root / qualify.CAPTURE_EVIDENCE_MANIFEST_RELATIVE
+    evidence = json.loads(evidence_path.read_bytes())
+    entry = next(
+        row for row in evidence["entries"]
+        if row["role"] == "schedule_support"
+        and row["path"].endswith("result-0001.json")
+    )
+    result_path = authority_root / entry["path"]
+    result = json.loads(result_path.read_bytes())
+    result["attempt"]["backoff_seconds"] = 1.0
+    write_json(result_path, result)
+    entry["sha256"] = digest(result_path)
+    write_json(evidence_path, evidence)
+    authority_path = authority_root / qualify.AUTHORITY_MANIFEST_RELATIVE
+    authority = json.loads(authority_path.read_bytes())
+    authority["source_capture_receipt_evidence"]["sha256"] = digest(evidence_path)
+    write_json(authority_path, authority)
+    with pytest.raises(
+        qualify.PAVolumeQualificationError,
+        match="deterministic copied evidence differs",
+    ):
+        qualify.verify_qualified_bundle(
+            authority_root=authority_root,
+            authority_manifest_relative=qualify.AUTHORITY_MANIFEST_RELATIVE,
         )
 
 

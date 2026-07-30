@@ -49,14 +49,15 @@
     "required_game_shape": "exactly two teams, nine sequence-zero original starters per side, slots 1 through 9 exactly once, zero PA preserved",
     "identity_boundary": "gamePk plus team side plus MLB player ID; doubleheaders remain distinct by gamePk",
     "chronology_boundary": "canonical officialDate in 2023 only; regular-season coded-final feeds only",
-    "publication_boundary": "immutable raw bytes and receipts, exact file sets, atomic completion, external digest anchors, independent source-release verification before PA artifact construction",
+    "publication_boundary": "immutable raw bytes and receipts, exact file sets, exclusive single-writer locks, same-filesystem atomic completion, durable writes, conservative free-space reserve, pre-request durable reservations, separate immutable results, lifetime attempt journals and terminal markers, external digest anchors, and independent source-release verification before PA artifact construction",
+    "capture_operational_boundary": "one request per second or slower, no more than four lifetime attempts per exact request across restarts, bounded exponential backoff with validated Retry-After, retries restricted to enumerated transient failures, authorization and overall-deadline containment before and after every request or retry, pre-network rejection of all non-2023 schedule dates including May 2026, and complete pre-network validation of resumable state",
     "source_access_boundary": "historical network access requires a separately supplied, externally digest-anchored authorization whose exact runtime-policy and source-bundle bindings, activation, expiry, official MLB Stats API endpoint allowlist, 2023-only scope, and explicit prohibitions are validated before the first request",
-    "consumption_boundary": "downstream probability builder is never invoked unless source release semantics, copied schedule and projection bytes, source-access bindings, independently reviewed source files, independent verification, qualified deterministic rebuild, exact dependency lock, active builder, and PA artifact bytes all agree",
+    "consumption_boundary": "downstream probability builder is never invoked unless source release semantics, copied schedule and projection bytes, every retained schedule/feed capture context, request-journal context, reservation, result, and receipt passes the same deterministic pacing/backoff/authorization semantics and recomputed capture window, the exact source-access authorization and runtime-policy bytes and positive semantics, independently reviewed source files, independent verification, qualified deterministic rebuild, exact dependency lock, active builder, and PA artifact bytes all agree",
     "selection_boundary": "no 2024 selection was performed or claimed by this source repair"
   },
   "runtime_authority": {
     "policy_path": "config/pa_volume_source_runtime_authority_v1.json",
-    "policy_sha256": "9cd6011487624b95b4b0db950fc974ad1977590e872daff5cd052225f7beb6f5",
+    "policy_sha256": "8caf9385749407dedc51ab5cf8f4905687e23bd0a27a88e25ca0b89a0e74a763",
     "dependency_lock_path": "requirements-direct-batter-pa-source-authority.lock",
     "dependency_lock_sha256": "0847ea7c8fe05649a94293b2adbba0164f10f420ca984ecf35f105f1aabc2a1f",
     "linux_workflow_path": ".github/workflows/pa-volume-source-runtime-linux.yml",
@@ -66,10 +67,12 @@
   },
   "verification": {
     "focused_tests": {
-      "passed": 93,
+      "passed": 123,
       "failed": 0,
       "coverage": [
-        "transport failures and immutable receipt replay",
+        "rate limiting, bounded transient retries, Retry-After, authorization expiry, capture deadlines, and immutable attempt receipt replay",
+        "durable pre-request reservations, lifetime retry budgets, hard-crash terminalization, terminal failure markers, restart behavior, and rehashed pacing/backoff mutations",
+        "exclusive-writer, post-lock races, same-filesystem, free-space, interrupted-state, and atomic-publication failures",
         "2023-only and May-2026 mutation rejection",
         "schedule and feed identity contradiction rejection",
         "zero-PA preservation",
@@ -80,6 +83,8 @@
         "consistently rehashed fabricated source, verification, lock, and builder mutation rejection",
         "deterministic PA artifact reconstruction and byte equality",
         "clean isolated-process command-line launch for capture, release build, and qualification",
+        "re-anchored or widened source authorization, runtime policy, or claimed capture window mutations prevent Hits, HR, and Total Bases probability consumption",
+        "downstream recomputation of first request and latest observation plus independent full retry/pacing semantics from every retained capture context, reservation, result, and receipt",
         "blocked or drifted authority prevents Hits, HR, and Total Bases probability consumption"
       ]
     },

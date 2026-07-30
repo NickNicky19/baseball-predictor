@@ -17,10 +17,13 @@ import json
 import re
 import stat
 from dataclasses import dataclass
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable, Mapping, TypeVar
 
+from scripts import capture_pa_volume_official_source_v1 as capture
+from scripts import verify_direct_batter_pa_source_runtime_authority as runtime_authority
+from src.evaluation import pa_volume_historical_source_access_v1 as historical_access
 from src.evaluation.pa_volume_source_truth_v2 import (
     PAVolumeSourceTruthError,
     build_pa_volume_artifact,
@@ -33,9 +36,10 @@ class PAVolumeSourceAuthorityError(ValueError):
     """PA-volume source authority is missing, blocked, late, or contradictory."""
 
 
-AUTHORITY_SCHEMA = "shared-pa-pa-volume-source-authority-v1"
+AUTHORITY_SCHEMA = "shared-pa-pa-volume-source-authority-v3"
 REBUILD_SCHEMA = "shared-pa-pa-volume-qualified-rebuild-v1"
-RECEIPT_SCHEMA = "shared-pa-pa-volume-source-authority-runtime-receipt-v1"
+RECEIPT_SCHEMA = "shared-pa-pa-volume-source-authority-runtime-receipt-v3"
+CAPTURE_EVIDENCE_SCHEMA = "pa-volume-qualified-capture-receipt-evidence-v1"
 COMPLETE_DECISION = "SOURCE_AND_DEPENDENCY_AUTHORITY_COMPLETE"
 REBUILD_COMPLETE_DECISION = "QUALIFIED_SOURCE_REBUILD_COMPLETE"
 SOURCE_RELEASE_SCHEMA = "pa-volume-official-source-release-v1"
@@ -55,6 +59,9 @@ _SOURCE_RELEASE_PATHS = {
     "rebuild": "rebuild/manifest.json",
     "artifact": "artifacts/pa_volume.json",
     "lock": "locks/requirements.lock",
+    "source_access": "source_access/authorization.json",
+    "runtime_policy": "source_access/runtime_policy.json",
+    "capture_evidence": "source_receipts/manifest.json",
 }
 _REVIEWED_SOURCE_PATHS = [
     "scripts/capture_direct_batter_pa_source_transport_v2.py",
@@ -88,6 +95,18 @@ def _canonical_bytes(value: Any) -> bytes:
 
 def _sha256_bytes(value: bytes) -> str:
     return hashlib.sha256(value).hexdigest()
+
+
+def _exact_files(root: Path) -> set[str]:
+    files: set[str] = set()
+    for path in root.rglob("*"):
+        if _is_reparse(path):
+            raise PAVolumeSourceAuthorityError(
+                "qualified authority contains a symlink or reparse point"
+            )
+        if path.is_file():
+            files.add(path.relative_to(root).as_posix())
+    return files
 
 
 def _sha(value: Any, label: str) -> str:
@@ -209,6 +228,556 @@ def _active_reviewed_source_files() -> list[dict[str, str]]:
             )
         rows.append({"path": relative, "sha256": _sha256_bytes(path.read_bytes())})
     return rows
+
+
+def _active_capture_source_bundle_sha256() -> str:
+    repo = Path(__file__).resolve().parents[2]
+    rows = [
+        {
+            "path": relative,
+            "sha256": _sha256_bytes((repo / relative).read_bytes()),
+        }
+        for relative in _REVIEWED_SOURCE_PATHS[:2]
+    ]
+    return _sha256_bytes(canonical_json_bytes(rows))
+
+
+def _verify_runtime_policy(
+    *, policy_path: Path, policy_sha: str, lock_sha: str
+) -> None:
+    if _sha256_bytes(policy_path.read_bytes()) != policy_sha:
+        raise PAVolumeSourceAuthorityError("runtime-policy bytes differ")
+    try:
+        policy = runtime_authority.load_policy(policy_path)
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        raise PAVolumeSourceAuthorityError(
+            "runtime-policy semantic validation failed"
+        ) from exc
+    dependency_lock = policy.get("dependency_lock")
+    if (
+        not isinstance(dependency_lock, Mapping)
+        or dependency_lock.get("path")
+        != "requirements-direct-batter-pa-source-authority.lock"
+        or dependency_lock.get("sha256") != lock_sha
+    ):
+        raise PAVolumeSourceAuthorityError(
+            "runtime policy binds a different dependency lock"
+        )
+    audited = policy.get("audited_python_sha256")
+    if not isinstance(audited, Mapping):
+        raise PAVolumeSourceAuthorityError("runtime-policy audited source is invalid")
+    repo = Path(__file__).resolve().parents[2]
+    for relative, expected in audited.items():
+        if not isinstance(relative, str):
+            raise PAVolumeSourceAuthorityError(
+                "runtime-policy audited source path is invalid"
+            )
+        path = _safe_file(repo, relative, "runtime-policy audited source")
+        if _sha256_bytes(path.read_bytes()) != _sha(
+            expected, "runtime-policy audited source digest"
+        ):
+            raise PAVolumeSourceAuthorityError(
+                "runtime-policy audited source differs from active bytes"
+            )
+
+
+def _capture_manifest_digest(value: Mapping[str, Any]) -> str:
+    unsigned = dict(value)
+    unsigned["observed_capture_digest"] = None
+    return _sha256_bytes(canonical_json_bytes(unsigned))
+
+
+def _receipt_window(
+    receipt: Mapping[str, Any], label: str
+) -> tuple[datetime, datetime]:
+    response = receipt.get("response")
+    attempts = receipt.get("attempts")
+    if not isinstance(response, Mapping) or not isinstance(attempts, list) or not attempts:
+        raise PAVolumeSourceAuthorityError(f"{label} lacks retained request timing")
+    requests = [_utc(response.get("requested_at_utc"), f"{label} request")]
+    observations = [_utc(response.get("observed_at_utc"), f"{label} observation")]
+    for index, attempt in enumerate(attempts, 1):
+        if not isinstance(attempt, Mapping):
+            raise PAVolumeSourceAuthorityError(f"{label} attempt is malformed")
+        requested = _utc(
+            attempt.get("requested_at_utc"), f"{label} attempt {index} request"
+        )
+        observed = _utc(
+            attempt.get("observed_at_utc"),
+            f"{label} attempt {index} observation",
+        )
+        if observed < requested:
+            raise PAVolumeSourceAuthorityError(f"{label} attempt timing is reversed")
+        requests.append(requested)
+        observations.append(observed)
+    if (
+        attempts[-1].get("requested_at_utc") != response.get("requested_at_utc")
+        or attempts[-1].get("observed_at_utc") != response.get("observed_at_utc")
+    ):
+        raise PAVolumeSourceAuthorityError(
+            f"{label} final attempt and response timing differ"
+        )
+    return min(requests), max(observations)
+
+
+def verify_copied_capture_receipt_semantics(
+    *, root: Path, receipt: Mapping[str, Any], expected_request: Mapping[str, Any],
+    context_relative: str, journal_relative: str, original_journal_relative: str,
+    support_hashes: Mapping[str, str], label: str,
+) -> tuple[datetime, datetime, set[str]]:
+    """Revalidate copied receipt metadata when raw response bodies are not retained."""
+    if set(receipt) != {
+        "schema_version", "authorization", "season", "research_only",
+        "betting_authorized", "model_fitting_performed", "probabilities_generated",
+        "protected_data", "request", "response", "runtime_attestation_sha256",
+        "source_access_authorization_id", "source_access_authorization_sha256",
+        "source_bundle_sha256", "request_policy", "attempts", "capture_window",
+        "capture_context_sha256", "attempt_journal",
+    }:
+        raise PAVolumeSourceAuthorityError(f"{label} positive schema differs")
+    policy = receipt.get("request_policy")
+    window = receipt.get("capture_window")
+    if not isinstance(policy, Mapping) or set(policy) != {
+        "minimum_request_interval_seconds", "maximum_attempts", "retry_base_seconds",
+        "retry_max_seconds", "overall_timeout_seconds",
+    } or policy.get("retry_base_seconds") != capture.RETRY_BASE_SECONDS or policy.get(
+        "retry_max_seconds"
+    ) != capture.RETRY_MAX_SECONDS:
+        raise PAVolumeSourceAuthorityError(f"{label} request policy differs")
+    try:
+        capture._validate_operational_policy(
+            timeout_seconds=30.0,
+            minimum_request_interval_seconds=policy["minimum_request_interval_seconds"],
+            maximum_attempts=policy["maximum_attempts"],
+            overall_timeout_seconds=policy["overall_timeout_seconds"],
+        )
+        capture._validate_attempt_history(
+            attempts=receipt.get("attempts"), policy=policy,
+            capture_window=window, require_success=True,
+        )
+    except capture.OfficialSourceCaptureError as exc:
+        raise PAVolumeSourceAuthorityError(
+            f"{label} deterministic attempt history differs"
+        ) from exc
+    consumed: set[str] = set()
+
+    def document(relative: str, kind: str) -> dict[str, Any]:
+        expected = support_hashes.get(relative)
+        if expected is None:
+            raise PAVolumeSourceAuthorityError(f"{label} support evidence is incomplete")
+        value, raw = _canonical_json(_safe_file(root, relative, kind), kind)
+        if _sha256_bytes(raw) != expected:
+            raise PAVolumeSourceAuthorityError(f"{label} support bytes differ")
+        consumed.add(relative)
+        return value
+
+    context = document(context_relative, f"{label} capture context")
+    if not isinstance(window, Mapping) or set(window) != {
+        "capture_started_at_utc", "deadline_at_utc", "authorization_valid_from_utc",
+        "authorization_expires_at_utc",
+    } or set(context) != {
+        "schema_version", "status", "plan_sha256", "runtime_attestation_sha256",
+        "source_access_authorization_id", "source_access_authorization_sha256",
+        "source_bundle_sha256", "request_policy", "capture_started_at_utc",
+        "deadline_at_utc", "authorization_valid_from_utc", "authorization_expires_at_utc",
+    } or context.get("schema_version") != capture.CAPTURE_CONTEXT_SCHEMA or context.get(
+        "status"
+    ) != "ACTIVE_OR_COMPLETE_IMMUTABLE_CAPTURE_CONTEXT" or support_hashes[
+        context_relative
+    ] != receipt.get("capture_context_sha256") or context.get(
+        "runtime_attestation_sha256"
+    ) != receipt.get("runtime_attestation_sha256") or context.get(
+        "source_access_authorization_id"
+    ) != receipt.get("source_access_authorization_id") or context.get(
+        "source_access_authorization_sha256"
+    ) != receipt.get("source_access_authorization_sha256") or context.get(
+        "source_bundle_sha256"
+    ) != receipt.get("source_bundle_sha256") or context.get(
+        "request_policy"
+    ) != policy or {key: context.get(key) for key in window} != dict(window):
+        raise PAVolumeSourceAuthorityError(f"{label} capture context binding differs")
+    started = _utc(context["capture_started_at_utc"], f"{label} start")
+    deadline = _utc(context["deadline_at_utc"], f"{label} deadline")
+    if deadline != started + timedelta(seconds=float(policy["overall_timeout_seconds"])):
+        raise PAVolumeSourceAuthorityError(f"{label} capture deadline differs")
+
+    journal = receipt.get("attempt_journal")
+    if not isinstance(journal, Mapping) or set(journal) != {
+        "path", "context_sha256", "reservation_files", "result_files"
+    } or journal.get("path") != original_journal_relative:
+        raise PAVolumeSourceAuthorityError(f"{label} journal binding differs")
+    request_context_relative = f"{journal_relative}/context.json"
+    request_context = document(request_context_relative, f"{label} request context")
+    expected_context = capture._request_context(
+        run_context_sha256=str(receipt.get("capture_context_sha256")),
+        request=expected_request,
+    )
+    if request_context != expected_context or support_hashes[
+        request_context_relative
+    ] != journal.get("context_sha256"):
+        raise PAVolumeSourceAuthorityError(f"{label} request context differs")
+    attempts = receipt.get("attempts")
+    reservations = journal.get("reservation_files")
+    results = journal.get("result_files")
+    if not isinstance(attempts, list) or not isinstance(reservations, list) or not isinstance(
+        results, list
+    ) or len(attempts) != len(reservations) or len(attempts) != len(results):
+        raise PAVolumeSourceAuthorityError(f"{label} journal closure differs")
+    context_sha = _sha256_bytes(canonical_json_bytes(expected_context))
+    reservation_paths: list[str] = []
+    reservation_times: list[datetime] = []
+    for index, binding in enumerate(reservations, 1):
+        name = f"reservation-{index:04d}.json"
+        relative = f"{journal_relative}/{name}"
+        reservation = document(relative, f"{label} reservation")
+        if not isinstance(binding, Mapping) or binding != {
+            "path": name, "sha256": support_hashes[relative]
+        } or set(reservation) != {
+            "schema_version", "context_sha256", "attempt", "reserved_at_utc"
+        } or reservation.get("schema_version") != capture.ATTEMPT_RESERVATION_SCHEMA or reservation.get(
+            "context_sha256"
+        ) != context_sha or reservation.get("attempt") != index:
+            raise PAVolumeSourceAuthorityError(f"{label} reservation differs")
+        reserved = _utc(reservation["reserved_at_utc"], f"{label} reservation")
+        requested = _utc(attempts[index - 1]["requested_at_utc"], f"{label} request")
+        if not (started <= reserved <= requested and reserved < deadline):
+            raise PAVolumeSourceAuthorityError(f"{label} reservation chronology differs")
+        if index > 1:
+            prior = attempts[index - 2]
+            if reserved < _utc(prior["requested_at_utc"], "prior request") + timedelta(
+                seconds=float(policy["minimum_request_interval_seconds"])
+            ) or reserved < _utc(prior["observed_at_utc"], "prior observation") + timedelta(
+                seconds=float(prior["backoff_seconds"])
+            ):
+                raise PAVolumeSourceAuthorityError(f"{label} reservation pacing differs")
+        reservation_paths.append(relative)
+        reservation_times.append(reserved)
+    journal_attempts: list[dict[str, Any]] = []
+    for index, binding in enumerate(results, 1):
+        name = f"result-{index:04d}.json"
+        relative = f"{journal_relative}/{name}"
+        result = document(relative, f"{label} result")
+        if not isinstance(binding, Mapping) or binding != {
+            "path": name, "sha256": support_hashes[relative]
+        } or set(result) != {
+            "schema_version", "context_sha256", "reservation_sha256", "attempt"
+        } or result.get("schema_version") != capture.ATTEMPT_RESULT_SCHEMA or result.get(
+            "context_sha256"
+        ) != context_sha or result.get("reservation_sha256") != support_hashes[
+            reservation_paths[index - 1]
+        ] or not isinstance(result.get("attempt"), Mapping) or result[
+            "attempt"
+        ].get("attempt") != index or reservation_times[index - 1] > _utc(
+            result["attempt"]["requested_at_utc"], f"{label} request"
+        ):
+            raise PAVolumeSourceAuthorityError(f"{label} result differs")
+        journal_attempts.append(dict(result["attempt"]))
+    if journal_attempts != attempts:
+        raise PAVolumeSourceAuthorityError(f"{label} journal attempts differ")
+    response = receipt.get("response")
+    if not isinstance(response, Mapping) or set(response) != {
+        "status", "final_url", "requested_at_utc", "observed_at_utc", "headers",
+        "body_path", "body_bytes", "body_sha256",
+    } or response.get("status") != 200 or response.get("final_url") != expected_request.get(
+        "full_url"
+    ) or not isinstance(response.get("headers"), Mapping):
+        raise PAVolumeSourceAuthorityError(f"{label} response semantics differ")
+    _sha(response.get("body_sha256"), f"{label} response body")
+    if attempts[-1].get("requested_at_utc") != response.get(
+        "requested_at_utc"
+    ) or attempts[-1].get("observed_at_utc") != response.get("observed_at_utc"):
+        raise PAVolumeSourceAuthorityError(f"{label} final response differs")
+    first, latest = _receipt_window(receipt, label)
+    return first, latest, consumed
+
+
+def _capture_evidence_entries(
+    root: Path,
+) -> tuple[dict[str, Any], bytes, list[Mapping[str, Any]]]:
+    path = _safe_file(root, _SOURCE_RELEASE_PATHS["capture_evidence"], "capture receipt evidence")
+    value, raw = _canonical_json(path, "capture receipt evidence")
+    if set(value) != {
+        "schema_version", "source_access_authorization_id",
+        "source_access_authorization_sha256", "source_bundle_sha256",
+        "schedule_capture_observed_digest", "feed_capture_observed_digest",
+        "entries",
+    } or value.get("schema_version") != CAPTURE_EVIDENCE_SCHEMA:
+        raise PAVolumeSourceAuthorityError(
+            "capture receipt evidence positive schema differs"
+        )
+    entries = value.get("entries")
+    if not isinstance(entries, list) or not entries:
+        raise PAVolumeSourceAuthorityError("capture receipt evidence is empty")
+    paths: list[str] = []
+    roles: list[str] = []
+    for entry in entries:
+        if not isinstance(entry, Mapping) or set(entry) != {
+            "role", "request_id", "path", "sha256"
+        }:
+            raise PAVolumeSourceAuthorityError(
+                "capture receipt evidence entry schema differs"
+            )
+        role = entry.get("role")
+        request_id = entry.get("request_id")
+        relative = entry.get("path")
+        if (
+            role not in {
+                "schedule_manifest", "schedule_receipt", "feed_manifest",
+                "feed_plan", "feed_receipt", "schedule_support", "feed_support",
+            }
+            or not isinstance(request_id, str)
+            or not request_id
+            or not isinstance(relative, str)
+        ):
+            raise PAVolumeSourceAuthorityError(
+                "capture receipt evidence identity differs"
+            )
+        expected_relative = {
+            "schedule_manifest": "source_receipts/schedule/manifest.json",
+            "schedule_receipt": "source_receipts/schedule/receipt.json",
+            "feed_manifest": "source_receipts/feeds/manifest.json",
+            "feed_plan": "source_receipts/feeds/plan.json",
+        }.get(str(role), f"source_receipts/feeds/{request_id}/receipt.json")
+        support_prefix = {
+            "schedule_support": "source_receipts/schedule/",
+            "feed_support": "source_receipts/feeds/",
+        }.get(str(role))
+        if (support_prefix is None and relative != expected_relative) or (
+            support_prefix is not None and not relative.startswith(support_prefix)
+        ):
+            raise PAVolumeSourceAuthorityError(
+                "capture receipt evidence path differs from its role"
+            )
+        retained = _safe_file(root, relative, "retained capture evidence")
+        if _sha256_bytes(retained.read_bytes()) != _sha(
+            entry.get("sha256"), "capture receipt evidence digest"
+        ):
+            raise PAVolumeSourceAuthorityError(
+                "retained capture receipt bytes differ"
+            )
+        paths.append(relative)
+        roles.append(str(role))
+    if paths != sorted(paths) or len(paths) != len(set(paths)):
+        raise PAVolumeSourceAuthorityError(
+            "capture receipt evidence paths are not unique and sorted"
+        )
+    if any(roles.count(role) != 1 for role in (
+        "schedule_manifest", "schedule_receipt", "feed_manifest", "feed_plan"
+    )) or roles.count("feed_receipt") < 1 or roles.count("schedule_support") < 3 or roles.count(
+        "feed_support"
+    ) < 3:
+        raise PAVolumeSourceAuthorityError(
+            "capture receipt evidence role coverage differs"
+        )
+    return value, raw, entries
+
+
+def _verify_capture_evidence_window(
+    *,
+    root: Path,
+    evidence: Mapping[str, Any],
+    entries: list[Mapping[str, Any]],
+    source_manifest: Mapping[str, Any],
+    authorization_path: Path,
+    authorization_sha: str,
+    policy_sha: str,
+) -> tuple[datetime, datetime]:
+    singleton = {
+        str(entry["role"]): entry
+        for entry in entries
+        if entry["role"] != "feed_receipt"
+    }
+    feed_entries = {
+        str(entry["request_id"]): entry
+        for entry in entries
+        if entry["role"] == "feed_receipt"
+    }
+    support_hashes = {
+        str(entry["path"]): str(entry["sha256"])
+        for entry in entries
+        if entry["role"] in {"schedule_support", "feed_support"}
+    }
+    consumed_support: set[str] = set()
+
+    def document(entry: Mapping[str, Any], label: str) -> dict[str, Any]:
+        value, _ = _canonical_json(_safe_file(root, entry["path"], label), label)
+        return value
+
+    schedule_manifest = document(singleton["schedule_manifest"], "schedule manifest")
+    feed_manifest = document(singleton["feed_manifest"], "feed manifest")
+    plan = document(singleton["feed_plan"], "feed plan")
+    schedule_manifest_path = _safe_file(
+        root, singleton["schedule_manifest"]["path"], "schedule manifest"
+    )
+    feed_manifest_path = _safe_file(
+        root, singleton["feed_manifest"]["path"], "feed manifest"
+    )
+    if (
+        _sha256_bytes(schedule_manifest_path.read_bytes())
+        != source_manifest["schedule_capture_manifest_sha256"]
+        or _sha256_bytes(feed_manifest_path.read_bytes())
+        != source_manifest["feed_capture_manifest_sha256"]
+        or _capture_manifest_digest(schedule_manifest)
+        != source_manifest["schedule_capture_observed_digest"]
+        or _capture_manifest_digest(feed_manifest)
+        != source_manifest["feed_capture_observed_digest"]
+    ):
+        raise PAVolumeSourceAuthorityError(
+            "capture receipt evidence differs from source manifest"
+        )
+    active_source_bundle = _active_capture_source_bundle_sha256()
+    if (
+        evidence.get("source_access_authorization_id")
+        != source_manifest["source_access_authorization_id"]
+        or evidence.get("source_access_authorization_sha256") != authorization_sha
+        or evidence.get("source_bundle_sha256") != active_source_bundle
+        or evidence.get("schedule_capture_observed_digest")
+        != source_manifest["schedule_capture_observed_digest"]
+        or evidence.get("feed_capture_observed_digest")
+        != source_manifest["feed_capture_observed_digest"]
+    ):
+        raise PAVolumeSourceAuthorityError(
+            "capture receipt evidence authority differs"
+        )
+    requests = plan.get("requests")
+    if (
+        plan.get("schema_version") != capture.PLAN_SCHEMA
+        or plan.get("status") != "LOCKED_OFFICIAL_2023_FINAL_FEED_CAPTURE_PLAN"
+        or plan.get("authorization") != capture.AUTHORIZATION
+        or plan.get("season") != 2023
+        or plan.get("research_only") is not True
+        or plan.get("betting_authorized") is not False
+        or plan.get("protected_data") != _PROTECTED
+        or not isinstance(requests, list)
+        or len(requests) != source_manifest["game_count"]
+    ):
+        raise PAVolumeSourceAuthorityError("retained feed plan is invalid")
+    request_ids = [
+        request.get("request_id") if isinstance(request, Mapping) else None
+        for request in requests
+    ]
+    if (
+        any(not isinstance(request_id, str) or not request_id for request_id in request_ids)
+        or len(set(request_ids)) != len(request_ids)
+        or len(feed_entries) != len(requests)
+        or feed_manifest.get("plan_sha256")
+        != _sha256_bytes(canonical_json_bytes(plan))
+        or feed_manifest.get("schedule_capture_digest")
+        != schedule_manifest.get("observed_capture_digest")
+    ):
+        raise PAVolumeSourceAuthorityError("retained feed authority differs")
+    schedule_entry = singleton["schedule_receipt"]
+    schedule_receipt = document(schedule_entry, "schedule receipt")
+    if (
+        schedule_receipt.get("request") != schedule_manifest.get("request")
+        or schedule_entry["sha256"] != schedule_manifest.get("receipt_sha256")
+    ):
+        raise PAVolumeSourceAuthorityError("schedule receipt identity differs")
+    pairs: list[tuple[Mapping[str, Any], Mapping[str, Any], str]] = [
+        (schedule_receipt, schedule_manifest.get("request") or {}, "schedule receipt")
+    ]
+    expected_feed_manifest_entries = []
+    for request in requests:
+        if not isinstance(request, Mapping):
+            raise PAVolumeSourceAuthorityError("feed request is malformed")
+        request_id = str(request["request_id"])
+        entry = feed_entries.get(request_id)
+        if entry is None:
+            raise PAVolumeSourceAuthorityError("feed receipt evidence is incomplete")
+        receipt = document(entry, f"feed receipt {request_id}")
+        if receipt.get("request") != request:
+            raise PAVolumeSourceAuthorityError("feed receipt identity differs")
+        expected_feed_manifest_entries.append(
+            {
+                "request_id": request_id,
+                "response_sha256": (receipt.get("response") or {}).get("body_sha256"),
+                "receipt_sha256": entry["sha256"],
+            }
+        )
+        pairs.append((receipt, request, f"feed receipt {request_id}"))
+    if feed_manifest.get("entries") != expected_feed_manifest_entries:
+        raise PAVolumeSourceAuthorityError("feed receipt digest binding differs")
+    firsts: list[datetime] = []
+    lasts: list[datetime] = []
+    prior_feed_request: datetime | None = None
+    for receipt, expected_request, label in pairs:
+        if (
+            receipt.get("schema_version") != capture.RECEIPT_SCHEMA
+            or receipt.get("authorization") != capture.AUTHORIZATION
+            or receipt.get("season") != 2023
+            or receipt.get("research_only") is not True
+            or receipt.get("betting_authorized") is not False
+            or receipt.get("model_fitting_performed") is not False
+            or receipt.get("probabilities_generated") is not False
+            or receipt.get("protected_data") != _PROTECTED
+            or receipt.get("request") != expected_request
+            or receipt.get("source_access_authorization_id")
+            != source_manifest["source_access_authorization_id"]
+            or receipt.get("source_access_authorization_sha256") != authorization_sha
+            or receipt.get("source_bundle_sha256") != active_source_bundle
+        ):
+            raise PAVolumeSourceAuthorityError(f"{label} authority differs")
+        request_id = str(expected_request.get("request_id"))
+        is_schedule = label == "schedule receipt"
+        first, last, consumed = verify_copied_capture_receipt_semantics(
+            root=root,
+            receipt=receipt,
+            expected_request=expected_request,
+            context_relative=(
+                "source_receipts/schedule/capture_context.json"
+                if is_schedule else "source_receipts/feeds/capture_context.json"
+            ),
+            journal_relative=(
+                "source_receipts/schedule/attempts"
+                if is_schedule
+                else f"source_receipts/feeds/{request_id}/attempts"
+            ),
+            original_journal_relative=(
+                "attempts" if is_schedule else f"feeds/{request_id}/attempts"
+            ),
+            support_hashes=support_hashes,
+            label=label,
+        )
+        consumed_support.update(consumed)
+        if not is_schedule:
+            first_attempt = _utc(
+                receipt["attempts"][0]["requested_at_utc"],
+                "feed global pacing",
+            )
+            if prior_feed_request is not None and first_attempt < prior_feed_request + timedelta(
+                seconds=float(receipt["request_policy"]["minimum_request_interval_seconds"])
+            ):
+                raise PAVolumeSourceAuthorityError(
+                    "retained feed requests violate global pacing"
+                )
+            prior_feed_request = _utc(
+                receipt["attempts"][-1]["requested_at_utc"],
+                "feed global pacing",
+            )
+        firsts.append(first)
+        lasts.append(last)
+    if consumed_support != set(support_hashes):
+        raise PAVolumeSourceAuthorityError(
+            "capture receipt support evidence exact file set differs"
+        )
+    first_request = min(firsts)
+    latest_observation = max(lasts)
+    for access_time in (first_request, latest_observation):
+        try:
+            historical_access.verify_historical_source_access_authorization(
+                authorization_path=authorization_path,
+                expected_authorization_sha256=authorization_sha,
+                expected_runtime_policy_sha256=policy_sha,
+                expected_source_bundle_sha256=active_source_bundle,
+                access_time_utc=access_time.isoformat(timespec="microseconds").replace(
+                    "+00:00", "Z"
+                ),
+            )
+        except historical_access.HistoricalSourceAccessError as exc:
+            raise PAVolumeSourceAuthorityError(
+                "capture receipt timing is outside source authorization validity"
+            ) from exc
+    return first_request, latest_observation
 
 
 def _verify_exact_dependency_lock(lock_path: Path, lock_sha: str) -> None:
@@ -500,10 +1069,22 @@ class VerifiedPAVolumeSourceAuthority:
     dependency_lock_sha256: str
     qualified_at_utc: str
     observed_at_utc: str
+    # Optional only for compatibility with older isolated numerical tests that
+    # construct the value object directly.  The authority verifier always
+    # supplies all six values, and only verifier-created bindings are eligible
+    # for the v2 source-authority protocol.
+    source_access_authorization_path: Path | None = None
+    source_access_authorization_sha256: str = ""
+    runtime_policy_path: Path | None = None
+    runtime_policy_sha256: str = ""
+    first_source_request_at_utc: str = ""
+    latest_source_observation_at_utc: str = ""
+    capture_receipt_evidence_path: Path | None = None
+    capture_receipt_evidence_sha256: str = ""
 
     def binding(self) -> dict[str, str]:
         """Return the exact identities a downstream candidate must serialize."""
-        return {
+        binding = {
             "pa_volume_source_authority_id": self.authority_id,
             "pa_volume_source_authority_manifest_sha256": (
                 self.authority_manifest_sha256
@@ -521,6 +1102,25 @@ class VerifiedPAVolumeSourceAuthority:
             "pa_volume_artifact_sha256": self.pa_volume_artifact_sha256,
             "pa_volume_dependency_lock_sha256": self.dependency_lock_sha256,
         }
+        if self.source_access_authorization_sha256:
+            binding["pa_volume_source_access_authorization_sha256"] = (
+                self.source_access_authorization_sha256
+            )
+        if self.runtime_policy_sha256:
+            binding["pa_volume_runtime_policy_sha256"] = self.runtime_policy_sha256
+        if self.first_source_request_at_utc:
+            binding["pa_volume_first_source_request_at_utc"] = (
+                self.first_source_request_at_utc
+            )
+        if self.latest_source_observation_at_utc:
+            binding["pa_volume_latest_source_observation_at_utc"] = (
+                self.latest_source_observation_at_utc
+            )
+        if self.capture_receipt_evidence_sha256:
+            binding["pa_volume_capture_receipt_evidence_sha256"] = (
+                self.capture_receipt_evidence_sha256
+            )
+        return binding
 
 
 def verify_pa_volume_source_authority(
@@ -541,6 +1141,17 @@ def verify_pa_volume_source_authority(
         expected_pa_volume_artifact_sha256, "expected PA-volume artifact"
     )
     decision_time = _utc(decision_time_utc, "decision_time_utc")
+
+    receipt_relative = Path(external_receipt_relative).as_posix()
+    evidence, evidence_raw, evidence_entries = _capture_evidence_entries(root)
+    expected_files = set(_SOURCE_RELEASE_PATHS.values()) | {
+        "authority/manifest.json",
+        receipt_relative,
+    } | {str(entry["path"]) for entry in evidence_entries}
+    if _exact_files(root) != expected_files:
+        raise PAVolumeSourceAuthorityError(
+            "qualified authority exact file set differs"
+        )
 
     authority_path = _safe_file(
         root, authority_manifest_relative, "source-authority manifest"
@@ -563,6 +1174,11 @@ def verify_pa_volume_source_authority(
         "rebuild_manifest_sha256",
         "pa_volume_artifact_sha256",
         "dependency_lock_sha256",
+        "source_access_authorization_sha256",
+        "runtime_policy_sha256",
+        "capture_receipt_evidence_sha256",
+        "first_source_request_at_utc",
+        "latest_source_observation_at_utc",
         "observed_at_utc",
         "receipt_sha256",
     }
@@ -605,6 +1221,10 @@ def verify_pa_volume_source_authority(
         "rebuild_manifest",
         "pa_volume_artifact",
         "exact_dependency_lock",
+        "source_access_authorization",
+        "runtime_policy",
+        "source_capture_receipt_evidence",
+        "source_capture_window",
     }
     if set(authority) != authority_keys or authority.get("schema_version") != AUTHORITY_SCHEMA:
         raise PAVolumeSourceAuthorityError("source-authority manifest schema changed")
@@ -652,21 +1272,57 @@ def verify_pa_volume_source_authority(
     lock_path, lock_sha, lock_relative = _binding(
         authority.get("exact_dependency_lock"), root=root, label="exact dependency lock"
     )
+    source_access_path, source_access_sha, source_access_relative = _binding(
+        authority.get("source_access_authorization"),
+        root=root,
+        label="source-access authorization",
+    )
+    runtime_policy_path, runtime_policy_sha, runtime_policy_relative = _binding(
+        authority.get("runtime_policy"), root=root, label="runtime policy"
+    )
+    capture_evidence_path, capture_evidence_sha, capture_evidence_relative = _binding(
+        authority.get("source_capture_receipt_evidence"),
+        root=root,
+        label="source capture receipt evidence",
+    )
     if {
         "manifest": source_relative,
         "verification": verification_relative,
         "rebuild": rebuild_relative,
         "artifact": pa_relative,
         "lock": lock_relative,
+        "source_access": source_access_relative,
+        "runtime_policy": runtime_policy_relative,
+        "capture_evidence": capture_evidence_relative,
     } != {
         key: _SOURCE_RELEASE_PATHS[key]
-        for key in ("manifest", "verification", "rebuild", "artifact", "lock")
+        for key in (
+            "manifest", "verification", "rebuild", "artifact", "lock",
+            "source_access", "runtime_policy",
+            "capture_evidence",
+        )
     }:
         raise PAVolumeSourceAuthorityError("qualified authority binding paths differ")
     if pa_sha != expected_pa:
         raise PAVolumeSourceAuthorityError(
             "qualified PA-volume artifact differs from candidate expected digest"
         )
+
+    source_window = authority.get("source_capture_window")
+    if not isinstance(source_window, Mapping) or set(source_window) != {
+        "first_request_at_utc",
+        "latest_observation_at_utc",
+    }:
+        raise PAVolumeSourceAuthorityError("source capture window schema changed")
+    claimed_first_request = _utc(
+        source_window.get("first_request_at_utc"), "first source request"
+    )
+    claimed_latest_observation = _utc(
+        source_window.get("latest_observation_at_utc"),
+        "latest source observation",
+    )
+    if claimed_latest_observation < claimed_first_request:
+        raise PAVolumeSourceAuthorityError("source capture chronology is invalid")
 
     pa_value, pa_raw = _canonical_json(pa_path, "PA-volume artifact")
     rebuilt = _verify_source_semantics(
@@ -679,6 +1335,67 @@ def verify_pa_volume_source_authority(
         lock_sha=lock_sha,
         pa_raw=pa_raw,
     )
+
+    _verify_runtime_policy(
+        policy_path=runtime_policy_path,
+        policy_sha=runtime_policy_sha,
+        lock_sha=lock_sha,
+    )
+    try:
+        verified_access = (
+            historical_access.verify_historical_source_access_authorization(
+                authorization_path=source_access_path,
+                expected_authorization_sha256=source_access_sha,
+                expected_runtime_policy_sha256=runtime_policy_sha,
+                expected_source_bundle_sha256=(
+                    _active_capture_source_bundle_sha256()
+                ),
+                access_time_utc=source_window["first_request_at_utc"],
+            )
+        )
+    except historical_access.HistoricalSourceAccessError as exc:
+        raise PAVolumeSourceAuthorityError(
+            "source-access authorization semantic validation failed"
+        ) from exc
+    source_manifest, _ = _canonical_json(
+        source_path, "qualified source manifest"
+    )
+    if (
+        verified_access.authorization_id
+        != source_manifest.get("source_access_authorization_id")
+        or verified_access.authorization_file_sha256 != source_access_sha
+        or source_manifest.get("source_access_authorization_sha256")
+        != source_access_sha
+    ):
+        raise PAVolumeSourceAuthorityError(
+            "source-access authorization binding differs"
+        )
+    if (
+        capture_evidence_path.read_bytes() != evidence_raw
+        or capture_evidence_sha != _sha256_bytes(evidence_raw)
+    ):
+        raise PAVolumeSourceAuthorityError(
+            "source capture receipt evidence binding differs"
+        )
+    first_request, latest_observation = _verify_capture_evidence_window(
+        root=root,
+        evidence=evidence,
+        entries=evidence_entries,
+        source_manifest=source_manifest,
+        authorization_path=source_access_path,
+        authorization_sha=source_access_sha,
+        policy_sha=runtime_policy_sha,
+    )
+    if (
+        first_request.isoformat(timespec="microseconds").replace("+00:00", "Z")
+        != source_window["first_request_at_utc"]
+        or latest_observation.isoformat(timespec="microseconds").replace(
+            "+00:00", "Z"
+        ) != source_window["latest_observation_at_utc"]
+    ):
+        raise PAVolumeSourceAuthorityError(
+            "source capture window differs from retained receipt bytes"
+        )
     if rebuilt != pa_value:
         raise PAVolumeSourceAuthorityError(
             "PA-volume artifact semantic rebuild differs"
@@ -708,6 +1425,9 @@ def verify_pa_volume_source_authority(
         "rebuild_manifest_sha256": rebuild_sha,
         "pa_volume_artifact_sha256": pa_sha,
         "dependency_lock_sha256": lock_sha,
+        "source_access_authorization_sha256": source_access_sha,
+        "runtime_policy_sha256": runtime_policy_sha,
+        "capture_receipt_evidence_sha256": capture_evidence_sha,
     }
     if any(
         _sha(receipt.get(key), f"receipt.{key}") != expected
@@ -715,6 +1435,15 @@ def verify_pa_volume_source_authority(
     ):
         raise PAVolumeSourceAuthorityError(
             "external receipt does not bind the exact source, rebuild, artifact, and lock"
+        )
+    if (
+        receipt.get("first_source_request_at_utc")
+        != source_window["first_request_at_utc"]
+        or receipt.get("latest_source_observation_at_utc")
+        != source_window["latest_observation_at_utc"]
+    ):
+        raise PAVolumeSourceAuthorityError(
+            "external receipt does not bind the exact source capture window"
         )
 
     rebuild, _ = _read_json(rebuild_path, "PA-volume rebuild manifest")
@@ -738,7 +1467,11 @@ def verify_pa_volume_source_authority(
 
     qualified_time = _utc(authority.get("qualified_at_utc"), "qualified_at_utc")
     observed_time = _utc(receipt.get("observed_at_utc"), "observed_at_utc")
-    if qualified_time > observed_time or observed_time > decision_time:
+    if (
+        latest_observation > qualified_time
+        or qualified_time > observed_time
+        or observed_time > decision_time
+    ):
         raise PAVolumeSourceAuthorityError(
             "source qualification, external observation, and decision chronology is invalid"
         )
@@ -759,6 +1492,16 @@ def verify_pa_volume_source_authority(
         pa_volume_artifact_sha256=pa_sha,
         dependency_lock_path=lock_path,
         dependency_lock_sha256=lock_sha,
+        source_access_authorization_path=source_access_path,
+        source_access_authorization_sha256=source_access_sha,
+        runtime_policy_path=runtime_policy_path,
+        runtime_policy_sha256=runtime_policy_sha,
+        capture_receipt_evidence_path=capture_evidence_path,
+        capture_receipt_evidence_sha256=capture_evidence_sha,
+        first_source_request_at_utc=str(source_window["first_request_at_utc"]),
+        latest_source_observation_at_utc=str(
+            source_window["latest_observation_at_utc"]
+        ),
         qualified_at_utc=str(authority["qualified_at_utc"]),
         observed_at_utc=str(receipt["observed_at_utc"]),
     )
