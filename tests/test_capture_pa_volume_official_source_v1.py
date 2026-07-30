@@ -211,7 +211,11 @@ def test_schedule_builds_exact_sorted_feed_plan(tmp_path: Path, monkeypatch) -> 
     )
     assert [row["request_id"] for row in plan["requests"]] == ["game-1", "game-2"]
     assert plan["requests"][0]["expected"] == {
-        "game_pk": 1, "away_team_id": 11, "home_team_id": 21,
+        "game_pk": 1,
+        "schedule_group_date": "2023-03-30",
+        "schedule_official_date": "2023-03-30",
+        "away_team_id": 11,
+        "home_team_id": 21,
     }
 
 
@@ -309,11 +313,10 @@ def test_non_2023_or_wrong_game_type_never_enters_plan(tmp_path: Path, monkeypat
     [
         ("2026-05-01", "2026-05-01", "canonical 2023 date"),
         ("2023-03-30", "2026-05-01", "canonical 2023 date"),
-        ("2023-03-30", "2023-03-31", "contradicts"),
         ("2023-3-30", "2023-03-30", "canonical 2023 date"),
     ],
 )
-def test_schedule_dates_must_be_canonical_matching_2023_dates(
+def test_schedule_dates_must_be_canonical_2023_dates(
     tmp_path: Path, monkeypatch, group_date: str, official_date: str,
     message: str,
 ) -> None:
@@ -336,6 +339,32 @@ def test_schedule_dates_must_be_canonical_matching_2023_dates(
                 "observed_capture_digest"
             ],
         )
+
+
+def test_schedule_group_date_may_differ_from_official_date(
+    tmp_path: Path, monkeypatch
+) -> None:
+    monkeypatch.setattr(capture, "EXPECTED_GAMES", 1)
+    body = json.loads(schedule_body(1))
+    body["dates"][0]["date"] = "2023-08-07"
+    body["dates"][0]["games"][0]["officialDate"] = "2023-04-17"
+    root = tmp_path / "schedule"
+    manifest = capture.capture_schedule(
+        output_dir=root,
+        runtime=runtime(),
+        source_access=source_access(),
+        source_bundle_sha256=capture.capture_source_bundle_sha256(),
+        transport=FakeTransport(
+            {capture.SCHEDULE_FULL_URL: json.dumps(body).encode()}
+        ),
+    )
+    plan = capture.build_feed_plan(
+        schedule_capture_dir=root,
+        expected_schedule_capture_digest=manifest["observed_capture_digest"],
+    )
+    expected = plan["requests"][0]["expected"]
+    assert expected["schedule_group_date"] == "2023-08-07"
+    assert expected["schedule_official_date"] == "2023-04-17"
 
 
 def test_extra_files_and_interrupted_staging_fail_closed(tmp_path: Path, monkeypatch) -> None:

@@ -1853,10 +1853,6 @@ def build_feed_plan(
             official_date = _official_2023_date(
                 raw.get("officialDate"), "official schedule game officialDate"
             )
-            if official_date != group_date:
-                raise OfficialSourceCaptureError(
-                    "official schedule game date contradicts its date group"
-                )
             game_pk = raw.get("gamePk")
             if isinstance(game_pk, bool) or not isinstance(game_pk, int) or game_pk <= 0:
                 raise OfficialSourceCaptureError("official schedule gamePk is invalid")
@@ -1865,7 +1861,17 @@ def build_feed_plan(
             home = ((teams.get("home") or {}).get("team") or {}).get("id")
             if any(isinstance(v, bool) or not isinstance(v, int) or v <= 0 for v in (away, home)) or away == home:
                 raise OfficialSourceCaptureError("official schedule team identity is invalid")
-            candidate = {"game_pk": game_pk, "away_team_id": away, "home_team_id": home}
+            # MLB may list a postponed, suspended, or resumed game under a
+            # schedule-group date that differs from its canonical
+            # ``officialDate``. Retain both distinct source fields. The final
+            # feed must confirm ``schedule_official_date`` before release.
+            candidate = {
+                "game_pk": game_pk,
+                "schedule_group_date": group_date.isoformat(),
+                "schedule_official_date": official_date.isoformat(),
+                "away_team_id": away,
+                "home_team_id": home,
+            }
             prior = candidates.get(game_pk)
             if prior is not None and prior != candidate:
                 raise OfficialSourceCaptureError("repeated schedule game identity contradicts")

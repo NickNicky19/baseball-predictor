@@ -51,20 +51,21 @@ def test_prior_capture_authorization_cannot_authorize_repaired_source_bytes() ->
         )
 
 
-def test_current_capture_authorization_binds_only_repaired_source_bytes() -> None:
+def test_v2_capture_authorization_cannot_authorize_date_semantics_repair() -> None:
     assert hashlib.sha256(CURRENT_AUTHORIZATION.read_bytes()).hexdigest() == (
         EXPECTED_CURRENT_AUTHORIZATION_SHA256
     )
-    verified = verify_historical_source_access_authorization(
-        authorization_path=CURRENT_AUTHORIZATION,
-        expected_authorization_sha256=EXPECTED_CURRENT_AUTHORIZATION_SHA256,
-        expected_runtime_policy_sha256=hashlib.sha256(POLICY.read_bytes()).hexdigest(),
-        expected_source_bundle_sha256=capture_source_bundle_sha256(),
-        access_time_utc="2026-07-30T20:00:00.000000Z",
-    )
-    assert verified.authorization_id == (
-        "user-authorized-2023-official-mlb-source-20260730-v2"
-    )
+    with pytest.raises(
+        HistoricalSourceAccessError,
+        match="different runtime or source bytes",
+    ):
+        verify_historical_source_access_authorization(
+            authorization_path=CURRENT_AUTHORIZATION,
+            expected_authorization_sha256=EXPECTED_CURRENT_AUTHORIZATION_SHA256,
+            expected_runtime_policy_sha256=hashlib.sha256(POLICY.read_bytes()).hexdigest(),
+            expected_source_bundle_sha256=capture_source_bundle_sha256(),
+            access_time_utc="2026-07-30T20:00:00.000000Z",
+        )
 
 
 def test_capture_workflow_is_manual_and_never_fits_or_predicts() -> None:

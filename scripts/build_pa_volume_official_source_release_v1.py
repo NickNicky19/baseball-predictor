@@ -107,6 +107,10 @@ def _final_schedule_index(
         if not isinstance(game_data, Mapping):
             raise PAVolumeSourceReleaseError("retained official feed lacks gameData")
         official_date = ((game_data.get("datetime") or {}).get("officialDate"))
+        if official_date != expected["schedule_official_date"]:
+            raise PAVolumeSourceReleaseError(
+                "retained official feed date differs from schedule officialDate"
+            )
         # The strict projection parser performs the canonical-date and all
         # remaining semantic validation.  This index is an identity projection,
         # not a permissive fallback to the schedule listing date.
