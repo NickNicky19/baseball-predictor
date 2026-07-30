@@ -75,6 +75,15 @@ jobs:
           echo "observed_runtime_attestation_sha256=$observed"
           test "$observed" = "${{ inputs.expected_runtime_attestation_sha256 }}"
 
+      - name: Retain rejected pre-request attestation for diagnosis
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: rejected-pre-request-runtime-${{ github.sha }}
+          path: ${{ runner.temp }}/pa-source-runtime.json
+          if-no-files-found: error
+          retention-days: 7
+
       - name: Verify the external source authorization before any request
         shell: bash
         run: |
