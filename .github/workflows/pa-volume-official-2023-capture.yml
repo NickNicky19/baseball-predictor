@@ -75,6 +75,7 @@ jobs:
             --policy config/pa_volume_source_runtime_authority_v1.json \
             --write-linux-attestation "$attestation"
           observed="$(sha256sum "$attestation" | awk '{print $1}')"
+          echo "observed_runtime_attestation_sha256=$observed"
           test "$observed" = "${{ inputs.expected_runtime_attestation_sha256 }}"
 
       - name: Verify the external source authorization before any request
