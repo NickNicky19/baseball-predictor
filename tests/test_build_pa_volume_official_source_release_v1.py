@@ -162,3 +162,54 @@ def test_rehashed_or_mutated_external_verification_fails(tmp_path: Path, monkeyp
             expected_external_verification_sha256=digest(bad), dependency_lock_path=lock,
             output_path=tmp_path / "pa.json",
         )
+
+
+def test_source_release_rejects_feed_official_date_that_differs_from_schedule(
+    tmp_path: Path, monkeypatch
+) -> None:
+    monkeypatch.setattr(capture, "EXPECTED_GAMES", 1)
+    fixed_clock = lambda: datetime(2026, 7, 29, 12, 0, tzinfo=timezone.utc)
+    schedule_root = tmp_path / "schedule"
+    schedule_manifest = capture.capture_schedule(
+        output_dir=schedule_root,
+        runtime=runtime(),
+        source_access=source_access(),
+        source_bundle_sha256=capture.capture_source_bundle_sha256(),
+        transport=FakeTransport({capture.SCHEDULE_FULL_URL: schedule_body()}),
+        clock=fixed_clock,
+    )
+    plan = capture.build_feed_plan(
+        schedule_capture_dir=schedule_root,
+        expected_schedule_capture_digest=schedule_manifest["observed_capture_digest"],
+    )
+    mismatched_feed = json.loads(feed_body())
+    mismatched_feed["gameData"]["datetime"]["officialDate"] = "2023-03-31"
+    feed_root = tmp_path / "feeds"
+    feed_manifest = capture.capture_feeds(
+        plan=plan,
+        output_dir=feed_root,
+        work_dir=tmp_path / "work",
+        runtime=runtime(),
+        source_access=source_access(),
+        source_bundle_sha256=capture.capture_source_bundle_sha256(),
+        transport=FakeTransport(
+            {plan["requests"][0]["full_url"]: json.dumps(mismatched_feed).encode()}
+        ),
+        clock=fixed_clock,
+    )
+    lock = tmp_path / "requirements.lock"
+    lock.write_text("example==1.0\n", encoding="utf-8")
+    with pytest.raises(
+        release.PAVolumeSourceReleaseError,
+        match="differs from schedule officialDate",
+    ):
+        release.build_source_release(
+            schedule_capture_dir=schedule_root,
+            expected_schedule_capture_digest=schedule_manifest[
+                "observed_capture_digest"
+            ],
+            feed_capture_dir=feed_root,
+            expected_feed_capture_digest=feed_manifest["observed_capture_digest"],
+            dependency_lock_path=lock,
+            output_dir=tmp_path / "source",
+        )

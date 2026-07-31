@@ -145,6 +145,9 @@ jobs:
             tests/test_shared_pa_projected_opportunity_candidate_v2.py \
             tests/test_shared_pa_projected_opportunity_runner.py \
             tests/test_shared_pa_projected_opportunity_runner_v2.py \
+            tests/test_shared_pa_source_bound_candidate_v3.py \
+            tests/test_integrated_shared_pa_candidate.py \
+            tests/test_evaluate_source_bound_pa_opportunity_2023.py \
             tests/test_strict_american_odds_boundary.py \
             tests/test_market_economics_properties.py \
             tests/test_odds_loader.py
@@ -216,7 +219,7 @@ jobs:
           unset LD_LIBRARY_PATH
           audit_python="${RUNNER_TEMP}/source-authority-env/bin/python"
           python -m venv --without-pip "${RUNNER_TEMP}/source-authority-env"
-          python -m pip --python "$audit_python" install --disable-pip-version-check --no-deps --require-hashes \
+          python -m pip --python "$audit_python" install --disable-pip-version-check --no-compile --no-deps --require-hashes \
             -r requirements-direct-batter-pa-source-authority.lock
           python -m pip --python "$audit_python" check
       - name: Verify source dependency and manifest closure

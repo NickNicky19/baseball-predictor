@@ -1,0 +1,42 @@
+{
+  "schema_version": "shared-pa-candidate-protocol-v3",
+  "candidate_id": "shared_pa_candidate_v1",
+  "status": "RESEARCH_ONLY_EXACT_RELEASE_PENDING",
+  "research_only": true,
+  "betting_authorized": false,
+  "promotion_eligible": false,
+  "decision_horizon": "T-4h projected lane; separate later confirmed-lineup lane must never overwrite it",
+  "numerical_contract": {
+    "per_pa_control_id": "empirical_bayes_player_rate_pa_200_2023_control_v1",
+    "per_pa_control_config_sha256": "033934ec8dc06bc49d02fd46e223f840ef5cef01bb545c09054fe9b740628c6c",
+    "pa_volume_candidate_id": "pa_volume_2023_source_bound_v2",
+    "pa_volume_artifact_sha256": "be525ee7c30641f869f39f960712c878a85968cbadf6cf40772e85402790a533",
+    "source_authority_manifest_sha256": "a7f46262a8ffe508d036d7c89b822dc40f666edc159bf2d8174fe1549069bd5e",
+    "source_authority_runtime_receipt_file_sha256": "16b83893b56d04861055b3ff9ae9dcc5fe991a61761d49f1d0715fa8d871f25a",
+    "projected_lineup_contract_sha256": "88910f66c0a51a7aa33baa1dffe9c6cbe8fc9aebcc90d76df26f41937640182a",
+    "only_new_quantity": "receipt_bound_game_pa_opportunity_mixture",
+    "pitcher_features": "excluded_until_receipt_proven_matchup_block",
+    "mutable_savant_override": "excluded",
+    "direct_bvp": "excluded",
+    "nonstarter_pa": "zero_only_v1_until_qualified_pinch_hit_model_exists"
+  },
+  "markets": ["hits", "home_runs", "total_bases", "hitter_strikeouts", "hitter_walks"],
+  "qualification_markets": ["hits", "home_runs", "total_bases"],
+  "candidate_only_research_markets": ["hitter_strikeouts", "hitter_walks"],
+  "evaluation": {
+    "markets_scored_separately": true,
+    "same_eligible_candidate_baseline_rows": true,
+    "metrics": ["brier", "log_loss", "calibration", "discrimination", "coverage", "abstention", "clustered_uncertainty"],
+    "historical_opportunity_claim_allowed": false,
+    "untouched_future_proof_required": true
+  },
+  "protected_boundaries": {
+    "may_2026_access_allowed": false,
+    "selection_2024_reused_as_fresh_evidence": false,
+    "spent_2025_hr_reused": false,
+    "missed_prospective_record_backfill_allowed": false,
+    "prices_used_in_probability": false,
+    "production_changed": false,
+    "betting_authorized": false
+  }
+}

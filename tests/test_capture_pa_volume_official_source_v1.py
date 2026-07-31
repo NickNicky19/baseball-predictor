@@ -79,11 +79,13 @@ class FakeTransport:
     def __init__(self, bodies: dict[str, bytes], fail_after: int | None = None, clock=None):
         self.bodies = bodies
         self.calls = 0
+        self.max_bytes_seen: list[int] = []
         self.fail_after = fail_after
         self.clock = clock or capture._clock_now
 
     def fetch(self, request, *, timeout_seconds: float, max_bytes: int):
         self.calls += 1
+        self.max_bytes_seen.append(max_bytes)
         if self.fail_after is not None and self.calls > self.fail_after:
             raise capture.OfficialSourceCaptureError("synthetic transport failure")
         body = self.bodies[request["full_url"]]
@@ -130,6 +132,25 @@ class SequencedTransport:
         )
 
 
+class DelayedRequestStampTransport(FakeTransport):
+    """Expose the gap between the policy clock sample and HTTP request start."""
+
+    def __init__(self, bodies: dict[str, bytes], clock: FakeClock) -> None:
+        super().__init__(bodies, clock=clock.now)
+        self.fake_clock = clock
+
+    def fetch(self, request, *, timeout_seconds: float, max_bytes: int):
+        # Real transport setup takes a small amount of time after the outer
+        # pacing clock is sampled.  Make that gap large enough for a stable
+        # regression test.
+        self.fake_clock.value += timedelta(milliseconds=200)
+        return super().fetch(
+            request,
+            timeout_seconds=timeout_seconds,
+            max_bytes=max_bytes,
+        )
+
+
 def schedule_body(count: int = 2) -> bytes:
     games = []
     for game_pk in range(1, count + 1):
@@ -157,6 +178,7 @@ def test_schedule_capture_is_immutable_and_revalidates(tmp_path: Path) -> None:
         transport=transport,
     )
     assert first == second and transport.calls == 1
+    assert transport.max_bytes_seen == [capture.SCHEDULE_MAX_RESPONSE_BYTES]
     (root / "response.json").write_bytes(b"{}")
     with pytest.raises(capture.OfficialSourceCaptureError, match="body bytes differ"):
         capture.verify_schedule_capture(root)
@@ -208,7 +230,11 @@ def test_schedule_builds_exact_sorted_feed_plan(tmp_path: Path, monkeypatch) -> 
     )
     assert [row["request_id"] for row in plan["requests"]] == ["game-1", "game-2"]
     assert plan["requests"][0]["expected"] == {
-        "game_pk": 1, "away_team_id": 11, "home_team_id": 21,
+        "game_pk": 1,
+        "schedule_official_date": "2023-03-30",
+        "away_team_id": 11,
+        "home_team_id": 21,
+        "schedule_group_dates": ["2023-03-30"],
     }
 
 
@@ -260,8 +286,39 @@ def test_feed_capture_resumes_partial_work_and_finalizes_atomically(tmp_path: Pa
         jitter=lambda _request_id, _attempt, _base: 0.0,
     )
     assert manifest["game_count"] == 2 and resumed.calls == 1
+    assert resumed.max_bytes_seen == [capture.FEED_MAX_RESPONSE_BYTES]
     assert not work.exists() and output.is_dir()
     assert capture.verify_feed_capture(output)["observed_capture_digest"] == manifest["observed_capture_digest"]
+
+
+def test_feed_capture_paces_from_retained_transport_request_time(
+    tmp_path: Path, monkeypatch
+) -> None:
+    plan = _small_plan(tmp_path, monkeypatch)
+    bodies = {
+        row["full_url"]: json.dumps(
+            {"gamePk": row["expected"]["game_pk"]}
+        ).encode()
+        for row in plan["requests"]
+    }
+    clock = FakeClock()
+    output = tmp_path / "final"
+    manifest = capture.capture_feeds(
+        plan=plan,
+        output_dir=output,
+        work_dir=tmp_path / "work",
+        runtime=runtime(),
+        source_access=source_access(),
+        source_bundle_sha256=capture.capture_source_bundle_sha256(),
+        transport=DelayedRequestStampTransport(bodies, clock),
+        clock=clock.now,
+        sleeper=clock.sleep,
+    )
+    assert clock.sleeps == [pytest.approx(1.0)]
+    assert (
+        capture.verify_feed_capture(output)["observed_capture_digest"]
+        == manifest["observed_capture_digest"]
+    )
 
 
 def test_repeated_schedule_identity_must_agree(tmp_path: Path, monkeypatch) -> None:
@@ -281,6 +338,33 @@ def test_repeated_schedule_identity_must_agree(tmp_path: Path, monkeypatch) -> N
             schedule_capture_dir=root,
             expected_schedule_capture_digest=manifest["observed_capture_digest"],
         )
+
+
+def test_rescheduled_listing_dates_are_retained_under_one_game_identity(
+    tmp_path: Path, monkeypatch
+) -> None:
+    monkeypatch.setattr(capture, "EXPECTED_GAMES", 1)
+    body = json.loads(schedule_body(1))
+    duplicate = json.loads(json.dumps(body["dates"][0]["games"][0]))
+    body["dates"].append({"date": "2023-04-01", "games": [duplicate]})
+    root = tmp_path / "schedule"
+    manifest = capture.capture_schedule(
+        output_dir=root,
+        runtime=runtime(),
+        source_access=source_access(),
+        source_bundle_sha256=capture.capture_source_bundle_sha256(),
+        transport=FakeTransport(
+            {capture.SCHEDULE_FULL_URL: json.dumps(body).encode()}
+        ),
+    )
+    plan = capture.build_feed_plan(
+        schedule_capture_dir=root,
+        expected_schedule_capture_digest=manifest["observed_capture_digest"],
+    )
+    assert plan["requests"][0]["expected"]["schedule_group_dates"] == [
+        "2023-03-30",
+        "2023-04-01",
+    ]
 
 
 def test_non_2023_or_wrong_game_type_never_enters_plan(tmp_path: Path, monkeypatch) -> None:
@@ -305,11 +389,10 @@ def test_non_2023_or_wrong_game_type_never_enters_plan(tmp_path: Path, monkeypat
     [
         ("2026-05-01", "2026-05-01", "canonical 2023 date"),
         ("2023-03-30", "2026-05-01", "canonical 2023 date"),
-        ("2023-03-30", "2023-03-31", "contradicts"),
         ("2023-3-30", "2023-03-30", "canonical 2023 date"),
     ],
 )
-def test_schedule_dates_must_be_canonical_matching_2023_dates(
+def test_schedule_dates_must_be_canonical_2023_dates(
     tmp_path: Path, monkeypatch, group_date: str, official_date: str,
     message: str,
 ) -> None:
@@ -332,6 +415,32 @@ def test_schedule_dates_must_be_canonical_matching_2023_dates(
                 "observed_capture_digest"
             ],
         )
+
+
+def test_schedule_group_date_may_differ_from_official_date(
+    tmp_path: Path, monkeypatch
+) -> None:
+    monkeypatch.setattr(capture, "EXPECTED_GAMES", 1)
+    body = json.loads(schedule_body(1))
+    body["dates"][0]["date"] = "2023-08-07"
+    body["dates"][0]["games"][0]["officialDate"] = "2023-04-17"
+    root = tmp_path / "schedule"
+    manifest = capture.capture_schedule(
+        output_dir=root,
+        runtime=runtime(),
+        source_access=source_access(),
+        source_bundle_sha256=capture.capture_source_bundle_sha256(),
+        transport=FakeTransport(
+            {capture.SCHEDULE_FULL_URL: json.dumps(body).encode()}
+        ),
+    )
+    plan = capture.build_feed_plan(
+        schedule_capture_dir=root,
+        expected_schedule_capture_digest=manifest["observed_capture_digest"],
+    )
+    expected = plan["requests"][0]["expected"]
+    assert expected["schedule_group_dates"] == ["2023-08-07"]
+    assert expected["schedule_official_date"] == "2023-04-17"
 
 
 def test_extra_files_and_interrupted_staging_fail_closed(tmp_path: Path, monkeypatch) -> None:

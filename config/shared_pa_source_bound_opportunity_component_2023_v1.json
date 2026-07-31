@@ -1,0 +1,30 @@
+{
+  "schema_version": "shared-pa-source-bound-opportunity-component-development-v1",
+  "candidate_id": "shared_pa_candidate_v1",
+  "status": "LOCKED_BEFORE_COMPONENT_RESULTS",
+  "research_only": true,
+  "betting_authorized": false,
+  "source_season": 2023,
+  "source_authority_manifest_sha256": "a7f46262a8ffe508d036d7c89b822dc40f666edc159bf2d8174fe1549069bd5e",
+  "pa_volume_artifact_sha256": "be525ee7c30641f869f39f960712c878a85968cbadf6cf40772e85402790a533",
+  "per_pa_control_id": "empirical_bayes_player_rate_pa_200_2023_control_v1",
+  "only_new_numerical_component": "slot_conditional_pa_opportunity",
+  "folds": [
+    {"id": "2023_06", "train_end": "2023-05-31", "validation_start": "2023-06-01", "validation_end": "2023-06-30"},
+    {"id": "2023_07", "train_end": "2023-06-30", "validation_start": "2023-07-01", "validation_end": "2023-07-31"},
+    {"id": "2023_08", "train_end": "2023-07-31", "validation_start": "2023-08-01", "validation_end": "2023-08-31"},
+    {"id": "2023_09", "train_end": "2023-08-31", "validation_start": "2023-09-01", "validation_end": "2023-10-01"}
+  ],
+  "comparators": ["pooled_pa_distribution", "slot_conditional_pa_distribution"],
+  "metrics": ["multiclass_brier", "multiclass_log_loss", "expected_pa_mae"],
+  "probability_floor_for_log_loss_only": 1e-15,
+  "interpretation_boundary": "component calibration conditional on the known original starting slot; not historical pregame lineup or start-probability evidence",
+  "protected_boundaries": {
+    "may_2026_access_allowed": false,
+    "selection_2024_accessed": false,
+    "spent_2025_hr_confirmation_accessed": false,
+    "prospective_outcomes_accessed": false,
+    "prices_accessed": false,
+    "betting_authorized": false
+  }
+}

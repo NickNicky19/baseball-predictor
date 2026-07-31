@@ -57,7 +57,7 @@ jobs:
           unset LD_LIBRARY_PATH
           capture_python="${RUNNER_TEMP}/pa-source-env/bin/python"
           python -m venv --without-pip "${RUNNER_TEMP}/pa-source-env"
-          python -m pip --python "$capture_python" install --disable-pip-version-check --no-deps --require-hashes \
+          python -m pip --python "$capture_python" install --disable-pip-version-check --no-compile --no-deps --require-hashes \
             -r requirements-direct-batter-pa-source-authority.lock
           python -m pip --python "$capture_python" check
 
@@ -70,18 +70,25 @@ jobs:
           attestation="${RUNNER_TEMP}/pa-source-runtime.json"
           "$capture_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
             --policy config/pa_volume_source_runtime_authority_v1.json \
-            --check-static --check-installed
-          "$capture_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
-            --policy config/pa_volume_source_runtime_authority_v1.json \
             --write-linux-attestation "$attestation"
           observed="$(sha256sum "$attestation" | awk '{print $1}')"
+          echo "observed_runtime_attestation_sha256=$observed"
           test "$observed" = "${{ inputs.expected_runtime_attestation_sha256 }}"
+
+      - name: Retain rejected pre-request attestation for diagnosis
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: rejected-pre-request-runtime-${{ github.sha }}
+          path: ${{ runner.temp }}/pa-source-runtime.json
+          if-no-files-found: error
+          retention-days: 7
 
       - name: Verify the external source authorization before any request
         shell: bash
         run: |
           set -euo pipefail
-          auth="config/pa_volume_historical_source_access_authorization_20260730_v1.json"
+          auth="config/pa_volume_historical_source_access_authorization_20260731_v6.json"
           observed="$(sha256sum "$auth" | awk '{print $1}')"
           test "$observed" = "${{ inputs.expected_source_authorization_sha256 }}"
 
@@ -97,7 +104,7 @@ jobs:
             --runtime-policy config/pa_volume_source_runtime_authority_v1.json \
             --runtime-attestation "${RUNNER_TEMP}/pa-source-runtime.json" \
             --expected-runtime-attestation-sha256 "${{ inputs.expected_runtime_attestation_sha256 }}" \
-            --source-access-authorization config/pa_volume_historical_source_access_authorization_20260730_v1.json \
+            --source-access-authorization config/pa_volume_historical_source_access_authorization_20260731_v6.json \
             --expected-source-access-authorization-sha256 "${{ inputs.expected_source_authorization_sha256 }}" \
             --output-dir "$root/schedule"
           schedule_digest="$("$capture_python" -I -B -c 'import json,sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["observed_capture_digest"])' "$root/schedule/manifest.json")"
@@ -108,6 +115,16 @@ jobs:
             --schedule-capture-dir "$root/schedule" \
             --expected-schedule-capture-digest "$schedule_digest" \
             --output-plan "$root/feed-plan.json"
+
+      - name: Retain rejected schedule bytes for identity diagnosis
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: rejected-official-2023-schedule-${{ github.sha }}
+          path: ${{ runner.temp }}/official-2023-pa-volume/schedule
+          if-no-files-found: warn
+          include-hidden-files: true
+          retention-days: 7
 
       - name: Capture and verify all 2430 coded-final official feeds
         shell: bash
@@ -120,7 +137,7 @@ jobs:
             --runtime-policy config/pa_volume_source_runtime_authority_v1.json \
             --runtime-attestation "${RUNNER_TEMP}/pa-source-runtime.json" \
             --expected-runtime-attestation-sha256 "${{ inputs.expected_runtime_attestation_sha256 }}" \
-            --source-access-authorization config/pa_volume_historical_source_access_authorization_20260730_v1.json \
+            --source-access-authorization config/pa_volume_historical_source_access_authorization_20260731_v6.json \
             --expected-source-access-authorization-sha256 "${{ inputs.expected_source_authorization_sha256 }}" \
             --plan "$root/feed-plan.json" \
             --output-dir "$root/feeds" \
@@ -147,7 +164,7 @@ jobs:
             --dependency-lock requirements-direct-batter-pa-source-authority.lock \
             --output-dir "$root/source-release"
           cp "${RUNNER_TEMP}/pa-source-runtime.json" "$root/runtime-attestation.json"
-          cp config/pa_volume_historical_source_access_authorization_20260730_v1.json "$root/source-access-authorization.json"
+          cp config/pa_volume_historical_source_access_authorization_20260731_v6.json "$root/source-access-authorization.json"
           cp config/pa_volume_source_runtime_authority_v1.json "$root/runtime-policy.json"
           cp requirements-direct-batter-pa-source-authority.lock "$root/requirements.lock"
           git rev-parse HEAD > "$root/executed-commit.txt"

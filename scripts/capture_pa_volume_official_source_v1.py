@@ -50,7 +50,11 @@ SCHEDULE_INDEX_SCHEMA = "pa-volume-2023-schedule-candidates-v1"
 AUTHORIZATION = "RESEARCH_ONLY_NO_BETTING"
 SHA256_RE = re.compile(r"[0-9a-f]{64}\Z")
 EXPECTED_GAMES = 2430
-MAX_RESPONSE_BYTES = 5_000_000
+# The official full-season schedule is a single bounded response and is larger
+# than an individual game feed.  Keep separate ceilings so accepting that
+# legitimate schedule does not loosen the per-game feed boundary.
+SCHEDULE_MAX_RESPONSE_BYTES = 32 * 1024 * 1024
+FEED_MAX_RESPONSE_BYTES = 5_000_000
 MIN_REQUEST_INTERVAL_SECONDS = 1.0
 MAX_REQUEST_ATTEMPTS = 4
 RETRY_BASE_SECONDS = 1.0
@@ -824,6 +828,16 @@ def _fetch_with_policy(
                 )
                 persist_attempt_result(reservation, record)
                 attempts.append(record)
+                # Bind cross-request pacing to the timestamp retained by the
+                # transport and verifier.  The transport constructs the
+                # request after the outer policy clock is sampled, so using
+                # that earlier sample can make two retained request starts
+                # less than the required interval apart by a few
+                # microseconds even though the policy sleeper ran.
+                last_attempt_started = _utc(
+                    response.requested_at_utc,
+                    "successful request requested_at_utc",
+                )
                 return response, attempts, last_attempt_started
         except TransportFailure as caught:
             failure = caught
@@ -849,6 +863,12 @@ def _fetch_with_policy(
             raise OfficialSourceCaptureError(
                 "nonretryable source request failure"
             ) from exc
+        # Retry and next-request pacing must use the same retained transport
+        # timestamp that downstream verification audits.
+        last_attempt_started = _utc(
+            failure.requested_at_utc,
+            "failed request requested_at_utc",
+        )
         if not failure.retryable:
             record = _attempt_record(
                 attempt=attempt,
@@ -1293,7 +1313,13 @@ def _validate_attempt_history(
         raise OfficialSourceCaptureError("retained final request attempt differs")
 
 
-def _verify_receipt(root: Path, receipt: Mapping[str, Any], request: Mapping[str, Any]) -> bytes:
+def _verify_receipt(
+    root: Path,
+    receipt: Mapping[str, Any],
+    request: Mapping[str, Any],
+    *,
+    max_bytes: int,
+) -> bytes:
     receipt_keys = {
         "schema_version", "authorization", "season", "research_only",
         "betting_authorized", "model_fitting_performed", "probabilities_generated",
@@ -1577,7 +1603,7 @@ def _verify_receipt(root: Path, receipt: Mapping[str, Any], request: Mapping[str
         str(response.get("final_url")), str(response.get("requested_at_utc")),
         str(response.get("observed_at_utc")),
     )
-    _validate_response(captured, request, max_bytes=MAX_RESPONSE_BYTES)
+    _validate_response(captured, request, max_bytes=max_bytes)
     if (
         attempts[-1]["requested_at_utc"] != response["requested_at_utc"]
         or attempts[-1]["observed_at_utc"] != response["observed_at_utc"]
@@ -1633,7 +1659,7 @@ def capture_schedule(
     _storage_preflight(
         work_path=staging,
         output_path=output,
-        required_bytes=MAX_RESPONSE_BYTES,
+        required_bytes=SCHEDULE_MAX_RESPONSE_BYTES,
         disk_usage=active_disk_usage,
     )
     lock_path = output.with_name("." + output.name + ".capture.lock")
@@ -1697,7 +1723,7 @@ def capture_schedule(
             request=request,
             transport=transport,
             timeout_seconds=timeout_seconds,
-            max_bytes=MAX_RESPONSE_BYTES,
+            max_bytes=SCHEDULE_MAX_RESPONSE_BYTES,
             source_access=source_access,
             deadline=deadline,
             minimum_request_interval_seconds=minimum_request_interval_seconds,
@@ -1788,7 +1814,12 @@ def verify_schedule_capture(root: Path, expected_digest: str | None = None) -> d
         raise OfficialSourceCaptureError("schedule capture differs from external digest")
     request = manifest.get("request")
     receipt = json.loads((value / "receipt.json").read_bytes())
-    raw = _verify_receipt(value, receipt, request)
+    raw = _verify_receipt(
+        value,
+        receipt,
+        request,
+        max_bytes=SCHEDULE_MAX_RESPONSE_BYTES,
+    )
     journal = receipt.get("attempt_journal") or {}
     expected_files = {
         "manifest.json", "receipt.json", "response.json",
@@ -1838,10 +1869,6 @@ def build_feed_plan(
             official_date = _official_2023_date(
                 raw.get("officialDate"), "official schedule game officialDate"
             )
-            if official_date != group_date:
-                raise OfficialSourceCaptureError(
-                    "official schedule game date contradicts its date group"
-                )
             game_pk = raw.get("gamePk")
             if isinstance(game_pk, bool) or not isinstance(game_pk, int) or game_pk <= 0:
                 raise OfficialSourceCaptureError("official schedule gamePk is invalid")
@@ -1850,11 +1877,42 @@ def build_feed_plan(
             home = ((teams.get("home") or {}).get("team") or {}).get("id")
             if any(isinstance(v, bool) or not isinstance(v, int) or v <= 0 for v in (away, home)) or away == home:
                 raise OfficialSourceCaptureError("official schedule team identity is invalid")
-            candidate = {"game_pk": game_pk, "away_team_id": away, "home_team_id": home}
+            # MLB may list a postponed, suspended, or resumed game under a
+            # schedule-group date that differs from its canonical
+            # ``officialDate``. Retain both distinct source fields. The final
+            # feed must confirm ``schedule_official_date`` before release.
+            candidate = {
+                "game_pk": game_pk,
+                "schedule_official_date": official_date.isoformat(),
+                "away_team_id": away,
+                "home_team_id": home,
+                "schedule_group_dates": [group_date.isoformat()],
+            }
             prior = candidates.get(game_pk)
-            if prior is not None and prior != candidate:
-                raise OfficialSourceCaptureError("repeated schedule game identity contradicts")
-            candidates[game_pk] = candidate
+            if prior is None:
+                candidates[game_pk] = candidate
+                continue
+            for field in (
+                "game_pk",
+                "schedule_official_date",
+                "away_team_id",
+                "home_team_id",
+            ):
+                if prior.get(field) != candidate[field]:
+                    raise OfficialSourceCaptureError(
+                        "repeated schedule game identity contradicts"
+                    )
+            group_text = group_date.isoformat()
+            prior_group_dates = prior.get("schedule_group_dates")
+            if (
+                not isinstance(prior_group_dates, list)
+                or group_text in prior_group_dates
+            ):
+                raise OfficialSourceCaptureError(
+                    "repeated schedule listing is not uniquely attributable"
+                )
+            prior_group_dates.append(group_text)
+            prior_group_dates.sort()
     if len(candidates) != EXPECTED_GAMES:
         raise OfficialSourceCaptureError(
             f"2023 regular-season schedule coverage differs: {len(candidates)}"
@@ -1961,7 +2019,12 @@ def _preflight_resumable_work(
                     "partial retained feed pair is contradictory"
                 )
             receipt = json.loads(receipt_path.read_bytes())
-            _verify_receipt(work, receipt, request)
+            _verify_receipt(
+                work,
+                receipt,
+                request,
+                max_bytes=FEED_MAX_RESPONSE_BYTES,
+            )
             if receipt.get("runtime_attestation_sha256") != runtime.attestation_sha256:
                 raise OfficialSourceCaptureError(
                     "resumed feed used a different runtime"
@@ -2136,7 +2199,7 @@ def capture_feeds(
         _storage_preflight(
             work_path=work,
             output_path=output,
-            required_bytes=remaining * MAX_RESPONSE_BYTES,
+            required_bytes=remaining * FEED_MAX_RESPONSE_BYTES,
             disk_usage=active_disk_usage,
         )
         last_attempt_started: datetime | None = None
@@ -2192,7 +2255,7 @@ def capture_feeds(
                 request=request,
                 transport=transport,
                 timeout_seconds=timeout_seconds,
-                max_bytes=MAX_RESPONSE_BYTES,
+                max_bytes=FEED_MAX_RESPONSE_BYTES,
                 source_access=source_access,
                 deadline=deadline,
                 minimum_request_interval_seconds=(
@@ -2243,6 +2306,7 @@ def capture_feeds(
                 work,
                 json.loads((base / "receipt.json").read_bytes()),
                 request,
+                max_bytes=FEED_MAX_RESPONSE_BYTES,
             )
             entries.append({
                 "request_id": request["request_id"],
@@ -2317,7 +2381,12 @@ def verify_feed_capture(root: Path, expected_digest: str | None = None) -> dict[
     for request in requests:
         base = value / "feeds" / request["request_id"]
         receipt = json.loads((base / "receipt.json").read_bytes())
-        raw = _verify_receipt(value, receipt, request)
+        raw = _verify_receipt(
+            value,
+            receipt,
+            request,
+            max_bytes=FEED_MAX_RESPONSE_BYTES,
+        )
         journal_binding = receipt.get("attempt_journal") or {}
         journal_relative = journal_binding.get("path")
         expected_files.add(f"feeds/{request['request_id']}/response.json")
