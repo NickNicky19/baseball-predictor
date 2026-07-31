@@ -87,3 +87,15 @@ def test_lane_binding_enforces_exact_horizon_and_confirmed_source_state():
                 }],
             },
         )
+    confirmed_archive = {
+        **projected_archive,
+        "predictions": [{
+            **projected_archive["predictions"][0],
+            "decision_horizon_utc": "2026-07-31T23:10:00Z",
+            "input_health": {"lineup_state": "official_confirmed"},
+        }],
+    }
+    confirmed = bind_prediction_archive_to_lane(
+        lane="confirmed_t1", plan=plans["confirmed_t1"], archive=confirmed_archive
+    )
+    assert confirmed["lane_id"] == "confirmed_t1"

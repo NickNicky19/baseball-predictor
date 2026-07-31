@@ -96,9 +96,27 @@ def _v4_bundle() -> dict:
         "hierarchical_development_config_sha256": "adde18b9a3d562d0935837e2e72ca30e8b65ad59beaa68890f17768f63fc2a2d",
         "hierarchical_evaluation_file_sha256": "935c05ca447787a59150352a25d3a801c32f53c54952b27541b5c390c26d1c57",
         "hierarchical_global_slot_weight": 0.2,
+        "lineup_state": "projected_probability_distribution",
+        "baseline_pa_support": SUPPORT,
+        "baseline_pa_mass": MASS,
+        "baseline_pa_distribution_sha256": pa_distribution_sha256(
+            support=SUPPORT, mass=MASS
+        ),
+        "baseline_market_distributions": derive_market_distributions(
+            per_pa_probability=PER_PA, support=SUPPORT, mass=MASS
+        ),
     })
     record["candidate_record_sha256"] = sha256_value(record)
     unsigned = {
+        "schema_version": "shared-pa-source-bound-opportunity-side-bundle-v4",
+        "candidate_id": MODEL_ID,
+        "lineup_state": "projected_probability_distribution",
+        "upstream_v2_side_bundle_sha256": "7" * 64,
+        "producer_code_sha256": "8" * 64,
+        "candidate_protocol_sha256": "9" * 64,
+        "source_manifest_sha256": HEX,
+        "runtime_release_receipt_sha256": "b" * 64,
+        "source_release_commit": "6" * 40,
         "official_game_date": "2026-09-17",
         "mlb_game_pk": 123456,
         "team_id": 117,
@@ -142,6 +160,15 @@ def test_hierarchical_v4_record_is_consumed_but_bad_provenance_fails(tmp_path: P
     assert archive["predictions"][0]["opportunity_mean_pa"] == pytest.approx(
         sum(pa * mass for pa, mass in zip(SUPPORT, MASS))
     )
+    assert set(archive["predictions"][0]["baselines"]) == {
+        "league_rate_2023_same_pa_volume",
+        "time_safe_player_empirical_bayes_with_pooled_projected_pa_volume",
+        "frozen_production_simulator",
+        "valid_market_implied_probability",
+    }
+    assert archive["predictions"][0]["input_health"]["full_raw_receipt_replay"] == (
+        "verified_by_source_bound_runner_v4"
+    )
 
     record = bundle["candidate_records"][0]
     record["hierarchical_global_slot_weight"] = 0.25
@@ -153,6 +180,50 @@ def test_hierarchical_v4_record_is_consumed_but_bad_provenance_fails(tmp_path: P
     bundle["side_bundle_sha256"] = sha256_value(unsigned_bundle)
     source.write_text(json.dumps(bundle), encoding="utf-8")
     with pytest.raises(CandidateEvidenceError, match="hierarchical opportunity provenance"):
+        load_candidate_archive(source, expected_date="2026-09-17")
+
+
+def test_hierarchical_v4_requires_retained_evidence_producer_binding(tmp_path: Path) -> None:
+    bundle = _v4_bundle()
+    bundle.pop("producer_code_sha256")
+    bundle.pop("side_bundle_sha256")
+    bundle["side_bundle_sha256"] = sha256_value(bundle)
+    source = tmp_path / "unbound-v4.json"
+    source.write_text(json.dumps(bundle), encoding="utf-8")
+    with pytest.raises(CandidateEvidenceError, match="producer binding"):
+        load_candidate_archive(source, expected_date="2026-09-17")
+
+
+def test_hash_bound_official_confirmed_state_requires_exact_start_and_slot(tmp_path: Path) -> None:
+    bundle = _v4_bundle()
+    bundle["lineup_state"] = "official_confirmed"
+    record = bundle["candidate_records"][0]
+    record["lineup_state"] = "official_confirmed"
+    record["projected_start_probability"] = 1.0
+    record["projected_slot_probability_unconditional"] = {
+        str(slot): 1.0 if slot == 2 else 0.0 for slot in range(1, 10)
+    }
+    record["projected_slot_probability_given_start"] = dict(
+        record["projected_slot_probability_unconditional"]
+    )
+    record.pop("candidate_record_sha256")
+    record["candidate_record_sha256"] = sha256_value(record)
+    bundle.pop("side_bundle_sha256")
+    bundle["side_bundle_sha256"] = sha256_value(bundle)
+    source = tmp_path / "confirmed.json"
+    source.write_text(json.dumps(bundle), encoding="utf-8")
+    archive = load_candidate_archive(source, expected_date="2026-09-17")
+    assert archive["predictions"][0]["input_health"]["lineup_state"] == "official_confirmed"
+
+    record = bundle["candidate_records"][0]
+    record["projected_start_probability"] = 0.99
+    record["projected_slot_probability_unconditional"]["2"] = 0.99
+    record.pop("candidate_record_sha256")
+    record["candidate_record_sha256"] = sha256_value(record)
+    bundle.pop("side_bundle_sha256")
+    bundle["side_bundle_sha256"] = sha256_value(bundle)
+    source.write_text(json.dumps(bundle), encoding="utf-8")
+    with pytest.raises(CandidateEvidenceError, match="start probability one"):
         load_candidate_archive(source, expected_date="2026-09-17")
 
 

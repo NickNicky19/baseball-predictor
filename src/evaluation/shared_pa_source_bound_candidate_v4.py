@@ -81,6 +81,13 @@ def build_source_bound_candidate_record_v4(
         projection_marginals=projection_marginals,
         authority_arguments=authority_arguments,
     )
+    lineup_state = evidence_envelope.get(
+        "lineup_state", "projected_probability_distribution"
+    )
+    if lineup_state not in {
+        "projected_probability_distribution", "official_confirmed"
+    }:
+        raise SourceBoundCandidateV4Error("lineup evidence state is invalid")
     unsigned = dict(parent)
     unsigned.pop("candidate_record_sha256")
     unsigned.update({
@@ -90,10 +97,16 @@ def build_source_bound_candidate_record_v4(
         "hierarchical_development_config_sha256": CONFIG_SHA256,
         "hierarchical_evaluation_file_sha256": REPORT_FILE_SHA256,
         "hierarchical_global_slot_weight": SELECTED_WEIGHT,
+        "lineup_state": lineup_state,
         "candidate_pa_support": derived["candidate_pa_support"],
         "candidate_pa_mass": derived["candidate_pa_mass"],
         "candidate_pa_distribution_sha256": derived["candidate_pa_distribution_sha256"],
         "candidate_market_distributions": derived["candidate_market_distributions"],
+        "baseline_pa_support": derived["baseline_pa_support"],
+        "baseline_pa_mass": derived["baseline_pa_mass"],
+        "baseline_pa_distribution_sha256": derived[
+            "baseline_pa_distribution_sha256"
+        ],
         "baseline_market_distributions": derived["baseline_market_distributions"],
     })
     return {**unsigned, "candidate_record_sha256": sha256_value(unsigned)}
