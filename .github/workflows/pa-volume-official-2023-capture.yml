@@ -37,31 +37,30 @@ jobs:
     steps:
       - name: Check out the isolated workflow authority
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
-        with:
-          path: workflow-authority
 
       - name: Bind the manually dispatched workflow bytes
         shell: bash
         run: |
           set -euo pipefail
-          observed="$(git -C workflow-authority rev-parse HEAD)"
+          observed="$(git rev-parse HEAD)"
           test "$observed" = "${{ inputs.expected_workflow_commit_sha }}"
           test "$observed" = "$GITHUB_SHA"
-          test -z "$(git -C workflow-authority status --porcelain=v1 --untracked-files=all)"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+          sha256sum .github/workflows/pa-volume-official-2023-capture.yml \
+            > "${RUNNER_TEMP}/workflow-authority.sha256"
 
       - name: Check out the exact certified carrier commit
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           ref: 0f7973733a23bbe64070b19875a3846f299fa505
-          path: source
 
       - name: Reject moving or substituted source bytes
         shell: bash
         run: |
           set -euo pipefail
-          observed="$(git -C source rev-parse HEAD)"
+          observed="$(git rev-parse HEAD)"
           test "$observed" = "$CARRIER_COMMIT"
-          test -z "$(git -C source status --porcelain=v1 --untracked-files=all)"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
 
       - name: Set up exact Python
         uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
@@ -77,6 +76,7 @@ jobs:
           artifact="official-2023-shared-pa-outcome-boxscores-${CARRIER_COMMIT}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           test ! -e "$root"
           install -d -m 0700 "$root" "$root/capture" "$root/work"
+          cp "${RUNNER_TEMP}/workflow-authority.sha256" "$root/workflow-authority.sha256"
           printf 'CAPTURE_ROOT=%s\n' "$root" >> "$GITHUB_ENV"
           printf 'ARTIFACT_NAME=%s\n' "$artifact" >> "$GITHUB_ENV"
 
@@ -89,12 +89,11 @@ jobs:
           python -m venv --without-pip "${RUNNER_TEMP}/pa-source-env"
           python -m pip --python "$capture_python" install \
             --disable-pip-version-check --no-compile --no-deps --require-hashes \
-            -r source/requirements-direct-batter-pa-source-authority.lock
+            -r requirements-direct-batter-pa-source-authority.lock
           python -m pip --python "$capture_python" check
 
       - name: Reproduce the externally approved clean-Linux runtime
         shell: bash
-        working-directory: source
         run: |
           set -euo pipefail
           unset LD_LIBRARY_PATH
@@ -109,7 +108,6 @@ jobs:
 
       - name: Verify every certified capture authority before network access
         shell: bash
-        working-directory: source
         run: |
           set -euo pipefail
           capture_python="${RUNNER_TEMP}/pa-source-env/bin/python"
@@ -134,7 +132,6 @@ jobs:
 
       - name: Capture only the 2430 authorized raw final-boxscore responses
         shell: bash
-        working-directory: source
         run: |
           set -euo pipefail
           unset LD_LIBRARY_PATH
@@ -155,7 +152,6 @@ jobs:
 
       - name: Verify the completed raw capture and preserve coverage identity
         shell: bash
-        working-directory: source
         run: |
           set -euo pipefail
           capture_python="${RUNNER_TEMP}/pa-source-env/bin/python"
@@ -171,15 +167,13 @@ jobs:
           cp "$REQUEST_PLAN" "${CAPTURE_ROOT}/request-plan.json"
           cp requirements-direct-batter-pa-source-authority.lock "${CAPTURE_ROOT}/requirements.lock"
 
-      - name: Prove both source checkouts remained unchanged
+      - name: Prove the exact certified source checkout remained unchanged
         if: always()
         shell: bash
         run: |
           set -euo pipefail
-          git -C source diff --exit-code
-          test -z "$(git -C source status --porcelain=v1 --untracked-files=all)"
-          git -C workflow-authority diff --exit-code
-          test -z "$(git -C workflow-authority status --porcelain=v1 --untracked-files=all)"
+          git diff --exit-code
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
 
       - name: Upload immutable raw capture, receipts, failures, and coverage evidence
         if: always()
