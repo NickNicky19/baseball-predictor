@@ -132,6 +132,25 @@ class SequencedTransport:
         )
 
 
+class DelayedRequestStampTransport(FakeTransport):
+    """Expose the gap between the policy clock sample and HTTP request start."""
+
+    def __init__(self, bodies: dict[str, bytes], clock: FakeClock) -> None:
+        super().__init__(bodies, clock=clock.now)
+        self.fake_clock = clock
+
+    def fetch(self, request, *, timeout_seconds: float, max_bytes: int):
+        # Real transport setup takes a small amount of time after the outer
+        # pacing clock is sampled.  Make that gap large enough for a stable
+        # regression test.
+        self.fake_clock.value += timedelta(milliseconds=200)
+        return super().fetch(
+            request,
+            timeout_seconds=timeout_seconds,
+            max_bytes=max_bytes,
+        )
+
+
 def schedule_body(count: int = 2) -> bytes:
     games = []
     for game_pk in range(1, count + 1):
@@ -270,6 +289,36 @@ def test_feed_capture_resumes_partial_work_and_finalizes_atomically(tmp_path: Pa
     assert resumed.max_bytes_seen == [capture.FEED_MAX_RESPONSE_BYTES]
     assert not work.exists() and output.is_dir()
     assert capture.verify_feed_capture(output)["observed_capture_digest"] == manifest["observed_capture_digest"]
+
+
+def test_feed_capture_paces_from_retained_transport_request_time(
+    tmp_path: Path, monkeypatch
+) -> None:
+    plan = _small_plan(tmp_path, monkeypatch)
+    bodies = {
+        row["full_url"]: json.dumps(
+            {"gamePk": row["expected"]["game_pk"]}
+        ).encode()
+        for row in plan["requests"]
+    }
+    clock = FakeClock()
+    output = tmp_path / "final"
+    manifest = capture.capture_feeds(
+        plan=plan,
+        output_dir=output,
+        work_dir=tmp_path / "work",
+        runtime=runtime(),
+        source_access=source_access(),
+        source_bundle_sha256=capture.capture_source_bundle_sha256(),
+        transport=DelayedRequestStampTransport(bodies, clock),
+        clock=clock.now,
+        sleeper=clock.sleep,
+    )
+    assert clock.sleeps == [pytest.approx(1.0)]
+    assert (
+        capture.verify_feed_capture(output)["observed_capture_digest"]
+        == manifest["observed_capture_digest"]
+    )
 
 
 def test_repeated_schedule_identity_must_agree(tmp_path: Path, monkeypatch) -> None:

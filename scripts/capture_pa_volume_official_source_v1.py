@@ -828,6 +828,16 @@ def _fetch_with_policy(
                 )
                 persist_attempt_result(reservation, record)
                 attempts.append(record)
+                # Bind cross-request pacing to the timestamp retained by the
+                # transport and verifier.  The transport constructs the
+                # request after the outer policy clock is sampled, so using
+                # that earlier sample can make two retained request starts
+                # less than the required interval apart by a few
+                # microseconds even though the policy sleeper ran.
+                last_attempt_started = _utc(
+                    response.requested_at_utc,
+                    "successful request requested_at_utc",
+                )
                 return response, attempts, last_attempt_started
         except TransportFailure as caught:
             failure = caught
@@ -853,6 +863,12 @@ def _fetch_with_policy(
             raise OfficialSourceCaptureError(
                 "nonretryable source request failure"
             ) from exc
+        # Retry and next-request pacing must use the same retained transport
+        # timestamp that downstream verification audits.
+        last_attempt_started = _utc(
+            failure.requested_at_utc,
+            "failed request requested_at_utc",
+        )
         if not failure.retryable:
             record = _attempt_record(
                 attempt=attempt,
