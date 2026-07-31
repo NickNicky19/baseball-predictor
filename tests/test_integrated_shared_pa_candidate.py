@@ -86,6 +86,29 @@ def _bundle() -> dict:
     return {**unsigned, "side_bundle_sha256": sha256_value(unsigned)}
 
 
+def _v4_bundle() -> dict:
+    record = _record()
+    record.pop("candidate_record_sha256")
+    record.update({
+        "schema_version": "shared-pa-source-bound-opportunity-player-v4",
+        "component_revision": "hierarchical_opportunity_v1",
+        "hierarchical_candidate_protocol_sha256": "9" * 64,
+        "hierarchical_development_config_sha256": "adde18b9a3d562d0935837e2e72ca30e8b65ad59beaa68890f17768f63fc2a2d",
+        "hierarchical_evaluation_file_sha256": "935c05ca447787a59150352a25d3a801c32f53c54952b27541b5c390c26d1c57",
+        "hierarchical_global_slot_weight": 0.2,
+    })
+    record["candidate_record_sha256"] = sha256_value(record)
+    unsigned = {
+        "official_game_date": "2026-09-17",
+        "mlb_game_pk": 123456,
+        "team_id": 117,
+        "side": "home",
+        "candidate_records": [record],
+        "abstentions": [],
+    }
+    return {**unsigned, "side_bundle_sha256": sha256_value(unsigned)}
+
+
 def test_candidate_is_exact_receipt_bound_and_market_coherent(tmp_path: Path) -> None:
     source = tmp_path / "side.json"
     source.write_text(json.dumps(_bundle()), encoding="utf-8")
@@ -109,6 +132,29 @@ def test_candidate_is_exact_receipt_bound_and_market_coherent(tmp_path: Path) ->
     assert archive["feature_schema"]["excluded"] == [
         "mutable_savant_override", "direct_bvp", "unreceipted_pitcher_matchup"
     ]
+
+
+def test_hierarchical_v4_record_is_consumed_but_bad_provenance_fails(tmp_path: Path) -> None:
+    bundle = _v4_bundle()
+    source = tmp_path / "v4.json"
+    source.write_text(json.dumps(bundle), encoding="utf-8")
+    archive = load_candidate_archive(source, expected_date="2026-09-17")
+    assert archive["predictions"][0]["opportunity_mean_pa"] == pytest.approx(
+        sum(pa * mass for pa, mass in zip(SUPPORT, MASS))
+    )
+
+    record = bundle["candidate_records"][0]
+    record["hierarchical_global_slot_weight"] = 0.25
+    unsigned_record = dict(record)
+    unsigned_record.pop("candidate_record_sha256")
+    record["candidate_record_sha256"] = sha256_value(unsigned_record)
+    unsigned_bundle = dict(bundle)
+    unsigned_bundle.pop("side_bundle_sha256")
+    bundle["side_bundle_sha256"] = sha256_value(unsigned_bundle)
+    source.write_text(json.dumps(bundle), encoding="utf-8")
+    with pytest.raises(CandidateEvidenceError, match="hierarchical opportunity provenance"):
+        load_candidate_archive(source, expected_date="2026-09-17")
+
 
 
 def test_candidate_rejects_hash_matching_bundle_with_tampered_market(tmp_path: Path) -> None:

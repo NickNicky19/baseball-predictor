@@ -1,0 +1,23 @@
+{
+  "schema_version": "shared-pa-candidate-hierarchical-protocol-v1",
+  "candidate_id": "shared_pa_candidate_v1",
+  "component_revision": "hierarchical_opportunity_v1",
+  "status": "RESEARCH_ONLY_EXACT_RELEASE_PENDING",
+  "research_only": true,
+  "betting_authorized": false,
+  "parent_protocol_sha256": "ca8a419b0ec5c610da1bf9c1efb20ec62580ec02187a634dab3f2b25b33b671b",
+  "hierarchical_development_config_sha256": "adde18b9a3d562d0935837e2e72ca30e8b65ad59beaa68890f17768f63fc2a2d",
+  "hierarchical_evaluation_file_sha256": "935c05ca447787a59150352a25d3a801c32f53c54952b27541b5c390c26d1c57",
+  "selected_global_slot_weight": 0.2,
+  "markets": ["hits", "home_runs", "total_bases", "hitter_strikeouts", "hitter_walks"],
+  "qualification_markets": ["hits", "home_runs", "total_bases"],
+  "claim_boundary": "2023 conditional-opportunity component development evidence only; no market or prospective superiority claimed",
+  "protected_boundaries": {
+    "may_2026_access_allowed": false,
+    "selection_2024_accessed": false,
+    "spent_2025_hr_confirmation_accessed": false,
+    "prospective_outcomes_accessed": false,
+    "frozen_model_mutation_allowed": false,
+    "betting_authorized": false
+  }
+}

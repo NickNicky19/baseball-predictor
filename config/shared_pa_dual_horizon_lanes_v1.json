@@ -1,0 +1,29 @@
+{
+  "schema_version": "shared-pa-dual-horizon-lanes-v1",
+  "status": "RESEARCH_ONLY_NOT_DEPLOYED",
+  "model_id": "shared_pa_candidate_v1",
+  "lanes": {
+    "projected_t4": {
+      "entry_hours": 4,
+      "lineup_state": "projected_probability_distribution",
+      "required_source": "receipt_bound_active_roster_plus_prior_opportunity_history",
+      "fallback_lane": null
+    },
+    "confirmed_t1": {
+      "entry_hours": 1,
+      "lineup_state": "official_confirmed_or_typed_abstention",
+      "required_source": "official_mlb_lineup_receipt",
+      "fallback_lane": null
+    }
+  },
+  "archive_rule": "lane/date/gamePk/team_side/player_id/model_id; publish once; never overwrite or substitute across lanes",
+  "schedule_revision_rule": "append-only; a change observed before a lane horizon may supersede its old target, otherwise that lane is terminally missed",
+  "protected_boundaries": {
+    "may_2026_access_allowed": false,
+    "projected_lane_overwrite_allowed": false,
+    "confirmed_lane_fallback_to_projected_allowed": false,
+    "missed_capture_backfill_allowed": false,
+    "production_changed": false,
+    "betting_authorized": false
+  }
+}
