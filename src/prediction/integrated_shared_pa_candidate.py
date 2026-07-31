@@ -131,12 +131,28 @@ def _market(name: str, pmf: list[float]) -> dict[str, Any]:
 
 def validate_and_project_record(record: Mapping[str, Any], *, expected_date: str) -> dict[str, Any]:
     """Validate a retained candidate record and expose five exact markets."""
-    if record.get("schema_version") != "shared-pa-source-bound-opportunity-player-v3":
-        raise CandidateEvidenceError("candidate record schema is not source-bound v3")
+    schema_version = record.get("schema_version")
+    if schema_version not in {
+        "shared-pa-source-bound-opportunity-player-v3",
+        "shared-pa-source-bound-opportunity-player-v4",
+    }:
+        raise CandidateEvidenceError("candidate record schema is not a supported source-bound version")
     if record.get("candidate_id") != MODEL_ID:
         raise CandidateEvidenceError("candidate record model identity differs")
     if record.get("candidate_record_sha256") != _record_hash(record):
         raise CandidateEvidenceError("candidate record hash differs")
+    if schema_version == "shared-pa-source-bound-opportunity-player-v4":
+        if (
+            record.get("component_revision") != "hierarchical_opportunity_v1"
+            or record.get("hierarchical_global_slot_weight") != 0.2
+            or record.get("hierarchical_development_config_sha256")
+            != "adde18b9a3d562d0935837e2e72ca30e8b65ad59beaa68890f17768f63fc2a2d"
+            or record.get("hierarchical_evaluation_file_sha256")
+            != "935c05ca447787a59150352a25d3a801c32f53c54952b27541b5c390c26d1c57"
+            or not isinstance(record.get("hierarchical_candidate_protocol_sha256"), str)
+            or len(record["hierarchical_candidate_protocol_sha256"]) != 64
+        ):
+            raise CandidateEvidenceError("hierarchical opportunity provenance differs")
     official_date = date.fromisoformat(str(record.get("official_game_date", "")))
     if MAY_FIRST <= official_date <= MAY_LAST:
         raise CandidateEvidenceError("May 2026 is sealed")
