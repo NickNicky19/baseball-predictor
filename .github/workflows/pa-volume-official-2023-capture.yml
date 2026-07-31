@@ -78,7 +78,7 @@ jobs:
           root="${RUNNER_TEMP}/official-2023-shared-pa-outcome-boxscores-${CARRIER_COMMIT}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           artifact="official-2023-shared-pa-outcome-boxscores-${CARRIER_COMMIT}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           test ! -e "$root"
-          install -d -m 0700 "$root" "$root/capture" "$root/work"
+          install -d -m 0700 "$root" "$root/work"
           cp "${RUNNER_TEMP}/workflow-authority.sha256" "$root/workflow-authority.sha256"
           printf 'CAPTURE_ROOT=%s\n' "$root" >> "$GITHUB_ENV"
           printf 'ARTIFACT_NAME=%s\n' "$artifact" >> "$GITHUB_ENV"
