@@ -440,6 +440,9 @@ def run_tournament(*, label_release: Path, protocol_path: Path, output_dir: Path
     eligible_rows = 0
     represented_actual_starters = 0
     total_actual_starters = sum(1 for row in rows if row["starter"])
+    evaluation_window_actual_starters = sum(
+        1 for row in rows if row["starter"] and date.fromisoformat(row["official_date"]) >= eval_start
+    )
 
     for official_date in sorted(by_date):
         day_games = sorted(by_date[official_date], key=lambda item: (item[0][1], item[0][2]))
@@ -587,7 +590,7 @@ def run_tournament(*, label_release: Path, protocol_path: Path, output_dir: Path
         "markets": {market: {model: _score_summary(score_states[model][market]) for model in score_states} for market in MARKET_INCREMENTS},
         "paired_clustered_uncertainty": {name: {market: _bootstrap_delta(daily, draws, seed) for market, daily in markets.items()} for name, markets in pair_daily.items()},
         "unavailable_required_comparators": ["frozen_baseline: authorized final-only source cannot replay frozen live/savant path", "market_implied_probability: economic evidence not opened"],
-        "coverage": {"eligible_team_player_rows": eligible_rows, "archived_observed_player_rows": len(prediction_rows), "actual_original_starters_represented": represented_actual_starters, "actual_original_starters_total": total_actual_starters, "abstentions": dict(sorted(abstentions.items()))},
+        "coverage": {"eligible_team_player_rows": eligible_rows, "archived_observed_player_rows": len(prediction_rows), "actual_original_starters_represented": represented_actual_starters, "actual_original_starters_evaluation_window_total": evaluation_window_actual_starters, "actual_original_starters_full_release_total": total_actual_starters, "abstentions": dict(sorted(abstentions.items()))},
     }
     opportunity_report = _summarize_opportunity(opportunity_states, opportunity_pairs, draws, seed)
     final_fit = {
