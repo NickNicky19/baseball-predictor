@@ -189,6 +189,7 @@ jobs:
           import sys
           from urllib.parse import urlsplit
 
+          sys.path.insert(0, str(Path.cwd()))
           import scripts.capture_shared_pa_outcome_boxscores_v1 as capture
           import scripts.capture_pa_volume_official_source_v1 as base
 
