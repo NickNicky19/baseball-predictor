@@ -131,6 +131,10 @@ def _market(name: str, pmf: list[float]) -> dict[str, Any]:
 
 def validate_and_project_record(record: Mapping[str, Any], *, expected_date: str) -> dict[str, Any]:
     """Validate a retained candidate record and expose five exact markets."""
+    if record.get("schema_version") != "shared-pa-source-bound-opportunity-player-v3":
+        raise CandidateEvidenceError("candidate record schema is not source-bound v3")
+    if record.get("candidate_id") != MODEL_ID:
+        raise CandidateEvidenceError("candidate record model identity differs")
     if record.get("candidate_record_sha256") != _record_hash(record):
         raise CandidateEvidenceError("candidate record hash differs")
     official_date = date.fromisoformat(str(record.get("official_game_date", "")))
@@ -193,13 +197,43 @@ def validate_and_project_record(record: Mapping[str, Any], *, expected_date: str
     start_probability = float(record.get("projected_start_probability", -1.0))
     if not math.isfinite(start_probability) or not 0.0 <= start_probability <= 1.0:
         raise CandidateEvidenceError("projected start probability is invalid")
-    slot_probability = record.get("projected_slot_probability")
-    if not isinstance(slot_probability, Mapping):
-        raise CandidateEvidenceError("projected slot distribution is missing")
-    slot_values = {int(slot): float(probability) for slot, probability in slot_probability.items()}
-    if set(slot_values) != set(range(1, 10)) or any(
-        not math.isfinite(value) or value < 0.0 for value in slot_values.values()
-    ) or not math.isclose(sum(slot_values.values()), 1.0, rel_tol=0.0, abs_tol=1e-10):
+    unconditional = record.get("projected_slot_probability_unconditional")
+    conditional = record.get("projected_slot_probability_given_start")
+    if not isinstance(unconditional, Mapping) or not isinstance(conditional, Mapping):
+        raise CandidateEvidenceError("projected slot distributions are missing")
+    unconditional_values = {
+        int(slot): float(probability) for slot, probability in unconditional.items()
+    }
+    slot_values = {int(slot): float(probability) for slot, probability in conditional.items()}
+    if (
+        set(unconditional_values) != set(range(1, 10))
+        or set(slot_values) != set(range(1, 10))
+        or any(
+            not math.isfinite(value) or value < 0.0
+            for value in [*unconditional_values.values(), *slot_values.values()]
+        )
+        or not math.isclose(
+            sum(unconditional_values.values()), start_probability,
+            rel_tol=0.0, abs_tol=1e-10,
+        )
+        or (
+            start_probability > 0.0
+            and not math.isclose(sum(slot_values.values()), 1.0, rel_tol=0.0, abs_tol=1e-10)
+        )
+        or (
+            start_probability == 0.0
+            and not math.isclose(sum(slot_values.values()), 0.0, rel_tol=0.0, abs_tol=1e-10)
+        )
+        or any(
+            not math.isclose(
+                unconditional_values[slot],
+                start_probability * slot_values[slot],
+                rel_tol=0.0,
+                abs_tol=1e-10,
+            )
+            for slot in range(1, 10)
+        )
+    ):
         raise CandidateEvidenceError("projected slot distribution is invalid")
     recomputed = derive_market_distributions(
         per_pa_probability=per_pa, support=support, mass=mass
@@ -229,6 +263,9 @@ def validate_and_project_record(record: Mapping[str, Any], *, expected_date: str
         "player_id": player_id,
         "projected_start_probability": start_probability,
         "projected_slot_probability": {str(slot): slot_values[slot] for slot in range(1, 10)},
+        "projected_slot_probability_unconditional": {
+            str(slot): unconditional_values[slot] for slot in range(1, 10)
+        },
         "pa_support": support,
         "pa_mass": mass,
         "opportunity_mean_pa": sum(pa * weight for pa, weight in zip(support, mass)),

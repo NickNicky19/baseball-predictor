@@ -36,7 +36,8 @@ MASS = [0.12, 0.08, 0.56, 0.24]
 
 def _record() -> dict:
     unsigned = {
-        "candidate_id": "shared_pa_projected_opportunity_eb200_v2",
+        "schema_version": "shared-pa-source-bound-opportunity-player-v3",
+        "candidate_id": MODEL_ID,
         "official_game_date": "2026-09-17",
         "official_start_utc": "2026-09-17T23:10:00Z",
         "target_horizon_utc": "2026-09-17T19:10:00Z",
@@ -56,7 +57,12 @@ def _record() -> dict:
         "pa_volume_artifact_sha256": "1" * 64,
         "pa_volume_source_manifest_sha256": "2" * 64,
         "projected_start_probability": 0.88,
-        "projected_slot_probability": {str(slot): 1.0 if slot == 2 else 0.0 for slot in range(1, 10)},
+        "projected_slot_probability_unconditional": {
+            str(slot): 0.88 if slot == 2 else 0.0 for slot in range(1, 10)
+        },
+        "projected_slot_probability_given_start": {
+            str(slot): 1.0 if slot == 2 else 0.0 for slot in range(1, 10)
+        },
         "candidate_pa_support": SUPPORT,
         "candidate_pa_mass": MASS,
         "candidate_pa_distribution_sha256": pa_distribution_sha256(support=SUPPORT, mass=MASS),
@@ -138,6 +144,25 @@ def test_candidate_rejects_known_blocked_pa_volume_artifact(tmp_path: Path) -> N
     source.write_text(json.dumps(bundle), encoding="utf-8")
 
     with pytest.raises(CandidateEvidenceError, match="blocked PA-volume artifact"):
+        load_candidate_archive(source, expected_date="2026-09-17")
+
+
+def test_candidate_rejects_conditional_unconditional_slot_conflation(tmp_path: Path) -> None:
+    bundle = _bundle()
+    record = bundle["candidate_records"][0]
+    record["projected_slot_probability_unconditional"] = {
+        str(slot): 1.0 if slot == 2 else 0.0 for slot in range(1, 10)
+    }
+    unsigned_record = dict(record)
+    unsigned_record.pop("candidate_record_sha256")
+    record["candidate_record_sha256"] = sha256_value(unsigned_record)
+    unsigned_bundle = dict(bundle)
+    unsigned_bundle.pop("side_bundle_sha256")
+    bundle["side_bundle_sha256"] = sha256_value(unsigned_bundle)
+    source = tmp_path / "slot-conflation.json"
+    source.write_text(json.dumps(bundle), encoding="utf-8")
+
+    with pytest.raises(CandidateEvidenceError, match="slot distribution is invalid"):
         load_candidate_archive(source, expected_date="2026-09-17")
 
 
