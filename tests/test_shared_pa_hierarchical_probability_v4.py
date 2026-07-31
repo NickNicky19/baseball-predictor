@@ -95,6 +95,8 @@ def test_hierarchical_component_numerically_reaches_market_distributions(
     )
     assert result["hierarchical_global_slot_weight"] == 0.2
     assert result["candidate_pa_support"] == list(range(8))
+    assert result["baseline_pa_support"]
+    assert result["baseline_pa_distribution_sha256"]
     assert set(result["candidate_market_distributions"]) == {
         "hits_pmf", "home_runs_pmf", "total_bases_pmf", "tails"
     }

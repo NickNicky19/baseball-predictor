@@ -108,6 +108,11 @@ def derive_hierarchical_projected_markets_v4(
             "candidate_pa_support": support,
             "candidate_pa_mass": mass,
             "candidate_pa_distribution_sha256": pa_distribution_sha256(support=support, mass=mass),
+            "baseline_pa_support": baseline_support,
+            "baseline_pa_mass": baseline_mass,
+            "baseline_pa_distribution_sha256": pa_distribution_sha256(
+                support=baseline_support, mass=baseline_mass
+            ),
             "baseline_market_distributions": derive_market_distributions(
                 per_pa_probability=per_pa_probability,
                 support=baseline_support,

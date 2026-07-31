@@ -146,6 +146,11 @@ jobs:
             tests/test_shared_pa_projected_opportunity_runner.py \
             tests/test_shared_pa_projected_opportunity_runner_v2.py \
             tests/test_shared_pa_source_bound_candidate_v3.py \
+            tests/test_shared_pa_hierarchical_probability_v4.py \
+            tests/test_shared_pa_source_bound_candidate_v4.py \
+            tests/test_shared_pa_source_bound_runner_v4.py \
+            tests/test_shared_pa_dual_horizon_lanes_v1.py \
+            tests/test_run_shared_pa_dual_horizon_candidate.py \
             tests/test_integrated_shared_pa_candidate.py \
             tests/test_evaluate_source_bound_pa_opportunity_2023.py \
             tests/test_strict_american_odds_boundary.py \

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Mapping
@@ -121,8 +122,19 @@ def bind_prediction_archive_to_lane(
         ).astimezone(timezone.utc)
         if horizon != expected:
             raise SharedPADualHorizonError("prediction horizon differs from lane target")
-        if lane == "confirmed_t1" and prediction.get("input_health", {}).get("lineup_state") != "official_confirmed":
-            raise SharedPADualHorizonError("confirmed lane requires official confirmed-lineup evidence")
+        lineup_state = prediction.get("input_health", {}).get("lineup_state")
+        expected_lineup_state = (
+            "official_confirmed"
+            if lane == "confirmed_t1"
+            else "projected_probability_distribution"
+        )
+        if lineup_state != expected_lineup_state:
+            detail = (
+                "confirmed lane requires official confirmed-lineup evidence"
+                if lane == "confirmed_t1"
+                else "projected lane requires projected probability-distribution evidence"
+            )
+            raise SharedPADualHorizonError(detail)
     unsigned = {
         "schema_version": "integrated-shared-pa-lane-archive-v1",
         "lane_id": lane,
@@ -136,3 +148,31 @@ def bind_prediction_archive_to_lane(
         "betting_authorized": False,
     }
     return {**unsigned, "lane_archive_sha256": sha256_value(unsigned)}
+
+
+def publish_lane_archive_once(payload: Mapping[str, Any], destination: Path) -> Path:
+    """Create one immutable lane archive, allowing only byte-identical replay."""
+    encoded = (json.dumps(dict(payload), sort_keys=True, indent=2) + "\n").encode("utf-8")
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        descriptor = os.open(
+            destination, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o640
+        )
+    except FileExistsError:
+        if destination.read_bytes() != encoded:
+            raise SharedPADualHorizonError(
+                "immutable lane archive already exists with different bytes"
+            )
+        return destination
+    try:
+        with os.fdopen(descriptor, "wb") as handle:
+            handle.write(encoded)
+            handle.flush()
+            os.fsync(handle.fileno())
+    except Exception:
+        try:
+            destination.unlink()
+        except OSError:
+            pass
+        raise
+    return destination

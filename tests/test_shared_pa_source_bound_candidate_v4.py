@@ -34,6 +34,9 @@ def test_v4_replaces_only_opportunity_math_and_binds_qualification(monkeypatch: 
         "candidate_pa_mass": [0.2, 0.0, 0.0, 0.0, 0.8, 0.0, 0.0, 0.0],
         "candidate_pa_distribution_sha256": "2" * 64,
         "candidate_market_distributions": {"new": True},
+        "baseline_pa_support": [0, 4],
+        "baseline_pa_mass": [0.2, 0.8],
+        "baseline_pa_distribution_sha256": "5" * 64,
         "baseline_market_distributions": {"pooled": True},
     })
     record = subject.build_source_bound_candidate_record_v4(
@@ -51,6 +54,8 @@ def test_v4_replaces_only_opportunity_math_and_binds_qualification(monkeypatch: 
     assert record["schema_version"] == subject.SCHEMA_VERSION
     assert record["candidate_market_distributions"] == {"new": True}
     assert record["hierarchical_global_slot_weight"] == 0.2
+    assert record["lineup_state"] == "projected_probability_distribution"
+    assert record["baseline_pa_support"] == [0, 4]
     unsigned = dict(record)
     unsigned.pop("candidate_record_sha256")
     assert record["candidate_record_sha256"] == sha256_value(unsigned)

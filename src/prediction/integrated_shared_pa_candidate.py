@@ -19,6 +19,7 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from src.evaluation.shared_pa_forward_evidence import (
+    CONTROL_CONFIG_SHA256,
     PA_OUTCOMES,
     derive_market_distributions,
     pa_distribution_sha256,
@@ -129,6 +130,42 @@ def _market(name: str, pmf: list[float]) -> dict[str, Any]:
     }
 
 
+def _five_markets(
+    *, per_pa: Mapping[str, Any], support: list[int], mass: list[float]
+) -> dict[str, Any]:
+    derived = derive_market_distributions(
+        per_pa_probability=per_pa, support=support, mass=mass
+    )
+    return {
+        "hits": _market("hits", derived["hits_pmf"]),
+        "home_runs": _market("home_runs", derived["home_runs_pmf"]),
+        "total_bases": _market("total_bases", derived["total_bases_pmf"]),
+        "hitter_strikeouts": _market(
+            "hitter_strikeouts",
+            _binomial_mixture(float(per_pa["strikeout"]), support, mass),
+        ),
+        "hitter_walks": _market(
+            "hitter_walks",
+            _binomial_mixture(float(per_pa["walk"]), support, mass),
+        ),
+    }
+
+
+def _league_prior() -> dict[str, float]:
+    control = Path(__file__).resolve().parents[2] / "config/shared_pa_forward_eb_control_v1.json"
+    raw = control.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != CONTROL_CONFIG_SHA256:
+        raise CandidateEvidenceError("locked 2023 league-rate control bytes differ")
+    value = json.loads(raw)
+    counts = value.get("league_prior_counts") if isinstance(value, Mapping) else None
+    if not isinstance(counts, Mapping) or set(counts) != set(PA_OUTCOMES):
+        raise CandidateEvidenceError("locked 2023 league-rate control is incomplete")
+    total = sum(int(counts[outcome]) for outcome in PA_OUTCOMES)
+    if total <= 0:
+        raise CandidateEvidenceError("locked 2023 league-rate control is empty")
+    return {outcome: int(counts[outcome]) / total for outcome in PA_OUTCOMES}
+
+
 def validate_and_project_record(record: Mapping[str, Any], *, expected_date: str) -> dict[str, Any]:
     """Validate a retained candidate record and expose five exact markets."""
     schema_version = record.get("schema_version")
@@ -153,6 +190,13 @@ def validate_and_project_record(record: Mapping[str, Any], *, expected_date: str
             or len(record["hierarchical_candidate_protocol_sha256"]) != 64
         ):
             raise CandidateEvidenceError("hierarchical opportunity provenance differs")
+    lineup_state = record.get(
+        "lineup_state", "projected_probability_distribution"
+    )
+    if lineup_state not in {
+        "projected_probability_distribution", "official_confirmed"
+    }:
+        raise CandidateEvidenceError("lineup evidence state is invalid")
     official_date = date.fromisoformat(str(record.get("official_game_date", "")))
     if MAY_FIRST <= official_date <= MAY_LAST:
         raise CandidateEvidenceError("May 2026 is sealed")
@@ -256,15 +300,44 @@ def validate_and_project_record(record: Mapping[str, Any], *, expected_date: str
     )
     if record.get("candidate_market_distributions") != recomputed:
         raise CandidateEvidenceError("candidate market distributions do not replay")
-    strikeouts = _binomial_mixture(float(per_pa["strikeout"]), support, mass)
-    walks = _binomial_mixture(float(per_pa["walk"]), support, mass)
-    markets = {
-        "hits": _market("hits", recomputed["hits_pmf"]),
-        "home_runs": _market("home_runs", recomputed["home_runs_pmf"]),
-        "total_bases": _market("total_bases", recomputed["total_bases_pmf"]),
-        "hitter_strikeouts": _market("hitter_strikeouts", strikeouts),
-        "hitter_walks": _market("hitter_walks", walks),
+    markets = _five_markets(per_pa=per_pa, support=support, mass=mass)
+    baselines: dict[str, Any] = {
+        "frozen_production_simulator": {
+            "status": "unavailable_unless_same_horizon_exact_probability_is_retained"
+        },
+        "valid_market_implied_probability": {
+            "status": "unavailable_without_receipt_verified_two_sided_quote"
+        },
     }
+    if schema_version == "shared-pa-source-bound-opportunity-player-v4":
+        baseline_support = record.get("baseline_pa_support")
+        baseline_mass = record.get("baseline_pa_mass")
+        if not isinstance(baseline_support, list) or not isinstance(baseline_mass, list):
+            raise CandidateEvidenceError("hierarchical baseline PA distribution is missing")
+        if record.get("baseline_pa_distribution_sha256") != pa_distribution_sha256(
+            support=baseline_support, mass=baseline_mass
+        ):
+            raise CandidateEvidenceError("hierarchical baseline PA distribution hash differs")
+        player_baseline = derive_market_distributions(
+            per_pa_probability=per_pa,
+            support=baseline_support,
+            mass=baseline_mass,
+        )
+        if record.get("baseline_market_distributions") != player_baseline:
+            raise CandidateEvidenceError("player-rate baseline distributions do not replay")
+        baselines.update({
+            "time_safe_player_empirical_bayes_with_pooled_projected_pa_volume": _five_markets(
+                per_pa=per_pa, support=baseline_support, mass=baseline_mass
+            ),
+            "league_rate_2023_same_pa_volume": _five_markets(
+                per_pa=_league_prior(), support=support, mass=mass
+            ),
+        })
+    if lineup_state == "official_confirmed":
+        if not math.isclose(start_probability, 1.0, rel_tol=0.0, abs_tol=1e-12):
+            raise CandidateEvidenceError("confirmed starter must have start probability one")
+        if sum(math.isclose(value, 1.0, rel_tol=0.0, abs_tol=1e-12) for value in slot_values.values()) != 1:
+            raise CandidateEvidenceError("confirmed starter requires one exact batting slot")
     return {
         "model_id": MODEL_ID,
         "terminal_state": "prediction_complete",
@@ -287,12 +360,14 @@ def validate_and_project_record(record: Mapping[str, Any], *, expected_date: str
         "opportunity_mean_pa": sum(pa * weight for pa, weight in zip(support, mass)),
         "per_pa_probability": dict(per_pa),
         "markets": markets,
+        "baselines": baselines,
         "input_health": {
             "status": "receipt_bound_candidate_record_validated",
             "pitcher_matchup": "excluded_batter_only",
             "mutable_savant_override": "excluded",
             "full_raw_receipt_replay": "required_at_producer_boundary",
             "stats_age_days": stats_age_days,
+            "lineup_state": lineup_state,
         },
         "source_receipts": {
             label: record[label] for label in required_hashes
@@ -322,6 +397,29 @@ def load_candidate_archive(path: Path, *, expected_date: str) -> dict[str, Any]:
                 raise CandidateEvidenceError("candidate evidence is not a retained side bundle")
             if bundle.get("side_bundle_sha256") != _side_hash(bundle):
                 raise CandidateEvidenceError("side bundle hash differs")
+            has_v4 = any(
+                isinstance(record, Mapping)
+                and record.get("schema_version")
+                == "shared-pa-source-bound-opportunity-player-v4"
+                for record in bundle.get("candidate_records", [])
+            )
+            if has_v4 and (
+                bundle.get("schema_version")
+                != "shared-pa-source-bound-opportunity-side-bundle-v4"
+                or bundle.get("candidate_id") != MODEL_ID
+                or bundle.get("lineup_state") not in {
+                    "projected_probability_distribution", "official_confirmed"
+                }
+                or not isinstance(bundle.get("upstream_v2_side_bundle_sha256"), str)
+                or len(bundle["upstream_v2_side_bundle_sha256"]) != 64
+                or not isinstance(bundle.get("producer_code_sha256"), str)
+                or len(bundle["producer_code_sha256"]) != 64
+                or not isinstance(bundle.get("source_release_commit"), str)
+                or len(bundle["source_release_commit"]) != 40
+            ):
+                raise CandidateEvidenceError(
+                    "hierarchical side bundle lacks the retained-evidence producer binding"
+                )
             if str(bundle.get("official_game_date")) != expected_date:
                 raise CandidateEvidenceError("side bundle date differs from requested slate")
             game_pk = _positive_int(bundle.get("mlb_game_pk"), "bundle.mlb_game_pk")
@@ -332,7 +430,23 @@ def load_candidate_archive(path: Path, *, expected_date: str) -> dict[str, Any]:
                 raise CandidateEvidenceError("duplicate game/team/side bundle")
             seen.add(key)
             for record in bundle.get("candidate_records", []):
+                if has_v4 and (
+                    record.get("lineup_state") != bundle.get("lineup_state")
+                    or record.get("hierarchical_candidate_protocol_sha256")
+                    != bundle.get("candidate_protocol_sha256")
+                    or record.get("source_manifest_sha256")
+                    != bundle.get("source_manifest_sha256")
+                    or record.get("runtime_release_receipt_sha256")
+                    != bundle.get("runtime_release_receipt_sha256")
+                ):
+                    raise CandidateEvidenceError(
+                        "hierarchical record contradicts its retained-evidence side bundle"
+                    )
                 projected = validate_and_project_record(record, expected_date=expected_date)
+                if has_v4:
+                    projected["input_health"]["full_raw_receipt_replay"] = (
+                        "verified_by_source_bound_runner_v4"
+                    )
                 if (projected["mlb_game_pk"], projected["side"], projected["team_id"]) != key:
                     raise CandidateEvidenceError("candidate record contradicts side identity")
                 predictions.append(projected)
