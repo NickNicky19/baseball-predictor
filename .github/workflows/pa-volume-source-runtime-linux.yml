@@ -1,50 +1,54 @@
-name: PA Volume Source Runtime Linux Gate
+name: Outcome Boxscore Authorization No-Network Preflight
 
 "on":
-  pull_request:
-    branches: [main]
-    paths:
-      - ".github/workflows/pa-volume-source-runtime-linux.yml"
-      - "config/pa_volume_source_runtime_authority_v1.json"
-      - "requirements-direct-batter-pa-source-authority.lock"
-      - "scripts/build_direct_batter_pa_source_release.py"
-      - "scripts/build_pa_volume_official_source_release_v1.py"
-      - "scripts/capture_direct_batter_pa_source_transport_v2.py"
-      - "scripts/capture_pa_volume_official_source_v1.py"
-      - "scripts/qualify_pa_volume_official_source_v1.py"
-      - "scripts/verify_direct_batter_pa_source_runtime_authority.py"
-      - "src/evaluation/pa_volume_historical_source_access_v1.py"
-      - "src/evaluation/pa_volume_official_feed_projection_v1.py"
-      - "src/evaluation/pa_volume_source_truth_v2.py"
-      - "src/evaluation/shared_pa_pa_volume_source_authority_v1.py"
-      - "src/evaluation/shared_pa_source_bound_probability_v3.py"
-      - "tests/test_build_pa_volume_official_source_release_v1.py"
-      - "tests/test_capture_direct_batter_pa_source_transport_v2.py"
-      - "tests/test_capture_pa_volume_official_source_v1.py"
-      - "tests/test_pa_volume_historical_source_access_v1.py"
-      - "tests/test_pa_volume_official_feed_projection_v1.py"
-      - "tests/test_pa_volume_source_truth_team_scope_v2.py"
-      - "tests/test_pa_volume_source_truth_v2.py"
-      - "tests/test_qualify_pa_volume_official_source_v1.py"
-      - "tests/test_shared_pa_pa_volume_source_authority_v1.py"
-      - "tests/test_shared_pa_source_bound_probability_v3.py"
   workflow_dispatch:
+    inputs:
+      expected_workflow_commit_sha:
+        description: Exact isolated workflow-authority commit to validate
+        required: true
+        type: string
 
 permissions:
   contents: read
 
+concurrency:
+  group: outcome-boxscore-authorization-preflight
+  cancel-in-progress: false
+
+env:
+  PYTHONDONTWRITEBYTECODE: "1"
+  PYTHONNOUSERSITE: "1"
+  PYTEST_DISABLE_PLUGIN_AUTOLOAD: "1"
+  CARRIER_COMMIT: 0f7973733a23bbe64070b19875a3846f299fa505
+  EXPECTED_RUNTIME_ATTESTATION_SHA256: 440f5643afde531668d47f7f54b4886d1bdae9d6a601d92237a8a076614db556
+  EXPECTED_RUNTIME_POLICY_SHA256: a281342cc5bf135cfb8645712e974ce254bc88a580ab550cee27eca2c700c193
+  EXPECTED_SOURCE_BUNDLE_SHA256: 8988ad4ea0687d1fa2754bd8203c2e2d5825bc572877abe86dd7e25eabac498c
+  EXPECTED_SOURCE_AUTHORIZATION_SHA256: 13f236d39b7186c8a4f1905e27d3c9f9565e78d698ba6446e0e0fa2971751504
+  EXPECTED_REQUEST_PLAN_SHA256: ddcf60a1f077c25b151c24c538ab3dd6eca4f9186317207de79cf191d5931490
+  RUNTIME_POLICY: config/shared_pa_outcome_boxscore_runtime_authority_v1.json
+  REQUEST_PLAN: reports/shared_pa_outcome_boxscore_capture_plan_v1.json
+
 jobs:
-  exact-runtime:
-    name: Ubuntu 24.04 / CPython 3.12.3 / source-only
+  independent-attestation:
+    name: Independent clean-Linux attestation ${{ matrix.pass }}
+    strategy:
+      fail-fast: false
+      matrix:
+        pass: [first, second]
     runs-on: ubuntu-24.04
     timeout-minutes: 20
-    env:
-      PYTHONDONTWRITEBYTECODE: "1"
-      PYTHONNOUSERSITE: "1"
-      PYTEST_DISABLE_PLUGIN_AUTOLOAD: "1"
     steps:
-      - name: Check out exact candidate commit
+      - name: Check out exact certified carrier
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: 0f7973733a23bbe64070b19875a3846f299fa505
+
+      - name: Prove carrier identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$CARRIER_COMMIT"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
 
       - name: Set up exact Python
         uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
@@ -52,61 +56,216 @@ jobs:
           python-version: "3.12.3"
           architecture: "x64"
 
-      - name: Install exact hash-locked dependencies
+      - name: Install exact hash-locked environment
+        shell: bash
         run: |
+          set -euo pipefail
           unset LD_LIBRARY_PATH
           audit_python="${RUNNER_TEMP}/pa-source-env/bin/python"
           python -m venv --without-pip "${RUNNER_TEMP}/pa-source-env"
-          python -m pip --python "$audit_python" install --disable-pip-version-check --no-compile --no-deps --require-hashes \
+          python -m pip --python "$audit_python" install \
+            --disable-pip-version-check --no-compile --no-deps --require-hashes \
             -r requirements-direct-batter-pa-source-authority.lock
           python -m pip --python "$audit_python" check
 
-      - name: Verify exact source, dependency, and runtime closure
+      - name: Independently regenerate and bind attestation
+        id: attest
+        shell: bash
         run: |
+          set -euo pipefail
           unset LD_LIBRARY_PATH
           audit_python="${RUNNER_TEMP}/pa-source-env/bin/python"
-          policy="config/pa_volume_source_runtime_authority_v1.json"
+          attestation="${RUNNER_TEMP}/outcome-runtime-${{ matrix.pass }}.json"
           "$audit_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
-            --policy "$policy" --check-static --check-installed
-          first="${RUNNER_TEMP}/pa-source-runtime-first.json"
-          second="${RUNNER_TEMP}/pa-source-runtime-second.json"
-          "$audit_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
-            --policy "$policy" --write-linux-attestation "$first"
-          "$audit_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
-            --policy "$policy" --write-linux-attestation "$second"
-          cmp --silent "$first" "$second"
-          sha256sum "$first" "$second" | tee "${RUNNER_TEMP}/pa-source-runtime-sha256.txt"
+            --policy "$RUNTIME_POLICY" \
+            --write-linux-attestation "$attestation"
+          observed="$(sha256sum "$attestation" | awk '{print $1}')"
+          test "$observed" = "$EXPECTED_RUNTIME_ATTESTATION_SHA256"
+          printf 'digest=%s\n' "$observed" >> "$GITHUB_OUTPUT"
+          printf '%s  %s\n' "$observed" "$attestation" \
+            > "${RUNNER_TEMP}/outcome-runtime-${{ matrix.pass }}.sha256"
 
-      - name: Run source-chain regression and mutation tests
-        run: |
-          unset LD_LIBRARY_PATH
-          audit_python="${RUNNER_TEMP}/pa-source-env/bin/python"
-          "$audit_python" -I -B -m pytest -q -p no:cacheprovider \
-            tests/test_capture_direct_batter_pa_source_transport_v2.py \
-            tests/test_pa_volume_historical_source_access_v1.py \
-            tests/test_capture_pa_volume_official_source_v1.py \
-            tests/test_build_pa_volume_official_source_release_v1.py \
-            tests/test_pa_volume_official_feed_projection_v1.py \
-            tests/test_pa_volume_source_truth_v2.py \
-            tests/test_pa_volume_source_truth_team_scope_v2.py \
-            tests/test_qualify_pa_volume_official_source_v1.py \
-            tests/test_shared_pa_pa_volume_source_authority_v1.py \
-            tests/test_shared_pa_source_bound_probability_v3.py
-
-      - name: Upload exact runtime attestation
+      - name: Upload immutable attestation evidence
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: pa-volume-source-runtime-${{ github.sha }}
+          name: outcome-boxscore-runtime-${{ matrix.pass }}-${{ github.run_id }}
           path: |
-            ${{ runner.temp }}/pa-source-runtime-first.json
-            ${{ runner.temp }}/pa-source-runtime-sha256.txt
+            ${{ runner.temp }}/outcome-runtime-${{ matrix.pass }}.json
+            ${{ runner.temp }}/outcome-runtime-${{ matrix.pass }}.sha256
           if-no-files-found: error
           retention-days: 30
 
-      - name: Verify tracked source contains no likely credentials
+      - name: Prove carrier remained unchanged
         run: |
-          audit_python="${RUNNER_TEMP}/pa-source-env/bin/python"
-          "$audit_python" -I -B scripts/check_tracked_secrets.py
+          git diff --exit-code
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
 
-      - name: Prove the gate did not mutate the checkout
-        run: git diff --exit-code
+  no-network-preflight:
+    name: Complete no-network preflight
+    needs: independent-attestation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out isolated package authority
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+
+      - name: Bind workflow and corrected authorization bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          observed="$(git rev-parse HEAD)"
+          test "$observed" = "${{ inputs.expected_workflow_commit_sha }}"
+          test "$observed" = "$GITHUB_SHA"
+          authorization="${RUNNER_TEMP}/shared-pa-outcome-source-authorization.json"
+          cp config/shared_pa_outcome_historical_source_access_authorization_20260731_corrected_v2.json \
+            "$authorization"
+          printf '%s  %s\n' "$EXPECTED_SOURCE_AUTHORIZATION_SHA256" "$authorization" | sha256sum -c -
+          printf 'SOURCE_AUTHORIZATION=%s\n' "$authorization" >> "$GITHUB_ENV"
+          sha256sum .github/workflows/pa-volume-official-2023-capture.yml \
+            .github/workflows/pa-volume-source-runtime-linux.yml \
+            > "${RUNNER_TEMP}/workflow-sha256.txt"
+
+      - name: Check out exact certified carrier
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: 0f7973733a23bbe64070b19875a3846f299fa505
+
+      - name: Prove carrier identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$CARRIER_COMMIT"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+
+      - name: Set up exact Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: "3.12.3"
+          architecture: "x64"
+
+      - name: Install exact hash-locked environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          unset LD_LIBRARY_PATH
+          audit_python="${RUNNER_TEMP}/pa-source-env/bin/python"
+          python -m venv --without-pip "${RUNNER_TEMP}/pa-source-env"
+          python -m pip --python "$audit_python" install \
+            --disable-pip-version-check --no-compile --no-deps --require-hashes \
+            -r requirements-direct-batter-pa-source-authority.lock
+          python -m pip --python "$audit_python" check
+
+      - name: Verify all corrected package authorities
+        shell: bash
+        run: |
+          set -euo pipefail
+          unset LD_LIBRARY_PATH
+          audit_python="${RUNNER_TEMP}/pa-source-env/bin/python"
+          attestation="${RUNNER_TEMP}/runtime-attestation.json"
+          "$audit_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
+            --policy "$RUNTIME_POLICY" \
+            --write-linux-attestation "$attestation"
+          printf '%s  %s\n' "$EXPECTED_RUNTIME_ATTESTATION_SHA256" "$attestation" | sha256sum -c -
+          printf '%s  %s\n' "$EXPECTED_RUNTIME_POLICY_SHA256" "$RUNTIME_POLICY" | sha256sum -c -
+          printf '%s  %s\n' "$EXPECTED_REQUEST_PLAN_SHA256" "$REQUEST_PLAN" | sha256sum -c -
+          observed_bundle="$("$audit_python" -I -B -c 'import sys; sys.path.insert(0, "."); from scripts.capture_shared_pa_outcome_boxscores_v1 import source_bundle_sha256; print(source_bundle_sha256())')"
+          test "$observed_bundle" = "$EXPECTED_SOURCE_BUNDLE_SHA256"
+          printf 'RUNTIME_ATTESTATION=%s\n' "$attestation" >> "$GITHUB_ENV"
+
+      - name: Exercise complete capture path with transport physically replaced
+        shell: bash
+        run: |
+          set -euo pipefail
+          unset LD_LIBRARY_PATH HTTP_PROXY HTTPS_PROXY ALL_PROXY http_proxy https_proxy all_proxy
+          audit_python="${RUNNER_TEMP}/pa-source-env/bin/python"
+          output="${RUNNER_TEMP}/no-network-preflight-output"
+          work="${RUNNER_TEMP}/no-network-preflight-work"
+          test ! -e "$output"
+          test ! -e "$work"
+          "$audit_python" -I -B - "$REQUEST_PLAN" "$RUNTIME_POLICY" \
+            "$RUNTIME_ATTESTATION" "$SOURCE_AUTHORIZATION" "$output" "$work" <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+          from urllib.parse import urlsplit
+
+          import scripts.capture_shared_pa_outcome_boxscores_v1 as capture
+          import scripts.capture_pa_volume_official_source_v1 as base
+
+          calls = []
+
+          class NoNetworkTransport:
+              def fetch(self, request, *, timeout_seconds, max_bytes):
+                  calls.append({
+                      "request": dict(request),
+                      "timeout_seconds": timeout_seconds,
+                      "max_bytes": max_bytes,
+                  })
+                  raise RuntimeError("NO_NETWORK_PREFLIGHT_SENTINEL")
+
+          capture.HTTPSHistoricalTransport = NoNetworkTransport
+          argv = [
+              "capture",
+              "--plan", sys.argv[1],
+              "--runtime-policy", sys.argv[2],
+              "--runtime-attestation", sys.argv[3],
+              "--expected-runtime-attestation-sha256",
+              "440f5643afde531668d47f7f54b4886d1bdae9d6a601d92237a8a076614db556",
+              "--source-access-authorization", sys.argv[4],
+              "--expected-source-access-authorization-sha256",
+              "13f236d39b7186c8a4f1905e27d3c9f9565e78d698ba6446e0e0fa2971751504",
+              "--output-dir", sys.argv[5],
+              "--work-dir", sys.argv[6],
+              "--minimum-request-interval-seconds", "1.10",
+              "--maximum-attempts", "4",
+              "--overall-timeout-seconds", "7200",
+          ]
+          try:
+              capture.main(argv)
+          except base.OfficialSourceCaptureError as exc:
+              if "nonretryable source request failure" not in str(exc):
+                  raise
+          else:
+              raise AssertionError("preflight unexpectedly passed the blocked transport")
+          assert len(calls) == 1, calls
+          request = calls[0]["request"]
+          assert request["method"] == "GET"
+          assert request["full_url"].startswith(
+              "https://statsapi.mlb.com/api/v1/game/"
+          )
+          assert request["full_url"].endswith("/boxscore")
+          assert urlsplit(request["full_url"]).query == ""
+          result = {
+              "schema_version": "outcome-boxscore-no-network-preflight-v1",
+              "status": "PASSED_IMMEDIATELY_BEFORE_FIRST_REQUEST",
+              "actual_network_requests": 0,
+              "blocked_transport_calls": len(calls),
+              "first_request_id": request["request_id"],
+              "first_request_url": request["full_url"],
+          }
+          Path(sys.argv[5]).parent.joinpath("no-network-preflight.json").write_text(
+              json.dumps(result, sort_keys=True, separators=(",", ":")) + "\n",
+              encoding="utf-8",
+          )
+          print(json.dumps(result, sort_keys=True))
+          PY
+
+      - name: Upload immutable preflight evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: outcome-boxscore-no-network-preflight-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/runtime-attestation.json
+            ${{ runner.temp }}/no-network-preflight.json
+            ${{ runner.temp }}/workflow-sha256.txt
+            ${{ runner.temp }}/no-network-preflight-output
+            ${{ runner.temp }}/no-network-preflight-work
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Prove carrier remained unchanged
+        if: always()
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"

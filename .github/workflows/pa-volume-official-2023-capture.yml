@@ -25,13 +25,12 @@ jobs:
       PYTHONNOUSERSITE: "1"
       PYTEST_DISABLE_PLUGIN_AUTOLOAD: "1"
       CARRIER_COMMIT: 0f7973733a23bbe64070b19875a3846f299fa505
-      EXPECTED_RUNTIME_ATTESTATION_SHA256: e30d7fbae4dda48856f2bf2256f900def2553dd47387fe121c105a91d5836b70
+      EXPECTED_RUNTIME_ATTESTATION_SHA256: 440f5643afde531668d47f7f54b4886d1bdae9d6a601d92237a8a076614db556
       EXPECTED_RUNTIME_POLICY_SHA256: a281342cc5bf135cfb8645712e974ce254bc88a580ab550cee27eca2c700c193
       EXPECTED_SOURCE_BUNDLE_SHA256: 8988ad4ea0687d1fa2754bd8203c2e2d5825bc572877abe86dd7e25eabac498c
-      EXPECTED_SOURCE_AUTHORIZATION_SHA256: 2934edc151599ea839aba940f0c5b51c650c7bd4210fc24aaef98dbe76ad226e
+      EXPECTED_SOURCE_AUTHORIZATION_SHA256: 13f236d39b7186c8a4f1905e27d3c9f9565e78d698ba6446e0e0fa2971751504
       EXPECTED_REQUEST_PLAN_SHA256: ddcf60a1f077c25b151c24c538ab3dd6eca4f9186317207de79cf191d5931490
       RUNTIME_POLICY: config/shared_pa_outcome_boxscore_runtime_authority_v1.json
-      SOURCE_AUTHORIZATION: config/shared_pa_outcome_historical_source_access_authorization_20260731_v1.json
       REQUEST_PLAN: reports/shared_pa_outcome_boxscore_capture_plan_v1.json
 
     steps:
@@ -48,6 +47,10 @@ jobs:
           test -z "$(git status --porcelain=v1 --untracked-files=all)"
           sha256sum .github/workflows/pa-volume-official-2023-capture.yml \
             > "${RUNNER_TEMP}/workflow-authority.sha256"
+          authorization="${RUNNER_TEMP}/shared-pa-outcome-source-authorization.json"
+          cp config/shared_pa_outcome_historical_source_access_authorization_20260731_corrected_v2.json \
+            "$authorization"
+          printf 'SOURCE_AUTHORIZATION=%s\n' "$authorization" >> "$GITHUB_ENV"
 
       - name: Check out the exact certified carrier commit
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
