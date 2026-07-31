@@ -13,6 +13,7 @@ import hashlib
 import json
 from pathlib import Path
 from typing import Any, Mapping
+from urllib.parse import parse_qs, urlsplit
 
 
 SCHEMA_VERSION = "shared-pa-outcome-source-readiness-v1"
@@ -24,7 +25,15 @@ REQUIRED_BATTING_FIELDS = (
     "triples",
     "homeRuns",
     "baseOnBalls",
+    "intentionalWalks",
     "strikeOuts",
+    "hitByPitch",
+    "sacFlies",
+    "sacBunts",
+    "totalBases",
+    "runs",
+    "rbi",
+    "catchersInterference",
 )
 
 
@@ -75,7 +84,14 @@ def inspect_release(root: Path) -> dict[str, Any]:
     projection = _object(projection_path, "source projection")
     feed_paths = sorted((root / "feeds" / "feeds").glob("game-*/response.json"))
     if not feed_paths:
-        raise OutcomeSourceError("source release contains no retained game feeds")
+        return {
+            "schema_version": SCHEMA_VERSION,
+            "decision": "RAW_BYTES_NOT_RETAINED",
+            "status": "BLOCKED_RAW_BYTES_NOT_RETAINED",
+            "research_only": True,
+            "betting_authorized": False,
+            "source_root": str(root),
+        }
 
     missing = Counter()
     present_key_sets = Counter()
@@ -83,6 +99,12 @@ def inspect_release(root: Path) -> dict[str, Any]:
     complete_rows = 0
     game_pks: set[int] = set()
     dates: set[str] = set()
+    all_plays_present = 0
+    all_plays_nonempty = 0
+    all_plays_total = 0
+    live_data_key_sets = Counter()
+    request_field_sets = Counter()
+    representative_players: dict[str, Any] = {}
     for path in feed_paths:
         feed = _object(path, f"feed {path.parent.name}")
         official = _official_date(feed)
@@ -93,14 +115,26 @@ def inspect_release(root: Path) -> dict[str, Any]:
         if game_pk in game_pks:
             raise OutcomeSourceError("feed gamePk is duplicated")
         game_pks.add(game_pk)
-        teams = feed.get("liveData", {}).get("boxscore", {}).get("teams", {})
+        live_data = feed.get("liveData", {})
+        if not isinstance(live_data, Mapping):
+            raise OutcomeSourceError("feed liveData is malformed")
+        live_data_key_sets[tuple(sorted(str(key) for key in live_data))] += 1
+        plays = live_data.get("plays")
+        if isinstance(plays, Mapping) and "allPlays" in plays:
+            all_plays_present += 1
+            all_plays = plays.get("allPlays")
+            if isinstance(all_plays, list):
+                all_plays_total += len(all_plays)
+                if all_plays:
+                    all_plays_nonempty += 1
+        teams = live_data.get("boxscore", {}).get("teams", {})
         if not isinstance(teams, Mapping) or set(teams) != {"away", "home"}:
             raise OutcomeSourceError("feed boxscore team sides are incomplete")
         for side in ("away", "home"):
             players = teams[side].get("players")
             if not isinstance(players, Mapping):
                 raise OutcomeSourceError("feed player map is missing")
-            for player in players.values():
+            for player_key, player in players.items():
                 if not isinstance(player, Mapping) or not player.get("battingOrder"):
                     continue
                 batting = player.get("stats", {}).get("batting", {})
@@ -113,6 +147,24 @@ def inspect_release(root: Path) -> dict[str, Any]:
                 missing.update(row_missing)
                 if not row_missing:
                     complete_rows += 1
+                if side not in representative_players:
+                    person = player.get("person") if isinstance(player.get("person"), Mapping) else {}
+                    representative_players[side] = {
+                        "game_pk": game_pk,
+                        "player_key": str(player_key),
+                        "player_id": person.get("id"),
+                        "batting_order": player.get("battingOrder"),
+                        "batting_fields": list(keys),
+                    }
+        receipt_path = path.with_name("receipt.json")
+        receipt = _object(receipt_path, f"receipt {path.parent.name}")
+        request = receipt.get("request")
+        if not isinstance(request, Mapping) or not isinstance(request.get("full_url"), str):
+            raise OutcomeSourceError("retained request identity is missing")
+        split = urlsplit(request["full_url"])
+        query = parse_qs(split.query, keep_blank_values=True)
+        fields = tuple(query.get("fields", []))
+        request_field_sets[fields] += 1
 
     projection_body = projection.get("projection")
     projection_rows = (
@@ -120,13 +172,18 @@ def inspect_release(root: Path) -> dict[str, Any]:
     )
     if not isinstance(projection_rows, list):
         raise OutcomeSourceError("source projection rows are missing")
-    status = (
-        "OUTCOME_COMPLETE_SOURCE_ELIGIBLE_FOR_PANEL_CONSTRUCTION"
-        if complete_rows == player_rows and player_rows > 0
-        else "BLOCKED_SOURCE_LACKS_REQUIRED_PA_OUTCOME_FIELDS"
-    )
+    if complete_rows == player_rows and player_rows > 0:
+        decision = "RAW_BYTES_OUTCOME_COMPLETE"
+        status = "OUTCOME_COMPLETE_SOURCE_ELIGIBLE_FOR_PANEL_CONSTRUCTION"
+    elif all_plays_nonempty == len(feed_paths) and all_plays_total > 0:
+        decision = "RAW_BYTES_PLAY_BY_PLAY_DERIVABLE"
+        status = "PLAY_BY_PLAY_DERIVATION_REQUIRES_SEMANTIC_VALIDATION"
+    else:
+        decision = "RAW_BYTES_OUTCOME_INCOMPLETE"
+        status = "BLOCKED_SOURCE_LACKS_REQUIRED_PA_OUTCOME_FIELDS"
     return {
         "schema_version": SCHEMA_VERSION,
+        "decision": decision,
         "status": status,
         "research_only": True,
         "betting_authorized": False,
@@ -144,6 +201,9 @@ def inspect_release(root: Path) -> dict[str, Any]:
             "projection_rows": len(projection_rows),
             "batting_order_player_rows": player_rows,
             "outcome_complete_player_rows": complete_rows,
+            "feeds_with_all_plays_key": all_plays_present,
+            "feeds_with_nonempty_all_plays": all_plays_nonempty,
+            "retained_all_plays_count": all_plays_total,
             "date_min": min(dates),
             "date_max": max(dates),
         },
@@ -153,6 +213,15 @@ def inspect_release(root: Path) -> dict[str, Any]:
             {"keys": list(keys), "rows": count}
             for keys, count in sorted(present_key_sets.items())
         ],
+        "observed_live_data_key_sets": [
+            {"keys": list(keys), "feeds": count}
+            for keys, count in sorted(live_data_key_sets.items())
+        ],
+        "retained_request_field_sets": [
+            {"fields_query_values": list(keys), "feeds": count}
+            for keys, count in sorted(request_field_sets.items())
+        ],
+        "representative_players": representative_players,
         "eligibility": {
             "opportunity_model_input": True,
             "shared_pa_outcome_target": status.startswith("OUTCOME_COMPLETE"),

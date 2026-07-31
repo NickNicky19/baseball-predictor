@@ -1,0 +1,57 @@
+{
+  "schema_version": "shared-pa-outcome-historical-source-access-authorization-v1",
+  "authorization_id": "user-authorized-2023-official-mlb-outcome-boxscores-20260731-v1",
+  "status": "AUTHORIZED_RESEARCH_ONLY_2023_OFFICIAL_MLB_BOXSCORES",
+  "authorized_at_utc": "2026-07-31T19:40:00.000000Z",
+  "valid_from_utc": "2026-07-31T19:45:00.000000Z",
+  "expires_at_utc": "2026-08-03T19:45:00.000000Z",
+  "research_only": true,
+  "betting_authorized": false,
+  "network_fetch_authorized": true,
+  "source_scope": {
+    "authority": "official_mlb_stats_api",
+    "scheme": "https",
+    "host": "statsapi.mlb.com",
+    "methods": [
+      "GET"
+    ],
+    "season": 2023,
+    "game_types": [
+      "R"
+    ],
+    "resources": [
+      {
+        "source_kind": "official_mlb_2023_final_boxscore",
+        "path_template": "/api/v1/game/{game_pk}/boxscore",
+        "query": null
+      }
+    ],
+    "game_pks_from_certified_schedule_index_only": true,
+    "expected_game_count": 2430,
+    "redirects_allowed": false
+  },
+  "authorized_actions": {
+    "raw_historical_boxscore_capture": true,
+    "historical_schedule_capture": false,
+    "play_by_play_capture": false,
+    "feature_construction": false,
+    "model_fitting": false,
+    "model_scoring": false,
+    "prediction_generation": false,
+    "economic_evaluation": false,
+    "prospective_evidence": false,
+    "prospective_backfill": false
+  },
+  "protected_boundaries": {
+    "may_2026_accessed": false,
+    "selection_2024_accessed": false,
+    "spent_hr_confirmation_2025_accessed": false,
+    "market_prices_accessed": false,
+    "economic_evidence_accessed": false,
+    "prospective_evidence_accessed": false
+  },
+  "runtime_policy_sha256": "a281342cc5bf135cfb8645712e974ce254bc88a580ab550cee27eca2c700c193",
+  "source_bundle_sha256": "8988ad4ea0687d1fa2754bd8203c2e2d5825bc572877abe86dd7e25eabac498c",
+  "request_plan_sha256": "ddcf60a1f077c25b151c24c538ab3dd6eca4f9186317207de79cf191d5931490",
+  "authorization_sha256": "477495971bc0744acae777c3b73668dd21eb0447de0389907844548b4502f039"
+}
