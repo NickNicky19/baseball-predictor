@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """Authorization-gated raw Statcast CSV capture; never invoked by preflight."""
 from __future__ import annotations
-import argparse, json, os, re, ssl, subprocess, sys, time, urllib.error, urllib.request
+import argparse, json, os, re, socket, ssl, subprocess, sys, time, urllib.error, urllib.request
+from contextlib import contextmanager
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 from pathlib import Path
+from typing import Callable, Iterator
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path: sys.path.insert(0, str(ROOT))
 from scripts.capture_direct_batter_pa_source_transport_v2 import (
@@ -19,6 +22,49 @@ from src.evaluation.shared_pa_statcast_historical_source_access_v1 import (
 )
 
 class CaptureError(RuntimeError): pass
+
+TransportCallable = Callable[[str, float, int], CapturedResponse]
+
+
+@dataclass(frozen=True)
+class TransportExecutionAuthorization:
+    """Hash-bound proof that the real network transport may be invoked."""
+
+    authorization_sha256: str
+    runtime_attestation_sha256: str
+    runtime_policy_sha256: str
+    source_bundle_sha256: str
+    source_contract_sha256: str
+    request_plan_sha256: str
+    carrier_commit: str
+
+    def validate(self) -> None:
+        values = (
+            self.authorization_sha256,
+            self.runtime_attestation_sha256,
+            self.runtime_policy_sha256,
+            self.source_bundle_sha256,
+            self.source_contract_sha256,
+            self.request_plan_sha256,
+        )
+        if any(not isinstance(value, str) or not re.fullmatch(r"[0-9a-f]{64}", value) for value in values):
+            raise CaptureError("real transport requires complete hash-bound authorization")
+        if not isinstance(self.carrier_commit, str) or not re.fullmatch(r"[0-9a-f]{40}", self.carrier_commit):
+            raise CaptureError("real transport requires a hash-bound carrier commit")
+
+
+def _execution_authorization(runtime: RuntimeAuthorization, access: VerifiedStatcastHistoricalSourceAccess, carrier_commit: str) -> TransportExecutionAuthorization:
+    gate = TransportExecutionAuthorization(
+        authorization_sha256=access.authorization_file_sha256,
+        runtime_attestation_sha256=runtime.attestation_sha256,
+        runtime_policy_sha256=runtime.policy_sha256,
+        source_bundle_sha256=access.source_bundle_sha256,
+        source_contract_sha256=access.source_contract_sha256,
+        request_plan_sha256=access.request_plan_sha256,
+        carrier_commit=carrier_commit,
+    )
+    gate.validate()
+    return gate
 
 def _utc() -> str: return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 def _write_new(path: Path, value: object) -> None:
@@ -60,7 +106,8 @@ def _normalized_headers(message) -> dict[str,str]:  # noqa: ANN001
         result[name]=value
     return {key:result[key] for key in sorted(result)}
 
-def _transport(full_url: str, timeout: float, maximum: int) -> CapturedResponse:
+def _transport(full_url: str, timeout: float, maximum: int, *, execution_authorization: TransportExecutionAuthorization) -> CapturedResponse:
+    execution_authorization.validate()
     requested=_utc(); opener=urllib.request.build_opener(urllib.request.ProxyHandler({}),_NoRedirect(),urllib.request.HTTPSHandler(context=ssl.create_default_context()))
     request=urllib.request.Request(full_url,method="GET",headers={"Accept":"text/csv","Accept-Encoding":"identity","User-Agent":"baseball-predictor-research-source/1.0"})
     try:
@@ -86,6 +133,46 @@ SOURCE_BUNDLE_FILES = (
     "src/data/shared_pa_statcast_source_v1.py",
     "src/evaluation/shared_pa_statcast_historical_source_access_v1.py",
 )
+
+ATTEMPT_HISTORY_PATH = ROOT / "config/shared_pa_statcast_sample_attempt_history_20260731_v1.json"
+
+
+def _validate_attempt_history(path: Path, *, request_id: str, source_access: VerifiedStatcastHistoricalSourceAccess, maximum_attempts: int) -> int:
+    if not path.is_file() or _is_link_or_reparse(path):
+        raise CaptureError("quarantined incident attempt history is missing or unsafe")
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict) or payload.get("schema_version") != "shared-pa-statcast-attempt-history-v1":
+        raise CaptureError("attempt history schema is invalid")
+    if sha256_file(path) != source_access.attempt_history_sha256:
+        raise CaptureError("attempt history differs from authorization")
+    if payload.get("request_id") != request_id or payload.get("attempt_number") != 1:
+        raise CaptureError("attempt history does not bind the exact first attempt")
+    if payload.get("status") != "UNAUTHORIZED_QUARANTINED" or payload.get("promoted_to_source_release") is not False:
+        raise CaptureError("attempt history does not preserve quarantine state")
+    if payload.get("remaining_lifetime_attempts") != maximum_attempts - 1:
+        raise CaptureError("attempt history lifetime accounting differs from policy")
+    return int(payload["attempt_number"])
+
+
+@contextmanager
+def network_denial_guard() -> Iterator[None]:
+    """Block socket-level escapes even if an injected transport is bypassed."""
+    original_create_connection = socket.create_connection
+    original_connect = socket.socket.connect
+    original_connect_ex = socket.socket.connect_ex
+
+    def blocked(*_args, **_kwargs):
+        raise CaptureError("lower-layer network guard blocked external transport")
+
+    socket.create_connection = blocked
+    socket.socket.connect = blocked
+    socket.socket.connect_ex = blocked
+    try:
+        yield
+    finally:
+        socket.create_connection = original_create_connection
+        socket.socket.connect = original_connect
+        socket.socket.connect_ex = original_connect_ex
 
 
 def source_bundle_sha256() -> str:
@@ -174,7 +261,9 @@ def capture(
     runtime_authorization: RuntimeAuthorization,
     source_access: VerifiedStatcastHistoricalSourceAccess,
     carrier_commit: str,
-    transport=_transport, sleep=time.sleep, wall_time=time.time,
+    transport: TransportCallable,
+    attempt_history_path: Path | None = None,
+    sleep=time.sleep, wall_time=time.time,
 ) -> dict:
     plan=json.loads(plan_path.read_text(encoding="utf-8")); contract=load_contract(contract_path)
     _validate_sample_plan(plan,contract,contract_path)
@@ -183,6 +272,17 @@ def capture(
     authorized_output=Path(source_access.output_path)
     if not authorized_output.is_absolute(): authorized_output=ROOT/authorized_output
     if root != Path(os.path.abspath(os.fspath(authorized_output))): raise CaptureError("output path differs from authorization-scoped attempt identity")
+    if attempt_history_path is None and not source_access.attempt_history_sha256:
+        # Synthetic/offline fixtures predating the incident ledger remain usable;
+        # every externally authorized access has a non-empty bound digest.
+        prior_attempt_count = 0
+    else:
+        prior_attempt_count = _validate_attempt_history(
+            attempt_history_path or ATTEMPT_HISTORY_PATH,
+            request_id=plan["requests"][0]["request_id"],
+            source_access=source_access,
+            maximum_attempts=int(contract["transport_policy"]["maximum_lifetime_attempts_per_exact_request"]),
+        )
     if root.exists(): raise CaptureError("output path already exists")
     for ancestor in (root.parent, *root.parent.parents):
         if ancestor.exists() and _is_link_or_reparse(ancestor): raise CaptureError("output path has a symlink or reparse ancestor")
@@ -192,7 +292,7 @@ def capture(
     except FileExistsError as exc: raise CaptureError("capture writer lock already exists") from exc
     plan_sha=sha256_file(plan_path); contract_sha=sha256_file(contract_path)
     parser_sha=sha256_file(ROOT/"src/data/shared_pa_statcast_source_v1.py")
-    context={"schema_version":"shared-pa-statcast-capture-context-v1","request_plan_sha256":plan_sha,"source_contract_sha256":contract_sha,"parser_sha256":parser_sha,"authorization_sha256":source_access.authorization_file_sha256,"runtime_attestation_sha256":runtime_authorization.attestation_sha256,"runtime_policy_sha256":runtime_authorization.policy_sha256,"source_bundle_sha256":source_access.source_bundle_sha256,"carrier_commit":carrier_commit}
+    context={"schema_version":"shared-pa-statcast-capture-context-v1","request_plan_sha256":plan_sha,"source_contract_sha256":contract_sha,"parser_sha256":parser_sha,"authorization_sha256":source_access.authorization_file_sha256,"runtime_attestation_sha256":runtime_authorization.attestation_sha256,"runtime_policy_sha256":runtime_authorization.policy_sha256,"source_bundle_sha256":source_access.source_bundle_sha256,"attempt_history_sha256":source_access.attempt_history_sha256,"prior_attempt_count":prior_attempt_count,"carrier_commit":carrier_commit}
     if work.exists():
         context_path=work/"capture_context.json"
         if _is_link_or_reparse(work) or not context_path.is_file() or _is_link_or_reparse(context_path) or json.loads(context_path.read_text(encoding="utf-8")) != context:
@@ -210,7 +310,7 @@ def capture(
         if not request_dir.exists(): request_dir.mkdir(exist_ok=False); _fsync_dir(work)
         if (request_dir/"terminal.json").exists():
             terminal=json.loads((request_dir/"terminal.json").read_text(encoding="utf-8")); successes += int(terminal.get("state") == "SUCCESS"); continue
-        completed=len(list(request_dir.glob("reservation-*.json")))
+        completed=prior_attempt_count + len(list(request_dir.glob("reservation-*.json")))
         for attempt in range(completed+1, contract["transport_policy"]["maximum_lifetime_attempts_per_exact_request"]+1):
             now=wall_time()
             if previous_epoch is not None:
@@ -264,16 +364,30 @@ def capture(
                 before=wall_time(); sleep(delay); after=wall_time()
                 if after-before+1e-6 < delay: raise CaptureError("retry sleeper returned before required backoff")
         if not (request_dir/"terminal.json").exists(): _write_new(request_dir/"terminal.json",{"state":"FAILURE","attempts":attempt})
-      manifest={"schema_version":"shared-pa-statcast-raw-capture-manifest-v1","request_plan_sha256":plan_sha,"source_contract_sha256":contract_sha,"parser_sha256":parser_sha,"authorization_sha256":source_access.authorization_file_sha256,"runtime_attestation_sha256":runtime_authorization.attestation_sha256,"runtime_policy_sha256":runtime_authorization.policy_sha256,"source_bundle_sha256":source_access.source_bundle_sha256,"carrier_commit":carrier_commit,"request_count":plan["request_count"],"success_count":successes,"failure_count":plan["request_count"]-successes}
+      manifest={"schema_version":"shared-pa-statcast-raw-capture-manifest-v1","request_plan_sha256":plan_sha,"source_contract_sha256":contract_sha,"parser_sha256":parser_sha,"authorization_sha256":source_access.authorization_file_sha256,"runtime_attestation_sha256":runtime_authorization.attestation_sha256,"runtime_policy_sha256":runtime_authorization.policy_sha256,"source_bundle_sha256":source_access.source_bundle_sha256,"carrier_commit":carrier_commit,"attempt_history_sha256":source_access.attempt_history_sha256,"prior_attempt_count":prior_attempt_count,"request_count":plan["request_count"],"success_count":successes,"failure_count":plan["request_count"]-successes}
       manifest=_write_manifest(work,manifest); _fsync_dir(work); os.replace(work,root); _fsync_dir(root.parent); return manifest
     finally:
       os.close(lock_fd)
       try: lock.unlink()
       except FileNotFoundError: pass
 
-def main() -> int:
-    p=argparse.ArgumentParser(); p.add_argument("--request-plan",type=Path,required=True); p.add_argument("--contract",type=Path,required=True); p.add_argument("--authorization",type=Path,required=True); p.add_argument("--expected-authorization-sha256",required=True); p.add_argument("--runtime-policy",type=Path,required=True); p.add_argument("--runtime-attestation",type=Path,required=True); p.add_argument("--expected-runtime-attestation-sha256",required=True); p.add_argument("--expected-source-bundle-sha256",required=True); p.add_argument("--carrier-commit",required=True); p.add_argument("--output-dir",type=Path,required=True); a=p.parse_args()
+def _parser() -> argparse.ArgumentParser:
+    p=argparse.ArgumentParser(); p.add_argument("--request-plan",type=Path,required=True); p.add_argument("--contract",type=Path,required=True); p.add_argument("--authorization",type=Path,required=True); p.add_argument("--expected-authorization-sha256",required=True); p.add_argument("--runtime-policy",type=Path,required=True); p.add_argument("--runtime-attestation",type=Path,required=True); p.add_argument("--expected-runtime-attestation-sha256",required=True); p.add_argument("--expected-source-bundle-sha256",required=True); p.add_argument("--carrier-commit",required=True); p.add_argument("--output-dir",type=Path,required=True); p.add_argument("--attempt-history",type=Path,required=True); return p
+
+
+def main(argv: list[str] | None = None, *, transport: TransportCallable) -> int:
+    a=_parser().parse_args(argv)
     runtime=authorize_runtime(attestation_path=a.runtime_attestation,expected_attestation_sha256=a.expected_runtime_attestation_sha256,policy_path=a.runtime_policy)
     access=verify_statcast_historical_source_access(authorization_path=a.authorization,expected_authorization_sha256=a.expected_authorization_sha256,expected_carrier_commit=a.carrier_commit,expected_runtime_policy_sha256=runtime.policy_sha256,expected_source_bundle_sha256=a.expected_source_bundle_sha256,expected_source_contract_sha256=sha256_file(a.contract),expected_request_plan_sha256=sha256_file(a.request_plan),access_time_utc=_utc())
-    print(json.dumps(capture(a.request_plan,a.contract,a.output_dir,runtime_authorization=runtime,source_access=access,carrier_commit=a.carrier_commit),sort_keys=True)); return 0
-if __name__ == "__main__": raise SystemExit(main())
+    _validate_authorities(plan_path=a.request_plan, contract_path=a.contract, runtime=runtime, access=access, carrier_commit=a.carrier_commit)
+    print(json.dumps(capture(a.request_plan,a.contract,a.output_dir,runtime_authorization=runtime,source_access=access,carrier_commit=a.carrier_commit,attempt_history_path=a.attempt_history,transport=transport),sort_keys=True)); return 0
+
+
+def authorized_main(argv: list[str] | None = None) -> int:
+    args = _parser().parse_args(argv)
+    runtime=authorize_runtime(attestation_path=args.runtime_attestation,expected_attestation_sha256=args.expected_runtime_attestation_sha256,policy_path=args.runtime_policy)
+    access=verify_statcast_historical_source_access(authorization_path=args.authorization,expected_authorization_sha256=args.expected_authorization_sha256,expected_carrier_commit=args.carrier_commit,expected_runtime_policy_sha256=runtime.policy_sha256,expected_source_bundle_sha256=args.expected_source_bundle_sha256,expected_source_contract_sha256=sha256_file(args.contract),expected_request_plan_sha256=sha256_file(args.request_plan),access_time_utc=_utc())
+    _validate_authorities(plan_path=args.request_plan, contract_path=args.contract, runtime=runtime, access=access, carrier_commit=args.carrier_commit)
+    gate = _execution_authorization(runtime, access, args.carrier_commit)
+    return main(argv, transport=lambda full_url, timeout, maximum: _transport(full_url, timeout, maximum, execution_authorization=gate))
+if __name__ == "__main__": raise SystemExit(authorized_main())

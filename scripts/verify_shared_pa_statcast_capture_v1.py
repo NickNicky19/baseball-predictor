@@ -47,11 +47,14 @@ def verify(root: Path, plan_path: Path, contract_path: Path, expected_digest: st
         raise VerificationError("capture request directory is absent or unsafe")
     context=json.loads((root/"capture_context.json").read_text(encoding="utf-8"))
     required_context={"schema_version","request_plan_sha256","source_contract_sha256","parser_sha256","authorization_sha256","runtime_attestation_sha256","runtime_policy_sha256","source_bundle_sha256","carrier_commit"}
-    if set(context)!=required_context or context.get("schema_version")!="shared-pa-statcast-capture-context-v1" or context.get("request_plan_sha256")!=sha256_file(plan_path) or context.get("source_contract_sha256")!=sha256_file(contract_path):
+    optional_context={"attempt_history_sha256","prior_attempt_count"}
+    if set(context) not in (required_context, required_context | optional_context) or context.get("schema_version")!="shared-pa-statcast-capture-context-v1" or context.get("request_plan_sha256")!=sha256_file(plan_path) or context.get("source_contract_sha256")!=sha256_file(contract_path):
         raise VerificationError("capture context differs")
     for key in ("parser_sha256","authorization_sha256","runtime_attestation_sha256","runtime_policy_sha256","source_bundle_sha256","carrier_commit"):
         if context.get(key)!=manifest.get(key):
             raise VerificationError(f"capture context and manifest disagree on {key}")
+    if optional_context.issubset(context) and any(context.get(key) != manifest.get(key) for key in optional_context):
+        raise VerificationError("capture attempt-history context and manifest disagree")
     terminal=json.loads((request_dir/"terminal.json").read_text(encoding="utf-8"))
     if terminal.get("state")!="SUCCESS" or manifest.get("success_count")!=1 or manifest.get("failure_count")!=0:
         raise VerificationError("bounded sample is not one terminal success")

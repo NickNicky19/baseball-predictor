@@ -35,11 +35,12 @@ env:
   REQUEST_PLAN: config/shared_pa_statcast_source_preparation_v1/sample_request_plan.json
   CONTRACT: config/shared_pa_statcast_source_contract_v1.json
   AUTHORIZATION: config/shared_pa_statcast_historical_source_access_authorization_20260731_v1.json
-  EXPECTED_RUNTIME_POLICY_SHA256: 4d7e36e177f679e12d42bd617a7c6e693940c7f11dd2660196bdfd5a636c49ca
+  ATTEMPT_HISTORY: config/shared_pa_statcast_sample_attempt_history_20260731_v1.json
+  EXPECTED_RUNTIME_POLICY_SHA256: 31b6b16063bfb0f8e1535d4475259caa10ff548423df793a9d79bd2616f5f9c3
   EXPECTED_SOURCE_CONTRACT_SHA256: 7078857cc1815e5c8dcecd667a9b6d69079ef31c1fc68057473d1fb1dc9ceebd
-  EXPECTED_SOURCE_BUNDLE_SHA256: 220173ff916bb5f27f4a3b4505139faea5bc09ed68a25749b6ba1d77d857f9da
+  EXPECTED_SOURCE_BUNDLE_SHA256: 22a36802fb7530cc21fb0f38a7c6e85422088de25f435916cf3b53f74d7367a1
   EXPECTED_REQUEST_PLAN_SHA256: a40abd52a42ed36a49b6fc5d3d91d2202f57e7075a077f8f1abe3252df016994
-  EXPECTED_AUTHORIZATION_SHA256: 7335a713e4b1dc6bc9c71d542015a7489a84ea88ad311be5bf2532b98af4b0e3
+  EXPECTED_AUTHORIZATION_SHA256: 7c7bad968102e6beb696b8339ca3874251bff89c8938c1ca0cd9f1cc279f8205
   EXPECTED_RUNTIME_ATTESTATION_SHA256: 3a5e1ff5ceb61b06aa98f3c32bbcf8dc61bfce9f40c2886d0df720098bca35d0
   REQUESTED_WORKFLOW_COMMIT: ${{ inputs.expected_workflow_commit_sha || github.sha }}
   EXPECTED_RUNTIME_INPUT: ${{ inputs.expected_runtime_attestation_sha256 || 'DISCOVER' }}
@@ -214,6 +215,7 @@ jobs:
           import json
           import os
           from pathlib import Path
+          import socket
           import sys
           from urllib.parse import urlsplit
           sys.path.insert(0, str(Path.cwd()))
@@ -224,20 +226,21 @@ jobs:
               raise capture.TransportFailure(
                   error_kind="no_network_preflight", retryable=False,
                   requested_at_utc=capture._utc(), observed_at_utc=capture._utc())
-          capture._transport = blocked
           argv = [
               "capture", "--request-plan", sys.argv[1], "--contract", sys.argv[2],
               "--authorization", sys.argv[3], "--expected-authorization-sha256",
-              "7335a713e4b1dc6bc9c71d542015a7489a84ea88ad311be5bf2532b98af4b0e3",
+              "7c7bad968102e6beb696b8339ca3874251bff89c8938c1ca0cd9f1cc279f8205",
               "--runtime-policy", "config/shared_pa_statcast_runtime_authority_v1.json",
               "--runtime-attestation", sys.argv[4], "--expected-runtime-attestation-sha256",
               sys.argv[5], "--expected-source-bundle-sha256",
-              "220173ff916bb5f27f4a3b4505139faea5bc09ed68a25749b6ba1d77d857f9da",
+              "22a36802fb7530cc21fb0f38a7c6e85422088de25f435916cf3b53f74d7367a1",
               "--carrier-commit", "fb4e0c642318600e350d914947fedbbf9f65484f",
               "--output-dir", sys.argv[6],
+              "--attempt-history", "config/shared_pa_statcast_sample_attempt_history_20260731_v1.json",
           ]
           sys.argv = argv
-          capture.main()
+          with capture.network_denial_guard():
+              capture.main(transport=blocked)
           assert len(calls) == 1, calls
           assert calls[0]["full_url"].startswith("https://baseballsavant.mlb.com/statcast_search/csv?")
           assert urlsplit(calls[0]["full_url"]).query

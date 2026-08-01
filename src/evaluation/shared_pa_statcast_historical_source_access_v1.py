@@ -24,6 +24,10 @@ SOURCE_SCOPE: Mapping[str, Any] = {
     "bounded_sample_date": "2023-07-25",
     "request_count": 1,
     "output_path": "data/source/shared_pa_statcast_sample_2023-07-25_v1",
+    "attempt_history_path": "config/shared_pa_statcast_sample_attempt_history_20260731_v1.json",
+    "attempt_history_sha256": "eb28fbfc18ba777f796abe1db9735579f99a06907d5de856d696d4de5db0aaf5",
+    "prior_attempts_consumed": 1,
+    "remaining_lifetime_attempts": 3,
     "complete_standard_csv_schema_requested": True,
     "server_side_field_filter": None,
     "redirects_allowed": False,
@@ -68,6 +72,9 @@ class VerifiedStatcastHistoricalSourceAccess:
     source_contract_sha256: str
     request_plan_sha256: str
     output_path: str
+    attempt_history_sha256: str = ""
+    prior_attempts_consumed: int = 0
+    remaining_lifetime_attempts: int = 4
 
 
 def canonical_json_bytes(value: Any) -> bytes:
@@ -140,6 +147,8 @@ def verify_statcast_historical_source_access(
         or value.get("protected_boundaries") != PROTECTED_BOUNDARIES
     ):
         raise StatcastHistoricalSourceAccessError("authorization safety scope changed")
+    if SOURCE_SCOPE["prior_attempts_consumed"] + SOURCE_SCOPE["remaining_lifetime_attempts"] != 4:
+        raise StatcastHistoricalSourceAccessError("attempt history lifetime accounting is invalid")
     observed = {
         "runtime_policy": value.get("runtime_policy_sha256"),
         "source_bundle": value.get("source_bundle_sha256"),
@@ -165,4 +174,7 @@ def verify_statcast_historical_source_access(
         source_contract_sha256=expected["source_contract"],
         request_plan_sha256=expected["request_plan"],
         output_path=str(SOURCE_SCOPE["output_path"]),
+        attempt_history_sha256=str(SOURCE_SCOPE["attempt_history_sha256"]),
+        prior_attempts_consumed=int(SOURCE_SCOPE["prior_attempts_consumed"]),
+        remaining_lifetime_attempts=int(SOURCE_SCOPE["remaining_lifetime_attempts"]),
     )

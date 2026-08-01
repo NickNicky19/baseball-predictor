@@ -19,6 +19,10 @@
     "bounded_sample_date": "2023-07-25",
     "request_count": 1,
     "output_path": "data/source/shared_pa_statcast_sample_2023-07-25_v1",
+    "attempt_history_path": "config/shared_pa_statcast_sample_attempt_history_20260731_v1.json",
+    "attempt_history_sha256": "eb28fbfc18ba777f796abe1db9735579f99a06907d5de856d696d4de5db0aaf5",
+    "prior_attempts_consumed": 1,
+    "remaining_lifetime_attempts": 3,
     "complete_standard_csv_schema_requested": true,
     "server_side_field_filter": null,
     "redirects_allowed": false
@@ -40,9 +44,9 @@
     "prospective_evidence_accessed": false
   },
   "carrier_commit": "fb4e0c642318600e350d914947fedbbf9f65484f",
-  "runtime_policy_sha256": "4d7e36e177f679e12d42bd617a7c6e693940c7f11dd2660196bdfd5a636c49ca",
-  "source_bundle_sha256": "220173ff916bb5f27f4a3b4505139faea5bc09ed68a25749b6ba1d77d857f9da",
+  "runtime_policy_sha256": "31b6b16063bfb0f8e1535d4475259caa10ff548423df793a9d79bd2616f5f9c3",
+  "source_bundle_sha256": "22a36802fb7530cc21fb0f38a7c6e85422088de25f435916cf3b53f74d7367a1",
   "source_contract_sha256": "7078857cc1815e5c8dcecd667a9b6d69079ef31c1fc68057473d1fb1dc9ceebd",
   "request_plan_sha256": "a40abd52a42ed36a49b6fc5d3d91d2202f57e7075a077f8f1abe3252df016994",
-  "authorization_sha256": "deb91025530edc539a2c3a5f95a80a78fc462664a7ccc75c165bc844603887aa"
+  "authorization_sha256": "7c7bad968102e6beb696b8339ca3874251bff89c8938c1ca0cd9f1cc279f8205"
 }
