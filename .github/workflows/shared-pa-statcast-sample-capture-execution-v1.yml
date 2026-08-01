@@ -241,7 +241,7 @@ jobs:
       - name: Check out exact workflow commit
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
-          ref: ${{ inputs.expected_workflow_commit_sha }}
+          ref: ${{ env.REQUESTED_WORKFLOW_COMMIT }}
           fetch-depth: 0
           persist-credentials: false
       - name: Prove workflow and carrier identities
