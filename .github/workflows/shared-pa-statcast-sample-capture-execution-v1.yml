@@ -343,7 +343,7 @@ jobs:
           set -euo pipefail
           unset LD_LIBRARY_PATH
           audit_python="${RUNNER_TEMP}/statcast-runtime-env/bin/python"
-          output="${GITHUB_WORKSPACE}/${OUTPUT}"
+          output="${EXECUTION_ROOT}/${OUTPUT}"
           work="${output}.work"
           lock="${output}.lock"
           test ! -e "$output"
@@ -460,7 +460,7 @@ jobs:
         with:
           name: shared-pa-statcast-sample-capture-${{ github.event_name }}-${{ github.run_id }}
           path: |
-            ${{ github.workspace }}/data/source/shared_pa_statcast_sample_2023-07-25_v1
+            ${{ runner.temp }}/statcast-carrier-exec/data/source/shared_pa_statcast_sample_2023-07-25_v1
             ${{ runner.temp }}/capture-execution-summary.txt
           if-no-files-found: error
           retention-days: 90
