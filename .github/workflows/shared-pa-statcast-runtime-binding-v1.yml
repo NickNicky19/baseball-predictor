@@ -218,15 +218,16 @@ jobs:
           argv = [
               "capture", "--request-plan", sys.argv[1], "--contract", sys.argv[2],
               "--authorization", sys.argv[3], "--expected-authorization-sha256",
-              "e9143d0144c1fde6f6281efda012c86bc4071b9dfddbb97f205245976af27586",
+              "7335a713e4b1dc6bc9c71d542015a7489a84ea88ad311be5bf2532b98af4b0e3",
               "--runtime-policy", "config/shared_pa_statcast_runtime_authority_v1.json",
               "--runtime-attestation", sys.argv[4], "--expected-runtime-attestation-sha256",
               sys.argv[5], "--expected-source-bundle-sha256",
-              "51a2b917824b62298271cf6cadd66cd1116848d2411817afe25f9e49912fcafd",
+              "220173ff916bb5f27f4a3b4505139faea5bc09ed68a25749b6ba1d77d857f9da",
               "--carrier-commit", "fb4e0c642318600e350d914947fedbbf9f65484f",
               "--output-dir", sys.argv[6],
           ]
-          capture.main(argv)
+          sys.argv = argv
+          capture.main()
           assert len(calls) == 1, calls
           assert calls[0]["full_url"].startswith("https://baseballsavant.mlb.com/statcast_search/csv?")
           assert urlsplit(calls[0]["full_url"]).query
