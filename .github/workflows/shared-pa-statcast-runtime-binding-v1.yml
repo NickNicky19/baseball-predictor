@@ -237,13 +237,14 @@ jobs:
               "--output-dir", sys.argv[6],
               "--attempt-history", "config/shared_pa_statcast_sample_attempt_history_20260731_v1.json",
           ]
+          output_path = Path(sys.argv[6])
+          runtime_attestation_hash = sys.argv[5]
           sys.argv = argv
           with capture.network_denial_guard():
               capture.main(transport=blocked)
           assert len(calls) == 1, calls
           assert calls[0]["full_url"].startswith("https://baseballsavant.mlb.com/statcast_search/csv?")
           assert urlsplit(calls[0]["full_url"]).query
-          output_path = Path(sys.argv[6])
           assert output_path.exists() and output_path.is_dir()
           manifest = json.loads((output_path / "manifest.json").read_text(encoding="utf-8"))
           assert manifest["success_count"] == 0
@@ -251,7 +252,7 @@ jobs:
           assert not (output_path / "statcast-2023-07-25" / "response.csv").exists()
           gate = capture.TransportExecutionAuthorization(
               authorization_sha256="11c19c423404f7e75b8308dc6feea818808af166b64ce7abc7140bc0f6e8425f",
-              runtime_attestation_sha256=sys.argv[5],
+              runtime_attestation_sha256=runtime_attestation_hash,
               runtime_policy_sha256="31b6b16063bfb0f8e1535d4475259caa10ff548423df793a9d79bd2616f5f9c3",
               source_bundle_sha256="22a36802fb7530cc21fb0f38a7c6e85422088de25f435916cf3b53f74d7367a1",
               source_contract_sha256="7078857cc1815e5c8dcecd667a9b6d69079ef31c1fc68057473d1fb1dc9ceebd",
