@@ -265,9 +265,18 @@ jobs:
           fi
           test "$(git rev-parse HEAD)" = "$REQUESTED_WORKFLOW_COMMIT"
           test "$(git rev-parse "$CARRIER_COMMIT^{commit}")" = "$CARRIER_COMMIT"
-          git checkout --detach "$CARRIER_COMMIT"
-          test "$(git rev-parse HEAD)" = "$CARRIER_COMMIT"
-          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+          execution_root="${RUNNER_TEMP}/statcast-carrier-exec"
+          git worktree add --detach "$execution_root" "$CARRIER_COMMIT"
+          for bound in "$RUNTIME_POLICY" "$REQUEST_PLAN" "$CONTRACT" "$AUTHORIZATION" "$ATTEMPT_HISTORY"; do
+            target="$execution_root/$bound"
+            mkdir -p "$(dirname "$target")"
+            cp -- "$GITHUB_WORKSPACE/$bound" "$target"
+          done
+          test "$(git -C "$execution_root" rev-parse HEAD)" = "$CARRIER_COMMIT"
+          for bound in "$RUNTIME_POLICY" "$REQUEST_PLAN" "$CONTRACT" "$AUTHORIZATION" "$ATTEMPT_HISTORY"; do
+            test -f "$execution_root/$bound"
+          done
+          printf 'EXECUTION_ROOT=%s\n' "$execution_root" >> "$GITHUB_ENV"
           printf '%s\n' "$REQUESTED_WORKFLOW_COMMIT" > "${RUNNER_TEMP}/workflow-commit.txt"
       - name: Set up exact Python
         uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
@@ -286,6 +295,7 @@ jobs:
           python -m pip --python "${RUNNER_TEMP}/statcast-runtime-env/bin/python" check
       - name: Verify every bound identity and incident accounting
         shell: bash
+        working-directory: ${{ runner.temp }}/statcast-carrier-exec
         run: |
           set -euo pipefail
           unset LD_LIBRARY_PATH
@@ -322,6 +332,7 @@ jobs:
           path: ${{ runner.temp }}/attestation
       - name: Verify output path is new and invoke authorized_main
         shell: bash
+        working-directory: ${{ runner.temp }}/statcast-carrier-exec
         env:
           EVENT_NAME_LITERAL: ${{ github.event_name }}
           EVENT_MODE_LITERAL: ${{ github.event_name == 'pull_request' && 'preflight' || github.event_name == 'workflow_dispatch' && 'capture' || 'invalid' }}
