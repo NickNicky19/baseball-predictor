@@ -422,7 +422,7 @@ jobs:
                           source_bundle_sha256="22a36802fb7530cc21fb0f38a7c6e85422088de25f435916cf3b53f74d7367a1",
                           source_contract_sha256="7078857cc1815e5c8dcecd667a9b6d69079ef31c1fc68057473d1fb1dc9ceebd",
                           request_plan_sha256="a40abd52a42ed36a49b6fc5d3d91d2202f57e7075a077f8f1abe3252df016994",
-                          carrier_commit="74395e8552cf65701e526d4cba1f08a3e7f286d8")))
+                          carrier_commit="74395e8552cf65701e526d4cba1f08a3e7f286d8"))
                   except capture.CaptureError as exc:
                       assert "lower-layer network guard" in str(exc)
                   else:
