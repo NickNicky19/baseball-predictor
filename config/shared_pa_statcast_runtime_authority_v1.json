@@ -1,0 +1,61 @@
+{
+  "schema_version": "direct-batter-pa-source-runtime-authority-v1",
+  "status": "LOCKED_OFFLINE_RUNTIME_ATTESTATION_NETWORK_BLOCKED",
+  "research_only": true,
+  "betting_authorized": false,
+  "model_fitting_permitted": false,
+  "network_fetch_authorized": false,
+  "target": {
+    "os_id": "ubuntu",
+    "os_version_id": "24.04",
+    "machine": "x86_64",
+    "python_implementation": "CPython",
+    "python_version": "3.12.3"
+  },
+  "dependency_lock": {
+    "path": "requirements-direct-batter-pa-source-authority.lock",
+    "sha256": "0847ea7c8fe05649a94293b2adbba0164f10f420ca984ecf35f105f1aabc2a1f",
+    "exact_packages": {
+      "colorama": "0.4.6",
+      "iniconfig": "2.3.0",
+      "numpy": "2.5.1",
+      "packaging": "26.2",
+      "pandas": "3.0.5",
+      "pluggy": "1.6.0",
+      "pygments": "2.20.0",
+      "pytest": "9.1.1",
+      "python-dateutil": "2.9.0.post0",
+      "six": "1.17.0",
+      "tzdata": "2026.3"
+    }
+  },
+  "import_roots": {},
+  "local_import_roots": ["scripts", "src"],
+  "audited_python_files": [
+    "scripts/build_direct_batter_pa_source_release.py",
+    "scripts/capture_direct_batter_pa_source_transport_v2.py",
+    "scripts/capture_shared_pa_statcast_source_v1.py",
+    "scripts/verify_direct_batter_pa_source_runtime_authority.py",
+    "src/data/shared_pa_statcast_source_v1.py",
+    "src/evaluation/shared_pa_statcast_historical_source_access_v1.py"
+  ],
+  "audited_python_sha256": {
+    "scripts/build_direct_batter_pa_source_release.py": "3ba8dc390fb53e65ac4e56dba0caa546cd92e1b144432fb0708e267c7aa71ace",
+    "scripts/capture_direct_batter_pa_source_transport_v2.py": "5179d546919f1221fd18adf386a388f229b49ea7013873850757a3d09334528d",
+    "scripts/capture_shared_pa_statcast_source_v1.py": "4cc1fb1873f77bdaa6c9b56bca446a1882e39be4a5c4bb3df3e7c224724edea5",
+    "scripts/verify_direct_batter_pa_source_runtime_authority.py": "20cbe564ec1376f366c1938991a293c866aa4893bda11ffecd8d3d874855b0f1",
+    "src/data/shared_pa_statcast_source_v1.py": "ac98b4414694618127b39dd15baee5e10c2c8f49d30b61a12164b7c4c1182d8a",
+    "src/evaluation/shared_pa_statcast_historical_source_access_v1.py": "a7299c46e129a55c95e2a43d843c3141db9d3775fafd15c1e097d6f9869d3b86"
+  },
+  "runtime_requirements": {
+    "tls_context_initialization_required": true,
+    "default_ca_file_or_directory_required": true,
+    "ca_bytes_hashed": true,
+    "loaded_libssl_and_libcrypto_required": true,
+    "loaded_shared_library_bytes_hashed": true,
+    "path_injection_environment_forbidden": true,
+    "executable_and_extension_module_bytes_hashed": true,
+    "deterministic_double_observation_required": true,
+    "external_expected_attestation_digest_required_before_network": true
+  }
+}
