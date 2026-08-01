@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.capture_direct_batter_pa_source_transport_v2 import _enumerate_files, _manifest_digest
+from scripts.capture_direct_batter_pa_source_transport_v2 import _enumerate_files, _is_link_or_reparse, _manifest_digest
 from scripts.capture_shared_pa_statcast_source_v1 import _validate_sample_plan
 from src.data.shared_pa_statcast_source_v1 import (
     load_contract, parse_csv_bytes, sha256_file, validate_raw_receipt,
@@ -25,7 +25,7 @@ class VerificationError(ValueError):
 
 
 def verify(root: Path, plan_path: Path, contract_path: Path, expected_digest: str) -> dict:
-    if not root.is_dir() or root.is_symlink():
+    if not root.is_dir() or _is_link_or_reparse(root):
         raise VerificationError("capture root is absent or unsafe")
     manifest_path=root/"manifest.json"
     manifest=json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -47,6 +47,9 @@ def verify(root: Path, plan_path: Path, contract_path: Path, expected_digest: st
     required_context={"schema_version","request_plan_sha256","source_contract_sha256","parser_sha256","authorization_sha256","runtime_attestation_sha256","runtime_policy_sha256","source_bundle_sha256","carrier_commit"}
     if set(context)!=required_context or context.get("schema_version")!="shared-pa-statcast-capture-context-v1" or context.get("request_plan_sha256")!=sha256_file(plan_path) or context.get("source_contract_sha256")!=sha256_file(contract_path):
         raise VerificationError("capture context differs")
+    for key in ("parser_sha256","authorization_sha256","runtime_attestation_sha256","runtime_policy_sha256","source_bundle_sha256","carrier_commit"):
+        if context.get(key)!=manifest.get(key):
+            raise VerificationError(f"capture context and manifest disagree on {key}")
     terminal=json.loads((request_dir/"terminal.json").read_text(encoding="utf-8"))
     if terminal.get("state")!="SUCCESS" or manifest.get("success_count")!=1 or manifest.get("failure_count")!=0:
         raise VerificationError("bounded sample is not one terminal success")
@@ -55,6 +58,8 @@ def verify(root: Path, plan_path: Path, contract_path: Path, expected_digest: st
         raise VerificationError("attempt journal count differs")
     starts=[]; expected_files={"capture_context.json",f"{request['request_id']}/terminal.json",f"{request['request_id']}/response.csv",f"{request['request_id']}/receipt.json"}
     for index,path in enumerate(reservations,1):
+        if path.name!=f"reservation-{index:02d}.json" or results[index-1].name!=f"result-{index:02d}.json":
+            raise VerificationError("attempt journal filenames are noncanonical")
         value=json.loads(path.read_text(encoding="utf-8"))
         if value.get("attempt")!=index or value.get("request")!=request:
             raise VerificationError("attempt reservation identity differs")

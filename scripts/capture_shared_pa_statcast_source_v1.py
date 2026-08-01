@@ -39,7 +39,7 @@ def _validate_work_tree(work: Path, request_id: str) -> None:
     if {path.name for path in work.iterdir()}-allowed_top: raise CaptureError("resumable work state contains an unexpected path")
     child=work/request_id
     if not child.exists(): return
-    if child.is_symlink() or not child.is_dir(): raise CaptureError("resumable request state is unsafe")
+    if _is_link_or_reparse(child) or not child.is_dir(): raise CaptureError("resumable request state is unsafe")
     allowed_exact={"terminal.json","response.csv","receipt.json"}
     allowed_pattern=re.compile(r"(?:reservation|result|validation-failure)-[0-9]{2}\.json|response-attempt-[0-9]{2}\.(?:csv|bin)\Z")
     for path in child.iterdir():
@@ -195,14 +195,15 @@ def capture(
             raise CaptureError("existing work state is not the exact owned resumable capture")
         _validate_work_tree(work,plan["requests"][0]["request_id"])
     else:
-        work.mkdir(parents=True,exist_ok=False); _write_new(work/"capture_context.json",context)
+        work.mkdir(parents=True,exist_ok=False); _fsync_dir(work.parent); _write_new(work/"capture_context.json",context)
     previous_epoch=None
     for reservation in work.glob("*/reservation-*.json"):
         value=json.loads(reservation.read_text(encoding="utf-8")); previous_epoch=max(previous_epoch or 0.0,float(value["request_start_epoch"] or 0.0))
     successes=0
     try:
       for request in plan["requests"]:
-        request_dir=work/request["request_id"]; request_dir.mkdir(exist_ok=True)
+        request_dir=work/request["request_id"]
+        if not request_dir.exists(): request_dir.mkdir(exist_ok=False); _fsync_dir(work)
         if (request_dir/"terminal.json").exists():
             terminal=json.loads((request_dir/"terminal.json").read_text(encoding="utf-8")); successes += int(terminal.get("state") == "SUCCESS"); continue
         completed=len(list(request_dir.glob("reservation-*.json")))
@@ -224,7 +225,10 @@ def capture(
                 retry=_retry_after(exc.retry_after,exc.observed_at_utc,float(contract["transport_policy"]["maximum_retry_after_seconds"]))
                 delay=retry if retry is not None else float(contract["transport_policy"]["bounded_backoff_seconds"][min(attempt-1,2)])
                 record["backoff_seconds"]=delay; _write_new(request_dir/f"result-{attempt:02d}.json",record)
-                if attempt < contract["transport_policy"]["maximum_lifetime_attempts_per_exact_request"]: sleep(delay); continue
+                if attempt < contract["transport_policy"]["maximum_lifetime_attempts_per_exact_request"]:
+                    before=wall_time(); sleep(delay); after=wall_time()
+                    if after-before+1e-6 < delay: raise CaptureError("retry sleeper returned before required backoff")
+                    continue
                 break
             except Exception as exc:
                 _write_new(request_dir/f"result-{attempt:02d}.json", {"attempt":attempt,"request_started_at_utc":started,"observed_at_utc":_utc(),"outcome":"NONRETRYABLE_FAILURE","http_status":None,"error_kind":type(exc).__name__,"retry_after_header":None,"backoff_seconds":0.0}); break
