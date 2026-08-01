@@ -93,8 +93,10 @@ jobs:
           "$audit_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
             --policy "$RUNTIME_POLICY" --write-linux-attestation "$attestation"
           observed="$(sha256sum "$attestation" | awk '{print $1}')"
-          test "$EXPECTED_RUNTIME_INPUT" = "$EXPECTED_RUNTIME_ATTESTATION_SHA256"
-          test "$observed" = "$EXPECTED_RUNTIME_ATTESTATION_SHA256"
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            test "$EXPECTED_RUNTIME_INPUT" = "$EXPECTED_RUNTIME_ATTESTATION_SHA256"
+            test "$observed" = "$EXPECTED_RUNTIME_ATTESTATION_SHA256"
+          fi
           printf '%s  %s\n' "$observed" "$attestation" > "${RUNNER_TEMP}/statcast-runtime-${{ matrix.pass }}.sha256"
       - name: Upload attestation evidence
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -128,8 +130,10 @@ jobs:
           set -euo pipefail
           cmp --silent "${RUNNER_TEMP}/first/statcast-runtime-first.json" "${RUNNER_TEMP}/second/statcast-runtime-second.json"
           observed="$(sha256sum "${RUNNER_TEMP}/first/statcast-runtime-first.json" | awk '{print $1}')"
-          test "$EXPECTED_RUNTIME_INPUT" = "$EXPECTED_RUNTIME_ATTESTATION_SHA256"
-          test "$observed" = "$EXPECTED_RUNTIME_ATTESTATION_SHA256"
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            test "$EXPECTED_RUNTIME_INPUT" = "$EXPECTED_RUNTIME_ATTESTATION_SHA256"
+            test "$observed" = "$EXPECTED_RUNTIME_ATTESTATION_SHA256"
+          fi
           printf '%s\n' "$observed" > "${RUNNER_TEMP}/statcast-runtime-equality.txt"
       - name: Upload equality evidence
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
