@@ -39,10 +39,10 @@
     "market_prices_accessed": false,
     "prospective_evidence_accessed": false
   },
-  "carrier_commit": "00e3d9ae334cccf40aa4260a3d9682a5027540cd",
+  "carrier_commit": "fb4e0c642318600e350d914947fedbbf9f65484f",
   "runtime_policy_sha256": "4d7e36e177f679e12d42bd617a7c6e693940c7f11dd2660196bdfd5a636c49ca",
   "source_bundle_sha256": "220173ff916bb5f27f4a3b4505139faea5bc09ed68a25749b6ba1d77d857f9da",
   "source_contract_sha256": "7078857cc1815e5c8dcecd667a9b6d69079ef31c1fc68057473d1fb1dc9ceebd",
   "request_plan_sha256": "a40abd52a42ed36a49b6fc5d3d91d2202f57e7075a077f8f1abe3252df016994",
-  "authorization_sha256": "e6a304ef82b3e5b1f85bfb8e1d5275517a023a4c3d01f6e0dab342d06a912faa"
+  "authorization_sha256": "deb91025530edc539a2c3a5f95a80a78fc462664a7ccc75c165bc844603887aa"
 }

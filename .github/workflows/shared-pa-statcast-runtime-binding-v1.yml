@@ -30,7 +30,7 @@ env:
   PYTHONDONTWRITEBYTECODE: "1"
   PYTHONNOUSERSITE: "1"
   PYTEST_DISABLE_PLUGIN_AUTOLOAD: "1"
-  CARRIER_COMMIT: 00e3d9ae334cccf40aa4260a3d9682a5027540cd
+  CARRIER_COMMIT: fb4e0c642318600e350d914947fedbbf9f65484f
   RUNTIME_POLICY: config/shared_pa_statcast_runtime_authority_v1.json
   REQUEST_PLAN: config/shared_pa_statcast_source_preparation_v1/sample_request_plan.json
   CONTRACT: config/shared_pa_statcast_source_contract_v1.json
@@ -39,7 +39,7 @@ env:
   EXPECTED_SOURCE_CONTRACT_SHA256: 7078857cc1815e5c8dcecd667a9b6d69079ef31c1fc68057473d1fb1dc9ceebd
   EXPECTED_SOURCE_BUNDLE_SHA256: 220173ff916bb5f27f4a3b4505139faea5bc09ed68a25749b6ba1d77d857f9da
   EXPECTED_REQUEST_PLAN_SHA256: a40abd52a42ed36a49b6fc5d3d91d2202f57e7075a077f8f1abe3252df016994
-  EXPECTED_AUTHORIZATION_SHA256: 9c2c63f1161f6195a880d8d18e03a3ba141efe019a81d40bec879edd4ba36692
+  EXPECTED_AUTHORIZATION_SHA256: 7335a713e4b1dc6bc9c71d542015a7489a84ea88ad311be5bf2532b98af4b0e3
   EXPECTED_RUNTIME_ATTESTATION_SHA256: DISCOVERY_PENDING
   REQUESTED_WORKFLOW_COMMIT: ${{ inputs.expected_workflow_commit_sha || github.sha }}
   EXPECTED_RUNTIME_INPUT: ${{ inputs.expected_runtime_attestation_sha256 || 'DISCOVER' }}
@@ -223,7 +223,7 @@ jobs:
               "--runtime-attestation", sys.argv[4], "--expected-runtime-attestation-sha256",
               sys.argv[5], "--expected-source-bundle-sha256",
               "51a2b917824b62298271cf6cadd66cd1116848d2411817afe25f9e49912fcafd",
-              "--carrier-commit", "00e3d9ae334cccf40aa4260a3d9682a5027540cd",
+              "--carrier-commit", "fb4e0c642318600e350d914947fedbbf9f65484f",
               "--output-dir", sys.argv[6],
           ]
           capture.main(argv)
