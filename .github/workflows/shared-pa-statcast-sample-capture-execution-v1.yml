@@ -32,7 +32,9 @@ env:
   CONTRACT: config/shared_pa_statcast_source_contract_v1.json
   AUTHORIZATION: config/shared_pa_statcast_historical_source_access_authorization_20260731_v1.json
   ATTEMPT_HISTORY: config/shared_pa_statcast_sample_attempt_history_20260731_v1.json
+  ATTEMPT_HISTORY_SUCCESSOR: config/shared_pa_statcast_sample_attempt_history_20260801_v2.json
   OUTPUT: data/source/shared_pa_statcast_sample_2023-07-25_v1
+  CAPTURE_AUTHORIZATION_STATUS: ATTEMPTS_3_AND_4_UNAUTHORIZED
   EXPECTED_RUNTIME_POLICY_SHA256: 31b6b16063bfb0f8e1535d4475259caa10ff548423df793a9d79bd2616f5f9c3
   EXPECTED_SOURCE_CONTRACT_SHA256: 7078857cc1815e5c8dcecd667a9b6d69079ef31c1fc68057473d1fb1dc9ceebd
   EXPECTED_SOURCE_BUNDLE_SHA256: 22a36802fb7530cc21fb0f38a7c6e85422088de25f435916cf3b53f74d7367a1
@@ -40,6 +42,7 @@ env:
   EXPECTED_AUTHORIZATION_SHA256: 11c19c423404f7e75b8308dc6feea818808af166b64ce7abc7140bc0f6e8425f
   EXPECTED_RUNTIME_ATTESTATION_SHA256: 903e566a99d048a575dbe075378fd8b80ace92bf5028c6ddcbb0d200fe509ae5
   EXPECTED_ATTEMPT_HISTORY_SHA256: eb28fbfc18ba777f796abe1db9735579f99a06907d5de856d696d4de5db0aaf5
+  EXPECTED_ATTEMPT_HISTORY_SUCCESSOR_SHA256: 456787efef26d3d438e1afe13d1eee949cd9866d2f8d0a2c5c74d9928a97572e
   EVENT_NAME: ${{ github.event_name }}
   EVENT_MODE: ${{ github.event_name == 'pull_request' && 'preflight' || github.event_name == 'workflow_dispatch' && 'capture' || 'invalid' }}
   DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
@@ -68,6 +71,22 @@ jobs:
 
           path = Path(sys.argv[1])
           original = path.read_text(encoding="utf-8")
+          carrier_working_directory = "working-directory: " + chr(36) + "{{ runner.temp }}/statcast-carrier-exec"
+          corrected_main_working_directory = "working-directory: " + chr(36) + "{{ github.workspace }}"
+          failure_publication_guard = "if: " + chr(36) + "{{ always() && github.event_name == 'workflow_dispatch' }}"
+          dispatch_only_guard = "if: " + chr(36) + "{{ github.event_name == 'workflow_dispatch' }}"
+          quarantine_marker = '"' + "quarantined" + '": is_failure'
+          non_promotion_marker = '"' + "non_promotable" + '": is_failure'
+          attempt_denial_marker = "CAPTURE_AUTHORIZATION_DENIED_" + "ATTEMPTS_3_AND_4_UNAUTHORIZED"
+          finalizer_carrier_binding = (
+              "      - name: Verify and finalize capture or quarantined failure package from carrier\n"
+              "        " + failure_publication_guard + "\n"
+              "        shell: bash\n"
+              "        " + carrier_working_directory
+          )
+          finalizer_main_binding = finalizer_carrier_binding.replace(
+              carrier_working_directory, corrected_main_working_directory
+          )
 
           def validate(text: str) -> None:
               required = (
@@ -84,7 +103,22 @@ jobs:
                   'rc = capture.authorized_main(argv)',
                   'reservation-02.json',
                   '"prior_attempt_count"] == 1',
-                  '"remaining_attempts": 3',
+                  'ATTEMPTS_3_AND_4_UNAUTHORIZED',
+                  attempt_denial_marker,
+                  'shared_pa_statcast_sample_attempt_history_20260801_v2.json',
+                  '456787efef26d3d438e1afe13d1eee949cd9866d2f8d0a2c5c74d9928a97572e',
+                  'scripts/verify_shared_pa_statcast_capture_v1.py',
+                  carrier_working_directory,
+                  failure_publication_guard,
+                  'CAPTURE_QUARANTINED',
+                  '"invalid": is_failure',
+                  quarantine_marker,
+                  non_promotion_marker,
+                  'capture-command-status.json',
+                  'capture-validation-exit-code',
+                  'carrier-verifier-exit-code',
+                  'Report preserved terminal status after artifact upload',
+                  finalizer_carrier_binding,
                   '--expected-authorization-sha256',
                   '--expected-runtime-attestation-sha256',
                   '--expected-source-bundle-sha256',
@@ -104,6 +138,10 @@ jobs:
                   raise AssertionError("capture must be selected by event, never by an input")
               if text.count("with capture.network_denial_guard()") < 2:
                   raise AssertionError("application and lower-level network guards are both required")
+              if text.count(failure_publication_guard) < 3:
+                  raise AssertionError("failure finalization, upload, and terminal reporting must use always()")
+              if corrected_main_working_directory in text:
+                  raise AssertionError("carrier verifier must not run from corrected main")
 
           validate(original)
           mutations = {
@@ -114,6 +152,35 @@ jobs:
               "blocking_transport_removed": original.replace('blocked_transport', 'original_transport'),
               "authorization_gate_removed": original.replace('--expected-authorization-sha256', '--authorization-gate-removed'),
               "attempt_history_removed": original.replace('reservation-02.json', 'reservation-99.json'),
+              "failure_publication_guard_removed": original.replace(
+                  failure_publication_guard,
+                  dispatch_only_guard,
+                  1,
+              ),
+              "carrier_verifier_redirected_to_main": original.replace(
+                  finalizer_carrier_binding,
+                  finalizer_main_binding,
+                  1,
+              ),
+              "quarantine_removed": original.replace(
+                  '              ' + quarantine_marker + ',',
+                  '              "quarantined": False,',
+                  1,
+              ),
+              "non_promotion_removed": original.replace(
+                  '              ' + non_promotion_marker + ',',
+                  '              "non_promotable": False,',
+                  1,
+              ),
+              "successor_attempt_history_removed": original.replace(
+                  'shared_pa_statcast_sample_attempt_history_20260801_v2.json',
+                  'shared_pa_statcast_sample_attempt_history_20260731_v1.json',
+              ),
+              "attempt_three_gate_removed": original.replace(
+                  attempt_denial_marker,
+                  'CAPTURE_AUTHORIZATION_GRANTED',
+                  1,
+              ),
               "workflow_input_added": original.replace(
                   (" " * 6) + "expected_workflow_commit_sha:",
                   (" " * 6) + "mode: capture" + chr(10) + (" " * 6) + "expected_workflow_commit_sha:",
@@ -129,6 +196,50 @@ jobs:
           print("EVENT_MODE_STATIC_CHECK=PASS")
           print("EVENT_MODE_MUTATION_CHECKS=PASS")
           PY
+
+  failure-preservation-regression:
+    name: No-network failure-preservation regression
+    needs: workflow-contract
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out the workflow commit under test
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ env.REQUESTED_WORKFLOW_COMMIT }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Create the exact detached carrier execution root
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$REQUESTED_WORKFLOW_COMMIT"
+          test "$(git rev-parse "$CARRIER_COMMIT^{commit}")" = "$CARRIER_COMMIT"
+          carrier_root="${RUNNER_TEMP}/statcast-regression-carrier"
+          git worktree add --detach "$carrier_root" "$CARRIER_COMMIT"
+          test "$(git -C "$carrier_root" rev-parse HEAD)" = "$CARRIER_COMMIT"
+          printf 'REGRESSION_CARRIER_ROOT=%s\n' "$carrier_root" >> "$GITHUB_ENV"
+      - name: Set up exact Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: "3.12.3"
+          architecture: x64
+      - name: Run synthetic disallowed-content-type regression without networking
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -I -B tests/test_shared_pa_statcast_attempt2_failure_preservation.py \
+            --workflow .github/workflows/shared-pa-statcast-sample-capture-execution-v1.yml \
+            --carrier-root "$REGRESSION_CARRIER_ROOT" \
+            --artifact-dir "${RUNNER_TEMP}/statcast-synthetic-failure-artifact"
+      - name: Upload downloadable synthetic failure artifact
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: shared-pa-statcast-synthetic-failure-${{ github.run_id }}
+          path: ${{ runner.temp }}/statcast-synthetic-failure-artifact
+          if-no-files-found: error
+          retention-days: 90
 
   independent-attestation:
     name: Clean-Linux attestation (${{ matrix.pass }})
@@ -267,13 +378,13 @@ jobs:
           test "$(git rev-parse "$CARRIER_COMMIT^{commit}")" = "$CARRIER_COMMIT"
           execution_root="${RUNNER_TEMP}/statcast-carrier-exec"
           git worktree add --detach "$execution_root" "$CARRIER_COMMIT"
-          for bound in "$RUNTIME_POLICY" "$REQUEST_PLAN" "$CONTRACT" "$AUTHORIZATION" "$ATTEMPT_HISTORY"; do
+          for bound in "$RUNTIME_POLICY" "$REQUEST_PLAN" "$CONTRACT" "$AUTHORIZATION" "$ATTEMPT_HISTORY" "$ATTEMPT_HISTORY_SUCCESSOR"; do
             target="$execution_root/$bound"
             mkdir -p "$(dirname "$target")"
             cp -- "$GITHUB_WORKSPACE/$bound" "$target"
           done
           test "$(git -C "$execution_root" rev-parse HEAD)" = "$CARRIER_COMMIT"
-          for bound in "$RUNTIME_POLICY" "$REQUEST_PLAN" "$CONTRACT" "$AUTHORIZATION" "$ATTEMPT_HISTORY"; do
+          for bound in "$RUNTIME_POLICY" "$REQUEST_PLAN" "$CONTRACT" "$AUTHORIZATION" "$ATTEMPT_HISTORY" "$ATTEMPT_HISTORY_SUCCESSOR"; do
             test -f "$execution_root/$bound"
           done
           printf 'EXECUTION_ROOT=%s\n' "$execution_root" >> "$GITHUB_ENV"
@@ -305,7 +416,8 @@ jobs:
             "$EXPECTED_SOURCE_CONTRACT_SHA256  $CONTRACT" \
             "$EXPECTED_REQUEST_PLAN_SHA256  $REQUEST_PLAN" \
             "$EXPECTED_AUTHORIZATION_SHA256  $AUTHORIZATION" \
-            "$EXPECTED_ATTEMPT_HISTORY_SHA256  $ATTEMPT_HISTORY"; do
+            "$EXPECTED_ATTEMPT_HISTORY_SHA256  $ATTEMPT_HISTORY" \
+            "$EXPECTED_ATTEMPT_HISTORY_SUCCESSOR_SHA256  $ATTEMPT_HISTORY_SUCCESSOR"; do
             printf '%s\n' "$pair" | sha256sum -c -
           done
           observed_bundle="$("$audit_python" -I -B -c 'import sys; sys.path.insert(0, "."); from scripts.capture_shared_pa_statcast_source_v1 import source_bundle_sha256; print(source_bundle_sha256())')"
@@ -323,6 +435,22 @@ jobs:
           assert p["remaining_lifetime_attempts"] == 3
           assert p["request_timestamp_utc"] is None
           PY
+          "$audit_python" -I -B - "$ATTEMPT_HISTORY_SUCCESSOR" <<'PY'
+          import json, sys
+          from pathlib import Path
+          p = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+          assert p["schema_version"] == "shared-pa-statcast-attempt-history-v2"
+          assert [row["attempt_number"] for row in p["attempts"]] == [1, 2]
+          assert all("PERMANENTLY_CONSUMED" in row["status"] for row in p["attempts"])
+          assert p["remaining_attempts"] == [
+              {"attempt_number": 3, "status": "UNUSED_UNAUTHORIZED"},
+              {"attempt_number": 4, "status": "UNUSED_UNAUTHORIZED"},
+          ]
+          assert p["total_external_statcast_requests"] == 2
+          assert p["remaining_authorized_attempts"] == 0
+          assert p["workflow_dispatch_capture_authorized"] is False
+          assert p["attempts"][1]["response_headers"]["retention_status"] == "ATTEMPT_2_CONTENT_TYPE_NOT_RETAINED"
+          PY
           "$audit_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
             --policy "$RUNTIME_POLICY" --check-static
       - name: Download byte-identical runtime attestation
@@ -330,6 +458,30 @@ jobs:
         with:
           name: shared-pa-statcast-sample-runtime-first-${{ github.run_id }}
           path: ${{ runner.temp }}/attestation
+      - name: Enforce post-attempt-2 capture authorization boundary
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        shell: bash
+        working-directory: ${{ runner.temp }}/statcast-carrier-exec
+        run: |
+          set -euo pipefail
+          test "$CAPTURE_AUTHORIZATION_STATUS" = "ATTEMPTS_3_AND_4_UNAUTHORIZED"
+          audit_python="${RUNNER_TEMP}/statcast-runtime-env/bin/python"
+          "$audit_python" -I -B - "$ATTEMPT_HISTORY_SUCCESSOR" "${RUNNER_TEMP}/capture-command-status.json" <<'PY'
+          import json, sys
+          from pathlib import Path
+          ledger = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+          assert ledger["total_external_statcast_requests"] == 2
+          assert ledger["remaining_authorized_attempts"] == 0
+          assert ledger["workflow_dispatch_capture_authorized"] is False
+          Path(sys.argv[2]).write_text(json.dumps({
+              "schema_version": "shared-pa-statcast-capture-command-status-v1",
+              "status": "CAPTURE_AUTHORIZATION_DENIED_ATTEMPTS_3_AND_4_UNAUTHORIZED",
+              "capture_command_exit_code": 78,
+              "capture_command_invoked": False,
+              "external_statcast_requests": 0,
+          }, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
+          PY
+          exit 78
       - name: Verify output path is new and invoke authorized_main
         shell: bash
         working-directory: ${{ runner.temp }}/statcast-carrier-exec
@@ -396,14 +548,22 @@ jobs:
                   requested_at_utc=capture._utc(), observed_at_utc=capture._utc())
           if event_mode == "preflight":
               capture._transport = blocked_transport
+          rc = 1
+          command_error_type = None
           try:
               with capture.network_denial_guard() if event_mode == "preflight" else nullcontext():
                   rc = capture.authorized_main(argv)
+          except SystemExit as exc:
+              rc = int(exc.code) if isinstance(exc.code, int) else 1
+              command_error_type = "SystemExit"
+          except Exception as exc:
+              rc = 1
+              command_error_type = type(exc).__name__
           finally:
               capture._transport = original_transport
-          if rc != 0:
-              raise SystemExit(rc)
           if event_mode == "preflight":
+              if rc != 0:
+                  raise SystemExit(rc)
               assert len(calls) == 1, calls
               assert calls[0]["full_url"].startswith("https://baseballsavant.mlb.com/statcast_search/csv?")
               manifest = json.loads((Path(output) / "manifest.json").read_text(encoding="utf-8"))
@@ -427,40 +587,218 @@ jobs:
                       assert "lower-layer network guard" in str(exc)
                   else:
                       raise AssertionError("lower-level network guard did not block")
+          command_status = {
+              "schema_version": "shared-pa-statcast-capture-command-status-v1",
+              "status": "CAPTURE_COMMAND_COMPLETED" if rc == 0 else "CAPTURE_COMMAND_FAILED",
+              "capture_command_exit_code": rc,
+              "capture_command_invoked": True,
+              "capture_command_error_type": command_error_type,
+              "external_statcast_requests": 0 if event_mode == "preflight" else None,
+          }
+          Path(os.environ["RUNNER_TEMP"]).joinpath("capture-command-status.json").write_text(
+              json.dumps(command_status, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
           Path(os.environ["RUNNER_TEMP"]).joinpath("capture-execution-summary.txt").write_text(
               json.dumps({"event": event_name, "mode": event_mode, "authorized_main_invoked": True,
                           "external_statcast_requests": 0 if event_mode == "preflight" else None,
-                          "attempt_1_consumed": True, "remaining_attempts": 3,
-                          "status": "PRECHECK_PASSED" if event_mode == "preflight" else "CAPTURE_COMPLETED"},
+                          "attempts_1_and_2_consumed": True,
+                          "attempts_3_and_4": "UNAUTHORIZED",
+                          "total_real_external_statcast_requests": 2,
+                          "status": "PRECHECK_PASSED" if event_mode == "preflight" else "CAPTURE_COMMAND_RECORDED"},
                          sort_keys=True) + "\n", encoding="utf-8")
           print(json.dumps({"event": event_name, "mode": event_mode, "authorized_main_invoked": True,
                             "external_statcast_requests": 0 if event_mode == "preflight" else None,
-                            "attempt_1_consumed": True,
-                            "remaining_attempts": 3,
-                            "status": "PRECHECK_PASSED" if event_mode == "preflight" else "CAPTURE_COMPLETED"}, sort_keys=True))
+                            "attempts_1_and_2_consumed": True,
+                            "attempts_3_and_4": "UNAUTHORIZED",
+                            "total_real_external_statcast_requests": 2,
+                            "status": "PRECHECK_PASSED" if event_mode == "preflight" else "CAPTURE_COMMAND_RECORDED"}, sort_keys=True))
           PY
-      - name: Verify and summarize captured package
-        if: ${{ github.event_name == 'workflow_dispatch' }}
+      - name: Verify and finalize capture or quarantined failure package from carrier
+        if: ${{ always() && github.event_name == 'workflow_dispatch' }}
         shell: bash
+        working-directory: ${{ runner.temp }}/statcast-carrier-exec
         run: |
           set -euo pipefail
           unset LD_LIBRARY_PATH
           audit_python="${RUNNER_TEMP}/statcast-runtime-env/bin/python"
-          "$audit_python" -I -B scripts/verify_shared_pa_statcast_capture_v1.py \
-            --capture "$OUTPUT" --request-plan "$REQUEST_PLAN" --contract "$CONTRACT" \
-            --authorization "$AUTHORIZATION" --attempt-history "$ATTEMPT_HISTORY" \
-            --expected-authorization-sha256 "$EXPECTED_AUTHORIZATION_SHA256" \
-            --expected-runtime-attestation-sha256 "$EXPECTED_RUNTIME_ATTESTATION_SHA256" \
-            --expected-source-bundle-sha256 "$EXPECTED_SOURCE_BUNDLE_SHA256" \
-            --expected-carrier-commit "$CARRIER_COMMIT"
-          printf '%s\n' "mode=capture" "external_scope=one_bounded_statcast_request" \
-            "output=$OUTPUT" > "${RUNNER_TEMP}/capture-execution-summary.txt"
-      - name: Upload immutable execution package
+          capture_root="${EXECUTION_ROOT}/${OUTPUT}"
+          command_status="${RUNNER_TEMP}/capture-command-status.json"
+          observation="${RUNNER_TEMP}/capture-observation.json"
+          failure_package="${RUNNER_TEMP}/capture-failure-package"
+          mkdir -p "$failure_package"
+          if [ ! -f "$command_status" ]; then
+            "$audit_python" -I -B - "$command_status" <<'PY'
+          import json, sys
+          from pathlib import Path
+          Path(sys.argv[1]).write_text(json.dumps({
+              "schema_version": "shared-pa-statcast-capture-command-status-v1",
+              "status": "CAPTURE_COMMAND_STATUS_NOT_RETAINED",
+              "capture_command_exit_code": 99,
+              "capture_command_invoked": None,
+              "capture_command_error_type": None,
+              "external_statcast_requests": None,
+          }, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
+          PY
+          fi
+          "$audit_python" -I -B - "$capture_root" "$observation" <<'PY'
+          import json, sys
+          from pathlib import Path
+          root = Path(sys.argv[1])
+          manifest_path = root / "manifest.json"
+          result = {
+              "capture_root_exists": root.is_dir(),
+              "manifest_retained": manifest_path.is_file(),
+              "observed_capture_digest": None,
+              "success_count": None,
+              "failure_count": None,
+              "capture_validation_exit_code": 1,
+          }
+          if manifest_path.is_file():
+              manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+              result.update({
+                  "observed_capture_digest": manifest.get("observed_capture_digest"),
+                  "success_count": manifest.get("success_count"),
+                  "failure_count": manifest.get("failure_count"),
+              })
+              if manifest.get("success_count") == 1 and manifest.get("failure_count") == 0:
+                  result["capture_validation_exit_code"] = 0
+          Path(sys.argv[2]).write_text(
+              json.dumps(result, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
+          PY
+          capture_rc="$("$audit_python" -I -B -c 'import json,sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["capture_command_exit_code"])' "$command_status")"
+          validation_rc="$("$audit_python" -I -B -c 'import json,sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["capture_validation_exit_code"])' "$observation")"
+          expected_digest="$("$audit_python" -I -B -c 'import json,sys; print(json.load(open(sys.argv[1], encoding="utf-8")).get("observed_capture_digest") or "")' "$observation")"
+          verifier_rc=97
+          if [ -n "$expected_digest" ] && [ -d "$capture_root" ]; then
+            set +e
+            "$audit_python" -I -B scripts/verify_shared_pa_statcast_capture_v1.py \
+              --capture "$capture_root" \
+              --request-plan "$REQUEST_PLAN" \
+              --contract "$CONTRACT" \
+              --expected-capture-digest "$expected_digest" \
+              > "${failure_package}/carrier-verifier.stdout.txt" \
+              2> "${failure_package}/carrier-verifier.stderr.txt"
+            verifier_rc=$?
+            set -e
+          else
+            printf '%s\n' "carrier verifier not invoked because no capture manifest was retained" \
+              > "${failure_package}/carrier-verifier.stderr.txt"
+          fi
+          printf '%s\n' "$capture_rc" > "${failure_package}/capture-command-exit-code.txt"
+          printf '%s\n' "$validation_rc" > "${failure_package}/capture-validation-exit-code.txt"
+          printf '%s\n' "$verifier_rc" > "${failure_package}/carrier-verifier-exit-code.txt"
+          "$audit_python" -I -B - "$command_status" "$observation" "$capture_root" \
+            "$capture_rc" "$validation_rc" "$verifier_rc" "${failure_package}/failure-package.json" <<'PY'
+          import json, sys
+          from pathlib import Path
+          command = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+          observation = json.loads(Path(sys.argv[2]).read_text(encoding="utf-8"))
+          capture_root = Path(sys.argv[3])
+          capture_rc, validation_rc, verifier_rc = map(int, sys.argv[4:7])
+          output = Path(sys.argv[7])
+          retained_paths = sorted(
+              path.relative_to(capture_root).as_posix()
+              for path in capture_root.rglob("*")
+              if path.is_file()
+          ) if capture_root.is_dir() else []
+          raw_paths = [path for path in retained_paths if "/response-attempt-" in "/" + path]
+          result_paths = [capture_root / path for path in retained_paths if "/result-" in "/" + path]
+          safe_headers_retained = False
+          for path in result_paths:
+              try:
+                  value = json.loads(path.read_text(encoding="utf-8"))
+              except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+                  continue
+              safe_headers_retained = safe_headers_retained or isinstance(value.get("response_headers"), dict)
+          reservation_paths = [path for path in retained_paths if "/reservation-" in "/" + path]
+          request_start_timestamp_retained = False
+          for relative in reservation_paths:
+              try:
+                  value = json.loads((capture_root / relative).read_text(encoding="utf-8"))
+              except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+                  continue
+              request_start_timestamp_retained = request_start_timestamp_retained or isinstance(
+                  value.get("request_started_at_utc"), str
+              )
+          is_failure = capture_rc != 0 or validation_rc != 0 or verifier_rc != 0
+          package = {
+              "schema_version": "shared-pa-statcast-capture-failure-package-v1",
+              "status": "CAPTURE_QUARANTINED" if is_failure else "CAPTURE_VERIFIED_AWAITING_SEPARATE_SOURCE_QUALIFICATION",
+              "invalid": is_failure,
+              "quarantined": is_failure,
+              "non_promotable": is_failure,
+              "source_qualified": False,
+              "upload_is_source_qualification": False,
+              "capture_command_exit_code": capture_rc,
+              "capture_validation_exit_code": validation_rc,
+              "carrier_verifier_exit_code": verifier_rc,
+              "terminal_workflow_status_after_publication": "FAILURE" if is_failure else "SUCCESS",
+              "command_status": command,
+              "capture_observation": observation,
+              "retained_capture_paths": retained_paths,
+              "raw_bytes_retained": bool(raw_paths),
+              "safe_response_headers_retained": safe_headers_retained,
+              "request_start_timestamp_retained": request_start_timestamp_retained,
+              "attempt_journal_retained": bool(reservation_paths),
+              "runtime_identities": {
+                  "carrier_commit": "74395e8552cf65701e526d4cba1f08a3e7f286d8",
+                  "runtime_attestation_sha256": "903e566a99d048a575dbe075378fd8b80ace92bf5028c6ddcbb0d200fe509ae5",
+                  "runtime_policy_sha256": "31b6b16063bfb0f8e1535d4475259caa10ff548423df793a9d79bd2616f5f9c3",
+              },
+              "source_and_request_identities": {
+                  "source_contract_sha256": "7078857cc1815e5c8dcecd667a9b6d69079ef31c1fc68057473d1fb1dc9ceebd",
+                  "source_bundle_sha256": "22a36802fb7530cc21fb0f38a7c6e85422088de25f435916cf3b53f74d7367a1",
+                  "request_plan_sha256": "a40abd52a42ed36a49b6fc5d3d91d2202f57e7075a077f8f1abe3252df016994",
+                  "authorization_sha256": "11c19c423404f7e75b8308dc6feea818808af166b64ce7abc7140bc0f6e8425f",
+                  "carrier_bound_attempt_history_sha256": "eb28fbfc18ba777f796abe1db9735579f99a06907d5de856d696d4de5db0aaf5",
+                  "successor_attempt_history_sha256": "456787efef26d3d438e1afe13d1eee949cd9866d2f8d0a2c5c74d9928a97572e",
+              },
+              "excluded_from": ["source", "feature", "model", "evaluation"],
+              "missing_fields_are_not_reconstructed": True,
+          }
+          output.write_text(json.dumps(package, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
+          print(package["status"])
+          PY
+          cp -- "$command_status" "${failure_package}/capture-command-status.json"
+          cp -- "$observation" "${failure_package}/capture-observation.json"
+          printf '%s\n' "mode=capture" "capture_command_exit_code=$capture_rc" \
+            "capture_validation_exit_code=$validation_rc" "carrier_verifier_exit_code=$verifier_rc" \
+            > "${RUNNER_TEMP}/capture-execution-summary.txt"
+      - name: Upload quarantined failure evidence or verified capture package
+        if: ${{ always() && github.event_name == 'workflow_dispatch' }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: shared-pa-statcast-sample-capture-${{ github.event_name }}-${{ github.run_id }}
+          name: shared-pa-statcast-capture-quarantine-${{ github.run_id }}
           path: |
             ${{ runner.temp }}/statcast-carrier-exec/data/source/shared_pa_statcast_sample_2023-07-25_v1
+            ${{ runner.temp }}/capture-failure-package
+            ${{ runner.temp }}/capture-execution-summary.txt
+          if-no-files-found: error
+          retention-days: 90
+      - name: Report preserved terminal status after artifact upload
+        if: ${{ always() && github.event_name == 'workflow_dispatch' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          audit_python="${RUNNER_TEMP}/statcast-runtime-env/bin/python"
+          package="${RUNNER_TEMP}/capture-failure-package/failure-package.json"
+          test -f "$package"
+          capture_rc="$("$audit_python" -I -B -c 'import json,sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["capture_command_exit_code"])' "$package")"
+          validation_rc="$("$audit_python" -I -B -c 'import json,sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["capture_validation_exit_code"])' "$package")"
+          verifier_rc="$("$audit_python" -I -B -c 'import json,sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["carrier_verifier_exit_code"])' "$package")"
+          printf '%s\n' "capture_command_exit_code=$capture_rc" \
+            "capture_validation_exit_code=$validation_rc" \
+            "carrier_verifier_exit_code=$verifier_rc"
+          if [ "$capture_rc" -ne 0 ]; then exit "$capture_rc"; fi
+          if [ "$validation_rc" -ne 0 ]; then exit "$validation_rc"; fi
+          if [ "$verifier_rc" -ne 0 ]; then exit "$verifier_rc"; fi
+      - name: Upload pull-request preflight evidence
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: shared-pa-statcast-preflight-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/statcast-carrier-exec/data/source/shared_pa_statcast_sample_2023-07-25_v1
+            ${{ runner.temp }}/capture-command-status.json
             ${{ runner.temp }}/capture-execution-summary.txt
           if-no-files-found: error
           retention-days: 90
