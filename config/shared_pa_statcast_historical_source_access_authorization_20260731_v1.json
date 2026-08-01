@@ -1,0 +1,48 @@
+{
+  "schema_version": "shared-pa-statcast-historical-source-access-v1",
+  "authorization_id": "pending-user-authorized-2023-statcast-bounded-sample-20260731-v1",
+  "status": "AUTHORIZED_RESEARCH_ONLY_BOUNDED_2023_STATCAST_SAMPLE",
+  "authorized_at_utc": "2026-07-31T00:00:00.000000Z",
+  "valid_from_utc": "2026-07-31T00:00:00.000000Z",
+  "expires_at_utc": "2026-08-31T00:00:00.000000Z",
+  "research_only": true,
+  "betting_authorized": false,
+  "network_fetch_authorized": true,
+  "source_scope": {
+    "authority": "baseball_savant_statcast_pitch_level_csv",
+    "scheme": "https",
+    "host": "baseballsavant.mlb.com",
+    "method": "GET",
+    "path": "/statcast_search/csv",
+    "season": 2023,
+    "game_types": ["R"],
+    "bounded_sample_date": "2023-07-25",
+    "request_count": 1,
+    "output_path": "data/source/shared_pa_statcast_sample_2023-07-25_v1",
+    "complete_standard_csv_schema_requested": true,
+    "server_side_field_filter": null,
+    "redirects_allowed": false
+  },
+  "authorized_actions": {
+    "bounded_raw_statcast_sample_capture": true,
+    "full_2023_statcast_capture": false,
+    "feature_candidate_fitting": false,
+    "market_scoring": false,
+    "prediction_generation": false,
+    "prospective_reconstruction": false,
+    "economic_evaluation": false
+  },
+  "protected_boundaries": {
+    "may_2026_accessed": false,
+    "selection_2024_accessed": false,
+    "spent_hr_confirmation_2025_accessed": false,
+    "market_prices_accessed": false,
+    "prospective_evidence_accessed": false
+  },
+  "carrier_commit": "00e3d9ae334cccf40aa4260a3d9682a5027540cd",
+  "runtime_policy_sha256": "4cf7499a61edf0ebfbb6bd52ab812ba32175a81107f8665f79d3f97cf7b02cbd",
+  "source_bundle_sha256": "51a2b917824b62298271cf6cadd66cd1116848d2411817afe25f9e49912fcafd",
+  "source_contract_sha256": "7078857cc1815e5c8dcecd667a9b6d69079ef31c1fc68057473d1fb1dc9ceebd",
+  "request_plan_sha256": "a40abd52a42ed36a49b6fc5d3d91d2202f57e7075a077f8f1abe3252df016994",
+  "authorization_sha256": "0a4de51cb6da5993f7837e9d7c9723e506da27ba00afeffbd1f429e4ded5e206"
+}
