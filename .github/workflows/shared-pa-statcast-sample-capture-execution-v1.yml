@@ -1,16 +1,11 @@
 name: Shared PA Statcast bounded sample capture (execution)
 
 on:
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
-      mode:
-        description: "Execution mode; preflight is the safe default"
-        required: true
-        default: preflight
-        type: choice
-        options:
-          - preflight
-          - capture
       expected_workflow_commit_sha:
         description: "Exact commit containing this workflow"
         required: true
@@ -45,10 +40,95 @@ env:
   EXPECTED_AUTHORIZATION_SHA256: 11c19c423404f7e75b8308dc6feea818808af166b64ce7abc7140bc0f6e8425f
   EXPECTED_RUNTIME_ATTESTATION_SHA256: 903e566a99d048a575dbe075378fd8b80ace92bf5028c6ddcbb0d200fe509ae5
   EXPECTED_ATTEMPT_HISTORY_SHA256: eb28fbfc18ba777f796abe1db9735579f99a06907d5de856d696d4de5db0aaf5
-  REQUESTED_WORKFLOW_COMMIT: ${{ inputs.expected_workflow_commit_sha }}
-  EXPECTED_RUNTIME_INPUT: ${{ inputs.expected_runtime_attestation_sha256 }}
+  EVENT_NAME: ${{ github.event_name }}
+  EVENT_MODE: ${{ github.event_name == 'pull_request' && 'preflight' || github.event_name == 'workflow_dispatch' && 'capture' || 'invalid' }}
+  DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+  REQUESTED_WORKFLOW_COMMIT: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || inputs.expected_workflow_commit_sha }}
+  EXPECTED_RUNTIME_INPUT: ${{ github.event_name == 'pull_request' && '903e566a99d048a575dbe075378fd8b80ace92bf5028c6ddcbb0d200fe509ae5' || inputs.expected_runtime_attestation_sha256 }}
 
 jobs:
+  workflow-contract:
+    name: Validate immutable event-mode separation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Check out the workflow commit under test
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ env.REQUESTED_WORKFLOW_COMMIT }}
+          fetch-depth: 1
+          persist-credentials: false
+      - name: Run static event and mutation checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -I -B - .github/workflows/shared-pa-statcast-sample-capture-execution-v1.yml <<'PY'
+          import sys
+          from pathlib import Path
+
+          path = Path(sys.argv[1])
+          original = path.read_text(encoding="utf-8")
+
+          def validate(text: str) -> None:
+              required = (
+                  "pull_request:\n    branches:",
+                  "workflow_dispatch:\n    inputs:",
+                  "EVENT_MODE:",
+                  "github.event_name == 'pull_request' && 'preflight'",
+                  "github.event_name == 'workflow_dispatch' && 'capture'",
+                  'if event_name not in {"pull_request", "workflow_dispatch"}:',
+                  'if event_name == "pull_request" and event_mode != "preflight":',
+                  'if event_name == "workflow_dispatch" and event_mode != "capture":',
+                  'capture._transport = blocked_transport',
+                  'with capture.network_denial_guard()',
+                  'rc = capture.authorized_main(argv)',
+                  'reservation-02.json',
+                  '"prior_attempt_count"] == 1',
+                  '"remaining_attempts": 3',
+                  '--expected-authorization-sha256',
+                  '--expected-runtime-attestation-sha256',
+                  '--expected-source-bundle-sha256',
+                  'test ! -e "$output"',
+                  'test ! -e "$work"',
+                  'test ! -e "$lock"',
+              )
+              missing = [needle for needle in required if needle not in text]
+              if missing:
+                  raise AssertionError(f"event-separation contract missing: {missing}")
+              mode_input = "inputs" + ".mode"
+              mode_indent = (" " * 6) + "mode:"
+              if mode_indent in text or mode_input in text:
+                  raise AssertionError("pull_request must have no mode input or mode override")
+              if ("if: ${{ " + mode_input + " == 'capture' }}") in text:
+                  raise AssertionError("capture must be selected by event, never by an input")
+              if text.count("with capture.network_denial_guard()") < 2:
+                  raise AssertionError("application and lower-level network guards are both required")
+
+          validate(original)
+          mutations = {
+              "pull_request_guard_removed": original.replace("  pull_request:\n    branches:\n      - main\n", "", 1),
+              "event_name_changed": original.replace("github.event_name == 'pull_request'", "github.event_name_tampered == 'pull_request'"),
+              "preflight_condition_weakened": original.replace('event_mode != "preflight"', 'event_mode != "capture"'),
+              "lower_guard_removed": original.replace('with capture.network_denial_guard()', 'with nullcontext()'),
+              "blocking_transport_removed": original.replace('blocked_transport', 'original_transport'),
+              "authorization_gate_removed": original.replace('--expected-authorization-sha256', '--authorization-gate-removed'),
+              "attempt_history_removed": original.replace('reservation-02.json', 'reservation-99.json'),
+              "workflow_input_added": original.replace(
+                  (" " * 6) + "expected_workflow_commit_sha:",
+                  (" " * 6) + "mode: capture" + chr(10) + (" " * 6) + "expected_workflow_commit_sha:",
+                  1),
+              "attempt_one_reset": original.replace('"prior_attempt_count"] == 1', '"prior_attempt_count"] == 0'),
+          }
+          for name, mutated in mutations.items():
+              try:
+                  validate(mutated)
+              except AssertionError:
+                  continue
+              raise AssertionError(f"mutation was not rejected: {name}")
+          print("EVENT_MODE_STATIC_CHECK=PASS")
+          print("EVENT_MODE_MUTATION_CHECKS=PASS")
+          PY
+
   independent-attestation:
     name: Clean-Linux attestation (${{ matrix.pass }})
     strategy:
@@ -153,7 +233,7 @@ jobs:
           retention-days: 90
 
   execute-authorized-main:
-    name: Execute authorized_main (${{ inputs.mode }})
+    name: Execute authorized_main (${{ github.event_name }})
     needs: attestation-equality
     runs-on: ubuntu-24.04
     timeout-minutes: 30
@@ -168,6 +248,20 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          case "$EVENT_NAME:$EVENT_MODE" in
+            pull_request:preflight) ;;
+            workflow_dispatch:capture) ;;
+            *) echo "event/mode mismatch" >&2; exit 1 ;;
+          esac
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            test "$GITHUB_REF_NAME" = "$DEFAULT_BRANCH"
+            test "$REQUESTED_WORKFLOW_COMMIT" = "$GITHUB_SHA"
+            test -n "${{ inputs.expected_workflow_commit_sha }}"
+            test -n "${{ inputs.expected_runtime_attestation_sha256 }}"
+          else
+            test "$EVENT_NAME" = "pull_request"
+            test "$EVENT_MODE" = "preflight"
+          fi
           test "$(git rev-parse HEAD)" = "$REQUESTED_WORKFLOW_COMMIT"
           test "$(git rev-parse "$CARRIER_COMMIT^{commit}")" = "$CARRIER_COMMIT"
           git checkout --detach "$CARRIER_COMMIT"
@@ -228,7 +322,11 @@ jobs:
       - name: Verify output path is new and invoke authorized_main
         shell: bash
         env:
-          CAPTURE_MODE: ${{ inputs.mode }}
+          EVENT_NAME_LITERAL: ${{ github.event_name }}
+          EVENT_MODE_LITERAL: ${{ github.event_name == 'pull_request' && 'preflight' || github.event_name == 'workflow_dispatch' && 'capture' || 'invalid' }}
+          DEFAULT_BRANCH_LITERAL: ${{ github.event.repository.default_branch }}
+          REF_NAME_LITERAL: ${{ github.ref_name }}
+          WORKFLOW_SHA_LITERAL: ${{ github.sha }}
         run: |
           set -euo pipefail
           unset LD_LIBRARY_PATH
@@ -239,7 +337,9 @@ jobs:
           test ! -e "$output"
           test ! -e "$work"
           test ! -e "$lock"
-          "$audit_python" -I -B - "$CAPTURE_MODE" "$REQUEST_PLAN" "$CONTRACT" \
+          "$audit_python" -I -B - "$EVENT_NAME_LITERAL" "$EVENT_MODE_LITERAL" \
+            "$DEFAULT_BRANCH_LITERAL" "$REF_NAME_LITERAL" "$WORKFLOW_SHA_LITERAL" \
+            "$REQUESTED_WORKFLOW_COMMIT" "$REQUEST_PLAN" "$CONTRACT" \
             "$AUTHORIZATION" "$RUNTIME_POLICY" \
             "${RUNNER_TEMP}/attestation/statcast-runtime-first.json" "$output" \
             "$ATTEMPT_HISTORY" <<'PY'
@@ -248,7 +348,20 @@ jobs:
           from pathlib import Path
           sys.path.insert(0, str(Path.cwd()))
           import scripts.capture_shared_pa_statcast_source_v1 as capture
-          mode, plan, contract, authorization, policy, attestation, output, attempts = sys.argv[1:]
+          (event_name, event_mode, default_branch, ref_name, workflow_sha,
+           requested_workflow_commit, plan, contract, authorization, policy,
+           attestation, output, attempts) = sys.argv[1:]
+          if event_name not in {"pull_request", "workflow_dispatch"}:
+              raise SystemExit("unsupported event")
+          if event_name == "pull_request" and event_mode != "preflight":
+              raise SystemExit("pull_request is preflight-only")
+          if event_name == "workflow_dispatch" and event_mode != "capture":
+              raise SystemExit("workflow_dispatch is capture-only")
+          if event_name == "workflow_dispatch":
+              if ref_name != default_branch or requested_workflow_commit != workflow_sha:
+                  raise SystemExit("capture requires the exact merged default-branch workflow")
+          elif event_name == "pull_request" and event_mode == "capture":
+              raise SystemExit("pull_request cannot select capture")
           argv = [
               "--request-plan", plan, "--contract", contract,
               "--authorization", authorization,
@@ -269,16 +382,16 @@ jobs:
               raise capture.TransportFailure(
                   error_kind="no_network_execution_preflight", retryable=False,
                   requested_at_utc=capture._utc(), observed_at_utc=capture._utc())
-          if mode == "preflight":
+          if event_mode == "preflight":
               capture._transport = blocked_transport
           try:
-              with capture.network_denial_guard() if mode == "preflight" else nullcontext():
+              with capture.network_denial_guard() if event_mode == "preflight" else nullcontext():
                   rc = capture.authorized_main(argv)
           finally:
               capture._transport = original_transport
           if rc != 0:
               raise SystemExit(rc)
-          if mode == "preflight":
+          if event_mode == "preflight":
               assert len(calls) == 1, calls
               assert calls[0]["full_url"].startswith("https://baseballsavant.mlb.com/statcast_search/csv?")
               manifest = json.loads((Path(output) / "manifest.json").read_text(encoding="utf-8"))
@@ -303,19 +416,19 @@ jobs:
                   else:
                       raise AssertionError("lower-level network guard did not block")
           Path(os.environ["RUNNER_TEMP"]).joinpath("capture-execution-summary.txt").write_text(
-              json.dumps({"mode": mode, "authorized_main_invoked": True,
-                          "external_statcast_requests": 0 if mode == "preflight" else None,
+              json.dumps({"event": event_name, "mode": event_mode, "authorized_main_invoked": True,
+                          "external_statcast_requests": 0 if event_mode == "preflight" else None,
                           "attempt_1_consumed": True, "remaining_attempts": 3,
-                          "status": "PRECHECK_PASSED" if mode == "preflight" else "CAPTURE_COMPLETED"},
+                          "status": "PRECHECK_PASSED" if event_mode == "preflight" else "CAPTURE_COMPLETED"},
                          sort_keys=True) + "\n", encoding="utf-8")
-          print(json.dumps({"mode": mode, "authorized_main_invoked": True,
-                            "external_statcast_requests": 0 if mode == "preflight" else None,
+          print(json.dumps({"event": event_name, "mode": event_mode, "authorized_main_invoked": True,
+                            "external_statcast_requests": 0 if event_mode == "preflight" else None,
                             "attempt_1_consumed": True,
                             "remaining_attempts": 3,
-                            "status": "PRECHECK_PASSED" if mode == "preflight" else "CAPTURE_COMPLETED"}, sort_keys=True))
+                            "status": "PRECHECK_PASSED" if event_mode == "preflight" else "CAPTURE_COMPLETED"}, sort_keys=True))
           PY
       - name: Verify and summarize captured package
-        if: ${{ inputs.mode == 'capture' }}
+        if: ${{ github.event_name == 'workflow_dispatch' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -333,7 +446,7 @@ jobs:
       - name: Upload immutable execution package
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: shared-pa-statcast-sample-capture-${{ inputs.mode }}-${{ github.run_id }}
+          name: shared-pa-statcast-sample-capture-${{ github.event_name }}-${{ github.run_id }}
           path: |
             ${{ github.workspace }}/data/source/shared_pa_statcast_sample_2023-07-25_v1
             ${{ runner.temp }}/capture-execution-summary.txt
