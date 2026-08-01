@@ -43,6 +43,8 @@ def verify(root: Path, plan_path: Path, contract_path: Path, expected_digest: st
     if manifest.get("request_plan_sha256")!=sha256_file(plan_path) or manifest.get("source_contract_sha256")!=sha256_file(contract_path):
         raise VerificationError("capture plan or contract binding differs")
     request=plan["requests"][0]; request_dir=root/request["request_id"]
+    if not request_dir.is_dir() or _is_link_or_reparse(request_dir):
+        raise VerificationError("capture request directory is absent or unsafe")
     context=json.loads((root/"capture_context.json").read_text(encoding="utf-8"))
     required_context={"schema_version","request_plan_sha256","source_contract_sha256","parser_sha256","authorization_sha256","runtime_attestation_sha256","runtime_policy_sha256","source_bundle_sha256","carrier_commit"}
     if set(context)!=required_context or context.get("schema_version")!="shared-pa-statcast-capture-context-v1" or context.get("request_plan_sha256")!=sha256_file(plan_path) or context.get("source_contract_sha256")!=sha256_file(contract_path):

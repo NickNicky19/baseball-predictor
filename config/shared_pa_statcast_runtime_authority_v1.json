@@ -43,9 +43,9 @@
   "audited_python_sha256": {
     "scripts/build_direct_batter_pa_source_release.py": "3ba8dc390fb53e65ac4e56dba0caa546cd92e1b144432fb0708e267c7aa71ace",
     "scripts/capture_direct_batter_pa_source_transport_v2.py": "5179d546919f1221fd18adf386a388f229b49ea7013873850757a3d09334528d",
-    "scripts/capture_shared_pa_statcast_source_v1.py": "e69a2c67eee00d70be09fe56d95672f289f940d2c91089ce643a5e0b9c319468",
+    "scripts/capture_shared_pa_statcast_source_v1.py": "2cea6f4fa9ab0c7bbaf5208eba8d7a910108ea018bd7c40ae878f2bdb162b633",
     "scripts/verify_direct_batter_pa_source_runtime_authority.py": "20cbe564ec1376f366c1938991a293c866aa4893bda11ffecd8d3d874855b0f1",
-    "scripts/verify_shared_pa_statcast_capture_v1.py": "677a7dd976f1391e8df3524aedb03a4f558a825f84dad2e778fcd535199b2dc1",
+    "scripts/verify_shared_pa_statcast_capture_v1.py": "ef6c28f7f57eea93959bf9a6e326c3f44341b047fcb59dcd8b35a7fe7c30dbff",
     "src/data/shared_pa_statcast_source_v1.py": "ac98b4414694618127b39dd15baee5e10c2c8f49d30b61a12164b7c4c1182d8a",
     "src/evaluation/shared_pa_statcast_historical_source_access_v1.py": "5c0cc68b4e931557632b5d3433960302c88845fd57ad86f5d17253774227f81f"
   },

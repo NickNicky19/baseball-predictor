@@ -37,6 +37,8 @@ def _fsync_dir(path: Path) -> None:
 def _validate_work_tree(work: Path, request_id: str) -> None:
     allowed_top={"capture_context.json",request_id}
     if {path.name for path in work.iterdir()}-allowed_top: raise CaptureError("resumable work state contains an unexpected path")
+    context=work/"capture_context.json"
+    if _is_link_or_reparse(context) or not context.is_file(): raise CaptureError("resumable capture context is unsafe")
     child=work/request_id
     if not child.exists(): return
     if _is_link_or_reparse(child) or not child.is_dir(): raise CaptureError("resumable request state is unsafe")
@@ -191,7 +193,8 @@ def capture(
     parser_sha=sha256_file(ROOT/"src/data/shared_pa_statcast_source_v1.py")
     context={"schema_version":"shared-pa-statcast-capture-context-v1","request_plan_sha256":plan_sha,"source_contract_sha256":contract_sha,"parser_sha256":parser_sha,"authorization_sha256":source_access.authorization_file_sha256,"runtime_attestation_sha256":runtime_authorization.attestation_sha256,"runtime_policy_sha256":runtime_authorization.policy_sha256,"source_bundle_sha256":source_access.source_bundle_sha256,"carrier_commit":carrier_commit}
     if work.exists():
-        if _is_link_or_reparse(work) or not (work/"capture_context.json").is_file() or json.loads((work/"capture_context.json").read_text(encoding="utf-8")) != context:
+        context_path=work/"capture_context.json"
+        if _is_link_or_reparse(work) or not context_path.is_file() or _is_link_or_reparse(context_path) or json.loads(context_path.read_text(encoding="utf-8")) != context:
             raise CaptureError("existing work state is not the exact owned resumable capture")
         _validate_work_tree(work,plan["requests"][0]["request_id"])
     else:
