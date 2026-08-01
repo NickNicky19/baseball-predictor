@@ -40,6 +40,7 @@ env:
   EXPECTED_SOURCE_BUNDLE_SHA256: 51a2b917824b62298271cf6cadd66cd1116848d2411817afe25f9e49912fcafd
   EXPECTED_REQUEST_PLAN_SHA256: a40abd52a42ed36a49b6fc5d3d91d2202f57e7075a077f8f1abe3252df016994
   EXPECTED_AUTHORIZATION_SHA256: e9143d0144c1fde6f6281efda012c86bc4071b9dfddbb97f205245976af27586
+  EXPECTED_RUNTIME_ATTESTATION_SHA256: 664d2da2fcd2c81cf28b3b105b557048ed00d949d167500e88c0242dce59ebc4
   REQUESTED_WORKFLOW_COMMIT: ${{ inputs.expected_workflow_commit_sha || github.sha }}
   EXPECTED_RUNTIME_INPUT: ${{ inputs.expected_runtime_attestation_sha256 || 'DISCOVER' }}
 
@@ -92,9 +93,8 @@ jobs:
           "$audit_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
             --policy "$RUNTIME_POLICY" --write-linux-attestation "$attestation"
           observed="$(sha256sum "$attestation" | awk '{print $1}')"
-          if [ "$EXPECTED_RUNTIME_INPUT" != "DISCOVER" ]; then
-            test "$observed" = "$EXPECTED_RUNTIME_INPUT"
-          fi
+          test "$EXPECTED_RUNTIME_INPUT" = "$EXPECTED_RUNTIME_ATTESTATION_SHA256"
+          test "$observed" = "$EXPECTED_RUNTIME_ATTESTATION_SHA256"
           printf '%s  %s\n' "$observed" "$attestation" > "${RUNNER_TEMP}/statcast-runtime-${{ matrix.pass }}.sha256"
       - name: Upload attestation evidence
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -128,9 +128,8 @@ jobs:
           set -euo pipefail
           cmp --silent "${RUNNER_TEMP}/first/statcast-runtime-first.json" "${RUNNER_TEMP}/second/statcast-runtime-second.json"
           observed="$(sha256sum "${RUNNER_TEMP}/first/statcast-runtime-first.json" | awk '{print $1}')"
-          if [ "$EXPECTED_RUNTIME_INPUT" != "DISCOVER" ]; then
-            test "$observed" = "$EXPECTED_RUNTIME_INPUT"
-          fi
+          test "$EXPECTED_RUNTIME_INPUT" = "$EXPECTED_RUNTIME_ATTESTATION_SHA256"
+          test "$observed" = "$EXPECTED_RUNTIME_ATTESTATION_SHA256"
           printf '%s\n' "$observed" > "${RUNNER_TEMP}/statcast-runtime-equality.txt"
       - name: Upload equality evidence
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -234,7 +233,7 @@ jobs:
           assert manifest["success_count"] == 0
           assert manifest["failure_count"] == 1
           assert not (output_path / "statcast-2023-07-25" / "response.csv").exists()
-          Path(os.environ["RUNNER_TEMP"]) .joinpath("statcast-no-network-preflight.json").write_text(
+          Path(os.environ["RUNNER_TEMP"]).joinpath("statcast-no-network-preflight.json").write_text(
               json.dumps({"schema_version":"shared-pa-statcast-no-network-preflight-v1",
                           "status":"PASSED_IMMEDIATELY_BEFORE_FIRST_REQUEST",
                           "external_statcast_requests":0,
