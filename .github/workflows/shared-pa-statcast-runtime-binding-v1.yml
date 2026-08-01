@@ -1,6 +1,8 @@
 name: Shared PA Statcast runtime binding (no-network)
 
 on:
+  pull_request:
+    branches: [main]
   workflow_dispatch:
     inputs:
       expected_workflow_commit_sha:
@@ -38,6 +40,8 @@ env:
   EXPECTED_SOURCE_BUNDLE_SHA256: 51a2b917824b62298271cf6cadd66cd1116848d2411817afe25f9e49912fcafd
   EXPECTED_REQUEST_PLAN_SHA256: a40abd52a42ed36a49b6fc5d3d91d2202f57e7075a077f8f1abe3252df016994
   EXPECTED_AUTHORIZATION_SHA256: e9143d0144c1fde6f6281efda012c86bc4071b9dfddbb97f205245976af27586
+  REQUESTED_WORKFLOW_COMMIT: ${{ inputs.expected_workflow_commit_sha || github.sha }}
+  EXPECTED_RUNTIME_INPUT: ${{ inputs.expected_runtime_attestation_sha256 || 'DISCOVER' }}
 
 jobs:
   independent-attestation:
@@ -88,8 +92,8 @@ jobs:
           "$audit_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
             --policy "$RUNTIME_POLICY" --write-linux-attestation "$attestation"
           observed="$(sha256sum "$attestation" | awk '{print $1}')"
-          if [ "${{ inputs.expected_runtime_attestation_sha256 }}" != "DISCOVER" ]; then
-            test "$observed" = "${{ inputs.expected_runtime_attestation_sha256 }}"
+          if [ "$EXPECTED_RUNTIME_INPUT" != "DISCOVER" ]; then
+            test "$observed" = "$EXPECTED_RUNTIME_INPUT"
           fi
           printf '%s  %s\n' "$observed" "$attestation" > "${RUNNER_TEMP}/statcast-runtime-${{ matrix.pass }}.sha256"
       - name: Upload attestation evidence
@@ -124,8 +128,8 @@ jobs:
           set -euo pipefail
           cmp --silent "${RUNNER_TEMP}/first/statcast-runtime-first.json" "${RUNNER_TEMP}/second/statcast-runtime-second.json"
           observed="$(sha256sum "${RUNNER_TEMP}/first/statcast-runtime-first.json" | awk '{print $1}')"
-          if [ "${{ inputs.expected_runtime_attestation_sha256 }}" != "DISCOVER" ]; then
-            test "$observed" = "${{ inputs.expected_runtime_attestation_sha256 }}"
+          if [ "$EXPECTED_RUNTIME_INPUT" != "DISCOVER" ]; then
+            test "$observed" = "$EXPECTED_RUNTIME_INPUT"
           fi
           printf '%s\n' "$observed" > "${RUNNER_TEMP}/statcast-runtime-equality.txt"
       - name: Upload equality evidence
@@ -194,7 +198,7 @@ jobs:
           "$audit_python" -I -B - "$REQUEST_PLAN" "$CONTRACT" \
             "${RUNNER_TEMP}/statcast-authorization.json" \
             "${RUNNER_TEMP}/attestation/statcast-runtime-first.json" \
-            "${{ inputs.expected_runtime_attestation_sha256 }}" "$output" "$work" <<'PY'
+            "$EXPECTED_RUNTIME_INPUT" "$output" "$work" <<'PY'
           import json
           import os
           from pathlib import Path
