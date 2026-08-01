@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 """Authorization-gated raw Statcast CSV capture; never invoked by preflight."""
 from __future__ import annotations
-import argparse, json, os, subprocess, sys, time
+import argparse, json, os, re, ssl, subprocess, sys, time, urllib.error, urllib.request
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path: sys.path.insert(0, str(ROOT))
 from scripts.capture_direct_batter_pa_source_transport_v2 import (
-    CapturedResponse, HTTPSHistoricalTransport, RuntimeAuthorization, TransportFailure,
-    _enumerate_files, _manifest_digest, _validate_response, authorize_runtime,
+    CapturedResponse, RuntimeAuthorization, TransportFailure, _NoRedirect,
+    _enumerate_files, _is_link_or_reparse, _manifest_digest, _read_limited,
+    _validate_response, authorize_runtime,
 )
 from scripts.build_shared_pa_statcast_request_plans_v1 import QUERY_BASE
 from src.data.shared_pa_statcast_source_v1 import canonical_json_bytes, load_contract, parse_csv_bytes, sha256_bytes, sha256_file
@@ -24,6 +25,7 @@ def _write_new(path: Path, value: object) -> None:
     with path.open("xb") as h:
         h.write(canonical_json_bytes(value) if not isinstance(value, bytes) else value)
         h.flush(); os.fsync(h.fileno())
+    _fsync_dir(path.parent)
 
 def _fsync_dir(path: Path) -> None:
     flag=getattr(os,"O_DIRECTORY",None)
@@ -39,15 +41,37 @@ def _validate_work_tree(work: Path, request_id: str) -> None:
     if not child.exists(): return
     if child.is_symlink() or not child.is_dir(): raise CaptureError("resumable request state is unsafe")
     allowed_exact={"terminal.json","response.csv","receipt.json"}
-    allowed_prefixes=("reservation-","result-","response-attempt-","validation-failure-")
+    allowed_pattern=re.compile(r"(?:reservation|result|validation-failure)-[0-9]{2}\.json|response-attempt-[0-9]{2}\.(?:csv|bin)\Z")
     for path in child.iterdir():
-        if path.is_symlink() or not path.is_file() or (path.name not in allowed_exact and not path.name.startswith(allowed_prefixes)):
+        if _is_link_or_reparse(path) or not path.is_file() or (path.name not in allowed_exact and allowed_pattern.fullmatch(path.name) is None):
             raise CaptureError("resumable request state contains an unexpected file")
 
+def _normalized_headers(message) -> dict[str,str]:  # noqa: ANN001
+    rows=message.raw_items() if hasattr(message,"raw_items") else message.items()
+    allowed={"cache-control","content-disposition","content-encoding","content-length","content-type","date","etag","last-modified","retry-after"}
+    result={}
+    for raw_name,raw_value in rows:
+        name=str(raw_name).strip().lower(); value=str(raw_value).strip()
+        if name not in allowed: continue
+        if name in result: raise CaptureError("response contains a duplicate safety-relevant header")
+        if "\r" in value or "\n" in value: raise CaptureError("response header contains a line break")
+        result[name]=value
+    return {key:result[key] for key in sorted(result)}
+
 def _transport(full_url: str, timeout: float, maximum: int) -> CapturedResponse:
-    return HTTPSHistoricalTransport().fetch(
-        {"full_url": full_url}, timeout_seconds=timeout, max_bytes=maximum,
-    )
+    requested=_utc(); opener=urllib.request.build_opener(urllib.request.ProxyHandler({}),_NoRedirect(),urllib.request.HTTPSHandler(context=ssl.create_default_context()))
+    request=urllib.request.Request(full_url,method="GET",headers={"Accept":"text/csv","Accept-Encoding":"identity","User-Agent":"baseball-predictor-research-source/1.0"})
+    try:
+        with opener.open(request,timeout=timeout) as response:
+            body=_read_limited(response,max_bytes=maximum)
+            return CapturedResponse(int(response.status),body,_normalized_headers(response.headers),str(response.geturl()),requested,_utc())
+    except urllib.error.HTTPError as exc:
+        body=_read_limited(exc,max_bytes=maximum)
+        return CapturedResponse(int(exc.code),body,_normalized_headers(exc.headers),str(exc.geturl()),requested,_utc())
+    except CaptureError: raise
+    except urllib.error.URLError as exc:
+        tls=isinstance(getattr(exc,"reason",None),ssl.SSLError)
+        raise TransportFailure(error_kind="tls_failure" if tls else "transport_io",retryable=not tls,requested_at_utc=requested,observed_at_utc=_utc()) from exc
 
 
 SOURCE_BUNDLE_FILES = (
@@ -158,7 +182,7 @@ def capture(
     if root != Path(os.path.abspath(os.fspath(authorized_output))): raise CaptureError("output path differs from authorization-scoped attempt identity")
     if root.exists(): raise CaptureError("output path already exists")
     for ancestor in (root.parent, *root.parent.parents):
-        if ancestor.exists() and ancestor.is_symlink(): raise CaptureError("output path has a symlink ancestor")
+        if ancestor.exists() and _is_link_or_reparse(ancestor): raise CaptureError("output path has a symlink or reparse ancestor")
     root.parent.mkdir(parents=True,exist_ok=True)
     lock=root.with_name(root.name+".lock")
     try: lock_fd=os.open(lock,os.O_CREAT|os.O_EXCL|os.O_WRONLY,0o600)
@@ -167,7 +191,7 @@ def capture(
     parser_sha=sha256_file(ROOT/"src/data/shared_pa_statcast_source_v1.py")
     context={"schema_version":"shared-pa-statcast-capture-context-v1","request_plan_sha256":plan_sha,"source_contract_sha256":contract_sha,"parser_sha256":parser_sha,"authorization_sha256":source_access.authorization_file_sha256,"runtime_attestation_sha256":runtime_authorization.attestation_sha256,"runtime_policy_sha256":runtime_authorization.policy_sha256,"source_bundle_sha256":source_access.source_bundle_sha256,"carrier_commit":carrier_commit}
     if work.exists():
-        if work.is_symlink() or not (work/"capture_context.json").is_file() or json.loads((work/"capture_context.json").read_text(encoding="utf-8")) != context:
+        if _is_link_or_reparse(work) or not (work/"capture_context.json").is_file() or json.loads((work/"capture_context.json").read_text(encoding="utf-8")) != context:
             raise CaptureError("existing work state is not the exact owned resumable capture")
         _validate_work_tree(work,plan["requests"][0]["request_id"])
     else:
@@ -193,7 +217,6 @@ def capture(
             _write_new(request_dir/f"reservation-{attempt:02d}.json", {"request":request,"attempt":attempt,"request_started_at_utc":started,"request_start_epoch":request_epoch})
             try:
                 response=transport(request["full_url"], contract["transport_policy"]["timeout_seconds"], contract["transport_policy"]["maximum_response_bytes"])
-                _validate_response(response,{"full_url":request["full_url"],"source_kind":"statcast"},{"sources":{"statcast":{"content_type_prefixes":["text/csv","application/csv"]}}})
                 status,headers,body=response.status,dict(response.headers),response.body
             except TransportFailure as exc:
                 record={"attempt":attempt,"request_started_at_utc":exc.requested_at_utc,"observed_at_utc":exc.observed_at_utc,"outcome":"RETRYABLE_FAILURE" if exc.retryable else "NONRETRYABLE_FAILURE","http_status":exc.status,"error_kind":exc.error_kind,"retry_after_header":exc.retry_after,"backoff_seconds":0.0}
@@ -206,26 +229,32 @@ def capture(
             except Exception as exc:
                 _write_new(request_dir/f"result-{attempt:02d}.json", {"attempt":attempt,"request_started_at_utc":started,"observed_at_utc":_utc(),"outcome":"NONRETRYABLE_FAILURE","http_status":None,"error_kind":type(exc).__name__,"retry_after_header":None,"backoff_seconds":0.0}); break
             safe={k:v for k,v in headers.items() if k in contract["transport_policy"]["safe_response_headers"]}
-            result={"attempt":attempt,"request_started_at_utc":response.requested_at_utc,"observed_at_utc":response.observed_at_utc,"outcome":"SUCCESS","http_status":status,"final_url":response.final_url,"response_headers":safe,"byte_count":len(body),"sha256":sha256_bytes(body),"retry_after_header":None,"backoff_seconds":0.0}
-            _write_new(request_dir/f"result-{attempt:02d}.json",result)
-            _write_new(request_dir/f"response-attempt-{attempt:02d}.csv",body)
+            result={"attempt":attempt,"request_started_at_utc":response.requested_at_utc,"observed_at_utc":response.observed_at_utc,"outcome":"SUCCESS" if status==200 else "RETRYABLE_FAILURE" if status in contract["transport_policy"]["retryable_http_statuses"] else "NONRETRYABLE_FAILURE","http_status":status,"final_url":response.final_url,"response_headers":safe,"byte_count":len(body),"sha256":sha256_bytes(body),"retry_after_header":safe.get("retry-after"),"backoff_seconds":0.0}
+            _write_new(request_dir/f"response-attempt-{attempt:02d}.{'csv' if status==200 else 'bin'}",body)
             if safe.get("content-length") not in (None,"",str(len(body))):
-                _write_new(request_dir/f"validation-failure-{attempt:02d}.json",{"error_type":"CaptureError","message":"Content-Length differs from retained bytes"}); break
+                result["outcome"]="NONRETRYABLE_FAILURE"; result["error_kind"]="content_length_mismatch"; _write_new(request_dir/f"result-{attempt:02d}.json",result); break
             if status==200:
+                try:
+                    _validate_response(response,{"full_url":request["full_url"],"source_kind":"statcast"},{"sources":{"statcast":{"content_type_prefixes":["text/csv","application/csv"]}}})
+                except Exception as exc:
+                    result["outcome"]="NONRETRYABLE_FAILURE"; result["error_kind"]=type(exc).__name__; _write_new(request_dir/f"result-{attempt:02d}.json",result); _write_new(request_dir/f"validation-failure-{attempt:02d}.json",{"error_type":type(exc).__name__,"message":str(exc)}); break
                 certified={int(item["game_pk"]): {"official_date":request["expected"]["official_date"], "home_team_id":item["home_team_id"], "away_team_id":item["away_team_id"], "home_team_code":item["home_team_code"], "away_team_code":item["away_team_code"]} for item in request["expected"]["certified_games"]}
                 try:
                     parse_csv_bytes(body,contract=contract,expected_date=request["expected"]["official_date"],certified_games=certified)
                 except Exception as exc:
-                    _write_new(request_dir/f"validation-failure-{attempt:02d}.json",{"error_type":type(exc).__name__,"message":str(exc)})
+                    result["outcome"]="NONRETRYABLE_FAILURE"; result["error_kind"]=type(exc).__name__; _write_new(request_dir/f"result-{attempt:02d}.json",result); _write_new(request_dir/f"validation-failure-{attempt:02d}.json",{"error_type":type(exc).__name__,"message":str(exc)})
                     break
+                _write_new(request_dir/f"result-{attempt:02d}.json",result)
                 _write_new(request_dir/"response.csv",body)
                 receipt={"schema_version":"shared-pa-statcast-raw-receipt-v1","request":request,"request_plan_sha256":plan_sha,"source_contract_sha256":contract_sha,"parser_sha256":parser_sha,"attempt_number":attempt,"request_started_at_utc":response.requested_at_utc,"observed_at_utc":result["observed_at_utc"],"http_status":status,"response_headers":safe,"byte_count":len(body),"sha256":sha256_bytes(body),"terminal_state":"SUCCESS"}
                 _write_new(request_dir/"receipt.json",receipt); _write_new(request_dir/"terminal.json",{"state":"SUCCESS","attempt":attempt,"sha256":sha256_bytes(body)}); successes+=1; break
-            if status not in contract["transport_policy"]["retryable_http_statuses"]: break
-            retry_after=safe.get("retry-after","")
-            try: delay=float(retry_after) if retry_after else float(contract["transport_policy"]["bounded_backoff_seconds"][attempt-1])
-            except (ValueError,IndexError): delay=float(contract["transport_policy"]["bounded_backoff_seconds"][min(attempt-1,2)])
-            sleep(max(0.0,min(delay,float(contract["transport_policy"]["maximum_retry_after_seconds"]))))
+            if status not in contract["transport_policy"]["retryable_http_statuses"]: _write_new(request_dir/f"result-{attempt:02d}.json",result); break
+            retry=_retry_after(safe.get("retry-after"),response.observed_at_utc,float(contract["transport_policy"]["maximum_retry_after_seconds"]))
+            delay=retry if retry is not None else float(contract["transport_policy"]["bounded_backoff_seconds"][min(attempt-1,2)])
+            result["backoff_seconds"]=delay; _write_new(request_dir/f"result-{attempt:02d}.json",result)
+            if attempt < contract["transport_policy"]["maximum_lifetime_attempts_per_exact_request"]:
+                before=wall_time(); sleep(delay); after=wall_time()
+                if after-before+1e-6 < delay: raise CaptureError("retry sleeper returned before required backoff")
         if not (request_dir/"terminal.json").exists(): _write_new(request_dir/"terminal.json",{"state":"FAILURE","attempts":attempt})
       manifest={"schema_version":"shared-pa-statcast-raw-capture-manifest-v1","request_plan_sha256":plan_sha,"source_contract_sha256":contract_sha,"parser_sha256":parser_sha,"authorization_sha256":source_access.authorization_file_sha256,"runtime_attestation_sha256":runtime_authorization.attestation_sha256,"runtime_policy_sha256":runtime_authorization.policy_sha256,"source_bundle_sha256":source_access.source_bundle_sha256,"carrier_commit":carrier_commit,"request_count":plan["request_count"],"success_count":successes,"failure_count":plan["request_count"]-successes}
       manifest=_write_manifest(work,manifest); _fsync_dir(work); os.replace(work,root); _fsync_dir(root.parent); return manifest
