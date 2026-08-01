@@ -160,7 +160,6 @@ jobs:
           git show-ref --verify --quiet "refs/remotes/origin/${GITHUB_REF_NAME}" || true
           cp "$AUTHORIZATION" "${RUNNER_TEMP}/statcast-authorization.json"
           printf '%s  %s\n' "$EXPECTED_AUTHORIZATION_SHA256" "${RUNNER_TEMP}/statcast-authorization.json" | sha256sum -c -
-          git fetch --no-tags --depth=1 origin "$CARRIER_COMMIT"
           git checkout --detach "$CARRIER_COMMIT"
           test "$(git rev-parse HEAD)" = "$CARRIER_COMMIT"
           test -z "$(git status --porcelain=v1 --untracked-files=all)"
