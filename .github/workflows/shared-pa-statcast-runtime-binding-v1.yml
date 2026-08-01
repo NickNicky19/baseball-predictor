@@ -41,7 +41,7 @@ env:
   EXPECTED_SOURCE_BUNDLE_SHA256: 22a36802fb7530cc21fb0f38a7c6e85422088de25f435916cf3b53f74d7367a1
   EXPECTED_REQUEST_PLAN_SHA256: a40abd52a42ed36a49b6fc5d3d91d2202f57e7075a077f8f1abe3252df016994
   EXPECTED_AUTHORIZATION_SHA256: 10024ec359df97c5a75abd6cb22bc705bf8a9804e68b8753a718f9186bed4fb8
-  EXPECTED_RUNTIME_ATTESTATION_SHA256: 3a5e1ff5ceb61b06aa98f3c32bbcf8dc61bfce9f40c2886d0df720098bca35d0
+  EXPECTED_RUNTIME_ATTESTATION_SHA256: 903e566a99d048a575dbe075378fd8b80ace92bf5028c6ddcbb0d200fe509ae5
   REQUESTED_WORKFLOW_COMMIT: ${{ inputs.expected_workflow_commit_sha || github.sha }}
   EXPECTED_RUNTIME_INPUT: ${{ inputs.expected_runtime_attestation_sha256 || 'DISCOVER' }}
 
@@ -215,7 +215,6 @@ jobs:
           import json
           import os
           from pathlib import Path
-          import socket
           import sys
           from urllib.parse import urlsplit
           sys.path.insert(0, str(Path.cwd()))
@@ -250,11 +249,29 @@ jobs:
           assert manifest["success_count"] == 0
           assert manifest["failure_count"] == 1
           assert not (output_path / "statcast-2023-07-25" / "response.csv").exists()
+          gate = capture.TransportExecutionAuthorization(
+              authorization_sha256="10024ec359df97c5a75abd6cb22bc705bf8a9804e68b8753a718f9186bed4fb8",
+              runtime_attestation_sha256=sys.argv[5],
+              runtime_policy_sha256="31b6b16063bfb0f8e1535d4475259caa10ff548423df793a9d79bd2616f5f9c3",
+              source_bundle_sha256="22a36802fb7530cc21fb0f38a7c6e85422088de25f435916cf3b53f74d7367a1",
+              source_contract_sha256="7078857cc1815e5c8dcecd667a9b6d69079ef31c1fc68057473d1fb1dc9ceebd",
+              request_plan_sha256="a40abd52a42ed36a49b6fc5d3d91d2202f57e7075a077f8f1abe3252df016994",
+              carrier_commit="74395e8552cf65701e526d4cba1f08a3e7f286d8",
+          )
+          with capture.network_denial_guard():
+              try:
+                  capture._transport(calls[0]["full_url"], 1.0, 1024, execution_authorization=gate)
+              except capture.CaptureError as exc:
+                  assert "lower-layer network guard" in str(exc)
+              else:
+                  raise AssertionError("lower-layer network guard did not block real transport")
           Path(os.environ["RUNNER_TEMP"]).joinpath("statcast-no-network-preflight.json").write_text(
               json.dumps({"schema_version":"shared-pa-statcast-no-network-preflight-v1",
                           "status":"PASSED_IMMEDIATELY_BEFORE_FIRST_REQUEST",
                           "external_statcast_requests":0,
                           "blocked_transport_calls":len(calls),
+                          "application_layer_guard":"PASSED",
+                          "lower_layer_network_guard":"PASSED",
                           "first_request_url":calls[0]["full_url"],
                           "output_path_initially_absent":True,
                           "output_path_created_by_capture":True}, sort_keys=True) + "\n",
