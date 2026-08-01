@@ -3,12 +3,15 @@
 from __future__ import annotations
 import argparse, json, os, subprocess, sys, time
 from datetime import datetime, timezone
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path: sys.path.insert(0, str(ROOT))
 from scripts.capture_direct_batter_pa_source_transport_v2 import (
-    HTTPSHistoricalTransport, RuntimeAuthorization, authorize_runtime,
+    CapturedResponse, HTTPSHistoricalTransport, RuntimeAuthorization, TransportFailure,
+    _enumerate_files, _manifest_digest, _validate_response, authorize_runtime,
 )
+from scripts.build_shared_pa_statcast_request_plans_v1 import QUERY_BASE
 from src.data.shared_pa_statcast_source_v1 import canonical_json_bytes, load_contract, parse_csv_bytes, sha256_bytes, sha256_file
 from src.evaluation.shared_pa_statcast_historical_source_access_v1 import (
     VerifiedStatcastHistoricalSourceAccess, verify_statcast_historical_source_access,
@@ -18,15 +21,33 @@ class CaptureError(RuntimeError): pass
 
 def _utc() -> str: return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 def _write_new(path: Path, value: object) -> None:
-    with path.open("xb") as h: h.write(canonical_json_bytes(value) if not isinstance(value, bytes) else value)
+    with path.open("xb") as h:
+        h.write(canonical_json_bytes(value) if not isinstance(value, bytes) else value)
+        h.flush(); os.fsync(h.fileno())
 
-def _transport(full_url: str, timeout: float, maximum: int) -> tuple[int, dict[str,str], bytes]:
-    response = HTTPSHistoricalTransport().fetch(
+def _fsync_dir(path: Path) -> None:
+    flag=getattr(os,"O_DIRECTORY",None)
+    if flag is None: return
+    fd=os.open(path,os.O_RDONLY|flag)
+    try: os.fsync(fd)
+    finally: os.close(fd)
+
+def _validate_work_tree(work: Path, request_id: str) -> None:
+    allowed_top={"capture_context.json",request_id}
+    if {path.name for path in work.iterdir()}-allowed_top: raise CaptureError("resumable work state contains an unexpected path")
+    child=work/request_id
+    if not child.exists(): return
+    if child.is_symlink() or not child.is_dir(): raise CaptureError("resumable request state is unsafe")
+    allowed_exact={"terminal.json","response.csv","receipt.json"}
+    allowed_prefixes=("reservation-","result-","response-attempt-","validation-failure-")
+    for path in child.iterdir():
+        if path.is_symlink() or not path.is_file() or (path.name not in allowed_exact and not path.name.startswith(allowed_prefixes)):
+            raise CaptureError("resumable request state contains an unexpected file")
+
+def _transport(full_url: str, timeout: float, maximum: int) -> CapturedResponse:
+    return HTTPSHistoricalTransport().fetch(
         {"full_url": full_url}, timeout_seconds=timeout, max_bytes=maximum,
     )
-    if response.final_url != full_url:
-        raise CaptureError("source redirect or final URL change rejected")
-    return response.status, dict(response.headers), response.body
 
 
 SOURCE_BUNDLE_FILES = (
@@ -34,6 +55,7 @@ SOURCE_BUNDLE_FILES = (
     "scripts/capture_direct_batter_pa_source_transport_v2.py",
     "scripts/build_direct_batter_pa_source_release.py",
     "scripts/verify_direct_batter_pa_source_runtime_authority.py",
+    "scripts/verify_shared_pa_statcast_capture_v1.py",
     "src/data/shared_pa_statcast_source_v1.py",
     "src/evaluation/shared_pa_statcast_historical_source_access_v1.py",
 )
@@ -64,6 +86,62 @@ def _validate_authorities(
     if active != carrier_commit:
         raise CaptureError("active checkout is not the authorized carrier commit")
 
+
+def _validate_sample_plan(plan: dict, contract: dict, contract_path: Path) -> None:
+    expected_keys={"schema_version","status","plan_kind","research_only","external_requests_permitted","season","historical_scope","source_contract_sha256","request_policy","requests","request_count","certified_game_count","protected_boundaries"}
+    if set(plan) != expected_keys or plan.get("schema_version") != "shared-pa-statcast-request-plan-v1" or plan.get("status") != "PREPARED_NOT_AUTHORIZED":
+        raise CaptureError("bounded request-plan schema or status differs")
+    if plan.get("plan_kind") != "BOUNDED_SAMPLE" or plan.get("request_count") != 1 or plan.get("certified_game_count") != 15:
+        raise CaptureError("bounded request-plan count or kind differs")
+    if plan.get("research_only") is not True or plan.get("external_requests_permitted") is not False or plan.get("season") != 2023:
+        raise CaptureError("bounded request-plan safety state differs")
+    if plan.get("historical_scope") != contract["historical_scope"] or plan.get("request_policy") != contract["transport_policy"] or plan.get("protected_boundaries") != contract["protected_boundaries"] or plan.get("source_contract_sha256") != sha256_file(contract_path):
+        raise CaptureError("bounded request-plan contract binding differs")
+    request=plan["requests"][0]
+    expected_request_keys={"request_id","method","url","query","full_url","expected"}
+    if set(request) != expected_request_keys or request.get("request_id") != "statcast-2023-07-25" or request.get("method") != "GET":
+        raise CaptureError("bounded request identity differs")
+    base=f"{contract['source']['scheme']}://{contract['source']['host']}{contract['source']['path']}"
+    query=dict(QUERY_BASE); query.update({"game_date_gt":"2023-07-25","game_date_lt":"2023-07-25"}); query={key:query[key] for key in sorted(query)}
+    from urllib.parse import urlencode
+    if request.get("url") != base or request.get("query") != query or request.get("full_url") != f"{base}?{urlencode(query)}":
+        raise CaptureError("bounded request URL or unfiltered query differs")
+    expected=request.get("expected")
+    if not isinstance(expected,dict) or set(expected)!={"official_date","certified_games"} or expected.get("official_date")!="2023-07-25":
+        raise CaptureError("bounded request date or expected schema differs")
+    games=expected.get("certified_games")
+    if not isinstance(games,list) or len(games)!=15 or [item.get("game_pk") for item in games] != sorted(item.get("game_pk") for item in games):
+        raise CaptureError("bounded certified-game universe differs")
+    for item in games:
+        if set(item)!={"game_pk","home_team_id","away_team_id","home_team_code","away_team_code"}:
+            raise CaptureError("bounded certified-game identity schema differs")
+        if item["home_team_code"] != contract["team_source_codes"].get(str(item["home_team_id"])) or item["away_team_code"] != contract["team_source_codes"].get(str(item["away_team_id"])):
+            raise CaptureError("bounded certified-game team mapping differs")
+
+
+def _retry_after(value: str | None, observed_at_utc: str, maximum: float) -> float | None:
+    if not value:
+        return None
+    try:
+        seconds=float(value)
+    except ValueError:
+        try:
+            observed=datetime.fromisoformat(observed_at_utc.replace("Z","+00:00"))
+            seconds=(parsedate_to_datetime(value)-observed).total_seconds()
+        except Exception as exc:
+            raise CaptureError("Retry-After is invalid") from exc
+    if seconds < 0 or seconds > maximum:
+        raise CaptureError("Retry-After lies outside the locked bound")
+    return seconds
+
+
+def _write_manifest(work: Path, manifest: dict) -> dict:
+    manifest["files"]=_enumerate_files(work,exclude_manifest=True)
+    manifest["observed_capture_digest"]=None
+    manifest["observed_capture_digest"]=_manifest_digest(manifest)
+    _write_new(work/"manifest.json",manifest)
+    return manifest
+
 def capture(
     plan_path: Path, contract_path: Path, output_dir: Path, *,
     runtime_authorization: RuntimeAuthorization,
@@ -72,23 +150,34 @@ def capture(
     transport=_transport, sleep=time.sleep, wall_time=time.time,
 ) -> dict:
     plan=json.loads(plan_path.read_text(encoding="utf-8")); contract=load_contract(contract_path)
+    _validate_sample_plan(plan,contract,contract_path)
     _validate_authorities(plan_path=plan_path, contract_path=contract_path, runtime=runtime_authorization, access=source_access, carrier_commit=carrier_commit)
-    if plan.get("plan_kind") != "BOUNDED_SAMPLE" or plan.get("request_count") != 1: raise CaptureError("only the bounded sample plan is executable")
     root=Path(os.path.abspath(os.fspath(output_dir))); work=root.with_name(root.name+".work")
+    authorized_output=Path(source_access.output_path)
+    if not authorized_output.is_absolute(): authorized_output=ROOT/authorized_output
+    if root != Path(os.path.abspath(os.fspath(authorized_output))): raise CaptureError("output path differs from authorization-scoped attempt identity")
     if root.exists(): raise CaptureError("output path already exists")
+    for ancestor in (root.parent, *root.parent.parents):
+        if ancestor.exists() and ancestor.is_symlink(): raise CaptureError("output path has a symlink ancestor")
+    root.parent.mkdir(parents=True,exist_ok=True)
+    lock=root.with_name(root.name+".lock")
+    try: lock_fd=os.open(lock,os.O_CREAT|os.O_EXCL|os.O_WRONLY,0o600)
+    except FileExistsError as exc: raise CaptureError("capture writer lock already exists") from exc
     plan_sha=sha256_file(plan_path); contract_sha=sha256_file(contract_path)
     parser_sha=sha256_file(ROOT/"src/data/shared_pa_statcast_source_v1.py")
     context={"schema_version":"shared-pa-statcast-capture-context-v1","request_plan_sha256":plan_sha,"source_contract_sha256":contract_sha,"parser_sha256":parser_sha,"authorization_sha256":source_access.authorization_file_sha256,"runtime_attestation_sha256":runtime_authorization.attestation_sha256,"runtime_policy_sha256":runtime_authorization.policy_sha256,"source_bundle_sha256":source_access.source_bundle_sha256,"carrier_commit":carrier_commit}
     if work.exists():
         if work.is_symlink() or not (work/"capture_context.json").is_file() or json.loads((work/"capture_context.json").read_text(encoding="utf-8")) != context:
             raise CaptureError("existing work state is not the exact owned resumable capture")
+        _validate_work_tree(work,plan["requests"][0]["request_id"])
     else:
         work.mkdir(parents=True,exist_ok=False); _write_new(work/"capture_context.json",context)
     previous_epoch=None
     for reservation in work.glob("*/reservation-*.json"):
         value=json.loads(reservation.read_text(encoding="utf-8")); previous_epoch=max(previous_epoch or 0.0,float(value["request_start_epoch"] or 0.0))
     successes=0
-    for request in plan["requests"]:
+    try:
+      for request in plan["requests"]:
         request_dir=work/request["request_id"]; request_dir.mkdir(exist_ok=True)
         if (request_dir/"terminal.json").exists():
             terminal=json.loads((request_dir/"terminal.json").read_text(encoding="utf-8")); successes += int(terminal.get("state") == "SUCCESS"); continue
@@ -96,18 +185,28 @@ def capture(
         for attempt in range(completed+1, contract["transport_policy"]["maximum_lifetime_attempts_per_exact_request"]+1):
             now=wall_time()
             if previous_epoch is not None:
-                sleep(max(0.0, contract["transport_policy"]["minimum_request_start_interval_seconds"]-(now-previous_epoch)))
+                wait=max(0.0, contract["transport_policy"]["minimum_request_start_interval_seconds"]-(now-previous_epoch))
+                if wait:
+                    before=wall_time(); sleep(wait); after=wall_time()
+                    if after-before+1e-6 < wait: raise CaptureError("pacing sleeper returned before the locked interval")
             started=_utc(); request_epoch=wall_time(); previous_epoch=request_epoch
             _write_new(request_dir/f"reservation-{attempt:02d}.json", {"request":request,"attempt":attempt,"request_started_at_utc":started,"request_start_epoch":request_epoch})
             try:
-                status, headers, body=transport(request["full_url"], contract["transport_policy"]["timeout_seconds"], contract["transport_policy"]["maximum_response_bytes"])
-            except Exception as exc:
-                _write_new(request_dir/f"transport-failure-{attempt:02d}.json", {"attempt":attempt,"error_type":type(exc).__name__,"message":str(exc),"observed_at_utc":_utc()})
-                if attempt < contract["transport_policy"]["maximum_lifetime_attempts_per_exact_request"]:
-                    sleep(float(contract["transport_policy"]["bounded_backoff_seconds"][min(attempt-1,2)])); continue
+                response=transport(request["full_url"], contract["transport_policy"]["timeout_seconds"], contract["transport_policy"]["maximum_response_bytes"])
+                _validate_response(response,{"full_url":request["full_url"],"source_kind":"statcast"},{"sources":{"statcast":{"content_type_prefixes":["text/csv","application/csv"]}}})
+                status,headers,body=response.status,dict(response.headers),response.body
+            except TransportFailure as exc:
+                record={"attempt":attempt,"request_started_at_utc":exc.requested_at_utc,"observed_at_utc":exc.observed_at_utc,"outcome":"RETRYABLE_FAILURE" if exc.retryable else "NONRETRYABLE_FAILURE","http_status":exc.status,"error_kind":exc.error_kind,"retry_after_header":exc.retry_after,"backoff_seconds":0.0}
+                if not exc.retryable: _write_new(request_dir/f"result-{attempt:02d}.json",record); break
+                retry=_retry_after(exc.retry_after,exc.observed_at_utc,float(contract["transport_policy"]["maximum_retry_after_seconds"]))
+                delay=retry if retry is not None else float(contract["transport_policy"]["bounded_backoff_seconds"][min(attempt-1,2)])
+                record["backoff_seconds"]=delay; _write_new(request_dir/f"result-{attempt:02d}.json",record)
+                if attempt < contract["transport_policy"]["maximum_lifetime_attempts_per_exact_request"]: sleep(delay); continue
                 break
+            except Exception as exc:
+                _write_new(request_dir/f"result-{attempt:02d}.json", {"attempt":attempt,"request_started_at_utc":started,"observed_at_utc":_utc(),"outcome":"NONRETRYABLE_FAILURE","http_status":None,"error_kind":type(exc).__name__,"retry_after_header":None,"backoff_seconds":0.0}); break
             safe={k:v for k,v in headers.items() if k in contract["transport_policy"]["safe_response_headers"]}
-            result={"attempt":attempt,"request_started_at_utc":started,"observed_at_utc":_utc(),"http_status":status,"response_headers":safe,"byte_count":len(body),"sha256":sha256_bytes(body)}
+            result={"attempt":attempt,"request_started_at_utc":response.requested_at_utc,"observed_at_utc":response.observed_at_utc,"outcome":"SUCCESS","http_status":status,"final_url":response.final_url,"response_headers":safe,"byte_count":len(body),"sha256":sha256_bytes(body),"retry_after_header":None,"backoff_seconds":0.0}
             _write_new(request_dir/f"result-{attempt:02d}.json",result)
             _write_new(request_dir/f"response-attempt-{attempt:02d}.csv",body)
             if safe.get("content-length") not in (None,"",str(len(body))):
@@ -120,7 +219,7 @@ def capture(
                     _write_new(request_dir/f"validation-failure-{attempt:02d}.json",{"error_type":type(exc).__name__,"message":str(exc)})
                     break
                 _write_new(request_dir/"response.csv",body)
-                receipt={"schema_version":"shared-pa-statcast-raw-receipt-v1","request":request,"request_plan_sha256":plan_sha,"source_contract_sha256":contract_sha,"parser_sha256":parser_sha,"attempt_number":attempt,"request_started_at_utc":started,"observed_at_utc":result["observed_at_utc"],"http_status":status,"response_headers":safe,"byte_count":len(body),"sha256":sha256_bytes(body),"terminal_state":"SUCCESS"}
+                receipt={"schema_version":"shared-pa-statcast-raw-receipt-v1","request":request,"request_plan_sha256":plan_sha,"source_contract_sha256":contract_sha,"parser_sha256":parser_sha,"attempt_number":attempt,"request_started_at_utc":response.requested_at_utc,"observed_at_utc":result["observed_at_utc"],"http_status":status,"response_headers":safe,"byte_count":len(body),"sha256":sha256_bytes(body),"terminal_state":"SUCCESS"}
                 _write_new(request_dir/"receipt.json",receipt); _write_new(request_dir/"terminal.json",{"state":"SUCCESS","attempt":attempt,"sha256":sha256_bytes(body)}); successes+=1; break
             if status not in contract["transport_policy"]["retryable_http_statuses"]: break
             retry_after=safe.get("retry-after","")
@@ -128,8 +227,12 @@ def capture(
             except (ValueError,IndexError): delay=float(contract["transport_policy"]["bounded_backoff_seconds"][min(attempt-1,2)])
             sleep(max(0.0,min(delay,float(contract["transport_policy"]["maximum_retry_after_seconds"]))))
         if not (request_dir/"terminal.json").exists(): _write_new(request_dir/"terminal.json",{"state":"FAILURE","attempts":attempt})
-    manifest={"schema_version":"shared-pa-statcast-raw-capture-manifest-v1","request_plan_sha256":plan_sha,"source_contract_sha256":contract_sha,"parser_sha256":parser_sha,"authorization_sha256":source_access.authorization_file_sha256,"runtime_attestation_sha256":runtime_authorization.attestation_sha256,"runtime_policy_sha256":runtime_authorization.policy_sha256,"source_bundle_sha256":source_access.source_bundle_sha256,"carrier_commit":carrier_commit,"request_count":plan["request_count"],"success_count":successes,"failure_count":plan["request_count"]-successes}
-    _write_new(work/"capture_manifest.json",manifest); os.replace(work,root); return manifest
+      manifest={"schema_version":"shared-pa-statcast-raw-capture-manifest-v1","request_plan_sha256":plan_sha,"source_contract_sha256":contract_sha,"parser_sha256":parser_sha,"authorization_sha256":source_access.authorization_file_sha256,"runtime_attestation_sha256":runtime_authorization.attestation_sha256,"runtime_policy_sha256":runtime_authorization.policy_sha256,"source_bundle_sha256":source_access.source_bundle_sha256,"carrier_commit":carrier_commit,"request_count":plan["request_count"],"success_count":successes,"failure_count":plan["request_count"]-successes}
+      manifest=_write_manifest(work,manifest); _fsync_dir(work); os.replace(work,root); _fsync_dir(root.parent); return manifest
+    finally:
+      os.close(lock_fd)
+      try: lock.unlink()
+      except FileNotFoundError: pass
 
 def main() -> int:
     p=argparse.ArgumentParser(); p.add_argument("--request-plan",type=Path,required=True); p.add_argument("--contract",type=Path,required=True); p.add_argument("--authorization",type=Path,required=True); p.add_argument("--expected-authorization-sha256",required=True); p.add_argument("--runtime-policy",type=Path,required=True); p.add_argument("--runtime-attestation",type=Path,required=True); p.add_argument("--expected-runtime-attestation-sha256",required=True); p.add_argument("--expected-source-bundle-sha256",required=True); p.add_argument("--carrier-commit",required=True); p.add_argument("--output-dir",type=Path,required=True); a=p.parse_args()

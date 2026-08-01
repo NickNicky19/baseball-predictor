@@ -7,8 +7,9 @@ import subprocess
 
 import pytest
 
-from scripts.capture_direct_batter_pa_source_transport_v2 import RuntimeAuthorization
+from scripts.capture_direct_batter_pa_source_transport_v2 import CapturedResponse, RuntimeAuthorization
 from scripts.capture_shared_pa_statcast_source_v1 import CaptureError, capture, source_bundle_sha256
+from scripts.verify_shared_pa_statcast_capture_v1 import verify
 from src.data.shared_pa_statcast_source_v1 import (
     StatcastSourceError, ev_launch_angle_counts, load_contract, parse_csv_bytes, sha256_file,
 )
@@ -27,7 +28,9 @@ def test_stage_a_wires_source_feature_pmf_archive_and_evaluator() -> None:
     assert result["external_request_count"] == 0
     assert result["source_authority"] == "SYNTHETIC_PREFLIGHT_ONLY"
     assert result["predictions"] != result["mutation_predictions"]
-    assert result["evaluator_ingestion"]["status"] == "PASS_SYNTHETIC_ARCHIVE_REPLAY_ONLY"
+    assert result["evaluator_ingestion"]["status"] == "PASS_SYNTHETIC_PREDICTION_ARCHIVE_REPLAY_ONLY"
+    assert result["candidate_input"]["game_pk"] == result["synthetic_target_game"]["game_pk"]
+    assert result["feature"]["feature_sha256"] != result["mutation_feature"]["feature_sha256"]
 
 
 def test_parser_fails_closed_on_duplicate_unknown_and_date_drift() -> None:
@@ -103,18 +106,29 @@ def test_capture_requires_exact_authorization_and_new_output(tmp_path: Path) -> 
         carrier_commit=carrier, runtime_policy_sha256="c"*64,
         source_bundle_sha256=source_bundle_sha256(),
         source_contract_sha256=sha256_file(CONTRACT_PATH),
-        request_plan_sha256=sha256_file(plan),
+        request_plan_sha256=sha256_file(plan), output_path=str(tmp_path / "capture"),
     )
     calls: list[str] = []
     def fake(url: str, timeout: float, maximum: int):
-        calls.append(url); return 200, {"content-length":str(len(body)),"content-type":"text/csv"}, body
+        calls.append(url)
+        return CapturedResponse(status=200,body=body,headers={"content-length":str(len(body)),"content-type":"text/csv","content-encoding":"identity"},final_url=url,requested_at_utc="2026-07-31T00:00:00.000000Z",observed_at_utc="2026-07-31T00:00:01.000000Z")
     output = tmp_path / "capture"
     result = capture(plan, CONTRACT_PATH, output, runtime_authorization=runtime, source_access=access, carrier_commit=carrier, transport=fake, sleep=lambda _: None, wall_time=lambda: 0.0)
     assert result["success_count"] == 1 and len(calls) == 1
     assert (output / "statcast-2023-07-25/response.csv").read_bytes() == body
+    checked=verify(output,plan,CONTRACT_PATH,result["observed_capture_digest"])
+    assert checked["status"] == "VERIFIED_BOUNDED_RAW_SAMPLE"
     with pytest.raises(CaptureError, match="already exists"):
         capture(plan, CONTRACT_PATH, output, runtime_authorization=runtime, source_access=access, carrier_commit=carrier, transport=fake)
     wrong = copy.copy(access)
     object.__setattr__(wrong, "source_bundle_sha256", "e"*64)
     with pytest.raises(CaptureError, match="source bundle"):
         capture(plan, CONTRACT_PATH, tmp_path / "unused", runtime_authorization=runtime, source_access=wrong, carrier_commit=carrier, transport=fake)
+
+    mutated=json.loads(plan.read_text()); mutated["requests"][0]["query"]["fields"]="game_pk"
+    bad_plan=tmp_path/"bad-plan.json"; bad_plan.write_text(json.dumps(mutated,sort_keys=True,separators=(",",":"))+"\n")
+    bad_access=copy.copy(access); object.__setattr__(bad_access,"request_plan_sha256",sha256_file(bad_plan)); object.__setattr__(bad_access,"output_path",str(tmp_path/"bad-output"))
+    before=len(calls)
+    with pytest.raises(CaptureError, match="query"):
+        capture(bad_plan,CONTRACT_PATH,tmp_path/"bad-output",runtime_authorization=runtime,source_access=bad_access,carrier_commit=carrier,transport=fake)
+    assert len(calls)==before

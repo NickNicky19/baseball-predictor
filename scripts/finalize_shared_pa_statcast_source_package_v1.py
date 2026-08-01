@@ -27,6 +27,7 @@ FILES = (
     "scripts/capture_shared_pa_statcast_source_v1.py",
     "scripts/finalize_shared_pa_statcast_source_package_v1.py",
     "scripts/run_shared_pa_statcast_stage_a_preflight_v1.py",
+    "scripts/verify_shared_pa_statcast_capture_v1.py",
     "src/data/shared_pa_statcast_source_v1.py",
     "src/evaluation/shared_pa_statcast_historical_source_access_v1.py",
     "src/evaluation/shared_pa_statcast_stage_a_v1.py",

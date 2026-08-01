@@ -36,16 +36,18 @@
     "scripts/capture_direct_batter_pa_source_transport_v2.py",
     "scripts/capture_shared_pa_statcast_source_v1.py",
     "scripts/verify_direct_batter_pa_source_runtime_authority.py",
+    "scripts/verify_shared_pa_statcast_capture_v1.py",
     "src/data/shared_pa_statcast_source_v1.py",
     "src/evaluation/shared_pa_statcast_historical_source_access_v1.py"
   ],
   "audited_python_sha256": {
     "scripts/build_direct_batter_pa_source_release.py": "3ba8dc390fb53e65ac4e56dba0caa546cd92e1b144432fb0708e267c7aa71ace",
     "scripts/capture_direct_batter_pa_source_transport_v2.py": "5179d546919f1221fd18adf386a388f229b49ea7013873850757a3d09334528d",
-    "scripts/capture_shared_pa_statcast_source_v1.py": "4cc1fb1873f77bdaa6c9b56bca446a1882e39be4a5c4bb3df3e7c224724edea5",
+    "scripts/capture_shared_pa_statcast_source_v1.py": "16d38e97c8b765cbfbc1f32fd7647680d4469ec86b8e2d657312e53822459b97",
     "scripts/verify_direct_batter_pa_source_runtime_authority.py": "20cbe564ec1376f366c1938991a293c866aa4893bda11ffecd8d3d874855b0f1",
+    "scripts/verify_shared_pa_statcast_capture_v1.py": "eb78d69aeae0c2828ac064d36d626ad33eb8ec0ede1a2b5ad2d2e361c139fe27",
     "src/data/shared_pa_statcast_source_v1.py": "ac98b4414694618127b39dd15baee5e10c2c8f49d30b61a12164b7c4c1182d8a",
-    "src/evaluation/shared_pa_statcast_historical_source_access_v1.py": "a7299c46e129a55c95e2a43d843c3141db9d3775fafd15c1e097d6f9869d3b86"
+    "src/evaluation/shared_pa_statcast_historical_source_access_v1.py": "5c0cc68b4e931557632b5d3433960302c88845fd57ad86f5d17253774227f81f"
   },
   "runtime_requirements": {
     "tls_context_initialization_required": true,
