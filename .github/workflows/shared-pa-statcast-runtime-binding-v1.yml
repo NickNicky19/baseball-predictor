@@ -90,8 +90,18 @@ jobs:
           "$audit_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
             --policy "$RUNTIME_POLICY" --check-static
           attestation="${RUNNER_TEMP}/statcast-runtime-${{ matrix.pass }}.json"
-          "$audit_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
-            --policy "$RUNTIME_POLICY" --write-linux-attestation "$attestation"
+          "$audit_python" -I -B - "$RUNTIME_POLICY" "$attestation" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+          sys.path.insert(0, str(Path.cwd()))
+          import scripts.capture_shared_pa_statcast_source_v1  # bind the real capture import path
+          from scripts.verify_direct_batter_pa_source_runtime_authority import (
+              canonical_json_bytes, linux_runtime_attestation, load_policy,
+          )
+          policy = load_policy(Path(sys.argv[1]))
+          Path(sys.argv[2]).write_bytes(canonical_json_bytes(linux_runtime_attestation(policy)))
+          PY
           observed="$(sha256sum "$attestation" | awk '{print $1}')"
           if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
             test "$EXPECTED_RUNTIME_INPUT" = "$EXPECTED_RUNTIME_ATTESTATION_SHA256"
