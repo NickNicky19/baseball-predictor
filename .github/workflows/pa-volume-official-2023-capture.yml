@@ -1,10 +1,18 @@
-name: Authorized Official 2023 Shared PA Outcome Boxscore Capture
+name: Authorized Official 2023 PA Volume Capture
 
 "on":
   workflow_dispatch:
     inputs:
-      expected_workflow_commit_sha:
-        description: Exact isolated workflow-authority commit to execute
+      expected_commit_sha:
+        description: Exact reviewed commit to execute
+        required: true
+        type: string
+      expected_runtime_attestation_sha256:
+        description: Externally observed clean-Linux attestation SHA-256
+        required: true
+        type: string
+      expected_source_authorization_sha256:
+        description: Externally observed source-authorization file SHA-256
         required: true
         type: string
 
@@ -12,57 +20,28 @@ permissions:
   contents: read
 
 concurrency:
-  group: authorized-official-2023-shared-pa-outcome-boxscores
+  group: authorized-official-2023-pa-volume-capture
   cancel-in-progress: false
 
 jobs:
   capture:
-    name: Ubuntu 24.04 / exact 2023 official boxscore bytes
+    name: Ubuntu 24.04 / exact 2023 official source capture
     runs-on: ubuntu-24.04
-    timeout-minutes: 100
+    timeout-minutes: 120
     env:
       PYTHONDONTWRITEBYTECODE: "1"
       PYTHONNOUSERSITE: "1"
       PYTEST_DISABLE_PLUGIN_AUTOLOAD: "1"
-      CARRIER_COMMIT: 0f7973733a23bbe64070b19875a3846f299fa505
-      EXPECTED_RUNTIME_ATTESTATION_SHA256: 440f5643afde531668d47f7f54b4886d1bdae9d6a601d92237a8a076614db556
-      EXPECTED_RUNTIME_POLICY_SHA256: a281342cc5bf135cfb8645712e974ce254bc88a580ab550cee27eca2c700c193
-      EXPECTED_SOURCE_BUNDLE_SHA256: 8988ad4ea0687d1fa2754bd8203c2e2d5825bc572877abe86dd7e25eabac498c
-      EXPECTED_SOURCE_AUTHORIZATION_SHA256: 13f236d39b7186c8a4f1905e27d3c9f9565e78d698ba6446e0e0fa2971751504
-      EXPECTED_REQUEST_PLAN_SHA256: ddcf60a1f077c25b151c24c538ab3dd6eca4f9186317207de79cf191d5931490
-      RUNTIME_POLICY: config/shared_pa_outcome_boxscore_runtime_authority_v1.json
-      REQUEST_PLAN: reports/shared_pa_outcome_boxscore_capture_plan_v1.json
-
     steps:
-      - name: Check out the isolated workflow authority
+      - name: Check out the dispatched immutable commit
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
 
-      - name: Bind the manually dispatched workflow bytes
+      - name: Reject a moving or substituted source identity
         shell: bash
         run: |
           set -euo pipefail
           observed="$(git rev-parse HEAD)"
-          test "$observed" = "${{ inputs.expected_workflow_commit_sha }}"
-          test "$observed" = "$GITHUB_SHA"
-          test -z "$(git status --porcelain=v1 --untracked-files=all)"
-          sha256sum .github/workflows/pa-volume-official-2023-capture.yml \
-            > "${RUNNER_TEMP}/workflow-authority.sha256"
-          authorization="${RUNNER_TEMP}/shared-pa-outcome-source-authorization.json"
-          cp config/shared_pa_outcome_historical_source_access_authorization_20260731_corrected_v2.json \
-            "$authorization"
-          printf 'SOURCE_AUTHORIZATION=%s\n' "$authorization" >> "$GITHUB_ENV"
-
-      - name: Check out the exact certified carrier commit
-        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
-        with:
-          ref: 0f7973733a23bbe64070b19875a3846f299fa505
-
-      - name: Reject moving or substituted source bytes
-        shell: bash
-        run: |
-          set -euo pipefail
-          observed="$(git rev-parse HEAD)"
-          test "$observed" = "$CARRIER_COMMIT"
+          test "$observed" = "${{ inputs.expected_commit_sha }}"
           test -z "$(git status --porcelain=v1 --untracked-files=all)"
 
       - name: Set up exact Python
@@ -71,18 +50,6 @@ jobs:
           python-version: "3.12.3"
           architecture: "x64"
 
-      - name: Create a new isolated output location
-        shell: bash
-        run: |
-          set -euo pipefail
-          root="${RUNNER_TEMP}/official-2023-shared-pa-outcome-boxscores-${CARRIER_COMMIT}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
-          artifact="official-2023-shared-pa-outcome-boxscores-${CARRIER_COMMIT}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
-          test ! -e "$root"
-          install -d -m 0700 "$root" "$root/work"
-          cp "${RUNNER_TEMP}/workflow-authority.sha256" "$root/workflow-authority.sha256"
-          printf 'CAPTURE_ROOT=%s\n' "$root" >> "$GITHUB_ENV"
-          printf 'ARTIFACT_NAME=%s\n' "$artifact" >> "$GITHUB_ENV"
-
       - name: Install the exact hash-locked capture environment
         shell: bash
         run: |
@@ -90,100 +57,130 @@ jobs:
           unset LD_LIBRARY_PATH
           capture_python="${RUNNER_TEMP}/pa-source-env/bin/python"
           python -m venv --without-pip "${RUNNER_TEMP}/pa-source-env"
-          python -m pip --python "$capture_python" install \
-            --disable-pip-version-check --no-compile --no-deps --require-hashes \
+          python -m pip --python "$capture_python" install --disable-pip-version-check --no-compile --no-deps --require-hashes \
             -r requirements-direct-batter-pa-source-authority.lock
           python -m pip --python "$capture_python" check
 
-      - name: Reproduce the externally approved clean-Linux runtime
+      - name: Reproduce and bind the externally approved Linux runtime
         shell: bash
         run: |
           set -euo pipefail
           unset LD_LIBRARY_PATH
           capture_python="${RUNNER_TEMP}/pa-source-env/bin/python"
-          attestation="${CAPTURE_ROOT}/runtime-attestation.json"
+          attestation="${RUNNER_TEMP}/pa-source-runtime.json"
           "$capture_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
-            --policy "$RUNTIME_POLICY" \
+            --policy config/pa_volume_source_runtime_authority_v1.json \
             --write-linux-attestation "$attestation"
           observed="$(sha256sum "$attestation" | awk '{print $1}')"
-          printf '%s\n' "$observed" > "${CAPTURE_ROOT}/runtime-attestation.sha256"
-          test "$observed" = "$EXPECTED_RUNTIME_ATTESTATION_SHA256"
+          echo "observed_runtime_attestation_sha256=$observed"
+          test "$observed" = "${{ inputs.expected_runtime_attestation_sha256 }}"
 
-      - name: Verify every certified capture authority before network access
+      - name: Retain rejected pre-request attestation for diagnosis
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: rejected-pre-request-runtime-${{ github.sha }}
+          path: ${{ runner.temp }}/pa-source-runtime.json
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Verify the external source authorization before any request
         shell: bash
         run: |
           set -euo pipefail
-          capture_python="${RUNNER_TEMP}/pa-source-env/bin/python"
-          printf '%s  %s\n' "$EXPECTED_RUNTIME_POLICY_SHA256" "$RUNTIME_POLICY" | sha256sum -c -
-          printf '%s  %s\n' "$EXPECTED_SOURCE_AUTHORIZATION_SHA256" "$SOURCE_AUTHORIZATION" | sha256sum -c -
-          printf '%s  %s\n' "$EXPECTED_REQUEST_PLAN_SHA256" "$REQUEST_PLAN" | sha256sum -c -
-          observed_bundle="$("$capture_python" -I -B -c 'import sys; sys.path.insert(0, "."); from scripts.capture_shared_pa_outcome_boxscores_v1 import source_bundle_sha256; print(source_bundle_sha256())')"
-          test "$observed_bundle" = "$EXPECTED_SOURCE_BUNDLE_SHA256"
-          {
-            printf 'carrier_commit=%s\n' "$CARRIER_COMMIT"
-            printf 'workflow_commit=%s\n' "${{ inputs.expected_workflow_commit_sha }}"
-            printf 'runtime_attestation_sha256=%s\n' "$EXPECTED_RUNTIME_ATTESTATION_SHA256"
-            printf 'runtime_policy_sha256=%s\n' "$EXPECTED_RUNTIME_POLICY_SHA256"
-            printf 'source_bundle_sha256=%s\n' "$EXPECTED_SOURCE_BUNDLE_SHA256"
-            printf 'source_authorization_sha256=%s\n' "$EXPECTED_SOURCE_AUTHORIZATION_SHA256"
-            printf 'request_plan_sha256=%s\n' "$EXPECTED_REQUEST_PLAN_SHA256"
-            printf 'endpoint_template=https://statsapi.mlb.com/api/v1/game/{gamePk}/boxscore\n'
-            printf 'query_parameters=none\n'
-            printf 'minimum_request_start_interval_seconds=1.10\n'
-            printf 'maximum_lifetime_attempts_per_request=4\n'
-          } > "${CAPTURE_ROOT}/execution-authority.txt"
+          auth="config/pa_volume_historical_source_access_authorization_20260731_v6.json"
+          observed="$(sha256sum "$auth" | awk '{print $1}')"
+          test "$observed" = "${{ inputs.expected_source_authorization_sha256 }}"
 
-      - name: Capture only the 2430 authorized raw final-boxscore responses
+      - name: Capture and verify the official 2023 regular-season schedule
         shell: bash
         run: |
           set -euo pipefail
           unset LD_LIBRARY_PATH
           capture_python="${RUNNER_TEMP}/pa-source-env/bin/python"
-          "$capture_python" -I -B scripts/capture_shared_pa_outcome_boxscores_v1.py capture \
-            --plan "$REQUEST_PLAN" \
-            --runtime-policy "$RUNTIME_POLICY" \
-            --runtime-attestation "${CAPTURE_ROOT}/runtime-attestation.json" \
-            --expected-runtime-attestation-sha256 "$EXPECTED_RUNTIME_ATTESTATION_SHA256" \
-            --source-access-authorization "$SOURCE_AUTHORIZATION" \
-            --expected-source-access-authorization-sha256 "$EXPECTED_SOURCE_AUTHORIZATION_SHA256" \
-            --output-dir "${CAPTURE_ROOT}/capture" \
-            --work-dir "${CAPTURE_ROOT}/work" \
-            --minimum-request-interval-seconds 1.10 \
-            --maximum-attempts 4 \
-            --overall-timeout-seconds 7200 \
-            2>&1 | tee "${CAPTURE_ROOT}/capture-command.log"
+          root="${RUNNER_TEMP}/official-2023-pa-volume"
+          mkdir -p "$root"
+          "$capture_python" -I -B scripts/capture_pa_volume_official_source_v1.py capture-schedule \
+            --runtime-policy config/pa_volume_source_runtime_authority_v1.json \
+            --runtime-attestation "${RUNNER_TEMP}/pa-source-runtime.json" \
+            --expected-runtime-attestation-sha256 "${{ inputs.expected_runtime_attestation_sha256 }}" \
+            --source-access-authorization config/pa_volume_historical_source_access_authorization_20260731_v6.json \
+            --expected-source-access-authorization-sha256 "${{ inputs.expected_source_authorization_sha256 }}" \
+            --output-dir "$root/schedule"
+          schedule_digest="$("$capture_python" -I -B -c 'import json,sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["observed_capture_digest"])' "$root/schedule/manifest.json")"
+          "$capture_python" -I -B scripts/capture_pa_volume_official_source_v1.py verify-schedule \
+            --capture-dir "$root/schedule" \
+            --expected-capture-digest "$schedule_digest"
+          "$capture_python" -I -B scripts/capture_pa_volume_official_source_v1.py build-feed-plan \
+            --schedule-capture-dir "$root/schedule" \
+            --expected-schedule-capture-digest "$schedule_digest" \
+            --output-plan "$root/feed-plan.json"
 
-      - name: Verify the completed raw capture and preserve coverage identity
+      - name: Retain rejected schedule bytes for identity diagnosis
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: rejected-official-2023-schedule-${{ github.sha }}
+          path: ${{ runner.temp }}/official-2023-pa-volume/schedule
+          if-no-files-found: warn
+          include-hidden-files: true
+          retention-days: 7
+
+      - name: Capture and verify all 2430 coded-final official feeds
         shell: bash
         run: |
           set -euo pipefail
+          unset LD_LIBRARY_PATH
           capture_python="${RUNNER_TEMP}/pa-source-env/bin/python"
-          manifest="${CAPTURE_ROOT}/capture/manifest.json"
-          digest="$("$capture_python" -I -B -c 'import json,sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["observed_capture_digest"])' "$manifest")"
-          "$capture_python" -I -B scripts/capture_shared_pa_outcome_boxscores_v1.py verify \
-            --capture-dir "${CAPTURE_ROOT}/capture" \
-            --expected-capture-digest "$digest" \
-            2>&1 | tee "${CAPTURE_ROOT}/verification-command.log"
-          printf '%s\n' "$digest" > "${CAPTURE_ROOT}/capture-digest.txt"
-          cp "$RUNTIME_POLICY" "${CAPTURE_ROOT}/runtime-policy.json"
-          cp "$SOURCE_AUTHORIZATION" "${CAPTURE_ROOT}/source-access-authorization.json"
-          cp "$REQUEST_PLAN" "${CAPTURE_ROOT}/request-plan.json"
-          cp requirements-direct-batter-pa-source-authority.lock "${CAPTURE_ROOT}/requirements.lock"
+          root="${RUNNER_TEMP}/official-2023-pa-volume"
+          "$capture_python" -I -B scripts/capture_pa_volume_official_source_v1.py capture-feeds \
+            --runtime-policy config/pa_volume_source_runtime_authority_v1.json \
+            --runtime-attestation "${RUNNER_TEMP}/pa-source-runtime.json" \
+            --expected-runtime-attestation-sha256 "${{ inputs.expected_runtime_attestation_sha256 }}" \
+            --source-access-authorization config/pa_volume_historical_source_access_authorization_20260731_v6.json \
+            --expected-source-access-authorization-sha256 "${{ inputs.expected_source_authorization_sha256 }}" \
+            --plan "$root/feed-plan.json" \
+            --output-dir "$root/feeds" \
+            --work-dir "$root/feed-work"
+          feed_digest="$("$capture_python" -I -B -c 'import json,sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["observed_capture_digest"])' "$root/feeds/manifest.json")"
+          "$capture_python" -I -B scripts/capture_pa_volume_official_source_v1.py verify-feeds \
+            --capture-dir "$root/feeds" \
+            --expected-capture-digest "$feed_digest"
 
-      - name: Prove the exact certified source checkout remained unchanged
-        if: always()
+      - name: Build the deterministic source release without fitting
+        shell: bash
+        run: |
+          set -euo pipefail
+          unset LD_LIBRARY_PATH
+          capture_python="${RUNNER_TEMP}/pa-source-env/bin/python"
+          root="${RUNNER_TEMP}/official-2023-pa-volume"
+          schedule_digest="$("$capture_python" -I -B -c 'import json,sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["observed_capture_digest"])' "$root/schedule/manifest.json")"
+          feed_digest="$("$capture_python" -I -B -c 'import json,sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["observed_capture_digest"])' "$root/feeds/manifest.json")"
+          "$capture_python" -I -B scripts/build_pa_volume_official_source_release_v1.py build-source-release \
+            --schedule-capture-dir "$root/schedule" \
+            --expected-schedule-capture-digest "$schedule_digest" \
+            --feed-capture-dir "$root/feeds" \
+            --expected-feed-capture-digest "$feed_digest" \
+            --dependency-lock requirements-direct-batter-pa-source-authority.lock \
+            --output-dir "$root/source-release"
+          cp "${RUNNER_TEMP}/pa-source-runtime.json" "$root/runtime-attestation.json"
+          cp config/pa_volume_historical_source_access_authorization_20260731_v6.json "$root/source-access-authorization.json"
+          cp config/pa_volume_source_runtime_authority_v1.json "$root/runtime-policy.json"
+          cp requirements-direct-batter-pa-source-authority.lock "$root/requirements.lock"
+          git rev-parse HEAD > "$root/executed-commit.txt"
+
+      - name: Upload immutable capture bytes for independent verification
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: official-2023-pa-volume-${{ github.sha }}
+          path: ${{ runner.temp }}/official-2023-pa-volume
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 30
+
+      - name: Prove source checkout and protected systems were not mutated
         shell: bash
         run: |
           set -euo pipefail
           git diff --exit-code
           test -z "$(git status --porcelain=v1 --untracked-files=all)"
-
-      - name: Upload immutable raw capture, receipts, failures, and coverage evidence
-        if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: ${{ env.ARTIFACT_NAME }}
-          path: ${{ env.CAPTURE_ROOT }}
-          if-no-files-found: error
-          include-hidden-files: true
-          retention-days: 30
