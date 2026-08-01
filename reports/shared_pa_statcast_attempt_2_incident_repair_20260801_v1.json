@@ -1,0 +1,126 @@
+{
+  "schema_version": "shared-pa-statcast-attempt-incident-repair-v1",
+  "status": "ATTEMPT_2_INCIDENT_RECORDED",
+  "incident_id": "shared-pa-statcast-sample-2023-07-25-attempt-2",
+  "recorded_date": "2026-08-01",
+  "workflow_run_id": "30717064297",
+  "workflow_run_url": "https://github.com/NickNicky19/baseball-predictor/actions/runs/30717064297",
+  "corrected_main_commit": "89312399308986e1e4d6e9d9378516cc8230e52e",
+  "carrier_commit": "74395e8552cf65701e526d4cba1f08a3e7f286d8",
+  "attempt_number": 2,
+  "attempt_status": "AUTHORIZED_VALIDATION_FAILED_PERMANENTLY_CONSUMED",
+  "external_requests_by_run": 1,
+  "automatic_retry": false,
+  "raw_response": {
+    "byte_count": 2918703,
+    "sha256": "0d4c91cb2d0eabaeaeed726fcf1d4aabd7f9d888fb4c9f90789a7ba679e0a968",
+    "retained_in_existing_immutable_artifact": false,
+    "recoverable": false
+  },
+  "validation": {
+    "success_count": 0,
+    "failure_count": 1,
+    "exact_failure": "source response content type is not allowlisted",
+    "validation_failure_sha256": "273000afef0debd08fdd6e6ce3fa9496727a980fa5320ad72880704cfbb5889e",
+    "capture_digest": "426420fa66553028f35e6d1f40c14abe468fda4401fcbaa295017b6dba4d1cb5",
+    "valid_qualified_sample": false,
+    "published_capture_artifact": false,
+    "parser_started": false,
+    "expected_csv_header_validated": false,
+    "body_schema_validation_retained": false
+  },
+  "content_type_evidence": {
+    "raw_content_type_header": null,
+    "normalized_mime_type": null,
+    "retention_status": "ATTEMPT_2_CONTENT_TYPE_NOT_RETAINED",
+    "decision": "CONTENT_TYPE_CONTRACT_EVIDENCE_INSUFFICIENT",
+    "inference_prohibited": true,
+    "source_contract_change_authorized": false
+  },
+  "failure_a_source_validation": {
+    "rejection_point": "carrier transport response validation before body parsing",
+    "body_parsing_begun": false,
+    "expected_csv_header_validated": false,
+    "body_schema_validation_retained": false,
+    "allowlist_widened": false
+  },
+  "failure_b_failed_package_preservation": {
+    "root_cause": "post-capture verification executed from corrected main instead of the detached carrier execution root; the carrier-bound verifier was absent from corrected main",
+    "secondary_cli_defect": "the step supplied arguments that the carrier verifier does not accept",
+    "effect": "the verifier step failed before package verification and the success-only upload step was skipped",
+    "attempt_2_failure_package_published": false,
+    "repair_target": "invoke capture and verification from the same detached carrier root, finalize and upload quarantined evidence under an always guard, then preserve terminal failure"
+  },
+  "evidence_sources": [
+    {
+      "kind": "github_actions_log",
+      "run_id": "30717064297",
+      "step": "Verify output path is new and invoke authorized_main",
+      "supports": [
+        "one transport invocation",
+        "raw response byte count and SHA-256",
+        "validation failure text and SHA-256",
+        "capture digest",
+        "success_count=0 and failure_count=1"
+      ]
+    },
+    {
+      "kind": "github_actions_log",
+      "run_id": "30717064297",
+      "step": "Verify and summarize captured package",
+      "supports": [
+        "verifier was invoked from corrected main",
+        "scripts/verify_shared_pa_statcast_capture_v1.py was absent there",
+        "verification failed before upload"
+      ]
+    },
+    {
+      "kind": "github_actions_artifact_listing",
+      "run_id": "30717064297",
+      "api_path": "/repos/NickNicky19/baseball-predictor/actions/runs/30717064297/artifacts",
+      "supports": [
+        "only two runtime-attestation artifacts and one equality artifact were retained",
+        "no capture package or raw response artifact was published"
+      ]
+    }
+  ],
+  "scientific_disposition": {
+    "invalid": true,
+    "quarantined": true,
+    "non_promotable": true,
+    "excluded_from": [
+      "source_qualification",
+      "feature_construction",
+      "model_fitting",
+      "market_scoring",
+      "predictions",
+      "prospective_evidence",
+      "economic_evaluation",
+      "betting"
+    ]
+  },
+  "attempt_accounting": {
+    "total_external_statcast_requests": 2,
+    "attempt_1": "UNAUTHORIZED_QUARANTINED_PERMANENTLY_CONSUMED",
+    "attempt_2": "AUTHORIZED_VALIDATION_FAILED_PERMANENTLY_CONSUMED",
+    "attempt_3": "UNUSED_UNAUTHORIZED",
+    "attempt_4": "UNUSED_UNAUTHORIZED"
+  },
+  "repair_constraints": {
+    "source_contract_modified": false,
+    "content_type_allowlist_widened": false,
+    "source_or_model_code_modified": false,
+    "new_carrier_required": false,
+    "workflow_dispatch_capture_authorized": false,
+    "external_request_authorized": false,
+    "merge_authorized": false
+  },
+  "changed_path_manifest": [
+    ".github/workflows/shared-pa-statcast-sample-capture-execution-v1.yml",
+    "config/shared_pa_statcast_sample_attempt_history_20260801_v2.json",
+    "reports/shared_pa_statcast_attempt_2_incident_repair_20260801_v1.json",
+    "tests/test_shared_pa_statcast_attempt2_failure_preservation.py"
+  ],
+  "changed_path_manifest_sha256": "00ca3639608e1fa6063c219e62a827eec26d7cc280cb2ad297d26c499abafdf7",
+  "non_reconstruction_statement": "No missing response header, timestamp, byte sequence, or manifest was reconstructed or inferred."
+}

@@ -1,0 +1,144 @@
+{
+  "schema_version": "shared-pa-statcast-attempt-history-v2",
+  "ledger_status": "APPEND_ONLY_ATTEMPTS_1_AND_2_PERMANENTLY_CONSUMED",
+  "request_id": "statcast-2023-07-25",
+  "request_method": "GET",
+  "request_url": "https://baseballsavant.mlb.com/statcast_search/csv?all=true&batter_stands=&game_date_gt=2023-07-25&game_date_lt=2023-07-25&group_by=name&hfAB=&hfBBL=&hfBBT=&hfFlag=&hfGT=R%7C&hfInn=&hfNewZones=&hfOuts=&hfPR=&hfPT=&hfRO=&hfSA=&hfSea=&hfSit=&hfZ=&home_road=&metric_1=&min_abs=0&min_pitches=0&min_results=0&opponent=&pitcher_throws=&player_event_sort=h_launch_speed&player_type=pitcher&position=&sort_col=pitches&sort_order=desc&stadium=&team=&type=details",
+  "official_date": "2023-07-25",
+  "certified_game_pks": [
+    717255,
+    717256,
+    717258,
+    717259,
+    717260,
+    717261,
+    717262,
+    717263,
+    717264,
+    717265,
+    717266,
+    717267,
+    717269,
+    717270,
+    717272
+  ],
+  "predecessor": {
+    "path": "config/shared_pa_statcast_sample_attempt_history_20260731_v1.json",
+    "sha256": "eb28fbfc18ba777f796abe1db9735579f99a06907d5de856d696d4de5db0aaf5",
+    "modified": false
+  },
+  "incident_record": {
+    "path": "reports/shared_pa_statcast_attempt_2_incident_repair_20260801_v1.json",
+    "sha256": "cff61fb46dbaae2ca6ca4726174a0c1b9804118a3546cbe4ff9b852e1b09c010"
+  },
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "authorization_status": "UNAUTHORIZED",
+      "status": "UNAUTHORIZED_QUARANTINED_PERMANENTLY_CONSUMED",
+      "request_timestamp_utc": null,
+      "request_timestamp_status": "NOT_RETAINED_IN_FAILED_WORKFLOW_ARTIFACT",
+      "workflow_log_window_utc": {
+        "start": "2026-08-01T03:08:36.0484378Z",
+        "end": "2026-08-01T03:08:46.8799454Z"
+      },
+      "raw_response": {
+        "byte_count": 2918703,
+        "sha256": "2949162dd9f11667e1ffa396fad3a3aa0ea8052a85214ac194bb5123206930bb",
+        "retained_in_existing_immutable_artifact": false
+      },
+      "failed_workflow_run_id": "30681336096",
+      "failed_workflow_branch": "codex/shared-pa-statcast-runtime-binding-v1",
+      "failed_workflow_commit": "ff273be29fa2d33c93d24c977f21d9c6174d583b",
+      "failed_carrier_commit": "fb4e0c642318600e350d914947fedbbf9f65484f",
+      "failed_runtime_attestation_sha256": "3a5e1ff5ceb61b06aa98f3c32bbcf8dc61bfce9f40c2886d0df720098bca35d0",
+      "failed_runtime_policy_sha256": "4d7e36e177f679e12d42bd617a7c6e693940c7f11dd2660196bdfd5a636c49ca",
+      "failed_source_bundle_sha256": "220173ff916bb5f27f4a3b4505139faea5bc09ed68a25749b6ba1d77d857f9da",
+      "failed_authorization_sha256": "7335a713e4b1dc6bc9c71d542015a7489a84ea88ad311be5bf2532b98af4b0e3",
+      "request_plan_sha256": "a40abd52a42ed36a49b6fc5d3d91d2202f57e7075a077f8f1abe3252df016994",
+      "incident_cause": "capture_function_default_transport_bound_to_real_transport;_module_attribute_monkeypatch_was_bypassed",
+      "promoted_to_source_release": false,
+      "parsed_for_modeling": false,
+      "retained_as_authoritative_source": false,
+      "scientific_disposition": {
+        "invalid": true,
+        "quarantined": true,
+        "non_promotable": true,
+        "excluded_from_all_scientific_use": true
+      }
+    },
+    {
+      "attempt_number": 2,
+      "authorization_status": "EXPLICITLY_AUTHORIZED",
+      "status": "AUTHORIZED_VALIDATION_FAILED_PERMANENTLY_CONSUMED",
+      "workflow_run_id": "30717064297",
+      "corrected_main_commit": "89312399308986e1e4d6e9d9378516cc8230e52e",
+      "carrier_commit": "74395e8552cf65701e526d4cba1f08a3e7f286d8",
+      "external_request_count": 1,
+      "automatic_retry": false,
+      "request_timestamp_utc": null,
+      "request_timestamp_status": "NOT_RETAINED_IN_EXISTING_IMMUTABLE_EVIDENCE",
+      "raw_response": {
+        "byte_count": 2918703,
+        "sha256": "0d4c91cb2d0eabaeaeed726fcf1d4aabd7f9d888fb4c9f90789a7ba679e0a968",
+        "retained_in_existing_immutable_artifact": false
+      },
+      "response_headers": {
+        "content_type": null,
+        "normalized_mime_type": null,
+        "retention_status": "ATTEMPT_2_CONTENT_TYPE_NOT_RETAINED"
+      },
+      "validation": {
+        "success_count": 0,
+        "failure_count": 1,
+        "exact_failure": "source response content type is not allowlisted",
+        "validation_failure_sha256": "273000afef0debd08fdd6e6ce3fa9496727a980fa5320ad72880704cfbb5889e",
+        "capture_digest": "426420fa66553028f35e6d1f40c14abe468fda4401fcbaa295017b6dba4d1cb5",
+        "parser_started": false,
+        "expected_csv_header_validated": false,
+        "body_schema_validation_retained": false
+      },
+      "valid_qualified_sample": false,
+      "published_capture_artifact": false,
+      "promoted_to_source_release": false,
+      "parsed_for_modeling": false,
+      "retained_as_authoritative_source": false,
+      "scientific_disposition": {
+        "invalid": true,
+        "quarantined": true,
+        "non_promotable": true,
+        "excluded_from": [
+          "source_qualification",
+          "feature_construction",
+          "model_fitting",
+          "market_scoring",
+          "predictions",
+          "prospective_evidence",
+          "economic_evaluation",
+          "betting"
+        ]
+      }
+    }
+  ],
+  "remaining_attempts": [
+    {
+      "attempt_number": 3,
+      "status": "UNUSED_UNAUTHORIZED"
+    },
+    {
+      "attempt_number": 4,
+      "status": "UNUSED_UNAUTHORIZED"
+    }
+  ],
+  "maximum_lifetime_attempts": 4,
+  "consumed_lifetime_attempts": 2,
+  "remaining_lifetime_attempts": 2,
+  "remaining_authorized_attempts": 0,
+  "total_external_statcast_requests": 2,
+  "valid_qualified_sample": false,
+  "content_type_contract_evidence_decision": "CONTENT_TYPE_CONTRACT_EVIDENCE_INSUFFICIENT",
+  "attempt_numbering_reset_permitted": false,
+  "attempt_reuse_permitted": false,
+  "workflow_dispatch_capture_authorized": false,
+  "non_reconstruction_statement": "No missing response header, timestamp, byte sequence, or manifest was reconstructed or inferred."
+}
