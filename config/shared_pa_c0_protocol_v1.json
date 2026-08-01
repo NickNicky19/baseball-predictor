@@ -1,0 +1,85 @@
+{
+  "schema_version": "shared-pa-c0-protocol-v1",
+  "candidate_id": "shared_pa_c0_batter_only_v1",
+  "status": "LOCKED_BEFORE_2023_OUTCOME_EVALUATION",
+  "parent_checkpoint": "0b12f7ed82727c712cdcb01fb97cef88c21c5077",
+  "research_only": true,
+  "betting_authorized": false,
+  "source": {
+    "season": 2023,
+    "outcome_release_sha256": "5a242eb96dacea5bb1459c7c8592325abbc2572c08cff9a941d67892a8e9c2bc",
+    "capture_digest": "09d6d3cf04dd6bc145cf000ce0ca1c5eb30d349393c866d22eda1b77b5c4ddb7",
+    "strict_cutoff": "official_date_before_target_date",
+    "evaluation_start": "2023-05-01"
+  },
+  "candidate_chain": [
+    "qualified_2023_point_in_time_history",
+    "roster_history_start_slot_pa_opportunity_mixture",
+    "shared_empirical_bayes_per_pa_outcome_distribution",
+    "exact_hits_hr_tb_strikeouts_walks_pmfs"
+  ],
+  "outcome_categories": [
+    "strikeout",
+    "non_intentional_walk",
+    "intentional_walk",
+    "hit_by_pitch",
+    "home_run",
+    "single",
+    "double",
+    "triple",
+    "bip_out",
+    "sac_fly",
+    "sac_bunt",
+    "catcher_interference",
+    "other_official_pa"
+  ],
+  "opportunity": {
+    "candidate_universe": "previously_observed_exact_team_player_ids_only",
+    "new_player_behavior": "abstain_until_one_prior_observation",
+    "start_prior_strength_team_games": 20.0,
+    "slot_prior_strength_starts": 9.0,
+    "nonstart_pa_behavior": "historical_eligible_player_nonstarts_including_explicit_zero_pa",
+    "pa_support": [0, 1, 2, 3, 4, 5, 6, 7],
+    "opportunity_arms": ["pooled", "raw_slot", "hierarchical_slot"],
+    "hierarchical_slot_raw_weight": 0.2,
+    "team_constraint_status": "not_available_from_final_only_source; individual marginals are research-only"
+  },
+  "per_pa": {
+    "candidate": "time_safe_player_dirichlet_empirical_bayes",
+    "prior_strength_pa": 200.0,
+    "baselines": ["season_to_date_league_rate", "time_safe_unshrunk_player_rate"],
+    "excluded": [
+      "batter_vs_pitcher",
+      "probable_starter",
+      "pitcher_hr9",
+      "unreceipted_pitcher_features",
+      "mutable_savant_override",
+      "recent_form_multiplier",
+      "manual_projection_offset",
+      "post_hoc_correction",
+      "statcast_feature_stacking"
+    ]
+  },
+  "evaluation": {
+    "markets": ["hits", "home_runs", "total_bases", "hitter_strikeouts", "hitter_walks"],
+    "binary_threshold": 1,
+    "proper_scores": ["multiclass_brier", "multiclass_log_loss", "over_0_5_brier", "over_0_5_log_loss"],
+    "calibration_bins": 10,
+    "cluster": "official_date",
+    "bootstrap_draws": 1000,
+    "bootstrap_seed": 20230731,
+    "confidence": 0.95,
+    "frozen_baseline": "NOT_EVALUABLE_FROM_AUTHORIZED_2023_FINAL_ONLY_SOURCE",
+    "market_prices": "NOT_OPENED"
+  },
+  "protected_boundaries": {
+    "may_2026_access_allowed": false,
+    "selection_2024_accessed": false,
+    "spent_2025_hr_confirmation_accessed": false,
+    "prospective_evidence_accessed": false,
+    "economic_evidence_accessed": false,
+    "frozen_simulator_used": false,
+    "frozen_monte_carlo_used": false,
+    "betting_authorized": false
+  }
+}

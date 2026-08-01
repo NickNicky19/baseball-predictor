@@ -1,0 +1,287 @@
+name: Shared PA Statcast runtime binding (no-network)
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      expected_workflow_commit_sha:
+        description: Exact workflow-authority commit to validate
+        required: true
+        type: string
+      expected_runtime_attestation_sha256:
+        description: Expected two-pass clean-Linux runtime attestation digest
+        required: true
+        type: string
+      run_no_network_preflight:
+        description: Run the complete preflight with transport replaced
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: shared-pa-statcast-runtime-binding
+  cancel-in-progress: false
+
+env:
+  PYTHONDONTWRITEBYTECODE: "1"
+  PYTHONNOUSERSITE: "1"
+  PYTEST_DISABLE_PLUGIN_AUTOLOAD: "1"
+  CARRIER_COMMIT: 74395e8552cf65701e526d4cba1f08a3e7f286d8
+  RUNTIME_POLICY: config/shared_pa_statcast_runtime_authority_v1.json
+  REQUEST_PLAN: config/shared_pa_statcast_source_preparation_v1/sample_request_plan.json
+  CONTRACT: config/shared_pa_statcast_source_contract_v1.json
+  AUTHORIZATION: config/shared_pa_statcast_historical_source_access_authorization_20260731_v1.json
+  ATTEMPT_HISTORY: config/shared_pa_statcast_sample_attempt_history_20260731_v1.json
+  EXPECTED_RUNTIME_POLICY_SHA256: 31b6b16063bfb0f8e1535d4475259caa10ff548423df793a9d79bd2616f5f9c3
+  EXPECTED_SOURCE_CONTRACT_SHA256: 7078857cc1815e5c8dcecd667a9b6d69079ef31c1fc68057473d1fb1dc9ceebd
+  EXPECTED_SOURCE_BUNDLE_SHA256: 22a36802fb7530cc21fb0f38a7c6e85422088de25f435916cf3b53f74d7367a1
+  EXPECTED_REQUEST_PLAN_SHA256: a40abd52a42ed36a49b6fc5d3d91d2202f57e7075a077f8f1abe3252df016994
+  EXPECTED_AUTHORIZATION_SHA256: 11c19c423404f7e75b8308dc6feea818808af166b64ce7abc7140bc0f6e8425f
+  EXPECTED_RUNTIME_ATTESTATION_SHA256: 903e566a99d048a575dbe075378fd8b80ace92bf5028c6ddcbb0d200fe509ae5
+  REQUESTED_WORKFLOW_COMMIT: ${{ inputs.expected_workflow_commit_sha || github.sha }}
+  EXPECTED_RUNTIME_INPUT: ${{ inputs.expected_runtime_attestation_sha256 || 'DISCOVER' }}
+
+jobs:
+  independent-attestation:
+    name: Clean-Linux attestation (${{ matrix.pass }})
+    strategy:
+      fail-fast: false
+      matrix:
+        pass: [first, second]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out exact carrier
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ env.CARRIER_COMMIT }}
+          fetch-depth: 1
+          persist-credentials: false
+      - name: Prove carrier identity and clean tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$CARRIER_COMMIT"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+      - name: Set up exact Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: "3.12.3"
+          architecture: x64
+      - name: Install exact hash-locked runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          unset LD_LIBRARY_PATH
+          python -m venv --without-pip "${RUNNER_TEMP}/statcast-runtime-env"
+          python -m pip --python "${RUNNER_TEMP}/statcast-runtime-env/bin/python" install \
+            --disable-pip-version-check --no-compile --no-deps --require-hashes \
+            -r requirements-direct-batter-pa-source-authority.lock
+          python -m pip --python "${RUNNER_TEMP}/statcast-runtime-env/bin/python" check
+      - name: Run static authority checks and regenerate attestation
+        shell: bash
+        run: |
+          set -euo pipefail
+          unset LD_LIBRARY_PATH
+          audit_python="${RUNNER_TEMP}/statcast-runtime-env/bin/python"
+          "$audit_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
+            --policy "$RUNTIME_POLICY" --check-static
+          attestation="${RUNNER_TEMP}/statcast-runtime-${{ matrix.pass }}.json"
+          "$audit_python" -I -B - "$RUNTIME_POLICY" "$attestation" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+          sys.path.insert(0, str(Path.cwd()))
+          import scripts.capture_shared_pa_statcast_source_v1  # bind the real capture import path
+          from scripts.verify_direct_batter_pa_source_runtime_authority import (
+              canonical_json_bytes, linux_runtime_attestation, load_policy,
+          )
+          policy = load_policy(Path(sys.argv[1]))
+          Path(sys.argv[2]).write_bytes(canonical_json_bytes(linux_runtime_attestation(policy)))
+          PY
+          observed="$(sha256sum "$attestation" | awk '{print $1}')"
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            test "$EXPECTED_RUNTIME_INPUT" = "$EXPECTED_RUNTIME_ATTESTATION_SHA256"
+            test "$observed" = "$EXPECTED_RUNTIME_ATTESTATION_SHA256"
+          fi
+          printf '%s  %s\n' "$observed" "$attestation" > "${RUNNER_TEMP}/statcast-runtime-${{ matrix.pass }}.sha256"
+      - name: Upload attestation evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: shared-pa-statcast-runtime-${{ matrix.pass }}-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/statcast-runtime-${{ matrix.pass }}.json
+            ${{ runner.temp }}/statcast-runtime-${{ matrix.pass }}.sha256
+          if-no-files-found: error
+          retention-days: 30
+
+  attestation-equality:
+    name: Verify independent attestation equality
+    needs: independent-attestation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Download first attestation
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: shared-pa-statcast-runtime-first-${{ github.run_id }}
+          path: ${{ runner.temp }}/first
+      - name: Download second attestation
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: shared-pa-statcast-runtime-second-${{ github.run_id }}
+          path: ${{ runner.temp }}/second
+      - name: Compare byte identities
+        shell: bash
+        run: |
+          set -euo pipefail
+          cmp --silent "${RUNNER_TEMP}/first/statcast-runtime-first.json" "${RUNNER_TEMP}/second/statcast-runtime-second.json"
+          observed="$(sha256sum "${RUNNER_TEMP}/first/statcast-runtime-first.json" | awk '{print $1}')"
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            test "$EXPECTED_RUNTIME_INPUT" = "$EXPECTED_RUNTIME_ATTESTATION_SHA256"
+            test "$observed" = "$EXPECTED_RUNTIME_ATTESTATION_SHA256"
+          fi
+          printf '%s\n' "$observed" > "${RUNNER_TEMP}/statcast-runtime-equality.txt"
+      - name: Upload equality evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: shared-pa-statcast-runtime-equality-${{ github.run_id }}
+          path: ${{ runner.temp }}/statcast-runtime-equality.txt
+          if-no-files-found: error
+          retention-days: 30
+
+  no-network-preflight:
+    name: Complete no-network sample preflight
+    if: ${{ inputs.run_no_network_preflight }}
+    needs: attestation-equality
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out exact workflow commit
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ inputs.expected_workflow_commit_sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Bind workflow identity and preserve authorization bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "${{ inputs.expected_workflow_commit_sha }}"
+          git show-ref --verify --quiet "refs/remotes/origin/${GITHUB_REF_NAME}" || true
+          cp "$AUTHORIZATION" "${RUNNER_TEMP}/statcast-authorization.json"
+          printf '%s  %s\n' "$EXPECTED_AUTHORIZATION_SHA256" "${RUNNER_TEMP}/statcast-authorization.json" | sha256sum -c -
+          git checkout --detach "$CARRIER_COMMIT"
+          test "$(git rev-parse HEAD)" = "$CARRIER_COMMIT"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+      - name: Set up exact Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: "3.12.3"
+          architecture: x64
+      - name: Install exact hash-locked runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          unset LD_LIBRARY_PATH
+          python -m venv --without-pip "${RUNNER_TEMP}/statcast-runtime-env"
+          python -m pip --python "${RUNNER_TEMP}/statcast-runtime-env/bin/python" install \
+            --disable-pip-version-check --no-compile --no-deps --require-hashes \
+            -r requirements-direct-batter-pa-source-authority.lock
+          python -m pip --python "${RUNNER_TEMP}/statcast-runtime-env/bin/python" check
+      - name: Download attestation and verify all bound identities
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: shared-pa-statcast-runtime-first-${{ github.run_id }}
+          path: ${{ runner.temp }}/attestation
+      - name: Run no-network preflight to transport boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          unset LD_LIBRARY_PATH HTTP_PROXY HTTPS_PROXY ALL_PROXY http_proxy https_proxy all_proxy
+          audit_python="${RUNNER_TEMP}/statcast-runtime-env/bin/python"
+          output="${GITHUB_WORKSPACE}/data/source/shared_pa_statcast_sample_2023-07-25_v1"
+          test ! -e "$output"
+          work="${GITHUB_WORKSPACE}/data/source/shared_pa_statcast_sample_2023-07-25_v1.work"
+          test ! -e "$work"
+          "$audit_python" -I -B - "$REQUEST_PLAN" "$CONTRACT" \
+            "${RUNNER_TEMP}/statcast-authorization.json" \
+            "${RUNNER_TEMP}/attestation/statcast-runtime-first.json" \
+            "$EXPECTED_RUNTIME_INPUT" "$output" "$work" <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          import sys
+          from urllib.parse import urlsplit
+          sys.path.insert(0, str(Path.cwd()))
+          import scripts.capture_shared_pa_statcast_source_v1 as capture
+          calls = []
+          def blocked(full_url, timeout, maximum):
+              calls.append({"full_url": full_url, "timeout": timeout, "maximum": maximum})
+              raise capture.TransportFailure(
+                  error_kind="no_network_preflight", retryable=False,
+                  requested_at_utc=capture._utc(), observed_at_utc=capture._utc())
+          argv = [
+              "capture", "--request-plan", sys.argv[1], "--contract", sys.argv[2],
+              "--authorization", sys.argv[3], "--expected-authorization-sha256",
+              "11c19c423404f7e75b8308dc6feea818808af166b64ce7abc7140bc0f6e8425f",
+              "--runtime-policy", "config/shared_pa_statcast_runtime_authority_v1.json",
+              "--runtime-attestation", sys.argv[4], "--expected-runtime-attestation-sha256",
+              sys.argv[5], "--expected-source-bundle-sha256",
+              "22a36802fb7530cc21fb0f38a7c6e85422088de25f435916cf3b53f74d7367a1",
+              "--carrier-commit", "74395e8552cf65701e526d4cba1f08a3e7f286d8",
+              "--output-dir", sys.argv[6],
+              "--attempt-history", "config/shared_pa_statcast_sample_attempt_history_20260731_v1.json",
+          ]
+          output_path = Path(sys.argv[6])
+          runtime_attestation_hash = sys.argv[5]
+          sys.argv = argv
+          with capture.network_denial_guard():
+              capture.main(transport=blocked)
+          assert len(calls) == 1, calls
+          assert calls[0]["full_url"].startswith("https://baseballsavant.mlb.com/statcast_search/csv?")
+          assert urlsplit(calls[0]["full_url"]).query
+          assert output_path.exists() and output_path.is_dir()
+          manifest = json.loads((output_path / "manifest.json").read_text(encoding="utf-8"))
+          assert manifest["success_count"] == 0
+          assert manifest["failure_count"] == 1
+          assert not (output_path / "statcast-2023-07-25" / "response.csv").exists()
+          gate = capture.TransportExecutionAuthorization(
+              authorization_sha256="11c19c423404f7e75b8308dc6feea818808af166b64ce7abc7140bc0f6e8425f",
+              runtime_attestation_sha256=runtime_attestation_hash,
+              runtime_policy_sha256="31b6b16063bfb0f8e1535d4475259caa10ff548423df793a9d79bd2616f5f9c3",
+              source_bundle_sha256="22a36802fb7530cc21fb0f38a7c6e85422088de25f435916cf3b53f74d7367a1",
+              source_contract_sha256="7078857cc1815e5c8dcecd667a9b6d69079ef31c1fc68057473d1fb1dc9ceebd",
+              request_plan_sha256="a40abd52a42ed36a49b6fc5d3d91d2202f57e7075a077f8f1abe3252df016994",
+              carrier_commit="74395e8552cf65701e526d4cba1f08a3e7f286d8",
+          )
+          with capture.network_denial_guard():
+              try:
+                  capture._transport(calls[0]["full_url"], 1.0, 1024, execution_authorization=gate)
+              except capture.CaptureError as exc:
+                  assert "lower-layer network guard" in str(exc)
+              else:
+                  raise AssertionError("lower-layer network guard did not block real transport")
+          Path(os.environ["RUNNER_TEMP"]).joinpath("statcast-no-network-preflight.json").write_text(
+              json.dumps({"schema_version":"shared-pa-statcast-no-network-preflight-v1",
+                          "status":"PASSED_IMMEDIATELY_BEFORE_FIRST_REQUEST",
+                          "external_statcast_requests":0,
+                          "blocked_transport_calls":len(calls),
+                          "application_layer_guard":"PASSED",
+                          "lower_layer_network_guard":"PASSED",
+                          "first_request_url":calls[0]["full_url"],
+                          "output_path_initially_absent":True,
+                          "output_path_created_by_capture":True}, sort_keys=True) + "\n",
+              encoding="utf-8")
+          PY
+      - name: Upload no-network evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: shared-pa-statcast-no-network-preflight-${{ github.run_id }}
+          path: ${{ runner.temp }}/statcast-no-network-preflight.json
+          if-no-files-found: error
+          retention-days: 30

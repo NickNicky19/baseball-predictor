@@ -1,0 +1,48 @@
+{
+  "schema_version": "shared-pa-predictive-tournament-v1",
+  "candidate_id": "shared_pa_candidate_v1",
+  "status": "LOCKED_BEFORE_OUTCOME_COMPLETE_SOURCE_AND_FIRST_SCORE",
+  "research_only": true,
+  "betting_authorized": false,
+  "development_years": [2023],
+  "early_2023_policy": {
+    "kind": "fixed_in_season_warmup",
+    "warmup_start": "2023-03-30",
+    "first_scored_date": "2023-04-30",
+    "pregame_history_rule": "completed_2023_events_strictly_before_target_date_only",
+    "cold_start_rule": "date_prior_from_completed_2023_warmup_events_only",
+    "pre_2023_inputs_used": false,
+    "reason": "fixed 31-day warmup registered before outcome-source completion; no result-dependent boundary"
+  },
+  "required_outcomes": [
+    "strikeout", "walk", "other_non_ab", "home_run", "single", "double", "triple", "bip_out"
+  ],
+  "c0": {
+    "family": "time_safe_hierarchical_empirical_bayes_multinomial",
+    "batter_only": true,
+    "direct_bvp": false,
+    "pitcher_features": false,
+    "mutable_savant_override": false,
+    "manual_offsets": false,
+    "silent_clipping": false
+  },
+  "opportunity_arms": ["pooled", "raw_slot", "hierarchical_pr50"],
+  "registered_feature_blocks": [
+    {"id": "A_RECENCY", "initial_status": "REGISTERED_PENDING_ELIGIBLE_SOURCE"},
+    {"id": "B_PLATE_DISCIPLINE", "initial_status": "REGISTERED_PENDING_ELIGIBLE_SOURCE"},
+    {"id": "C1_EXPECTED_STATS", "initial_status": "REGISTERED_PENDING_ELIGIBLE_SOURCE"},
+    {"id": "C2_RAW_CONTACT", "initial_status": "REGISTERED_PENDING_ELIGIBLE_SOURCE"},
+    {"id": "D_PARK", "initial_status": "REGISTERED_PENDING_ELIGIBLE_SOURCE"},
+    {"id": "E_SPRINT", "initial_status": "REGISTERED_PENDING_ELIGIBLE_SOURCE"}
+  ],
+  "markets": ["hits", "home_runs", "total_bases", "hitter_strikeouts", "hitter_walks"],
+  "protected_boundaries": {
+    "may_2026_access_allowed": false,
+    "selection_2024_reused": false,
+    "spent_2025_hr_reused": false,
+    "prospective_backfill_allowed": false,
+    "external_collection_requires_explicit_approval": true,
+    "frozen_baseline_mutation_allowed": false
+  }
+}
+

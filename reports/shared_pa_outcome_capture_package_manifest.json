@@ -1,0 +1,60 @@
+{
+  "schema_version": "shared-pa-outcome-capture-authorization-package-v1",
+  "status": "READY_FOR_EXPLICIT_RAW_ONLY_CAPTURE_AUTHORIZATION",
+  "decision": "RAW_BYTES_OUTCOME_INCOMPLETE",
+  "research_only": true,
+  "betting_authorized": false,
+  "network_accessed_during_package_preparation": false,
+  "retained_source_scan": {
+    "path": "reports/shared_pa_predictive_tournament_v1_raw_bytes_decision.json",
+    "sha256": "3aa0f617bd432b53774863780f303592e7338de67c4a306fa3acd4c7667656cd",
+    "retained_game_count": 2430,
+    "outcome_complete_player_rows": 0,
+    "feeds_with_nonempty_all_plays": 0
+  },
+  "certified_schedule_index": {
+    "sha256": "0f3d68d002f5fa87b0d6cb9daa4d51606f37547bbca0a28bce066e6e7c09c96f",
+    "game_count": 2430
+  },
+  "request_plan": {
+    "path": "reports/shared_pa_outcome_boxscore_capture_plan_v1.json",
+    "sha256": "ddcf60a1f077c25b151c24c538ab3dd6eca4f9186317207de79cf191d5931490",
+    "method": "GET",
+    "endpoint_template": "https://statsapi.mlb.com/api/v1/game/{gamePk}/boxscore",
+    "query": null,
+    "request_count": 2430,
+    "minimum_request_interval_seconds": 1.1,
+    "maximum_lifetime_attempts_per_request": 4
+  },
+  "source_bundle_sha256": "8988ad4ea0687d1fa2754bd8203c2e2d5825bc572877abe86dd7e25eabac498c",
+  "runtime_policy": {
+    "path": "config/shared_pa_outcome_boxscore_runtime_authority_v1.json",
+    "sha256": "a281342cc5bf135cfb8645712e974ce254bc88a580ab550cee27eca2c700c193"
+  },
+  "source_access_authorization": {
+    "path": "config/shared_pa_outcome_historical_source_access_authorization_20260731_v1.json",
+    "sha256": "2934edc151599ea839aba940f0c5b51c650c7bd4210fc24aaef98dbe76ad226e",
+    "semantic_sha256": "477495971bc0744acae777c3b73668dd21eb0447de0389907844548b4502f039"
+  },
+  "future_outcome_release_contract": {
+    "path": "docs/research/SHARED_PA_OUTCOME_LABEL_RELEASE_CONTRACT_V1.md",
+    "sha256": "4d91f73bacdfd769f1aebf48c842bf4f74cd8d8cb752a58f9ff79e9ff787f856",
+    "row_schema_path": "config/shared_pa_outcome_label_release_v1.schema.json",
+    "row_schema_sha256": "63ce17de9dc7f867f8d3dfccc129ac6b86be1869d13affb8704be1efd3e50e47"
+  },
+  "capture_scope": {
+    "season": 2023,
+    "game_types": ["R"],
+    "raw_bytes_only": true,
+    "schedule_recapture": false,
+    "play_by_play_capture": false,
+    "feature_construction": false,
+    "model_fitting": false,
+    "model_scoring": false,
+    "prediction_generation": false,
+    "economic_evaluation": false,
+    "prospective_reconstruction": false,
+    "may_2026_access": false
+  },
+  "next_gate": "EXPLICIT_USER_APPROVAL_OF_CARRIER_COMMIT_AND_AUTHORIZATION_FILE_SHA256"
+}

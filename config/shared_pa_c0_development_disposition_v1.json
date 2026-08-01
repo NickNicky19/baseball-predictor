@@ -1,0 +1,27 @@
+{
+  "schema_version": "shared-pa-c0-development-disposition-v1",
+  "status": "FROZEN_DEVELOPMENT_PARENT",
+  "research_only": true,
+  "betting_authorized": false,
+  "outcome_label_release_sha256": "5a242eb96dacea5bb1459c7c8592325abbc2572c08cff9a941d67892a8e9c2bc",
+  "c0_tournament_release_sha256": "d6bf5bd3517b34c2b54dde7ff89ab4148f1095a5f7ad98447a1004debcd85736",
+  "locked_parent": {
+    "candidate_id": "shared_pa_c0_batter_only_v1",
+    "opportunity_arm": "hierarchical_slot",
+    "raw_slot_conditioning": "FUTURE_CHALLENGER_HYPOTHESIS_ONLY_DO_NOT_RETEST_ON_C0_RELEASE"
+  },
+  "market_decisions": {
+    "home_runs": "C0_DEVELOPMENT_WINNER_VS_LEAGUE_RATE_AND_TIME_SAFE_PLAYER_RATE_ON_BOTH_PROPER_SCORES",
+    "hitter_strikeouts": "C0_DEVELOPMENT_WINNER_VS_LEAGUE_RATE_AND_TIME_SAFE_PLAYER_RATE_ON_BOTH_PROPER_SCORES",
+    "hitter_walks": "C0_DEVELOPMENT_WINNER_VS_LEAGUE_RATE_AND_TIME_SAFE_PLAYER_RATE_ON_BOTH_PROPER_SCORES",
+    "hits": "MIXED_IMPROVED_LOG_LOSS_WORSENED_MULTICLASS_BRIER_NOT_A_WINNER",
+    "total_bases": "MIXED_IMPROVED_LOG_LOSS_WORSENED_MULTICLASS_BRIER_NOT_A_WINNER"
+  },
+  "prohibitions": [
+    "deployment",
+    "prospective_claim",
+    "betting",
+    "production_replacement",
+    "post_hoc_opportunity_arm_switch"
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "betting_authorized": false,
+  "coverage": {
+    "batting_order_player_rows": 50750,
+    "date_max": "2023-10-01",
+    "date_min": "2023-03-30",
+    "distinct_game_pks": 2430,
+    "feeds_with_all_plays_key": 0,
+    "feeds_with_nonempty_all_plays": 0,
+    "outcome_complete_player_rows": 0,
+    "projection_rows": 43740,
+    "retained_all_plays_count": 0,
+    "retained_feed_files": 2430
+  },
+  "decision": "RAW_BYTES_OUTCOME_INCOMPLETE",
+  "eligibility": {
+    "c0_fit": false,
+    "feature_tournament": false,
+    "limitation": "The release is qualified for PA opportunity, but a shared-PA outcome panel additionally requires complete outcome targets and lawful point-in-time feature histories.",
+    "opportunity_model_input": true,
+    "shared_pa_outcome_target": false,
+    "time_safe_outcome_history": false
+  },
+  "missing_field_occurrences": {
+    "atBats": 50750,
+    "baseOnBalls": 50750,
+    "catchersInterference": 50750,
+    "doubles": 50750,
+    "hitByPitch": 50750,
+    "hits": 50750,
+    "homeRuns": 50750,
+    "intentionalWalks": 50750,
+    "rbi": 50750,
+    "runs": 50750,
+    "sacBunts": 50750,
+    "sacFlies": 50750,
+    "strikeOuts": 50750,
+    "totalBases": 50750,
+    "triples": 50750
+  },
+  "model_fitting_performed": false,
+  "observed_batting_key_sets": [
+    {
+      "keys": [
+        "plateAppearances"
+      ],
+      "rows": 50750
+    }
+  ],
+  "observed_live_data_key_sets": [
+    {
+      "feeds": 2430,
+      "keys": [
+        "boxscore"
+      ]
+    }
+  ],
+  "prediction_generation_performed": false,
+  "protected_boundaries": {
+    "economic_evidence_opened": false,
+    "may_2026_opened": false,
+    "selection_2024_opened": false,
+    "spent_2025_hr_opened": false,
+    "years_opened": [
+      2023
+    ]
+  },
+  "representative_players": {
+    "away": {
+      "batting_fields": [
+        "plateAppearances"
+      ],
+      "batting_order": "100",
+      "game_pk": 716352,
+      "player_id": 518934,
+      "player_key": "ID518934"
+    },
+    "home": {
+      "batting_fields": [
+        "plateAppearances"
+      ],
+      "batting_order": "300",
+      "game_pk": 716352,
+      "player_id": 521692,
+      "player_key": "ID521692"
+    }
+  },
+  "required_batting_fields": [
+    "plateAppearances",
+    "atBats",
+    "hits",
+    "doubles",
+    "triples",
+    "homeRuns",
+    "baseOnBalls",
+    "intentionalWalks",
+    "strikeOuts",
+    "hitByPitch",
+    "sacFlies",
+    "sacBunts",
+    "totalBases",
+    "runs",
+    "rbi",
+    "catchersInterference"
+  ],
+  "research_only": true,
+  "retained_request_field_sets": [
+    {
+      "feeds": 2430,
+      "fields_query_values": [
+        "gamePk,gameData,datetime,officialDate,game,type,status,abstractGameState,codedGameState,teams,away,home,id,liveData,boxscore,team,players,person,battingOrder,stats,batting,plateAppearances"
+      ]
+    }
+  ],
+  "schema_version": "shared-pa-outcome-source-readiness-v1",
+  "source_identity": {
+    "manifest_schema_version": "pa-volume-official-source-release-v1",
+    "manifest_sha256": "46ef76e16814c7369d47007993a8f196b14f13dd62faf0684a77bd00b7d3c72f",
+    "projection_sha256": "2e9cfb509fe7006859e856dd5f59be042dd7633fa9c9d10202e200347301d0d5"
+  },
+  "source_root": "C:\\Projects\\baseball_predictor\\.codex-integrated-shared-pa-v1\\data\\evidence\\official-2023-pa-volume-bade26d0913c7a4cbde3d0e624a24077d90de11d",
+  "status": "BLOCKED_SOURCE_LACKS_REQUIRED_PA_OUTCOME_FIELDS"
+}
