@@ -1,0 +1,78 @@
+{
+  "schema_version": "shared-pa-statcast-attempt-3-authority-preparation-report-v1",
+  "status": "ATTEMPT_3_AUTHORITY_PACKAGE_PREPARED",
+  "preflight_status": "ATTEMPT_3_EXACT_PREFLIGHT_PASSED_LOCAL_NO_NETWORK",
+  "content_type_contract_status": "CONTENT_TYPE_CONTRACT_UNCHANGED",
+  "prepared_date": "2026-08-01",
+  "exact_base_commit": "cb35899408068a33910c94722439bd20e6f00ded",
+  "branch": "codex/statcast-attempt3-authority-v1",
+  "authority_package": {
+    "path": "config/shared_pa_statcast_attempt_03_authority_package_20260801_v1.json",
+    "sha256": "e4687d8e2c881c6820196c7e4f5a1dc30724de3be609581e2d9dc55af493d729",
+    "state": "PREPARED_REQUIRES_EXPLICIT_HUMAN_EXECUTION_APPROVAL",
+    "preparation_is_capture_authorization": false
+  },
+  "workflow": {
+    "path": ".github/workflows/shared-pa-statcast-sample-capture-execution-v1.yml",
+    "predecessor_sha256": "bc6fd818a871a1997cde36c672b5c29ca503338723bf6b156b311c1b75b910d5",
+    "prepared_sha256": "c23b0155c3b4c14c4ce6c6cd744a7c159a1c100b3df9ac04e7bda82ef2628ddf",
+    "bytes_changed": true,
+    "minimum_change_reason": "the immutable carrier authority verifier and capture verifier encode attempt-2-era attempt-history assumptions; workflow-layer adapters bind the successor ledger and verify attempt-3 journals without modifying carrier or source code"
+  },
+  "preserved_identities": {
+    "carrier_commit": "74395e8552cf65701e526d4cba1f08a3e7f286d8",
+    "runtime_attestation_sha256": "903e566a99d048a575dbe075378fd8b80ace92bf5028c6ddcbb0d200fe509ae5",
+    "runtime_policy_sha256": "31b6b16063bfb0f8e1535d4475259caa10ff548423df793a9d79bd2616f5f9c3",
+    "source_contract_sha256": "7078857cc1815e5c8dcecd667a9b6d69079ef31c1fc68057473d1fb1dc9ceebd",
+    "source_bundle_sha256": "22a36802fb7530cc21fb0f38a7c6e85422088de25f435916cf3b53f74d7367a1",
+    "sample_request_plan_sha256": "a40abd52a42ed36a49b6fc5d3d91d2202f57e7075a077f8f1abe3252df016994",
+    "successor_attempt_ledger_sha256": "456787efef26d3d438e1afe13d1eee949cd9866d2f8d0a2c5c74d9928a97572e",
+    "attempt_2_incident_record_sha256": "cff61fb46dbaae2ca6ca4726174a0c1b9804118a3546cbe4ff9b852e1b09c010"
+  },
+  "attempt_state": {
+    "attempt_1": "UNAUTHORIZED_QUARANTINED_PERMANENTLY_CONSUMED",
+    "attempt_2": "AUTHORIZED_VALIDATION_FAILED_PERMANENTLY_CONSUMED",
+    "attempt_3": "UNUSED_UNAUTHORIZED",
+    "attempt_4": "UNUSED_UNAUTHORIZED",
+    "total_real_external_statcast_requests": 2,
+    "ledger_modified": false,
+    "preflight_consumed_attempt": false
+  },
+  "output": {
+    "path": "data/source/shared_pa_statcast_sample_2023-07-25_attempt-03_v1",
+    "artifact_name": "shared-pa-statcast-attempt-03",
+    "no_overwrite": true,
+    "distinct_from_prior_attempts": true
+  },
+  "no_network_results": {
+    "pull_request_preflight_only": "PASS",
+    "workflow_dispatch_capture_only": "PASS",
+    "application_transport_guard": "PASS",
+    "lower_level_socket_guard": "PASS",
+    "old_authorization_rejection": "PASS",
+    "attempt_history_protection": "PASS",
+    "synthetic_valid_response_publication": "PASS",
+    "synthetic_disallowed_content_type_preservation": "PASS",
+    "failure_artifact_publication": "PASS",
+    "terminal_status_preservation": "PASS",
+    "real_external_requests_made": 0
+  },
+  "changed_path_manifest": [
+    ".github/workflows/shared-pa-statcast-sample-capture-execution-v1.yml",
+    "config/shared_pa_statcast_attempt_03_authority_package_20260801_v1.json",
+    "reports/shared_pa_statcast_attempt_03_authority_preparation_20260801_v1.json",
+    "tests/test_shared_pa_statcast_attempt3_authority_preflight.py"
+  ],
+  "changed_path_manifest_sha256": "b53f2cf9101b8acd4d3b9e12dfbecdadf388b657798c73a0bc2ceb51bb0bedc0",
+  "prohibitions": {
+    "capture_dispatched": false,
+    "external_request_issued": false,
+    "attempt_3_consumed": false,
+    "attempt_4_consumed": false,
+    "source_contract_modified": false,
+    "content_type_allowlist_widened": false,
+    "carrier_modified": false,
+    "source_or_model_code_modified": false,
+    "merge_authorized": false
+  }
+}

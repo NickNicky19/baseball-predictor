@@ -14,6 +14,10 @@ on:
         description: "Expected two-pass clean-Linux runtime attestation"
         required: true
         type: string
+      expected_authorization_sha256:
+        description: "Exact attempt-3 authority-package file SHA-256"
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -30,24 +34,25 @@ env:
   RUNTIME_POLICY: config/shared_pa_statcast_runtime_authority_v1.json
   REQUEST_PLAN: config/shared_pa_statcast_source_preparation_v1/sample_request_plan.json
   CONTRACT: config/shared_pa_statcast_source_contract_v1.json
-  AUTHORIZATION: config/shared_pa_statcast_historical_source_access_authorization_20260731_v1.json
-  ATTEMPT_HISTORY: config/shared_pa_statcast_sample_attempt_history_20260731_v1.json
-  ATTEMPT_HISTORY_SUCCESSOR: config/shared_pa_statcast_sample_attempt_history_20260801_v2.json
-  OUTPUT: data/source/shared_pa_statcast_sample_2023-07-25_v1
-  CAPTURE_AUTHORIZATION_STATUS: ATTEMPTS_3_AND_4_UNAUTHORIZED
+  AUTHORIZATION: config/shared_pa_statcast_attempt_03_authority_package_20260801_v1.json
+  CARRIER_ATTEMPT_HISTORY: config/shared_pa_statcast_sample_attempt_history_20260731_v1.json
+  ATTEMPT_HISTORY: config/shared_pa_statcast_sample_attempt_history_20260801_v2.json
+  OUTPUT: data/source/shared_pa_statcast_sample_2023-07-25_attempt-03_v1
+  CAPTURE_ARTIFACT_NAME: shared-pa-statcast-attempt-03
+  CAPTURE_AUTHORIZATION_STATUS: ATTEMPT_3_PREPARED_REQUIRES_EXPLICIT_HUMAN_EXECUTION_APPROVAL
   EXPECTED_RUNTIME_POLICY_SHA256: 31b6b16063bfb0f8e1535d4475259caa10ff548423df793a9d79bd2616f5f9c3
   EXPECTED_SOURCE_CONTRACT_SHA256: 7078857cc1815e5c8dcecd667a9b6d69079ef31c1fc68057473d1fb1dc9ceebd
   EXPECTED_SOURCE_BUNDLE_SHA256: 22a36802fb7530cc21fb0f38a7c6e85422088de25f435916cf3b53f74d7367a1
   EXPECTED_REQUEST_PLAN_SHA256: a40abd52a42ed36a49b6fc5d3d91d2202f57e7075a077f8f1abe3252df016994
-  EXPECTED_AUTHORIZATION_SHA256: 11c19c423404f7e75b8308dc6feea818808af166b64ce7abc7140bc0f6e8425f
   EXPECTED_RUNTIME_ATTESTATION_SHA256: 903e566a99d048a575dbe075378fd8b80ace92bf5028c6ddcbb0d200fe509ae5
-  EXPECTED_ATTEMPT_HISTORY_SHA256: eb28fbfc18ba777f796abe1db9735579f99a06907d5de856d696d4de5db0aaf5
-  EXPECTED_ATTEMPT_HISTORY_SUCCESSOR_SHA256: 456787efef26d3d438e1afe13d1eee949cd9866d2f8d0a2c5c74d9928a97572e
+  EXPECTED_CARRIER_ATTEMPT_HISTORY_SHA256: eb28fbfc18ba777f796abe1db9735579f99a06907d5de856d696d4de5db0aaf5
+  EXPECTED_ATTEMPT_HISTORY_SHA256: 456787efef26d3d438e1afe13d1eee949cd9866d2f8d0a2c5c74d9928a97572e
   EVENT_NAME: ${{ github.event_name }}
   EVENT_MODE: ${{ github.event_name == 'pull_request' && 'preflight' || github.event_name == 'workflow_dispatch' && 'capture' || 'invalid' }}
   DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
   REQUESTED_WORKFLOW_COMMIT: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || inputs.expected_workflow_commit_sha }}
   EXPECTED_RUNTIME_INPUT: ${{ github.event_name == 'pull_request' && '903e566a99d048a575dbe075378fd8b80ace92bf5028c6ddcbb0d200fe509ae5' || inputs.expected_runtime_attestation_sha256 }}
+  EXPECTED_AUTHORIZATION_INPUT: ${{ github.event_name == 'pull_request' && '' || inputs.expected_authorization_sha256 }}
 
 jobs:
   workflow-contract:
@@ -77,7 +82,7 @@ jobs:
           dispatch_only_guard = "if: " + chr(36) + "{{ github.event_name == 'workflow_dispatch' }}"
           quarantine_marker = '"' + "quarantined" + '": is_failure'
           non_promotion_marker = '"' + "non_promotable" + '": is_failure'
-          attempt_denial_marker = "CAPTURE_AUTHORIZATION_DENIED_" + "ATTEMPTS_3_AND_4_UNAUTHORIZED"
+          attempt_three_marker = '"attempt_3_status": "UNUSED_UNAUTHORIZED_UNTIL_TRANSPORT"'
           finalizer_carrier_binding = (
               "      - name: Verify and finalize capture or quarantined failure package from carrier\n"
               "        " + failure_publication_guard + "\n"
@@ -101,10 +106,9 @@ jobs:
                   'capture._transport = blocked_transport',
                   'with capture.network_denial_guard()',
                   'rc = capture.authorized_main(argv)',
-                  'reservation-02.json',
-                  '"prior_attempt_count"] == 1',
-                  'ATTEMPTS_3_AND_4_UNAUTHORIZED',
-                  attempt_denial_marker,
+                  'reservation-03.json',
+                  '"prior_attempt_count"] == 2',
+                  attempt_three_marker,
                   'shared_pa_statcast_sample_attempt_history_20260801_v2.json',
                   '456787efef26d3d438e1afe13d1eee949cd9866d2f8d0a2c5c74d9928a97572e',
                   'scripts/verify_shared_pa_statcast_capture_v1.py',
@@ -151,7 +155,7 @@ jobs:
               "lower_guard_removed": original.replace('with capture.network_denial_guard()', 'with nullcontext()'),
               "blocking_transport_removed": original.replace('blocked_transport', 'original_transport'),
               "authorization_gate_removed": original.replace('--expected-authorization-sha256', '--authorization-gate-removed'),
-              "attempt_history_removed": original.replace('reservation-02.json', 'reservation-99.json'),
+              "attempt_history_removed": original.replace('reservation-03.json', 'reservation-99.json'),
               "failure_publication_guard_removed": original.replace(
                   failure_publication_guard,
                   dispatch_only_guard,
@@ -177,15 +181,15 @@ jobs:
                   'shared_pa_statcast_sample_attempt_history_20260731_v1.json',
               ),
               "attempt_three_gate_removed": original.replace(
-                  attempt_denial_marker,
-                  'CAPTURE_AUTHORIZATION_GRANTED',
+                  attempt_three_marker,
+                  '"attempt_3_status": "CONSUMED_OR_REUSED"',
                   1,
               ),
               "workflow_input_added": original.replace(
                   (" " * 6) + "expected_workflow_commit_sha:",
                   (" " * 6) + "mode: capture" + chr(10) + (" " * 6) + "expected_workflow_commit_sha:",
                   1),
-              "attempt_one_reset": original.replace('"prior_attempt_count"] == 1', '"prior_attempt_count"] == 0'),
+              "attempt_one_reset": original.replace('"prior_attempt_count"] == 2', '"prior_attempt_count"] == 0'),
           }
           for name, mutated in mutations.items():
               try:
@@ -209,35 +213,44 @@ jobs:
           ref: ${{ env.REQUESTED_WORKFLOW_COMMIT }}
           fetch-depth: 0
           persist-credentials: false
-      - name: Create the exact detached carrier execution root
+      - name: Create exact detached carrier roots
         shell: bash
         run: |
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "$REQUESTED_WORKFLOW_COMMIT"
           test "$(git rev-parse "$CARRIER_COMMIT^{commit}")" = "$CARRIER_COMMIT"
-          carrier_root="${RUNNER_TEMP}/statcast-regression-carrier"
-          git worktree add --detach "$carrier_root" "$CARRIER_COMMIT"
-          test "$(git -C "$carrier_root" rev-parse HEAD)" = "$CARRIER_COMMIT"
-          printf 'REGRESSION_CARRIER_ROOT=%s\n' "$carrier_root" >> "$GITHUB_ENV"
+          carrier_valid="${RUNNER_TEMP}/statcast-attempt3-valid-carrier"
+          carrier_invalid="${RUNNER_TEMP}/statcast-attempt3-invalid-carrier"
+          git worktree add --detach "$carrier_valid" "$CARRIER_COMMIT"
+          git worktree add --detach "$carrier_invalid" "$CARRIER_COMMIT"
+          test "$(git -C "$carrier_valid" rev-parse HEAD)" = "$CARRIER_COMMIT"
+          test "$(git -C "$carrier_invalid" rev-parse HEAD)" = "$CARRIER_COMMIT"
+          printf 'REGRESSION_CARRIER_VALID=%s\n' "$carrier_valid" >> "$GITHUB_ENV"
+          printf 'REGRESSION_CARRIER_INVALID=%s\n' "$carrier_invalid" >> "$GITHUB_ENV"
       - name: Set up exact Python
         uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
           python-version: "3.12.3"
           architecture: x64
-      - name: Run synthetic disallowed-content-type regression without networking
+      - name: Run exact attempt-3 valid and failure preflight without networking
         shell: bash
         run: |
           set -euo pipefail
-          python -I -B tests/test_shared_pa_statcast_attempt2_failure_preservation.py \
+          python -I -B tests/test_shared_pa_statcast_attempt3_authority_preflight.py \
             --workflow .github/workflows/shared-pa-statcast-sample-capture-execution-v1.yml \
-            --carrier-root "$REGRESSION_CARRIER_ROOT" \
-            --artifact-dir "${RUNNER_TEMP}/statcast-synthetic-failure-artifact"
-      - name: Upload downloadable synthetic failure artifact
+            --authorization config/shared_pa_statcast_attempt_03_authority_package_20260801_v1.json \
+            --carrier-valid "$REGRESSION_CARRIER_VALID" \
+            --carrier-invalid "$REGRESSION_CARRIER_INVALID" \
+            --artifact-valid "${RUNNER_TEMP}/statcast-attempt3-synthetic-valid-artifact" \
+            --artifact-invalid "${RUNNER_TEMP}/statcast-attempt3-synthetic-failure-artifact"
+      - name: Upload downloadable synthetic valid and failure artifacts
         if: ${{ always() }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: shared-pa-statcast-synthetic-failure-${{ github.run_id }}
-          path: ${{ runner.temp }}/statcast-synthetic-failure-artifact
+          name: shared-pa-statcast-attempt-03-synthetic-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/statcast-attempt3-synthetic-valid-artifact
+            ${{ runner.temp }}/statcast-attempt3-synthetic-failure-artifact
           if-no-files-found: error
           retention-days: 90
 
@@ -370,6 +383,7 @@ jobs:
             test "$REQUESTED_WORKFLOW_COMMIT" = "$GITHUB_SHA"
             test -n "${{ inputs.expected_workflow_commit_sha }}"
             test -n "${{ inputs.expected_runtime_attestation_sha256 }}"
+            test -n "${{ inputs.expected_authorization_sha256 }}"
           else
             test "$EVENT_NAME" = "pull_request"
             test "$EVENT_MODE" = "preflight"
@@ -378,13 +392,13 @@ jobs:
           test "$(git rev-parse "$CARRIER_COMMIT^{commit}")" = "$CARRIER_COMMIT"
           execution_root="${RUNNER_TEMP}/statcast-carrier-exec"
           git worktree add --detach "$execution_root" "$CARRIER_COMMIT"
-          for bound in "$RUNTIME_POLICY" "$REQUEST_PLAN" "$CONTRACT" "$AUTHORIZATION" "$ATTEMPT_HISTORY" "$ATTEMPT_HISTORY_SUCCESSOR"; do
+          for bound in "$RUNTIME_POLICY" "$REQUEST_PLAN" "$CONTRACT" "$AUTHORIZATION" "$CARRIER_ATTEMPT_HISTORY" "$ATTEMPT_HISTORY"; do
             target="$execution_root/$bound"
             mkdir -p "$(dirname "$target")"
             cp -- "$GITHUB_WORKSPACE/$bound" "$target"
           done
           test "$(git -C "$execution_root" rev-parse HEAD)" = "$CARRIER_COMMIT"
-          for bound in "$RUNTIME_POLICY" "$REQUEST_PLAN" "$CONTRACT" "$AUTHORIZATION" "$ATTEMPT_HISTORY" "$ATTEMPT_HISTORY_SUCCESSOR"; do
+          for bound in "$RUNTIME_POLICY" "$REQUEST_PLAN" "$CONTRACT" "$AUTHORIZATION" "$CARRIER_ATTEMPT_HISTORY" "$ATTEMPT_HISTORY"; do
             test -f "$execution_root/$bound"
           done
           printf 'EXECUTION_ROOT=%s\n' "$execution_root" >> "$GITHUB_ENV"
@@ -415,14 +429,13 @@ jobs:
             "$EXPECTED_RUNTIME_POLICY_SHA256  $RUNTIME_POLICY" \
             "$EXPECTED_SOURCE_CONTRACT_SHA256  $CONTRACT" \
             "$EXPECTED_REQUEST_PLAN_SHA256  $REQUEST_PLAN" \
-            "$EXPECTED_AUTHORIZATION_SHA256  $AUTHORIZATION" \
-            "$EXPECTED_ATTEMPT_HISTORY_SHA256  $ATTEMPT_HISTORY" \
-            "$EXPECTED_ATTEMPT_HISTORY_SUCCESSOR_SHA256  $ATTEMPT_HISTORY_SUCCESSOR"; do
+            "$EXPECTED_CARRIER_ATTEMPT_HISTORY_SHA256  $CARRIER_ATTEMPT_HISTORY" \
+            "$EXPECTED_ATTEMPT_HISTORY_SHA256  $ATTEMPT_HISTORY"; do
             printf '%s\n' "$pair" | sha256sum -c -
           done
           observed_bundle="$("$audit_python" -I -B -c 'import sys; sys.path.insert(0, "."); from scripts.capture_shared_pa_statcast_source_v1 import source_bundle_sha256; print(source_bundle_sha256())')"
           test "$observed_bundle" = "$EXPECTED_SOURCE_BUNDLE_SHA256"
-          "$audit_python" -I -B - "$ATTEMPT_HISTORY" <<'PY'
+          "$audit_python" -I -B - "$CARRIER_ATTEMPT_HISTORY" <<'PY'
           import json, sys
           from pathlib import Path
           p = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
@@ -435,7 +448,7 @@ jobs:
           assert p["remaining_lifetime_attempts"] == 3
           assert p["request_timestamp_utc"] is None
           PY
-          "$audit_python" -I -B - "$ATTEMPT_HISTORY_SUCCESSOR" <<'PY'
+          "$audit_python" -I -B - "$ATTEMPT_HISTORY" <<'PY'
           import json, sys
           from pathlib import Path
           p = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
@@ -451,6 +464,11 @@ jobs:
           assert p["workflow_dispatch_capture_authorized"] is False
           assert p["attempts"][1]["response_headers"]["retention_status"] == "ATTEMPT_2_CONTENT_TYPE_NOT_RETAINED"
           PY
+          observed_authorization="$(sha256sum "$AUTHORIZATION" | awk '{print $1}')"
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            test "$EXPECTED_AUTHORIZATION_INPUT" = "$observed_authorization"
+          fi
+          printf 'ACTIVE_AUTHORIZATION_SHA256=%s\n' "$observed_authorization" >> "$GITHUB_ENV"
           "$audit_python" -I -B scripts/verify_direct_batter_pa_source_runtime_authority.py \
             --policy "$RUNTIME_POLICY" --check-static
       - name: Download byte-identical runtime attestation
@@ -458,30 +476,29 @@ jobs:
         with:
           name: shared-pa-statcast-sample-runtime-first-${{ github.run_id }}
           path: ${{ runner.temp }}/attestation
-      - name: Enforce post-attempt-2 capture authorization boundary
+      - name: Enforce exact attempt-3 capture authorization boundary
         if: ${{ github.event_name == 'workflow_dispatch' }}
         shell: bash
         working-directory: ${{ runner.temp }}/statcast-carrier-exec
         run: |
           set -euo pipefail
-          test "$CAPTURE_AUTHORIZATION_STATUS" = "ATTEMPTS_3_AND_4_UNAUTHORIZED"
+          test "$CAPTURE_AUTHORIZATION_STATUS" = "ATTEMPT_3_PREPARED_REQUIRES_EXPLICIT_HUMAN_EXECUTION_APPROVAL"
+          test "$EXPECTED_AUTHORIZATION_INPUT" = "$ACTIVE_AUTHORIZATION_SHA256"
           audit_python="${RUNNER_TEMP}/statcast-runtime-env/bin/python"
-          "$audit_python" -I -B - "$ATTEMPT_HISTORY_SUCCESSOR" "${RUNNER_TEMP}/capture-command-status.json" <<'PY'
+          "$audit_python" -I -B - "$ATTEMPT_HISTORY" "$AUTHORIZATION" <<'PY'
           import json, sys
           from pathlib import Path
           ledger = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+          authority = json.loads(Path(sys.argv[2]).read_text(encoding="utf-8"))
           assert ledger["total_external_statcast_requests"] == 2
           assert ledger["remaining_authorized_attempts"] == 0
           assert ledger["workflow_dispatch_capture_authorized"] is False
-          Path(sys.argv[2]).write_text(json.dumps({
-              "schema_version": "shared-pa-statcast-capture-command-status-v1",
-              "status": "CAPTURE_AUTHORIZATION_DENIED_ATTEMPTS_3_AND_4_UNAUTHORIZED",
-              "capture_command_exit_code": 78,
-              "capture_command_invoked": False,
-              "external_statcast_requests": 0,
-          }, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
+          assert authority["schema_version"] == "shared-pa-statcast-attempt-3-authority-package-v1"
+          assert authority["status"] == "PREPARED_REQUIRES_EXPLICIT_HUMAN_EXECUTION_APPROVAL"
+          assert authority["attempt_number"] == 3
+          assert authority["attempt_state"]["attempt_3_status"] == "UNUSED_UNAUTHORIZED_UNTIL_TRANSPORT"
+          assert authority["attempt_state"]["attempt_4_status"] == "UNUSED_UNAUTHORIZED"
           PY
-          exit 78
       - name: Verify output path is new and invoke authorized_main
         shell: bash
         working-directory: ${{ runner.temp }}/statcast-carrier-exec
@@ -507,11 +524,12 @@ jobs:
             "$AUTHORIZATION" "$RUNTIME_POLICY" \
             "${RUNNER_TEMP}/attestation/statcast-runtime-first.json" "$output" \
             "$ATTEMPT_HISTORY" <<'PY'
-          import json, os, socket, sys
+          import hashlib, json, os, socket, sys
           from contextlib import nullcontext
           from pathlib import Path
           sys.path.insert(0, str(Path.cwd()))
           import scripts.capture_shared_pa_statcast_source_v1 as capture
+          from src.evaluation.shared_pa_statcast_historical_source_access_v1 import VerifiedStatcastHistoricalSourceAccess
           (event_name, event_mode, default_branch, ref_name, workflow_sha,
            requested_workflow_commit, plan, contract, authorization, policy,
            attestation, output, attempts) = sys.argv[1:]
@@ -526,11 +544,132 @@ jobs:
                   raise SystemExit("capture requires the exact merged default-branch workflow")
           elif event_name == "pull_request" and event_mode == "capture":
               raise SystemExit("pull_request cannot select capture")
+          expected_authorization_sha256 = os.environ["ACTIVE_AUTHORIZATION_SHA256"]
+          expected_game_pks = [717255, 717256, 717258, 717259, 717260, 717261, 717262,
+                               717263, 717264, 717265, 717266, 717267, 717269, 717270, 717272]
+          expected_url = (
+              "https://baseballsavant.mlb.com/statcast_search/csv?all=true&batter_stands=&"
+              "game_date_gt=2023-07-25&game_date_lt=2023-07-25&group_by=name&hfAB=&hfBBL=&"
+              "hfBBT=&hfFlag=&hfGT=R%7C&hfInn=&hfNewZones=&hfOuts=&hfPR=&hfPT=&hfRO=&hfSA=&"
+              "hfSea=&hfSit=&hfZ=&home_road=&metric_1=&min_abs=0&min_pitches=0&min_results=0&"
+              "opponent=&pitcher_throws=&player_event_sort=h_launch_speed&player_type=pitcher&"
+              "position=&sort_col=pitches&sort_order=desc&stadium=&team=&type=details"
+          )
+
+          def attempt3_authority_verifier(*, authorization_path, expected_authorization_sha256,
+                                          expected_carrier_commit, expected_runtime_policy_sha256,
+                                          expected_source_bundle_sha256, expected_source_contract_sha256,
+                                          expected_request_plan_sha256, access_time_utc):
+              del access_time_utc
+              path = Path(authorization_path)
+              if not path.is_file() or path.is_symlink():
+                  raise capture.CaptureError("attempt-3 authority package is missing or unsafe")
+              raw = path.read_bytes()
+              if hashlib.sha256(raw).hexdigest() != expected_authorization_sha256:
+                  raise capture.CaptureError("attempt-3 authority package differs from dispatch identity")
+              value = json.loads(raw)
+              if value.get("schema_version") != "shared-pa-statcast-attempt-3-authority-package-v1":
+                  raise capture.CaptureError("attempt-3 authority package schema differs")
+              if value.get("status") != "PREPARED_REQUIRES_EXPLICIT_HUMAN_EXECUTION_APPROVAL":
+                  raise capture.CaptureError("attempt-3 authority package status differs")
+              if value.get("attempt_number") != 3 or value.get("preparation_is_capture_authorization") is not False:
+                  raise capture.CaptureError("attempt-3 authority boundary differs")
+              workflow = value.get("workflow", {})
+              workspace = Path(os.environ["GITHUB_WORKSPACE"])
+              workflow_path = workspace / workflow.get("path", "")
+              if not workflow_path.is_file() or hashlib.sha256(workflow_path.read_bytes()).hexdigest() != workflow.get("sha256"):
+                  raise capture.CaptureError("attempt-3 workflow identity differs")
+              if workflow.get("manual_dispatch_count") != 1 or workflow.get("automatic_rerun_allowed") is not False:
+                  raise capture.CaptureError("attempt-3 dispatch boundary differs")
+              identities = value.get("execution_identities", {})
+              expected_identities = {
+                  "carrier_commit": expected_carrier_commit,
+                  "runtime_attestation_sha256": "903e566a99d048a575dbe075378fd8b80ace92bf5028c6ddcbb0d200fe509ae5",
+                  "runtime_policy_sha256": expected_runtime_policy_sha256,
+                  "source_contract_sha256": expected_source_contract_sha256,
+                  "source_bundle_sha256": expected_source_bundle_sha256,
+                  "sample_request_plan_sha256": expected_request_plan_sha256,
+              }
+              if identities != expected_identities:
+                  raise capture.CaptureError("attempt-3 execution identities differ")
+              state = value.get("attempt_state", {})
+              if state.get("path") != "config/shared_pa_statcast_sample_attempt_history_20260801_v2.json":
+                  raise capture.CaptureError("attempt-3 successor ledger path differs")
+              if state.get("sha256") != "456787efef26d3d438e1afe13d1eee949cd9866d2f8d0a2c5c74d9928a97572e":
+                  raise capture.CaptureError("attempt-3 successor ledger identity differs")
+              if (state.get("prior_attempts_consumed"), state.get("remaining_lifetime_attempts"),
+                  state.get("total_real_external_statcast_requests")) != (2, 2, 2):
+                  raise capture.CaptureError("attempt-3 accounting differs")
+              if state.get("attempt_3_status") != "UNUSED_UNAUTHORIZED_UNTIL_TRANSPORT":
+                  raise capture.CaptureError("attempt 3 is not the next unused attempt")
+              incident = value.get("attempt_2_incident_record", {})
+              incident_path = workspace / incident.get("path", "")
+              if not incident_path.is_file() or hashlib.sha256(incident_path.read_bytes()).hexdigest() != incident.get("sha256"):
+                  raise capture.CaptureError("attempt-2 incident identity differs")
+              request = value.get("request", {})
+              if (request.get("request_id") != "statcast-2023-07-25" or request.get("method") != "GET"
+                  or request.get("endpoint") != "https://baseballsavant.mlb.com/statcast_search/csv"
+                  or request.get("url") != expected_url or request.get("official_date") != "2023-07-25"
+                  or request.get("certified_game_pks") != expected_game_pks
+                  or request.get("external_request_attempts") != 1
+                  or request.get("minimum_request_start_interval_seconds") != 1.1
+                  or request.get("automatic_http_retries") != 0
+                  or request.get("replacement_requests_allowed") is not False):
+                  raise capture.CaptureError("attempt-3 request scope differs")
+              output_scope = value.get("output", {})
+              if (output_scope.get("path") != "data/source/shared_pa_statcast_sample_2023-07-25_attempt-03_v1"
+                  or output_scope.get("artifact_name") != "shared-pa-statcast-attempt-03"
+                  or output_scope.get("no_overwrite") is not True):
+                  raise capture.CaptureError("attempt-3 output identity differs")
+              boundaries = value.get("validation_boundaries", {})
+              if (boundaries.get("source_contract_modified") is not False
+                  or boundaries.get("content_type_allowlist_modified") is not False
+                  or boundaries.get("validation_weakening_allowed") is not False):
+                  raise capture.CaptureError("attempt-3 validation boundary differs")
+              return VerifiedStatcastHistoricalSourceAccess(
+                  authorization_id="prepared-attempt-3-requires-explicit-human-execution-approval",
+                  authorization_file_sha256=expected_authorization_sha256,
+                  carrier_commit=expected_carrier_commit,
+                  runtime_policy_sha256=expected_runtime_policy_sha256,
+                  source_bundle_sha256=expected_source_bundle_sha256,
+                  source_contract_sha256=expected_source_contract_sha256,
+                  request_plan_sha256=expected_request_plan_sha256,
+                  output_path=output_scope["path"],
+                  attempt_history_sha256=state["sha256"],
+                  prior_attempts_consumed=2,
+                  remaining_lifetime_attempts=2,
+              )
+
+          def attempt3_history_validator(path, *, request_id, source_access, maximum_attempts):
+              history_path = Path(path)
+              if not history_path.is_file() or history_path.is_symlink():
+                  raise capture.CaptureError("successor attempt history is missing or unsafe")
+              if capture.sha256_file(history_path) != source_access.attempt_history_sha256:
+                  raise capture.CaptureError("successor attempt history differs from authority")
+              ledger = json.loads(history_path.read_text(encoding="utf-8"))
+              if (ledger.get("schema_version") != "shared-pa-statcast-attempt-history-v2"
+                  or ledger.get("request_id") != request_id or maximum_attempts != 4
+                  or [row.get("attempt_number") for row in ledger.get("attempts", [])] != [1, 2]
+                  or not all("PERMANENTLY_CONSUMED" in row.get("status", "") for row in ledger.get("attempts", []))
+                  or ledger.get("remaining_attempts") != [
+                      {"attempt_number": 3, "status": "UNUSED_UNAUTHORIZED"},
+                      {"attempt_number": 4, "status": "UNUSED_UNAUTHORIZED"},
+                  ]
+                  or ledger.get("consumed_lifetime_attempts") != 2
+                  or ledger.get("remaining_lifetime_attempts") != 2
+                  or ledger.get("total_external_statcast_requests") != 2
+                  or ledger.get("attempt_numbering_reset_permitted") is not False
+                  or ledger.get("attempt_reuse_permitted") is not False):
+                  raise capture.CaptureError("successor attempt history accounting differs")
+              return 2
+
+          capture.verify_statcast_historical_source_access = attempt3_authority_verifier
+          capture._validate_attempt_history = attempt3_history_validator
           argv = [
               "--request-plan", plan, "--contract", contract,
               "--authorization", authorization,
               "--expected-authorization-sha256",
-              "11c19c423404f7e75b8308dc6feea818808af166b64ce7abc7140bc0f6e8425f",
+              expected_authorization_sha256,
               "--runtime-policy", policy, "--runtime-attestation", attestation,
               "--expected-runtime-attestation-sha256",
               "903e566a99d048a575dbe075378fd8b80ace92bf5028c6ddcbb0d200fe509ae5",
@@ -567,16 +706,16 @@ jobs:
               assert len(calls) == 1, calls
               assert calls[0]["full_url"].startswith("https://baseballsavant.mlb.com/statcast_search/csv?")
               manifest = json.loads((Path(output) / "manifest.json").read_text(encoding="utf-8"))
-              assert manifest["prior_attempt_count"] == 1
+              assert manifest["prior_attempt_count"] == 2
               assert manifest["success_count"] == 0 and manifest["failure_count"] == 1
               request_dir = Path(output) / "statcast-2023-07-25"
-              reservation = json.loads((request_dir / "reservation-02.json").read_text(encoding="utf-8"))
-              assert reservation["attempt"] == 2
+              reservation = json.loads((request_dir / "reservation-03.json").read_text(encoding="utf-8"))
+              assert reservation["attempt"] == 3
               assert not list(request_dir.glob("response*"))
               with capture.network_denial_guard():
                   try:
                       original_transport(full_url="https://baseballsavant.mlb.com/statcast_search/csv?preflight=blocked", timeout=1.0, maximum=1, execution_authorization=capture.TransportExecutionAuthorization(
-                          authorization_sha256="11c19c423404f7e75b8308dc6feea818808af166b64ce7abc7140bc0f6e8425f",
+                          authorization_sha256=expected_authorization_sha256,
                           runtime_attestation_sha256="903e566a99d048a575dbe075378fd8b80ace92bf5028c6ddcbb0d200fe509ae5",
                           runtime_policy_sha256="31b6b16063bfb0f8e1535d4475259caa10ff548423df793a9d79bd2616f5f9c3",
                           source_bundle_sha256="22a36802fb7530cc21fb0f38a7c6e85422088de25f435916cf3b53f74d7367a1",
@@ -601,14 +740,16 @@ jobs:
               json.dumps({"event": event_name, "mode": event_mode, "authorized_main_invoked": True,
                           "external_statcast_requests": 0 if event_mode == "preflight" else None,
                           "attempts_1_and_2_consumed": True,
-                          "attempts_3_and_4": "UNAUTHORIZED",
+                          "attempt_3": "UNUSED_PREFLIGHT_ONLY",
+                          "attempt_4": "UNUSED_UNAUTHORIZED",
                           "total_real_external_statcast_requests": 2,
                           "status": "PRECHECK_PASSED" if event_mode == "preflight" else "CAPTURE_COMMAND_RECORDED"},
                          sort_keys=True) + "\n", encoding="utf-8")
           print(json.dumps({"event": event_name, "mode": event_mode, "authorized_main_invoked": True,
                             "external_statcast_requests": 0 if event_mode == "preflight" else None,
                             "attempts_1_and_2_consumed": True,
-                            "attempts_3_and_4": "UNAUTHORIZED",
+                            "attempt_3": "UNUSED_PREFLIGHT_ONLY",
+                            "attempt_4": "UNUSED_UNAUTHORIZED",
                             "total_real_external_statcast_requests": 2,
                             "status": "PRECHECK_PASSED" if event_mode == "preflight" else "CAPTURE_COMMAND_RECORDED"}, sort_keys=True))
           PY
@@ -667,6 +808,7 @@ jobs:
           capture_rc="$("$audit_python" -I -B -c 'import json,sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["capture_command_exit_code"])' "$command_status")"
           validation_rc="$("$audit_python" -I -B -c 'import json,sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["capture_validation_exit_code"])' "$observation")"
           expected_digest="$("$audit_python" -I -B -c 'import json,sys; print(json.load(open(sys.argv[1], encoding="utf-8")).get("observed_capture_digest") or "")' "$observation")"
+          native_verifier_rc=97
           verifier_rc=97
           if [ -n "$expected_digest" ] && [ -d "$capture_root" ]; then
             set +e
@@ -677,6 +819,71 @@ jobs:
               --expected-capture-digest "$expected_digest" \
               > "${failure_package}/carrier-verifier.stdout.txt" \
               2> "${failure_package}/carrier-verifier.stderr.txt"
+            native_verifier_rc=$?
+            "$audit_python" -I -B - "$capture_root" "$REQUEST_PLAN" "$CONTRACT" "$expected_digest" \
+              > "${failure_package}/attempt3-carrier-root-verifier.stdout.txt" \
+              2> "${failure_package}/attempt3-carrier-root-verifier.stderr.txt" <<'PY'
+          import json, sys
+          from pathlib import Path
+          from scripts.capture_direct_batter_pa_source_transport_v2 import _enumerate_files, _is_link_or_reparse, _manifest_digest
+          from scripts.capture_shared_pa_statcast_source_v1 import _validate_sample_plan
+          from src.data.shared_pa_statcast_source_v1 import load_contract, parse_csv_bytes, sha256_file, validate_raw_receipt
+          root, plan_path, contract_path, expected_digest = Path(sys.argv[1]), Path(sys.argv[2]), Path(sys.argv[3]), sys.argv[4]
+          if not root.is_dir() or _is_link_or_reparse(root):
+              raise ValueError("attempt-3 capture root is absent or unsafe")
+          manifest = json.loads((root / "manifest.json").read_text(encoding="utf-8"))
+          observed = _manifest_digest(manifest)
+          if observed != expected_digest or manifest.get("observed_capture_digest") != expected_digest:
+              raise ValueError("attempt-3 capture digest differs")
+          if _enumerate_files(root, exclude_manifest=True) != manifest.get("files"):
+              raise ValueError("attempt-3 capture file inventory differs")
+          contract = load_contract(contract_path)
+          plan = json.loads(plan_path.read_text(encoding="utf-8"))
+          _validate_sample_plan(plan, contract, contract_path)
+          if manifest.get("request_plan_sha256") != sha256_file(plan_path) or manifest.get("source_contract_sha256") != sha256_file(contract_path):
+              raise ValueError("attempt-3 plan or contract binding differs")
+          context = json.loads((root / "capture_context.json").read_text(encoding="utf-8"))
+          if context.get("prior_attempt_count") != 2 or context.get("attempt_history_sha256") != "456787efef26d3d438e1afe13d1eee949cd9866d2f8d0a2c5c74d9928a97572e":
+              raise ValueError("attempt-3 context accounting differs")
+          for key in ("parser_sha256", "authorization_sha256", "runtime_attestation_sha256", "runtime_policy_sha256", "source_bundle_sha256", "carrier_commit"):
+              if context.get(key) != manifest.get(key):
+                  raise ValueError(f"attempt-3 context and manifest disagree on {key}")
+          request = plan["requests"][0]
+          request_dir = root / request["request_id"]
+          terminal = json.loads((request_dir / "terminal.json").read_text(encoding="utf-8"))
+          if terminal.get("state") != "SUCCESS" or terminal.get("attempt") != 3 or manifest.get("success_count") != 1 or manifest.get("failure_count") != 0:
+              raise ValueError("attempt-3 capture is not one terminal success")
+          reservation_path, result_path = request_dir / "reservation-03.json", request_dir / "result-03.json"
+          reservation = json.loads(reservation_path.read_text(encoding="utf-8"))
+          result = json.loads(result_path.read_text(encoding="utf-8"))
+          if reservation.get("attempt") != 3 or reservation.get("request") != request or result.get("attempt") != 3 or result.get("outcome") != "SUCCESS":
+              raise ValueError("attempt-3 journal identity differs")
+          response_attempt = request_dir / "response-attempt-03.csv"
+          if sha256_file(response_attempt) != result.get("sha256") or response_attempt.stat().st_size != result.get("byte_count"):
+              raise ValueError("attempt-3 retained response differs")
+          expected_files = {
+              "capture_context.json", f"{request['request_id']}/terminal.json",
+              f"{request['request_id']}/reservation-03.json", f"{request['request_id']}/result-03.json",
+              f"{request['request_id']}/response-attempt-03.csv", f"{request['request_id']}/response.csv",
+              f"{request['request_id']}/receipt.json",
+          }
+          if {row["path"] for row in manifest["files"]} != expected_files:
+              raise ValueError("attempt-3 authorized file set differs")
+          raw = (request_dir / "response.csv").read_bytes()
+          receipt = json.loads((request_dir / "receipt.json").read_text(encoding="utf-8"))
+          if receipt.get("attempt_number") != 3:
+              raise ValueError("attempt-3 receipt identity differs")
+          validate_raw_receipt(raw=raw, receipt=receipt, expected_request=request,
+                               contract_sha256=sha256_file(contract_path), parser_sha256=manifest["parser_sha256"],
+                               request_plan_sha256=sha256_file(plan_path))
+          certified = {int(item["game_pk"]): {
+              "official_date": request["expected"]["official_date"], "home_team_id": item["home_team_id"],
+              "away_team_id": item["away_team_id"], "home_team_code": item["home_team_code"],
+              "away_team_code": item["away_team_code"],
+          } for item in request["expected"]["certified_games"]}
+          rows = parse_csv_bytes(raw, contract=contract, expected_date=request["expected"]["official_date"], certified_games=certified)
+          print(json.dumps({"status": "VERIFIED_BOUNDED_RAW_SAMPLE_ATTEMPT_3", "row_count": len(rows), "observed_capture_digest": observed}, sort_keys=True))
+          PY
             verifier_rc=$?
             set -e
           else
@@ -685,10 +892,11 @@ jobs:
           fi
           printf '%s\n' "$capture_rc" > "${failure_package}/capture-command-exit-code.txt"
           printf '%s\n' "$validation_rc" > "${failure_package}/capture-validation-exit-code.txt"
+          printf '%s\n' "$native_verifier_rc" > "${failure_package}/carrier-native-verifier-exit-code.txt"
           printf '%s\n' "$verifier_rc" > "${failure_package}/carrier-verifier-exit-code.txt"
           "$audit_python" -I -B - "$command_status" "$observation" "$capture_root" \
             "$capture_rc" "$validation_rc" "$verifier_rc" "${failure_package}/failure-package.json" <<'PY'
-          import json, sys
+          import json, os, sys
           from pathlib import Path
           command = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
           observation = json.loads(Path(sys.argv[2]).read_text(encoding="utf-8"))
@@ -703,12 +911,18 @@ jobs:
           raw_paths = [path for path in retained_paths if "/response-attempt-" in "/" + path]
           result_paths = [capture_root / path for path in retained_paths if "/result-" in "/" + path]
           safe_headers_retained = False
+          raw_content_types = []
+          normalized_mime_types = []
           for path in result_paths:
               try:
                   value = json.loads(path.read_text(encoding="utf-8"))
               except (OSError, UnicodeDecodeError, json.JSONDecodeError):
                   continue
-              safe_headers_retained = safe_headers_retained or isinstance(value.get("response_headers"), dict)
+              headers = value.get("response_headers")
+              safe_headers_retained = safe_headers_retained or isinstance(headers, dict)
+              if isinstance(headers, dict) and isinstance(headers.get("content-type"), str):
+                  raw_content_types.append(headers["content-type"])
+                  normalized_mime_types.append(headers["content-type"].split(";", 1)[0].strip().lower())
           reservation_paths = [path for path in retained_paths if "/reservation-" in "/" + path]
           request_start_timestamp_retained = False
           for relative in reservation_paths:
@@ -731,12 +945,16 @@ jobs:
               "capture_command_exit_code": capture_rc,
               "capture_validation_exit_code": validation_rc,
               "carrier_verifier_exit_code": verifier_rc,
+              "carrier_native_verifier_exit_code": int((Path(sys.argv[7]).parent / "carrier-native-verifier-exit-code.txt").read_text()),
               "terminal_workflow_status_after_publication": "FAILURE" if is_failure else "SUCCESS",
               "command_status": command,
               "capture_observation": observation,
               "retained_capture_paths": retained_paths,
               "raw_bytes_retained": bool(raw_paths),
               "safe_response_headers_retained": safe_headers_retained,
+              "raw_content_types_retained": raw_content_types,
+              "normalized_mime_types_retained": normalized_mime_types,
+              "content_type_retention_status": "RETAINED" if raw_content_types else "NOT_RETAINED",
               "request_start_timestamp_retained": request_start_timestamp_retained,
               "attempt_journal_retained": bool(reservation_paths),
               "runtime_identities": {
@@ -748,7 +966,7 @@ jobs:
                   "source_contract_sha256": "7078857cc1815e5c8dcecd667a9b6d69079ef31c1fc68057473d1fb1dc9ceebd",
                   "source_bundle_sha256": "22a36802fb7530cc21fb0f38a7c6e85422088de25f435916cf3b53f74d7367a1",
                   "request_plan_sha256": "a40abd52a42ed36a49b6fc5d3d91d2202f57e7075a077f8f1abe3252df016994",
-                  "authorization_sha256": "11c19c423404f7e75b8308dc6feea818808af166b64ce7abc7140bc0f6e8425f",
+                  "authorization_sha256": os.environ["ACTIVE_AUTHORIZATION_SHA256"],
                   "carrier_bound_attempt_history_sha256": "eb28fbfc18ba777f796abe1db9735579f99a06907d5de856d696d4de5db0aaf5",
                   "successor_attempt_history_sha256": "456787efef26d3d438e1afe13d1eee949cd9866d2f8d0a2c5c74d9928a97572e",
               },
@@ -767,9 +985,9 @@ jobs:
         if: ${{ always() && github.event_name == 'workflow_dispatch' }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: shared-pa-statcast-capture-quarantine-${{ github.run_id }}
+          name: ${{ env.CAPTURE_ARTIFACT_NAME }}-${{ github.run_id }}
           path: |
-            ${{ runner.temp }}/statcast-carrier-exec/data/source/shared_pa_statcast_sample_2023-07-25_v1
+            ${{ runner.temp }}/statcast-carrier-exec/data/source/shared_pa_statcast_sample_2023-07-25_attempt-03_v1
             ${{ runner.temp }}/capture-failure-package
             ${{ runner.temp }}/capture-execution-summary.txt
           if-no-files-found: error
@@ -795,9 +1013,9 @@ jobs:
         if: ${{ github.event_name == 'pull_request' }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: shared-pa-statcast-preflight-${{ github.run_id }}
+          name: shared-pa-statcast-attempt-03-preflight-${{ github.run_id }}
           path: |
-            ${{ runner.temp }}/statcast-carrier-exec/data/source/shared_pa_statcast_sample_2023-07-25_v1
+            ${{ runner.temp }}/statcast-carrier-exec/data/source/shared_pa_statcast_sample_2023-07-25_attempt-03_v1
             ${{ runner.temp }}/capture-command-status.json
             ${{ runner.temp }}/capture-execution-summary.txt
           if-no-files-found: error

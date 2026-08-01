@@ -1,0 +1,109 @@
+{
+  "schema_version": "shared-pa-statcast-attempt-3-authority-package-v1",
+  "status": "PREPARED_REQUIRES_EXPLICIT_HUMAN_EXECUTION_APPROVAL",
+  "prepared_date": "2026-08-01",
+  "attempt_number": 3,
+  "preparation_base_commit": "cb35899408068a33910c94722439bd20e6f00ded",
+  "workflow": {
+    "path": ".github/workflows/shared-pa-statcast-sample-capture-execution-v1.yml",
+    "sha256": "c23b0155c3b4c14c4ce6c6cd744a7c159a1c100b3df9ac04e7bda82ef2628ddf",
+    "manual_dispatch_count": 1,
+    "automatic_rerun_allowed": false,
+    "pull_request_mode": "PREFLIGHT_ONLY",
+    "workflow_dispatch_mode": "CAPTURE_ONLY_AFTER_SEPARATE_EXPLICIT_HUMAN_AUTHORIZATION"
+  },
+  "execution_identities": {
+    "carrier_commit": "74395e8552cf65701e526d4cba1f08a3e7f286d8",
+    "runtime_attestation_sha256": "903e566a99d048a575dbe075378fd8b80ace92bf5028c6ddcbb0d200fe509ae5",
+    "runtime_policy_sha256": "31b6b16063bfb0f8e1535d4475259caa10ff548423df793a9d79bd2616f5f9c3",
+    "source_contract_sha256": "7078857cc1815e5c8dcecd667a9b6d69079ef31c1fc68057473d1fb1dc9ceebd",
+    "source_bundle_sha256": "22a36802fb7530cc21fb0f38a7c6e85422088de25f435916cf3b53f74d7367a1",
+    "sample_request_plan_sha256": "a40abd52a42ed36a49b6fc5d3d91d2202f57e7075a077f8f1abe3252df016994"
+  },
+  "attempt_state": {
+    "path": "config/shared_pa_statcast_sample_attempt_history_20260801_v2.json",
+    "sha256": "456787efef26d3d438e1afe13d1eee949cd9866d2f8d0a2c5c74d9928a97572e",
+    "attempt_1_status": "UNAUTHORIZED_QUARANTINED_PERMANENTLY_CONSUMED",
+    "attempt_2_status": "AUTHORIZED_VALIDATION_FAILED_PERMANENTLY_CONSUMED",
+    "attempt_3_status": "UNUSED_UNAUTHORIZED_UNTIL_TRANSPORT",
+    "attempt_4_status": "UNUSED_UNAUTHORIZED",
+    "prior_attempts_consumed": 2,
+    "remaining_lifetime_attempts": 2,
+    "total_real_external_statcast_requests": 2,
+    "preflight_consumes_attempt": false
+  },
+  "attempt_2_incident_record": {
+    "path": "reports/shared_pa_statcast_attempt_2_incident_repair_20260801_v1.json",
+    "sha256": "cff61fb46dbaae2ca6ca4726174a0c1b9804118a3546cbe4ff9b852e1b09c010"
+  },
+  "request": {
+    "request_id": "statcast-2023-07-25",
+    "method": "GET",
+    "endpoint": "https://baseballsavant.mlb.com/statcast_search/csv",
+    "url": "https://baseballsavant.mlb.com/statcast_search/csv?all=true&batter_stands=&game_date_gt=2023-07-25&game_date_lt=2023-07-25&group_by=name&hfAB=&hfBBL=&hfBBT=&hfFlag=&hfGT=R%7C&hfInn=&hfNewZones=&hfOuts=&hfPR=&hfPT=&hfRO=&hfSA=&hfSea=&hfSit=&hfZ=&home_road=&metric_1=&min_abs=0&min_pitches=0&min_results=0&opponent=&pitcher_throws=&player_event_sort=h_launch_speed&player_type=pitcher&position=&sort_col=pitches&sort_order=desc&stadium=&team=&type=details",
+    "official_date": "2023-07-25",
+    "certified_game_pks": [
+      717255,
+      717256,
+      717258,
+      717259,
+      717260,
+      717261,
+      717262,
+      717263,
+      717264,
+      717265,
+      717266,
+      717267,
+      717269,
+      717270,
+      717272
+    ],
+    "external_request_attempts": 1,
+    "minimum_request_start_interval_seconds": 1.1,
+    "automatic_http_retries": 0,
+    "replacement_requests_allowed": false,
+    "redirects_allowed": false
+  },
+  "output": {
+    "path": "data/source/shared_pa_statcast_sample_2023-07-25_attempt-03_v1",
+    "no_overwrite": true,
+    "artifact_name": "shared-pa-statcast-attempt-03",
+    "preserve_valid_or_quarantined_failure_package": true,
+    "failure_upload_is_source_qualification": false
+  },
+  "validation_boundaries": {
+    "source_contract_modified": false,
+    "content_type_allowlist_modified": false,
+    "content_type_inference_allowed": false,
+    "validation_weakening_allowed": false,
+    "failure_package_quarantined": true,
+    "failure_package_non_promotable": true,
+    "missing_evidence_fabrication_allowed": false
+  },
+  "fail_closed_identity_mismatches": [
+    "corrected_main_commit",
+    "workflow_path",
+    "workflow_sha256",
+    "carrier_commit",
+    "authorization_file_sha256",
+    "runtime_attestation_sha256",
+    "runtime_policy_sha256",
+    "source_contract_sha256",
+    "source_bundle_sha256",
+    "sample_request_plan_sha256",
+    "attempt_state_path",
+    "attempt_state_sha256",
+    "attempt_2_incident_record_sha256",
+    "attempt_number",
+    "endpoint",
+    "query",
+    "official_date",
+    "certified_game_scope",
+    "minimum_request_start_interval_seconds",
+    "output_path"
+  ],
+  "preparation_is_capture_authorization": false,
+  "capture_dispatch_authorized": false,
+  "attempt_consumed_by_preparation": false
+}
