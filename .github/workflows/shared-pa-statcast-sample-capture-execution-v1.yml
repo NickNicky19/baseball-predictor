@@ -99,7 +99,8 @@ jobs:
               mode_indent = (" " * 6) + "mode:"
               if mode_indent in text or mode_input in text:
                   raise AssertionError("pull_request must have no mode input or mode override")
-              if ("if: ${{ " + mode_input + " == 'capture' }}") in text:
+              expression_prefix = "if: " + chr(36) + "{{ "
+              if (expression_prefix + mode_input + " == 'capture }}") in text:
                   raise AssertionError("capture must be selected by event, never by an input")
               if text.count("with capture.network_denial_guard()") < 2:
                   raise AssertionError("application and lower-level network guards are both required")
