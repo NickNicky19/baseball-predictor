@@ -228,7 +228,7 @@ jobs:
           argv = [
               "capture", "--request-plan", sys.argv[1], "--contract", sys.argv[2],
               "--authorization", sys.argv[3], "--expected-authorization-sha256",
-              "10024ec359df97c5a75abd6cb22bc705bf8a9804e68b8753a718f9186bed4fb8",
+              "11c19c423404f7e75b8308dc6feea818808af166b64ce7abc7140bc0f6e8425f",
               "--runtime-policy", "config/shared_pa_statcast_runtime_authority_v1.json",
               "--runtime-attestation", sys.argv[4], "--expected-runtime-attestation-sha256",
               sys.argv[5], "--expected-source-bundle-sha256",
