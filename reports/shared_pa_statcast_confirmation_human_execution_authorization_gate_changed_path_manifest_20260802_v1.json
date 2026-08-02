@@ -1,0 +1,38 @@
+{
+  "schema_version": "shared-pa-statcast-confirmation-human-execution-authorization-gate-changed-path-manifest-v1",
+  "status": "FAIL_CLOSED_ALLOWLIST",
+  "base_commit": "2e84656c2aab69c20c9cbe0cb0e466ad9d68a5b6",
+  "branch": "codex/june28-one-time-human-auth-gate-v1",
+  "canonicalization": "sorted repository-relative POSIX paths joined with LF and terminated by LF",
+  "changed_path_manifest_sha256": "9802bec47933b97a0978ce681c1cc86534689f0e1d692de084a708f80be71b22",
+  "changed_paths": [
+    ".github/workflows/shared-pa-statcast-v2-confirmation-execution-v1.yml",
+    "config/shared_pa_statcast_confirmation_human_execution_authorization_schema_v1.json",
+    "reports/shared_pa_statcast_confirmation_human_execution_authorization_gate_changed_path_manifest_20260802_v1.json",
+    "reports/shared_pa_statcast_confirmation_human_execution_authorization_gate_preparation_20260802_v1.json",
+    "scripts/validate_shared_pa_statcast_confirmation_human_execution_authorization_v1.py",
+    "tests/test_shared_pa_statcast_confirmation_execution_preflight.py",
+    "tests/test_shared_pa_statcast_confirmation_human_execution_authorization_gate.py"
+  ],
+  "bound_file_sha256": {
+    ".github/workflows/shared-pa-statcast-v2-confirmation-execution-v1.yml": "54a12f69df339a23b0f80cfd7444f6e6b37eabf78650f27f88c68468a63abf10",
+    "config/shared_pa_statcast_confirmation_human_execution_authorization_schema_v1.json": "b0290856a920642a4f0cd9efb68705375f1b37eab89a594f6ea5a7f3f2bda2c6",
+    "reports/shared_pa_statcast_confirmation_human_execution_authorization_gate_preparation_20260802_v1.json": "40ddf13b9ef75ce871141e3194e52c39d3395914d73ad40fe03a5dc05cee17f0",
+    "scripts/validate_shared_pa_statcast_confirmation_human_execution_authorization_v1.py": "c443c74a41caf867b9f9a68b329e89e2459650a022eae6e9d02d7d36a934b758",
+    "tests/test_shared_pa_statcast_confirmation_execution_preflight.py": "668433b49df16e110ed3a643d1d2857bab066f2521bb554077fd85398da4e6cc",
+    "tests/test_shared_pa_statcast_confirmation_human_execution_authorization_gate.py": "7999fe80d42ab0e85a81242f934a8ef6e3ee4fee798e7cd046ab091c35777c1e"
+  },
+  "future_executable_authorization_record_path": "config/shared_pa_statcast_confirmation_attempt_01_human_execution_authorization_v1.json",
+  "future_executable_authorization_record_present": false,
+  "fail_if_actual_diff_differs": true,
+  "forbidden_path_categories": [
+    "future executable authorization record",
+    "AWS or PR 58 change",
+    "June 28 response bytes",
+    "source-contract change",
+    "feature or model code",
+    "prediction",
+    "cache or bytecode",
+    "unrelated documentation"
+  ]
+}
