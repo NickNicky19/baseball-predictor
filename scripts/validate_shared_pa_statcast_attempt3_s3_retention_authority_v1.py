@@ -30,6 +30,26 @@ RAW_BYTES = 2918703
 RAW_SHA256 = "0d4c91cb2d0eabaeaeed726fcf1d4aabd7f9d888fb4c9f90789a7ba679e0a968"
 FAILURE_BYTES = 2449
 FAILURE_SHA256 = "a166ab2c08c49238be1e45986764a6a7a960360d405b721602f28679e2bebdd0"
+AUDIT_PRINCIPAL = "arn:aws:iam::723322847536:user/mlb-retention-audit"
+AUDIT_POLICY_NAME = "MlbRetentionAuditReadOnlyV1"
+AUDIT_POLICY_SHA256 = "5076611dad2b6abd27e8331d0e0b665d0d65b5ce52862ad2f654be5dc724d150"
+AUDIT_POLICY_BYTES = 4908
+AUDIT_ACTIVATION = "2026-08-04T21:00:00Z"
+AUDIT_EXPIRATION = "2026-08-05T21:00:00Z"
+REQUIRED_PROHIBITED_SIMULATIONS = {
+    "s3:GetObject", "s3:PutObject", "s3:CreateBucket", "s3:PutObjectRetention",
+    "iam:CreatePolicy", "iam:AttachUserPolicy", "iam:PutUserPolicy", "iam:PassRole",
+    "sts:AssumeRole", "kms:Decrypt", "kms:CreateKey", "cloudtrail:CreateTrail",
+    "organizations:CreatePolicy",
+}
+FORBIDDEN_AUDIT_ACTIONS = REQUIRED_PROHIBITED_SIMULATIONS | {
+    "s3:GetObjectVersion", "s3:DeleteObject", "iam:CreatePolicyVersion",
+    "iam:DeletePolicy", "iam:DeletePolicyVersion", "iam:DetachUserPolicy",
+    "iam:DeleteUserPolicy", "iam:AddUserToGroup", "iam:CreateAccessKey",
+    "iam:UpdateAccessKey", "iam:DeleteAccessKey", "iam:ChangePassword",
+    "iam:CreateVirtualMFADevice", "iam:EnableMFADevice", "iam:DeactivateMFADevice",
+    "iam:DeleteVirtualMFADevice",
+}
 EXPECTED_REPOSITORY_HASHES = {
     "reports/shared_pa_statcast_attempt_3_incident_preservation_20260802_v1.json": "52c5d6c03be7a5683f74b5d6aac3d6358c1f868d0718c02f42ef9d57c4b0d797",
     "reports/shared_pa_statcast_attempt_3_offline_body_validation_20260802_v1.json": "21daea2df80c000f4abfeffde3c9c3f4ac44f4e0ea7e4e8727c869dc39372cdf",
@@ -86,6 +106,58 @@ def _valid_bucket_name(value: str) -> bool:
     return not value.endswith(("-s3alias", "--ol-s3", ".mrap", "--x-s3", "--table-s3"))
 
 
+def validate_read_only_audit_policy(authority: dict[str, Any]) -> dict[str, Any]:
+    audit = authority.get("read_only_audit_policy", {})
+    _require(audit.get("status") == "DRAFT_PREPARED_ACCESS_ANALYZER_VALIDATION_PENDING", "audit policy draft status differs")
+    _require(audit.get("policy_name") == AUDIT_POLICY_NAME, "audit policy name differs")
+    _require(audit.get("target_principal") == AUDIT_PRINCIPAL, "audit principal differs")
+    _require(audit.get("form_decision", {}).get("recommended") == "CUSTOMER_MANAGED", "policy form differs")
+    policy = audit.get("policy_document", {})
+    canonical = canonical_json(policy)
+    _require(len(canonical) == AUDIT_POLICY_BYTES, "canonical audit policy byte count differs")
+    _require(sha256_bytes(canonical) == AUDIT_POLICY_SHA256, "canonical audit policy SHA-256 differs")
+    _require(audit.get("canonical_policy_byte_count") == AUDIT_POLICY_BYTES, "recorded audit policy byte count differs")
+    _require(audit.get("canonical_policy_sha256") == AUDIT_POLICY_SHA256, "recorded audit policy SHA-256 differs")
+    _require(AUDIT_POLICY_BYTES > 2048 and AUDIT_POLICY_BYTES < 6144, "policy-form quota decision is not supported")
+    boundary = audit.get("time_boundary", {})
+    _require(boundary.get("activation_utc") == AUDIT_ACTIVATION, "audit activation differs")
+    _require(boundary.get("expiration_utc") == AUDIT_EXPIRATION, "audit expiration differs")
+    _require((_parse_utc(AUDIT_EXPIRATION) - _parse_utc(AUDIT_ACTIVATION)).total_seconds() == 86400, "audit window is not exactly 24 hours")
+    statements = policy.get("Statement", [])
+    _require(policy.get("Version") == "2012-10-17" and statements, "audit policy grammar differs")
+    actions: list[str] = []
+    for statement in statements:
+        _require(statement.get("Effect") == "Allow", "non-Allow statement present")
+        _require("NotAction" not in statement and "Principal" not in statement and "NotResource" not in statement, "unsafe policy element present")
+        item = statement.get("Action")
+        statement_actions = [item] if isinstance(item, str) else list(item or [])
+        _require(statement_actions and all(isinstance(action, str) and action != "*" and not action.endswith(":*") for action in statement_actions), "wildcard or malformed action present")
+        actions.extend(statement_actions)
+        condition = statement.get("Condition", {})
+        _require(condition.get("ArnEquals", {}).get("aws:PrincipalArn") == AUDIT_PRINCIPAL, "exact principal condition missing")
+        _require(condition.get("StringEquals", {}).get("aws:PrincipalAccount") == "723322847536", "principal account condition missing")
+        _require(condition.get("DateGreaterThanEquals", {}).get("aws:CurrentTime") == AUDIT_ACTIVATION, "activation condition missing")
+        _require(condition.get("DateLessThan", {}).get("aws:CurrentTime") == AUDIT_EXPIRATION, "expiration condition missing")
+    _require(len(actions) == len(set(actions)) == audit.get("action_count") == 61, "audit action set differs or contains duplicates")
+    _require(FORBIDDEN_AUDIT_ACTIONS.isdisjoint(actions), "forbidden action present in audit policy")
+    matrix = audit.get("allowed_action_matrix", [])
+    _require(len(matrix) == 61 and {row.get("action") for row in matrix} == set(actions), "allowed-action matrix differs")
+    for row in matrix:
+        _require(row.get("access_level") in {"Read", "List"}, "non-read access level present")
+        _require(row.get("is_write") is False and row.get("is_permission_management") is False, "write or permission-management classification present")
+        _require(row.get("dependent_actions") == [], "unreviewed dependent action present")
+        _require(row.get("read_only_validation") == "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4", "offline action validation missing")
+    validation = audit.get("access_analyzer_validation", {})
+    _require(validation.get("status") == "BLOCKED_ACCESS_DENIED_CURRENT_TARGET_HAS_NO_VALIDATE_POLICY_PERMISSION", "Access Analyzer blocker differs")
+    _require(validation.get("denied_action") == "access-analyzer:ValidatePolicy", "Access Analyzer denied action differs")
+    _require(validation.get("policy_findings_returned") is False and validation.get("attachment_blocked_until_zero_errors") is True, "Access Analyzer failure did not block attachment")
+    simulations = set(audit.get("simulation_plan", {}).get("required_denied_examples", []))
+    _require(REQUIRED_PROHIBITED_SIMULATIONS <= simulations, "prohibited simulation coverage is incomplete")
+    for field in ("preparation_is_attachment_authorization", "policy_creation_authorized", "policy_attachment_authorized", "cleanup_authorized"):
+        _require(audit.get(field) is False, f"audit policy boundary must remain false: {field}")
+    return {"status": "AWS_READ_ONLY_POLICY_DRAFT_PREPARED", "validation": "AWS_READ_ONLY_POLICY_NOT_VALIDATED", "action_count": len(actions)}
+
+
 def validate_repository_state(repository: Path) -> None:
     for relative, expected in EXPECTED_REPOSITORY_HASHES.items():
         path = repository / relative
@@ -111,11 +183,14 @@ def validate_preparation(authority: dict[str, Any], schema: dict[str, Any], plan
     _require(authority.get("schema_version") == "shared-pa-statcast-attempt3-s3-retention-authority-package-v1", "authority schema differs")
     for field in ("preparation_is_aws_authorization", "aws_write_authorized", "upload_authorized", "retention_lock_authorized", "deletion_authorized"):
         _require(authority.get(field) is False, f"authority must be false: {field}")
-    _require(authority.get("status") == "INACTIVE_PROPOSAL_BLOCKED_ON_AWS_IDENTITY_BINDINGS", "authority status differs")
+    _require(authority.get("status") == "INACTIVE_PROPOSAL_BLOCKED_ON_READ_ONLY_AUDIT_POLICY_VALIDATION_AND_ATTACHMENT_AUTHORIZATION", "authority status differs")
     identity = authority.get("aws_identity", {})
-    for field in ("account_id", "caller_arn", "partition", "region"):
-        _require(identity.get(field) is None, f"unverified AWS identity was populated: {field}")
-    _require(identity.get("verification_status") == "AWS_RETENTION_READ_ONLY_IDENTITY_NOT_VERIFIED", "AWS verification status differs")
+    _require(identity.get("verification_status") == "AWS_RETENTION_READ_ONLY_IDENTITY_VERIFIED_SERVICE_AUDIT_BLOCKED_ON_POLICY", "AWS verification status differs")
+    _require(identity.get("account_id") == "723322847536", "AWS account differs")
+    _require(identity.get("caller_arn") == AUDIT_PRINCIPAL and identity.get("caller_is_root") is False, "AWS caller differs or is root")
+    _require(identity.get("partition") == "aws" and identity.get("region") is None and identity.get("configured_region") is None, "AWS partition or unresolved region differs")
+    _require(identity.get("profile") == "mlb-retention-audit" and identity.get("credentials_temporary") is True, "AWS profile or credential type differs")
+    audit_result = validate_read_only_audit_policy(authority)
     bucket = authority.get("bucket", {})
     _require(bucket.get("name") == BUCKET and _valid_bucket_name(BUCKET), "bucket name differs or is syntactically invalid")
     _require(bucket.get("global_availability_verified") is False, "bucket availability was not verified")
@@ -153,7 +228,8 @@ def validate_preparation(authority: dict[str, Any], schema: dict[str, Any], plan
     _require(sha256_bytes(path_payload) == authority.get("repository", {}).get("path_allowlist_sha256"), "path allowlist identity differs")
     return {
         "status": "AWS_RETENTION_AUTHORITY_PACKAGE_PREPARED",
-        "aws_identity": "AWS_RETENTION_READ_ONLY_IDENTITY_NOT_VERIFIED",
+        "aws_identity": "AWS_RETENTION_READ_ONLY_IDENTITY_VERIFIED_SERVICE_AUDIT_BLOCKED_ON_POLICY",
+        "audit_policy": audit_result,
         "execution": "DURABLE_RETENTION_EXECUTION_NOT_PERFORMED",
         "authorized_object_count": 2,
         "total_real_statcast_requests": 3,

@@ -14,12 +14,12 @@
     "tests/test_shared_pa_statcast_attempt3_s3_retention_authority_v1.py"
   ],
   "file_sha256": {
-    "config/shared_pa_statcast_attempt3_s3_retention_authority_package_20260802_v1.json": "cee46311b922803b9d6d5066199649e98253a80c7648a6f1c2a35b599c69d2b3",
+    "config/shared_pa_statcast_attempt3_s3_retention_authority_package_20260802_v1.json": "3950c282888e8e82dd163fbbdd049bdc0ce89a8a9911aa674d7e286d93a5cb49",
     "contracts/schemas/shared_pa_statcast_attempt3_s3_custody_manifest_v1.schema.json": "5f2c63cb9ba534a38f723416c17ac625650b238612c11800078bc96cf355efad",
-    "reports/shared_pa_statcast_attempt3_s3_retention_execution_plan_20260802_v1.json": "bf66185b5e2a8a936c97275638fa86f664797b62f1d2445126512c022a843ea5",
-    "reports/shared_pa_statcast_attempt3_s3_retention_preparation_report_20260802_v1.json": "fadbbbb19d1d0ca2ae530ebd4c4eb8ad0794fba7ba989489dbf2ce26b4ba431b",
-    "scripts/validate_shared_pa_statcast_attempt3_s3_retention_authority_v1.py": "ba1065a85566c59ca8bd69ee9e60dfa8c1f14e700a59c6acf2400d9ae06e6efe",
-    "tests/test_shared_pa_statcast_attempt3_s3_retention_authority_v1.py": "148a9688ed78b38690b46a2298eef1f85322805a13294671ff03f462726e44df"
+    "reports/shared_pa_statcast_attempt3_s3_retention_execution_plan_20260802_v1.json": "dd5ed0c299fc7f906c22d01aa452a7034319369166c2183ea8c63df7e9bce774",
+    "reports/shared_pa_statcast_attempt3_s3_retention_preparation_report_20260802_v1.json": "a76adb2c5aca9d2bff31f1ebe1bb0a410cd867bd1707e62bf8decf5513d52ed3",
+    "scripts/validate_shared_pa_statcast_attempt3_s3_retention_authority_v1.py": "88da4b40a06703c5f321f319a82e1346afaafd784011ca6a522a48f77c15e51a",
+    "tests/test_shared_pa_statcast_attempt3_s3_retention_authority_v1.py": "194eeb962feb4bf962495f5be9738b728a9f3c17dedcf37df6b063f48ca1d1d8"
   },
   "prohibited_paths_present": false,
   "raw_artifact_bytes_included": false,

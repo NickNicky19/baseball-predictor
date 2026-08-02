@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import ast
 import copy
+import hashlib
 import importlib.util
 import json
 from pathlib import Path
@@ -199,6 +200,79 @@ class Attempt3S3RetentionAuthorityTests(unittest.TestCase):
         new = load_json(ROOT / "config/shared_pa_statcast_confirmation_sample_2023-06-28_attempt_history_v1.json")
         self.assertEqual(old["total_external_statcast_requests"], 3)
         self.assertEqual(new["global_real_external_statcast_request_count"], 3)
+
+    def test_21_read_only_policy_canonical_identity_and_form(self):
+        audit = self.authority["read_only_audit_policy"]
+        payload = self.validator.canonical_json(audit["policy_document"])
+        self.assertEqual(len(payload), 4908)
+        self.assertEqual(hashlib.sha256(payload).hexdigest(), "5076611dad2b6abd27e8331d0e0b665d0d65b5ce52862ad2f654be5dc724d150")
+        self.assertGreater(len(payload), audit["form_decision"]["user_inline"]["aws_non_whitespace_character_quota"])
+        self.assertLess(len(payload), audit["form_decision"]["customer_managed"]["aws_non_whitespace_character_quota"])
+        self.assertEqual(audit["form_decision"]["recommended"], "CUSTOMER_MANAGED")
+
+    def test_22_read_only_policy_has_exact_24_hour_window(self):
+        audit = self.authority["read_only_audit_policy"]
+        self.assertEqual(audit["time_boundary"]["activation_utc"], "2026-08-04T21:00:00Z")
+        self.assertEqual(audit["time_boundary"]["expiration_utc"], "2026-08-05T21:00:00Z")
+        self.assertEqual(audit["time_boundary"]["duration_seconds"], 86400)
+
+    def test_23_every_allowed_action_is_offline_classified_read_only(self):
+        audit = self.authority["read_only_audit_policy"]
+        matrix = audit["allowed_action_matrix"]
+        self.assertEqual(len(matrix), 61)
+        self.assertTrue(all(row["access_level"] in {"Read", "List"} for row in matrix))
+        self.assertTrue(all(not row["is_write"] and not row["is_permission_management"] for row in matrix))
+        self.assertTrue(all(row["dependent_actions"] == [] for row in matrix))
+
+    def test_24_forbidden_actions_and_wildcards_are_absent(self):
+        audit = self.authority["read_only_audit_policy"]
+        statements = audit["policy_document"]["Statement"]
+        actions = {a for statement in statements for a in ([statement["Action"]] if isinstance(statement["Action"], str) else statement["Action"])}
+        self.assertTrue(self.validator.FORBIDDEN_AUDIT_ACTIONS.isdisjoint(actions))
+        self.assertFalse(any(action == "*" or action.endswith(":*") for action in actions))
+        self.assertTrue(all("NotAction" not in statement for statement in statements))
+
+    def test_25_every_statement_is_bound_to_exact_principal_account_and_time(self):
+        statements = self.authority["read_only_audit_policy"]["policy_document"]["Statement"]
+        for statement in statements:
+            condition = statement["Condition"]
+            self.assertEqual(condition["ArnEquals"]["aws:PrincipalArn"], self.validator.AUDIT_PRINCIPAL)
+            self.assertEqual(condition["StringEquals"]["aws:PrincipalAccount"], "723322847536")
+            self.assertEqual(condition["DateGreaterThanEquals"]["aws:CurrentTime"], self.validator.AUDIT_ACTIVATION)
+            self.assertEqual(condition["DateLessThan"]["aws:CurrentTime"], self.validator.AUDIT_EXPIRATION)
+
+    def test_26_s3_object_contents_remain_unreadable(self):
+        actions = {row["action"] for row in self.authority["read_only_audit_policy"]["allowed_action_matrix"]}
+        self.assertNotIn("s3:GetObject", actions)
+        self.assertNotIn("s3:GetObjectVersion", actions)
+        self.assertNotIn("s3:PutObject", actions)
+        self.assertIn("s3:ListBucketVersions", actions)
+
+    def test_27_prohibited_simulation_matrix_is_complete(self):
+        simulated = set(self.authority["read_only_audit_policy"]["simulation_plan"]["required_denied_examples"])
+        self.assertTrue(self.validator.REQUIRED_PROHIBITED_SIMULATIONS <= simulated)
+
+    def test_28_access_analyzer_denial_blocks_attachment(self):
+        validation = self.authority["read_only_audit_policy"]["access_analyzer_validation"]
+        self.assertEqual(validation["status"], "BLOCKED_ACCESS_DENIED_CURRENT_TARGET_HAS_NO_VALIDATE_POLICY_PERMISSION")
+        self.assertFalse(validation["policy_findings_returned"])
+        self.assertTrue(validation["attachment_blocked_until_zero_errors"])
+        self.assertFalse(self.authority["read_only_audit_policy"]["policy_attachment_authorized"])
+
+    def test_29_target_cannot_self_grant_or_escalate(self):
+        audit = self.authority["read_only_audit_policy"]
+        actions = {row["action"] for row in audit["allowed_action_matrix"]}
+        self.assertTrue(set(audit["future_grantor_requirements"]["prohibited_for_target"]).isdisjoint(actions))
+        self.assertTrue(audit["future_grantor_requirements"]["target_self_grant_prohibited"])
+
+    def test_30_policy_preparation_has_no_aws_execution_path(self):
+        source = VALIDATOR_PATH.read_text(encoding="utf-8")
+        self.assertNotIn("create-policy", source)
+        self.assertNotIn("attach-user-policy", source)
+        audit = self.authority["read_only_audit_policy"]
+        self.assertFalse(audit["policy_creation_authorized"])
+        self.assertFalse(audit["policy_attachment_authorized"])
+        self.assertFalse(audit["cleanup_authorized"])
 
 
 if __name__ == "__main__":
