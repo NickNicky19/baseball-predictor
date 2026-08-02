@@ -16,6 +16,7 @@ import re
 import shutil
 import socket
 import ssl
+import subprocess
 import sys
 import urllib.error
 import urllib.request
@@ -191,6 +192,64 @@ def verify_authority(
     if authority["bindings"]["workflow_sha256"] != expected_workflow_sha256 or authority["bindings"]["runtime_authority_sha256"] != expected_runtime_sha256:
         raise ConfirmationError("authority execution binding mismatch")
     return authority
+
+
+def verify_runtime_and_scope(repository: Path, runtime_path: Path, contract_path: Path, authority: dict[str, Any], expected_carrier_commit: str) -> dict[str, Any]:
+    observed_commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=repository, check=True, capture_output=True, text=True).stdout.strip()
+    if observed_commit != expected_carrier_commit:
+        raise ConfirmationError("detached carrier identity mismatch")
+    runtime = load_json(runtime_path)
+    if runtime.get("status") != "INACTIVE_PREPARATION_ONLY" or runtime.get("runtime_authorized") is not False or runtime.get("capture_authorized") is not False:
+        raise ConfirmationError("runtime preparation boundary differs")
+    files = runtime["source_bundle"]["files"]
+    observed: dict[str, str] = {}
+    for name, expected in files.items():
+        path = repository / name
+        if not path.is_file() or path.is_symlink() or sha256_file(path) != expected:
+            raise ConfirmationError(f"runtime source-bundle mismatch: {name}")
+        observed[name] = expected
+    bundle = sha256_bytes(json.dumps(observed, sort_keys=True, separators=(",", ":")).encode("utf-8"))
+    if bundle != runtime["source_bundle"]["canonical_path_hash_map_sha256"] or bundle != authority["bindings"]["source_bundle_sha256"]:
+        raise ConfirmationError("runtime source-bundle identity differs")
+    if sha256_file(contract_path) != authority["bindings"]["execution_contract_sha256"]:
+        raise ConfirmationError("execution contract identity differs")
+    contract = load_json(contract_path)
+    verify_frozen_dependencies(repository, contract)
+    for key, authority_key in (
+        ("source_contract_v1", "source_contract_v1_sha256"),
+        ("source_contract_v2_proposal", "source_contract_v2_proposal_sha256"),
+        ("csv_eof_completeness_policy", "csv_eof_completeness_policy_sha256"),
+        ("canonical_team_identity_policy", "canonical_team_identity_policy_sha256"),
+        ("request_plan", "request_plan_sha256"),
+        ("independent_attempt_ledger", "independent_attempt_ledger_sha256"),
+        ("confirmation_decision_contract", "confirmation_decision_contract_sha256"),
+    ):
+        if contract["frozen_dependencies"][key]["sha256"] != authority["bindings"][authority_key]:
+            raise ConfirmationError(f"authority frozen binding differs: {key}")
+    plan = load_json(repository / contract["frozen_dependencies"]["request_plan"]["path"])
+    request = plan["request"]
+    scope = authority["confirmation_scope"]
+    query = request["full_url"].split("?", 1)[1]
+    exact = (
+        request["request_id"] == scope["request_id"]
+        and request["method"] == scope["method"] == "GET"
+        and request["endpoint"] == scope["endpoint"]
+        and request["official_date"] == scope["official_date"] == "2023-06-28"
+        and sha256_bytes(request["full_url"].encode()) == scope["full_url_sha256"]
+        and sha256_bytes(query.encode()) == scope["query_sha256"]
+        and [row["game_pk"] for row in plan["certified_games"]] == scope["certified_game_pks"]
+        and request["expected_request_count"] == scope["external_request_count_maximum"] == 1
+        and request["minimum_request_start_interval_seconds"] == scope["minimum_request_start_interval_seconds"] == 1.1
+        and request["automatic_http_retry_maximum"] == scope["automatic_http_retry_maximum"] == 0
+        and request["replacement_request_maximum"] == scope["replacement_request_maximum"] == 0
+        and request["automatic_workflow_rerun_allowed"] is False
+        and request["redirects_allowed"] is False
+        and plan["output_contract"]["path"] == scope["output_path"]
+        and plan["output_contract"]["no_overwrite"] is True
+    )
+    if not exact:
+        raise ConfirmationError("request, scope, pacing, retry, or output identity differs")
+    return contract
 
 
 def _finite(value: str) -> float | None:
@@ -387,7 +446,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     repository = args.repository.resolve()
     authority = verify_authority(repository, args.authority.resolve(), args.expected_authority_sha256, args.workflow.resolve(), args.expected_workflow_sha256, args.runtime_authority.resolve(), args.expected_runtime_authority_sha256, args.expected_carrier_commit, args.human_authorization_sha256)
-    contract = load_json(args.contract.resolve())
+    contract = verify_runtime_and_scope(repository, args.runtime_authority.resolve(), args.contract.resolve(), authority, args.expected_carrier_commit)
     verify_attempt3_retention_receipt(args.attempt3_retention_gate_receipt.resolve(), contract)
     authority["authority_package_sha256"] = args.expected_authority_sha256
     authority["observed_human_authorization_sha256"] = args.human_authorization_sha256
