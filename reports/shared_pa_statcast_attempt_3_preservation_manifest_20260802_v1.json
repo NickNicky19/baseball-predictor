@@ -1,0 +1,94 @@
+{
+  "schema_version": "shared-pa-statcast-attempt-3-preservation-manifest-v1",
+  "status": "PREPARED_NO_NETWORK_NO_SOURCE_PROMOTION",
+  "base_commit": "71082cea2eb81edd012cae0e3c678754ac4fc405",
+  "branch": "codex/statcast-attempt3-incident-v1",
+  "changed_path_manifest": [
+    ".github/workflows/shared-pa-statcast-sample-capture-execution-v1.yml",
+    "config/shared_pa_statcast_sample_attempt_history_20260802_v3.json",
+    "reports/shared_pa_statcast_attempt_3_incident_preservation_20260802_v1.json",
+    "reports/shared_pa_statcast_attempt_3_offline_body_validation_20260802_v1.json",
+    "reports/shared_pa_statcast_attempt_3_preservation_manifest_20260802_v1.json",
+    "scripts/validate_shared_pa_statcast_attempt3_offline_v1.py",
+    "tests/test_shared_pa_statcast_attempt3_authority_preflight.py",
+    "tests/test_shared_pa_statcast_attempt3_incident_preservation.py"
+  ],
+  "changed_path_manifest_sha256": "1570edd566d76a88fc3de85cc85dda26acb08e8c9effd649130905d18e41c7a5",
+  "bound_files": {
+    ".github/workflows/shared-pa-statcast-sample-capture-execution-v1.yml": "a0c2f219712aee56ca1408453bf43109e8a74099909449a04ec324eca0662bad",
+    "config/shared_pa_statcast_sample_attempt_history_20260802_v3.json": "43815c024b7e138850001ecdd9f6cb5b7fcb928f8c518a1cbf4c7f6e4fe016b1",
+    "reports/shared_pa_statcast_attempt_3_incident_preservation_20260802_v1.json": "0142f5b2c149ece2baca9be125e0b33c4d888f5add2625aca70fa94ff48fc818",
+    "reports/shared_pa_statcast_attempt_3_offline_body_validation_20260802_v1.json": "21daea2df80c000f4abfeffde3c9c3f4ac44f4e0ea7e4e8727c869dc39372cdf",
+    "scripts/validate_shared_pa_statcast_attempt3_offline_v1.py": "417d66d0d70347612561519c70c4dc6f1fb76f41aa8f064cce84adefd8954d75"
+  },
+  "evidence_locations": [
+    {
+      "kind": "github_actions_artifact",
+      "artifact_id": 8826086488,
+      "name": "shared-pa-statcast-attempt-03-30725195810",
+      "expires_at_utc": "2026-10-31T00:25:53Z"
+    },
+    {
+      "kind": "temporary_extracted_verification_copy",
+      "path": "C:\\tmp\\statcast-attempt3-30725195810",
+      "durable": false
+    },
+    {
+      "kind": "temporary_zip_verification_copy",
+      "path": "C:\\tmp\\statcast-attempt3-artifact-8826086488.zip",
+      "durable": false
+    }
+  ],
+  "expiration_risk": {
+    "status": "UNRESOLVED_AUTHORIZATION_REQUIRED",
+    "artifact_expires_at_utc": "2026-10-31T00:25:53Z",
+    "risk": "the only existing remotely retained raw-byte package is scheduled to expire; repository reports retain hashes and metadata but not the protected response bytes"
+  },
+  "exact_bytes_requiring_durable_preservation": [
+    {
+      "object": "github_actions_artifact_zip",
+      "bytes": 977314,
+      "sha256": "a2fb41e783e80e067b958b0c0666d9e53cb36fffc591e33e04a0238f9c1c8fe4",
+      "required_metadata": ["artifact_id", "artifact_name", "workflow_run_id", "created_at", "expires_at"]
+    },
+    {
+      "object": "raw_response_attempt_03",
+      "bytes": 2918703,
+      "sha256": "0d4c91cb2d0eabaeaeed726fcf1d4aabd7f9d888fb4c9f90789a7ba679e0a968",
+      "required_metadata": ["request_receipt", "safe_response_headers", "timestamps", "http_status", "attempt_number", "quarantine_disposition"]
+    },
+    {
+      "object": "failure_package_json",
+      "bytes": 2449,
+      "sha256": "a166ab2c08c49238be1e45986764a6a7a960360d405b721602f28679e2bebdd0",
+      "required_metadata": ["capture_exit_codes", "runtime_identities", "source_identities", "non_promotion_status"]
+    }
+  ],
+  "durable_preservation_options": [
+    {
+      "priority": 1,
+      "option": "approved immutable object store with retention lock",
+      "retain": ["exact artifact ZIP bytes", "ZIP SHA-256", "raw-response SHA-256", "artifact and workflow metadata", "expiration and quarantine status"],
+      "required_authorization": "explicit authorization naming the approved store, object key, retention period, access controls, and permission to upload protected evidence; AWS changes require separate explicit AWS authorization"
+    },
+    {
+      "priority": 2,
+      "option": "approved offline write-once archival medium",
+      "retain": ["exact artifact ZIP bytes", "detached SHA-256 manifest", "artifact ID", "workflow run ID", "chain-of-custody timestamp", "quarantine status"],
+      "required_authorization": "explicit authorization naming the archival destination, custodian, encryption and access policy, and verification procedure"
+    },
+    {
+      "priority": 3,
+      "option": "approved GitHub durable release or repository evidence store outside expiring Actions artifacts",
+      "retain": ["exact artifact ZIP bytes", "artifact metadata", "all object hashes", "quarantine and prohibited-use metadata"],
+      "required_authorization": "explicit authorization to upload protected evidence to the named GitHub location and confirmation that its retention and access policy are acceptable"
+    }
+  ],
+  "actions_not_taken": [
+    "no Baseball Savant, Statcast, or other source request",
+    "no attempt-4 preparation, authorization, reservation, dispatch, or consumption",
+    "no source-contract v1 or content-type allowlist modification",
+    "no protected evidence upload or relocation",
+    "no source qualification, feature construction, model fitting, scoring, prediction, evaluation, deployment, or betting"
+  ]
+}

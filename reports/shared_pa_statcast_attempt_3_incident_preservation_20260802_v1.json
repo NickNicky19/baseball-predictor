@@ -1,0 +1,156 @@
+{
+  "schema_version": "shared-pa-statcast-attempt-3-incident-preservation-v1",
+  "status": "ATTEMPT_3_INCIDENT_RECORDED",
+  "recorded_date_utc": "2026-08-02",
+  "workflow_run": {
+    "id": 30725195810,
+    "github_run_attempt": 1,
+    "event": "workflow_dispatch",
+    "main_commit": "71082cea2eb81edd012cae0e3c678754ac4fc405",
+    "terminal_conclusion": "failure",
+    "outcome": "NONRETRYABLE_FAILURE",
+    "workflow_rerun": false
+  },
+  "workflow_identity": {
+    "path": ".github/workflows/shared-pa-statcast-sample-capture-execution-v1.yml",
+    "executed_sha256": "c23b0155c3b4c14c4ce6c6cd744a7c159a1c100b3df9ac04e7bda82ef2628ddf",
+    "repaired_sha256": "a0c2f219712aee56ca1408453bf43109e8a74099909449a04ec324eca0662bad",
+    "repair": "removed redundant inline helper and made the carrier-native verifier exit code authoritative; bound future workflow state to the v3 ledger so the spent attempt-3 package fails before transport"
+  },
+  "authority_package": {
+    "path": "config/shared_pa_statcast_attempt_03_authority_package_20260801_v1.json",
+    "sha256": "e4687d8e2c881c6820196c7e4f5a1dc30724de3be609581e2d9dc55af493d729",
+    "disposition": "SPENT_ATTEMPT_3_ONLY_CANNOT_AUTHORIZE_ATTEMPT_4"
+  },
+  "attempt_history": {
+    "predecessor_path": "config/shared_pa_statcast_sample_attempt_history_20260801_v2.json",
+    "predecessor_sha256": "456787efef26d3d438e1afe13d1eee949cd9866d2f8d0a2c5c74d9928a97572e",
+    "successor_path": "config/shared_pa_statcast_sample_attempt_history_20260802_v3.json",
+    "successor_sha256": "43815c024b7e138850001ecdd9f6cb5b7fcb928f8c518a1cbf4c7f6e4fe016b1",
+    "append_only": true
+  },
+  "execution_identities": {
+    "carrier_commit": "74395e8552cf65701e526d4cba1f08a3e7f286d8",
+    "runtime_attestation_sha256": "903e566a99d048a575dbe075378fd8b80ace92bf5028c6ddcbb0d200fe509ae5",
+    "runtime_policy_sha256": "31b6b16063bfb0f8e1535d4475259caa10ff548423df793a9d79bd2616f5f9c3",
+    "source_contract_path": "config/shared_pa_statcast_source_contract_v1.json",
+    "source_contract_sha256": "7078857cc1815e5c8dcecd667a9b6d69079ef31c1fc68057473d1fb1dc9ceebd",
+    "source_contract_modified": false,
+    "source_bundle_sha256": "22a36802fb7530cc21fb0f38a7c6e85422088de25f435916cf3b53f74d7367a1",
+    "request_plan_path": "config/shared_pa_statcast_source_preparation_v1/sample_request_plan.json",
+    "request_plan_sha256": "a40abd52a42ed36a49b6fc5d3d91d2202f57e7075a077f8f1abe3252df016994"
+  },
+  "request": {
+    "attempt": 3,
+    "method": "GET",
+    "endpoint": "https://baseballsavant.mlb.com/statcast_search/csv",
+    "full_url_sha256": "5f01cf3b522b8b553524517110882d83768e214ba6d24ae4c12798f893cb5960",
+    "query_sha256": "7a97cbe2fd13b3bb35216f2bfd35282d8f274805fcfa98ce6f3b824ed4596d4e",
+    "official_date": "2023-07-25",
+    "certified_game_pks": [
+      717255,
+      717256,
+      717258,
+      717259,
+      717260,
+      717261,
+      717262,
+      717263,
+      717264,
+      717265,
+      717266,
+      717267,
+      717269,
+      717270,
+      717272
+    ],
+    "external_request_count": 1,
+    "automatic_http_retry": false,
+    "request_reservation_timestamp_utc": "2026-08-02T00:27:06.075755Z",
+    "result_record_request_timestamp_utc": "2026-08-02T00:27:06.076349Z",
+    "response_observation_timestamp_utc": "2026-08-02T00:27:11.110860Z"
+  },
+  "response": {
+    "http_status": 200,
+    "headers": {
+      "cache-control": "public, max-age=1200, s-maxage=3600, stale-while-revalidate=3600, stale-if-error=86400",
+      "content-disposition": "attachment;filename=savant_data.csv",
+      "content-length": "2918703",
+      "content-type": "application/download; charset=utf-8",
+      "date": "Sun, 02 Aug 2026 00:27:10 GMT",
+      "last-modified": "Sun, 02 Aug 2026 00:27:10 GMT"
+    },
+    "normalized_mime_type": "application/download",
+    "byte_count": 2918703,
+    "sha256": "0d4c91cb2d0eabaeaeed726fcf1d4aabd7f9d888fb4c9f90789a7ba679e0a968"
+  },
+  "artifact": {
+    "name": "shared-pa-statcast-attempt-03-30725195810",
+    "id": 8826086488,
+    "byte_size": 977314,
+    "zip_sha256": "a2fb41e783e80e067b958b0c0666d9e53cb36fffc591e33e04a0238f9c1c8fe4",
+    "failure_package_sha256": "a166ab2c08c49238be1e45986764a6a7a960360d405b721602f28679e2bebdd0",
+    "expires_at_utc": "2026-10-31T00:25:53Z",
+    "temporary_verification_copy": "C:\\tmp\\statcast-attempt3-30725195810",
+    "downloaded_zip_verification_copy": "C:\\tmp\\statcast-attempt3-artifact-8826086488.zip"
+  },
+  "validation_failure": {
+    "exact_message": "source response content type is not allowlisted",
+    "sha256": "273000afef0debd08fdd6e6ce3fa9496727a980fa5320ad72880704cfbb5889e",
+    "capture_digest": "5a66625acc7b9ac490f5b877871c7d07666f3e4b3d01d0d405d29a65fc069c19",
+    "capture_command_exit_code": 0,
+    "capture_validation_exit_code": 1,
+    "carrier_native_verifier_exit_code": 1,
+    "carrier_verifier_exit_code": 1
+  },
+  "offline_body_validation": {
+    "path": "reports/shared_pa_statcast_attempt_3_offline_body_validation_20260802_v1.json",
+    "sha256": "21daea2df80c000f4abfeffde3c9c3f4ac44f4e0ea7e4e8727c869dc39372cdf",
+    "body_validation_status": "ATTEMPT_3_BODY_CSV_WITH_SCHEMA_DRIFT",
+    "content_type_contract_evidence_status": "CONTENT_TYPE_CONTRACT_EVIDENCE_INSUFFICIENT",
+    "source_qualified": false
+  },
+  "helper_import_defect": {
+    "exact_error": "ModuleNotFoundError: No module named 'scripts'",
+    "failed_command": "${RUNNER_TEMP}/statcast-runtime-env/bin/python -I -B - ${capture_root} ${REQUEST_PLAN} ${CONTRACT} ${expected_digest}",
+    "working_directory": "${RUNNER_TEMP}/statcast-carrier-exec",
+    "python_path": "${RUNNER_TEMP}/statcast-runtime-env/bin/python",
+    "root_cause": "the redundant stdin helper used isolated Python mode and imported the carrier scripts package without explicitly adding the carrier execution root to sys.path",
+    "carrier_native_verifier_already_supplied_required_decision": true,
+    "repair": "removed the redundant stdin helper and assigned verifier_rc from native_verifier_rc",
+    "validation_behavior_changed": false,
+    "terminal_failure_weakened": false
+  },
+  "attempt_accounting": {
+    "attempt_1": "PERMANENTLY_CONSUMED_QUARANTINED",
+    "attempt_2": "PERMANENTLY_CONSUMED_VALIDATION_FAILED_QUARANTINED",
+    "attempt_3": "PERMANENTLY_CONSUMED_VALIDATION_FAILED_QUARANTINED",
+    "attempt_4": "UNUSED_UNAUTHORIZED",
+    "total_real_external_statcast_requests": 3,
+    "valid_qualified_sample": false
+  },
+  "quarantine_disposition": {
+    "invalid": true,
+    "quarantined": true,
+    "non_promotable": true,
+    "source_qualified": false,
+    "excluded_from": [
+      "qualified_source_releases",
+      "feature_construction",
+      "model_fitting",
+      "market_scoring",
+      "prediction_generation",
+      "prospective_evidence",
+      "economic_evaluation",
+      "betting"
+    ]
+  },
+  "unresolved_issues": [
+    "source-contract v1 rejects the retained application/download MIME type",
+    "the retained CSV lacks the terminal newline required by the existing parser",
+    "game_pk 717259 retains AZ while the certified request identity expects ARI",
+    "game_pk 717272 retains ATH while the certified request identity expects OAK",
+    "the GitHub Actions artifact expires at 2026-10-31T00:25:53Z and no durable relocation was authorized"
+  ],
+  "missing_fields_are_not_reconstructed": true
+}

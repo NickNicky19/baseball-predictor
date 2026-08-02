@@ -1,0 +1,132 @@
+{
+  "schema_version": "shared-pa-statcast-attempt-history-v3",
+  "ledger_status": "APPEND_ONLY_ATTEMPTS_1_THROUGH_3_PERMANENTLY_CONSUMED",
+  "effective_date_utc": "2026-08-02",
+  "request_id": "statcast-2023-07-25",
+  "request_method": "GET",
+  "predecessor": {
+    "path": "config/shared_pa_statcast_sample_attempt_history_20260801_v2.json",
+    "sha256": "456787efef26d3d438e1afe13d1eee949cd9866d2f8d0a2c5c74d9928a97572e",
+    "modified": false,
+    "operative_future_authority": false
+  },
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "authorization_status": "UNAUTHORIZED",
+      "status": "UNAUTHORIZED_QUARANTINED_PERMANENTLY_CONSUMED",
+      "request_timestamp_utc": null,
+      "request_timestamp_status": "NOT_RETAINED_IN_FAILED_WORKFLOW_ARTIFACT",
+      "raw_response_retained_in_existing_immutable_artifact": false,
+      "scientific_disposition": {
+        "invalid": true,
+        "quarantined": true,
+        "non_promotable": true,
+        "excluded_from_all_scientific_use": true
+      }
+    },
+    {
+      "attempt_number": 2,
+      "authorization_status": "EXPLICITLY_AUTHORIZED",
+      "status": "AUTHORIZED_VALIDATION_FAILED_QUARANTINED_PERMANENTLY_CONSUMED",
+      "workflow_run_id": "30717064297",
+      "external_request_count": 1,
+      "automatic_http_retry": false,
+      "workflow_rerun": false,
+      "request_timestamp_utc": null,
+      "request_timestamp_status": "NOT_RETAINED_IN_EXISTING_IMMUTABLE_EVIDENCE",
+      "raw_response": {
+        "byte_count": 2918703,
+        "sha256": "0d4c91cb2d0eabaeaeed726fcf1d4aabd7f9d888fb4c9f90789a7ba679e0a968",
+        "retained_in_existing_immutable_artifact": false
+      },
+      "response_headers": {
+        "content_type": null,
+        "normalized_mime_type": null,
+        "retention_status": "ATTEMPT_2_CONTENT_TYPE_NOT_RETAINED"
+      },
+      "validation": {
+        "success_count": 0,
+        "failure_count": 1,
+        "exact_failure": "source response content type is not allowlisted",
+        "validation_failure_sha256": "273000afef0debd08fdd6e6ce3fa9496727a980fa5320ad72880704cfbb5889e",
+        "capture_digest": "426420fa66553028f35e6d1f40c14abe468fda4401fcbaa295017b6dba4d1cb5"
+      },
+      "valid_qualified_sample": false,
+      "scientific_disposition": {
+        "invalid": true,
+        "quarantined": true,
+        "non_promotable": true,
+        "excluded_from_all_scientific_use": true
+      }
+    },
+    {
+      "attempt_number": 3,
+      "authorization_status": "EXPLICITLY_AUTHORIZED",
+      "status": "AUTHORIZED_VALIDATION_FAILED_QUARANTINED_PERMANENTLY_CONSUMED",
+      "workflow_run_id": "30725195810",
+      "github_run_attempt": 1,
+      "main_commit": "71082cea2eb81edd012cae0e3c678754ac4fc405",
+      "outcome": "NONRETRYABLE_FAILURE",
+      "external_request_count": 1,
+      "automatic_http_retry": false,
+      "workflow_rerun": false,
+      "http_status": 200,
+      "request_reservation_timestamp_utc": "2026-08-02T00:27:06.075755Z",
+      "result_record_request_timestamp_utc": "2026-08-02T00:27:06.076349Z",
+      "response_observation_timestamp_utc": "2026-08-02T00:27:11.110860Z",
+      "response_headers": {
+        "content_type": "application/download; charset=utf-8",
+        "normalized_mime_type": "application/download"
+      },
+      "raw_response": {
+        "byte_count": 2918703,
+        "sha256": "0d4c91cb2d0eabaeaeed726fcf1d4aabd7f9d888fb4c9f90789a7ba679e0a968",
+        "retained_in_artifact": true
+      },
+      "artifact": {
+        "name": "shared-pa-statcast-attempt-03-30725195810",
+        "id": 8826086488,
+        "byte_size": 977314,
+        "zip_sha256": "a2fb41e783e80e067b958b0c0666d9e53cb36fffc591e33e04a0238f9c1c8fe4",
+        "failure_package_sha256": "a166ab2c08c49238be1e45986764a6a7a960360d405b721602f28679e2bebdd0",
+        "expires_at_utc": "2026-10-31T00:25:53Z"
+      },
+      "validation": {
+        "success_count": 0,
+        "failure_count": 1,
+        "exact_failure": "source response content type is not allowlisted",
+        "validation_failure_sha256": "273000afef0debd08fdd6e6ce3fa9496727a980fa5320ad72880704cfbb5889e",
+        "capture_digest": "5a66625acc7b9ac490f5b877871c7d07666f3e4b3d01d0d405d29a65fc069c19",
+        "source_contract_version": "shared-pa-statcast-source-contract-v1",
+        "body_validation_status": "ATTEMPT_3_BODY_CSV_WITH_SCHEMA_DRIFT",
+        "content_type_contract_evidence_status": "CONTENT_TYPE_CONTRACT_EVIDENCE_INSUFFICIENT"
+      },
+      "valid_qualified_sample": false,
+      "scientific_disposition": {
+        "invalid": true,
+        "quarantined": true,
+        "non_promotable": true,
+        "excluded_from_all_scientific_use": true
+      }
+    }
+  ],
+  "remaining_attempts": [
+    {
+      "attempt_number": 4,
+      "status": "UNUSED_UNAUTHORIZED"
+    }
+  ],
+  "maximum_lifetime_attempts": 4,
+  "consumed_lifetime_attempts": 3,
+  "remaining_lifetime_attempts": 1,
+  "remaining_authorized_attempts": 0,
+  "total_external_statcast_requests": 3,
+  "valid_qualified_sample": false,
+  "attempt_numbering_reset_permitted": false,
+  "attempt_reuse_permitted": false,
+  "workflow_dispatch_capture_authorized": false,
+  "attempt_4_authorized": false,
+  "source_contract_v1_modified": false,
+  "non_reconstruction_statement": "No missing response header, timestamp, byte sequence, or manifest was reconstructed or inferred."
+}
