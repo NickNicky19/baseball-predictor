@@ -14,7 +14,7 @@
   "workflow_identity": {
     "path": ".github/workflows/shared-pa-statcast-sample-capture-execution-v1.yml",
     "executed_sha256": "c23b0155c3b4c14c4ce6c6cd744a7c159a1c100b3df9ac04e7bda82ef2628ddf",
-    "repaired_sha256": "86930eb4b95af189a7c77f649486332d24f7050ee1a5f25c4c169dcdd859901b",
+    "repaired_sha256": "a79e486acbc1c9a3666f26d6ec3635c5547a226a8138f1182c66e34616a0371c",
     "repair": "removed redundant inline helper and made the carrier-native verifier exit code authoritative; bound future workflow state to the v3 ledger so the spent attempt-3 package fails before transport"
   },
   "authority_package": {

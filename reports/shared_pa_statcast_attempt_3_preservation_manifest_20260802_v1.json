@@ -15,9 +15,9 @@
   ],
   "changed_path_manifest_sha256": "1570edd566d76a88fc3de85cc85dda26acb08e8c9effd649130905d18e41c7a5",
   "bound_files": {
-    ".github/workflows/shared-pa-statcast-sample-capture-execution-v1.yml": "86930eb4b95af189a7c77f649486332d24f7050ee1a5f25c4c169dcdd859901b",
+    ".github/workflows/shared-pa-statcast-sample-capture-execution-v1.yml": "a79e486acbc1c9a3666f26d6ec3635c5547a226a8138f1182c66e34616a0371c",
     "config/shared_pa_statcast_sample_attempt_history_20260802_v3.json": "43815c024b7e138850001ecdd9f6cb5b7fcb928f8c518a1cbf4c7f6e4fe016b1",
-    "reports/shared_pa_statcast_attempt_3_incident_preservation_20260802_v1.json": "83c082bbc9b2fc149f21ca16843b766aa5d0d47106298ec25033acd2c4006916",
+    "reports/shared_pa_statcast_attempt_3_incident_preservation_20260802_v1.json": "52c5d6c03be7a5683f74b5d6aac3d6358c1f868d0718c02f42ef9d57c4b0d797",
     "reports/shared_pa_statcast_attempt_3_offline_body_validation_20260802_v1.json": "21daea2df80c000f4abfeffde3c9c3f4ac44f4e0ea7e4e8727c869dc39372cdf",
     "scripts/validate_shared_pa_statcast_attempt3_offline_v1.py": "417d66d0d70347612561519c70c4dc6f1fb76f41aa8f064cce84adefd8954d75"
   },

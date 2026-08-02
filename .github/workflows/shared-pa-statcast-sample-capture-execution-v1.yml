@@ -183,7 +183,6 @@ jobs:
               "attempt_three_gate_removed": original.replace(
                   attempt_three_marker,
                   "ATTEMPT_3_REUSE_PERMITTED",
-                  1,
               ),
               "workflow_input_added": original.replace(
                   (" " * 6) + "expected_workflow_commit_sha:",
