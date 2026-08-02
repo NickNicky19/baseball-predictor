@@ -19,7 +19,8 @@ RUNTIME_POLICY = "31b6b16063bfb0f8e1535d4475259caa10ff548423df793a9d79bd2616f5f9
 CONTRACT = "7078857cc1815e5c8dcecd667a9b6d69079ef31c1fc68057473d1fb1dc9ceebd"
 BUNDLE = "22a36802fb7530cc21fb0f38a7c6e85422088de25f435916cf3b53f74d7367a1"
 PLAN = "a40abd52a42ed36a49b6fc5d3d91d2202f57e7075a077f8f1abe3252df016994"
-LEDGER = "456787efef26d3d438e1afe13d1eee949cd9866d2f8d0a2c5c74d9928a97572e"
+HISTORICAL_LEDGER = "456787efef26d3d438e1afe13d1eee949cd9866d2f8d0a2c5c74d9928a97572e"
+CURRENT_LEDGER = "43815c024b7e138850001ecdd9f6cb5b7fcb928f8c518a1cbf4c7f6e4fe016b1"
 INCIDENT = "cff61fb46dbaae2ca6ca4726174a0c1b9804118a3546cbe4ff9b852e1b09c010"
 OLD_AUTHORIZATION = "11c19c423404f7e75b8308dc6feea818808af166b64ce7abc7140bc0f6e8425f"
 OUTPUT = "data/source/shared_pa_statcast_sample_2023-07-25_attempt-03_v1"
@@ -39,13 +40,15 @@ def validate_authority(repository: Path, workflow: Path, authority: Path) -> dic
         raise AssertionError("attempt-3 preparation boundary differs")
     if value["workflow"] != {
         "path": ".github/workflows/shared-pa-statcast-sample-capture-execution-v1.yml",
-        "sha256": sha256_file(workflow),
+        "sha256": "c23b0155c3b4c14c4ce6c6cd744a7c159a1c100b3df9ac04e7bda82ef2628ddf",
         "manual_dispatch_count": 1,
         "automatic_rerun_allowed": False,
         "pull_request_mode": "PREFLIGHT_ONLY",
         "workflow_dispatch_mode": "CAPTURE_ONLY_AFTER_SEPARATE_EXPLICIT_HUMAN_AUTHORIZATION",
     }:
         raise AssertionError("workflow binding differs")
+    if sha256_file(workflow) == value["workflow"]["sha256"]:
+        raise AssertionError("spent attempt-3 authority still matches the current workflow")
     expected_execution = {
         "carrier_commit": CARRIER,
         "runtime_attestation_sha256": RUNTIME_ATTESTATION,
@@ -59,7 +62,7 @@ def validate_authority(repository: Path, workflow: Path, authority: Path) -> dic
     state = value["attempt_state"]
     if state["path"] != "config/shared_pa_statcast_sample_attempt_history_20260801_v2.json":
         raise AssertionError("successor ledger path differs")
-    if state["sha256"] != LEDGER or sha256_file(repository / state["path"]) != LEDGER:
+    if state["sha256"] != HISTORICAL_LEDGER or sha256_file(repository / state["path"]) != HISTORICAL_LEDGER:
         raise AssertionError("successor ledger identity differs")
     if (state["prior_attempts_consumed"], state["remaining_lifetime_attempts"],
             state["total_real_external_statcast_requests"]) != (2, 2, 2):
@@ -88,10 +91,10 @@ def validate_authority(repository: Path, workflow: Path, authority: Path) -> dic
     return value
 
 
-def validate_ledger(repository: Path) -> None:
+def validate_historical_ledger(repository: Path) -> None:
     ledger_path = repository / "config/shared_pa_statcast_sample_attempt_history_20260801_v2.json"
-    if sha256_file(ledger_path) != LEDGER:
-        raise AssertionError("successor ledger changed")
+    if sha256_file(ledger_path) != HISTORICAL_LEDGER:
+        raise AssertionError("historical attempt ledger changed")
     value = json.loads(ledger_path.read_text(encoding="utf-8"))
     if [row["attempt_number"] for row in value["attempts"]] != [1, 2]:
         raise AssertionError("attempts 1 or 2 were erased or reset")
@@ -108,6 +111,24 @@ def validate_ledger(repository: Path) -> None:
         raise AssertionError("preparation or preflight authorized capture")
 
 
+def validate_ledger(repository: Path) -> None:
+    validate_historical_ledger(repository)
+    ledger_path = repository / "config/shared_pa_statcast_sample_attempt_history_20260802_v3.json"
+    if sha256_file(ledger_path) != CURRENT_LEDGER:
+        raise AssertionError("current attempt ledger changed")
+    value = json.loads(ledger_path.read_text(encoding="utf-8"))
+    if [row["attempt_number"] for row in value["attempts"]] != [1, 2, 3]:
+        raise AssertionError("attempts 1 through 3 were erased or reset")
+    if not all("PERMANENTLY_CONSUMED" in row["status"] for row in value["attempts"]):
+        raise AssertionError("a consumed attempt became reusable")
+    if value["remaining_attempts"] != [{"attempt_number": 4, "status": "UNUSED_UNAUTHORIZED"}]:
+        raise AssertionError("attempt 4 authorization state differs")
+    if value["total_external_statcast_requests"] != 3 or value["consumed_lifetime_attempts"] != 3:
+        raise AssertionError("real request or attempt accounting differs")
+    if value["attempt_4_authorized"] is not False or value["workflow_dispatch_capture_authorized"] is not False:
+        raise AssertionError("attempt 4 became authorized")
+
+
 def validate_workflow_mutations(text: str) -> None:
     required = (
         "pull_request:\n    branches:",
@@ -121,6 +142,9 @@ def validate_workflow_mutations(text: str) -> None:
         '"prior_attempt_count"] == 2',
         "ACTIVE_AUTHORIZATION_SHA256",
         "shared_pa_statcast_sample_attempt_history_20260801_v2.json",
+        "shared_pa_statcast_sample_attempt_history_20260802_v3.json",
+        CURRENT_LEDGER,
+        "ATTEMPT_3_SPENT_ATTEMPT_4_UNAUTHORIZED",
         "shared_pa_statcast_attempt_03_authority_package_20260801_v1.json",
         "if: ${{ always() && github.event_name == 'workflow_dispatch' }}",
         '"quarantined": is_failure',
@@ -128,6 +152,7 @@ def validate_workflow_mutations(text: str) -> None:
         '"raw_content_types_retained": raw_content_types',
         "scripts/verify_shared_pa_statcast_capture_v1.py",
         "working-directory: ${{ runner.temp }}/statcast-carrier-exec",
+        "verifier_rc=$native_verifier_rc",
         "shared_pa_statcast_sample_2023-07-25_attempt-03_v1",
     )
     missing = [needle for needle in required if needle not in text]
@@ -137,6 +162,8 @@ def validate_workflow_mutations(text: str) -> None:
         raise AssertionError("both no-network barriers are required")
     if text.count("if: ${{ always() && github.event_name == 'workflow_dispatch' }}") < 3:
         raise AssertionError("failure publication and terminal preservation require always()")
+    if "attempt3-carrier-root-verifier" in text:
+        raise AssertionError("redundant inline carrier helper was not removed")
     mutations = {
         "failure_publication_removed": text.replace(
             "if: ${{ always() && github.event_name == 'workflow_dispatch' }}",
@@ -144,6 +171,7 @@ def validate_workflow_mutations(text: str) -> None:
         "attempt_history_protection_removed": text.replace("attempt3_history_validator", "unprotected_history", 1),
         "old_authorization_rejection_removed": text.replace("attempt3_authority_verifier", "stale_authority_verifier", 1),
         "quarantine_removed": text.replace('"quarantined": is_failure', '"quarantined": False', 1),
+        "native_verifier_result_discarded": text.replace("verifier_rc=$native_verifier_rc", "verifier_rc=0", 1),
     }
     for name, mutated in mutations.items():
         try:
@@ -182,7 +210,7 @@ def verify_attempt3_capture(capture, root: Path, plan_path: Path, contract_path:
     plan = json.loads(plan_path.read_text(encoding="utf-8"))
     capture._validate_sample_plan(plan, contract, contract_path)
     context = json.loads((root / "capture_context.json").read_text(encoding="utf-8"))
-    if context.get("prior_attempt_count") != 2 or context.get("attempt_history_sha256") != LEDGER:
+    if context.get("prior_attempt_count") != 2 or context.get("attempt_history_sha256") != HISTORICAL_LEDGER:
         raise AssertionError("attempt-3 context accounting differs")
     request = plan["requests"][0]
     request_dir = root / request["request_id"]
@@ -262,7 +290,7 @@ def run_capture(carrier_root: Path, repository: Path, artifact_dir: Path, *, val
         source_contract_sha256=CONTRACT,
         request_plan_sha256=PLAN,
         output_path=str(output),
-        attempt_history_sha256=LEDGER,
+        attempt_history_sha256=HISTORICAL_LEDGER,
         prior_attempts_consumed=2,
         remaining_lifetime_attempts=2,
     )
@@ -384,7 +412,7 @@ def main() -> int:
     print("SYNTHETIC_DISALLOWED_CONTENT_TYPE=PASS")
     print("FAILURE_ARTIFACT_PUBLICATION=PASS")
     print("TERMINAL_STATUS_PRESERVATION=PASS")
-    print("REAL_EXTERNAL_REQUEST_COUNT=2")
+    print("REAL_EXTERNAL_REQUEST_COUNT=3")
     return 0
 
 

@@ -15,7 +15,7 @@ on:
         required: true
         type: string
       expected_authorization_sha256:
-        description: "Exact attempt-3 authority-package file SHA-256"
+        description: "Historical attempt-3 authority-package SHA-256; spent packages fail before transport"
         required: true
         type: string
 
@@ -36,17 +36,17 @@ env:
   CONTRACT: config/shared_pa_statcast_source_contract_v1.json
   AUTHORIZATION: config/shared_pa_statcast_attempt_03_authority_package_20260801_v1.json
   CARRIER_ATTEMPT_HISTORY: config/shared_pa_statcast_sample_attempt_history_20260731_v1.json
-  ATTEMPT_HISTORY: config/shared_pa_statcast_sample_attempt_history_20260801_v2.json
+  ATTEMPT_HISTORY: config/shared_pa_statcast_sample_attempt_history_20260802_v3.json
   OUTPUT: data/source/shared_pa_statcast_sample_2023-07-25_attempt-03_v1
   CAPTURE_ARTIFACT_NAME: shared-pa-statcast-attempt-03
-  CAPTURE_AUTHORIZATION_STATUS: ATTEMPT_3_PREPARED_REQUIRES_EXPLICIT_HUMAN_EXECUTION_APPROVAL
+  CAPTURE_AUTHORIZATION_STATUS: ATTEMPT_3_SPENT_ATTEMPT_4_UNAUTHORIZED
   EXPECTED_RUNTIME_POLICY_SHA256: 31b6b16063bfb0f8e1535d4475259caa10ff548423df793a9d79bd2616f5f9c3
   EXPECTED_SOURCE_CONTRACT_SHA256: 7078857cc1815e5c8dcecd667a9b6d69079ef31c1fc68057473d1fb1dc9ceebd
   EXPECTED_SOURCE_BUNDLE_SHA256: 22a36802fb7530cc21fb0f38a7c6e85422088de25f435916cf3b53f74d7367a1
   EXPECTED_REQUEST_PLAN_SHA256: a40abd52a42ed36a49b6fc5d3d91d2202f57e7075a077f8f1abe3252df016994
   EXPECTED_RUNTIME_ATTESTATION_SHA256: 903e566a99d048a575dbe075378fd8b80ace92bf5028c6ddcbb0d200fe509ae5
   EXPECTED_CARRIER_ATTEMPT_HISTORY_SHA256: eb28fbfc18ba777f796abe1db9735579f99a06907d5de856d696d4de5db0aaf5
-  EXPECTED_ATTEMPT_HISTORY_SHA256: 456787efef26d3d438e1afe13d1eee949cd9866d2f8d0a2c5c74d9928a97572e
+  EXPECTED_ATTEMPT_HISTORY_SHA256: 43815c024b7e138850001ecdd9f6cb5b7fcb928f8c518a1cbf4c7f6e4fe016b1
   EVENT_NAME: ${{ github.event_name }}
   EVENT_MODE: ${{ github.event_name == 'pull_request' && 'preflight' || github.event_name == 'workflow_dispatch' && 'capture' || 'invalid' }}
   DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
@@ -82,7 +82,7 @@ jobs:
           dispatch_only_guard = "if: " + chr(36) + "{{ github.event_name == 'workflow_dispatch' }}"
           quarantine_marker = '"' + "quarantined" + '": is_failure'
           non_promotion_marker = '"' + "non_promotable" + '": is_failure'
-          attempt_three_marker = '"attempt_3_status": "UNUSED_UNAUTHORIZED_UNTIL_TRANSPORT"'
+          attempt_three_marker = "ATTEMPT_3_SPENT_ATTEMPT_4_UNAUTHORIZED"
           finalizer_carrier_binding = (
               "      - name: Verify and finalize capture or quarantined failure package from carrier\n"
               "        " + failure_publication_guard + "\n"
@@ -109,8 +109,8 @@ jobs:
                   'reservation-03.json',
                   '"prior_attempt_count"] == 2',
                   attempt_three_marker,
-                  'shared_pa_statcast_sample_attempt_history_20260801_v2.json',
-                  '456787efef26d3d438e1afe13d1eee949cd9866d2f8d0a2c5c74d9928a97572e',
+                  'shared_pa_statcast_sample_attempt_history_20260802_v3.json',
+                  '43815c024b7e138850001ecdd9f6cb5b7fcb928f8c518a1cbf4c7f6e4fe016b1',
                   'scripts/verify_shared_pa_statcast_capture_v1.py',
                   carrier_working_directory,
                   failure_publication_guard,
@@ -177,13 +177,12 @@ jobs:
                   1,
               ),
               "successor_attempt_history_removed": original.replace(
+                  'shared_pa_statcast_sample_attempt_history_20260802_v3.json',
                   'shared_pa_statcast_sample_attempt_history_20260801_v2.json',
-                  'shared_pa_statcast_sample_attempt_history_20260731_v1.json',
               ),
               "attempt_three_gate_removed": original.replace(
                   attempt_three_marker,
-                  '"attempt_3_status": "CONSUMED_OR_REUSED"',
-                  1,
+                  "ATTEMPT_3_REUSE_PERMITTED",
               ),
               "workflow_input_added": original.replace(
                   (" " * 6) + "expected_workflow_commit_sha:",
@@ -243,6 +242,8 @@ jobs:
             --carrier-invalid "$REGRESSION_CARRIER_INVALID" \
             --artifact-valid "${RUNNER_TEMP}/statcast-attempt3-synthetic-valid-artifact" \
             --artifact-invalid "${RUNNER_TEMP}/statcast-attempt3-synthetic-failure-artifact"
+          python -I -B tests/test_shared_pa_statcast_attempt3_incident_preservation.py \
+            --repository .
       - name: Upload downloadable synthetic valid and failure artifacts
         if: ${{ always() }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -452,17 +453,18 @@ jobs:
           import json, sys
           from pathlib import Path
           p = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
-          assert p["schema_version"] == "shared-pa-statcast-attempt-history-v2"
-          assert [row["attempt_number"] for row in p["attempts"]] == [1, 2]
+          assert p["schema_version"] == "shared-pa-statcast-attempt-history-v3"
+          assert [row["attempt_number"] for row in p["attempts"]] == [1, 2, 3]
           assert all("PERMANENTLY_CONSUMED" in row["status"] for row in p["attempts"])
           assert p["remaining_attempts"] == [
-              {"attempt_number": 3, "status": "UNUSED_UNAUTHORIZED"},
               {"attempt_number": 4, "status": "UNUSED_UNAUTHORIZED"},
           ]
-          assert p["total_external_statcast_requests"] == 2
+          assert p["total_external_statcast_requests"] == 3
           assert p["remaining_authorized_attempts"] == 0
           assert p["workflow_dispatch_capture_authorized"] is False
           assert p["attempts"][1]["response_headers"]["retention_status"] == "ATTEMPT_2_CONTENT_TYPE_NOT_RETAINED"
+          assert p["attempts"][2]["response_headers"]["content_type"] == "application/download; charset=utf-8"
+          assert p["attempts"][2]["artifact"]["id"] == 8826086488
           PY
           observed_authorization="$(sha256sum "$AUTHORIZATION" | awk '{print $1}')"
           if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
@@ -476,13 +478,13 @@ jobs:
         with:
           name: shared-pa-statcast-sample-runtime-first-${{ github.run_id }}
           path: ${{ runner.temp }}/attestation
-      - name: Enforce exact attempt-3 capture authorization boundary
+      - name: Reject spent attempt-3 authority and unauthorized attempt 4
         if: ${{ github.event_name == 'workflow_dispatch' }}
         shell: bash
         working-directory: ${{ runner.temp }}/statcast-carrier-exec
         run: |
           set -euo pipefail
-          test "$CAPTURE_AUTHORIZATION_STATUS" = "ATTEMPT_3_PREPARED_REQUIRES_EXPLICIT_HUMAN_EXECUTION_APPROVAL"
+          test "$CAPTURE_AUTHORIZATION_STATUS" = "ATTEMPT_3_SPENT_ATTEMPT_4_UNAUTHORIZED"
           test "$EXPECTED_AUTHORIZATION_INPUT" = "$ACTIVE_AUTHORIZATION_SHA256"
           audit_python="${RUNNER_TEMP}/statcast-runtime-env/bin/python"
           "$audit_python" -I -B - "$ATTEMPT_HISTORY" "$AUTHORIZATION" <<'PY'
@@ -490,7 +492,11 @@ jobs:
           from pathlib import Path
           ledger = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
           authority = json.loads(Path(sys.argv[2]).read_text(encoding="utf-8"))
-          assert ledger["total_external_statcast_requests"] == 2
+          assert ledger["schema_version"] == "shared-pa-statcast-attempt-history-v3"
+          assert [row["attempt_number"] for row in ledger["attempts"]] == [1, 2, 3]
+          assert all("PERMANENTLY_CONSUMED" in row["status"] for row in ledger["attempts"])
+          assert ledger["remaining_attempts"] == [{"attempt_number": 4, "status": "UNUSED_UNAUTHORIZED"}]
+          assert ledger["total_external_statcast_requests"] == 3
           assert ledger["remaining_authorized_attempts"] == 0
           assert ledger["workflow_dispatch_capture_authorized"] is False
           assert authority["schema_version"] == "shared-pa-statcast-attempt-3-authority-package-v1"
@@ -498,6 +504,7 @@ jobs:
           assert authority["attempt_number"] == 3
           assert authority["attempt_state"]["attempt_3_status"] == "UNUSED_UNAUTHORIZED_UNTIL_TRANSPORT"
           assert authority["attempt_state"]["attempt_4_status"] == "UNUSED_UNAUTHORIZED"
+          raise SystemExit("attempt-3 authorization is spent and attempt 4 is unauthorized")
           PY
       - name: Verify output path is new and invoke authorized_main
         shell: bash
@@ -647,21 +654,21 @@ jobs:
               if capture.sha256_file(history_path) != source_access.attempt_history_sha256:
                   raise capture.CaptureError("successor attempt history differs from authority")
               ledger = json.loads(history_path.read_text(encoding="utf-8"))
-              if (ledger.get("schema_version") != "shared-pa-statcast-attempt-history-v2"
+              if (ledger.get("schema_version") != "shared-pa-statcast-attempt-history-v3"
                   or ledger.get("request_id") != request_id or maximum_attempts != 4
-                  or [row.get("attempt_number") for row in ledger.get("attempts", [])] != [1, 2]
+                  or [row.get("attempt_number") for row in ledger.get("attempts", [])] != [1, 2, 3]
                   or not all("PERMANENTLY_CONSUMED" in row.get("status", "") for row in ledger.get("attempts", []))
                   or ledger.get("remaining_attempts") != [
-                      {"attempt_number": 3, "status": "UNUSED_UNAUTHORIZED"},
                       {"attempt_number": 4, "status": "UNUSED_UNAUTHORIZED"},
                   ]
-                  or ledger.get("consumed_lifetime_attempts") != 2
-                  or ledger.get("remaining_lifetime_attempts") != 2
-                  or ledger.get("total_external_statcast_requests") != 2
+                  or ledger.get("consumed_lifetime_attempts") != 3
+                  or ledger.get("remaining_lifetime_attempts") != 1
+                  or ledger.get("total_external_statcast_requests") != 3
+                  or ledger.get("attempt_4_authorized") is not False
                   or ledger.get("attempt_numbering_reset_permitted") is not False
                   or ledger.get("attempt_reuse_permitted") is not False):
                   raise capture.CaptureError("successor attempt history accounting differs")
-              return 2
+              return 3
 
           capture.verify_statcast_historical_source_access = attempt3_authority_verifier
           capture._validate_attempt_history = attempt3_history_validator
@@ -701,17 +708,11 @@ jobs:
           finally:
               capture._transport = original_transport
           if event_mode == "preflight":
-              if rc != 0:
-                  raise SystemExit(rc)
-              assert len(calls) == 1, calls
-              assert calls[0]["full_url"].startswith("https://baseballsavant.mlb.com/statcast_search/csv?")
-              manifest = json.loads((Path(output) / "manifest.json").read_text(encoding="utf-8"))
-              assert manifest["prior_attempt_count"] == 2
-              assert manifest["success_count"] == 0 and manifest["failure_count"] == 1
-              request_dir = Path(output) / "statcast-2023-07-25"
-              reservation = json.loads((request_dir / "reservation-03.json").read_text(encoding="utf-8"))
-              assert reservation["attempt"] == 3
-              assert not list(request_dir.glob("response*"))
+              assert rc != 0
+              assert calls == [], calls
+              assert not Path(output).exists()
+              assert not Path(output + ".work").exists()
+              assert not Path(output + ".lock").exists()
               with capture.network_denial_guard():
                   try:
                       original_transport(full_url="https://baseballsavant.mlb.com/statcast_search/csv?preflight=blocked", timeout=1.0, maximum=1, execution_authorization=capture.TransportExecutionAuthorization(
@@ -726,9 +727,10 @@ jobs:
                       assert "lower-layer network guard" in str(exc)
                   else:
                       raise AssertionError("lower-level network guard did not block")
+              rc = 0
           command_status = {
               "schema_version": "shared-pa-statcast-capture-command-status-v1",
-              "status": "CAPTURE_COMMAND_COMPLETED" if rc == 0 else "CAPTURE_COMMAND_FAILED",
+              "status": "SPENT_AUTHORIZATION_REJECTED_BEFORE_TRANSPORT" if event_mode == "preflight" else ("CAPTURE_COMMAND_COMPLETED" if rc == 0 else "CAPTURE_COMMAND_FAILED"),
               "capture_command_exit_code": rc,
               "capture_command_invoked": True,
               "capture_command_error_type": command_error_type,
@@ -739,19 +741,19 @@ jobs:
           Path(os.environ["RUNNER_TEMP"]).joinpath("capture-execution-summary.txt").write_text(
               json.dumps({"event": event_name, "mode": event_mode, "authorized_main_invoked": True,
                           "external_statcast_requests": 0 if event_mode == "preflight" else None,
-                          "attempts_1_and_2_consumed": True,
-                          "attempt_3": "UNUSED_PREFLIGHT_ONLY",
+                          "attempts_1_through_3_consumed": True,
+                          "attempt_3": "SPENT_REJECTED_BEFORE_TRANSPORT",
                           "attempt_4": "UNUSED_UNAUTHORIZED",
-                          "total_real_external_statcast_requests": 2,
-                          "status": "PRECHECK_PASSED" if event_mode == "preflight" else "CAPTURE_COMMAND_RECORDED"},
+                          "total_real_external_statcast_requests": 3,
+                          "status": "SPENT_AUTHORIZATION_REJECTION_PASSED" if event_mode == "preflight" else "CAPTURE_COMMAND_RECORDED"},
                          sort_keys=True) + "\n", encoding="utf-8")
           print(json.dumps({"event": event_name, "mode": event_mode, "authorized_main_invoked": True,
                             "external_statcast_requests": 0 if event_mode == "preflight" else None,
-                            "attempts_1_and_2_consumed": True,
-                            "attempt_3": "UNUSED_PREFLIGHT_ONLY",
+                            "attempts_1_through_3_consumed": True,
+                            "attempt_3": "SPENT_REJECTED_BEFORE_TRANSPORT",
                             "attempt_4": "UNUSED_UNAUTHORIZED",
-                            "total_real_external_statcast_requests": 2,
-                            "status": "PRECHECK_PASSED" if event_mode == "preflight" else "CAPTURE_COMMAND_RECORDED"}, sort_keys=True))
+                            "total_real_external_statcast_requests": 3,
+                            "status": "SPENT_AUTHORIZATION_REJECTION_PASSED" if event_mode == "preflight" else "CAPTURE_COMMAND_RECORDED"}, sort_keys=True))
           PY
       - name: Verify and finalize capture or quarantined failure package from carrier
         if: ${{ always() && github.event_name == 'workflow_dispatch' }}
@@ -820,71 +822,7 @@ jobs:
               > "${failure_package}/carrier-verifier.stdout.txt" \
               2> "${failure_package}/carrier-verifier.stderr.txt"
             native_verifier_rc=$?
-            "$audit_python" -I -B - "$capture_root" "$REQUEST_PLAN" "$CONTRACT" "$expected_digest" \
-              > "${failure_package}/attempt3-carrier-root-verifier.stdout.txt" \
-              2> "${failure_package}/attempt3-carrier-root-verifier.stderr.txt" <<'PY'
-          import json, sys
-          from pathlib import Path
-          from scripts.capture_direct_batter_pa_source_transport_v2 import _enumerate_files, _is_link_or_reparse, _manifest_digest
-          from scripts.capture_shared_pa_statcast_source_v1 import _validate_sample_plan
-          from src.data.shared_pa_statcast_source_v1 import load_contract, parse_csv_bytes, sha256_file, validate_raw_receipt
-          root, plan_path, contract_path, expected_digest = Path(sys.argv[1]), Path(sys.argv[2]), Path(sys.argv[3]), sys.argv[4]
-          if not root.is_dir() or _is_link_or_reparse(root):
-              raise ValueError("attempt-3 capture root is absent or unsafe")
-          manifest = json.loads((root / "manifest.json").read_text(encoding="utf-8"))
-          observed = _manifest_digest(manifest)
-          if observed != expected_digest or manifest.get("observed_capture_digest") != expected_digest:
-              raise ValueError("attempt-3 capture digest differs")
-          if _enumerate_files(root, exclude_manifest=True) != manifest.get("files"):
-              raise ValueError("attempt-3 capture file inventory differs")
-          contract = load_contract(contract_path)
-          plan = json.loads(plan_path.read_text(encoding="utf-8"))
-          _validate_sample_plan(plan, contract, contract_path)
-          if manifest.get("request_plan_sha256") != sha256_file(plan_path) or manifest.get("source_contract_sha256") != sha256_file(contract_path):
-              raise ValueError("attempt-3 plan or contract binding differs")
-          context = json.loads((root / "capture_context.json").read_text(encoding="utf-8"))
-          if context.get("prior_attempt_count") != 2 or context.get("attempt_history_sha256") != "456787efef26d3d438e1afe13d1eee949cd9866d2f8d0a2c5c74d9928a97572e":
-              raise ValueError("attempt-3 context accounting differs")
-          for key in ("parser_sha256", "authorization_sha256", "runtime_attestation_sha256", "runtime_policy_sha256", "source_bundle_sha256", "carrier_commit"):
-              if context.get(key) != manifest.get(key):
-                  raise ValueError(f"attempt-3 context and manifest disagree on {key}")
-          request = plan["requests"][0]
-          request_dir = root / request["request_id"]
-          terminal = json.loads((request_dir / "terminal.json").read_text(encoding="utf-8"))
-          if terminal.get("state") != "SUCCESS" or terminal.get("attempt") != 3 or manifest.get("success_count") != 1 or manifest.get("failure_count") != 0:
-              raise ValueError("attempt-3 capture is not one terminal success")
-          reservation_path, result_path = request_dir / "reservation-03.json", request_dir / "result-03.json"
-          reservation = json.loads(reservation_path.read_text(encoding="utf-8"))
-          result = json.loads(result_path.read_text(encoding="utf-8"))
-          if reservation.get("attempt") != 3 or reservation.get("request") != request or result.get("attempt") != 3 or result.get("outcome") != "SUCCESS":
-              raise ValueError("attempt-3 journal identity differs")
-          response_attempt = request_dir / "response-attempt-03.csv"
-          if sha256_file(response_attempt) != result.get("sha256") or response_attempt.stat().st_size != result.get("byte_count"):
-              raise ValueError("attempt-3 retained response differs")
-          expected_files = {
-              "capture_context.json", f"{request['request_id']}/terminal.json",
-              f"{request['request_id']}/reservation-03.json", f"{request['request_id']}/result-03.json",
-              f"{request['request_id']}/response-attempt-03.csv", f"{request['request_id']}/response.csv",
-              f"{request['request_id']}/receipt.json",
-          }
-          if {row["path"] for row in manifest["files"]} != expected_files:
-              raise ValueError("attempt-3 authorized file set differs")
-          raw = (request_dir / "response.csv").read_bytes()
-          receipt = json.loads((request_dir / "receipt.json").read_text(encoding="utf-8"))
-          if receipt.get("attempt_number") != 3:
-              raise ValueError("attempt-3 receipt identity differs")
-          validate_raw_receipt(raw=raw, receipt=receipt, expected_request=request,
-                               contract_sha256=sha256_file(contract_path), parser_sha256=manifest["parser_sha256"],
-                               request_plan_sha256=sha256_file(plan_path))
-          certified = {int(item["game_pk"]): {
-              "official_date": request["expected"]["official_date"], "home_team_id": item["home_team_id"],
-              "away_team_id": item["away_team_id"], "home_team_code": item["home_team_code"],
-              "away_team_code": item["away_team_code"],
-          } for item in request["expected"]["certified_games"]}
-          rows = parse_csv_bytes(raw, contract=contract, expected_date=request["expected"]["official_date"], certified_games=certified)
-          print(json.dumps({"status": "VERIFIED_BOUNDED_RAW_SAMPLE_ATTEMPT_3", "row_count": len(rows), "observed_capture_digest": observed}, sort_keys=True))
-          PY
-            verifier_rc=$?
+            verifier_rc=$native_verifier_rc
             set -e
           else
             printf '%s\n' "carrier verifier not invoked because no capture manifest was retained" \
