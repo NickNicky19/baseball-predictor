@@ -1,0 +1,146 @@
+{
+  "schema_version": "shared-pa-statcast-attempt3-s3-retention-preparation-report-v1",
+  "statuses": [
+    "AWS_RETENTION_AUTHORITY_PACKAGE_PREPARED",
+    "AWS_RETENTION_READ_ONLY_IDENTITY_NOT_VERIFIED",
+    "DURABLE_RETENTION_EXECUTION_NOT_PERFORMED",
+    "SOURCE_CONTRACT_V2_PROPOSAL_MERGE_VERIFIED"
+  ],
+  "prepared_date_utc": "2026-08-02",
+  "base_commit": "b1cef71c16e7c9af51f57bf71f88d78c2b7c11d3",
+  "branch": "codex/aws-attempt3-retention-authority-v1",
+  "scope": "provider-specific Amazon S3 Object Lock durable-retention preparation only",
+  "aws_read_only_identity_inspection": {
+    "status": "AWS_RETENTION_READ_ONLY_IDENTITY_NOT_VERIFIED",
+    "aws_cli": "NOT_INSTALLED",
+    "aws_profile_or_credential_environment": "NOT_CONFIGURED",
+    "configured_region": null,
+    "sts_get_caller_identity_performed": false,
+    "caller_account_id": null,
+    "caller_arn": null,
+    "partition": null,
+    "organization_region_policy": null,
+    "permission_probe_performed": false,
+    "existing_bucket_list_inspected": false,
+    "existing_object_lock_candidate_selected": false,
+    "existing_cloudtrail_coverage_verified": false,
+    "reason": "The task required stopping before claiming executable account or region bindings when AWS authentication was unavailable. No CLI installation, credential discovery, or broader environment change was attempted."
+  },
+  "region_decision": {
+    "region": null,
+    "status": "UNRESOLVED_BLOCKING",
+    "required_resolution": "A separate read-only audit must bind the caller account, partition, configured/allowed regions, data-residency policy, bucket availability and CloudTrail coverage; a human must then approve one exact region."
+  },
+  "bucket_decision": {
+    "proposed_name": "mlb-statcast-evidence-lock-20260802-8826086488-v1",
+    "syntactically_valid": true,
+    "global_availability_verified": false,
+    "design": "new dedicated general-purpose evidence bucket only",
+    "existing_bucket_considered": "NO_CANDIDATE_COULD_BE_INSPECTED_WITHOUT_AWS_IDENTITY",
+    "existing_bucket_selected": false,
+    "reason_existing_bucket_not_selected": "Object Lock is irreversible at bucket level and Versioning cannot be suspended afterward; no general-purpose or unverified bucket may be modified merely because it exists.",
+    "controls": [
+      "BucketOwnerEnforced ownership with ACLs disabled",
+      "Versioning Enabled",
+      "Object Lock Enabled",
+      "no bucket-wide default retention rule",
+      "all four Block Public Access controls enabled",
+      "TLS-only bucket policy",
+      "no public or anonymous access",
+      "no unrelated contents or lifecycle rules",
+      "explicit object-version COMPLIANCE retention through 2033-08-02T00:00:00Z"
+    ]
+  },
+  "encryption_decision": {
+    "recommendation": "SSE-S3_AES256",
+    "reason": "The retained evidence is public historical baseball source data. SSE-S3 supplies service-managed encryption at rest while avoiding a separate KMS key whose disablement, deletion or policy loss could strand unreadable bytes under an unshortenable Compliance lock.",
+    "sse_s3": {
+      "confidentiality": "encrypted at rest with S3-managed keys and private bucket access",
+      "integrity": "client SHA-256, S3 checksum response and full read-back remain authoritative; ETag is metadata only",
+      "availability": "no customer-managed key dependency",
+      "permissions": "S3 role permissions only with explicit AES256 request enforcement",
+      "auditability": "S3/CloudTrail object events record encryption response",
+      "additional_aws_resources": false
+    },
+    "sse_kms": {
+      "confidentiality": "stronger independent key-policy separation",
+      "integrity": "does not replace content hashes",
+      "availability_risk": "disabled, deleted or inaccessible key can make Compliance-locked bytes unreadable",
+      "permissions": "adds kms:Encrypt, Decrypt, GenerateDataKey and DescribeKey",
+      "auditability": "adds KMS events and key-policy audit surface",
+      "long_term_dependency": "key and policy must outlive retention plus recovery margin",
+      "additional_aws_resources_and_authorization": true,
+      "selected": false
+    }
+  },
+  "iam_and_bucket_policy": {
+    "root_user_execution": false,
+    "roles": [
+      "MlbStatcastEvidenceRetentionInfrastructureV1: one exact bucket configuration only; no IAM/KMS/object deletion",
+      "MlbStatcastEvidenceRetentionWriterV1: exact prefix inspection, exactly two PutObject/PutObjectRetention targets and exact-version read-back; no delete or bucket administration",
+      "MlbStatcastEvidenceRetentionVerifierV1: bucket-control, exact-version, retention and audit reads only"
+    ],
+    "bucket_policy": "deny insecure transport, public access, deletion and wrong encryption/retention; grant PutObject only to the bound writer role for the exact two object ARNs; no third-key grant",
+    "exact_role_arns_and_policy_hash": "UNRESOLVED_AND_EXECUTION_BLOCKING",
+    "iam_modification_performed": false
+  },
+  "audit_design": {
+    "required": "An approved CloudTrail trail or event data store must already capture management events plus AWS::S3::Object data events for the exact bucket/prefix before upload.",
+    "coverage_status": "UNVERIFIED_AND_EXECUTION_BLOCKING",
+    "if_absent": "stop for separate exact audit-configuration authorization; do not upload",
+    "retained_execution_evidence": ["STS identity", "organization/region policy evidence", "bucket configurations", "event selector and SHA-256", "CloudTrail event IDs", "S3 request IDs", "VersionIds", "ETags as metadata", "checksum responses", "retention responses", "full read-back hashes"],
+    "audit_modification_performed": false
+  },
+  "object_identities": {
+    "artifact_zip_key": "mlb-source-evidence/statcast/attempt-03/run-30725195810/artifact-8826086488/shared-pa-statcast-attempt-03-30725195810.zip",
+    "custody_manifest_key": "mlb-source-evidence/statcast/attempt-03/run-30725195810/artifact-8826086488/shared-pa-statcast-attempt-03-30725195810.custody-v1.json",
+    "maximum_uploads": 2,
+    "separate_raw_response_object": false,
+    "no_overwrite": true,
+    "unexpected_existing_object": "STOP_NO_WRITE"
+  },
+  "proposal_files": {
+    "authority_package": {"path": "config/shared_pa_statcast_attempt3_s3_retention_authority_package_20260802_v1.json", "sha256": "cee46311b922803b9d6d5066199649e98253a80c7648a6f1c2a35b599c69d2b3"},
+    "custody_manifest_schema": {"path": "contracts/schemas/shared_pa_statcast_attempt3_s3_custody_manifest_v1.schema.json", "sha256": "5f2c63cb9ba534a38f723416c17ac625650b238612c11800078bc96cf355efad"},
+    "execution_plan": {"path": "reports/shared_pa_statcast_attempt3_s3_retention_execution_plan_20260802_v1.json", "sha256": "bf66185b5e2a8a936c97275638fa86f664797b62f1d2445126512c022a843ea5"},
+    "offline_validator": {"path": "scripts/validate_shared_pa_statcast_attempt3_s3_retention_authority_v1.py", "sha256": "ba1065a85566c59ca8bd69ee9e60dfa8c1f14e700a59c6acf2400d9ae06e6efe"},
+    "focused_tests": {"path": "tests/test_shared_pa_statcast_attempt3_s3_retention_authority_v1.py", "sha256": "148a9688ed78b38690b46a2298eef1f85322805a13294671ff03f462726e44df"}
+  },
+  "documentation_basis": [
+    "https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html",
+    "https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock-configure.html",
+    "https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock-managing.html",
+    "https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html",
+    "https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies.html",
+    "https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html",
+    "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/filtering-data-events.html"
+  ],
+  "local_validation": {
+    "focused_no_network_no_write_tests": 20,
+    "result": "PASS",
+    "aws_api_calls": 0,
+    "aws_write_calls": 0,
+    "statcast_requests": 0
+  },
+  "scientific_boundaries": {
+    "attempt_3": "CONSUMED_INVALID_UNDER_SOURCE_CONTRACT_V1_QUARANTINED_NON_PROMOTABLE_DEVELOPMENT_EVIDENCE_ONLY",
+    "source_contract_v2": "INACTIVE_PROPOSAL_ONLY",
+    "june_28_confirmation_response": "UNSEEN",
+    "old_july_25_attempt_4": "UNUSED_UNAUTHORIZED",
+    "total_real_statcast_requests": 3
+  },
+  "actions_not_performed": [
+    "no S3 bucket or object creation",
+    "no Versioning or Object Lock change",
+    "no IAM, KMS, CloudTrail, encryption, policy, public-access or retention change",
+    "no evidence download, upload, relocation or deletion",
+    "no workflow dispatch or Statcast request",
+    "no source-contract activation, confirmation capture or scientific promotion"
+  ],
+  "authorization_proposal": {
+    "label": "AWS_DURABLE_RETENTION_AUTHORIZATION_PROPOSAL_ONLY",
+    "not_an_authorization": true,
+    "not_executable_with_unresolved_placeholders": true,
+    "copyable_text": "AWS_DURABLE_RETENTION_AUTHORIZATION_PROPOSAL_ONLY\n\nThis is a proposal only and is not current authorization. After a read-only AWS audit and protected repository merge, replace every bracketed field with verified exact values and obtain a new explicit human approval. Proposed scope: in AWS account [AWS_ACCOUNT_ID], partition [AWS_PARTITION], region [AWS_REGION], using non-root infrastructure role [INFRASTRUCTURE_ROLE_ARN], writer role [WRITER_ROLE_ARN], verifier role [VERIFIER_ROLE_ARN], and verified audit trail or event data store [AUDIT_ARN], create only the dedicated bucket mlb-statcast-evidence-lock-20260802-8826086488-v1 with BucketOwnerEnforced ownership, Versioning Enabled, Object Lock Enabled, all Block Public Access controls enabled, explicit SSE-S3 AES256, TLS-only access, no bucket-wide default retention, and the exact reviewed bucket-policy SHA-256 [BUCKET_POLICY_SHA256]. After verifying the bucket and both authorized keys begin absent, upload exactly the 977314-byte artifact ZIP with SHA-256 a2fb41e783e80e067b958b0c0666d9e53cb36fffc591e33e04a0238f9c1c8fe4 to mlb-source-evidence/statcast/attempt-03/run-30725195810/artifact-8826086488/shared-pa-statcast-attempt-03-30725195810.zip and one canonical custody manifest to mlb-source-evidence/statcast/attempt-03/run-30725195810/artifact-8826086488/shared-pa-statcast-attempt-03-30725195810.custody-v1.json. Apply explicit COMPLIANCE retention through exactly 2033-08-02T00:00:00Z to each object version. Bind authority package SHA-256 [AUTHORITY_PACKAGE_SHA256], custody schema SHA-256 5f2c63cb9ba534a38f723416c17ac625650b238612c11800078bc96cf355efad, execution-plan SHA-256 bf66185b5e2a8a936c97275638fa86f664797b62f1d2445126512c022a843ea5, and execution commit [EXECUTION_COMMIT]. Require exact-version read-back, ZIP and manifest SHA-256 equality, VersionIds, request IDs, AES256 response and verified COMPLIANCE retention before success. Fail closed on any identity, permission, bucket, region, key, pre-existing version, audit, encryption, retention, read-back or source-state mismatch. Permit no third object, overwrite, alternative key, deletion, retention shortening, Governance bypass, KMS change, source-contract activation, confirmation capture, Statcast request or scientific promotion. Preserve the GitHub artifact until natural expiration or separate disposal authorization."
+  }
+}

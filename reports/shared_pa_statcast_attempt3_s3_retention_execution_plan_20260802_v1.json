@@ -1,0 +1,168 @@
+{
+  "schema_version": "shared-pa-statcast-attempt3-s3-retention-execution-plan-v1",
+  "status": "NONEXECUTING_PROPOSAL_ONLY",
+  "mechanism": "REVIEWED_AWS_CLI_COMMAND_PLAN_PLUS_OFFLINE_VALIDATOR",
+  "rationale": "Exactly two small objects do not justify a reusable cloud-storage framework or stateful infrastructure stack. A fixed command plan makes every future AWS request reviewable, keeps provider-generated values in an append-only execution report, and has no execution path in this proposal.",
+  "aws_cli_available_during_preparation": false,
+  "aws_identity_verified_during_preparation": false,
+  "execution_ready": false,
+  "unresolved_bindings": [
+    "AWS_ACCOUNT_ID",
+    "AWS_CALLER_ARN",
+    "AWS_PARTITION",
+    "AWS_REGION",
+    "ORGANIZATION_ALLOWED_REGION_POLICY",
+    "PROPOSED_BUCKET_GLOBAL_AVAILABILITY",
+    "WRITER_ROLE_ARN",
+    "VERIFIER_ROLE_ARN",
+    "CLOUDTRAIL_DATA_EVENT_COVERAGE",
+    "AWS_READ_AND_WRITE_PERMISSIONS"
+  ],
+  "fixed_values": {
+    "proposed_bucket_name": "mlb-statcast-evidence-lock-20260802-8826086488-v1",
+    "artifact_key": "mlb-source-evidence/statcast/attempt-03/run-30725195810/artifact-8826086488/shared-pa-statcast-attempt-03-30725195810.zip",
+    "custody_manifest_key": "mlb-source-evidence/statcast/attempt-03/run-30725195810/artifact-8826086488/shared-pa-statcast-attempt-03-30725195810.custody-v1.json",
+    "retention_mode": "COMPLIANCE",
+    "retain_until_utc": "2033-08-02T00:00:00Z",
+    "server_side_encryption": "AES256",
+    "authorized_upload_object_count": 2
+  },
+  "preconditions": [
+    "a separate exact human authorization binds every unresolved AWS identity",
+    "the approved caller is an assumed least-privilege role and is not the AWS root user",
+    "the proposed bucket name is verified absent and available in the exact approved partition and region",
+    "the two exact keys have no current object, historical version, or delete marker",
+    "bucket Versioning is Enabled and Object Lock is Enabled before either evidence upload",
+    "BucketOwnerEnforced ownership, all four Block Public Access settings, explicit SSE-S3, TLS-only bucket policy, and audit data-event coverage are verified",
+    "the exact GitHub artifact is re-downloaded before expiration and all evidence identities pass",
+    "the source-contract-v2 proposal is still inactive and no confirmation response has been inspected"
+  ],
+  "sequence": [
+    {
+      "step": 1,
+      "name": "retrieve_and_validate_existing_github_evidence",
+      "aws_write": false,
+      "requirements": [
+        "download artifact ID 8826086488 from the credential-free URL identity recorded in the custody schema using authenticated GitHub transport without persisting temporary credentials",
+        "require artifact name shared-pa-statcast-attempt-03-30725195810",
+        "require 977314 bytes and ZIP SHA-256 a2fb41e783e80e067b958b0c0666d9e53cb36fffc591e33e04a0238f9c1c8fe4",
+        "verify the complete inventory bound by preservation manifest SHA-256 55e73f0f6292b3220796ee3d2524b36c29bd115d9626a6432ebc70ff7042f660",
+        "require embedded raw response SHA-256 0d4c91cb2d0eabaeaeed726fcf1d4aabd7f9d888fb4c9f90789a7ba679e0a968 and failure-package SHA-256 a166ab2c08c49238be1e45986764a6a7a960360d405b721602f28679e2bebdd0",
+        "stop before AWS on any mismatch"
+      ]
+    },
+    {
+      "step": 2,
+      "name": "bind_and_verify_aws_identity",
+      "aws_write": false,
+      "command_templates": [
+        ["aws", "sts", "get-caller-identity", "--output", "json"],
+        ["aws", "organizations", "list-policies-for-target", "--target-id", "${AWS_ACCOUNT_ID}", "--filter", "SERVICE_CONTROL_POLICY", "--output", "json"]
+      ],
+      "requirements": ["account, caller ARN, partition, region and applicable organization policy exactly equal the separately approved bindings"]
+    },
+    {
+      "step": 3,
+      "name": "prove_bucket_and_keys_begin_absent",
+      "aws_write": false,
+      "command_templates": [
+        ["aws", "s3api", "head-bucket", "--bucket", "${BUCKET}", "--region", "${AWS_REGION}"],
+        ["aws", "s3api", "list-object-versions", "--bucket", "${BUCKET}", "--prefix", "mlb-source-evidence/statcast/attempt-03/run-30725195810/artifact-8826086488/", "--region", "${AWS_REGION}", "--output", "json"]
+      ],
+      "requirements": [
+        "Bucket absence must be distinguished from access denial using exact account and provider response evidence",
+        "if the bucket exists unexpectedly, stop; do not enable Object Lock on it",
+        "if either exact key has any version or delete marker, stop and report; never choose another key"
+      ]
+    },
+    {
+      "step": 4,
+      "name": "create_dedicated_bucket_only_after_separate_authorization",
+      "aws_write": true,
+      "command_templates": [
+        ["aws", "s3api", "create-bucket", "--bucket", "${BUCKET}", "--region", "${AWS_REGION}", "--object-lock-enabled-for-bucket", "--object-ownership", "BucketOwnerEnforced", "${REGION_SPECIFIC_CREATE_CONFIGURATION}"],
+        ["aws", "s3api", "put-public-access-block", "--bucket", "${BUCKET}", "--public-access-block-configuration", "BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true", "--region", "${AWS_REGION}"],
+        ["aws", "s3api", "put-bucket-versioning", "--bucket", "${BUCKET}", "--versioning-configuration", "Status=Enabled", "--region", "${AWS_REGION}"],
+        ["aws", "s3api", "put-object-lock-configuration", "--bucket", "${BUCKET}", "--object-lock-configuration", "ObjectLockEnabled=Enabled", "--region", "${AWS_REGION}"],
+        ["aws", "s3api", "put-bucket-encryption", "--bucket", "${BUCKET}", "--server-side-encryption-configuration", "{\"Rules\":[{\"ApplyServerSideEncryptionByDefault\":{\"SSEAlgorithm\":\"AES256\"},\"BucketKeyEnabled\":false}]}", "--region", "${AWS_REGION}"],
+        ["aws", "s3api", "put-bucket-policy", "--bucket", "${BUCKET}", "--policy", "file://${EXACT_REVIEWED_BUCKET_POLICY}", "--region", "${AWS_REGION}"]
+      ],
+      "requirements": [
+        "no bucket-wide default Object Lock retention rule is configured",
+        "wait at least 15 minutes after first enabling Versioning before object PUTs",
+        "capture every AWS request ID and response in the execution report"
+      ]
+    },
+    {
+      "step": 5,
+      "name": "verify_bucket_controls_before_upload",
+      "aws_write": false,
+      "command_templates": [
+        ["aws", "s3api", "get-bucket-versioning", "--bucket", "${BUCKET}", "--region", "${AWS_REGION}"],
+        ["aws", "s3api", "get-object-lock-configuration", "--bucket", "${BUCKET}", "--region", "${AWS_REGION}"],
+        ["aws", "s3api", "get-public-access-block", "--bucket", "${BUCKET}", "--region", "${AWS_REGION}"],
+        ["aws", "s3api", "get-bucket-ownership-controls", "--bucket", "${BUCKET}", "--region", "${AWS_REGION}"],
+        ["aws", "s3api", "get-bucket-encryption", "--bucket", "${BUCKET}", "--region", "${AWS_REGION}"],
+        ["aws", "s3api", "get-bucket-policy-status", "--bucket", "${BUCKET}", "--region", "${AWS_REGION}"],
+        ["aws", "cloudtrail", "get-event-selectors", "--trail-name", "${APPROVED_TRAIL_ARN}", "--region", "${AWS_REGION}"]
+      ],
+      "requirements": ["every control and exact-prefix S3 object data-event audit selector must pass before upload"]
+    },
+    {
+      "step": 6,
+      "name": "upload_artifact_exactly_once",
+      "aws_write": true,
+      "command_templates": [
+        ["aws", "s3api", "put-object", "--bucket", "${BUCKET}", "--key", "mlb-source-evidence/statcast/attempt-03/run-30725195810/artifact-8826086488/shared-pa-statcast-attempt-03-30725195810.zip", "--body", "${VERIFIED_ARTIFACT_ZIP}", "--content-type", "application/zip", "--server-side-encryption", "AES256", "--object-lock-mode", "COMPLIANCE", "--object-lock-retain-until-date", "2033-08-02T00:00:00Z", "--checksum-algorithm", "SHA256", "--if-none-match", "*", "--metadata", "attempt=3,artifact-id=8826086488,workflow-run=30725195810,zip-sha256=a2fb41e783e80e067b958b0c0666d9e53cb36fffc591e33e04a0238f9c1c8fe4,disposition=invalid-quarantined-non-promotable", "--region", "${AWS_REGION}", "--output", "json"]
+      ],
+      "requirements": ["response must include a non-null VersionId; record ETag only as metadata; retain request ID, checksum, encryption and retention response evidence"]
+    },
+    {
+      "step": 7,
+      "name": "read_back_and_verify_exact_artifact_version",
+      "aws_write": false,
+      "command_templates": [
+        ["aws", "s3api", "get-object", "--bucket", "${BUCKET}", "--key", "${ARTIFACT_KEY}", "--version-id", "${ARTIFACT_VERSION_ID}", "--region", "${AWS_REGION}", "${QUARANTINED_READBACK_PATH}"],
+        ["aws", "s3api", "get-object-retention", "--bucket", "${BUCKET}", "--key", "${ARTIFACT_KEY}", "--version-id", "${ARTIFACT_VERSION_ID}", "--region", "${AWS_REGION}"]
+      ],
+      "requirements": ["read-back is exactly 977314 bytes and SHA-256 matches", "retention response is COMPLIANCE through exactly 2033-08-02T00:00:00Z", "failure is incomplete retention action and blocks custody-manifest upload"]
+    },
+    {
+      "step": 8,
+      "name": "finalize_deterministic_custody_manifest",
+      "aws_write": false,
+      "requirements": [
+        "populate only actual STS, S3 and execution fields from retained responses",
+        "never fabricate uploader, timestamp, account, partition, region, bucket, VersionId, ETag, request ID, retention or read-back result",
+        "canonicalize as UTF-8 without BOM, recursively sorted keys, compact separators and one terminal LF",
+        "validate against the exact custody schema before upload"
+      ]
+    },
+    {
+      "step": 9,
+      "name": "upload_custody_manifest_exactly_once",
+      "aws_write": true,
+      "command_templates": [
+        ["aws", "s3api", "put-object", "--bucket", "${BUCKET}", "--key", "mlb-source-evidence/statcast/attempt-03/run-30725195810/artifact-8826086488/shared-pa-statcast-attempt-03-30725195810.custody-v1.json", "--body", "${FINALIZED_CUSTODY_MANIFEST}", "--content-type", "application/json", "--server-side-encryption", "AES256", "--object-lock-mode", "COMPLIANCE", "--object-lock-retain-until-date", "2033-08-02T00:00:00Z", "--checksum-algorithm", "SHA256", "--if-none-match", "*", "--metadata", "attempt=3,artifact-id=8826086488,workflow-run=30725195810,disposition=invalid-quarantined-non-promotable", "--region", "${AWS_REGION}", "--output", "json"]
+      ],
+      "requirements": ["response VersionId and ETag are recorded in the separate execution report, avoiding a self-referential custody-manifest hash"]
+    },
+    {
+      "step": 10,
+      "name": "read_back_verify_manifest_and_finalize_execution_report",
+      "aws_write": false,
+      "requirements": ["read the exact custody-manifest VersionId back", "verify its exact byte count and SHA-256", "verify COMPLIANCE retention through the exact timestamp", "record both object receipts and all verification evidence in a machine-readable execution report", "stop without deleting local or GitHub evidence"]
+    }
+  ],
+  "idempotency": {
+    "exact_keys_begin_absent": true,
+    "inspect_all_versions_and_delete_markers": true,
+    "new_version_as_replacement_allowed": false,
+    "alternative_key_allowed": false,
+    "mismatched_upload_allowed": false,
+    "unexpected_existing_object_behavior": "STOP_AND_REPORT_WITHOUT_WRITE",
+    "already_matching_locked_version_behavior": "STOP_AND_REQUIRE_SEPARATE_READ_ONLY_ADOPTION_ADJUDICATION; DO_NOT_UPLOAD"
+  },
+  "completion_rule": "COMPLETE_ONLY_AFTER_BOTH_EXACT_OBJECT_VERSIONS_ARE_READ_BACK_HASH_VERIFIED_AND_COMPLIANCE_RETENTION_VERIFIED_AND_THE_EXECUTION_REPORT_IS_PRESERVED",
+  "forbidden_actions": ["DeleteObject", "DeleteObjectVersion", "BypassGovernanceRetention", "PutObjectLegalHold", "shorten retention", "upload any third object", "silent alternative key", "source capture", "contract activation", "scientific promotion"]
+}
