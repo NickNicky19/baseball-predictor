@@ -24,7 +24,7 @@
     "reports/shared_pa_statcast_confirmation_execution_preparation_20260802_v1.json": "202a9ad3fa466474fdfe8a046365346d27415d168c464d560e0c64e5983fba19",
     "scripts/capture_shared_pa_statcast_confirmation_v2.py": "b0606bdbf62752fbdb5634d938400a7570a053eb8ea48074fe3d99774d9d2d6b",
     "scripts/verify_shared_pa_statcast_confirmation_v2.py": "6b9e5bf4baee927a459f2584c3c0ec01642b77b3b8acec4ed19c5168c5c8a8a8",
-    "tests/test_shared_pa_statcast_confirmation_execution_preflight.py": "e6307c85de0b49466b8a330814b82a02b08b142b056158024cda29f348528f28"
+    "tests/test_shared_pa_statcast_confirmation_execution_preflight.py": "747441b3fb4f079209a4062f05761bbbe33adada1f0acc9fd2abe2508a1726e8"
   },
   "forbidden_path_categories": [
     "AWS policy or PR 58 change",

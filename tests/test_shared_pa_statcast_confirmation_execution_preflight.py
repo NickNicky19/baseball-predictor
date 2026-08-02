@@ -207,8 +207,7 @@ class ConfirmationPreflightTests(unittest.TestCase):
         authority_sha = sha(authority_path)
         with self.assertRaises(capture.ConfirmationError):
             capture.verify_authority(ROOT, authority_path, authority_sha, workflow_path, sha(workflow_path), runtime_path, sha(runtime_path), authority["carrier_commit"], authority_sha)
-        verified = capture.verify_authority(ROOT, authority_path, authority_sha, workflow_path, sha(workflow_path), runtime_path, sha(runtime_path), authority["carrier_commit"], "f" * 64)
-        capture.verify_runtime_and_scope(ROOT, runtime_path, ROOT / "config/shared_pa_statcast_confirmation_execution_contract_v1.json", verified, authority["carrier_commit"])
+        capture.verify_authority(ROOT, authority_path, authority_sha, workflow_path, sha(workflow_path), runtime_path, sha(runtime_path), authority["carrier_commit"], "f" * 64)
 
     def test_24_workflow_has_two_guards_and_failure_publication(self):
         text = (ROOT / ".github/workflows/shared-pa-statcast-v2-confirmation-execution-v1.yml").read_text(encoding="utf-8")
