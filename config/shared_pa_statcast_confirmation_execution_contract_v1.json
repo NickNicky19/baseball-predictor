@@ -1,0 +1,107 @@
+{
+  "schema_version": "shared-pa-statcast-v2-confirmation-execution-contract-v1",
+  "status": "INACTIVE_PREPARATION_ONLY",
+  "preparation_is_execution_authorization": false,
+  "capture_authorized": false,
+  "source_contract_v2_globally_active": false,
+  "scope": {
+    "request_id": "statcast-v2-confirmation-2023-06-28",
+    "attempt_number": 1,
+    "official_date": "2023-06-28",
+    "method": "GET",
+    "endpoint": "https://baseballsavant.mlb.com/statcast_search/csv",
+    "full_url_sha256": "0efc234b3ef8e8490550bc11a28896bbc1e85ca39b31bf503484c65ed9d96aa9",
+    "query_sha256": "16920ee504c363fb27b19b7100d8fc54c95649054a9357af887e4ab51ef58e23",
+    "certified_game_pks": [717575, 717576, 717577, 717578, 717579, 717580, 717581, 717582, 717583, 717584, 717585, 717586, 717587, 717588, 717589],
+    "expected_request_count": 1,
+    "minimum_request_start_interval_seconds": 1.1,
+    "automatic_http_retry_maximum": 0,
+    "replacement_request_maximum": 0,
+    "automatic_workflow_rerun_allowed": false,
+    "redirects_allowed": false,
+    "output_path": "data/source/shared_pa_statcast_v2_confirmation_2023-06-28_v1",
+    "artifact_name_prefix": "shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01",
+    "no_overwrite": true
+  },
+  "frozen_dependencies": {
+    "source_contract_v1": {"path": "config/shared_pa_statcast_source_contract_v1.json", "sha256": "7078857cc1815e5c8dcecd667a9b6d69079ef31c1fc68057473d1fb1dc9ceebd"},
+    "source_contract_v2_proposal": {"path": "config/shared_pa_statcast_source_contract_v2_proposal.json", "sha256": "166c49a5ea66bf4491c9d04c7f233c7bc51c032683b9883b695236dabc637328"},
+    "csv_eof_completeness_policy": {"path": "config/shared_pa_statcast_csv_eof_completeness_policy_v1.json", "sha256": "b8d8dbcdee611c81029a51db74f9c005115360fbbcd3f76078857d1f6d978293"},
+    "canonical_team_identity_policy": {"path": "config/shared_pa_statcast_canonical_team_identity_policy_v1.json", "sha256": "c6422eb1cfdd494e958d2623a2acdc911a1bf47f93f6b8f27186241988696b55"},
+    "request_plan": {"path": "config/shared_pa_statcast_confirmation_sample_2023-06-28_request_plan_v1.json", "sha256": "0bcc3c9482ea67189e414502b9b58e6445cd66efeb27c309c5bcff4864108402"},
+    "independent_attempt_ledger": {"path": "config/shared_pa_statcast_confirmation_sample_2023-06-28_attempt_history_v1.json", "sha256": "4f7aea30afdbff76fedd695ef3bd83bb23e5395f4db9496405552433695d9c56"},
+    "confirmation_decision_contract": {"path": "config/shared_pa_statcast_confirmation_decision_contract_v1.json", "sha256": "77754f074a874dfee6f1aabd3a058b1a3d33f5ed7726f17f75caf2d1db339c5c"},
+    "attempt_3_development_replay": {"path": "reports/shared_pa_statcast_attempt3_v2_development_replay_20260802_v1.json", "sha256": "63418babf54f0d47ba9e55df484b50ce276162a0ac2df1a0eb5ec2cc511ff573"},
+    "v2_preparation_manifest": {"path": "reports/shared_pa_statcast_source_contract_v2_preparation_manifest_20260802_v1.json", "sha256": "563d3e97c454fd6312556c1303cdb25e1c967af04791e21cd93525c7859e5943"},
+    "old_july_attempt_ledger": {"path": "config/shared_pa_statcast_sample_attempt_history_20260802_v3.json", "sha256": "43815c024b7e138850001ecdd9f6cb5b7fcb928f8c518a1cbf4c7f6e4fe016b1"}
+  },
+  "temporary_attempt_3_retention_gate": {
+    "required_before_reservation_or_transport": true,
+    "artifact_id": 8826086488,
+    "artifact_name": "shared-pa-statcast-attempt-03-30725195810",
+    "expires_at_utc": "2026-10-31T00:25:53Z",
+    "artifact_zip_bytes": 977314,
+    "artifact_zip_sha256": "a2fb41e783e80e067b958b0c0666d9e53cb36fffc591e33e04a0238f9c1c8fe4",
+    "raw_member": "statcast-carrier-exec/data/source/shared_pa_statcast_sample_2023-07-25_attempt-03_v1/statcast-2023-07-25/response-attempt-03.csv",
+    "raw_response_bytes": 2918703,
+    "raw_response_sha256": "0d4c91cb2d0eabaeaeed726fcf1d4aabd7f9d888fb4c9f90789a7ba679e0a968",
+    "tracked_identity_checks": {
+      "reports/shared_pa_statcast_attempt_3_incident_preservation_20260802_v1.json": "52c5d6c03be7a5683f74b5d6aac3d6358c1f868d0718c02f42ef9d57c4b0d797",
+      "reports/shared_pa_statcast_attempt_3_offline_body_validation_20260802_v1.json": "21daea2df80c000f4abfeffde3c9c3f4ac44f4e0ea7e4e8727c869dc39372cdf",
+      "reports/shared_pa_statcast_attempt_3_preservation_manifest_20260802_v1.json": "55e73f0f6292b3220796ee3d2524b36c29bd115d9626a6432ebc70ff7042f660"
+    },
+    "retrieval_is_source_capture": false,
+    "retained_after_gate": false
+  },
+  "validation": {
+    "conditional_mime_allowlist": ["text/csv", "application/csv", "application/download"],
+    "mime_alone_is_sufficient": false,
+    "application_octet_stream_allowed": false,
+    "wildcard_mime_allowed": false,
+    "http_status_required": 200,
+    "utf8_required": true,
+    "utf8_bom_allowed_and_reported": true,
+    "exact_ordered_119_column_header_required": true,
+    "html_json_and_savant_error_payloads_rejected": true,
+    "strict_csv_and_clean_eof_required": true,
+    "terminal_newline_required": false,
+    "missing_terminal_newline_requires_all_stronger_gates": true,
+    "raw_byte_mutation_allowed": false,
+    "canonical_team_identity": ["game_pk", "official_date", "home_or_away_side", "official_team_id"],
+    "raw_abbreviation_is_identity": false,
+    "exact_date_game_type_game_universe_and_batting_sides_required": true,
+    "plate_discipline_and_ev_launch_angle_reconciliation_required": true
+  },
+  "downstream_confirmation_boundary": {
+    "source_validation_may_run": true,
+    "synthetic_interface_compatibility_checks_required": [
+      "point_in_time_feature_row_schema",
+      "c0_candidate_input_shape",
+      "authoritative_pmf_ingestion_shape",
+      "archived_prediction_test_shape",
+      "evaluator_ingestion_shape"
+    ],
+    "synthetic_checks_are_scientific_predictions": false,
+    "scored_predictions_authorized": false,
+    "feature_release_authorized": false,
+    "model_fitting_authorized": false,
+    "unbound_c0_pmf_archive_or_evaluator_identity_behavior": "PENDING_SEPARATE_FROZEN_IDENTITY_AND_INDEPENDENT_REPRODUCTION",
+    "independent_reproduction_required_before_confirmation": true
+  },
+  "terminal_disposition": {
+    "validation_failure": "INVALID_QUARANTINED_NON_PROMOTABLE",
+    "all_source_gates_pass_before_durable_retention": "VALIDATION_PASSED_CONFIRMATION_PENDING_DURABLE_RETENTION_AND_INDEPENDENT_REPRODUCTION",
+    "failure_artifact_publication_is_source_qualification": false,
+    "github_actions_artifact_is_durable_retention": false,
+    "source_qualification_or_promotion_authorized": false,
+    "terminal_failure_preserved_after_artifact_publication": true
+  },
+  "prohibitions": {
+    "aws_mutation": true,
+    "source_contract_v1_modification": true,
+    "global_v2_activation": true,
+    "old_july_attempt_4_execution": true,
+    "automatic_retry_or_rerun": true,
+    "model_fit_score_prediction_or_betting": true
+  }
+}
