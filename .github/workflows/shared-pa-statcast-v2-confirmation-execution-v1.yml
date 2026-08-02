@@ -1,0 +1,329 @@
+name: Shared PA Statcast v2 independent confirmation (prepared)
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/shared-pa-statcast-v2-confirmation-execution-v1.yml"
+      - "config/shared_pa_statcast_confirmation_*"
+      - "scripts/*shared_pa_statcast_confirmation_v2.py"
+      - "tests/test_shared_pa_statcast_confirmation_execution_preflight.py"
+      - "reports/shared_pa_statcast_confirmation_execution_*"
+  workflow_dispatch:
+    inputs:
+      expected_workflow_commit_sha:
+        description: Exact verified main commit
+        required: true
+        type: string
+      expected_workflow_sha256:
+        description: Exact workflow SHA-256
+        required: true
+        type: string
+      expected_authority_package_sha256:
+        description: Exact prepared authority-package SHA-256
+        required: true
+        type: string
+      expected_runtime_authority_sha256:
+        description: Exact confirmation runtime-authority SHA-256
+        required: true
+        type: string
+      human_execution_authorization_sha256:
+        description: SHA-256 of a distinct explicit human execution authorization
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01
+  cancel-in-progress: false
+
+env:
+  PYTHONDONTWRITEBYTECODE: "1"
+  PYTHONNOUSERSITE: "1"
+  PYTEST_DISABLE_PLUGIN_AUTOLOAD: "1"
+  CARRIER_COMMIT: a8ebc64eddf8ace3a48e25af57ee0d6658d0663a
+  RUNTIME_AUTHORITY_SHA256: f348f1baf664fa12c821eb488b4ff4c8fb293b3e243d713600efcd0da96fbf2a
+  EXECUTION_CONTRACT_SHA256: 851e02beab8732b8f6d1a242ea4609d30ab1f3b462804134ae8194b3d42dc510
+  REQUEST_PLAN_SHA256: 0bcc3c9482ea67189e414502b9b58e6445cd66efeb27c309c5bcff4864108402
+  ATTEMPT_LEDGER_SHA256: 4f7aea30afdbff76fedd695ef3bd83bb23e5395f4db9496405552433695d9c56
+  DECISION_CONTRACT_SHA256: 77754f074a874dfee6f1aabd3a058b1a3d33f5ed7726f17f75caf2d1db339c5c
+  V1_SHA256: 7078857cc1815e5c8dcecd667a9b6d69079ef31c1fc68057473d1fb1dc9ceebd
+  V2_SHA256: 166c49a5ea66bf4491c9d04c7f233c7bc51c032683b9883b695236dabc637328
+  TEAM_POLICY_SHA256: c6422eb1cfdd494e958d2623a2acdc911a1bf47f93f6b8f27186241988696b55
+  EOF_POLICY_SHA256: b8d8dbcdee611c81029a51db74f9c005115360fbbcd3f76078857d1f6d978293
+  OUTPUT_PATH: data/source/shared_pa_statcast_v2_confirmation_2023-06-28_v1
+
+jobs:
+  exact-no-network-preflight:
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out exact pull-request head
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - name: Set up isolated Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: "3.11"
+          cache: ""
+      - name: Create and verify detached confirmation carrier
+        shell: bash
+        run: |
+          set -euo pipefail
+          carrier="${RUNNER_TEMP}/june28-confirmation-carrier"
+          git worktree add --detach "$carrier" "$CARRIER_COMMIT"
+          test "$(git -C "$carrier" rev-parse HEAD)" = "$CARRIER_COMMIT"
+          test -z "$(git -C "$carrier" status --porcelain)"
+          test "$(sha256sum "$carrier/config/shared_pa_statcast_confirmation_execution_contract_v1.json" | awk '{print $1}')" = "$EXECUTION_CONTRACT_SHA256"
+          test "$(sha256sum "$carrier/config/shared_pa_statcast_confirmation_runtime_authority_v1.json" | awk '{print $1}')" = "$RUNTIME_AUTHORITY_SHA256"
+          printf 'CONFIRMATION_CARRIER=%s\n' "$carrier" >> "$GITHUB_ENV"
+      - name: Run exact no-network confirmation preflight
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -I -B tests/test_shared_pa_statcast_confirmation_execution_preflight.py -v
+      - name: Prove application transport and lower socket barriers independently
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -I -B - "$CONFIRMATION_CARRIER" <<'PY'
+          import pathlib, sys
+          root = pathlib.Path(sys.argv[1]); sys.path.insert(0, str(root))
+          from scripts import capture_shared_pa_statcast_confirmation_v2 as capture
+          calls = []
+          def blocked_application_transport(*args, **kwargs):
+              calls.append((args, kwargs)); raise RuntimeError("blocked_application_transport")
+          try:
+              blocked_application_transport("https://baseballsavant.mlb.com/statcast_search/csv", 1)
+          except RuntimeError as exc:
+              assert str(exc) == "blocked_application_transport"
+          assert len(calls) == 1
+          with capture.socket_denial_guard():
+              try: capture.socket.socket()
+              except RuntimeError as exc: assert "lower-level network guard" in str(exc)
+              else: raise AssertionError("socket_denial_guard did not block")
+          print("APPLICATION_TRANSPORT_GUARD=PASS")
+          print("LOWER_LEVEL_SOCKET_GUARD=PASS")
+          PY
+      - name: Create synthetic publication receipts
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          root="${RUNNER_TEMP}/june28-confirmation-synthetic"
+          mkdir -p "$root/valid" "$root/failure"
+          printf '%s\n' '{"status":"PASS","source_qualified":false,"scored_predictions_produced":false}' > "$root/valid/preflight.json"
+          printf '%s\n' '{"status":"FAIL","invalid":true,"quarantined":true,"non_promotable":true,"source_qualified":false}' > "$root/failure/preflight.json"
+      - name: Upload synthetic valid and failure evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: shared-pa-statcast-v2-confirmation-preflight-${{ github.run_id }}
+          path: ${{ runner.temp }}/june28-confirmation-synthetic
+          if-no-files-found: error
+          retention-days: 7
+
+  independent-red-team:
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: "3.11"
+          cache: ""
+      - name: Run independent mutation matrix with networking disabled
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -I -B tests/test_shared_pa_statcast_confirmation_execution_preflight.py -v
+          test "$(git diff --name-only '${{ github.event.pull_request.base.sha }}' '${{ github.event.pull_request.head.sha }}' -- config/shared_pa_statcast_source_contract_v1.json)" = ""
+          test "$(sha256sum .github/workflows/shared-pa-statcast-sample-capture-execution-v1.yml | awk '{print $1}')" = "a79e486acbc1c9a3666f26d6ec3635c5547a226a8138f1182c66e34616a0371c"
+          ! git diff --name-only '${{ github.event.pull_request.base.sha }}' '${{ github.event.pull_request.head.sha }}' | grep -E '(^|/)(response-attempt|shared_pa_statcast_v2_confirmation_2023-06-28_v1)'
+
+  execute-protected-confirmation:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    environment: shared-pa-statcast-v2-confirmation-execution
+    steps:
+      - name: Check out exact dispatch commit
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - name: Set up isolated Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: "3.11"
+          cache: ""
+      - name: Fail closed on event, commit, workflow, authority, runtime, and rerun mismatch
+        shell: bash
+        env:
+          EXPECTED_COMMIT: ${{ inputs.expected_workflow_commit_sha }}
+          EXPECTED_WORKFLOW: ${{ inputs.expected_workflow_sha256 }}
+          EXPECTED_AUTHORITY: ${{ inputs.expected_authority_package_sha256 }}
+          EXPECTED_RUNTIME: ${{ inputs.expected_runtime_authority_sha256 }}
+          HUMAN_AUTHORIZATION: ${{ inputs.human_execution_authorization_sha256 }}
+        run: |
+          set -euo pipefail
+          test "$GITHUB_EVENT_NAME" = "workflow_dispatch"
+          test "$GITHUB_REF" = "refs/heads/${{ github.event.repository.default_branch }}"
+          test "$GITHUB_RUN_ATTEMPT" = "1"
+          test "$GITHUB_SHA" = "$EXPECTED_COMMIT"
+          test "$(git rev-parse HEAD)" = "$EXPECTED_COMMIT"
+          test "$(sha256sum .github/workflows/shared-pa-statcast-v2-confirmation-execution-v1.yml | awk '{print $1}')" = "$EXPECTED_WORKFLOW"
+          test "$(sha256sum config/shared_pa_statcast_confirmation_attempt_01_authority_package_20260802_v1.json | awk '{print $1}')" = "$EXPECTED_AUTHORITY"
+          test "$(sha256sum config/shared_pa_statcast_confirmation_runtime_authority_v1.json | awk '{print $1}')" = "$EXPECTED_RUNTIME"
+          test "$EXPECTED_RUNTIME" = "$RUNTIME_AUTHORITY_SHA256"
+          test "$HUMAN_AUTHORIZATION" != "$EXPECTED_AUTHORITY"
+          [[ "$HUMAN_AUTHORIZATION" =~ ^[0-9a-f]{64}$ ]]
+          test ! -e "$OUTPUT_PATH"
+          test ! -e "${OUTPUT_PATH}.work"
+      - name: Reject a second manual dispatch for this one-attempt workflow
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/shared-pa-statcast-v2-confirmation-execution-v1.yml/runs?event=workflow_dispatch&per_page=100" > "${RUNNER_TEMP}/prior-dispatches.json"
+          python -I -B - "${RUNNER_TEMP}/prior-dispatches.json" "$GITHUB_RUN_ID" <<'PY'
+          import json, pathlib, sys
+          data=json.loads(pathlib.Path(sys.argv[1]).read_text())
+          prior=[run for run in data.get("workflow_runs", []) if str(run.get("id")) != sys.argv[2]]
+          if prior: raise SystemExit("a prior manual confirmation dispatch already exists")
+          PY
+      - name: Create exact detached confirmation carrier
+        shell: bash
+        run: |
+          set -euo pipefail
+          carrier="${RUNNER_TEMP}/june28-confirmation-carrier"
+          git worktree add --detach "$carrier" "$CARRIER_COMMIT"
+          test "$(git -C "$carrier" rev-parse HEAD)" = "$CARRIER_COMMIT"
+          test -z "$(git -C "$carrier" status --porcelain)"
+          test "$(sha256sum "$carrier/config/shared_pa_statcast_confirmation_execution_contract_v1.json" | awk '{print $1}')" = "$EXECUTION_CONTRACT_SHA256"
+          test "$(sha256sum "$carrier/config/shared_pa_statcast_confirmation_runtime_authority_v1.json" | awk '{print $1}')" = "$RUNTIME_AUTHORITY_SHA256"
+          printf 'CONFIRMATION_CARRIER=%s\n' "$carrier" >> "$GITHUB_ENV"
+      - name: Verify temporary attempt-3 retention gate before reservation or source transport
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          metadata="${RUNNER_TEMP}/attempt3-artifact-metadata.json"
+          archive="${RUNNER_TEMP}/attempt3-artifact-8826086488.zip"
+          receipt="${RUNNER_TEMP}/attempt3-retention-gate.json"
+          gh api "repos/${GITHUB_REPOSITORY}/actions/artifacts/8826086488" > "$metadata"
+          gh api -H 'Accept: application/vnd.github+json' "repos/${GITHUB_REPOSITORY}/actions/artifacts/8826086488/zip" > "$archive"
+          python -I -B - "$metadata" "$archive" "$receipt" "$GITHUB_WORKSPACE" <<'PY'
+          import datetime, hashlib, json, pathlib, sys, zipfile
+          metadata_path, archive_path, receipt_path, repository = map(pathlib.Path, sys.argv[1:])
+          meta=json.loads(metadata_path.read_text())
+          expected_name="shared-pa-statcast-attempt-03-30725195810"
+          expected_zip="a2fb41e783e80e067b958b0c0666d9e53cb36fffc591e33e04a0238f9c1c8fe4"
+          member="statcast-carrier-exec/data/source/shared_pa_statcast_sample_2023-07-25_attempt-03_v1/statcast-2023-07-25/response-attempt-03.csv"
+          expected_raw="0d4c91cb2d0eabaeaeed726fcf1d4aabd7f9d888fb4c9f90789a7ba679e0a968"
+          expires="2026-10-31T00:25:53Z"
+          now=datetime.datetime.now(datetime.timezone.utc)
+          if meta.get("id") != 8826086488 or meta.get("name") != expected_name or meta.get("expired") is not False: raise SystemExit("attempt-3 artifact metadata mismatch")
+          if now >= datetime.datetime.fromisoformat(expires.replace("Z", "+00:00")): raise SystemExit("attempt-3 artifact gate expired")
+          raw_zip=archive_path.read_bytes()
+          if len(raw_zip) != 977314 or hashlib.sha256(raw_zip).hexdigest() != expected_zip: raise SystemExit("attempt-3 ZIP mismatch")
+          with zipfile.ZipFile(archive_path) as zf:
+              names=zf.namelist()
+              if len(names) != len(set(names)) or member not in names: raise SystemExit("attempt-3 archive inventory mismatch")
+              if any(pathlib.PurePosixPath(name).is_absolute() or ".." in pathlib.PurePosixPath(name).parts for name in names): raise SystemExit("unsafe archive member")
+              raw=zf.read(member)
+          if len(raw) != 2918703 or hashlib.sha256(raw).hexdigest() != expected_raw: raise SystemExit("attempt-3 raw member mismatch")
+          tracked={
+            "reports/shared_pa_statcast_attempt_3_incident_preservation_20260802_v1.json":"52c5d6c03be7a5683f74b5d6aac3d6358c1f868d0718c02f42ef9d57c4b0d797",
+            "reports/shared_pa_statcast_attempt_3_offline_body_validation_20260802_v1.json":"21daea2df80c000f4abfeffde3c9c3f4ac44f4e0ea7e4e8727c869dc39372cdf",
+            "reports/shared_pa_statcast_attempt_3_preservation_manifest_20260802_v1.json":"55e73f0f6292b3220796ee3d2524b36c29bd115d9626a6432ebc70ff7042f660"}
+          if any(hashlib.sha256((repository/path).read_bytes()).hexdigest()!=value for path,value in tracked.items()): raise SystemExit("attempt-3 tracked evidence mismatch")
+          receipt={"schema_version":"shared-pa-statcast-attempt-3-temporary-retention-gate-v1","status":"PASS","checked_at_utc":now.isoformat().replace("+00:00","Z"),"artifact_id":8826086488,"artifact_name":expected_name,"artifact_zip_bytes":len(raw_zip),"artifact_zip_sha256":expected_zip,"raw_member":member,"raw_response_bytes":len(raw),"raw_response_sha256":expected_raw,"expires_at_utc":expires,"zip_verified":True,"raw_verified":True,"tracked_identities_verified":True}
+          receipt_path.write_text(json.dumps(receipt,sort_keys=True,separators=(",",":"))+"\n")
+          PY
+          rm -f "$archive"
+          printf 'ATTEMPT3_GATE_RECEIPT=%s\n' "$receipt" >> "$GITHUB_ENV"
+      - name: Execute one authorized source transport from detached carrier
+        id: capture
+        shell: bash
+        working-directory: ${{ runner.temp }}/june28-confirmation-carrier
+        env:
+          EXPECTED_WORKFLOW: ${{ inputs.expected_workflow_sha256 }}
+          EXPECTED_AUTHORITY: ${{ inputs.expected_authority_package_sha256 }}
+          EXPECTED_RUNTIME: ${{ inputs.expected_runtime_authority_sha256 }}
+          HUMAN_AUTHORIZATION: ${{ inputs.human_execution_authorization_sha256 }}
+        run: |
+          set +e
+          python -I -B scripts/capture_shared_pa_statcast_confirmation_v2.py \
+            --repository "$CONFIRMATION_CARRIER" \
+            --contract "$CONFIRMATION_CARRIER/config/shared_pa_statcast_confirmation_execution_contract_v1.json" \
+            --authority "$GITHUB_WORKSPACE/config/shared_pa_statcast_confirmation_attempt_01_authority_package_20260802_v1.json" \
+            --expected-authority-sha256 "$EXPECTED_AUTHORITY" \
+            --workflow "$GITHUB_WORKSPACE/.github/workflows/shared-pa-statcast-v2-confirmation-execution-v1.yml" \
+            --expected-workflow-sha256 "$EXPECTED_WORKFLOW" \
+            --runtime-authority "$CONFIRMATION_CARRIER/config/shared_pa_statcast_confirmation_runtime_authority_v1.json" \
+            --expected-runtime-authority-sha256 "$EXPECTED_RUNTIME" \
+            --expected-carrier-commit "$CARRIER_COMMIT" \
+            --human-authorization-sha256 "$HUMAN_AUTHORIZATION" \
+            --attempt3-retention-gate-receipt "$ATTEMPT3_GATE_RECEIPT" \
+            --output-dir "$CONFIRMATION_CARRIER/$OUTPUT_PATH"
+          rc=$?
+          printf '%s\n' "$rc" > "${RUNNER_TEMP}/capture-exit-code.txt"
+          exit 0
+      - name: Finalize confirmation evidence with independent carrier verifier
+        if: ${{ always() }}
+        shell: bash
+        working-directory: ${{ runner.temp }}/june28-confirmation-carrier
+        run: |
+          set +e
+          output="$CONFIRMATION_CARRIER/$OUTPUT_PATH"
+          package="${RUNNER_TEMP}/confirmation-failure-package"
+          mkdir -p "$package"
+          capture_rc="$(cat "${RUNNER_TEMP}/capture-exit-code.txt" 2>/dev/null || printf 99)"
+          if test -f "$output/manifest.json"; then
+            python -I -B scripts/verify_shared_pa_statcast_confirmation_v2.py --output "$output" --repository "$CONFIRMATION_CARRIER" > "$package/independent-verifier.stdout.txt" 2> "$package/independent-verifier.stderr.txt"
+            verifier_rc=$?
+          else
+            verifier_rc=99
+            printf '%s\n' 'capture output was not retained' > "$package/independent-verifier.stderr.txt"
+          fi
+          printf '%s\n' "$capture_rc" > "$package/capture-exit-code.txt"
+          printf '%s\n' "$verifier_rc" > "$package/independent-verifier-exit-code.txt"
+          python -I -B - "$package/failure-package.json" "$capture_rc" "$verifier_rc" <<'PY'
+          import json, pathlib, sys
+          path=pathlib.Path(sys.argv[1]); capture_rc=int(sys.argv[2]); verifier_rc=int(sys.argv[3])
+          value={"schema_version":"shared-pa-statcast-v2-confirmation-finalization-v1","invalid":capture_rc!=0 or verifier_rc!=0,"quarantined":capture_rc!=0 or verifier_rc!=0,"non_promotable":True,"source_qualified":False,"durable_retention_verified":False,"independent_reproduction_finalized":False,"capture_exit_code":capture_rc,"independent_verifier_exit_code":verifier_rc,"excluded_from":["source_release","feature_release","model_fit","market_score","prediction","prospective_evidence","economic_evaluation","betting"],"artifact_publication_is_source_qualification":False,"terminal_status_must_fail_after_publication":True}
+          path.write_text(json.dumps(value,sort_keys=True,separators=(",",":"))+"\n")
+          PY
+          printf 'FAILURE_PACKAGE=%s\n' "$package" >> "$GITHUB_ENV"
+          exit 0
+      - name: Upload confirmation evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/june28-confirmation-carrier/data/source/shared_pa_statcast_v2_confirmation_2023-06-28_v1
+            ${{ runner.temp }}/confirmation-failure-package
+          if-no-files-found: error
+          retention-days: 90
+      - name: Report preserved terminal status
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          capture_rc="$(cat "${RUNNER_TEMP}/capture-exit-code.txt" 2>/dev/null || printf 99)"
+          verifier_rc="$(cat "$FAILURE_PACKAGE/independent-verifier-exit-code.txt" 2>/dev/null || printf 99)"
+          echo "capture_exit_code=$capture_rc"
+          echo "independent_verifier_exit_code=$verifier_rc"
+          echo "scientific_status=CONFIRMATION_PENDING_SEPARATE_DURABLE_RETENTION_AND_INDEPENDENT_REPRODUCTION"
+          exit 1
