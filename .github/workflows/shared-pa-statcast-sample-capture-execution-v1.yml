@@ -177,8 +177,8 @@ jobs:
                   1,
               ),
               "successor_attempt_history_removed": original.replace(
+                  'shared_pa_statcast_sample_attempt_history_20260802_v3.json',
                   'shared_pa_statcast_sample_attempt_history_20260801_v2.json',
-                  'shared_pa_statcast_sample_attempt_history_20260731_v1.json',
               ),
               "attempt_three_gate_removed": original.replace(
                   attempt_three_marker,
