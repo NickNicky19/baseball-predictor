@@ -1,0 +1,106 @@
+{
+  "schema_version": "shared-pa-statcast-attempt-3-v2-development-replay-report-v1",
+  "label": "DEVELOPMENT_REPLAY_ONLY",
+  "decision": "ATTEMPT_3_V2_DEVELOPMENT_REPLAY_PASSED",
+  "source_qualified": false,
+  "source_release_produced": false,
+  "independent_confirmation": false,
+  "attempt_3_v1_disposition": "CONSUMED_INVALID_UNDER_V1_QUARANTINED_NON_PROMOTABLE",
+  "artifact": {
+    "id": 8826086488,
+    "zip_bytes": 977314,
+    "zip_sha256": "a2fb41e783e80e067b958b0c0666d9e53cb36fffc591e33e04a0238f9c1c8fe4",
+    "failure_package_bytes": 2449,
+    "failure_package_sha256": "a166ab2c08c49238be1e45986764a6a7a960360d405b721602f28679e2bebdd0"
+  },
+  "transport": {
+    "http_status": 200,
+    "raw_content_type": "application/download; charset=utf-8",
+    "normalized_mime": "application/download",
+    "content_length": "2918703",
+    "conditional_mime_gate": "PASSED_ONLY_WITH_ALL_INDEPENDENT_BODY_SCHEMA_IDENTITY_SCOPE_EOF_AND_DOWNSTREAM_GATES"
+  },
+  "raw_response": {
+    "bytes": 2918703,
+    "sha256": "0d4c91cb2d0eabaeaeed726fcf1d4aabd7f9d888fb4c9f90789a7ba679e0a968",
+    "utf8_bom_present": true,
+    "terminal_newline_present": false,
+    "strict_csv_clean_eof": true,
+    "raw_bytes_unmodified": true
+  },
+  "schema": {
+    "exact_ordered_header_reference": "config/shared_pa_statcast_source_contract_v2_proposal.json#/expected_csv_header/ordered_columns",
+    "ordered_header_sha256": "8c2305caffa139b2558fa5c8323ea447f897a31945d6dd8bfff9b69c9cd83372",
+    "header_column_count": 119,
+    "parsed_row_count": 4383,
+    "malformed_row_count": 0,
+    "empty_row_count": 0,
+    "duplicate_event_identity_count": 0,
+    "missing_critical_identity_count": 0,
+    "date_values": ["2023-07-25"],
+    "game_type_values": ["R"],
+    "distinct_game_pks": [717255, 717256, 717258, 717259, 717260, 717261, 717262, 717263, 717264, 717265, 717266, 717267, 717269, 717270, 717272],
+    "missing_certified_games": [],
+    "unexpected_games": []
+  },
+  "canonical_team_identity": {
+    "binding": "game_pk + certified official date + side + official team ID",
+    "all_games_have_top_and_bottom_batting_side": true,
+    "raw_abbreviations_used_as_identity": false,
+    "raw_labels_preserved_as_observations": true,
+    "observed_label_differences": [
+      {"game_pk": 717259, "certified_display": "ARI/STL", "raw_savant": "AZ/STL"},
+      {"game_pk": 717272, "certified_display": "SF/OAK", "raw_savant": "SF/ATH"}
+    ],
+    "unresolved_identity_contradictions": 0
+  },
+  "plate_discipline": {
+    "reconciled": true,
+    "pitch_rows": 4383,
+    "physical_pitch_rows": 4365,
+    "swing_count": 2115,
+    "whiff_count": 481,
+    "contact_count": 1634,
+    "take_count": 2250,
+    "zone_opportunity_count": 2032,
+    "zone_swing_count": 1357,
+    "chase_opportunity_count": 2092,
+    "chase_swing_count": 636,
+    "missing_zone_count": 241,
+    "unknown_description_count": 0
+  },
+  "ev_launch_angle": {
+    "reconciled": true,
+    "total_bbe": 762,
+    "measured_ev_count": 715,
+    "missing_ev_count": 47,
+    "measured_launch_angle_count": 715,
+    "missing_launch_angle_count": 47,
+    "joint_ev_la_count": 715,
+    "joint_missing_count": 47,
+    "classified_count": 715,
+    "barrel_count": 52,
+    "hard_hit_ev_count": 271,
+    "sweet_spot_count": 254
+  },
+  "gates": {
+    "transport_receipt": "PASS",
+    "conditional_mime": "PASS",
+    "body_signatures": "PASS",
+    "encoding_and_bom": "PASS",
+    "strict_csv_schema": "PASS",
+    "eof_structural_completeness": "PASS",
+    "date_game_scope": "PASS",
+    "event_identity": "PASS",
+    "canonical_team_identity": "PASS",
+    "plate_discipline": "PASS",
+    "ev_launch_angle": "PASS"
+  },
+  "protected_boundaries": {
+    "source_contract_v1_modified": false,
+    "attempt_3_retroactively_qualified": false,
+    "source_feature_model_market_or_prediction_use": false,
+    "external_request_made": false,
+    "old_attempt_4_used": false
+  }
+}

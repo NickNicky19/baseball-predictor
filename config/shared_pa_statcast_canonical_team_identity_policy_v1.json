@@ -1,0 +1,90 @@
+{
+  "schema_version": "shared-pa-statcast-canonical-team-identity-policy-v1",
+  "status": "INACTIVE_PROPOSAL_ONLY",
+  "development_only": true,
+  "activation_authorized": false,
+  "source_qualification_authorized": false,
+  "canonical_identity": {
+    "tuple": [
+      "game_pk",
+      "certified_official_date",
+      "home_or_away_side",
+      "certified_official_team_id"
+    ],
+    "authoritative_game_source": "the hash-bound certified official schedule or game-identity release named by the active request authority",
+    "raw_abbreviation_is_identity": false,
+    "player_name_is_identity": false,
+    "requirements": [
+      "game_pk is a positive integer present exactly once in the expected certified game universe",
+      "game_pk resolves to one certified official date and one home and away official team ID",
+      "row game_date exactly equals the certified official date",
+      "inning_topbot is exactly Top or Bot and binds batting side to away or home respectively",
+      "the opposing fielding side is derived from the same certified game identity",
+      "batter and pitcher are positive MLB identity values",
+      "every row retains its original home_team and away_team source labels without rewriting"
+    ]
+  },
+  "raw_source_observations": {
+    "preserve_verbatim": [
+      "home_team",
+      "away_team"
+    ],
+    "normalization_or_rewrite_allowed": false,
+    "observed_development_labels": [
+      {
+        "game_pk": 717259,
+        "certified_home_display": "ARI",
+        "certified_away_display": "STL",
+        "raw_home_label": "AZ",
+        "raw_away_label": "STL",
+        "classification": "DEVELOPMENT_OBSERVATION_NOT_CANONICAL_MAPPING"
+      },
+      {
+        "game_pk": 717272,
+        "certified_home_display": "SF",
+        "certified_away_display": "OAK",
+        "raw_home_label": "SF",
+        "raw_away_label": "ATH",
+        "classification": "DEVELOPMENT_OBSERVATION_NOT_CANONICAL_MAPPING"
+      }
+    ],
+    "single_observation_may_create_alias": false,
+    "differences_must_be_reported": true
+  },
+  "validation_algorithm": [
+    "load only the hash-bound certified game universe before reading row identity fields",
+    "reject any requested or observed game_pk outside that exact universe",
+    "resolve certified official date plus home and away official team IDs by game_pk",
+    "require each raw row game_date to equal the certified official date",
+    "derive batting and fielding official team IDs from inning_topbot and certified side",
+    "retain the raw home_team and away_team strings as source observations",
+    "report every difference between raw labels and separately certified display labels without using either display label as identity",
+    "require one internally consistent raw home and away label pair per game_pk while retaining that pair verbatim",
+    "emit canonical identity fields only into quarantined validation output until the governing source contract is independently confirmed"
+  ],
+  "versioned_source_label_mapping": {
+    "included_in_this_policy": false,
+    "derivation_requirement": "derive only from certified game identity and side across an independently qualified source population",
+    "single_game_or_single_attempt_derivation_prohibited": true,
+    "separate_version_and_review_required": true,
+    "raw_bytes_must_remain_unchanged": true
+  },
+  "fail_closed_conditions": [
+    "missing or ambiguous certified game identity",
+    "game_pk outside the exact expected universe",
+    "official date mismatch",
+    "missing or invalid home or away official team ID",
+    "home and away official team IDs are equal",
+    "invalid or missing inning_topbot",
+    "unresolved batting-side or fielding-side contradiction",
+    "more than one raw home and away label pair within one game_pk",
+    "any attempt to use raw abbreviation text as canonical identity",
+    "any mutation of retained raw team labels or response bytes"
+  ],
+  "attempt_3_disposition": {
+    "evidence_role": "DEVELOPMENT_EVIDENCE_ONLY",
+    "v1_disposition_unchanged": "CONSUMED_INVALID_QUARANTINED_NON_PROMOTABLE",
+    "retroactive_qualification_allowed": false,
+    "scientific_or_model_use_allowed": false
+  }
+}

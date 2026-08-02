@@ -1,0 +1,47 @@
+{
+  "schema_version": "shared-pa-statcast-v2-independent-confirmation-decision-contract-v1",
+  "status": "INACTIVE_FROZEN_PROPOSAL_ONLY",
+  "capture_authorized": false,
+  "source_qualification_authorized": false,
+  "decision_frozen_before_confirmation_response_is_seen": true,
+  "confirmation_request_plan": {
+    "path": "config/shared_pa_statcast_confirmation_sample_2023-06-28_request_plan_v1.json",
+    "sha256": "0bcc3c9482ea67189e414502b9b58e6445cd66efeb27c309c5bcff4864108402"
+  },
+  "proposed_source_contract": {
+    "path": "config/shared_pa_statcast_source_contract_v2_proposal.json",
+    "sha256": "166c49a5ea66bf4491c9d04c7f233c7bc51c032683b9883b695236dabc637328",
+    "attempt_3_is_development_evidence_only": true
+  },
+  "qualification_rule": "PASS_ONLY_IF_EVERY_REQUIRED_GATE_AND_INDEPENDENT_REPRODUCTION_PASSES_WITHOUT_FALLBACK_OR_POST_RESPONSE_CONTRACT_WEAKENING",
+  "required_gates": [
+    "all transport, request receipt, authority, runtime and no-overwrite identities pass",
+    "conditional MIME policy passes and MIME alone is never sufficient",
+    "HTML, JSON error-object and versioned Baseball Savant error or warning signatures are absent",
+    "UTF-8, exact ordered header and complete strict CSV schema pass",
+    "canonical game_pk plus official date plus side plus official team ID binding passes",
+    "exact official date, regular-season game type and certified game universe pass",
+    "EOF and structural completeness policy passes without modifying retained raw bytes",
+    "required fields and event identities pass with no conflicting duplicate",
+    "plate-discipline mapping and identities reconcile",
+    "EV and launch-angle populations and denominators reconcile",
+    "no source-definition contradiction exists",
+    "success or quarantined failure evidence is durably preserved under a separately authorized retention action",
+    "an independent implementation reproduces the complete decision from the retained bytes and identities"
+  ],
+  "pass_disposition": {
+    "contract_v2_may_be_proposed_for_separate_activation_review": true,
+    "merge_or_capture_automatically_activates_contract": false,
+    "full_historical_capture_authorized": false,
+    "feature_or_model_work_authorized": false
+  },
+  "failure_disposition": {
+    "record_failure_as_invalid_quarantined_non_promotable": true,
+    "preserve_terminal_failure_after_evidence_publication": true,
+    "weaken_v2_using_same_confirmation_response": false,
+    "required_next_step": "SEPARATELY_PREREGISTERED_V3_HYPOTHESIS_OR_PROVEN_IMPLEMENTATION_CORRECTION_BEFORE_ANOTHER_SEPARATELY_AUTHORIZED_SAMPLE"
+  },
+  "old_july_25_attempt_4": "UNUSED_UNAUTHORIZED_NOT_THE_INDEPENDENT_CONFIRMATION_SAMPLE",
+  "external_request_authorized": false,
+  "betting_authorized": false
+}

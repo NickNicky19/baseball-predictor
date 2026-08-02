@@ -1,0 +1,92 @@
+{
+  "schema_version": "shared-pa-statcast-v2-independent-confirmation-request-plan-v1",
+  "status": "INACTIVE_PROPOSAL_ONLY",
+  "capture_authorized": false,
+  "external_request_authorized": false,
+  "attempt_reserved": false,
+  "development_evidence_used_for_date_selection": false,
+  "selection": {
+    "rule_version": "shared-pa-statcast-v2-confirmation-date-selection-v1",
+    "rule_frozen_before_source_response_inspection": true,
+    "lawful_input": {
+      "artifact_id": 8793049247,
+      "artifact_name": "official-2023-pa-volume-bade26d0913c7a4cbde3d0e624a24077d90de11d",
+      "artifact_digest": "sha256:b9836400572d311bddd376bd561f6b7cdebca29c3bac7901ae0083e05b2b4199",
+      "feed_plan_path": "feed-plan.json",
+      "feed_plan_sha256": "42241b710d837c59dedfa1de8a9bd55a2c87af0f1727bd94fbfdf3488aca2ae0",
+      "schedule_capture_digest": "3294d516d3e0d87c5e15cc67cab10d0eb1f78e652a6730707949c51ac5bb4a0",
+      "certified_schedule_index_sha256": "0f3d68d002f5fa87b0d6cb9daa4d51606f37547bbca0a28bce066e6e7c09c96f"
+    },
+    "candidate_rule": [
+      "official date is within the immutable v1 regular-season window 2023-03-30 through 2023-09-30 inclusive",
+      "date has exactly 15 certified regular-season games",
+      "the 15 games contain 30 distinct official team IDs, each exactly once, excluding doubleheaders",
+      "each game's retained schedule_group_dates contains only its official date",
+      "sort qualifying dates ascending by official date",
+      "select the upper median at zero-based index candidate_count divided by 2 for an even candidate count",
+      "if and only if that selected date is development date 2023-07-25, fail closed without substituting another date",
+      "sort the selected date's identities by game_pk and bind their canonical JSON SHA-256"
+    ],
+    "candidate_count": 80,
+    "selected_zero_based_index": 40,
+    "selected_date": "2023-06-28",
+    "selected_scope_canonical_json_sha256": "2f6ebb267bcc7b272a32a7f218fae5998e00cdc303e51659949fd9a871d5885a",
+    "selection_used_player_outcomes": false,
+    "selection_used_statcast_source_bytes": false,
+    "selection_used_schema_success": false,
+    "selection_used_market_results": false
+  },
+  "request": {
+    "request_id": "statcast-v2-confirmation-2023-06-28",
+    "method": "GET",
+    "endpoint": "https://baseballsavant.mlb.com/statcast_search/csv",
+    "official_date": "2023-06-28",
+    "full_url": "https://baseballsavant.mlb.com/statcast_search/csv?all=true&batter_stands=&game_date_gt=2023-06-28&game_date_lt=2023-06-28&group_by=name&hfAB=&hfBBL=&hfBBT=&hfFlag=&hfGT=R%7C&hfInn=&hfNewZones=&hfOuts=&hfPR=&hfPT=&hfRO=&hfSA=&hfSea=&hfSit=&hfZ=&home_road=&metric_1=&min_abs=0&min_pitches=0&min_results=0&opponent=&pitcher_throws=&player_event_sort=h_launch_speed&player_type=pitcher&position=&sort_col=pitches&sort_order=desc&stadium=&team=&type=details",
+    "full_url_sha256": "0efc234b3ef8e8490550bc11a28896bbc1e85ca39b31bf503484c65ed9d96aa9",
+    "query_sha256": "16920ee504c363fb27b19b7100d8fc54c95649054a9357af887e4ab51ef58e23",
+    "expected_request_count": 1,
+    "minimum_request_start_interval_seconds": 1.1,
+    "automatic_http_retry_maximum": 0,
+    "replacement_request_maximum": 0,
+    "automatic_workflow_rerun_allowed": false,
+    "redirects_allowed": false
+  },
+  "certified_games": [
+    {"game_pk": 717575, "official_date": "2023-06-28", "game_type": "R", "away_team_id": 139, "home_team_id": 109},
+    {"game_pk": 717576, "official_date": "2023-06-28", "game_type": "R", "away_team_id": 145, "home_team_id": 108},
+    {"game_pk": 717577, "official_date": "2023-06-28", "game_type": "R", "away_team_id": 114, "home_team_id": 118},
+    {"game_pk": 717578, "official_date": "2023-06-28", "game_type": "R", "away_team_id": 119, "home_team_id": 115},
+    {"game_pk": 717579, "official_date": "2023-06-28", "game_type": "R", "away_team_id": 147, "home_team_id": 133},
+    {"game_pk": 717580, "official_date": "2023-06-28", "game_type": "R", "away_team_id": 116, "home_team_id": 140},
+    {"game_pk": 717581, "official_date": "2023-06-28", "game_type": "R", "away_team_id": 158, "home_team_id": 121},
+    {"game_pk": 717582, "official_date": "2023-06-28", "game_type": "R", "away_team_id": 117, "home_team_id": 138},
+    {"game_pk": 717583, "official_date": "2023-06-28", "game_type": "R", "away_team_id": 146, "home_team_id": 111},
+    {"game_pk": 717584, "official_date": "2023-06-28", "game_type": "R", "away_team_id": 143, "home_team_id": 112},
+    {"game_pk": 717585, "official_date": "2023-06-28", "game_type": "R", "away_team_id": 135, "home_team_id": 134},
+    {"game_pk": 717586, "official_date": "2023-06-28", "game_type": "R", "away_team_id": 137, "home_team_id": 141},
+    {"game_pk": 717587, "official_date": "2023-06-28", "game_type": "R", "away_team_id": 120, "home_team_id": 136},
+    {"game_pk": 717588, "official_date": "2023-06-28", "game_type": "R", "away_team_id": 142, "home_team_id": 144},
+    {"game_pk": 717589, "official_date": "2023-06-28", "game_type": "R", "away_team_id": 113, "home_team_id": 110}
+  ],
+  "output_contract": {
+    "path": "data/source/shared_pa_statcast_v2_confirmation_2023-06-28_v1",
+    "artifact_name": "shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01",
+    "path_must_begin_absent": true,
+    "no_overwrite": true,
+    "raw_bytes_preserved_unmodified": true,
+    "receipt_and_safe_headers_required": true,
+    "failure_evidence_quarantined_and_non_promotable": true,
+    "artifact_publication_is_source_qualification": false
+  },
+  "identity_bindings": {
+    "source_contract_v2_proposal_path": "config/shared_pa_statcast_source_contract_v2_proposal.json",
+    "source_contract_v2_proposal_sha256": "166c49a5ea66bf4491c9d04c7f233c7bc51c032683b9883b695236dabc637328",
+    "canonical_team_identity_policy_sha256": "c6422eb1cfdd494e958d2623a2acdc911a1bf47f93f6b8f27186241988696b55",
+    "csv_eof_completeness_policy_sha256": "b8d8dbcdee611c81029a51db74f9c005115360fbbcd3f76078857d1f6d978293",
+    "attempt_history_path": "config/shared_pa_statcast_confirmation_sample_2023-06-28_attempt_history_v1.json",
+    "attempt_history_sha256": "4f7aea30afdbff76fedd695ef3bd83bb23e5395f4db9496405552433695d9c56"
+  },
+  "fail_closed_on_any_identity_scope_transport_schema_or_output_mismatch": true,
+  "activation_requires_separately_reviewed_final_v2_new_authority_package_and_explicit_human_authorization": true,
+  "old_july_25_attempt_4_used": false
+}

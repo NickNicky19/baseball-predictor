@@ -1,0 +1,70 @@
+{
+  "schema_version": "shared-pa-statcast-source-contract-v2-preparation-manifest-v1",
+  "status": "PREPARED_INACTIVE_DRAFT_ONLY",
+  "base_commit": "a2d82cbd8371fdc700c43a0b23d194c5f922bddc",
+  "branch": "codex/statcast-source-contract-v2-proposal-v1",
+  "preparation_statuses": [
+    "DURABLE_RETENTION_PLAN_PREPARED",
+    "SOURCE_CONTRACT_V2_PROPOSAL_PREPARED",
+    "ATTEMPT_3_V2_DEVELOPMENT_REPLAY_PASSED",
+    "INDEPENDENT_CONFIRMATION_PLAN_PREPARED"
+  ],
+  "changed_path_manifest_sha256": "435d81336df46645f6e3ba672de567cd7f27c8b75e7a2a731993d836628bd467",
+  "changed_paths": [
+    "config/shared_pa_statcast_canonical_team_identity_policy_v1.json",
+    "config/shared_pa_statcast_confirmation_decision_contract_v1.json",
+    "config/shared_pa_statcast_confirmation_sample_2023-06-28_attempt_history_v1.json",
+    "config/shared_pa_statcast_confirmation_sample_2023-06-28_request_plan_v1.json",
+    "config/shared_pa_statcast_csv_eof_completeness_policy_v1.json",
+    "config/shared_pa_statcast_source_contract_v2_proposal.json",
+    "reports/shared_pa_statcast_attempt3_durable_retention_proposal_20260802_v1.json",
+    "reports/shared_pa_statcast_attempt3_v2_development_replay_20260802_v1.json",
+    "reports/shared_pa_statcast_source_contract_v2_preparation_manifest_20260802_v1.json",
+    "scripts/validate_shared_pa_statcast_source_contract_v2_proposal.py",
+    "tests/test_shared_pa_statcast_source_contract_v2_proposal.py"
+  ],
+  "file_identities": {
+    "config/shared_pa_statcast_canonical_team_identity_policy_v1.json": "c6422eb1cfdd494e958d2623a2acdc911a1bf47f93f6b8f27186241988696b55",
+    "config/shared_pa_statcast_confirmation_decision_contract_v1.json": "77754f074a874dfee6f1aabd3a058b1a3d33f5ed7726f17f75caf2d1db339c5c",
+    "config/shared_pa_statcast_confirmation_sample_2023-06-28_attempt_history_v1.json": "4f7aea30afdbff76fedd695ef3bd83bb23e5395f4db9496405552433695d9c56",
+    "config/shared_pa_statcast_confirmation_sample_2023-06-28_request_plan_v1.json": "0bcc3c9482ea67189e414502b9b58e6445cd66efeb27c309c5bcff4864108402",
+    "config/shared_pa_statcast_csv_eof_completeness_policy_v1.json": "b8d8dbcdee611c81029a51db74f9c005115360fbbcd3f76078857d1f6d978293",
+    "config/shared_pa_statcast_source_contract_v2_proposal.json": "166c49a5ea66bf4491c9d04c7f233c7bc51c032683b9883b695236dabc637328",
+    "reports/shared_pa_statcast_attempt3_durable_retention_proposal_20260802_v1.json": "eac1c63f86846816bc87f4a79681c6955ad35012da2daa0da5ccf7480f595b57",
+    "reports/shared_pa_statcast_attempt3_v2_development_replay_20260802_v1.json": "63418babf54f0d47ba9e55df484b50ce276162a0ac2df1a0eb5ec2cc511ff573",
+    "scripts/validate_shared_pa_statcast_source_contract_v2_proposal.py": "95bc8f822ef389c20f61ab3c82620f26c6001176cca538a4055e623dc637958e",
+    "tests/test_shared_pa_statcast_source_contract_v2_proposal.py": "ecb447d4a41f753e58f3682c8f3a01e9db5c6d0ad77198cb2379fb381a476daf"
+  },
+  "immutable_identities": {
+    "source_contract_v1_sha256": "7078857cc1815e5c8dcecd667a9b6d69079ef31c1fc68057473d1fb1dc9ceebd",
+    "attempt_3_artifact_id": 8826086488,
+    "attempt_3_artifact_zip_sha256": "a2fb41e783e80e067b958b0c0666d9e53cb36fffc591e33e04a0238f9c1c8fe4",
+    "attempt_3_raw_sha256": "0d4c91cb2d0eabaeaeed726fcf1d4aabd7f9d888fb4c9f90789a7ba679e0a968",
+    "old_attempt_ledger_v3_sha256": "43815c024b7e138850001ecdd9f6cb5b7fcb928f8c518a1cbf4c7f6e4fe016b1"
+  },
+  "confirmation": {
+    "selected_date": "2023-06-28",
+    "certified_game_count": 15,
+    "expected_request_count": 1,
+    "attempt_reserved": false,
+    "capture_authorized": false,
+    "response_inspected": false
+  },
+  "local_no_network_validation": {
+    "focused_unittest_cases": 16,
+    "focused_unittest_result": "PASS",
+    "actual_artifact_development_replay_result": "ATTEMPT_3_V2_DEVELOPMENT_REPLAY_PASSED",
+    "real_external_requests_made": 0
+  },
+  "protected_boundaries": {
+    "source_contract_v1_modified": false,
+    "active_capture_workflow_modified": false,
+    "proposal_activated": false,
+    "workflow_dispatched": false,
+    "real_statcast_request_count": 3,
+    "attempts_1_through_3_consumed": true,
+    "old_attempt_4_unused_unauthorized": true,
+    "feature_model_market_prediction_or_betting_action": false,
+    "durable_retention_executed": false
+  }
+}
