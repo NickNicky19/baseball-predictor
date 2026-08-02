@@ -1,0 +1,32 @@
+{
+  "schema_version": "shared-pa-statcast-confirmation-sample-attempt-history-v1",
+  "status": "INACTIVE_PROPOSAL_ONLY_NO_ATTEMPT_RESERVED_OR_AUTHORIZED",
+  "request_id": "statcast-v2-confirmation-2023-06-28",
+  "request_method": "GET",
+  "development_date_excluded": "2023-07-25",
+  "attempts": [],
+  "next_attempt": {
+    "attempt_number": 1,
+    "status": "UNUSED_UNAUTHORIZED",
+    "reserved": false,
+    "consumed": false
+  },
+  "maximum_lifetime_attempts": 1,
+  "consumed_lifetime_attempts": 0,
+  "remaining_lifetime_attempts": 1,
+  "remaining_authorized_attempts": 0,
+  "workflow_dispatch_capture_authorized": false,
+  "external_request_authorized": false,
+  "old_july_25_attempt_history": {
+    "path": "config/shared_pa_statcast_sample_attempt_history_20260802_v3.json",
+    "sha256": "43815c024b7e138850001ecdd9f6cb5b7fcb928f8c518a1cbf4c7f6e4fe016b1",
+    "attempts_1_through_3": "PERMANENTLY_CONSUMED",
+    "attempt_4": "UNUSED_UNAUTHORIZED",
+    "modified": false,
+    "reused_for_confirmation": false
+  },
+  "global_real_external_statcast_request_count": 3,
+  "attempt_numbering_reset_or_reuse_of_prior_plan_permitted": false,
+  "merge_or_preflight_consumes_confirmation_attempt": false,
+  "activation_requires_new_authority_package_and_explicit_human_authorization": true
+}

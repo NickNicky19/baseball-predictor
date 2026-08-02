@@ -1,0 +1,219 @@
+{
+  "schema_version": "shared-pa-statcast-attempt3-durable-retention-proposal-v1",
+  "status": "DURABLE_RETENTION_PLAN_PREPARED",
+  "proposal_only": true,
+  "prepared_date_utc": "2026-08-02",
+  "base_commit": "a2d82cbd8371fdc700c43a0b23d194c5f922bddc",
+  "scope": {
+    "purpose": "preserve the already retained attempt-3 evidence beyond the GitHub Actions artifact expiration without changing its bytes, scientific disposition, or attempt accounting",
+    "source_capture_authorized": false,
+    "scientific_promotion_authorized": false,
+    "external_storage_change_performed": false,
+    "evidence_relocated_or_deleted": false
+  },
+  "current_evidence": {
+    "github_actions_artifact": {
+      "name": "shared-pa-statcast-attempt-03-30725195810",
+      "id": 8826086488,
+      "workflow_run_id": 30725195810,
+      "github_run_attempt": 1,
+      "expires_at_utc": "2026-10-31T00:25:53Z",
+      "zip_bytes": 977314,
+      "zip_sha256": "a2fb41e783e80e067b958b0c0666d9e53cb36fffc591e33e04a0238f9c1c8fe4"
+    },
+    "temporary_verification_copy": {
+      "path": "C:\\tmp\\statcast-attempt3-artifact-8826086488.zip",
+      "verified_bytes": 977314,
+      "verified_sha256": "a2fb41e783e80e067b958b0c0666d9e53cb36fffc591e33e04a0238f9c1c8fe4",
+      "durable": false
+    },
+    "embedded_raw_response": {
+      "path_in_zip": "statcast-carrier-exec/data/source/shared_pa_statcast_sample_2023-07-25_attempt-03_v1/statcast-2023-07-25/response-attempt-03.csv",
+      "bytes": 2918703,
+      "sha256": "0d4c91cb2d0eabaeaeed726fcf1d4aabd7f9d888fb4c9f90789a7ba679e0a968",
+      "http_status": 200,
+      "raw_content_type": "application/download; charset=utf-8",
+      "normalized_mime_type": "application/download"
+    },
+    "embedded_failure_package": {
+      "path_in_zip": "capture-failure-package/failure-package.json",
+      "bytes": 2449,
+      "sha256": "a166ab2c08c49238be1e45986764a6a7a960360d405b721602f28679e2bebdd0"
+    },
+    "embedded_receipt_and_header_records": [
+      {
+        "path_in_zip": "statcast-carrier-exec/data/source/shared_pa_statcast_sample_2023-07-25_attempt-03_v1/statcast-2023-07-25/reservation-03.json",
+        "bytes": 2852,
+        "sha256": "979d690543e41bee957edde10b130d950701e4e6bbb389597d366ef2fb0942f2"
+      },
+      {
+        "path_in_zip": "statcast-carrier-exec/data/source/shared_pa_statcast_sample_2023-07-25_attempt-03_v1/statcast-2023-07-25/result-03.json",
+        "bytes": 1162,
+        "sha256": "feceda5255e43d0e0145ed130d094a558d664db2f30999f00612777a258100a0"
+      },
+      {
+        "path_in_zip": "statcast-carrier-exec/data/source/shared_pa_statcast_sample_2023-07-25_attempt-03_v1/statcast-2023-07-25/terminal.json",
+        "bytes": 33,
+        "sha256": "5dd0dc0c94ca295bb5e48ee915618a49525b3407f16e3a24d97beb539a11ff5d"
+      }
+    ],
+    "scientific_disposition": {
+      "attempt": 3,
+      "consumed": true,
+      "invalid_under_source_contract_v1": true,
+      "quarantined": true,
+      "non_promotable": true,
+      "qualified_source_sample": false,
+      "excluded_from": [
+        "source_release",
+        "feature_construction",
+        "model_fitting",
+        "market_scoring",
+        "prediction_generation",
+        "prospective_evidence",
+        "economic_evaluation",
+        "betting"
+      ]
+    }
+  },
+  "common_preservation_requirements": {
+    "preservation_object": "the exact 977314-byte GitHub Actions artifact ZIP; the embedded raw response, headers, receipts, timestamps, failure package, exit codes, and runtime/source identities remain byte-for-byte inside it",
+    "detached_custody_manifest_required": true,
+    "detached_custody_manifest_fields": [
+      "archive logical identity and physical location",
+      "original artifact name, artifact ID, workflow run ID, run attempt, creation and expiration metadata",
+      "ZIP byte count and SHA-256",
+      "complete embedded path, byte-count, and SHA-256 inventory",
+      "raw Content-Type and HTTP status as retained, never reconstructed",
+      "upload or archival timestamp, actor identity, authorization identity, and tool identity",
+      "retention-until timestamp and protection mode",
+      "read-back verification timestamp and result",
+      "quarantine, invalidity, non-promotion, and prohibited-use disposition"
+    ],
+    "write_procedure": [
+      "read the existing ZIP without modifying it",
+      "verify local byte count 977314 and SHA-256 a2fb41e783e80e067b958b0c0666d9e53cb36fffc591e33e04a0238f9c1c8fe4 before writing",
+      "write the ZIP once under the predeclared archive identity",
+      "write the detached custody manifest without embedding or changing protected raw bytes",
+      "read the preserved ZIP back through the ordinary retrieval path and reverify byte count and SHA-256",
+      "extract only in a quarantined verification location and verify the embedded raw response and failure-package identities",
+      "append the write and read-back receipts to the custody record; do not overwrite a prior receipt"
+    ],
+    "verification_frequency": "immediately after archival, annually thereafter, and before and after any authorized custody migration",
+    "failure_condition": "any identity mismatch, inability to apply declared retention protection, unexpected pre-existing object, incomplete read-back, or access-control mismatch fails closed without deleting or replacing existing evidence",
+    "attempt_accounting_must_remain": {
+      "attempt_1": "PERMANENTLY_CONSUMED_QUARANTINED",
+      "attempt_2": "PERMANENTLY_CONSUMED_VALIDATION_FAILED_QUARANTINED",
+      "attempt_3": "PERMANENTLY_CONSUMED_SCHEMA_DRIFTED_QUARANTINED",
+      "attempt_4": "UNUSED_UNAUTHORIZED",
+      "total_real_statcast_requests": 3
+    }
+  },
+  "options": [
+    {
+      "option_id": "RETENTION_OPTION_1_IMMUTABLE_OBJECT_STORAGE",
+      "option": "immutable object storage with retention controls",
+      "exact_object_or_archive_naming_scheme": {
+        "container": "EXACT_APPROVED_RETENTION_LOCKED_CONTAINER_TO_BE_NAMED_IN_SEPARATE_AUTHORIZATION",
+        "zip_key": "mlb-source-evidence/statcast/attempt-03/run-30725195810/artifact-8826086488/shared-pa-statcast-attempt-03-30725195810.zip",
+        "custody_manifest_key": "mlb-source-evidence/statcast/attempt-03/run-30725195810/artifact-8826086488/shared-pa-statcast-attempt-03-30725195810.custody-v1.json",
+        "collision_policy": "create-only; fail if either key already exists"
+      },
+      "source_and_artifact_identities_retained": "all identities in current_evidence plus the complete 19-entry embedded artifact inventory, workflow run 30725195810, artifact 8826086488, attempt 3, and source-contract-v1 invalid/quarantine disposition",
+      "raw_byte_preservation": "yes; exact ZIP is stored without transformation and contains the exact 2918703-byte raw response",
+      "header_and_receipt_preservation": "yes; the exact retained reservation, result, terminal, safe-header, timestamp, validation, and runtime records remain embedded and are hash-bound by the custody manifest",
+      "hash_verification_procedure": "client-side pre-write SHA-256 and byte-count check; storage checksum metadata if supported; immediate full-object read-back; ZIP SHA-256, complete embedded inventory, raw-response SHA-256, and failure-package SHA-256 reverified offline",
+      "retention_duration": "minimum seven years through 2033-08-02T00:00:00Z; any longer governing research-record policy prevails",
+      "write_once_or_deletion_protections": "compliance-mode object retention lock, versioning, create-only keys, no overwrite, and no ordinary delete permission until the retention-until timestamp",
+      "access_controls": "least-privilege write-once archival role; separate read-only auditor role; no public access; encryption at rest and in transit; production source-capture identities receive no archive-delete permission",
+      "auditability": "provider immutable audit events plus append-only custody manifest record the authorizer, writer, object version, checksum, retention mode, retention-until timestamp, and every authorized read-back",
+      "failure_recovery": "retrieve the locked original or an independently replicated locked copy; never repair by replacing bytes under the same key; record a new custody incident and separately authorized migration if the service becomes unavailable",
+      "operational_burden": "low after one-time container, retention-lock, role, encryption, and audit configuration; annual integrity read-back remains required",
+      "risk_of_expiration_or_deletion": "lowest of the compared options when compliance retention lock is independently verified; residual risks are provider/account loss, misconfigured initial controls, unavailable encryption keys, and unperformed read-back audits",
+      "external_infrastructure_modification_required": true,
+      "exact_human_authorization_required": "a separate explicit authorization must name the provider and exact container URI, authorize the protected-evidence upload and any required infrastructure change, approve compliance retention through at least 2033-08-02T00:00:00Z, name encryption and access-control policy, bind the exact ZIP/key/hashes, authorize immediate read-back verification, and prohibit overwrite, delete, source capture, and scientific promotion"
+    },
+    {
+      "option_id": "RETENTION_OPTION_2_OFFLINE_WRITE_ONCE_MEDIA",
+      "option": "approved offline write-once archival media with chain of custody",
+      "exact_object_or_archive_naming_scheme": {
+        "media_set_label": "MLB-SOURCE-EVIDENCE-20260802-SET-01",
+        "archive_path": "statcast/attempt-03/run-30725195810/artifact-8826086488/shared-pa-statcast-attempt-03-30725195810.zip",
+        "custody_manifest_path": "statcast/attempt-03/run-30725195810/artifact-8826086488/shared-pa-statcast-attempt-03-30725195810.custody-v1.json",
+        "collision_policy": "blank, uniquely serialized WORM media only; fail if the serialized set or archive identity already exists"
+      },
+      "source_and_artifact_identities_retained": "all identities in current_evidence plus the complete embedded artifact inventory and signed physical custody events",
+      "raw_byte_preservation": "yes; exact ZIP is written without transformation and contains the exact raw response",
+      "header_and_receipt_preservation": "yes; embedded records are preserved with the ZIP and bound in the detached custody manifest",
+      "hash_verification_procedure": "pre-write SHA-256 and byte count; post-finalization full-media read-back on a separate reader; ZIP, embedded raw response, failure package, and complete inventory rehashed; annual media readability audit",
+      "retention_duration": "minimum seven years through 2033-08-02T00:00:00Z, subject to media qualification and periodic readability review",
+      "write_once_or_deletion_protections": "physical WORM media, unique serial, finalized session, tamper-evident seal, dual-custodian log, and controlled vault; destruction prohibited before retention end",
+      "access_controls": "two-person custody for removal, encrypted archive where recovery keys are separately escrowed, named custodians, tamper-evident transport, and no unattended copies",
+      "auditability": "signed chain-of-custody ledger records media serial, seal, custodians, timestamps, storage location, each access, each read-back, and eventual separately authorized disposition",
+      "failure_recovery": "a second independently serialized WORM copy is required for media loss or degradation recovery; a failed read is recorded and recovered from the second copy without modifying either original",
+      "operational_burden": "highest; requires qualified media, two copies, physical vaulting, custodian availability, key escrow, periodic readability tests, and controlled migrations before media obsolescence",
+      "risk_of_expiration_or_deletion": "low deliberate-deletion risk but material risks of media degradation, physical loss, obsolete readers, lost keys, custody gaps, and missed periodic verification",
+      "external_infrastructure_modification_required": false,
+      "exact_human_authorization_required": "a separate explicit authorization must name the exact WORM medium type, both serialized media sets and physical vault, custodians, encryption and recovery-key policy, seven-year retention, dual-control procedure, verification cadence, and permission to write the exact hash-bound ZIP; it must prohibit source capture, overwrite, premature destruction, and scientific promotion"
+    },
+    {
+      "option_id": "RETENTION_OPTION_3_NAMED_GITHUB_EVIDENCE_LOCATION",
+      "option": "named non-expiring GitHub evidence location with explicit retention and access policy",
+      "exact_object_or_archive_naming_scheme": {
+        "proposed_private_repository": "NickNicky19/mlb-protected-evidence",
+        "release_tag": "statcast-attempt-03-30725195810-v1",
+        "release_asset": "shared-pa-statcast-attempt-03-30725195810.zip",
+        "custody_manifest_asset": "shared-pa-statcast-attempt-03-30725195810.custody-v1.json",
+        "collision_policy": "create-only release identity and assets; fail on any pre-existing tag or asset"
+      },
+      "source_and_artifact_identities_retained": "all identities in current_evidence plus the complete embedded inventory, release ID, asset IDs, uploader, and repository policy identity",
+      "raw_byte_preservation": "yes if the exact ZIP is uploaded as a binary release asset without transformation",
+      "header_and_receipt_preservation": "yes inside the exact ZIP and detached custody manifest",
+      "hash_verification_procedure": "pre-upload SHA-256 and byte count; download the release asset once after upload; reverify ZIP, raw-response, failure-package, and embedded inventory hashes; repeat annually",
+      "retention_duration": "non-expiring for the life of the research evidence program and no earlier than 2033-08-02T00:00:00Z under an approved written repository policy",
+      "write_once_or_deletion_protections": "GitHub access restrictions, protected tag policy if supported, no asset update by operating identities, and policy-based deletion prohibition; ordinary GitHub releases are not inherently compliance-mode immutable",
+      "access_controls": "private dedicated repository; no public access; least-privilege maintainers; uploader cannot delete after publication; periodic collaborator review and organization audit-log retention",
+      "auditability": "GitHub release and audit events, release/asset IDs, detached custody manifest, and read-back receipts; weaker tamper resistance than compliance-locked object storage",
+      "failure_recovery": "retrieve by immutable asset ID if available; repository or account loss requires a separately maintained durable copy, so GitHub alone has a platform-concentration risk",
+      "operational_burden": "moderate; requires creation or verification of a private dedicated repository, governance policy, restricted maintainers, audit-log coverage, annual downloads, and monitoring for repository or asset deletion",
+      "risk_of_expiration_or_deletion": "no scheduled Actions-artifact expiration, but a maintainer, repository deletion, account loss, policy change, or GitHub service event can remove or make the sole copy unavailable",
+      "external_infrastructure_modification_required": true,
+      "exact_human_authorization_required": "a separate explicit authorization must confirm or authorize the exact private repository, release tag and assets, protected-evidence upload, access and audit policy, minimum retention through 2033-08-02T00:00:00Z, post-upload read-back, and any repository creation; it must accept that GitHub release assets are not compliance-mode immutable and prohibit source capture, replacement, deletion, and scientific promotion"
+    }
+  ],
+  "recommendation": {
+    "option_id": "RETENTION_OPTION_1_IMMUTABLE_OBJECT_STORAGE",
+    "decision": "RECOMMENDED_NOT_AUTHORIZED_NOT_EXECUTED",
+    "reason": "A compliance-retention-locked object is the smallest option that combines exact binary preservation, enforced no-delete/no-overwrite behavior, independent checksum retrieval, access separation, provider audit events, and low recurring handling risk. The existing ZIP is self-contained, so one locked ZIP plus a detached custody manifest preserves all required raw bytes and records without creating transformed evidence copies.",
+    "preconditions": [
+      "a human must name and approve the exact provider and container URI",
+      "retention lock must be enabled and independently verified before the write",
+      "the exact keys, hashes, byte counts, retention-until timestamp, encryption, roles, and audit destination must be bound in the authorization",
+      "the target keys must begin absent and be create-only",
+      "an immediate full read-back and offline embedded-identity verification must be authorized",
+      "no source request, source qualification, feature/model use, overwrite, or deletion is permitted"
+    ]
+  },
+  "authorization_proposal": {
+    "label": "DURABLE_RETENTION_AUTHORIZATION_PROPOSAL_ONLY",
+    "not_an_authorization": true,
+    "requires_placeholder_resolution_before_human_approval": true,
+    "copyable_text": "DURABLE_RETENTION_AUTHORIZATION_PROPOSAL_ONLY\n\nI authorize one preservation-only write of the existing 977314-byte attempt-3 GitHub artifact ZIP, SHA-256 a2fb41e783e80e067b958b0c0666d9e53cb36fffc591e33e04a0238f9c1c8fe4, to the exact approved compliance-retention-locked object container [INSERT EXACT PROVIDER AND CONTAINER URI] under create-only key mlb-source-evidence/statcast/attempt-03/run-30725195810/artifact-8826086488/shared-pa-statcast-attempt-03-30725195810.zip, together with one detached custody manifest under create-only key mlb-source-evidence/statcast/attempt-03/run-30725195810/artifact-8826086488/shared-pa-statcast-attempt-03-30725195810.custody-v1.json. The locked retention-until timestamp must be no earlier than 2033-08-02T00:00:00Z. Before writing, verify the source byte count and ZIP SHA-256. After writing, perform exactly one full evidence read-back and verify the ZIP SHA-256, embedded 2918703-byte raw-response SHA-256 0d4c91cb2d0eabaeaeed726fcf1d4aabd7f9d888fb4c9f90789a7ba679e0a968, embedded 2449-byte failure-package SHA-256 a166ab2c08c49238be1e45986764a6a7a960360d405b721602f28679e2bebdd0, and complete embedded inventory. Record authorization, actor, tool, object version, checksum, encryption, access roles, retention mode, retention-until time, write receipt, and read-back result append-only. Fail closed on any pre-existing target, identity mismatch, retention-control mismatch, access-control mismatch, or incomplete read-back. This authorization would permit only evidence retention and verification. It would not authorize a Baseball Savant or Statcast request, attempt 4, source qualification or promotion, feature construction, model fitting or scoring, prediction generation, deployment, AWS changes beyond the explicitly named preservation objects and controls, evidence deletion or overwrite, economic evaluation, wagering, or betting. Attempt 3 must remain consumed, invalid under source-contract v1, quarantined, non-promotable, and excluded from scientific use."
+  },
+  "expiration_risk": {
+    "status": "UNRESOLVED_UNTIL_SEPARATELY_AUTHORIZED_RETENTION_COMPLETES",
+    "scheduled_expiration_utc": "2026-10-31T00:25:53Z",
+    "risk": "the GitHub Actions artifact is the only existing remotely retained raw-byte package and is scheduled to expire; repository reports preserve identities and metadata but not the protected raw bytes",
+    "required_timing": "select, authorize, execute, and verify one durable option with safety margin before the scheduled expiration; no action is authorized by this proposal"
+  },
+  "actions_not_taken": [
+    "no GitHub artifact relocation, upload, or deletion",
+    "no immutable-object-store or AWS change",
+    "no offline-media write",
+    "no GitHub evidence release or repository creation",
+    "no Baseball Savant, Statcast, or other source request",
+    "no attempt-4 preparation, authorization, reservation, dispatch, or consumption",
+    "no source qualification or scientific promotion",
+    "no feature construction, model fitting, scoring, prediction, prospective evidence, economic evaluation, wagering, or betting"
+  ]
+}

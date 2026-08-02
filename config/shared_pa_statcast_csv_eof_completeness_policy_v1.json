@@ -1,0 +1,89 @@
+{
+  "schema_version": "shared-pa-statcast-csv-eof-completeness-policy-v1",
+  "status": "INACTIVE_PROPOSAL_ONLY",
+  "development_only": true,
+  "activation_authorized": false,
+  "source_qualification_authorized": false,
+  "raw_byte_policy": {
+    "preserve_exact_bytes": true,
+    "terminal_newline_mutation_allowed": false,
+    "bom_mutation_allowed": false,
+    "encoding_normalization_allowed": false,
+    "receipt_byte_count_and_sha256_required": true,
+    "validation_uses_a_read_only_view": true
+  },
+  "encoding_policy": {
+    "required_encoding": "UTF-8",
+    "utf8_bom": "ALLOWED_WHEN_RETAINED_AND_REPORTED",
+    "invalid_utf8_behavior": "FAIL_CLOSED",
+    "replacement_character_decoding_allowed": false
+  },
+  "terminal_newline_policy": {
+    "presence_recorded_as_metadata": true,
+    "terminal_newline_required_as_sole_completeness_proof": false,
+    "accepted_conventions": [
+      "LF",
+      "CRLF"
+    ],
+    "mixed_newline_behavior": "FAIL_CLOSED_UNLESS_A_SEPARATELY_VERSIONED_POLICY_EXPLICITLY_PERMITS_IT",
+    "missing_terminal_newline_may_pass": true,
+    "missing_terminal_newline_condition": "every gate in stronger_structural_completeness_gates passes without fallback or byte mutation"
+  },
+  "stronger_structural_completeness_gates": [
+    "retained Content-Length, when present, is a valid nonnegative decimal exactly equal to the retained response byte count",
+    "when Content-Length is absent, separately retained HTTP-client transport-complete evidence is required; otherwise fail closed",
+    "retained response byte count exactly matches the request receipt",
+    "retained response SHA-256 exactly matches the request receipt",
+    "strict UTF-8 decoding reaches clean end of input",
+    "strict RFC 4180-compatible CSV parsing reaches clean EOF",
+    "the final CSV record is complete and correctly quoted",
+    "no truncated quoted field, escape sequence, delimiter, or multi-byte UTF-8 sequence exists",
+    "the exact versioned ordered header matches",
+    "every parsed record has exactly the expected field count",
+    "no missing, unexpected, or duplicate header column exists",
+    "no malformed or empty record exists",
+    "the exact certified date and game universe reconcile",
+    "no unexpected game exists",
+    "event identities are complete and globally unique",
+    "no conflicting duplicate event identity exists",
+    "all required identity fields are present",
+    "plate-discipline mapping and identities reconcile",
+    "EV and launch-angle populations and required denominators reconcile",
+    "every governing source-contract body, schema, identity, and scope gate passes"
+  ],
+  "final_record_validation": {
+    "clean_parser_eof_required": true,
+    "exact_field_count_required": true,
+    "unterminated_quote_allowed": false,
+    "truncated_escape_allowed": false,
+    "partial_utf8_code_point_allowed": false,
+    "fallback_row_repair_allowed": false,
+    "implicit_terminal_newline_insertion_allowed": false
+  },
+  "fail_closed_conditions": [
+    "Content-Length is malformed or differs from retained response bytes",
+    "Content-Length is absent and no separately retained transport-complete evidence exists",
+    "receipt byte count or SHA-256 mismatch",
+    "invalid UTF-8",
+    "parser exception or non-clean EOF",
+    "incomplete final record",
+    "unterminated quote or truncated escape",
+    "wrong field count in any row",
+    "header mismatch or duplicate header",
+    "malformed or empty row",
+    "identity, date, game-scope, plate-discipline, or EV/launch-angle reconciliation failure",
+    "any attempted raw-byte normalization or repair"
+  ],
+  "attempt_3_development_observation": {
+    "evidence_role": "DEVELOPMENT_EVIDENCE_ONLY",
+    "utf8_bom_present": true,
+    "terminal_newline_present": false,
+    "strict_csv_parsing_reached_clean_eof": true,
+    "row_count": 4383,
+    "malformed_row_count": 0,
+    "raw_byte_count": 2918703,
+    "raw_sha256": "0d4c91cb2d0eabaeaeed726fcf1d4aabd7f9d888fb4c9f90789a7ba679e0a968",
+    "v1_disposition_unchanged": "CONSUMED_INVALID_QUARANTINED_NON_PROMOTABLE",
+    "retroactive_qualification_allowed": false
+  }
+}
