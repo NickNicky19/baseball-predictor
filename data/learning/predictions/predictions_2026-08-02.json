@@ -1,0 +1,2170 @@
+{
+  "game_date": "2026-08-02",
+  "hitter_projections": [
+    {
+      "player_id": 663457,
+      "player_name": "Lars Nootbaar",
+      "category": "hits",
+      "game_date": "2026-08-02",
+      "projected_value": 0.904,
+      "confidence": 0.82,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.9045,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.618625,
+          "2.0": 0.23275
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20000918984715355,
+        "walk": 0.1271269450087296,
+        "home_run": 0.020207647074488716,
+        "single": 0.1399326159993353,
+        "double": 0.04390115969092157,
+        "triple": 0.004713686556160434,
+        "out_on_bip": 0.4641087558232108
+      }
+    },
+    {
+      "player_id": 663457,
+      "player_name": "Lars Nootbaar",
+      "category": "hrr",
+      "game_date": "2026-08-02",
+      "projected_value": 1.758,
+      "confidence": 0.74,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.758375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.46425,
+          "3.0": 0.280875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20000918984715355,
+        "walk": 0.1271269450087296,
+        "home_run": 0.020207647074488716,
+        "single": 0.1399326159993353,
+        "double": 0.04390115969092157,
+        "triple": 0.004713686556160434,
+        "out_on_bip": 0.4641087558232108
+      }
+    },
+    {
+      "player_id": 663457,
+      "player_name": "Lars Nootbaar",
+      "category": "home_runs",
+      "game_date": "2026-08-02",
+      "projected_value": 0.085,
+      "confidence": 0.88,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.084875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.0825
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20000918984715355,
+        "walk": 0.1271269450087296,
+        "home_run": 0.020207647074488716,
+        "single": 0.1399326159993353,
+        "double": 0.04390115969092157,
+        "triple": 0.004713686556160434,
+        "out_on_bip": 0.4641087558232108
+      }
+    },
+    {
+      "player_id": 691023,
+      "player_name": "Jordan Walker",
+      "category": "hits",
+      "game_date": "2026-08-02",
+      "projected_value": 0.99,
+      "confidence": 0.82,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.99025,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.663625,
+          "2.0": 0.2575
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2232461209049562,
+        "walk": 0.09068910445908303,
+        "home_run": 0.024297354107660107,
+        "single": 0.15437872718397808,
+        "double": 0.05034079713224492,
+        "triple": 0.0052492185722108455,
+        "out_on_bip": 0.4517986776398668
+      }
+    },
+    {
+      "player_id": 691023,
+      "player_name": "Jordan Walker",
+      "category": "hrr",
+      "game_date": "2026-08-02",
+      "projected_value": 1.846,
+      "confidence": 0.74,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.846375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.486,
+          "3.0": 0.306
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2232461209049562,
+        "walk": 0.09068910445908303,
+        "home_run": 0.024297354107660107,
+        "single": 0.15437872718397808,
+        "double": 0.05034079713224492,
+        "triple": 0.0052492185722108455,
+        "out_on_bip": 0.4517986776398668
+      }
+    },
+    {
+      "player_id": 691023,
+      "player_name": "Jordan Walker",
+      "category": "home_runs",
+      "game_date": "2026-08-02",
+      "projected_value": 0.104,
+      "confidence": 0.88,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.104375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.099375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2232461209049562,
+        "walk": 0.09068910445908303,
+        "home_run": 0.024297354107660107,
+        "single": 0.15437872718397808,
+        "double": 0.05034079713224492,
+        "triple": 0.0052492185722108455,
+        "out_on_bip": 0.4517986776398668
+      }
+    },
+    {
+      "player_id": 676475,
+      "player_name": "Alec Burleson",
+      "category": "hits",
+      "game_date": "2026-08-02",
+      "projected_value": 1.077,
+      "confidence": 0.82,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.077125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.695375,
+          "2.0": 0.300125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16037876600686496,
+        "walk": 0.0917116379291545,
+        "home_run": 0.03298880564220883,
+        "single": 0.16565885321616805,
+        "double": 0.05455763465649863,
+        "triple": 0.005646576612119659,
+        "out_on_bip": 0.48905772593698543
+      }
+    },
+    {
+      "player_id": 676475,
+      "player_name": "Alec Burleson",
+      "category": "hrr",
+      "game_date": "2026-08-02",
+      "projected_value": 2.042,
+      "confidence": 0.7,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.042125,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.52825,
+          "3.0": 0.336375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16037876600686496,
+        "walk": 0.0917116379291545,
+        "home_run": 0.03298880564220883,
+        "single": 0.16565885321616805,
+        "double": 0.05455763465649863,
+        "triple": 0.005646576612119659,
+        "out_on_bip": 0.48905772593698543
+      }
+    },
+    {
+      "player_id": 676475,
+      "player_name": "Alec Burleson",
+      "category": "home_runs",
+      "game_date": "2026-08-02",
+      "projected_value": 0.134,
+      "confidence": 0.86,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.134,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.127125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16037876600686496,
+        "walk": 0.0917116379291545,
+        "home_run": 0.03298880564220883,
+        "single": 0.16565885321616805,
+        "double": 0.05455763465649863,
+        "triple": 0.005646576612119659,
+        "out_on_bip": 0.48905772593698543
+      }
+    },
+    {
+      "player_id": 671056,
+      "player_name": "Iv\u00e1n Herrera",
+      "category": "hits",
+      "game_date": "2026-08-02",
+      "projected_value": 0.869,
+      "confidence": 0.82,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.868875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.60725,
+          "2.0": 0.215
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16950758064818894,
+        "walk": 0.10566186980734277,
+        "home_run": 0.015337386598988513,
+        "single": 0.15136438088504733,
+        "double": 0.04413919261417039,
+        "triple": 0.005012912141005583,
+        "out_on_bip": 0.5089766773052564
+      }
+    },
+    {
+      "player_id": 671056,
+      "player_name": "Iv\u00e1n Herrera",
+      "category": "hrr",
+      "game_date": "2026-08-02",
+      "projected_value": 1.571,
+      "confidence": 0.74,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.571375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.42975,
+          "3.0": 0.243
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16950758064818894,
+        "walk": 0.10566186980734277,
+        "home_run": 0.015337386598988513,
+        "single": 0.15136438088504733,
+        "double": 0.04413919261417039,
+        "triple": 0.005012912141005583,
+        "out_on_bip": 0.5089766773052564
+      }
+    },
+    {
+      "player_id": 671056,
+      "player_name": "Iv\u00e1n Herrera",
+      "category": "home_runs",
+      "game_date": "2026-08-02",
+      "projected_value": 0.06,
+      "confidence": 0.88,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.059625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.0585
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16950758064818894,
+        "walk": 0.10566186980734277,
+        "home_run": 0.015337386598988513,
+        "single": 0.15136438088504733,
+        "double": 0.04413919261417039,
+        "triple": 0.005012912141005583,
+        "out_on_bip": 0.5089766773052564
+      }
+    },
+    {
+      "player_id": 691026,
+      "player_name": "Masyn Winn",
+      "category": "hits",
+      "game_date": "2026-08-02",
+      "projected_value": 0.894,
+      "confidence": 0.82,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.894,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.62025,
+          "2.0": 0.21975
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.185374586003803,
+        "walk": 0.0969140115919218,
+        "home_run": 0.016519835042912153,
+        "single": 0.1575131944284511,
+        "double": 0.04689558841425135,
+        "triple": 0.005241250842120577,
+        "out_on_bip": 0.49154153367654
+      }
+    },
+    {
+      "player_id": 691026,
+      "player_name": "Masyn Winn",
+      "category": "hrr",
+      "game_date": "2026-08-02",
+      "projected_value": 1.617,
+      "confidence": 0.74,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.616875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.441,
+          "3.0": 0.2475
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.185374586003803,
+        "walk": 0.0969140115919218,
+        "home_run": 0.016519835042912153,
+        "single": 0.1575131944284511,
+        "double": 0.04689558841425135,
+        "triple": 0.005241250842120577,
+        "out_on_bip": 0.49154153367654
+      }
+    },
+    {
+      "player_id": 691026,
+      "player_name": "Masyn Winn",
+      "category": "home_runs",
+      "game_date": "2026-08-02",
+      "projected_value": 0.065,
+      "confidence": 0.88,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.0645,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.06275
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.185374586003803,
+        "walk": 0.0969140115919218,
+        "home_run": 0.016519835042912153,
+        "single": 0.1575131944284511,
+        "double": 0.04689558841425135,
+        "triple": 0.005241250842120577,
+        "out_on_bip": 0.49154153367654
+      }
+    },
+    {
+      "player_id": 663494,
+      "player_name": "Bryan Torres",
+      "category": "hits",
+      "game_date": "2026-08-02",
+      "projected_value": 0.929,
+      "confidence": 0.71,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.9295,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.631625,
+          "2.0": 0.243
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18008580240126765,
+        "walk": 0.08365733762820653,
+        "home_run": 0.028955476250550533,
+        "single": 0.155691863019919,
+        "double": 0.05155340866672358,
+        "triple": 0.0053139813252985274,
+        "out_on_bip": 0.4947421307080342
+      }
+    },
+    {
+      "player_id": 663494,
+      "player_name": "Bryan Torres",
+      "category": "hrr",
+      "game_date": "2026-08-02",
+      "projected_value": 1.736,
+      "confidence": 0.63,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.73575,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.45375,
+          "3.0": 0.278625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18008580240126765,
+        "walk": 0.08365733762820653,
+        "home_run": 0.028955476250550533,
+        "single": 0.155691863019919,
+        "double": 0.05155340866672358,
+        "triple": 0.0053139813252985274,
+        "out_on_bip": 0.4947421307080342
+      }
+    },
+    {
+      "player_id": 663494,
+      "player_name": "Bryan Torres",
+      "category": "home_runs",
+      "game_date": "2026-08-02",
+      "projected_value": 0.109,
+      "confidence": 0.75,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.10875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.10425
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18008580240126765,
+        "walk": 0.08365733762820653,
+        "home_run": 0.028955476250550533,
+        "single": 0.155691863019919,
+        "double": 0.05155340866672358,
+        "triple": 0.0053139813252985274,
+        "out_on_bip": 0.4947421307080342
+      }
+    },
+    {
+      "player_id": 665877,
+      "player_name": "Jos\u00e9 Ferm\u00edn",
+      "category": "hits",
+      "game_date": "2026-08-02",
+      "projected_value": 0.868,
+      "confidence": 0.82,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.867875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.618125,
+          "2.0": 0.2105
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14461921355211918,
+        "walk": 0.09218150431066875,
+        "home_run": 0.017987940334444605,
+        "single": 0.16391224700383242,
+        "double": 0.04909740565014603,
+        "triple": 0.005461785965486627,
+        "out_on_bip": 0.5267399031833024
+      }
+    },
+    {
+      "player_id": 665877,
+      "player_name": "Jos\u00e9 Ferm\u00edn",
+      "category": "hrr",
+      "game_date": "2026-08-02",
+      "projected_value": 1.548,
+      "confidence": 0.74,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.548125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4195,
+          "3.0": 0.2365
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14461921355211918,
+        "walk": 0.09218150431066875,
+        "home_run": 0.017987940334444605,
+        "single": 0.16391224700383242,
+        "double": 0.04909740565014603,
+        "triple": 0.005461785965486627,
+        "out_on_bip": 0.5267399031833024
+      }
+    },
+    {
+      "player_id": 665877,
+      "player_name": "Jos\u00e9 Ferm\u00edn",
+      "category": "home_runs",
+      "game_date": "2026-08-02",
+      "projected_value": 0.063,
+      "confidence": 0.88,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.063,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.061375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14461921355211918,
+        "walk": 0.09218150431066875,
+        "home_run": 0.017987940334444605,
+        "single": 0.16391224700383242,
+        "double": 0.04909740565014603,
+        "triple": 0.005461785965486627,
+        "out_on_bip": 0.5267399031833024
+      }
+    },
+    {
+      "player_id": 701675,
+      "player_name": "Nathan Church",
+      "category": "hits",
+      "game_date": "2026-08-02",
+      "projected_value": 0.777,
+      "confidence": 0.82,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.776875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.564375,
+          "2.0": 0.1805
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19207489427316643,
+        "walk": 0.07380696947833498,
+        "home_run": 0.01655779089531787,
+        "single": 0.15458353299302122,
+        "double": 0.04578991587178958,
+        "triple": 0.005137780740123355,
+        "out_on_bip": 0.5120491157482465
+      }
+    },
+    {
+      "player_id": 701675,
+      "player_name": "Nathan Church",
+      "category": "hrr",
+      "game_date": "2026-08-02",
+      "projected_value": 1.361,
+      "confidence": 0.74,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.360625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.375625,
+          "3.0": 0.200375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19207489427316643,
+        "walk": 0.07380696947833498,
+        "home_run": 0.01655779089531787,
+        "single": 0.15458353299302122,
+        "double": 0.04578991587178958,
+        "triple": 0.005137780740123355,
+        "out_on_bip": 0.5120491157482465
+      }
+    },
+    {
+      "player_id": 701675,
+      "player_name": "Nathan Church",
+      "category": "home_runs",
+      "game_date": "2026-08-02",
+      "projected_value": 0.062,
+      "confidence": 0.88,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.062375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.061625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19207489427316643,
+        "walk": 0.07380696947833498,
+        "home_run": 0.01655779089531787,
+        "single": 0.15458353299302122,
+        "double": 0.04578991587178958,
+        "triple": 0.005137780740123355,
+        "out_on_bip": 0.5120491157482465
+      }
+    },
+    {
+      "player_id": 691458,
+      "player_name": "Blaze Jordan",
+      "category": "hits",
+      "game_date": "2026-08-02",
+      "projected_value": 0.816,
+      "confidence": 0.82,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.815625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.583625,
+          "2.0": 0.195
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14617227693324797,
+        "walk": 0.06998501804133246,
+        "home_run": 0.020126766745190382,
+        "single": 0.16971706312816703,
+        "double": 0.05202937749189329,
+        "triple": 0.005685806169745137,
+        "out_on_bip": 0.5362836914904237
+      }
+    },
+    {
+      "player_id": 691458,
+      "player_name": "Blaze Jordan",
+      "category": "hrr",
+      "game_date": "2026-08-02",
+      "projected_value": 1.419,
+      "confidence": 0.74,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.418875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.388625,
+          "3.0": 0.213
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14617227693324797,
+        "walk": 0.06998501804133246,
+        "home_run": 0.020126766745190382,
+        "single": 0.16971706312816703,
+        "double": 0.05202937749189329,
+        "triple": 0.005685806169745137,
+        "out_on_bip": 0.5362836914904237
+      }
+    },
+    {
+      "player_id": 691458,
+      "player_name": "Blaze Jordan",
+      "category": "home_runs",
+      "game_date": "2026-08-02",
+      "projected_value": 0.063,
+      "confidence": 0.88,
+      "team": "St. Louis Cardinals",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Max Scherzer",
+      "opposing_pitcher_id": 453286,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.06325,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.062125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14617227693324797,
+        "walk": 0.06998501804133246,
+        "home_run": 0.020126766745190382,
+        "single": 0.16971706312816703,
+        "double": 0.05202937749189329,
+        "triple": 0.005685806169745137,
+        "out_on_bip": 0.5362836914904237
+      }
+    }
+  ],
+  "pitcher_projections": [
+    {
+      "player_id": 554430,
+      "player_name": "Zack Wheeler",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 6.84,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824807,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.842755878311201,
+        "median": 7.0,
+        "p10": 4.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.8121743494031959,
+          "6.0": 0.6787599003623004,
+          "7.0": 0.5266061494579276
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 680694,
+      "player_name": "Kyle Bradish",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 5.41,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824807,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.405570668887213,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6275800017413209,
+          "6.0": 0.45483042660767736,
+          "7.0": 0.29919542054015225
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 676917,
+      "player_name": "Cade Cavalli",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 5.43,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824891,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.432951314679809,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6319395014398981,
+          "6.0": 0.4595554656740657,
+          "7.0": 0.3034631200501008
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 702275,
+      "player_name": "JR Ritchie",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 3.25,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824891,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.249025548358012,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.2281709423916244,
+          "6.0": 0.11107266166668028,
+          "7.0": 0.047663444042656655
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669461,
+      "player_name": "Matthew Liberatore",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 4.76,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.758202331699683,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5161066910270675,
+          "6.0": 0.3416963364968417,
+          "7.0": 0.20338304389712691
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 453286,
+      "player_name": "Max Scherzer",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 3.28,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822783,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.2837079151327133,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.23444552945067532,
+          "6.0": 0.11517171040517593,
+          "7.0": 0.049894979793873806
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 518876,
+      "player_name": "Merrill Kelly",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 4.5,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824404,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.495952761434526,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.46712805456569517,
+          "6.0": 0.2963783439860549,
+          "7.0": 0.16843123852027497
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 668909,
+      "player_name": "Gavin Williams",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 7.13,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824404,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 7.133575243317348,
+        "median": 7.0,
+        "p10": 4.0,
+        "p90": 11.0,
+        "p_ge_threshold": {
+          "5.0": 0.8388489171419549,
+          "6.0": 0.716025091119272,
+          "7.0": 0.5699962570184512
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 656605,
+      "player_name": "Mitch Keller",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 4.54,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824483,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.544760425393738,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.47637064634825665,
+          "6.0": 0.30473426388729474,
+          "7.0": 0.17472655745957422
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 695505,
+      "player_name": "Chase Burns",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 6.05,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824483,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.048026350257518,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.721320499793235,
+          "6.0": 0.5620033028061695,
+          "7.0": 0.4014108685683462
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 641743,
+      "player_name": "Anthony Kay",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 4.6,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822943,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.604777330941155,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4876616014616252,
+          "6.0": 0.3150648807429609,
+          "7.0": 0.1826033029162797
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 643377,
+      "player_name": "Griffin Jax",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 3.6,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822943,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.6004186056021226,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.29364159896201236,
+          "6.0": 0.15593910449790038,
+          "7.0": 0.07330800064683163
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 645261,
+      "player_name": "Sandy Alcantara",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 5.55,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823592,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.546095295239208,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6496192208658064,
+          "6.0": 0.47896508864130516,
+          "7.0": 0.32122107533406585
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 476594,
+      "player_name": "Robert Stock",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 5.35,
+      "confidence": 0.5,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823592,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.352797402615396,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6190898637964853,
+          "6.0": 0.4456965247467386,
+          "7.0": 0.29100662226402274
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 677958,
+      "player_name": "Kumar Rocker",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 5.28,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824163,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.2832781037590655,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6077319555057126,
+          "6.0": 0.43361639446027633,
+          "7.0": 0.28029957259442995
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 663567,
+      "player_name": "Peter Lambert",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 5.52,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824163,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.522678175508651,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6460047386120733,
+          "6.0": 0.47496430927175326,
+          "7.0": 0.3175307682305173
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 543037,
+      "player_name": "Gerrit Cole",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 5.91,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824648,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.910908599021157,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.7028413511839644,
+          "6.0": 0.5399061258102442,
+          "7.0": 0.3793902550194156
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 607067,
+      "player_name": "Colin Rea",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 5.14,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824648,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.137581933384563,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5833069716769645,
+          "6.0": 0.40816546761764205,
+          "7.0": 0.2581981631108131
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 607625,
+      "player_name": "Seth Lugo",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 4.75,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824323,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.749747696126252,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5145561405172113,
+          "6.0": 0.34022208111347907,
+          "7.0": 0.20221494827860997
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 607536,
+      "player_name": "Kyle Freeland",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 4.66,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824323,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.657873986966529,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.4975769838136178,
+          "6.0": 0.32424909017800796,
+          "7.0": 0.18969250901450674
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 694819,
+      "player_name": "Jacob Misiorowski",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 8.33,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823996,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 8.329073214794462,
+        "median": 8.0,
+        "p10": 5.0,
+        "p90": 12.0,
+        "p_ge_threshold": {
+          "5.0": 0.9177210641633764,
+          "6.0": 0.8370845740730617,
+          "7.0": 0.725146702448682
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 700712,
+      "player_name": "Walbert Ure\u00f1a",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 5.23,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823996,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.230133128238075,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5989185677821451,
+          "6.0": 0.4243506166912594,
+          "7.0": 0.272181679336412
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 672456,
+      "player_name": "Keider Montero",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 2.84,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824971,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.84420597329915,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.1592729987509236,
+          "6.0": 0.06903259801541939,
+          "7.0": 0.026255550214614454
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 695611,
+      "player_name": "Gage Jump",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 5.41,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824971,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.4121281960020236,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6286269251389524,
+          "6.0": 0.4559629566172604,
+          "7.0": 0.3002163678722847
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 694738,
+      "player_name": "Landen Roupp",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 5.35,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823270,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.346094296494369,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6180032751561647,
+          "6.0": 0.4445339955335752,
+          "7.0": 0.2899701411323563
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 650633,
+      "player_name": "Michael King",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 5.16,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823270,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.156582775102382,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5865388569870595,
+          "6.0": 0.41149241925381785,
+          "7.0": 0.26105217831077354
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 671737,
+      "player_name": "Taj Bradley",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 6.22,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823107,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.222800560786187,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.7436599993603059,
+          "6.0": 0.5894117586683226,
+          "7.0": 0.42943575222192965
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669923,
+      "player_name": "George Kirby",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 5.51,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823107,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.511060501540471,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6442028303011863,
+          "6.0": 0.4729761318440062,
+          "7.0": 0.3157026827312488
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 687562,
+      "player_name": "Jake Bennett",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 4.82,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823919,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.822600907100027,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5278474640645707,
+          "6.0": 0.3529448062428866,
+          "7.0": 0.21236385353204346
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 686218,
+      "player_name": "Emmet Sheehan",
+      "category": "strikeouts",
+      "game_date": "2026-08-02",
+      "projected_value": 5.25,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823919,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.246392434342717,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6016268308056376,
+          "6.0": 0.4271879325500697,
+          "7.0": 0.2746587798728882
+        }
+      },
+      "outcome_probs": null
+    }
+  ],
+  "value_plays": [],
+  "market_status": "RESEARCH_ONLY",
+  "market_policy_sha256": "08bc0c9d56eb21c7fb438eccd8d89539e98da111f72cdf6735af9cbeb02f154c",
+  "market_policy_reason": "policy verdict is 'RESEARCH_ONLY', not BETTING_AUTHORIZED",
+  "prediction_provenance": {
+    "schema_version": "daily-prediction-provenance-v1",
+    "captured_at_utc": "2026-08-02T13:44:22.423289+00:00",
+    "model_version": "8c7eed9bb0c3",
+    "effective_config_sha256": "3a62fc507956752086919b757ae683e60f9df8fb2143f83292ac61f07830a60c",
+    "config_source_path": "/home/runner/work/baseball-predictor/baseball-predictor/config/config.kbb.json",
+    "code": {
+      "status": "available",
+      "head": "b1cef71c16e7c9af51f57bf71f88d78c2b7c11d3",
+      "tracked_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked": [],
+      "snapshot_sha256": "d004afeae8a80209bb9a94b4188ae6d456bf7e726200bc0804615063f8a538d6"
+    },
+    "run_options": {
+      "game_date": "2026-08-02",
+      "hitter_categories": [
+        "hits",
+        "hrr",
+        "home_runs"
+      ],
+      "include_pitchers": true,
+      "corrections_active": false,
+      "edges_requested": false,
+      "use_projected_lineups": false
+    }
+  }
+}
