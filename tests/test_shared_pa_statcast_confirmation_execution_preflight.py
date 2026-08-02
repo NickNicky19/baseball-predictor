@@ -198,16 +198,23 @@ class ConfirmationPreflightTests(unittest.TestCase):
 
     def test_23_authority_package_cannot_authorize_itself(self):
         authority_path = ROOT / "config/shared_pa_statcast_confirmation_attempt_01_authority_package_20260802_v1.json"
-        workflow_path = ROOT / ".github/workflows/shared-pa-statcast-v2-confirmation-execution-v1.yml"
         runtime_path = ROOT / "config/shared_pa_statcast_confirmation_runtime_authority_v1.json"
         authority = load("config/shared_pa_statcast_confirmation_attempt_01_authority_package_20260802_v1.json")
         self.assertFalse(authority["preparation_is_execution_authorization"])
         self.assertFalse(authority["execution_authorized"])
         self.assertTrue(authority["explicit_human_execution_authorization_required"])
         authority_sha = sha(authority_path)
-        with self.assertRaises(capture.ConfirmationError):
-            capture.verify_authority(ROOT, authority_path, authority_sha, workflow_path, sha(workflow_path), runtime_path, sha(runtime_path), authority["carrier_commit"], authority_sha)
-        capture.verify_authority(ROOT, authority_path, authority_sha, workflow_path, sha(workflow_path), runtime_path, sha(runtime_path), authority["carrier_commit"], "f" * 64)
+        prepared = subprocess.run(
+            ["git", "-C", str(ROOT), "show", "2e84656c2aab69c20c9cbe0cb0e466ad9d68a5b6:.github/workflows/shared-pa-statcast-v2-confirmation-execution-v1.yml"],
+            check=True, capture_output=True,
+        ).stdout
+        self.assertEqual(hashlib.sha256(prepared).hexdigest(), authority["bindings"]["workflow_sha256"])
+        with tempfile.TemporaryDirectory() as td:
+            workflow_path = Path(td) / "prepared-workflow.yml"
+            workflow_path.write_bytes(prepared)
+            with self.assertRaises(capture.ConfirmationError):
+                capture.verify_authority(ROOT, authority_path, authority_sha, workflow_path, sha(workflow_path), runtime_path, sha(runtime_path), authority["carrier_commit"], authority_sha)
+            capture.verify_authority(ROOT, authority_path, authority_sha, workflow_path, sha(workflow_path), runtime_path, sha(runtime_path), authority["carrier_commit"], "f" * 64)
 
     def test_24_workflow_has_two_guards_and_failure_publication(self):
         text = (ROOT / ".github/workflows/shared-pa-statcast-v2-confirmation-execution-v1.yml").read_text(encoding="utf-8")

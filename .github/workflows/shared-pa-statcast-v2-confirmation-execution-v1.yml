@@ -1,4 +1,7 @@
 name: Shared PA Statcast v2 independent confirmation (prepared)
+run-name: >-
+  June 28 confirmation attempt 01 authorization=${{ inputs.human_execution_authorization_id || 'preflight' }}
+  record=${{ inputs.human_execution_authorization_record_sha256 || github.sha }}
 
 on:
   pull_request:
@@ -7,7 +10,9 @@ on:
       - ".github/workflows/shared-pa-statcast-v2-confirmation-execution-v1.yml"
       - "config/shared_pa_statcast_confirmation_*"
       - "scripts/*shared_pa_statcast_confirmation_v2.py"
+      - "scripts/validate_shared_pa_statcast_confirmation_human_execution_authorization_v1.py"
       - "tests/test_shared_pa_statcast_confirmation_execution_preflight.py"
+      - "tests/test_shared_pa_statcast_confirmation_human_execution_authorization_gate.py"
       - "reports/shared_pa_statcast_confirmation_execution_*"
   workflow_dispatch:
     inputs:
@@ -31,13 +36,21 @@ on:
         description: SHA-256 of a distinct explicit human execution authorization
         required: true
         type: string
+      human_execution_authorization_id:
+        description: Exact one-time human execution authorization ID
+        required: true
+        type: string
+      human_execution_authorization_record_sha256:
+        description: SHA-256 of the merged one-file human execution authorization record
+        required: true
+        type: string
 
 permissions:
   contents: read
   actions: read
 
 concurrency:
-  group: shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01
+  group: shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01-${{ inputs.human_execution_authorization_id || github.run_id }}
   cancel-in-progress: false
 
 env:
@@ -87,6 +100,7 @@ jobs:
         run: |
           set -euo pipefail
           python -I -B tests/test_shared_pa_statcast_confirmation_execution_preflight.py -v
+          python -I -B tests/test_shared_pa_statcast_confirmation_human_execution_authorization_gate.py -v
       - name: Prove application transport and lower socket barriers independently
         shell: bash
         run: |
@@ -145,6 +159,7 @@ jobs:
         run: |
           set -euo pipefail
           python -I -B tests/test_shared_pa_statcast_confirmation_execution_preflight.py -v
+          python -I -B tests/test_shared_pa_statcast_confirmation_human_execution_authorization_gate.py -v
           test "$(git diff --name-only '${{ github.event.pull_request.base.sha }}' '${{ github.event.pull_request.head.sha }}' -- config/shared_pa_statcast_source_contract_v1.json)" = ""
           test "$(sha256sum .github/workflows/shared-pa-statcast-sample-capture-execution-v1.yml | awk '{print $1}')" = "a79e486acbc1c9a3666f26d6ec3635c5547a226a8138f1182c66e34616a0371c"
           ! git diff --name-only '${{ github.event.pull_request.base.sha }}' '${{ github.event.pull_request.head.sha }}' | grep -E '(^|/)(response-attempt|shared_pa_statcast_v2_confirmation_2023-06-28_v1)'
@@ -152,8 +167,25 @@ jobs:
   execute-protected-confirmation:
     if: ${{ github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
-    environment: shared-pa-statcast-v2-confirmation-execution
     steps:
+      - name: Initialize deterministic terminal evidence
+        shell: bash
+        env:
+          AUTHORIZATION_ID: ${{ inputs.human_execution_authorization_id }}
+        run: |
+          set -euo pipefail
+          package="${RUNNER_TEMP}/confirmation-terminal-evidence"
+          mkdir -p "$package"
+          if [[ "$AUTHORIZATION_ID" =~ ^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$ ]]; then
+            artifact_name="shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01-auth-${AUTHORIZATION_ID}"
+          else
+            artifact_name="shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01-invalid-input-${GITHUB_RUN_ID}"
+          fi
+          printf '%s\n' '99' > "${RUNNER_TEMP}/capture-exit-code.txt"
+          printf '%s\n' '99' > "$package/independent-verifier-exit-code.txt"
+          printf '%s\n' "$AUTHORIZATION_ID" > "$package/authorization-id.txt"
+          printf 'FAILURE_PACKAGE=%s\n' "$package" >> "$GITHUB_ENV"
+          printf 'TERMINAL_ARTIFACT_NAME=%s\n' "$artifact_name" >> "$GITHUB_ENV"
       - name: Check out exact dispatch commit
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
@@ -164,17 +196,20 @@ jobs:
         with:
           python-version: "3.11"
           cache: ""
-      - name: Fail closed on event, commit, workflow, authority, runtime, and rerun mismatch
+      - name: Fail closed on event, commit, input, repository, and no-overwrite mismatch
         shell: bash
         env:
           EXPECTED_COMMIT: ${{ inputs.expected_workflow_commit_sha }}
           EXPECTED_WORKFLOW: ${{ inputs.expected_workflow_sha256 }}
           EXPECTED_AUTHORITY: ${{ inputs.expected_authority_package_sha256 }}
           EXPECTED_RUNTIME: ${{ inputs.expected_runtime_authority_sha256 }}
-          HUMAN_AUTHORIZATION: ${{ inputs.human_execution_authorization_sha256 }}
+          HUMAN_TEXT_SHA256: ${{ inputs.human_execution_authorization_sha256 }}
+          AUTHORIZATION_ID: ${{ inputs.human_execution_authorization_id }}
+          AUTHORIZATION_RECORD_SHA256: ${{ inputs.human_execution_authorization_record_sha256 }}
         run: |
           set -euo pipefail
           test "$GITHUB_EVENT_NAME" = "workflow_dispatch"
+          test "$GITHUB_REPOSITORY" = "NickNicky19/baseball-predictor"
           test "$GITHUB_REF" = "refs/heads/${{ github.event.repository.default_branch }}"
           test "$GITHUB_RUN_ATTEMPT" = "1"
           test "$GITHUB_SHA" = "$EXPECTED_COMMIT"
@@ -183,23 +218,59 @@ jobs:
           test "$(sha256sum config/shared_pa_statcast_confirmation_attempt_01_authority_package_20260802_v1.json | awk '{print $1}')" = "$EXPECTED_AUTHORITY"
           test "$(sha256sum config/shared_pa_statcast_confirmation_runtime_authority_v1.json | awk '{print $1}')" = "$EXPECTED_RUNTIME"
           test "$EXPECTED_RUNTIME" = "$RUNTIME_AUTHORITY_SHA256"
-          test "$HUMAN_AUTHORIZATION" != "$EXPECTED_AUTHORITY"
-          [[ "$HUMAN_AUTHORIZATION" =~ ^[0-9a-f]{64}$ ]]
+          test "$HUMAN_TEXT_SHA256" != "$EXPECTED_AUTHORITY"
+          [[ "$HUMAN_TEXT_SHA256" =~ ^[0-9a-f]{64}$ ]]
+          [[ "$AUTHORIZATION_RECORD_SHA256" =~ ^[0-9a-f]{64}$ ]]
+          [[ "$AUTHORIZATION_ID" =~ ^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$ ]]
           test ! -e "$OUTPUT_PATH"
           test ! -e "${OUTPUT_PATH}.work"
-      - name: Reject a second manual dispatch for this one-attempt workflow
+          test -f config/shared_pa_statcast_confirmation_attempt_01_human_execution_authorization_v1.json
+          ! git ls-files | grep -E '(^|/)(response-attempt-01|shared_pa_statcast_v2_confirmation_2023-06-28_v1)'
+      - name: Collect read-only actor and single-use evidence
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/shared-pa-statcast-v2-confirmation-execution-v1.yml/runs?event=workflow_dispatch&per_page=100" > "${RUNNER_TEMP}/prior-dispatches.json"
-          python -I -B - "${RUNNER_TEMP}/prior-dispatches.json" "$GITHUB_RUN_ID" <<'PY'
-          import json, pathlib, sys
-          data=json.loads(pathlib.Path(sys.argv[1]).read_text())
-          prior=[run for run in data.get("workflow_runs", []) if str(run.get("id")) != sys.argv[2]]
-          if prior: raise SystemExit("a prior manual confirmation dispatch already exists")
-          PY
+          gh api "users/${GITHUB_ACTOR}" > "${RUNNER_TEMP}/dispatch-actor.json"
+          gh api --paginate "repos/${GITHUB_REPOSITORY}/actions/workflows/shared-pa-statcast-v2-confirmation-execution-v1.yml/runs?event=workflow_dispatch&per_page=100" --jq '.workflow_runs[]' | jq -s '{workflow_runs:.}' > "${RUNNER_TEMP}/confirmation-runs.json"
+          gh api --paginate "repos/${GITHUB_REPOSITORY}/actions/artifacts?per_page=100" --jq '.artifacts[]' | jq -s '{artifacts:.}' > "${RUNNER_TEMP}/confirmation-artifacts.json"
+      - name: Validate exact one-time human execution authorization before any evidence retrieval or transport
+        shell: bash
+        env:
+          EXPECTED_COMMIT: ${{ inputs.expected_workflow_commit_sha }}
+          EXPECTED_WORKFLOW: ${{ inputs.expected_workflow_sha256 }}
+          HUMAN_TEXT_SHA256: ${{ inputs.human_execution_authorization_sha256 }}
+          AUTHORIZATION_ID: ${{ inputs.human_execution_authorization_id }}
+          AUTHORIZATION_RECORD_SHA256: ${{ inputs.human_execution_authorization_record_sha256 }}
+        run: |
+          set -euo pipefail
+          receipt="${RUNNER_TEMP}/human-execution-authorization-gate.json"
+          python -I -B scripts/validate_shared_pa_statcast_confirmation_human_execution_authorization_v1.py \
+            --record config/shared_pa_statcast_confirmation_attempt_01_human_execution_authorization_v1.json \
+            --schema config/shared_pa_statcast_confirmation_human_execution_authorization_schema_v1.json \
+            --repository-root "$GITHUB_WORKSPACE" \
+            --expected-record-sha256 "$AUTHORIZATION_RECORD_SHA256" \
+            --expected-text-sha256 "$HUMAN_TEXT_SHA256" \
+            --expected-authorization-id "$AUTHORIZATION_ID" \
+            --observed-repository "$GITHUB_REPOSITORY" \
+            --observed-actor-json "${RUNNER_TEMP}/dispatch-actor.json" \
+            --observed-main-commit "$EXPECTED_COMMIT" \
+            --observed-workflow-sha256 "$EXPECTED_WORKFLOW" \
+            --run-attempt "$GITHUB_RUN_ATTEMPT" \
+            --current-run-id "$GITHUB_RUN_ID" \
+            --runs-json "${RUNNER_TEMP}/confirmation-runs.json" \
+            --artifacts-json "${RUNNER_TEMP}/confirmation-artifacts.json" \
+            --receipt "$receipt"
+          printf 'HUMAN_GATE_RECEIPT=%s\n' "$receipt" >> "$GITHUB_ENV"
+      - name: Materialize exact prepared workflow identity bound by the immutable authority package
+        shell: bash
+        run: |
+          set -euo pipefail
+          prepared="${RUNNER_TEMP}/prepared-confirmation-workflow.yml"
+          git show 2e84656c2aab69c20c9cbe0cb0e466ad9d68a5b6:.github/workflows/shared-pa-statcast-v2-confirmation-execution-v1.yml > "$prepared"
+          test "$(sha256sum "$prepared" | awk '{print $1}')" = "8d71a15ae603ab1dc54d5eeadbbc108a2db7399e56ce6bd9b26e9cdc77d54af2"
+          printf 'PREPARED_WORKFLOW=%s\n' "$prepared" >> "$GITHUB_ENV"
       - name: Create exact detached confirmation carrier
         shell: bash
         run: |
@@ -257,7 +328,6 @@ jobs:
         shell: bash
         working-directory: ${{ runner.temp }}/june28-confirmation-carrier
         env:
-          EXPECTED_WORKFLOW: ${{ inputs.expected_workflow_sha256 }}
           EXPECTED_AUTHORITY: ${{ inputs.expected_authority_package_sha256 }}
           EXPECTED_RUNTIME: ${{ inputs.expected_runtime_authority_sha256 }}
           HUMAN_AUTHORIZATION: ${{ inputs.human_execution_authorization_sha256 }}
@@ -268,8 +338,8 @@ jobs:
             --contract "$CONFIRMATION_CARRIER/config/shared_pa_statcast_confirmation_execution_contract_v1.json" \
             --authority "$GITHUB_WORKSPACE/config/shared_pa_statcast_confirmation_attempt_01_authority_package_20260802_v1.json" \
             --expected-authority-sha256 "$EXPECTED_AUTHORITY" \
-            --workflow "$GITHUB_WORKSPACE/.github/workflows/shared-pa-statcast-v2-confirmation-execution-v1.yml" \
-            --expected-workflow-sha256 "$EXPECTED_WORKFLOW" \
+            --workflow "$PREPARED_WORKFLOW" \
+            --expected-workflow-sha256 "8d71a15ae603ab1dc54d5eeadbbc108a2db7399e56ce6bd9b26e9cdc77d54af2" \
             --runtime-authority "$CONFIRMATION_CARRIER/config/shared_pa_statcast_confirmation_runtime_authority_v1.json" \
             --expected-runtime-authority-sha256 "$EXPECTED_RUNTIME" \
             --expected-carrier-commit "$CARRIER_COMMIT" \
@@ -282,15 +352,15 @@ jobs:
       - name: Finalize confirmation evidence with independent carrier verifier
         if: ${{ always() }}
         shell: bash
-        working-directory: ${{ runner.temp }}/june28-confirmation-carrier
         run: |
           set +e
-          output="$CONFIRMATION_CARRIER/$OUTPUT_PATH"
-          package="${RUNNER_TEMP}/confirmation-failure-package"
+          carrier="${CONFIRMATION_CARRIER:-${RUNNER_TEMP}/june28-confirmation-carrier}"
+          output="$carrier/$OUTPUT_PATH"
+          package="${FAILURE_PACKAGE:-${RUNNER_TEMP}/confirmation-terminal-evidence}"
           mkdir -p "$package"
           capture_rc="$(cat "${RUNNER_TEMP}/capture-exit-code.txt" 2>/dev/null || printf 99)"
-          if test -f "$output/manifest.json"; then
-            python -I -B scripts/verify_shared_pa_statcast_confirmation_v2.py --output "$output" --repository "$CONFIRMATION_CARRIER" > "$package/independent-verifier.stdout.txt" 2> "$package/independent-verifier.stderr.txt"
+          if test -f "$output/manifest.json" && test -f "$carrier/scripts/verify_shared_pa_statcast_confirmation_v2.py"; then
+            python -I -B "$carrier/scripts/verify_shared_pa_statcast_confirmation_v2.py" --output "$output" --repository "$carrier" > "$package/independent-verifier.stdout.txt" 2> "$package/independent-verifier.stderr.txt"
             verifier_rc=$?
           else
             verifier_rc=99
@@ -298,6 +368,9 @@ jobs:
           fi
           printf '%s\n' "$capture_rc" > "$package/capture-exit-code.txt"
           printf '%s\n' "$verifier_rc" > "$package/independent-verifier-exit-code.txt"
+          for evidence in "${HUMAN_GATE_RECEIPT:-}" "${RUNNER_TEMP}/dispatch-actor.json" "${RUNNER_TEMP}/confirmation-runs.json" "${RUNNER_TEMP}/confirmation-artifacts.json" "${ATTEMPT3_GATE_RECEIPT:-}"; do
+            if test -n "$evidence" && test -f "$evidence"; then cp "$evidence" "$package/"; fi
+          done
           python -I -B - "$package/failure-package.json" "$capture_rc" "$verifier_rc" <<'PY'
           import json, pathlib, sys
           path=pathlib.Path(sys.argv[1]); capture_rc=int(sys.argv[2]); verifier_rc=int(sys.argv[3])
@@ -310,10 +383,10 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01-${{ github.run_id }}
+          name: ${{ env.TERMINAL_ARTIFACT_NAME }}
           path: |
             ${{ runner.temp }}/june28-confirmation-carrier/data/source/shared_pa_statcast_v2_confirmation_2023-06-28_v1
-            ${{ runner.temp }}/confirmation-failure-package
+            ${{ runner.temp }}/confirmation-terminal-evidence
           if-no-files-found: error
           retention-days: 90
       - name: Report preserved terminal status
