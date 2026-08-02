@@ -1,0 +1,49 @@
+{
+  "schema_version": "shared-pa-statcast-v2-confirmation-runtime-authority-v1",
+  "status": "INACTIVE_PREPARATION_ONLY",
+  "runtime_authorized": false,
+  "capture_authorized": false,
+  "carrier_commit_binding": "SUPPLIED_BY_SEPARATE_AUTHORITY_PACKAGE_AND_VERIFIED_DETACHED_AT_RUNTIME",
+  "python": {
+    "implementation": "CPython",
+    "version": "3.11",
+    "isolated_mode_required": true,
+    "bytecode_disabled": true,
+    "user_site_disabled": true,
+    "third_party_dependencies": []
+  },
+  "source_bundle": {
+    "canonical_path_hash_map_sha256": "8c02f07b0c9ee0f7b9852f2398ef8bbfde6764c880ce5ef19751fda833bddaf3",
+    "canonicalization": "UTF-8 JSON object with sorted keys and separators comma-colon, no terminal newline",
+    "files": {
+      "config/shared_pa_statcast_confirmation_execution_contract_v1.json": "851e02beab8732b8f6d1a242ea4609d30ab1f3b462804134ae8194b3d42dc510",
+      "scripts/capture_shared_pa_statcast_confirmation_v2.py": "74f9906d3255b63d05c5265c69025f478000496b036013ceba3e03814dc97b72",
+      "scripts/verify_shared_pa_statcast_confirmation_v2.py": "6b9e5bf4baee927a459f2584c3c0ec01642b77b3b8acec4ed19c5168c5c8a8a8"
+    }
+  },
+  "github_actions": {
+    "checkout": "actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+    "setup_python": "actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+    "upload_artifact": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02"
+  },
+  "transport": {
+    "implementation": "Python urllib with explicit redirect refusal",
+    "requests_per_lifetime_authorization": 1,
+    "automatic_http_retries": 0,
+    "replacement_requests": 0,
+    "redirects": 0,
+    "preflight_application_transport_injection_required": true,
+    "preflight_lower_socket_guard_required": true
+  },
+  "execution_root": {
+    "kind": "isolated_detached_git_worktree",
+    "capture_and_independent_verification_use_same_carrier_root": true,
+    "corrected_main_is_not_the_code_execution_root": true
+  },
+  "network_boundaries": {
+    "pull_request": "NO_NETWORK_PREFLIGHT_ONLY",
+    "workflow_dispatch": "CAPTURE_ONLY_AFTER_PROTECTED_ENVIRONMENT_AND_ALL_PRETRANSPORT_GATES",
+    "aws_calls": "PROHIBITED",
+    "source_calls": "EXACTLY_ONE_GET_ONLY_AFTER_SEPARATE_HUMAN_AUTHORIZATION"
+  }
+}
