@@ -1,0 +1,50 @@
+{
+  "schema_version": "shared-pa-statcast-june28-independent-reproduction-preparation-manifest-v1",
+  "status": "INDEPENDENT_REPRODUCTION_PACKAGE_PREPARED_UNEXECUTED_INCOMPLETE_PENDING_REQUIRED_INPUTS_AND_AUTHORIZATION",
+  "base_commit": "8c24b7362e5be52635f4909a74fe5c4832100938",
+  "branch": "codex/june28-independent-reproduction-v1",
+  "changed_paths": [
+    "config/shared_pa_statcast_june28_independent_reproduction_authority_package_v1.json",
+    "reports/shared_pa_statcast_june28_independent_reproduction_execution_plan_v1.json",
+    "reports/shared_pa_statcast_june28_independent_reproduction_preparation_manifest_v1.json",
+    "scripts/reproduce_shared_pa_statcast_june28_v1.py",
+    "tests/test_shared_pa_statcast_june28_independent_reproduction_v1.py"
+  ],
+  "canonical_changed_path_list_sha256": "1c49191608233e4012eac41e8e2c0c0630150ffdc81c612dd6f387b4b897d118",
+  "non_self_file_sha256": {
+    "config/shared_pa_statcast_june28_independent_reproduction_authority_package_v1.json": "a20a0ac240f5e91a89cb1ee60937ad5c9aed51b7013892d2d804d5ff50c43faa",
+    "reports/shared_pa_statcast_june28_independent_reproduction_execution_plan_v1.json": "db02098bc7a1bf92fc7eb0cdd4531fcbbc093ae09498aa943caf60bd05aeefce",
+    "scripts/reproduce_shared_pa_statcast_june28_v1.py": "20383366a53fef3a519ec1bb6310820d26b9d1ecefd106570fb6bfbb6c97b303",
+    "tests/test_shared_pa_statcast_june28_independent_reproduction_v1.py": "a5f97dcb9b1c8680c85a95be62d9717937ee70b3487dfe7779035e2e8c0c9811"
+  },
+  "artifact_integrity": {
+    "status": "PASSED_READ_ONLY_ADJUDICATION",
+    "id": 8868838408,
+    "zip_byte_count": 1005357,
+    "zip_sha256": "4c77f6d9572d8bc21ab79a06b0d8b77e2a04231375de000ee9e37dc7a2b530b5",
+    "entry_count": 19,
+    "raw_byte_count": 2928702,
+    "raw_sha256": "4b8a99e4a4130dcb7fb409f0637a25054f93d536bb57a02051b6d1003716f237"
+  },
+  "adjudication": {
+    "existing_embedded_verifier": "PARTIAL_CORROBORATION_ONLY",
+    "complete_independent_reproduction_satisfied": false,
+    "separate_clean_runner_required": true,
+    "artifact_plus_exact_pinned_repository_inputs_feasible_offline": true,
+    "source_qualification_remains_prohibited": true
+  },
+  "known_blockers": [
+    "external immutable artifact-retrieval receipt",
+    "post-terminal run receipt",
+    "append-only successor attempt ledger and terminal adjudication record",
+    "hash-bound certified official-PA source, certified release, separate verifier, and recomputed denominator receipt",
+    "separate execution authorization",
+    "separate durable-retention verification"
+  ],
+  "independent_reproduction_executed": false,
+  "source_request_performed": false,
+  "workflow_rerun_performed": false,
+  "source_qualified": false,
+  "promotable": false,
+  "total_real_statcast_requests": 4
+}

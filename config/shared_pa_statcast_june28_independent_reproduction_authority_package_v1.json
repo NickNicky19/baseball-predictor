@@ -1,0 +1,195 @@
+{
+  "schema_version": "shared-pa-statcast-june28-independent-reproduction-authority-package-v1",
+  "status": "INACTIVE_PREPARATION_ONLY_NOT_EXECUTION_AUTHORITY",
+  "preparation_is_reproduction_authorization": false,
+  "reproduction_authorized": false,
+  "source_qualification_authorized": false,
+  "promotion_authorized": false,
+  "network_authorized": false,
+  "source_request_authorized": false,
+  "purpose": "Prepare a separately implemented offline reproduction of the complete June 28 confirmation decision from the exact retained artifact bytes and immutable identities",
+  "repository": {
+    "repository": "NickNicky19/baseball-predictor",
+    "preparation_base_commit": "8c24b7362e5be52635f4909a74fe5c4832100938",
+    "execution_commit": null,
+    "execution_commit_rule": "MUST_BE_BOUND_BY_SEPARATE_POST_MERGE_AUTHORIZATION"
+  },
+  "artifact": {
+    "workflow_run_id": 30846344146,
+    "run_attempt": 1,
+    "dispatch_commit": "8c24b7362e5be52635f4909a74fe5c4832100938",
+    "name": "shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01-auth-june28-a1-209b664-b96dbba2067789d13c4033af438e87a1",
+    "id": 8868838408,
+    "expires_at_utc": "2026-11-01T19:34:15Z",
+    "zip_byte_count": 1005357,
+    "zip_sha256": "4c77f6d9572d8bc21ab79a06b0d8b77e2a04231375de000ee9e37dc7a2b530b5",
+    "entry_count": 19,
+    "raw_member": "june28-confirmation-carrier/data/source/shared_pa_statcast_v2_confirmation_2023-06-28_v1/statcast-v2-confirmation-2023-06-28/response-attempt-01.csv",
+    "raw_byte_count": 2928702,
+    "raw_sha256": "4b8a99e4a4130dcb7fb409f0637a25054f93d536bb57a02051b6d1003716f237",
+    "provider_metadata_is_self_attested_inside_zip": false,
+    "external_immutable_retrieval_receipt_required": true,
+    "post_terminal_run_receipt_required": true
+  },
+  "inventory": [
+    {"path":"confirmation-terminal-evidence/attempt3-retention-gate.json","bytes":720,"sha256":"5c630d83ade1ea3c4ad70a7af0ae646dc8def31993432f0ff745bdc6be319d91"},
+    {"path":"confirmation-terminal-evidence/authorization-id.txt","bytes":51,"sha256":"ab3d40925323e46bad452a61a597e93d4e0585a42c735bf5b52b0afe017be5bf"},
+    {"path":"confirmation-terminal-evidence/capture-exit-code.txt","bytes":2,"sha256":"9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"},
+    {"path":"confirmation-terminal-evidence/confirmation-artifacts.json","bytes":506048,"sha256":"86ce53efbbbea1658663ccde8a2f31f7deb0fd36b06c21c120f3a67e222554a3"},
+    {"path":"confirmation-terminal-evidence/confirmation-runs.json","bytes":15838,"sha256":"07451c32981373b232e7a63a2f16d89090dce6d7a7285720034c1c424db801f5"},
+    {"path":"confirmation-terminal-evidence/default-branch-head.json","bytes":358,"sha256":"2382a1dcf1449c734c36b8d81ce47bff47deb66ac92db853c1c9d0c5732c0cb1"},
+    {"path":"confirmation-terminal-evidence/dispatch-actor.json","bytes":1214,"sha256":"7762c675a5fb5007c20bd131c45e1443363b9c705550e72f0f04dadb5f9caf6e"},
+    {"path":"confirmation-terminal-evidence/failure-package.json","bytes":542,"sha256":"e5e37738294bec5ed285bc975cc35a52156b0aad0223973ae2325d83796370e5"},
+    {"path":"confirmation-terminal-evidence/human-execution-authorization-gate.json","bytes":1206,"sha256":"1f13c0db1d644f19317c24194bcf2b8d589998902e6329c9dd40edcdd89c47f2"},
+    {"path":"confirmation-terminal-evidence/independent-verifier.stderr.txt","bytes":0,"sha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},
+    {"path":"confirmation-terminal-evidence/independent-verifier.stdout.txt","bytes":595,"sha256":"400d5b3fbac68b4e71d1ced235b8b5c18301e7a284f8826eb257a0f70c06f7a1"},
+    {"path":"confirmation-terminal-evidence/independent-verifier-exit-code.txt","bytes":2,"sha256":"9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"},
+    {"path":"june28-confirmation-carrier/data/source/shared_pa_statcast_v2_confirmation_2023-06-28_v1/independent-verifier.json","bytes":554,"sha256":"ca28fa4286c19ca7f429dc9e6170f2912616b21f795aba8f4dd82ce5e9a1bf58"},
+    {"path":"june28-confirmation-carrier/data/source/shared_pa_statcast_v2_confirmation_2023-06-28_v1/manifest.json","bytes":860,"sha256":"b784cdd552d2c16a7f69469d9a3649e66e259014311128cf1e75421f90b150f7"},
+    {"path":"june28-confirmation-carrier/data/source/shared_pa_statcast_v2_confirmation_2023-06-28_v1/statcast-v2-confirmation-2023-06-28/receipt.json","bytes":1389,"sha256":"7be672c8c77ca4156abca3ea5887e3ddf6d37cbd2108f8159e44cadd62f03424"},
+    {"path":"june28-confirmation-carrier/data/source/shared_pa_statcast_v2_confirmation_2023-06-28_v1/statcast-v2-confirmation-2023-06-28/reservation-01.json","bytes":1216,"sha256":"ca327f43c4026a66620ce2b2a4379b2e3496138d72c61ab0b6c42cc8e1d1d553"},
+    {"path":"june28-confirmation-carrier/data/source/shared_pa_statcast_v2_confirmation_2023-06-28_v1/statcast-v2-confirmation-2023-06-28/response-attempt-01.csv","bytes":2928702,"sha256":"4b8a99e4a4130dcb7fb409f0637a25054f93d536bb57a02051b6d1003716f237"},
+    {"path":"june28-confirmation-carrier/data/source/shared_pa_statcast_v2_confirmation_2023-06-28_v1/statcast-v2-confirmation-2023-06-28/result-01.json","bytes":1140,"sha256":"59d74a1315ae9f6a917c86974d59f9cf264659b1dfd2d605c939c564e3ca3a65"},
+    {"path":"june28-confirmation-carrier/data/source/shared_pa_statcast_v2_confirmation_2023-06-28_v1/statcast-v2-confirmation-2023-06-28/validation-01.json","bytes":936,"sha256":"02f6be82227f0645b5d074ab7aae66070edf2e6081483efd0120f53a72087868"}
+  ],
+  "immutable_dependencies": {
+    ".github/workflows/shared-pa-statcast-v2-confirmation-execution-v1.yml": "4367dc0bb530a3664aa30155a5a73654d13465acb3bcd924fce8d7d0abb98480",
+    "config/shared_pa_statcast_confirmation_execution_contract_v1.json": "851e02beab8732b8f6d1a242ea4609d30ab1f3b462804134ae8194b3d42dc510",
+    "config/shared_pa_statcast_confirmation_attempt_01_authority_package_20260802_v1.json": "31181de53446951a4d48c5740e4687c36fb042005e1466ff09a9ac9e1cf3ef0d",
+    "config/shared_pa_statcast_confirmation_runtime_authority_v1.json": "f348f1baf664fa12c821eb488b4ff4c8fb293b3e243d713600efcd0da96fbf2a",
+    "config/shared_pa_statcast_source_contract_v1.json": "7078857cc1815e5c8dcecd667a9b6d69079ef31c1fc68057473d1fb1dc9ceebd",
+    "config/shared_pa_statcast_source_contract_v2_proposal.json": "166c49a5ea66bf4491c9d04c7f233c7bc51c032683b9883b695236dabc637328",
+    "config/shared_pa_statcast_csv_eof_completeness_policy_v1.json": "b8d8dbcdee611c81029a51db74f9c005115360fbbcd3f76078857d1f6d978293",
+    "config/shared_pa_statcast_canonical_team_identity_policy_v1.json": "c6422eb1cfdd494e958d2623a2acdc911a1bf47f93f6b8f27186241988696b55",
+    "config/shared_pa_statcast_confirmation_sample_2023-06-28_request_plan_v1.json": "0bcc3c9482ea67189e414502b9b58e6445cd66efeb27c309c5bcff4864108402",
+    "config/shared_pa_statcast_confirmation_decision_contract_v1.json": "77754f074a874dfee6f1aabd3a058b1a3d33f5ed7726f17f75caf2d1db339c5c",
+    "config/shared_pa_statcast_confirmation_sample_2023-06-28_attempt_history_v1.json": "4f7aea30afdbff76fedd695ef3bd83bb23e5395f4db9496405552433695d9c56"
+  },
+  "bound_composite_identities": {
+    "source_bundle_sha256": "81861595f8eb4b83772220bdad2fb556fc06ec3640a1a4f2084255e8f5183033",
+    "source_bundle_binding_source": "config/shared_pa_statcast_confirmation_runtime_authority_v1.json:source_bundle.canonical_path_hash_map_sha256"
+  },
+  "carrier": {
+    "commit": "a8ebc64eddf8ace3a48e25af57ee0d6658d0663a",
+    "capture_implementation_sha256": "b0606bdbf62752fbdb5634d938400a7570a053eb8ea48074fe3d99774d9d2d6b",
+    "embedded_verifier_implementation_sha256": "6b9e5bf4baee927a459f2584c3c0ec01642b77b3b8acec4ed19c5168c5c8a8a8"
+  },
+  "existing_embedded_verifier": {
+    "status": "PARTIAL_CORROBORATION_ONLY",
+    "satisfies_complete_independent_reproduction": false,
+    "use_as_trusted_input": false,
+    "permitted_use": "compare independently calculated results after all clean-room gates finish",
+    "omissions": [
+      "ZIP provider identity and complete inventory",
+      "immutable dependency hashes and execution identity",
+      "reservation, receipt, result and terminal-state reconciliation",
+      "official team-ID derivation and raw-pair contradictions",
+      "full plate zone/chase and automatic-pitch identities",
+      "complete EV/launch-angle denominator identities and official PA denominator",
+      "attempt-state succession and total real request accounting",
+      "durable-retention evidence"
+    ]
+  },
+  "independence_contract": {
+    "implementation_must_not_import": [
+      "scripts.capture_shared_pa_statcast_confirmation_v2",
+      "scripts.verify_shared_pa_statcast_confirmation_v2"
+    ],
+    "standard_library_only": true,
+    "separate_clean_runner_required": true,
+    "separate_execution_authorization_required": true,
+    "network_must_be_disabled": true,
+    "source_endpoint_access_allowed": false,
+    "artifact_and_repository_inputs_read_only": true,
+    "output_must_be_new_and_no_overwrite": true,
+    "raw_bytes_may_be_modified": false,
+    "independent_red_team_review_required": true
+  },
+  "future_execution_authorization_contract": {
+    "separate_external_human_authorization_required": true,
+    "required_bindings": [
+      "repository",
+      "exact_execution_commit",
+      "authority_package_sha256",
+      "reproduction_verifier_sha256",
+      "python_implementation_and_version",
+      "artifact_zip_sha256",
+      "artifact_retrieval_receipt_sha256",
+      "post_terminal_run_receipt_sha256",
+      "successor_attempt_ledger_sha256",
+      "terminal_adjudication_sha256",
+      "official_pa_denominator_receipt_sha256",
+      "official_pa_source_sha256",
+      "official_pa_certified_release_sha256",
+      "official_pa_independent_verifier_sha256",
+      "exact_create_only_output_path",
+      "network_disabled",
+      "authorization_id_valid_from_and_expiry",
+      "external_expected_execution_authorization_sha256"
+    ],
+    "authority_or_verifier_self_authorization_allowed": false,
+    "unbound_input_may_pass": false
+  },
+  "required_external_inputs": {
+    "artifact_retrieval_receipt": "schema-versioned provider-observed artifact ID, name, run, creation, expiration, retrieval UTC, source URL identity without credentials, ZIP bytes and ZIP SHA-256; exact receipt SHA bound by execution authorization",
+    "post_terminal_run_receipt": "schema-versioned provider-observed run 30846344146 attempt 1, dispatch commit, event, actor, terminal failure conclusion, created/start/update/completion times; exact receipt SHA bound by execution authorization",
+    "append_only_successor_attempt_ledger": "schema-versioned predecessor-bound state preserving July attempts 1-3 consumed, old July attempt 4 unused/unauthorized, June attempt 1 consumed with exact run/artifact/one-request/no-rerun identities, total real requests four; exact SHA bound by execution authorization",
+    "attempt_incident_or_terminal_adjudication_record": "schema-versioned exact terminal evidence/disposition record; exact SHA bound by execution authorization",
+    "official_pa_denominator_receipt": "schema-versioned receipt whose exact 15 per-game totals are recomputed from the separately hash-bound certified official-PA source; must not be derived from Statcast distinct at_bat_number values; exact SHA bound by execution authorization",
+    "official_pa_source": "schema-versioned exact certified official-date/game/team-side source bytes with home and away plate appearances; its externally adjudicated source-release identity and exact file SHA-256 must be bound by execution authorization",
+    "official_pa_certified_release": "exact certified release bytes whose SHA-256 is bound externally and must equal the source and receipt release identity",
+    "official_pa_independent_verifier": "exact separate verifier bytes whose SHA-256 is bound externally and must equal the receipt verifier identity",
+    "durable_retention_receipt": "separate gate; not required to calculate reproduction but required before any source-qualification review"
+  },
+  "primary_claims_for_post_calculation_comparison": {
+    "strict_csv": "PASS",
+    "schema": "PASS",
+    "header_columns": 119,
+    "rows": 4573,
+    "utf8_bom_present": true,
+    "terminal_newline_present": false,
+    "games": [717575,717576,717577,717578,717579,717580,717581,717582,717583,717584,717585,717586,717587,717588,717589],
+    "plate_discipline": {"pitch_rows":4573,"physical_pitch_rows":4568,"swing":2143,"whiff":506,"contact":1637,"take":2430,"zone_opportunity":2300,"zone_swing":1515,"chase_opportunity":2268,"chase_swing":628,"missing_zone":5,"invalid_zone":0,"unknown_description_count":0},
+    "ev_launch_angle": {"total_bbe":784,"measured_ev":783,"missing_ev":1,"measured_la":784,"missing_la":0,"joint_ev_la":783,"joint_missing":1,"classified":783,"unclassified_joint":0,"barrel":65,"hard_hit":296,"classified_hard_hit":296,"classified_hard_hit_non_barrel":231,"other_classified_contact":487,"sweet_spot":276,"bbe_contradictions":0},
+    "not_precomputed_and_must_be_reproduced_without_prefilled_expectation": ["take category split","ev50_support","ev50_mean","official_pa_count","bbe_per_official_pa"]
+  },
+  "recalculation_requirements": [
+    "ZIP CRC, duplicate-name, traversal, absolute-path, symlink, encryption and exact-inventory checks",
+    "raw byte count and SHA-256 without reconstruction",
+    "reservation, receipt, result, timestamps, URL, headers, HTTP 200, one request, no redirects, retries, replacements or reruns",
+    "UTF-8 BOM, HTML, JSON and Savant error signatures, newline convention and clean EOF",
+    "exact ordered 119-column header, row width, malformed and empty rows",
+    "positive game, at-bat, pitch, batter and pitcher identities and no duplicate event",
+    "exact date, regular-season game type, exact 15-game universe and both batting sides",
+    "canonical batting and fielding official team IDs derived from certified game_pk, date and side while preserving raw labels",
+    "all plate-description categories, zone/chase opportunities and swings, missing and invalid zones",
+    "complete BBE, EV, launch-angle, joint, missing, classified, barrel, hard-hit, sweet-spot and upper-tail denominators",
+    "official PA denominator from a separately hash-bound certified receipt",
+    "primary-versus-independent material-result agreement",
+    "raw-byte immutability and non-promotion disposition"
+  ],
+  "known_pre_execution_blockers": [
+    "immutable external artifact-retrieval receipt is not yet repository-bound",
+    "post-terminal GitHub run receipt is not yet repository-bound",
+    "append-only post-attempt successor ledger and incident/adjudication record are absent",
+    "hash-bound official PA denominator receipt is absent",
+    "hash-bound certified official-PA source bytes are absent",
+    "hash-bound certified source release and separate PA-verifier bytes are absent",
+    "separate reproduction execution authorization has not been granted",
+    "separate durable-retention verification remains incomplete"
+  ],
+  "decision_rule": {
+    "INDEPENDENT_REPRODUCTION_PASSED": "every recalculation and immutable identity passes, every material primary claim agrees, all required external receipts and post-attempt state are present, mutation tests fail closed, and the no-overwrite report is preserved",
+    "INDEPENDENT_REPRODUCTION_INCOMPLETE": "any required input, receipt, state transition, denominator or gate is absent",
+    "INDEPENDENT_REPRODUCTION_FAILED": "any identity, byte, schema, scope, calculation or disposition contradiction exists",
+    "overall_source_qualification": "remains prohibited unless separate durable retention is verified and a later separately authorized activation review accepts both gates"
+  },
+  "prohibited_actions": [
+    "workflow dispatch or rerun",
+    "source request",
+    "attempt reuse or replacement",
+    "source-contract modification or activation",
+    "source qualification or promotion",
+    "feature construction, model fitting, scoring, prediction, evaluation or betting"
+  ]
+}
