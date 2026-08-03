@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "shared-pa-statcast-june28-custody-manifest-v1",
+  "title": "June 28 Statcast confirmation custody manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version","evidence_purpose","attempt","workflow_run_id","artifact","external_receipts","scientific_disposition","authorization","provider","artifact_object","custody_manifest_intent","chain_of_custody","immutable_result_status"],
+  "properties": {
+    "schema_version": {"const": "shared-pa-statcast-june28-custody-manifest-v1"},
+    "evidence_purpose": {"const": "SEPARATE_DURABLE_RETENTION_ONLY"},
+    "attempt": {"const": 1},
+    "workflow_run_id": {"const": 30846344146},
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name","id","expiration_utc","zip_byte_count","zip_sha256","raw_byte_count","raw_sha256","entry_count","inventory"],
+      "properties": {
+        "name": {"const": "shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01-auth-june28-a1-209b664-b96dbba2067789d13c4033af438e87a1"},
+        "id": {"const": 8868838408},
+        "expiration_utc": {"const": "2026-11-01T19:34:15Z"},
+        "zip_byte_count": {"const": 1005357},
+        "zip_sha256": {"const": "4c77f6d9572d8bc21ab79a06b0d8b77e2a04231375de000ee9e37dc7a2b530b5"},
+        "raw_byte_count": {"const": 2928702},
+        "raw_sha256": {"const": "4b8a99e4a4130dcb7fb409f0637a25054f93d536bb57a02051b6d1003716f237"},
+        "entry_count": {"const": 19},
+        "inventory": {
+          "type": "array", "minItems": 19, "maxItems": 19, "uniqueItems": true,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["path","bytes","sha256"],
+            "properties": {
+              "path": {"type": "string", "minLength": 1},
+              "bytes": {"type": "integer", "minimum": 0},
+              "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+            }
+          }
+        }
+      }
+    },
+    "external_receipts": {
+      "type": "object", "additionalProperties": false,
+      "required": ["artifact_retrieval_sha256","post_terminal_run_sha256"],
+      "properties": {
+        "artifact_retrieval_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "post_terminal_run_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "scientific_disposition": {
+      "type": "object", "additionalProperties": false,
+      "required": ["technical_validation","durable_retention_verified_before_execution","independent_reproduction_verified","source_qualified","promotable","confirmation_attempt_1","total_real_statcast_requests"],
+      "properties": {
+        "technical_validation": {"const": "PASS"},
+        "durable_retention_verified_before_execution": {"const": false},
+        "independent_reproduction_verified": {"const": false},
+        "source_qualified": {"const": false},
+        "promotable": {"const": false},
+        "confirmation_attempt_1": {"const": "CONSUMED"},
+        "total_real_statcast_requests": {"const": 4}
+      }
+    },
+    "authorization": {
+      "type": "object", "additionalProperties": false,
+      "required": ["authorization_id","authorization_sha256","execution_commit"],
+      "properties": {
+        "authorization_id": {"type": "string", "minLength": 1},
+        "authorization_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "execution_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+      }
+    },
+    "provider": {
+      "type": "object", "additionalProperties": false,
+      "required": ["account_id","partition","region","bucket","uploader_arn","upload_utc","encryption","object_lock_mode","retain_until_utc","audit_identity"],
+      "properties": {
+        "account_id": {"const": "723322847536"},
+        "partition": {"const": "aws"},
+        "region": {"type": "string", "minLength": 1},
+        "bucket": {"const": "mlb-statcast-evidence-lock-20260803-8868838408-v1"},
+        "uploader_arn": {"type": "string", "pattern": "^arn:aws:iam::723322847536:role/"},
+        "upload_utc": {"type": "string", "format": "date-time"},
+        "encryption": {"const": "AES256"},
+        "object_lock_mode": {"const": "COMPLIANCE"},
+        "retain_until_utc": {"const": "2033-08-03T00:00:00Z"},
+        "audit_identity": {"type": "string", "minLength": 1}
+      }
+    },
+    "artifact_object": {
+      "type": "object", "additionalProperties": false,
+      "required": ["key","version_id","etag_metadata_only","request_id","byte_count","sha256","read_back_byte_count","read_back_sha256","retention_verified"],
+      "properties": {
+        "key": {"const": "mlb-source-evidence/statcast/v2-confirmation/date-2023-06-28/attempt-01/run-30846344146/artifact-8868838408/shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01.zip"},
+        "version_id": {"type": "string", "minLength": 1},
+        "etag_metadata_only": {"type": "string", "minLength": 1},
+        "request_id": {"type": "string", "minLength": 1},
+        "byte_count": {"const": 1005357},
+        "sha256": {"const": "4c77f6d9572d8bc21ab79a06b0d8b77e2a04231375de000ee9e37dc7a2b530b5"},
+        "read_back_byte_count": {"const": 1005357},
+        "read_back_sha256": {"const": "4c77f6d9572d8bc21ab79a06b0d8b77e2a04231375de000ee9e37dc7a2b530b5"},
+        "retention_verified": {"const": true}
+      }
+    },
+    "custody_manifest_intent": {
+      "type": "object", "additionalProperties": false,
+      "required": ["key","create_only","object_lock_mode","retain_until_utc","actual_provider_result_location"],
+      "properties": {
+        "key": {"const": "mlb-source-evidence/statcast/v2-confirmation/date-2023-06-28/attempt-01/run-30846344146/artifact-8868838408/shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01.custody-v1.json"},
+        "create_only": {"const": true},
+        "object_lock_mode": {"const": "COMPLIANCE"},
+        "retain_until_utc": {"const": "2033-08-03T00:00:00Z"},
+        "actual_provider_result_location": {"const": "SEPARATE_LOCAL_OR_REPOSITORY_EXECUTION_RESULT_NOT_A_THIRD_S3_OBJECT"}
+      }
+    },
+    "chain_of_custody": {
+      "type": "array", "minItems": 4,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["event","observed_at_utc","actor","evidence_sha256"],
+        "properties": {
+          "event": {"type": "string", "minLength": 1},
+          "observed_at_utc": {"type": "string", "format": "date-time"},
+          "actor": {"type": "string", "minLength": 1},
+          "evidence_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        }
+      }
+    },
+    "immutable_result_status": {"const": "ARTIFACT_OBJECT_VERIFIED_CUSTODY_MANIFEST_READY_FOR_CREATE_ONLY_UPLOAD"}
+  }
+}

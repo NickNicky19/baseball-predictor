@@ -1,0 +1,31 @@
+{
+  "schema_version": "shared-pa-statcast-june28-durable-retention-execution-plan-v1",
+  "status": "PREPARED_NOT_AUTHORIZED_NOT_EXECUTABLE_WITH_UNRESOLVED_AWS_BINDINGS",
+  "authority_package": "config/shared_pa_statcast_june28_durable_retention_authority_package_v1.json",
+  "mechanism": "reviewed AWS CLI command sequence generated only after all null authority bindings are resolved and separately authorized",
+  "maximum_provider_object_writes": 2,
+  "steps": [
+    {"step": 1, "mutation": false, "action": "retrieve artifact 8868838408 through GitHub before expiration and verify name, ID, 1005357 bytes, ZIP SHA-256 and exact 19-entry inventory"},
+    {"step": 2, "mutation": false, "action": "verify the exact AWS account, partition, approved region, dedicated bucket absence or exact approved state, role ARNs and S3 object-level audit coverage"},
+    {"step": 3, "mutation": true, "action": "under separate infrastructure authorization only, create or verify the dedicated bucket with BucketOwnerEnforced ownership, Versioning, Object Lock, Block Public Access and TLS-only policy"},
+    {"step": 4, "mutation": false, "action": "verify both exact keys and all versions/delete markers begin absent; stop on any existing object"},
+    {"step": 5, "mutation": true, "action": "upload the byte-identical ZIP once with SSE-S3 AES256, COMPLIANCE retention through 2033-08-03T00:00:00Z, create-only semantics and safe evidence metadata"},
+    {"step": 6, "mutation": false, "action": "capture VersionId, ETag as metadata, request ID, checksum, encryption and retention responses; read the exact version back and verify byte count, SHA-256 and all 19 embedded entries"},
+    {"step": 7, "mutation": false, "action": "finalize the deterministic custody manifest with the verified artifact-object provider result and deterministic custody-object intent; validate exact inventory, receipts, disposition and key against the exact schema"},
+    {"step": 8, "mutation": true, "action": "upload the custody manifest once under the second exact key with identical COMPLIANCE retention"},
+    {"step": 9, "mutation": false, "action": "read the exact manifest version back, verify bytes, SHA-256 and retention, then preserve its provider result in a separate local or later repository execution report; do not create a circular self-description or third S3 object"},
+    {"step": 10, "mutation": false, "action": "stop without deleting or altering the local or GitHub evidence and without qualifying or promoting the source"}
+  ],
+  "completion_rule": "COMPLETE_ONLY_AFTER_BOTH_EXACT_OBJECT_VERSIONS_PASS_FULL_READ_BACK_AND_COMPLIANCE_RETENTION_VERIFICATION",
+  "non_circular_manifest_rule": "THE_CUSTODY_MANIFEST CONTAINS THE ARTIFACT OBJECT RESULT AND ONLY THE CUSTODY OBJECT INTENT; THE CUSTODY OBJECT ACTUAL RESULT IS RECORDED AFTER READ-BACK IN THE EXECUTION REPORT",
+  "current_blockers": [
+    "AWS region is not independently verified",
+    "dedicated bucket availability and state are not verified",
+    "least-privilege infrastructure, writer and verifier role ARNs are not verified",
+    "bucket policy identity is not rendered or verified",
+    "S3 object-level CloudTrail coverage is not verified",
+    "no AWS write or upload authorization exists"
+  ],
+  "aws_mutation_performed": false,
+  "evidence_uploaded": false
+}
