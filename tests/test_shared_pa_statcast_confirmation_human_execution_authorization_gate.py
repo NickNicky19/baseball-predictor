@@ -162,9 +162,9 @@ def build_graph(
         run_git(repository, "switch", "--discard-changes", "main")
         run_git(repository, "merge", "--no-ff", "authorization-record", "-m", "merge authorization record")
         merge = run_git(repository, "rev-parse", "HEAD")
-    if not delete_record and (not record_path.is_file() or record_path.is_symlink()):
-        if record_path.exists() or record_path.is_symlink():
-            if record_path.is_dir() and not record_path.is_symlink():
+    if not delete_record and (record_path.is_symlink() or not record_path.is_file()):
+        if record_path.is_symlink() or record_path.exists():
+            if not record_path.is_symlink() and record_path.is_dir():
                 shutil.rmtree(record_path)
             else:
                 record_path.unlink()
