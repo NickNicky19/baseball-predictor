@@ -1,0 +1,44 @@
+{
+  "schema_version": "shared-pa-statcast-june28-durable-retention-preparation-manifest-v1",
+  "status": "DURABLE_RETENTION_PACKAGE_PREPARED_UNEXECUTED",
+  "base_commit": "8c24b7362e5be52635f4909a74fe5c4832100938",
+  "branch": "codex/june28-durable-retention-package-v1",
+  "changed_paths": [
+    "config/shared_pa_statcast_june28_durable_retention_authority_package_v1.json",
+    "contracts/schemas/shared_pa_statcast_june28_custody_manifest_v1.schema.json",
+    "reports/shared_pa_statcast_june28_durable_retention_execution_plan_v1.json",
+    "reports/shared_pa_statcast_june28_durable_retention_preparation_manifest_v1.json",
+    "scripts/validate_shared_pa_statcast_june28_durable_retention_authority_v1.py",
+    "tests/test_shared_pa_statcast_june28_durable_retention_authority_v1.py"
+  ],
+  "canonical_changed_path_list_sha256": "d6ecb774bd699c640174b5f75e14ad45168fc70af22e9f6a4c30b493dfa621ff",
+  "non_self_file_sha256": {
+    "config/shared_pa_statcast_june28_durable_retention_authority_package_v1.json": "4848373b8c47412c8c20507e70d54a14ad7762e65cac209394136f7ba7257ed2",
+    "contracts/schemas/shared_pa_statcast_june28_custody_manifest_v1.schema.json": "f5de314c2e73a231cbfc0f73f43b385ac5bb80ff99fc72669281b44e04b267e6",
+    "reports/shared_pa_statcast_june28_durable_retention_execution_plan_v1.json": "076e64db67f4577f2fbb2de7724b6592e1a8ce3416f3c0b45efd67833fe12b9c",
+    "scripts/validate_shared_pa_statcast_june28_durable_retention_authority_v1.py": "747928c7f0742a76c2f478f018c380de2d9b90223ef1a8b4327d4f22e79042b0",
+    "tests/test_shared_pa_statcast_june28_durable_retention_authority_v1.py": "0127d37806c751b3b2d99df8fc3479e8bc91e499eb1d188fb16ff3aa607dbdc8"
+  },
+  "artifact": {
+    "id": 8868838408,
+    "zip_byte_count": 1005357,
+    "zip_sha256": "4c77f6d9572d8bc21ab79a06b0d8b77e2a04231375de000ee9e37dc7a2b530b5",
+    "entry_count": 19,
+    "raw_byte_count": 2928702,
+    "raw_sha256": "4b8a99e4a4130dcb7fb409f0637a25054f93d536bb57a02051b6d1003716f237"
+  },
+  "adjudication": {
+    "actions_artifact_sufficient": false,
+    "aws_mandatory": false,
+    "selected_proposal": "AMAZON_S3_OBJECT_LOCK_COMPLIANCE",
+    "minimum_preservation_unit": "EXACT_ARTIFACT_ZIP_PLUS_DETACHED_CUSTODY_MANIFEST",
+    "pr58_status": "ATTEMPT3_SPECIFIC_STALE_FOR_JUNE28_AND_INCOMPLETE_FOR_EXECUTION"
+  },
+  "aws_status": "AWS_DURABLE_RETENTION_DEFERRED_PENDING_SEPARATE_NON_ROOT_ADMIN_VALIDATION",
+  "aws_mutation_performed": false,
+  "evidence_uploaded": false,
+  "source_request_performed": false,
+  "workflow_rerun_performed": false,
+  "source_qualified": false,
+  "promotable": false
+}
