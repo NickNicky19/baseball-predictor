@@ -46,7 +46,7 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "main_commit",
+        "authorization_base_main_commit",
         "workflow_path",
         "workflow_sha256",
         "authority_package_sha256",
@@ -62,7 +62,11 @@
         "query_sha256"
       ],
       "properties": {
-        "main_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "authorization_base_main_commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$",
+          "description": "B: the exact main commit from which the future one-file authorization-record PR is created; never the PR head or eventual dispatch/merge commit"
+        },
         "workflow_path": {"const": ".github/workflows/shared-pa-statcast-v2-confirmation-execution-v1.yml"},
         "workflow_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
         "authority_package_sha256": {"const": "31181de53446951a4d48c5740e4687c36fb042005e1466ff09a9ac9e1cf3ef0d"},
@@ -131,6 +135,9 @@
     "validity_interval_maximum_seconds": 1800,
     "canonical_text_encoding": "UTF-8 without BOM or CR, exactly one terminal LF, no trailing horizontal whitespace",
     "record_cannot_authorize_itself": true,
+    "authorization_base_main_commit_semantics": "first parent B of the later protected one-file authorization-record merge commit",
+    "dispatch_commit_is_runtime_input_not_record_field": true,
+    "record_must_not_embed_own_sha_blob_tree_pr_head_or_merge_commit": true,
     "current_gate_implementation_contains_executable_record": false
   }
 }
