@@ -25,6 +25,8 @@ NOW = datetime(2026, 8, 2, 20, 0, 0, tzinfo=timezone.utc)
 TEXT = "I authorize one manual June 28 confirmation dispatch bound to this exact record.\n"
 TEXT_SHA = hashlib.sha256(TEXT.encode()).hexdigest()
 WORKFLOW_SHA = "b" * 64
+CONFIRMATION_OUTPUT_PATH = Path("data/source/shared_pa_statcast_v2_confirmation_2023-06-28_v1")
+CONFIRMATION_ARTIFACT_PREFIX = "shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01-"
 
 
 def run_git(repository: Path, *args: str, input_bytes: bytes | None = None) -> str:
@@ -73,6 +75,42 @@ def record(base: str = "a" * 40) -> dict:
 
 def canonical(value: dict) -> bytes:
     return (json.dumps(value, sort_keys=True, separators=(",", ":")) + "\n").encode()
+
+
+def assert_june_28_response_unseen(
+    repository_root: Path, *, runs: dict, artifacts: dict, ledger: dict,
+    tracked_paths: list[str] | None = None,
+) -> None:
+    if (repository_root / CONFIRMATION_OUTPUT_PATH).exists():
+        raise AssertionError("June 28 confirmation output exists")
+    if tracked_paths is None:
+        tracked_paths = subprocess.run(
+            ["git", "-C", str(repository_root), "ls-files"],
+            check=True, capture_output=True, text=True,
+        ).stdout.splitlines()
+    if any(
+        CONFIRMATION_OUTPUT_PATH.as_posix() in path or "response-attempt-01" in path
+        for path in tracked_paths
+    ):
+        raise AssertionError("June 28 response bytes exist")
+    if any(run.get("event") == "workflow_dispatch" for run in runs.get("workflow_runs", [])):
+        raise AssertionError("June 28 confirmation dispatch exists")
+    if any(
+        str(artifact.get("name", "")).startswith(CONFIRMATION_ARTIFACT_PREFIX)
+        for artifact in artifacts.get("artifacts", [])
+    ):
+        raise AssertionError("June 28 terminal capture artifact exists")
+    if ledger.get("attempts") != []:
+        raise AssertionError("June 28 confirmation attempt history is not empty")
+    if ledger.get("next_attempt") != {
+        "attempt_number": 1,
+        "status": "UNUSED_UNAUTHORIZED",
+        "reserved": False,
+        "consumed": False,
+    }:
+        raise AssertionError("June 28 confirmation attempt 1 is not unused and unreserved")
+    if ledger.get("global_real_external_statcast_request_count") != 3:
+        raise AssertionError("real Statcast request accounting differs from three")
 
 
 @dataclass
@@ -316,7 +354,75 @@ class GateTests(unittest.TestCase):
         self.assertEqual(gate.load_json(ROOT / gate.FILE_BINDINGS["attempt_ledger_sha256"])["global_real_external_statcast_request_count"], 3)
 
     def test_32_june_28_response_remains_unseen(self):
-        self.assertFalse((ROOT / "data/source/shared_pa_statcast_v2_confirmation_2023-06-28_v1").exists()); self.assertFalse((ROOT / gate.FUTURE_RECORD_PATH).exists())
+        assert_june_28_response_unseen(
+            ROOT,
+            runs={"workflow_runs": []},
+            artifacts={"artifacts": []},
+            ledger=gate.load_json(ROOT / gate.FILE_BINDINGS["attempt_ledger_sha256"]),
+        )
+
+    def test_32a_authorization_record_presence_does_not_imply_a_response(self):
+        with tempfile.TemporaryDirectory() as td:
+            repository = Path(td)
+            authorization_record = repository / gate.FUTURE_RECORD_PATH
+            authorization_record.parent.mkdir(parents=True)
+            authorization_record.write_text("{}\n", encoding="utf-8")
+            assert_june_28_response_unseen(
+                repository,
+                runs={"workflow_runs": []},
+                artifacts={"artifacts": []},
+                ledger=gate.load_json(ROOT / gate.FILE_BINDINGS["attempt_ledger_sha256"]),
+                tracked_paths=[gate.FUTURE_RECORD_PATH],
+            )
+
+    def test_32b_output_or_response_bytes_end_response_blindness(self):
+        ledger = gate.load_json(ROOT / gate.FILE_BINDINGS["attempt_ledger_sha256"])
+        with tempfile.TemporaryDirectory() as td:
+            repository = Path(td)
+            (repository / CONFIRMATION_OUTPUT_PATH).mkdir(parents=True)
+            with self.assertRaisesRegex(AssertionError, "output exists"):
+                assert_june_28_response_unseen(
+                    repository, runs={"workflow_runs": []}, artifacts={"artifacts": []},
+                    ledger=ledger, tracked_paths=[],
+                )
+        with tempfile.TemporaryDirectory() as td, self.assertRaisesRegex(AssertionError, "response bytes exist"):
+            assert_june_28_response_unseen(
+                Path(td), runs={"workflow_runs": []}, artifacts={"artifacts": []},
+                ledger=ledger, tracked_paths=["evidence/response-attempt-01.csv"],
+            )
+
+    def test_32c_dispatch_or_terminal_artifact_ends_response_blindness(self):
+        ledger = gate.load_json(ROOT / gate.FILE_BINDINGS["attempt_ledger_sha256"])
+        with tempfile.TemporaryDirectory() as td, self.assertRaisesRegex(AssertionError, "dispatch exists"):
+            assert_june_28_response_unseen(
+                Path(td), runs={"workflow_runs": [{"event": "workflow_dispatch"}]},
+                artifacts={"artifacts": []}, ledger=ledger, tracked_paths=[],
+            )
+        artifact = {"name": f"{CONFIRMATION_ARTIFACT_PREFIX}auth-synthetic"}
+        with tempfile.TemporaryDirectory() as td, self.assertRaisesRegex(AssertionError, "artifact exists"):
+            assert_june_28_response_unseen(
+                Path(td), runs={"workflow_runs": []}, artifacts={"artifacts": [artifact]},
+                ledger=ledger, tracked_paths=[],
+            )
+
+    def test_32d_attempt_state_and_request_accounting_are_mandatory(self):
+        ledger = gate.load_json(ROOT / gate.FILE_BINDINGS["attempt_ledger_sha256"])
+        mutations = []
+        consumed = copy.deepcopy(ledger)
+        consumed["attempts"] = [{"attempt_number": 1, "status": "CONSUMED"}]
+        mutations.append(consumed)
+        reserved = copy.deepcopy(ledger)
+        reserved["next_attempt"]["reserved"] = True
+        mutations.append(reserved)
+        wrong_count = copy.deepcopy(ledger)
+        wrong_count["global_real_external_statcast_request_count"] = 4
+        mutations.append(wrong_count)
+        for mutation in mutations:
+            with self.subTest(mutation=mutation), tempfile.TemporaryDirectory() as td, self.assertRaises(AssertionError):
+                assert_june_28_response_unseen(
+                    Path(td), runs={"workflow_runs": []}, artifacts={"artifacts": []},
+                    ledger=mutation, tracked_paths=[],
+                )
 
 
 class NonCircularGraphTests(unittest.TestCase):
