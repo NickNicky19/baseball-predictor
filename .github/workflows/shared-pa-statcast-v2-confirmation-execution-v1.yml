@@ -16,8 +16,8 @@ on:
       - "reports/shared_pa_statcast_confirmation_execution_*"
   workflow_dispatch:
     inputs:
-      expected_workflow_commit_sha:
-        description: Exact verified main commit
+      expected_dispatch_commit_sha:
+        description: Exact post-authorization-record merge commit to execute from current main
         required: true
         type: string
       expected_workflow_sha256:
@@ -199,7 +199,7 @@ jobs:
       - name: Fail closed on event, commit, input, repository, and no-overwrite mismatch
         shell: bash
         env:
-          EXPECTED_COMMIT: ${{ inputs.expected_workflow_commit_sha }}
+          EXPECTED_DISPATCH_COMMIT: ${{ inputs.expected_dispatch_commit_sha }}
           EXPECTED_WORKFLOW: ${{ inputs.expected_workflow_sha256 }}
           EXPECTED_AUTHORITY: ${{ inputs.expected_authority_package_sha256 }}
           EXPECTED_RUNTIME: ${{ inputs.expected_runtime_authority_sha256 }}
@@ -212,8 +212,8 @@ jobs:
           test "$GITHUB_REPOSITORY" = "NickNicky19/baseball-predictor"
           test "$GITHUB_REF" = "refs/heads/${{ github.event.repository.default_branch }}"
           test "$GITHUB_RUN_ATTEMPT" = "1"
-          test "$GITHUB_SHA" = "$EXPECTED_COMMIT"
-          test "$(git rev-parse HEAD)" = "$EXPECTED_COMMIT"
+          test "$GITHUB_SHA" = "$EXPECTED_DISPATCH_COMMIT"
+          test "$(git rev-parse HEAD)" = "$EXPECTED_DISPATCH_COMMIT"
           test "$(sha256sum .github/workflows/shared-pa-statcast-v2-confirmation-execution-v1.yml | awk '{print $1}')" = "$EXPECTED_WORKFLOW"
           test "$(sha256sum config/shared_pa_statcast_confirmation_attempt_01_authority_package_20260802_v1.json | awk '{print $1}')" = "$EXPECTED_AUTHORITY"
           test "$(sha256sum config/shared_pa_statcast_confirmation_runtime_authority_v1.json | awk '{print $1}')" = "$EXPECTED_RUNTIME"
@@ -233,12 +233,13 @@ jobs:
         run: |
           set -euo pipefail
           gh api "users/${GITHUB_ACTOR}" > "${RUNNER_TEMP}/dispatch-actor.json"
+          gh api "repos/${GITHUB_REPOSITORY}/git/ref/heads/${{ github.event.repository.default_branch }}" > "${RUNNER_TEMP}/default-branch-head.json"
           gh api --paginate "repos/${GITHUB_REPOSITORY}/actions/workflows/shared-pa-statcast-v2-confirmation-execution-v1.yml/runs?event=workflow_dispatch&per_page=100" --jq '.workflow_runs[]' | jq -s '{workflow_runs:.}' > "${RUNNER_TEMP}/confirmation-runs.json"
           gh api --paginate "repos/${GITHUB_REPOSITORY}/actions/artifacts?per_page=100" --jq '.artifacts[]' | jq -s '{artifacts:.}' > "${RUNNER_TEMP}/confirmation-artifacts.json"
       - name: Validate exact one-time human execution authorization before any evidence retrieval or transport
         shell: bash
         env:
-          EXPECTED_COMMIT: ${{ inputs.expected_workflow_commit_sha }}
+          EXPECTED_DISPATCH_COMMIT: ${{ inputs.expected_dispatch_commit_sha }}
           EXPECTED_WORKFLOW: ${{ inputs.expected_workflow_sha256 }}
           HUMAN_TEXT_SHA256: ${{ inputs.human_execution_authorization_sha256 }}
           AUTHORIZATION_ID: ${{ inputs.human_execution_authorization_id }}
@@ -246,6 +247,10 @@ jobs:
         run: |
           set -euo pipefail
           receipt="${RUNNER_TEMP}/human-execution-authorization-gate.json"
+          parent_line="$(git show -s --format='%P' "$GITHUB_SHA")"
+          read -r -a parents <<< "$parent_line"
+          test "${#parents[@]}" = "2"
+          default_head="$(jq -er '.object.sha' "${RUNNER_TEMP}/default-branch-head.json")"
           python -I -B scripts/validate_shared_pa_statcast_confirmation_human_execution_authorization_v1.py \
             --record config/shared_pa_statcast_confirmation_attempt_01_human_execution_authorization_v1.json \
             --schema config/shared_pa_statcast_confirmation_human_execution_authorization_schema_v1.json \
@@ -255,7 +260,10 @@ jobs:
             --expected-authorization-id "$AUTHORIZATION_ID" \
             --observed-repository "$GITHUB_REPOSITORY" \
             --observed-actor-json "${RUNNER_TEMP}/dispatch-actor.json" \
-            --observed-main-commit "$EXPECTED_COMMIT" \
+            --expected-dispatch-commit "$EXPECTED_DISPATCH_COMMIT" \
+            --observed-dispatch-commit "$GITHUB_SHA" \
+            --observed-first-parent "${parents[0]}" \
+            --observed-default-branch-head "$default_head" \
             --observed-workflow-sha256 "$EXPECTED_WORKFLOW" \
             --run-attempt "$GITHUB_RUN_ATTEMPT" \
             --current-run-id "$GITHUB_RUN_ID" \
@@ -368,7 +376,7 @@ jobs:
           fi
           printf '%s\n' "$capture_rc" > "$package/capture-exit-code.txt"
           printf '%s\n' "$verifier_rc" > "$package/independent-verifier-exit-code.txt"
-          for evidence in "${HUMAN_GATE_RECEIPT:-}" "${RUNNER_TEMP}/dispatch-actor.json" "${RUNNER_TEMP}/confirmation-runs.json" "${RUNNER_TEMP}/confirmation-artifacts.json" "${ATTEMPT3_GATE_RECEIPT:-}"; do
+          for evidence in "${HUMAN_GATE_RECEIPT:-}" "${RUNNER_TEMP}/dispatch-actor.json" "${RUNNER_TEMP}/default-branch-head.json" "${RUNNER_TEMP}/confirmation-runs.json" "${RUNNER_TEMP}/confirmation-artifacts.json" "${ATTEMPT3_GATE_RECEIPT:-}"; do
             if test -n "$evidence" && test -f "$evidence"; then cp "$evidence" "$package/"; fi
           done
           python -I -B - "$package/failure-package.json" "$capture_rc" "$verifier_rc" <<'PY'

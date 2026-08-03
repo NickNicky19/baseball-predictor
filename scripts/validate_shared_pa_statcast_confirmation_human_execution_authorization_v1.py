@@ -9,6 +9,7 @@ import argparse
 import hashlib
 import json
 import re
+import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -53,6 +54,7 @@ TOP_LEVEL_KEYS = {
     "canonical_human_authorization_text_sha256", "preparation_is_execution_authorization",
     "dispatch_authorized", "single_use",
 }
+GIT_SHA_RE = re.compile(r"^[0-9a-f]{40}$")
 
 
 def sha256_bytes(value: bytes) -> str:
@@ -149,11 +151,109 @@ def verify_single_use_snapshot(
             raise AuthorizationError("confirmation attempt terminal artifact already exists")
 
 
+def _git(repository: Path, *args: str, text: bool = True) -> str | bytes:
+    try:
+        result = subprocess.run(
+            ["git", "-C", str(repository), *args], check=True,
+            capture_output=True, text=text,
+        )
+    except subprocess.CalledProcessError as exc:
+        raise AuthorizationError(f"Git evidence command failed: {' '.join(args)}") from exc
+    return result.stdout
+
+
+def _record_contains_forbidden_commit(record: Any, forbidden: set[str]) -> bool:
+    if isinstance(record, dict):
+        return any(_record_contains_forbidden_commit(value, forbidden) for value in record.values())
+    if isinstance(record, list):
+        return any(_record_contains_forbidden_commit(value, forbidden) for value in record)
+    return isinstance(record, str) and record in forbidden
+
+
+def verify_non_circular_merge(
+    repository: Path,
+    record_path: Path,
+    record: dict[str, Any],
+    expected_record_sha256: str,
+    expected_dispatch_commit: str,
+    observed_dispatch_commit: str,
+    observed_first_parent: str,
+    observed_default_branch_head: str,
+) -> dict[str, str]:
+    """Verify B -> (B,H) -> M without requiring M inside the record."""
+    for value, label in (
+        (expected_dispatch_commit, "expected dispatch commit"),
+        (observed_dispatch_commit, "observed dispatch commit"),
+        (observed_first_parent, "observed first parent"),
+        (observed_default_branch_head, "observed default-branch head"),
+    ):
+        if not isinstance(value, str) or not GIT_SHA_RE.fullmatch(value):
+            raise AuthorizationError(f"{label} is missing or malformed")
+    if expected_dispatch_commit != observed_dispatch_commit:
+        raise AuthorizationError("expected dispatch commit differs from observed dispatch commit")
+    if observed_default_branch_head != observed_dispatch_commit:
+        raise AuthorizationError("current default-branch head is stale or differs")
+    bindings = record.get("bindings")
+    if not isinstance(bindings, dict):
+        raise AuthorizationError("bindings are malformed")
+    authorization_base = bindings.get("authorization_base_main_commit")
+    if not isinstance(authorization_base, str) or not GIT_SHA_RE.fullmatch(authorization_base):
+        raise AuthorizationError("authorization base-main commit is malformed")
+    if authorization_base != observed_first_parent:
+        raise AuthorizationError("authorization base-main commit differs from observed first parent")
+    parent_line = str(_git(repository, "show", "-s", "--format=%P", observed_dispatch_commit)).strip()
+    parents = parent_line.split()
+    if len(parents) != 2:
+        raise AuthorizationError("dispatch commit is not an exact two-parent merge commit")
+    if parents[0] != observed_first_parent:
+        raise AuthorizationError("independently observed first parent differs from Git commit evidence")
+    second_parent = parents[1]
+    if _record_contains_forbidden_commit(record, {observed_dispatch_commit, second_parent}):
+        raise AuthorizationError("authorization record embeds its PR head or eventual merge commit")
+    raw = str(_git(
+        repository, "diff-tree", "--no-commit-id", "--raw", "-r", "--no-renames",
+        observed_first_parent, observed_dispatch_commit,
+    )).splitlines()
+    raw = [line for line in raw if line.strip()]
+    if len(raw) != 1:
+        raise AuthorizationError("first-parent delta does not contain exactly one path")
+    match = re.fullmatch(
+        r":([0-7]{6}) ([0-7]{6}) ([0-9a-f]+) ([0-9a-f]+) ([A-Z][0-9]*)\t(.+)",
+        raw[0],
+    )
+    if match is None:
+        raise AuthorizationError("first-parent raw delta is malformed")
+    old_mode, new_mode, old_oid, _new_oid, status, changed_path = match.groups()
+    if changed_path != FUTURE_RECORD_PATH or status != "A":
+        raise AuthorizationError("first-parent delta is not the exact authorization-record addition")
+    if old_mode != "000000" or set(old_oid) != {"0"}:
+        raise AuthorizationError("authorization-record path existed in the authorization base")
+    if new_mode != "100644":
+        raise AuthorizationError("authorization record is not a regular non-executable file")
+    expected_path = (repository / FUTURE_RECORD_PATH).resolve()
+    if record_path.resolve() != expected_path or not record_path.is_file() or record_path.is_symlink():
+        raise AuthorizationError("authorization record path or working-tree file type differs")
+    merged_bytes = _git(repository, "show", f"{observed_dispatch_commit}:{FUTURE_RECORD_PATH}", text=False)
+    if not isinstance(merged_bytes, bytes):
+        raise AuthorizationError("authorization record blob could not be read")
+    if sha256_bytes(merged_bytes) != expected_record_sha256 or merged_bytes != record_path.read_bytes():
+        raise AuthorizationError("authorization record blob or SHA-256 mismatch")
+    return {
+        "authorization_base_main_commit": authorization_base,
+        "dispatch_commit": observed_dispatch_commit,
+        "first_parent": parents[0],
+        "second_parent": second_parent,
+        "first_parent_delta": FUTURE_RECORD_PATH,
+    }
+
+
 def validate_record(
     record_path: Path, schema_path: Path, repository_root: Path,
     expected_record_sha256: str, expected_text_sha256: str, expected_authorization_id: str,
     observed_repository: str, observed_actor_login: str, observed_actor_id: int,
-    observed_main_commit: str, observed_workflow_sha256: str, run_attempt: int,
+    expected_dispatch_commit: str, observed_dispatch_commit: str,
+    observed_first_parent: str, observed_default_branch_head: str,
+    observed_workflow_sha256: str, run_attempt: int,
     now: datetime, runs: dict[str, Any], artifacts: dict[str, Any], current_run_id: int,
     output_path_exists: bool | None = None,
 ) -> dict[str, Any]:
@@ -195,14 +295,20 @@ def validate_record(
     bindings = record.get("bindings")
     if not isinstance(bindings, dict):
         raise AuthorizationError("bindings are malformed")
-    expected_binding_keys = {"main_commit", "workflow_path", "workflow_sha256", "carrier_commit", *HASH_BINDINGS}
+    expected_binding_keys = {"authorization_base_main_commit", "workflow_path", "workflow_sha256", "carrier_commit", *HASH_BINDINGS}
     _require_exact_keys(bindings, expected_binding_keys, "bindings")
-    if bindings.get("main_commit") != observed_main_commit or not re.fullmatch(r"[0-9a-f]{40}", observed_main_commit):
-        raise AuthorizationError("main commit mismatch")
+    authorization_base = bindings.get("authorization_base_main_commit")
+    if not isinstance(authorization_base, str) or not GIT_SHA_RE.fullmatch(authorization_base):
+        raise AuthorizationError("authorization base-main commit mismatch")
     if bindings.get("workflow_path") != WORKFLOW_PATH or bindings.get("workflow_sha256") != observed_workflow_sha256:
         raise AuthorizationError("workflow identity mismatch")
     if bindings.get("carrier_commit") != "a8ebc64eddf8ace3a48e25af57ee0d6658d0663a":
         raise AuthorizationError("carrier identity mismatch")
+    graph = verify_non_circular_merge(
+        repository_root, record_path, record, expected_record_sha256,
+        expected_dispatch_commit, observed_dispatch_commit, observed_first_parent,
+        observed_default_branch_head,
+    )
     for key, expected in HASH_BINDINGS.items():
         if bindings.get(key) != expected:
             raise AuthorizationError(f"package identity mismatch: {key}")
@@ -234,7 +340,7 @@ def validate_record(
         observed_output_exists = output_path_exists
     if observed_output_exists:
         raise AuthorizationError("no-overwrite output path already exists")
-    tracked = __import__("subprocess").run(["git", "-C", str(repository_root), "ls-files"], check=True, capture_output=True, text=True).stdout.splitlines()
+    tracked = subprocess.run(["git", "-C", str(repository_root), "ls-files"], check=True, capture_output=True, text=True).stdout.splitlines()
     if any("shared_pa_statcast_v2_confirmation_2023-06-28_v1" in item or "response-attempt-01" in item for item in tracked):
         raise AuthorizationError("June 28 response is no longer unseen")
     validity = record.get("validity")
@@ -265,7 +371,11 @@ def validate_record(
         "canonical_human_authorization_text_sha256": observed_text_sha,
         "authorized_actor_login": observed_actor_login,
         "authorized_actor_numeric_user_id": observed_actor_id,
-        "main_commit": observed_main_commit,
+        "authorization_base_main_commit": graph["authorization_base_main_commit"],
+        "dispatch_commit": graph["dispatch_commit"],
+        "observed_first_parent": graph["first_parent"],
+        "observed_second_parent": graph["second_parent"],
+        "first_parent_delta": graph["first_parent_delta"],
         "workflow_sha256": observed_workflow_sha256,
         "valid_at_utc": now.astimezone(timezone.utc).isoformat().replace("+00:00", "Z"),
         "terminal_artifact_name": deterministic_artifact_name(authorization_id),
@@ -284,7 +394,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--expected-authorization-id", required=True)
     parser.add_argument("--observed-repository", required=True)
     parser.add_argument("--observed-actor-json", type=Path, required=True)
-    parser.add_argument("--observed-main-commit", required=True)
+    parser.add_argument("--expected-dispatch-commit", required=True)
+    parser.add_argument("--observed-dispatch-commit", required=True)
+    parser.add_argument("--observed-first-parent", required=True)
+    parser.add_argument("--observed-default-branch-head", required=True)
     parser.add_argument("--observed-workflow-sha256", required=True)
     parser.add_argument("--run-attempt", type=int, required=True)
     parser.add_argument("--current-run-id", type=int, required=True)
@@ -297,7 +410,9 @@ def main(argv: list[str] | None = None) -> int:
         args.record.resolve(), args.schema.resolve(), args.repository_root.resolve(),
         args.expected_record_sha256, args.expected_text_sha256, args.expected_authorization_id,
         args.observed_repository, str(actor.get("login", "")), int(actor.get("id", -1)),
-        args.observed_main_commit, args.observed_workflow_sha256, args.run_attempt,
+        args.expected_dispatch_commit, args.observed_dispatch_commit,
+        args.observed_first_parent, args.observed_default_branch_head,
+        args.observed_workflow_sha256, args.run_attempt,
         datetime.now(timezone.utc), load_json(args.runs_json), load_json(args.artifacts_json), args.current_run_id,
     )
     args.receipt.parent.mkdir(parents=True, exist_ok=True)
