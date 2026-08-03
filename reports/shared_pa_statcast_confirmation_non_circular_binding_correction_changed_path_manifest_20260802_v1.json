@@ -20,7 +20,7 @@
     "reports/shared_pa_statcast_confirmation_non_circular_binding_correction_20260802_v1.json": "fc8195072293a0711fa2735568821e8e81894d3fd47a8c03aba7a01cdc1960ba",
     "scripts/validate_shared_pa_statcast_confirmation_human_execution_authorization_v1.py": "4849a070de41a4a7cc9d36764f62d67a3f70ed03fa509342c1953457f6755063",
     "tests/test_shared_pa_statcast_confirmation_execution_preflight.py": "5f0072b2bdffdb60cd7721e76516a5d0c88bec6fbaacd1c2fd3e4547a882b489",
-    "tests/test_shared_pa_statcast_confirmation_human_execution_authorization_gate.py": "d200e30a8df8dab1f0229a7842ebcc10c9c8806212443954d67d630c9d3570b3"
+    "tests/test_shared_pa_statcast_confirmation_human_execution_authorization_gate.py": "4386013b761f07b8a01c5ec94c4cde2adc6dada2cf6cbb742871e4f1adc49d21"
   },
   "future_executable_authorization_record_path": "config/shared_pa_statcast_confirmation_attempt_01_human_execution_authorization_v1.json",
   "future_executable_authorization_record_present": false,

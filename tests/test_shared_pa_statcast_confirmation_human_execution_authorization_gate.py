@@ -156,7 +156,10 @@ def build_graph(
         run_git(repository, "update-ref", "refs/heads/main", merge)
         run_git(repository, "reset", "--hard", merge)
     else:
-        run_git(repository, "switch", "main")
+        # Mode-only and symlink fixtures intentionally leave the checked-out
+        # entry different from the committed index on some platforms. Discard
+        # only that synthetic fixture state before constructing the merge.
+        run_git(repository, "switch", "--discard-changes", "main")
         run_git(repository, "merge", "--no-ff", "authorization-record", "-m", "merge authorization record")
         merge = run_git(repository, "rev-parse", "HEAD")
     if not delete_record and (not record_path.is_file() or record_path.is_symlink()):
