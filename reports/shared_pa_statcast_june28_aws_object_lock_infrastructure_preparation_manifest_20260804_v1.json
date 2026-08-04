@@ -1,0 +1,65 @@
+{
+  "schema_version": "shared-pa-statcast-june28-aws-object-lock-infrastructure-preparation-manifest-20260804-v1",
+  "status": "AWS_OBJECT_LOCK_INFRASTRUCTURE_EXECUTION_PACKAGE_PREPARED_NOT_AUTHORIZED_NOT_EXECUTED",
+  "repository": "NickNicky19/baseball-predictor",
+  "base_commit": "aa36ab090c563c53ea3dcf5781fedb9ff8652df7",
+  "changed_paths": [
+    "config/shared_pa_statcast_june28_aws_object_lock_infrastructure_execution_authority_v1.json",
+    "reports/shared_pa_statcast_june28_aws_object_lock_infrastructure_changed_path_manifest_20260804_v1.json",
+    "reports/shared_pa_statcast_june28_aws_object_lock_infrastructure_plan_20260804_v1.json",
+    "reports/shared_pa_statcast_june28_aws_object_lock_infrastructure_preparation_manifest_20260804_v1.json",
+    "scripts/execute_shared_pa_statcast_june28_aws_object_lock_infrastructure_v1.py",
+    "scripts/validate_shared_pa_statcast_june28_aws_object_lock_infrastructure_v1.py",
+    "tests/test_shared_pa_statcast_june28_aws_object_lock_infrastructure_v1.py"
+  ],
+  "canonical_changed_path_list_sha256": "e201bee0c08197243e06c9e6ad3b1e48cab1970a0f9121f0bb03132ee3eb081e",
+  "non_self_file_sha256": {
+    "config/shared_pa_statcast_june28_aws_object_lock_infrastructure_execution_authority_v1.json": "23b3d3cb2efd4949bf452f8273063d72f4939ea5f7f038304be79d66f85fa1c2",
+    "reports/shared_pa_statcast_june28_aws_object_lock_infrastructure_changed_path_manifest_20260804_v1.json": "5c635fcf2f109bfcab168439542ca1cc485244b4ffed5ce3fd56037962a6adf6",
+    "reports/shared_pa_statcast_june28_aws_object_lock_infrastructure_plan_20260804_v1.json": "ed66e8fba03ec496a0cb05cd124553f37abb46f4f1868d5cacd0e3a7eb6e6724",
+    "scripts/execute_shared_pa_statcast_june28_aws_object_lock_infrastructure_v1.py": "a95bc0e90fccc68c5f7ccb9fdf3506fa95696c25283c4ca7221b3cae9436420b",
+    "scripts/validate_shared_pa_statcast_june28_aws_object_lock_infrastructure_v1.py": "046aa3a183cd2b1fc42d7c9dc095f5e9b9a04363dfc01675fc916fc563e3a2b0",
+    "tests/test_shared_pa_statcast_june28_aws_object_lock_infrastructure_v1.py": "0486e8147ec9999bb6ce732816419d2965a51f1ebfec765c41eff335420fccc4"
+  },
+  "live_read_only_preparation_state": {
+    "account_id": "723322847536",
+    "administrator": "arn:aws:iam::723322847536:user/mlb-retention-admin",
+    "administrator_non_root": true,
+    "administrator_mfa_registered": true,
+    "audit_user": "arn:aws:iam::723322847536:user/mlb-retention-audit",
+    "audit_user_mfa_registered": true,
+    "s3_bucket_count": 0,
+    "planned_bucket_absent": true,
+    "planned_roles_absent": true,
+    "planned_local_policies_absent": true,
+    "planned_cloudtrail_lake_store_absent": true
+  },
+  "plan_copy": {
+    "temporary_source": "C:/tmp/june28-object-lock-plan/shared_pa_statcast_june28_aws_object_lock_infrastructure_plan_20260804_v1.json",
+    "repository_path": "reports/shared_pa_statcast_june28_aws_object_lock_infrastructure_plan_20260804_v1.json",
+    "byte_count": 26523,
+    "sha256": "ed66e8fba03ec496a0cb05cd124553f37abb46f4f1868d5cacd0e3a7eb6e6724",
+    "byte_equality_verified": true
+  },
+  "execution_boundary": {
+    "default_mode": "VALIDATE_ONLY_NO_MUTATION",
+    "separate_short_lived_authorization_required": true,
+    "infrastructure_only": true,
+    "evidence_upload_authorized": false,
+    "writer_or_verifier_assumption_authorized": false,
+    "bootstrap_removal_authorized": false
+  },
+  "scientific_state": {
+    "workflow_run_30846344146_rerun": false,
+    "confirmation_attempt_1": "CONSUMED",
+    "total_real_statcast_requests": 4,
+    "source_contract_v2_promoted": false,
+    "source_qualified": false,
+    "non_promotable": true,
+    "independent_reproduction_completed": false,
+    "full_capture_or_model_work_completed": false
+  },
+  "aws_mutation_performed": false,
+  "evidence_uploaded": false,
+  "source_request_performed": false
+}
