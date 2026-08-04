@@ -8477,3 +8477,16 @@ mlb_game_pk,player_id,player_name,game_date,category,predicted_value,actual_valu
 824977,678022,Jack Perkins,2026-07-27,strikeouts,3.97,4.0,0.62,8c7eed9bb0c3,,,,,,,,,4,5.2,3,0
 823195,687075,Brandon Sproat,2026-07-27,strikeouts,5.21,5.0,0.72,8c7eed9bb0c3,,,,,,,,,5,6.0,3,1
 823195,641816,Tyler Mahle,2026-07-27,strikeouts,4.89,3.0,0.72,8c7eed9bb0c3,,,,,,,,,3,6.0,2,0
+823431,605400,Aaron Nola,2026-08-03,strikeouts,5.2,5.0,0.72,8c7eed9bb0c3,,,,,,,,,5,6.0,2,2
+823520,700241,Michael McGreevy,2026-08-03,strikeouts,4.28,5.0,0.72,8c7eed9bb0c3,,,,,,,,,5,4.33,1,1
+823520,693645,Cam Schlittler,2026-08-03,strikeouts,6.68,6.0,0.72,8c7eed9bb0c3,,,,,,,,,6,3.0,5,1
+823757,696149,Bubba Chandler,2026-08-03,strikeouts,4.77,5.0,0.72,8c7eed9bb0c3,,,,,,,,,5,5.67,4,0
+823757,687075,Brandon Sproat,2026-08-03,strikeouts,5.16,4.0,0.72,8c7eed9bb0c3,,,,,,,,,4,3.0,2,0
+824647,571510,Matthew Boyd,2026-08-03,strikeouts,5.11,3.0,0.72,8c7eed9bb0c3,,,,,,,,,3,6.67,1,2
+822867,657277,Logan Webb,2026-08-03,strikeouts,5.36,8.0,0.72,8c7eed9bb0c3,,,,,,,,,8,6.0,1,0
+824160,669456,Shane Bieber,2026-08-03,strikeouts,3.62,6.0,0.62,8c7eed9bb0c3,,,,,,,,,6,5.67,2,0
+824160,664299,Cristian Javier,2026-08-03,strikeouts,3.42,2.0,0.62,8c7eed9bb0c3,,,,,,,,,2,6.0,0,1
+824324,693855,Ian Seymour,2026-08-03,strikeouts,2.83,9.0,0.62,8c7eed9bb0c3,,,,,,,,,9,6.0,0,1
+824324,547179,Michael Lorenzen,2026-08-03,strikeouts,4.04,0.0,0.72,8c7eed9bb0c3,,,,,,,,,0,3.0,3,1
+825095,650633,Michael King,2026-08-03,strikeouts,5.16,5.0,0.72,8c7eed9bb0c3,,,,,,,,,5,5.0,4,1
+825095,694297,Brandon Pfaadt,2026-08-03,strikeouts,2.78,3.0,0.72,8c7eed9bb0c3,,,,,,,,,3,6.67,1,0
