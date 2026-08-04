@@ -1,564 +1,273 @@
 {
-  "schema_version": "shared-pa-statcast-june28-aws-object-lock-infrastructure-plan-20260804-v1",
-  "status": "PREPARED_READ_ONLY_NOT_AUTHORIZED_NOT_APPLIED",
+  "schema_version": "shared-pa-statcast-june28-aws-object-lock-infrastructure-plan-20260804-v2",
+  "status": "CORRECTED_PREPARED_INACTIVE_NOT_AUTHORIZED_NOT_EXECUTED",
   "preparation_is_aws_authorization": false,
   "aws_write_authorized": false,
   "upload_authorized": false,
-  "retention_lock_authorized": false,
+  "evidence_retention_authorized": false,
   "deletion_authorized": false,
-  "repository_mutation_authorized": false,
+  "repository": "NickNicky19/baseball-predictor",
+  "preparation_base_commit": "0eb830742ef4f5349cab7c1f9b225b912bef0c70",
   "account": "723322847536",
   "partition": "aws",
   "region": "us-east-1",
-  "region_basis": [
-    "configured region for mlb-retention-admin",
-    "enabled-by-default commercial partition region",
-    "account is not enrolled in AWS Organizations and no SCP was visible",
-    "no existing bucket or CloudTrail coverage creates a competing regional dependency"
-  ],
-  "bucket": "mlb-statcast-evidence-lock-20260803-8868838408-v1",
-  "bucket_state_at_assessment": "ABSENT_HEAD_BUCKET_404_AND_LIST_BUCKETS_EMPTY_NAME_NOT_RESERVED",
-  "prefix": "mlb-source-evidence/statcast/v2-confirmation/date-2023-06-28/attempt-01/run-30846344146/artifact-8868838408/",
-  "object_keys": {
+  "evidence_bucket": "mlb-statcast-evidence-lock-20260803-8868838408-v1",
+  "audit_bucket": "mlb-statcast-audit-lock-723322847536-us-east-1-v1",
+  "evidence_prefix": "mlb-source-evidence/statcast/v2-confirmation/date-2023-06-28/attempt-01/run-30846344146/artifact-8868838408/",
+  "audit_prefix": "mlb-statcast-retention-audit/v1",
+  "evidence_keys": {
     "artifact_zip": "mlb-source-evidence/statcast/v2-confirmation/date-2023-06-28/attempt-01/run-30846344146/artifact-8868838408/shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01.zip",
-    "custody_manifest": "mlb-source-evidence/statcast/v2-confirmation/date-2023-06-28/attempt-01/run-30846344146/artifact-8868838408/shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01.custody-v1.json",
-    "maximum_upload_count": 2,
-    "third_object_allowed": false,
-    "alternative_key_allowed": false
+    "custody_manifest": "mlb-source-evidence/statcast/v2-confirmation/date-2023-06-28/attempt-01/run-30846344146/artifact-8868838408/shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01.custody-v1.json"
   },
-  "evidence": {
+  "evidence_identity": {
     "workflow_run": 30846344146,
     "run_attempt": 1,
     "artifact_id": 8868838408,
-    "artifact_name": "shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01-auth-june28-a1-209b664-b96dbba2067789d13c4033af438e87a1",
     "zip_bytes": 1005357,
     "zip_sha256": "4c77f6d9572d8bc21ab79a06b0d8b77e2a04231375de000ee9e37dc7a2b530b5",
     "zip_checksum_sha256_base64": "THf22Vcti8Iat5oGsNi3fioEIxN13gAO6eN9x6K1MLU=",
-    "member_count": 19,
+    "inventory_count": 19,
     "raw_response_bytes": 2928702,
-    "raw_response_sha256": "4b8a99e4a4130dcb7fb409f0637a25054f93d536bb57a02051b6d1003716f237",
-    "original_zip_must_remain_byte_identical": true,
-    "repackage_wrap_normalize_or_transform_allowed": false
+    "raw_response_sha256": "4b8a99e4a4130dcb7fb409f0637a25054f93d536bb57a02051b6d1003716f237"
   },
-  "retention": {
+  "proposed_evidence_retention": {
     "mode": "COMPLIANCE",
     "retain_until_utc": "2033-08-03T00:00:00Z",
-    "status": "PROPOSAL_ONLY_REQUIRES_SEPARATE_EXPLICIT_HUMAN_AUTHORIZATION",
-    "bucket_default_retention": null,
-    "object_level_retention_required": true,
-    "consequence": "A protected object version cannot be deleted and its retention cannot be shortened before the retain-until timestamp, including by the root user. An extension remains possible only through a separately authorized action."
+    "applied_by_infrastructure_mode": false,
+    "authorized_by_this_plan": false
   },
   "principals": {
     "bootstrap_administrator": "arn:aws:iam::723322847536:user/mlb-retention-admin",
     "audit_user": "arn:aws:iam::723322847536:user/mlb-retention-audit",
     "infrastructure_role": "arn:aws:iam::723322847536:role/mlb-retention/MlbStatcastJune28RetentionInfrastructureV1",
     "writer_role": "arn:aws:iam::723322847536:role/mlb-retention/MlbStatcastJune28RetentionWriterV1",
-    "verifier_role": "arn:aws:iam::723322847536:role/mlb-retention/MlbStatcastJune28RetentionVerifierV1",
-    "cloudtrail_event_data_store_name": "mlb-statcast-june28-retention-audit-v1"
+    "verifier_role": "arn:aws:iam::723322847536:role/mlb-retention/MlbStatcastJune28RetentionVerifierV1"
   },
-  "identity_separation": {
-    "bootstrap_user_may_upload": false,
-    "bootstrap_user_may_verify": false,
-    "writer_may_change_bucket_configuration": false,
-    "writer_may_delete_or_bypass_retention": false,
-    "writer_may_read_back_object_versions": false,
-    "verifier_may_upload_or_mutate": false,
-    "audit_user_may_mutate": false,
-    "root_required": false,
-    "bootstrap_group_cleanup_requires_separate_authorization": true
+  "audit_user_preexisting_policy_baseline": {
+    "inline_policies": [],
+    "attached_policy_arns": [
+      "arn:aws:iam::aws:policy/IAMUserChangePassword",
+      "arn:aws:iam::aws:policy/SignInLocalDevelopmentAccess"
+    ],
+    "retention_infrastructure_mutation_allowed": false
+  },
+  "execution_client": {
+    "kind": "AWS_CLI_V2_PINNED",
+    "absolute_path": "C:\\Users\\nicho\\AppData\\Local\\Programs\\Amazon\\AWSCLIV2\\aws.exe",
+    "version_prefix": "aws-cli/2.36.14",
+    "profile": "mlb-retention-admin",
+    "output": "json",
+    "encoding": "utf-8",
+    "provider_metadata_capture": "safe parsing of --debug response headers; credential and signing lines are discarded"
+  },
+  "current_session_mfa_proof": {
+    "credential_source": "temporary AWS Login credentials from exact named profile",
+    "binding": "match the current temporary AccessKeyId internally to CloudTrail userIdentity.accessKeyId and require mfaAuthenticated=true",
+    "access_key_id_persisted_or_reported": false,
+    "secret_or_session_token_persisted_or_reported": false,
+    "historical_username_only_match_allowed": false
+  },
+  "authorization_contract": {
+    "schema_path": "contracts/schemas/shared_pa_statcast_june28_aws_object_lock_infrastructure_execution_authorization_v1.schema.json",
+    "active_record_path": "config/shared_pa_statcast_june28_aws_object_lock_infrastructure_execution_authorization_v1.json",
+    "maximum_active_seconds": 3600,
+    "embedded_commit": "B_ONLY",
+    "external_inputs": [
+      "expected_execution_commit_sha=M",
+      "authorization_record_sha256",
+      "canonical_human_authorization_text_sha256"
+    ],
+    "forbidden_embedded_identities": ["H", "M", "record_sha256", "git_blob", "tree", "self_derived_identity"],
+    "single_use": true
+  },
+  "atomic_consumption": {
+    "operation": "iam:CreateRole",
+    "role": "arn:aws:iam::723322847536:role/mlb-retention/MlbStatcastJune28RetentionInfrastructureV1",
+    "must_be_first_mutation": true,
+    "must_be_absent": true,
+    "create_time_tags": [
+      "AuthorizationId",
+      "AuthorizationRecordSha256",
+      "HumanAuthorizationSha256",
+      "ExecutionCommit",
+      "InfrastructurePlanSha256",
+      "ExecutorSha256"
+    ],
+    "existing_role_is_reused": false,
+    "second_execution_fails": true,
+    "automatic_rerun_after_consumption": false,
+    "recovery_requires_separate_human_authorization": true
   },
   "trust_policies": {
     "infrastructure_role": {
       "Version": "2012-10-17",
-      "Statement": [
-        {
-          "Sid": "AdminMfaOnly",
-          "Effect": "Allow",
-          "Principal": {"AWS": "arn:aws:iam::723322847536:user/mlb-retention-admin"},
-          "Action": "sts:AssumeRole",
-          "Condition": {"Bool": {"aws:MultiFactorAuthPresent": "true"}}
-        }
-      ]
+      "Statement": [{"Sid": "AdminMfaOnly", "Effect": "Allow", "Principal": {"AWS": "arn:aws:iam::723322847536:user/mlb-retention-admin"}, "Action": "sts:AssumeRole", "Condition": {"Bool": {"aws:MultiFactorAuthPresent": "true"}}}]
     },
     "writer_role": {
       "Version": "2012-10-17",
-      "Statement": [
-        {
-          "Sid": "AdminMfaOnlyForOneTimeWrite",
-          "Effect": "Allow",
-          "Principal": {"AWS": "arn:aws:iam::723322847536:user/mlb-retention-admin"},
-          "Action": "sts:AssumeRole",
-          "Condition": {"Bool": {"aws:MultiFactorAuthPresent": "true"}}
-        }
-      ]
+      "Statement": [{"Sid": "AdminMfaOnlyForLaterEvidenceWrite", "Effect": "Allow", "Principal": {"AWS": "arn:aws:iam::723322847536:user/mlb-retention-admin"}, "Action": "sts:AssumeRole", "Condition": {"Bool": {"aws:MultiFactorAuthPresent": "true"}}}]
     },
     "verifier_role": {
       "Version": "2012-10-17",
-      "Statement": [
-        {
-          "Sid": "AuditUserOnly",
-          "Effect": "Allow",
-          "Principal": {"AWS": "arn:aws:iam::723322847536:user/mlb-retention-audit"},
-          "Action": "sts:AssumeRole"
-        }
-      ]
+      "Statement": [{"Sid": "AuditUserMfaOnly", "Effect": "Allow", "Principal": {"AWS": "arn:aws:iam::723322847536:user/mlb-retention-audit"}, "Action": "sts:AssumeRole", "Condition": {"Bool": {"aws:MultiFactorAuthPresent": "true"}}}]
     }
   },
   "identity_policies": {
     "infrastructure_role": {
       "Version": "2012-10-17",
       "Statement": [
-        {
-          "Sid": "CreateDedicatedLockedBucket",
-          "Effect": "Allow",
-          "Action": "s3:CreateBucket",
-          "Resource": "arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1"
-        },
-        {
-          "Sid": "ConfigureAndInspectDedicatedBucket",
-          "Effect": "Allow",
-          "Action": [
-            "s3:GetBucketLocation",
-            "s3:GetBucketVersioning",
-            "s3:PutBucketVersioning",
-            "s3:GetBucketObjectLockConfiguration",
-            "s3:PutBucketObjectLockConfiguration",
-            "s3:GetBucketOwnershipControls",
-            "s3:PutBucketOwnershipControls",
-            "s3:GetBucketPublicAccessBlock",
-            "s3:PutBucketPublicAccessBlock",
-            "s3:GetEncryptionConfiguration",
-            "s3:PutEncryptionConfiguration",
-            "s3:GetBucketPolicy",
-            "s3:PutBucketPolicy",
-            "s3:GetBucketPolicyStatus",
-            "s3:GetLifecycleConfiguration",
-            "s3:ListBucketVersions"
-          ],
-          "Resource": "arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1"
-        },
-        {
-          "Sid": "CreateAndInspectExactAuditStore",
-          "Effect": "Allow",
-          "Action": [
-            "cloudtrail:CreateEventDataStore",
-            "cloudtrail:GetEventDataStore",
-            "cloudtrail:ListEventDataStores",
-            "cloudtrail:StartEventDataStoreIngestion"
-          ],
-          "Resource": "*"
-        },
-        {
-          "Sid": "DenyEvidenceObjectsAndDestructiveControl",
-          "Effect": "Deny",
-          "Action": [
-            "s3:PutObject",
-            "s3:DeleteObject",
-            "s3:DeleteObjectVersion",
-            "s3:PutObjectRetention",
-            "s3:PutObjectLegalHold",
-            "s3:BypassGovernanceRetention",
-            "s3:DeleteBucket",
-            "s3:DeleteBucketPolicy",
-            "cloudtrail:DeleteEventDataStore",
-            "cloudtrail:StopEventDataStoreIngestion"
-          ],
-          "Resource": "*"
-        }
+        {"Sid": "ConfigureExactBuckets", "Effect": "Allow", "Action": ["s3:CreateBucket", "s3:GetBucketLocation", "s3:GetBucketVersioning", "s3:PutBucketVersioning", "s3:GetBucketObjectLockConfiguration", "s3:PutBucketObjectLockConfiguration", "s3:GetBucketOwnershipControls", "s3:PutBucketOwnershipControls", "s3:GetBucketPublicAccessBlock", "s3:PutBucketPublicAccessBlock", "s3:GetEncryptionConfiguration", "s3:PutEncryptionConfiguration", "s3:GetBucketPolicy", "s3:PutBucketPolicy", "s3:GetBucketPolicyStatus", "s3:GetLifecycleConfiguration", "s3:ListBucket", "s3:ListBucketVersions", "s3:ListBucketMultipartUploads"], "Resource": ["arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1", "arn:aws:s3:::mlb-statcast-audit-lock-723322847536-us-east-1-v1"]},
+        {"Sid": "VerifyRetainedAuditObjectVersions", "Effect": "Allow", "Action": ["s3:GetObjectRetention"], "Resource": "arn:aws:s3:::mlb-statcast-audit-lock-723322847536-us-east-1-v1/mlb-statcast-retention-audit/v1/AWSLogs/723322847536/*"},
+        {"Sid": "ConfigureExactStandardTrail", "Effect": "Allow", "Action": ["cloudtrail:CreateTrail", "cloudtrail:GetTrail", "cloudtrail:GetTrailStatus", "cloudtrail:PutEventSelectors", "cloudtrail:GetEventSelectors", "cloudtrail:StartLogging", "cloudtrail:ListTrails"], "Resource": "arn:aws:cloudtrail:us-east-1:723322847536:trail/mlb-statcast-june28-retention-audit-v1"},
+        {"Sid": "DenyEvidenceAndDestructiveActions", "Effect": "Deny", "Action": ["s3:PutObject", "s3:AbortMultipartUpload", "s3:PutObjectRetention", "s3:PutObjectLegalHold", "s3:DeleteObject", "s3:DeleteObjectVersion", "s3:BypassGovernanceRetention", "s3:DeleteBucket", "cloudtrail:DeleteTrail", "cloudtrail:StopLogging"], "Resource": "*"}
       ]
     },
     "writer_role": {
       "Version": "2012-10-17",
       "Statement": [
-        {
-          "Sid": "InspectLockedBucketAndExactPrefix",
-          "Effect": "Allow",
-          "Action": [
-            "s3:GetBucketLocation",
-            "s3:GetBucketVersioning",
-            "s3:GetBucketObjectLockConfiguration",
-            "s3:GetBucketOwnershipControls",
-            "s3:GetBucketPublicAccessBlock",
-            "s3:GetEncryptionConfiguration",
-            "s3:GetBucketPolicyStatus",
-            "s3:ListBucketVersions"
-          ],
-          "Resource": "arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1",
-          "Condition": {
-            "StringLikeIfExists": {
-              "s3:prefix": [
-                "mlb-source-evidence/statcast/v2-confirmation/date-2023-06-28/attempt-01/run-30846344146/artifact-8868838408/",
-                "mlb-source-evidence/statcast/v2-confirmation/date-2023-06-28/attempt-01/run-30846344146/artifact-8868838408/*"
-              ]
-            }
-          }
-        },
-        {
-          "Sid": "CreateExactlyTwoComplianceObjects",
-          "Effect": "Allow",
-          "Action": ["s3:PutObject", "s3:PutObjectRetention"],
-          "Resource": [
-            "arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1/mlb-source-evidence/statcast/v2-confirmation/date-2023-06-28/attempt-01/run-30846344146/artifact-8868838408/shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01.zip",
-            "arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1/mlb-source-evidence/statcast/v2-confirmation/date-2023-06-28/attempt-01/run-30846344146/artifact-8868838408/shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01.custody-v1.json"
-          ],
-          "Condition": {
-            "StringEquals": {
-              "s3:x-amz-server-side-encryption": "AES256",
-              "s3:object-lock-mode": "COMPLIANCE"
-            },
-            "DateEquals": {
-              "s3:object-lock-retain-until-date": "2033-08-03T00:00:00Z"
-            }
-          }
-        },
-        {
-          "Sid": "DenyReadBackMutationAndRetentionBypass",
-          "Effect": "Deny",
-          "Action": [
-            "s3:GetObject",
-            "s3:GetObjectVersion",
-            "s3:DeleteObject",
-            "s3:DeleteObjectVersion",
-            "s3:PutObjectLegalHold",
-            "s3:BypassGovernanceRetention",
-            "s3:PutBucketVersioning",
-            "s3:PutBucketObjectLockConfiguration",
-            "s3:PutBucketOwnershipControls",
-            "s3:PutBucketPublicAccessBlock",
-            "s3:PutEncryptionConfiguration",
-            "s3:PutBucketPolicy",
-            "s3:DeleteBucketPolicy",
-            "s3:DeleteBucket"
-          ],
-          "Resource": "*"
-        }
+        {"Sid": "FutureCreateOnlyTwoEvidenceObjects", "Effect": "Allow", "Action": ["s3:PutObject", "s3:PutObjectRetention"], "Resource": ["arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1/mlb-source-evidence/statcast/v2-confirmation/date-2023-06-28/attempt-01/run-30846344146/artifact-8868838408/shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01.zip", "arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1/mlb-source-evidence/statcast/v2-confirmation/date-2023-06-28/attempt-01/run-30846344146/artifact-8868838408/shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01.custody-v1.json"], "Condition": {"StringEquals": {"s3:x-amz-server-side-encryption": "AES256", "s3:object-lock-mode": "COMPLIANCE"}, "DateEquals": {"s3:object-lock-retain-until-date": "2033-08-03T00:00:00Z"}}},
+        {"Sid": "DenyInfrastructureReadAndDestruction", "Effect": "Deny", "Action": ["s3:GetObject*", "s3:Delete*", "s3:PutBucket*", "s3:CreateBucket", "s3:PutObjectLegalHold", "s3:BypassGovernanceRetention", "cloudtrail:*", "iam:*"], "Resource": "*"}
       ]
     },
     "verifier_role": {
       "Version": "2012-10-17",
       "Statement": [
-        {
-          "Sid": "InspectDedicatedBucket",
-          "Effect": "Allow",
-          "Action": [
-            "s3:GetBucketLocation",
-            "s3:GetBucketVersioning",
-            "s3:GetBucketObjectLockConfiguration",
-            "s3:GetBucketOwnershipControls",
-            "s3:GetBucketPublicAccessBlock",
-            "s3:GetEncryptionConfiguration",
-            "s3:GetBucketPolicy",
-            "s3:GetBucketPolicyStatus",
-            "s3:GetLifecycleConfiguration",
-            "s3:ListBucketVersions"
-          ],
-          "Resource": "arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1"
-        },
-        {
-          "Sid": "ReadOnlyExactVersions",
-          "Effect": "Allow",
-          "Action": [
-            "s3:GetObjectVersion",
-            "s3:GetObjectVersionAttributes",
-            "s3:GetObjectRetention"
-          ],
-          "Resource": [
-            "arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1/mlb-source-evidence/statcast/v2-confirmation/date-2023-06-28/attempt-01/run-30846344146/artifact-8868838408/shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01.zip",
-            "arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1/mlb-source-evidence/statcast/v2-confirmation/date-2023-06-28/attempt-01/run-30846344146/artifact-8868838408/shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01.custody-v1.json"
-          ]
-        },
-        {
-          "Sid": "InspectExactAuditStore",
-          "Effect": "Allow",
-          "Action": [
-            "cloudtrail:GetEventDataStore",
-            "cloudtrail:ListEventDataStores",
-            "cloudtrail:StartQuery",
-            "cloudtrail:DescribeQuery",
-            "cloudtrail:GetQueryResults"
-          ],
-          "Resource": "*"
-        },
-        {
-          "Sid": "DenyAllMutation",
-          "Effect": "Deny",
-          "Action": ["s3:Put*", "s3:Delete*", "s3:BypassGovernanceRetention", "cloudtrail:Create*", "cloudtrail:Update*", "cloudtrail:Delete*", "cloudtrail:Put*", "cloudtrail:StartEventDataStoreIngestion", "cloudtrail:StopEventDataStoreIngestion"],
-          "Resource": "*"
-        }
+        {"Sid": "InspectInfrastructureAndExactEvidenceVersions", "Effect": "Allow", "Action": ["s3:GetBucket*", "s3:ListBucket", "s3:ListBucketVersions", "s3:GetObjectVersion", "s3:GetObjectVersionAttributes", "s3:GetObjectRetention", "cloudtrail:GetTrail", "cloudtrail:GetTrailStatus", "cloudtrail:GetEventSelectors"], "Resource": "*"},
+        {"Sid": "DenyAllMutation", "Effect": "Deny", "Action": ["s3:Put*", "s3:Delete*", "s3:Create*", "cloudtrail:Create*", "cloudtrail:Update*", "cloudtrail:Delete*", "cloudtrail:Put*", "cloudtrail:Start*", "cloudtrail:Stop*", "iam:*"], "Resource": "*"}
       ]
     },
     "audit_user": {
       "Version": "2012-10-17",
       "Statement": [
-        {
-          "Sid": "AssumeExactVerifierRole",
-          "Effect": "Allow",
-          "Action": "sts:AssumeRole",
-          "Resource": "arn:aws:iam::723322847536:role/mlb-retention/MlbStatcastJune28RetentionVerifierV1"
-        },
-        {
-          "Sid": "InspectExactRetentionIdentities",
-          "Effect": "Allow",
-          "Action": [
-            "iam:GetUser",
-            "iam:ListGroupsForUser",
-            "iam:ListAttachedUserPolicies",
-            "iam:ListUserPolicies",
-            "iam:GetRole",
-            "iam:ListAttachedRolePolicies",
-            "iam:ListRolePolicies",
-            "iam:GetRolePolicy",
-            "iam:GetPolicy",
-            "iam:GetPolicyVersion",
-            "iam:GetUserPolicy"
-          ],
-          "Resource": [
-            "arn:aws:iam::723322847536:user/mlb-retention-admin",
-            "arn:aws:iam::723322847536:user/mlb-retention-audit",
-            "arn:aws:iam::723322847536:role/mlb-retention/MlbStatcastJune28RetentionInfrastructureV1",
-            "arn:aws:iam::723322847536:role/mlb-retention/MlbStatcastJune28RetentionWriterV1",
-            "arn:aws:iam::723322847536:role/mlb-retention/MlbStatcastJune28RetentionVerifierV1"
-          ]
-        },
-        {
-          "Sid": "DenyAllMutation",
-          "Effect": "Deny",
-          "Action": ["iam:Create*", "iam:Update*", "iam:Delete*", "iam:Put*", "iam:Attach*", "iam:Detach*", "s3:Put*", "s3:Delete*", "s3:BypassGovernanceRetention", "cloudtrail:Create*", "cloudtrail:Update*", "cloudtrail:Delete*", "cloudtrail:Put*", "kms:Create*", "kms:Update*", "kms:Delete*", "kms:ScheduleKeyDeletion"],
-          "Resource": "*"
-        }
+        {"Sid": "AssumeExactVerifierRole", "Effect": "Allow", "Action": "sts:AssumeRole", "Resource": "arn:aws:iam::723322847536:role/mlb-retention/MlbStatcastJune28RetentionVerifierV1"},
+        {"Sid": "InspectExactRoles", "Effect": "Allow", "Action": ["iam:GetRole", "iam:ListRolePolicies", "iam:ListAttachedRolePolicies", "iam:GetRolePolicy", "iam:GetUserPolicy", "iam:ListUserPolicies", "iam:ListAttachedUserPolicies"], "Resource": "*"},
+        {"Sid": "DenyMutation", "Effect": "Deny", "Action": ["iam:Create*", "iam:Update*", "iam:Delete*", "iam:Put*", "iam:Attach*", "iam:Detach*", "s3:Put*", "s3:Delete*", "cloudtrail:Create*", "cloudtrail:Update*", "cloudtrail:Delete*", "cloudtrail:Put*", "cloudtrail:Start*", "cloudtrail:Stop*"], "Resource": "*"}
       ]
     }
   },
-  "bucket_policy": {
+  "evidence_bucket_policy": {
     "Version": "2012-10-17",
     "Statement": [
-      {
-        "Sid": "DenyInsecureTransport",
-        "Effect": "Deny",
-        "Principal": "*",
-        "Action": "s3:*",
-        "Resource": [
-          "arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1",
-          "arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1/*"
-        ],
-        "Condition": {"Bool": {"aws:SecureTransport": "false"}}
-      },
-      {
-        "Sid": "DenyObjectDeletionAndGovernanceBypass",
-        "Effect": "Deny",
-        "Principal": "*",
-        "Action": ["s3:DeleteObject", "s3:DeleteObjectVersion", "s3:BypassGovernanceRetention"],
-        "Resource": "arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1/*"
-      },
-      {
-        "Sid": "DenyObjectMutationExceptExactWriter",
-        "Effect": "Deny",
-        "Principal": "*",
-        "Action": ["s3:PutObject", "s3:PutObjectRetention", "s3:PutObjectLegalHold", "s3:PutObjectAcl"],
-        "Resource": "arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1/*",
-        "Condition": {"ArnNotEquals": {"aws:PrincipalArn": "arn:aws:iam::723322847536:role/mlb-retention/MlbStatcastJune28RetentionWriterV1"}}
-      },
-      {
-        "Sid": "DenyWriterOutsideExactTwoKeys",
-        "Effect": "Deny",
-        "Principal": {"AWS": "arn:aws:iam::723322847536:role/mlb-retention/MlbStatcastJune28RetentionWriterV1"},
-        "Action": ["s3:PutObject", "s3:PutObjectRetention", "s3:PutObjectLegalHold", "s3:PutObjectAcl"],
-        "NotResource": [
-          "arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1/mlb-source-evidence/statcast/v2-confirmation/date-2023-06-28/attempt-01/run-30846344146/artifact-8868838408/shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01.zip",
-          "arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1/mlb-source-evidence/statcast/v2-confirmation/date-2023-06-28/attempt-01/run-30846344146/artifact-8868838408/shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01.custody-v1.json"
-        ]
-      },
-      {
-        "Sid": "DenyWrongEncryption",
-        "Effect": "Deny",
-        "Principal": {"AWS": "arn:aws:iam::723322847536:role/mlb-retention/MlbStatcastJune28RetentionWriterV1"},
-        "Action": "s3:PutObject",
-        "Resource": [
-          "arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1/mlb-source-evidence/statcast/v2-confirmation/date-2023-06-28/attempt-01/run-30846344146/artifact-8868838408/shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01.zip",
-          "arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1/mlb-source-evidence/statcast/v2-confirmation/date-2023-06-28/attempt-01/run-30846344146/artifact-8868838408/shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01.custody-v1.json"
-        ],
-        "Condition": {"StringNotEquals": {"s3:x-amz-server-side-encryption": "AES256"}}
-      },
-      {
-        "Sid": "DenyWrongRetentionMode",
-        "Effect": "Deny",
-        "Principal": {"AWS": "arn:aws:iam::723322847536:role/mlb-retention/MlbStatcastJune28RetentionWriterV1"},
-        "Action": ["s3:PutObject", "s3:PutObjectRetention"],
-        "Resource": [
-          "arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1/mlb-source-evidence/statcast/v2-confirmation/date-2023-06-28/attempt-01/run-30846344146/artifact-8868838408/shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01.zip",
-          "arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1/mlb-source-evidence/statcast/v2-confirmation/date-2023-06-28/attempt-01/run-30846344146/artifact-8868838408/shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01.custody-v1.json"
-        ],
-        "Condition": {"StringNotEquals": {"s3:object-lock-mode": "COMPLIANCE"}}
-      },
-      {
-        "Sid": "DenyWrongRetainUntil",
-        "Effect": "Deny",
-        "Principal": {"AWS": "arn:aws:iam::723322847536:role/mlb-retention/MlbStatcastJune28RetentionWriterV1"},
-        "Action": ["s3:PutObject", "s3:PutObjectRetention"],
-        "Resource": [
-          "arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1/mlb-source-evidence/statcast/v2-confirmation/date-2023-06-28/attempt-01/run-30846344146/artifact-8868838408/shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01.zip",
-          "arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1/mlb-source-evidence/statcast/v2-confirmation/date-2023-06-28/attempt-01/run-30846344146/artifact-8868838408/shared-pa-statcast-v2-confirmation-2023-06-28-attempt-01.custody-v1.json"
-        ],
-        "Condition": {"DateNotEquals": {"s3:object-lock-retain-until-date": "2033-08-03T00:00:00Z"}}
-      },
-      {
-        "Sid": "DenyLegalHoldAndAcl",
-        "Effect": "Deny",
-        "Principal": "*",
-        "Action": ["s3:PutObjectLegalHold", "s3:PutObjectAcl"],
-        "Resource": "arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1/*"
-      }
+      {"Sid": "DenyInsecureTransport", "Effect": "Deny", "Principal": "*", "Action": "s3:*", "Resource": ["arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1", "arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1/*"], "Condition": {"Bool": {"aws:SecureTransport": "false"}}},
+      {"Sid": "DenyDeletionAndRetentionBypass", "Effect": "Deny", "Principal": "*", "Action": ["s3:DeleteObject", "s3:DeleteObjectVersion", "s3:BypassGovernanceRetention"], "Resource": "arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1/*"},
+      {"Sid": "DenyPublicAcl", "Effect": "Deny", "Principal": "*", "Action": ["s3:PutBucketAcl", "s3:PutObjectAcl"], "Resource": ["arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1", "arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1/*"]}
+    ]
+  },
+  "audit_bucket_policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {"Sid": "DenyInsecureTransport", "Effect": "Deny", "Principal": "*", "Action": "s3:*", "Resource": ["arn:aws:s3:::mlb-statcast-audit-lock-723322847536-us-east-1-v1", "arn:aws:s3:::mlb-statcast-audit-lock-723322847536-us-east-1-v1/*"], "Condition": {"Bool": {"aws:SecureTransport": "false"}}},
+      {"Sid": "AWSCloudTrailAclCheck", "Effect": "Allow", "Principal": {"Service": "cloudtrail.amazonaws.com"}, "Action": "s3:GetBucketAcl", "Resource": "arn:aws:s3:::mlb-statcast-audit-lock-723322847536-us-east-1-v1", "Condition": {"StringEquals": {"aws:SourceArn": "arn:aws:cloudtrail:us-east-1:723322847536:trail/mlb-statcast-june28-retention-audit-v1", "aws:SourceAccount": "723322847536"}}},
+      {"Sid": "AWSCloudTrailWrite", "Effect": "Allow", "Principal": {"Service": "cloudtrail.amazonaws.com"}, "Action": "s3:PutObject", "Resource": "arn:aws:s3:::mlb-statcast-audit-lock-723322847536-us-east-1-v1/mlb-statcast-retention-audit/v1/AWSLogs/723322847536/*", "Condition": {"StringEquals": {"s3:x-amz-acl": "bucket-owner-full-control", "aws:SourceArn": "arn:aws:cloudtrail:us-east-1:723322847536:trail/mlb-statcast-june28-retention-audit-v1", "aws:SourceAccount": "723322847536"}}},
+      {"Sid": "DenyDeletionAndRetentionBypass", "Effect": "Deny", "Principal": "*", "Action": ["s3:DeleteObject", "s3:DeleteObjectVersion", "s3:BypassGovernanceRetention"], "Resource": "arn:aws:s3:::mlb-statcast-audit-lock-723322847536-us-east-1-v1/*"}
     ]
   },
   "bucket_controls": {
-    "create_bucket": {
-      "Bucket": "mlb-statcast-evidence-lock-20260803-8868838408-v1",
-      "ObjectLockEnabledForBucket": true,
-      "region": "us-east-1",
-      "CreateBucketConfiguration": null
+    "evidence": {
+      "versioning": {"Status": "Enabled"},
+      "ownership_controls": {"Rules": [{"ObjectOwnership": "BucketOwnerEnforced"}]},
+      "public_access_block": {"BlockPublicAcls": true, "IgnorePublicAcls": true, "BlockPublicPolicy": true, "RestrictPublicBuckets": true},
+      "default_encryption": {"Rules": [{"ApplyServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}}]},
+      "object_lock_configuration": {"ObjectLockEnabled": "Enabled"},
+      "default_retention": null,
+      "lifecycle_configuration": null
     },
-    "versioning": {"Status": "Enabled", "MFADelete": "Disabled"},
-    "object_lock": {"ObjectLockEnabled": "Enabled", "Rule": null},
-    "ownership_controls": {"Rules": [{"ObjectOwnership": "BucketOwnerEnforced"}]},
-    "public_access_block": {
-      "BlockPublicAcls": true,
-      "IgnorePublicAcls": true,
-      "BlockPublicPolicy": true,
-      "RestrictPublicBuckets": true
-    },
-    "default_encryption": {
-      "Rules": [{"ApplyServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}}]
-    },
-    "lifecycle_configuration": null,
-    "default_retention": null
+    "audit": {
+      "versioning": {"Status": "Enabled"},
+      "ownership_controls": {"Rules": [{"ObjectOwnership": "BucketOwnerEnforced"}]},
+      "public_access_block": {"BlockPublicAcls": true, "IgnorePublicAcls": true, "BlockPublicPolicy": true, "RestrictPublicBuckets": true},
+      "default_encryption": {"Rules": [{"ApplyServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}}]},
+      "object_lock_configuration": {"ObjectLockEnabled": "Enabled", "Rule": {"DefaultRetention": {"Mode": "COMPLIANCE", "Days": 2557}}},
+      "default_retention": {"Mode": "COMPLIANCE", "Days": 2557},
+      "lifecycle_configuration": null
+    }
   },
-  "cloudtrail_lake": {
+  "cloudtrail_trail": {
     "name": "mlb-statcast-june28-retention-audit-v1",
-    "region": "us-east-1",
-    "retention_period_days": 2557,
-    "termination_protection_enabled": true,
-    "multi_region_enabled": false,
-    "organization_enabled": false,
-    "advanced_event_selectors": [
-      {
-        "Name": "RetentionManagementEvents",
-        "FieldSelectors": [
-          {"Field": "eventCategory", "Equals": ["Management"]},
-          {"Field": "eventSource", "Equals": ["s3.amazonaws.com", "iam.amazonaws.com", "sts.amazonaws.com", "cloudtrail.amazonaws.com"]}
-        ]
-      },
-      {
-        "Name": "ExactEvidencePrefixDataEvents",
-        "FieldSelectors": [
-          {"Field": "eventCategory", "Equals": ["Data"]},
-          {"Field": "resources.type", "Equals": ["AWS::S3::Object"]},
-          {"Field": "resources.ARN", "StartsWith": ["arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1/mlb-source-evidence/statcast/v2-confirmation/date-2023-06-28/attempt-01/run-30846344146/artifact-8868838408/"]}
-        ]
-      }
-    ]
+    "arn": "arn:aws:cloudtrail:us-east-1:723322847536:trail/mlb-statcast-june28-retention-audit-v1",
+    "s3_bucket_name": "mlb-statcast-audit-lock-723322847536-us-east-1-v1",
+    "s3_key_prefix": "mlb-statcast-retention-audit/v1",
+    "include_global_service_events": true,
+    "is_multi_region_trail": false,
+    "log_file_validation_enabled": true,
+    "signed_digest_delivery": true,
+    "event_selectors": [{"ReadWriteType": "All", "IncludeManagementEvents": true, "DataResources": [{"Type": "AWS::S3::Object", "Values": ["arn:aws:s3:::mlb-statcast-evidence-lock-20260803-8868838408-v1/mlb-source-evidence/statcast/v2-confirmation/date-2023-06-28/attempt-01/run-30846344146/artifact-8868838408/"]}], "ExcludeManagementEventSources": []}],
+    "audit_retention_days": 2557,
+    "cloudtrail_lake_used": false,
+    "cloudtrail_lake_eligibility_assumed": false
   },
-  "create_only_upload_contract": {
-    "preconditions": [
-      "bucket name rechecked and exact account ownership verified",
-      "Versioning Enabled",
-      "Object Lock Enabled",
-      "BucketOwnerEnforced",
-      "all four Block Public Access flags true",
-      "default encryption AES256",
-      "bucket policy exact hash verified",
-      "CloudTrail Lake event data store active with exact selectors",
-      "ListObjectVersions shows neither exact key has a version or delete marker",
-      "original ZIP has 1005357 bytes, exact SHA-256, exact base64 checksum, and 19-member inventory"
-    ],
-    "put_object_headers": {
-      "If-None-Match": "*",
-      "ChecksumAlgorithm": "SHA256",
-      "ChecksumSHA256_for_zip": "THf22Vcti8Iat5oGsNi3fioEIxN13gAO6eN9x6K1MLU=",
-      "ServerSideEncryption": "AES256",
-      "ObjectLockMode": "COMPLIANCE",
-      "ObjectLockRetainUntilDate": "2033-08-03T00:00:00Z"
-    },
-    "required_put_response_fields": ["VersionId", "ETag", "ChecksumSHA256", "ServerSideEncryption", "RequestId", "ExtendedRequestId"],
-    "fail_closed_on_existing_key_or_delete_marker": true,
-    "multipart_upload_allowed": false,
-    "overwrite_allowed": false
-  },
-  "exact_version_verification_contract": {
-    "verifier_role_required": true,
-    "version_id_required": true,
-    "artifact_zip_read_back": {
-      "bytes": 1005357,
-      "sha256": "4c77f6d9572d8bc21ab79a06b0d8b77e2a04231375de000ee9e37dc7a2b530b5",
-      "checksum_sha256_base64": "THf22Vcti8Iat5oGsNi3fioEIxN13gAO6eN9x6K1MLU=",
-      "member_count": 19,
-      "raw_member_bytes": 2928702,
-      "raw_member_sha256": "4b8a99e4a4130dcb7fb409f0637a25054f93d536bb57a02051b6d1003716f237"
-    },
-    "retention": {"Mode": "COMPLIANCE", "RetainUntilDate": "2033-08-03T00:00:00Z"},
-    "encryption": "AES256",
-    "custody_manifest_final_sha256_must_be_observed_not_predeclared": true,
-    "completion_requires_both_exact_versions_read_back_and_retention_verified": true
-  },
-  "custody_receipt_contract": {
-    "artifact_object_fields": ["account", "region", "bucket", "key", "version_id", "etag_metadata_only", "checksum_sha256", "server_side_encryption", "object_lock_mode", "retain_until_utc", "put_request_id", "put_extended_request_id", "read_back_bytes", "read_back_sha256", "retention_verified", "cloudtrail_event_ids"],
-    "custody_object_intent_fields": ["account", "region", "bucket", "key", "server_side_encryption", "object_lock_mode", "retain_until_utc"],
-    "custody_object_actual_result_location": "separate local or later repository execution report, not a third S3 object",
-    "provider_fields_may_be_fabricated": false,
-    "etag_is_authoritative_hash": false
-  },
-  "execution_phases_requiring_distinct_authorizations": [
-    "create restricted identities and infrastructure",
-    "verify infrastructure read-only",
-    "upload exact original ZIP once through writer role",
-    "capture version checksum encryption and retention receipts",
-    "generate and upload custody manifest once",
-    "read both exact versions back through verifier role",
-    "verify CloudTrail and custody evidence",
-    "remove or narrow bootstrap administrator access"
+  "operation_sequence": [
+    "consume_authorization_create_infrastructure_role",
+    "put_infrastructure_role_policy",
+    "create_writer_role",
+    "put_writer_role_policy",
+    "create_verifier_role",
+    "put_verifier_role_policy",
+    "put_audit_user_policy",
+    "assume_infrastructure_role",
+    "create_evidence_object_lock_bucket",
+    "enable_evidence_versioning",
+    "set_evidence_bucket_owner_enforced",
+    "set_evidence_full_block_public_access",
+    "set_evidence_aes256_default_encryption",
+    "set_exact_evidence_bucket_policy",
+    "create_audit_object_lock_bucket",
+    "enable_audit_versioning",
+    "set_audit_bucket_owner_enforced",
+    "set_audit_full_block_public_access",
+    "set_audit_aes256_default_encryption",
+    "set_audit_default_compliance_retention_2557_days",
+    "set_exact_audit_bucket_policy",
+    "create_standard_cloudtrail_trail",
+    "set_exact_cloudtrail_event_selectors",
+    "start_cloudtrail_logging",
+    "verify_terminal_infrastructure"
   ],
-  "assessment_findings": {
-    "authenticated_admin": "arn:aws:iam::723322847536:user/mlb-retention-admin",
-    "authenticated_admin_non_root": true,
-    "authenticated_admin_mfa_registered": true,
-    "authenticated_admin_current_cli_session_mfa_observed": true,
-    "credential_type": "AWS_LOGIN_TEMPORARY_SESSION",
-    "credential_expiration_observable": false,
-    "bootstrap_group": "arn:aws:iam::723322847536:group/mlb-retention-bootstrap-admins",
-    "bootstrap_group_policy": "arn:aws:iam::aws:policy/AdministratorAccess",
-    "permissions_boundary": "arn:aws:iam::aws:policy/AdministratorAccess",
-    "permissions_boundary_is_restrictive": false,
-    "organizations_in_use": false,
-    "visible_scp_restrictions": false,
-    "existing_bucket_count": 0,
-    "proposed_bucket_absent": true,
-    "proposed_bucket_name_reserved": false,
-    "account_level_public_access_block_configured": false,
-    "existing_cloudtrail_trails": 0,
-    "existing_cloudtrail_event_data_stores": 0,
-    "existing_s3_object_data_event_coverage": false,
-    "existing_qualifying_bucket": false,
-    "existing_custom_execution_roles": false,
-    "existing_customer_managed_policies": false,
-    "audit_user_mfa_registered": false,
-    "kms_required": false,
-    "selected_encryption": "SSE-S3 AES256"
+  "provider_receipt_contract": {
+    "per_operation": ["sequence_number", "operation", "utc_start", "utc_end", "response_payload", "aws_request_id", "http_status", "created_identity", "tags", "authorization_id", "success", "exception_type", "exception_message", "last_confirmed_postcondition"],
+    "raw_credentials_or_signing_material_retained": false,
+    "create_only_absolute_journal_path_required": true,
+    "journal_overwrite_allowed": false,
+    "fsync_after_each_provider_response": true,
+    "fsync_after_each_postcondition_readback": true,
+    "fsync_terminal_outcome": true,
+    "malformed_json_still_yields_failure_receipt": true,
+    "terminal_receipt_required": true
   },
-  "unresolved_blockers": [
-    "no infrastructure, writer, or verifier role currently exists",
-    "no dedicated bucket currently exists",
-    "no CloudTrail trail or event data store currently records the exact S3 data events",
-    "audit user has no attached least-privilege audit/verifier-assume policy",
-    "audit user has no registered MFA device; adding one is recommended before verifier-role assumption even though verification is read-only",
-    "broad bootstrap AdministratorAccess remains active and must be narrowed or removed after setup through a separately reviewed action",
-    "the proposed bucket name is absent but not reserved and must be rechecked immediately before a separately authorized create",
-    "the COMPLIANCE retain-until timestamp remains proposal-only",
-    "no AWS write, upload, Object Lock, or retention authorization exists"
-  ],
-  "irreversible_acknowledgments_required": [
-    "Object Lock must be enabled when the bucket is created and cannot later be disabled for that bucket",
-    "COMPLIANCE retention on an object version cannot be shortened or removed before 2033-08-03T00:00:00Z, including by root",
-    "a mistaken upload under the exact key remains as a locked version and cannot be replaced as though it never existed",
-    "the original ZIP must remain byte-identical and a checksum mismatch must stop before upload",
-    "the custody manifest becomes a second separately locked object and its provider-generated identity cannot be known before upload"
-  ]
+  "postcondition_contract": {
+    "after_each_mutation": true,
+    "terminal_full_readback": true,
+    "roles": ["identity", "role_id", "path", "tags", "trust_policy", "exact_inline_policy", "no_attached_policy", "no_unexpected_inline_policy"],
+    "evidence_bucket": ["region", "object_lock", "versioning", "ownership", "public_access_block", "AES256", "exact_policy", "no_lifecycle", "no_default_retention", "no_objects", "no_delete_markers", "no_multipart_uploads", "both_evidence_keys_absent"],
+    "audit_bucket": ["region", "object_lock", "versioning", "ownership", "public_access_block", "AES256", "exact_policy", "no_lifecycle", "default_COMPLIANCE_2557_days", "no_delete_markers", "no_multipart_uploads", "all_delivered_versions_under_exact_prefix", "delivered_version_COMPLIANCE_retention_verified"],
+    "trail": ["exact_arn", "logging_active", "single_region", "global_service_events", "management_events", "exact_prefix_S3_data_events", "log_file_validation", "exact_destination"]
+  },
+  "terminal_statuses": ["INFRASTRUCTURE_CREATED_AND_VERIFIED", "PARTIAL_INFRASTRUCTURE_PRESERVED", "AUTHORIZATION_CONSUMED_NO_FURTHER_MUTATION", "PRE_MUTATION_FAILURE"],
+  "rollback_boundary": {
+    "automatic_cleanup": false,
+    "partial_infrastructure_preserved": true,
+    "object_lock_cannot_be_disabled": true,
+    "audit_objects_under_compliance_cannot_be_deleted_early": true,
+    "recovery_requires_separate_authorization": true
+  },
+  "infrastructure_mode_boundary": {
+    "maximum_evidence_object_upload_count": 0,
+    "may_put_evidence_objects": false,
+    "may_create_multipart_upload": false,
+    "may_apply_evidence_retention": false,
+    "may_apply_evidence_legal_hold": false,
+    "may_assume_writer_role": false,
+    "may_assume_verifier_role": false,
+    "evidence_retain_until_utc_is_unapplied": "2033-08-03T00:00:00Z"
+  },
+  "scientific_state": {
+    "confirmation_attempt_1": "CONSUMED",
+    "total_real_statcast_requests": 4,
+    "source_contract_v2_promoted": false,
+    "source_qualified": false,
+    "non_promotable": true,
+    "independent_reproduction_completed": false,
+    "full_capture_authorized": false,
+    "model_work_authorized": false
+  }
 }

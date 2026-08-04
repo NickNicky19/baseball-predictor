@@ -1,53 +1,53 @@
-"""Offline fail-closed validator for the inactive June 28 AWS infrastructure package."""
+"""Offline fail-closed validator for the corrected June 28 AWS infrastructure package."""
 from __future__ import annotations
 
 import argparse
 import hashlib
 import json
+import re
 import subprocess
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 
-BASE_COMMIT = "aa36ab090c563c53ea3dcf5781fedb9ff8652df7"
-PLAN_PATH = "reports/shared_pa_statcast_june28_aws_object_lock_infrastructure_plan_20260804_v1.json"
-AUTHORITY_PATH = "config/shared_pa_statcast_june28_aws_object_lock_infrastructure_execution_authority_v1.json"
-PREPARATION_MANIFEST_PATH = "reports/shared_pa_statcast_june28_aws_object_lock_infrastructure_preparation_manifest_20260804_v1.json"
-CHANGED_PATH_MANIFEST_PATH = "reports/shared_pa_statcast_june28_aws_object_lock_infrastructure_changed_path_manifest_20260804_v1.json"
-EXECUTOR_PATH = "scripts/execute_shared_pa_statcast_june28_aws_object_lock_infrastructure_v1.py"
-VALIDATOR_PATH = "scripts/validate_shared_pa_statcast_june28_aws_object_lock_infrastructure_v1.py"
-TEST_PATH = "tests/test_shared_pa_statcast_june28_aws_object_lock_infrastructure_v1.py"
-EXPECTED_CHANGED_PATHS = sorted([
-    AUTHORITY_PATH,
-    CHANGED_PATH_MANIFEST_PATH,
-    PLAN_PATH,
-    PREPARATION_MANIFEST_PATH,
-    EXECUTOR_PATH,
-    VALIDATOR_PATH,
-    TEST_PATH,
-])
-EXPECTED_PLAN_BYTES = 26523
-EXPECTED_PLAN_SHA256 = "ed66e8fba03ec496a0cb05cd124553f37abb46f4f1868d5cacd0e3a7eb6e6724"
-EXPECTED_SECTION_SHA256 = {
-    "trust_policies": "c37cf48e6f6f22b3959dc106694d41396d76707cfcd4efa7183aa35cc4bb0fa5",
-    "identity_policies": "00aaeaecc94778931bda64621e28275c2678565e26a6de1ab3397c65b7fb5644",
-    "bucket_policy": "1c5930a431dab3207084f180c3a0674daa65f8d178a5d8d81a398898dc2594d4",
-    "bucket_controls": "e1492e940e79bd661f7a10d42991b8f32cb810906d5c52991708533de67bc0b3",
-    "cloudtrail_lake": "eeb5d57ead96102b89c13c98e59e6068b194006d12702e88bb04e5be7d7cfdc1",
-    "create_only_upload_contract": "fb72bf97134b113cbad76f5f727a2d67a7b40268ccc95cf00eda30feef3867f8",
-    "exact_version_verification_contract": "71f92514a4ef5bf272135672d67713c4a0a621c6b3d83195a23efe10b085d131",
-    "custody_receipt_contract": "f8451a049c0d345512f53ad3ae7d2a9a566eeecb92605d9a864d712a1fcecca2",
-}
-EXPECTED_ACCOUNT = "723322847536"
-EXPECTED_REGION = "us-east-1"
-EXPECTED_BUCKET = "mlb-statcast-evidence-lock-20260803-8868838408-v1"
-EXPECTED_ADMIN = "arn:aws:iam::723322847536:user/mlb-retention-admin"
-EXPECTED_AUDIT = "arn:aws:iam::723322847536:user/mlb-retention-audit"
+BASE_COMMIT = "0eb830742ef4f5349cab7c1f9b225b912bef0c70"
+ACCOUNT = "723322847536"
+REGION = "us-east-1"
+ADMIN = "arn:aws:iam::723322847536:user/mlb-retention-admin"
+AUDIT = "arn:aws:iam::723322847536:user/mlb-retention-audit"
+EVIDENCE_BUCKET = "mlb-statcast-evidence-lock-20260803-8868838408-v1"
+AUDIT_BUCKET = "mlb-statcast-audit-lock-723322847536-us-east-1-v1"
 EXPECTED_ROLES = {
     "infrastructure": "arn:aws:iam::723322847536:role/mlb-retention/MlbStatcastJune28RetentionInfrastructureV1",
     "writer": "arn:aws:iam::723322847536:role/mlb-retention/MlbStatcastJune28RetentionWriterV1",
     "verifier": "arn:aws:iam::723322847536:role/mlb-retention/MlbStatcastJune28RetentionVerifierV1",
 }
+AUTHORITY_PATH = "config/shared_pa_statcast_june28_aws_object_lock_infrastructure_execution_authority_v1.json"
+SCHEMA_PATH = "contracts/schemas/shared_pa_statcast_june28_aws_object_lock_infrastructure_execution_authorization_v1.schema.json"
+CHANGED_PATH_MANIFEST_PATH = "reports/shared_pa_statcast_june28_aws_object_lock_infrastructure_changed_path_manifest_20260804_v1.json"
+PLAN_PATH = "reports/shared_pa_statcast_june28_aws_object_lock_infrastructure_plan_20260804_v1.json"
+PREPARATION_MANIFEST_PATH = "reports/shared_pa_statcast_june28_aws_object_lock_infrastructure_preparation_manifest_20260804_v1.json"
+CORRECTION_REPORT_PATH = "reports/shared_pa_statcast_june28_aws_object_lock_infrastructure_readiness_correction_20260804_v1.json"
+EXECUTOR_PATH = "scripts/execute_shared_pa_statcast_june28_aws_object_lock_infrastructure_v1.py"
+VALIDATOR_PATH = "scripts/validate_shared_pa_statcast_june28_aws_object_lock_infrastructure_v1.py"
+TEST_PATH = "tests/test_shared_pa_statcast_june28_aws_object_lock_infrastructure_v1.py"
+EXPECTED_CHANGED_PATHS = sorted([
+    AUTHORITY_PATH, SCHEMA_PATH, CHANGED_PATH_MANIFEST_PATH, PLAN_PATH,
+    PREPARATION_MANIFEST_PATH, CORRECTION_REPORT_PATH, EXECUTOR_PATH,
+    VALIDATOR_PATH, TEST_PATH,
+])
+RECORD_SECTION_BINDINGS = {
+    "trust_policies_sha256": "trust_policies",
+    "identity_policies_sha256": "identity_policies",
+    "evidence_bucket_policy_sha256": "evidence_bucket_policy",
+    "audit_bucket_policy_sha256": "audit_bucket_policy",
+    "bucket_controls_sha256": "bucket_controls",
+    "cloudtrail_trail_configuration_sha256": "cloudtrail_trail",
+}
+SHA_RE = re.compile(r"^[0-9a-f]{64}$")
+GIT_RE = re.compile(r"^[0-9a-f]{40}$")
+UTC_RE = re.compile(r"^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d+)?Z$")
 
 
 class InfrastructurePackageError(RuntimeError):
@@ -63,12 +63,11 @@ def sha256_file(path: Path) -> str:
 
 
 def canonical_json_sha256(value: Any) -> str:
-    payload = json.dumps(value, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
-    return sha256_bytes(payload)
+    return sha256_bytes((json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n").encode())
 
 
 def canonical_changed_path_list_sha256(paths: list[str]) -> str:
-    return sha256_bytes(("\n".join(sorted(paths)) + "\n").encode("utf-8"))
+    return sha256_bytes(("\n".join(sorted(paths)) + "\n").encode())
 
 
 def load_object(path: Path) -> dict[str, Any]:
@@ -78,170 +77,191 @@ def load_object(path: Path) -> dict[str, Any]:
     return value
 
 
-def git_head(repository: Path) -> str:
-    result = subprocess.run(
-        ["git", "rev-parse", "HEAD"], cwd=repository, text=True,
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False,
-    )
-    if result.returncode != 0:
-        raise InfrastructurePackageError(result.stderr.strip() or "git rev-parse failed")
-    return result.stdout.strip()
+def _parse_utc(value: str) -> datetime:
+    return datetime.fromisoformat(value.replace("Z", "+00:00")).astimezone(timezone.utc)
 
 
-def git_first_parent(repository: Path) -> str | None:
-    result = subprocess.run(
-        ["git", "rev-parse", "HEAD^1"], cwd=repository, text=True,
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False,
-    )
-    return result.stdout.strip() if result.returncode == 0 else None
+def _placeholder(value: Any) -> bool:
+    if isinstance(value, dict):
+        return any(_placeholder(item) for item in value.values())
+    if isinstance(value, list):
+        return any(_placeholder(item) for item in value)
+    return isinstance(value, str) and any(token in value.upper() for token in ("PLACEHOLDER", "TBD", "REPLACE_ME", "<INSERT"))
 
 
-def validate_plan(plan: dict[str, Any], plan_path: Path) -> list[str]:
+def validate_authorization_record(record: dict[str, Any], repository: Path) -> list[str]:
+    """Strictly validate a future record without requiring that it exists now."""
+    schema = load_object(repository / SCHEMA_PATH)
     failures: list[str] = []
-    if plan_path.stat().st_size != EXPECTED_PLAN_BYTES:
-        failures.append("plan byte count mismatch")
-    if sha256_file(plan_path) != EXPECTED_PLAN_SHA256:
-        failures.append("plan SHA-256 mismatch")
-    if plan.get("status") != "PREPARED_READ_ONLY_NOT_AUTHORIZED_NOT_APPLIED":
+    required = schema["required"]
+    properties = schema["properties"]
+    if set(record) != set(required):
+        failures.append("authorization record fields differ from strict schema")
+    for name in required:
+        if name not in record:
+            continue
+        rule = properties[name]
+        value = record[name]
+        if "const" in rule and value != rule["const"]:
+            failures.append(f"authorization constant mismatch: {name}")
+        reference = rule.get("$ref", "")
+        if reference.endswith("/sha256") and (not isinstance(value, str) or not SHA_RE.fullmatch(value)):
+            failures.append(f"authorization SHA-256 malformed: {name}")
+        if reference.endswith("/gitSha") and (not isinstance(value, str) or not GIT_RE.fullmatch(value)):
+            failures.append(f"authorization Git SHA malformed: {name}")
+        if reference.endswith("/utc") and (not isinstance(value, str) or not UTC_RE.fullmatch(value)):
+            failures.append(f"authorization UTC malformed: {name}")
+    if isinstance(record.get("authorization_id"), str):
+        rule = properties["authorization_id"]
+        if not re.fullmatch(rule["pattern"], record["authorization_id"]) or not rule["minLength"] <= len(record["authorization_id"]) <= rule["maxLength"]:
+            failures.append("authorization ID malformed")
+    try:
+        issued = _parse_utc(record["issued_utc"])
+        valid = _parse_utc(record["valid_from_utc"])
+        expires = _parse_utc(record["expires_utc"])
+        if not issued <= valid < expires or (expires - valid).total_seconds() > 3600:
+            failures.append("authorization timing or maximum duration mismatch")
+    except (KeyError, TypeError, ValueError):
+        failures.append("authorization timestamps invalid")
+    if _placeholder(record):
+        failures.append("authorization contains placeholder")
+    return failures
+
+
+def validate_plan(plan: dict[str, Any]) -> list[str]:
+    failures: list[str] = []
+    if plan.get("status") != "CORRECTED_PREPARED_INACTIVE_NOT_AUTHORIZED_NOT_EXECUTED":
         failures.append("plan status mismatch")
-    for flag in (
-        "preparation_is_aws_authorization", "aws_write_authorized", "upload_authorized",
-        "retention_lock_authorized", "deletion_authorized", "repository_mutation_authorized",
-    ):
+    for flag in ("preparation_is_aws_authorization", "aws_write_authorized", "upload_authorized", "evidence_retention_authorized", "deletion_authorized"):
         if plan.get(flag) is not False:
-            failures.append(f"plan flag must be false: {flag}")
-    for name, expected in EXPECTED_SECTION_SHA256.items():
-        if canonical_json_sha256(plan.get(name)) != expected:
-            failures.append(f"plan section SHA-256 mismatch: {name}")
-    if plan.get("account") != EXPECTED_ACCOUNT or plan.get("region") != EXPECTED_REGION:
-        failures.append("plan account or region mismatch")
-    if plan.get("bucket") != EXPECTED_BUCKET:
-        failures.append("plan bucket mismatch")
+            failures.append(f"plan must not authorize: {flag}")
+    if (plan.get("preparation_base_commit"), plan.get("account"), plan.get("region")) != (BASE_COMMIT, ACCOUNT, REGION):
+        failures.append("plan base/account/region mismatch")
+    if (plan.get("evidence_bucket"), plan.get("audit_bucket")) != (EVIDENCE_BUCKET, AUDIT_BUCKET):
+        failures.append("plan bucket identity mismatch")
     principals = plan.get("principals", {})
-    if principals.get("bootstrap_administrator") != EXPECTED_ADMIN:
-        failures.append("plan administrator mismatch")
-    if principals.get("audit_user") != EXPECTED_AUDIT:
-        failures.append("plan audit user mismatch")
-    for name, expected in EXPECTED_ROLES.items():
-        if principals.get(f"{name}_role") != expected:
-            failures.append(f"plan role mismatch: {name}")
-    retention = plan.get("retention", {})
-    if retention.get("mode") != "COMPLIANCE" or retention.get("retain_until_utc") != "2033-08-03T00:00:00Z":
-        failures.append("plan retention mismatch")
-    if retention.get("status") != "PROPOSAL_ONLY_REQUIRES_SEPARATE_EXPLICIT_HUMAN_AUTHORIZATION":
-        failures.append("retention is not proposal-only")
+    if principals.get("bootstrap_administrator") != ADMIN or principals.get("audit_user") != AUDIT:
+        failures.append("plan user identity mismatch")
+    for kind, arn in EXPECTED_ROLES.items():
+        if principals.get(f"{kind}_role") != arn:
+            failures.append(f"plan role mismatch: {kind}")
+    baseline = plan.get("audit_user_preexisting_policy_baseline", {})
+    if baseline.get("inline_policies") != [] or baseline.get("attached_policy_arns") != ["arn:aws:iam::aws:policy/IAMUserChangePassword", "arn:aws:iam::aws:policy/SignInLocalDevelopmentAccess"] or baseline.get("retention_infrastructure_mutation_allowed") is not False:
+        failures.append("audit-user preexisting policy baseline mismatch")
+    client = plan.get("execution_client", {})
+    if client.get("absolute_path") != r"C:\Users\nicho\AppData\Local\Programs\Amazon\AWSCLIV2\aws.exe" or client.get("version_prefix") != "aws-cli/2.36.14":
+        failures.append("execution client is not exactly pinned")
+    atomic = plan.get("atomic_consumption", {})
+    if atomic.get("operation") != "iam:CreateRole" or atomic.get("must_be_first_mutation") is not True or atomic.get("existing_role_is_reused") is not False:
+        failures.append("atomic authorization consumption mismatch")
+    if set(atomic.get("create_time_tags", [])) != {"AuthorizationId", "AuthorizationRecordSha256", "HumanAuthorizationSha256", "ExecutionCommit", "InfrastructurePlanSha256", "ExecutorSha256"}:
+        failures.append("atomic consumption tags mismatch")
     controls = plan.get("bucket_controls", {})
-    if controls.get("versioning", {}).get("Status") != "Enabled":
-        failures.append("Versioning is not enabled")
-    if controls.get("object_lock", {}).get("ObjectLockEnabled") != "Enabled":
-        failures.append("Object Lock is not enabled")
-    if controls.get("ownership_controls", {}).get("Rules") != [{"ObjectOwnership": "BucketOwnerEnforced"}]:
-        failures.append("ownership controls mismatch")
-    if set(controls.get("public_access_block", {}).values()) != {True}:
-        failures.append("Block Public Access is incomplete")
-    if controls.get("default_encryption", {}).get("Rules", [{}])[0].get("ApplyServerSideEncryptionByDefault", {}).get("SSEAlgorithm") != "AES256":
-        failures.append("encryption mismatch")
-    if controls.get("default_retention") is not None or controls.get("lifecycle_configuration") is not None:
-        failures.append("unexpected default retention or lifecycle")
-    if plan.get("cloudtrail_lake", {}).get("retention_period_days") != 2557:
-        failures.append("CloudTrail retention mismatch")
-    if plan.get("cloudtrail_lake", {}).get("termination_protection_enabled") is not True:
-        failures.append("CloudTrail termination protection missing")
+    for kind in ("evidence", "audit"):
+        control = controls.get(kind, {})
+        if control.get("versioning") != {"Status": "Enabled"} or control.get("ownership_controls") != {"Rules": [{"ObjectOwnership": "BucketOwnerEnforced"}]}:
+            failures.append(f"{kind} versioning or ownership mismatch")
+        if set(control.get("public_access_block", {}).values()) != {True}:
+            failures.append(f"{kind} public access block incomplete")
+        if control.get("default_encryption") != {"Rules": [{"ApplyServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}}]}:
+            failures.append(f"{kind} encryption mismatch")
+        if control.get("lifecycle_configuration") is not None:
+            failures.append(f"{kind} lifecycle unexpectedly configured")
+    if controls.get("evidence", {}).get("object_lock_configuration") != {"ObjectLockEnabled": "Enabled"} or controls.get("evidence", {}).get("default_retention") is not None:
+        failures.append("evidence bucket default retention mismatch")
+    if controls.get("audit", {}).get("object_lock_configuration") != {"ObjectLockEnabled": "Enabled", "Rule": {"DefaultRetention": {"Mode": "COMPLIANCE", "Days": 2557}}}:
+        failures.append("audit Object Lock retention mismatch")
+    trail = plan.get("cloudtrail_trail", {})
+    if trail.get("cloudtrail_lake_used") is not False or trail.get("audit_retention_days") != 2557 or trail.get("log_file_validation_enabled") is not True:
+        failures.append("supported standard trail design mismatch")
+    if trail.get("s3_bucket_name") != AUDIT_BUCKET or trail.get("is_multi_region_trail") is not False or trail.get("include_global_service_events") is not True:
+        failures.append("standard trail identity mismatch")
+    serialized = json.dumps(plan, sort_keys=True)
+    for forbidden in ("CreateEventDataStore", "cloudtrail_lake", "PutObjectRetention\"", "assume_writer", "assume_verifier"):
+        if forbidden == "cloudtrail_lake":
+            continue
+    boundary = plan.get("infrastructure_mode_boundary", {})
+    if boundary.get("maximum_evidence_object_upload_count") != 0 or any(boundary.get(key) is not False for key in ("may_put_evidence_objects", "may_create_multipart_upload", "may_apply_evidence_retention", "may_apply_evidence_legal_hold", "may_assume_writer_role", "may_assume_verifier_role")):
+        failures.append("infrastructure evidence boundary weakened")
+    if "CreateEventDataStore" in serialized or "BillingMode" in serialized or "TerminationProtectionEnabled" in serialized:
+        failures.append("ineligible CloudTrail Lake operation retained")
+    expected_ops = [
+        "consume_authorization_create_infrastructure_role", "put_infrastructure_role_policy",
+        "create_writer_role", "put_writer_role_policy", "create_verifier_role",
+        "put_verifier_role_policy", "put_audit_user_policy", "assume_infrastructure_role",
+        "create_evidence_object_lock_bucket", "enable_evidence_versioning",
+        "set_evidence_bucket_owner_enforced", "set_evidence_full_block_public_access",
+        "set_evidence_aes256_default_encryption", "set_exact_evidence_bucket_policy",
+        "create_audit_object_lock_bucket", "enable_audit_versioning",
+        "set_audit_bucket_owner_enforced", "set_audit_full_block_public_access",
+        "set_audit_aes256_default_encryption", "set_audit_default_compliance_retention_2557_days",
+        "set_exact_audit_bucket_policy", "create_standard_cloudtrail_trail",
+        "set_exact_cloudtrail_event_selectors", "start_cloudtrail_logging",
+        "verify_terminal_infrastructure",
+    ]
+    if plan.get("operation_sequence") != expected_ops:
+        failures.append("operation sequence mismatch")
     return failures
 
 
-def validate_authority(authority: dict[str, Any]) -> list[str]:
-    failures: list[str] = []
-    for flag in (
-        "preparation_is_execution_authorization", "aws_write_authorized",
-        "infrastructure_execution_authorized", "evidence_upload_authorized",
-        "retention_application_authorized", "deletion_authorized", "self_authorization_permitted",
-    ):
-        if authority.get(flag) is not False:
-            failures.append(f"authority flag must be false: {flag}")
-    if authority.get("preparation_base_commit") != BASE_COMMIT:
-        failures.append("authority base mismatch")
-    if authority.get("account_id") != EXPECTED_ACCOUNT or authority.get("region") != EXPECTED_REGION:
-        failures.append("authority account or region mismatch")
-    if authority.get("bucket") != EXPECTED_BUCKET:
-        failures.append("authority bucket mismatch")
-    identities = authority.get("authenticated_identities", {})
-    if identities.get("bootstrap_administrator") != EXPECTED_ADMIN or identities.get("audit_user") != EXPECTED_AUDIT:
-        failures.append("authority identity mismatch")
-    if identities.get("administrator_mfa_registered") is not True or identities.get("audit_user_mfa_registered") is not True:
-        failures.append("authority MFA state mismatch")
-    if authority.get("planned_roles") != EXPECTED_ROLES:
-        failures.append("authority role binding mismatch")
-    plan = authority.get("infrastructure_plan", {})
-    if plan.get("path") != PLAN_PATH or plan.get("bytes") != EXPECTED_PLAN_BYTES or plan.get("sha256") != EXPECTED_PLAN_SHA256:
-        failures.append("authority plan binding mismatch")
-    if plan.get("section_sha256") != EXPECTED_SECTION_SHA256:
-        failures.append("authority section binding mismatch")
-    future = authority.get("future_execution_authorization", {})
-    if not all(future.get(key) is True for key in (
-        "must_be_separately_merged", "must_be_short_lived", "must_be_active", "must_be_unused",
-        "must_bind_repository_commit", "must_bind_authority_package_sha256", "must_bind_plan_sha256",
-        "must_bind_human_authorization_sha256", "must_acknowledge_bucket_object_lock_irreversibility",
-    )):
-        failures.append("future authorization requirements weakened")
-    if future.get("may_authorize_evidence_upload") is not False or future.get("may_authorize_writer_or_verifier_assumption") is not False:
-        failures.append("future authorization exceeds infrastructure boundary")
-    evidence = authority.get("exact_evidence_boundary", {})
-    if evidence.get("maximum_object_upload_count") != 0 or evidence.get("object_keys_may_be_created_by_this_executor") is not False:
-        failures.append("infrastructure package can upload evidence")
-    scientific = authority.get("scientific_state", {})
-    expected_scientific = {
-        "confirmation_attempt_1": "CONSUMED", "total_real_statcast_requests": 4,
-        "source_contract_v2_promoted": False, "source_qualified": False,
-        "non_promotable": True, "independent_reproduction_completed": False,
-        "full_capture_authorized": False, "model_work_authorized": False,
-    }
-    if scientific != expected_scientific:
-        failures.append("scientific state mismatch")
-    prohibited = set(authority.get("prohibited_actions", []))
-    for item in ("evidence object upload", "source request or workflow dispatch", "independent reproduction"):
-        if item not in prohibited:
-            failures.append(f"missing prohibition: {item}")
-    return failures
+def git_changed_paths(repository: Path) -> list[str]:
+    result = subprocess.run(["git", "diff", "--name-only", BASE_COMMIT], cwd=repository, text=True, capture_output=True, check=False)
+    if result.returncode:
+        raise InfrastructurePackageError(result.stderr.strip())
+    untracked = subprocess.run(["git", "ls-files", "--others", "--exclude-standard"], cwd=repository, text=True, capture_output=True, check=False)
+    if untracked.returncode:
+        raise InfrastructurePackageError(untracked.stderr.strip())
+    return sorted(set(line for line in (result.stdout + untracked.stdout).splitlines() if line))
 
 
-def validate(repository: Path, require_base_head: bool = True) -> dict[str, Any]:
+def validate(repository: Path, require_base_head: bool = True, allow_active_authorization: bool = False) -> dict[str, Any]:
     repository = repository.resolve()
-    plan_path = repository / PLAN_PATH
-    authority_path = repository / AUTHORITY_PATH
-    changed_path_path = repository / CHANGED_PATH_MANIFEST_PATH
-    preparation_path = repository / PREPARATION_MANIFEST_PATH
-    plan = load_object(plan_path)
-    authority = load_object(authority_path)
-    changed = load_object(changed_path_path)
-    preparation = load_object(preparation_path)
-    failures = validate_plan(plan, plan_path) + validate_authority(authority)
+    plan = load_object(repository / PLAN_PATH)
+    authority = load_object(repository / AUTHORITY_PATH)
+    changed = load_object(repository / CHANGED_PATH_MANIFEST_PATH)
+    preparation = load_object(repository / PREPARATION_MANIFEST_PATH)
+    correction = load_object(repository / CORRECTION_REPORT_PATH)
+    failures = validate_plan(plan)
     expected_path_hash = canonical_changed_path_list_sha256(EXPECTED_CHANGED_PATHS)
-    if changed.get("changed_paths") != EXPECTED_CHANGED_PATHS:
-        failures.append("changed-path manifest scope mismatch")
-    if changed.get("canonical_changed_path_list_sha256") != expected_path_hash:
-        failures.append("changed-path manifest hash mismatch")
-    if preparation.get("changed_paths") != EXPECTED_CHANGED_PATHS:
-        failures.append("preparation manifest scope mismatch")
-    if preparation.get("canonical_changed_path_list_sha256") != expected_path_hash:
-        failures.append("preparation manifest path hash mismatch")
-    non_self = preparation.get("non_self_file_sha256", {})
-    if set(non_self) != set(EXPECTED_CHANGED_PATHS) - {PREPARATION_MANIFEST_PATH}:
-        failures.append("preparation manifest identity map mismatch")
-    for relative, expected in non_self.items():
+    if changed.get("changed_paths") != EXPECTED_CHANGED_PATHS or changed.get("canonical_changed_path_list_sha256") != expected_path_hash:
+        failures.append("changed-path manifest mismatch")
+    if preparation.get("changed_paths") != EXPECTED_CHANGED_PATHS or preparation.get("canonical_changed_path_list_sha256") != expected_path_hash:
+        failures.append("preparation manifest path scope mismatch")
+    file_hashes = preparation.get("non_self_file_sha256", {})
+    if set(file_hashes) != set(EXPECTED_CHANGED_PATHS) - {PREPARATION_MANIFEST_PATH}:
+        failures.append("preparation manifest file map mismatch")
+    for relative, expected in file_hashes.items():
         path = repository / relative
         if not path.is_file() or sha256_file(path) != expected:
             failures.append(f"file SHA-256 mismatch: {relative}")
+    plan_sha = sha256_file(repository / PLAN_PATH)
+    section_hashes = {field: canonical_json_sha256(plan[section]) for field, section in RECORD_SECTION_BINDINGS.items()}
+    binding = authority.get("corrected_bindings", {})
+    if authority.get("preparation_base_commit") != BASE_COMMIT or binding.get("plan_sha256") != plan_sha or binding.get("section_sha256") != section_hashes:
+        failures.append("authority plan/section binding mismatch")
+    if binding.get("executor_sha256") != sha256_file(repository / EXECUTOR_PATH) or binding.get("validator_sha256") != sha256_file(repository / VALIDATOR_PATH) or binding.get("authorization_schema_sha256") != sha256_file(repository / SCHEMA_PATH):
+        failures.append("authority executable/schema binding mismatch")
+    for flag in ("preparation_is_execution_authorization", "aws_write_authorized", "infrastructure_execution_authorized", "evidence_upload_authorized", "retention_application_authorized", "deletion_authorized", "self_authorization_permitted"):
+        if authority.get(flag) is not False:
+            failures.append(f"authority flag must remain false: {flag}")
+    if correction.get("statuses") != ["AWS_INFRASTRUCTURE_EXECUTOR_DEFECTS_ACCEPTED", "NON_CIRCULAR_AWS_EXECUTION_BINDING_PREPARED", "DURABLE_SINGLE_USE_CONSUMPTION_PREPARED", "SUPPORTED_AUDIT_MECHANISM_PREPARED", "NO_AWS_MUTATION_PERFORMED", "NO_EVIDENCE_UPLOAD_PERFORMED"]:
+        failures.append("correction report status mismatch")
+    changed_now = git_changed_paths(repository)
+    if not allow_active_authorization and changed_now and changed_now != EXPECTED_CHANGED_PATHS:
+        failures.append("working/base-to-head path scope mismatch")
     if require_base_head:
-        head = git_head(repository)
-        if head != BASE_COMMIT and git_first_parent(repository) != BASE_COMMIT:
-            failures.append("repository base or first-parent mismatch")
+        head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=repository, text=True, capture_output=True, check=True).stdout.strip()
+        if head != BASE_COMMIT:
+            first = subprocess.run(["git", "rev-parse", "HEAD^1"], cwd=repository, text=True, capture_output=True, check=False)
+            if first.returncode or first.stdout.strip() != BASE_COMMIT:
+                failures.append("repository base/first-parent mismatch")
     return {
         "status": "PASS" if not failures else "FAIL",
         "failures": failures,
         "base_commit": BASE_COMMIT,
-        "plan_sha256": sha256_file(plan_path),
-        "authority_sha256": sha256_file(authority_path),
+        "plan_sha256": plan_sha,
+        "authority_sha256": sha256_file(repository / AUTHORITY_PATH),
+        "section_sha256": section_hashes,
         "canonical_changed_path_list_sha256": expected_path_hash,
         "aws_mutation_performed": False,
         "evidence_uploaded": False,
