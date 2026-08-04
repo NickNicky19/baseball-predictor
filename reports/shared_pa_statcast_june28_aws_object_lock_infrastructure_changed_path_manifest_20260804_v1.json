@@ -1,16 +1,18 @@
 {
-  "schema_version": "shared-pa-statcast-june28-aws-object-lock-infrastructure-changed-path-manifest-20260804-v1",
-  "base_commit": "aa36ab090c563c53ea3dcf5781fedb9ff8652df7",
+  "schema_version": "shared-pa-statcast-june28-aws-object-lock-infrastructure-changed-path-manifest-20260804-v2",
+  "base_commit": "0eb830742ef4f5349cab7c1f9b225b912bef0c70",
   "changed_paths": [
     "config/shared_pa_statcast_june28_aws_object_lock_infrastructure_execution_authority_v1.json",
+    "contracts/schemas/shared_pa_statcast_june28_aws_object_lock_infrastructure_execution_authorization_v1.schema.json",
     "reports/shared_pa_statcast_june28_aws_object_lock_infrastructure_changed_path_manifest_20260804_v1.json",
     "reports/shared_pa_statcast_june28_aws_object_lock_infrastructure_plan_20260804_v1.json",
     "reports/shared_pa_statcast_june28_aws_object_lock_infrastructure_preparation_manifest_20260804_v1.json",
+    "reports/shared_pa_statcast_june28_aws_object_lock_infrastructure_readiness_correction_20260804_v1.json",
     "scripts/execute_shared_pa_statcast_june28_aws_object_lock_infrastructure_v1.py",
     "scripts/validate_shared_pa_statcast_june28_aws_object_lock_infrastructure_v1.py",
     "tests/test_shared_pa_statcast_june28_aws_object_lock_infrastructure_v1.py"
   ],
-  "canonical_encoding": "UTF-8 LF with one terminal LF",
-  "canonical_changed_path_list_sha256": "e201bee0c08197243e06c9e6ad3b1e48cab1970a0f9121f0bb03132ee3eb081e",
-  "scope_status": "EXACT_SEVEN_PATHS_NO_OTHER_PATH_AUTHORIZED"
+  "canonicalization": "UTF-8 sorted paths, LF after every path including final path",
+  "canonical_changed_path_list_sha256": "225d63a107ae4fc542d920f5e45c40f74f8c2fb0827bf962f941f76f3c16bebf",
+  "fail_closed_on_any_other_path": true
 }

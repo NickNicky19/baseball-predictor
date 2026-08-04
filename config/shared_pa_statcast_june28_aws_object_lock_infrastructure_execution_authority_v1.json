@@ -1,6 +1,6 @@
 {
-  "schema_version": "shared-pa-statcast-june28-aws-object-lock-infrastructure-execution-authority-v1",
-  "status": "PREPARED_INACTIVE_NOT_AUTHORIZED_NOT_EXECUTED",
+  "schema_version": "shared-pa-statcast-june28-aws-object-lock-infrastructure-execution-authority-v2",
+  "status": "CORRECTED_PREPARED_INACTIVE_NOT_AUTHORIZED_NOT_EXECUTED",
   "preparation_is_execution_authorization": false,
   "aws_write_authorized": false,
   "infrastructure_execution_authorized": false,
@@ -9,71 +9,89 @@
   "deletion_authorized": false,
   "self_authorization_permitted": false,
   "repository": "NickNicky19/baseball-predictor",
-  "preparation_base_commit": "aa36ab090c563c53ea3dcf5781fedb9ff8652df7",
+  "preparation_base_commit": "0eb830742ef4f5349cab7c1f9b225b912bef0c70",
   "account_id": "723322847536",
-  "partition": "aws",
   "region": "us-east-1",
-  "bucket": "mlb-statcast-evidence-lock-20260803-8868838408-v1",
-  "authenticated_identities": {
-    "bootstrap_administrator": "arn:aws:iam::723322847536:user/mlb-retention-admin",
-    "audit_user": "arn:aws:iam::723322847536:user/mlb-retention-audit",
-    "administrator_mfa_registered": true,
-    "audit_user_mfa_registered": true
-  },
+  "administrator_arn": "arn:aws:iam::723322847536:user/mlb-retention-admin",
+  "audit_user_arn": "arn:aws:iam::723322847536:user/mlb-retention-audit",
+  "evidence_bucket": "mlb-statcast-evidence-lock-20260803-8868838408-v1",
+  "audit_bucket": "mlb-statcast-audit-lock-723322847536-us-east-1-v1",
   "planned_roles": {
     "infrastructure": "arn:aws:iam::723322847536:role/mlb-retention/MlbStatcastJune28RetentionInfrastructureV1",
     "writer": "arn:aws:iam::723322847536:role/mlb-retention/MlbStatcastJune28RetentionWriterV1",
     "verifier": "arn:aws:iam::723322847536:role/mlb-retention/MlbStatcastJune28RetentionVerifierV1"
   },
-  "infrastructure_plan": {
-    "path": "reports/shared_pa_statcast_june28_aws_object_lock_infrastructure_plan_20260804_v1.json",
-    "bytes": 26523,
-    "sha256": "ed66e8fba03ec496a0cb05cd124553f37abb46f4f1868d5cacd0e3a7eb6e6724",
+  "corrected_bindings": {
+    "plan_path": "reports/shared_pa_statcast_june28_aws_object_lock_infrastructure_plan_20260804_v1.json",
+    "plan_sha256": "095157f50129f802611012327de6f5bd636099c6e544cf5e05cc97ac9c3592ce",
+    "executor_path": "scripts/execute_shared_pa_statcast_june28_aws_object_lock_infrastructure_v1.py",
+    "executor_sha256": "39080f2ee95d6c10233b6dbf0a6a0bdf4ec63b9abe9cf77c1f43d7ce7e97c0a0",
+    "validator_path": "scripts/validate_shared_pa_statcast_june28_aws_object_lock_infrastructure_v1.py",
+    "validator_sha256": "c610fb5d98adebce8dec7ca22c0b32d3bf984a1719b3eef10b84977805caa008",
+    "authorization_schema_path": "contracts/schemas/shared_pa_statcast_june28_aws_object_lock_infrastructure_execution_authorization_v1.schema.json",
+    "authorization_schema_sha256": "fcc66e3b6895965e9fd15b06e85a001412b9bbc47ef1761a910cc4487944f1aa",
     "section_sha256": {
-      "trust_policies": "c37cf48e6f6f22b3959dc106694d41396d76707cfcd4efa7183aa35cc4bb0fa5",
-      "identity_policies": "00aaeaecc94778931bda64621e28275c2678565e26a6de1ab3397c65b7fb5644",
-      "bucket_policy": "1c5930a431dab3207084f180c3a0674daa65f8d178a5d8d81a398898dc2594d4",
-      "bucket_controls": "e1492e940e79bd661f7a10d42991b8f32cb810906d5c52991708533de67bc0b3",
-      "cloudtrail_lake": "eeb5d57ead96102b89c13c98e59e6068b194006d12702e88bb04e5be7d7cfdc1",
-      "create_only_upload_contract": "fb72bf97134b113cbad76f5f727a2d67a7b40268ccc95cf00eda30feef3867f8",
-      "exact_version_verification_contract": "71f92514a4ef5bf272135672d67713c4a0a621c6b3d83195a23efe10b085d131",
-      "custody_receipt_contract": "f8451a049c0d345512f53ad3ae7d2a9a566eeecb92605d9a864d712a1fcecca2"
+      "trust_policies_sha256": "93e8933ff3023be1d45660fe9012119f1e825bf4f94c22a36b7c1dcbeaefabf1",
+      "identity_policies_sha256": "55f0c3f93f678be2bfa93e60aee9459dd93f8cf78029ce08431030dbc8ae3d81",
+      "evidence_bucket_policy_sha256": "8b0bf56ff696c15f63f12232c9862b6f74bb43696cd54c403f58864ec2b9b650",
+      "audit_bucket_policy_sha256": "db9c063023152350463b9d2402ec064a12e4aa2c33ff53e8bd3685d15b874ea2",
+      "bucket_controls_sha256": "b2c36f1b05dffc663c9a3d6696bb489950f6f83650e0fec07cf0609ea315a3b4",
+      "cloudtrail_trail_configuration_sha256": "5391b38200b21d554e365e3f55f69e30abeaad1e8cbd7f7d5d773b3e895ea8a1"
     }
   },
   "future_execution_authorization": {
     "required_path": "config/shared_pa_statcast_june28_aws_object_lock_infrastructure_execution_authorization_v1.json",
-    "must_be_separately_merged": true,
-    "must_be_short_lived": true,
-    "must_be_active": true,
-    "must_be_unused": true,
-    "must_bind_repository_commit": true,
-    "must_bind_authority_package_sha256": true,
-    "must_bind_plan_sha256": true,
-    "must_bind_human_authorization_sha256": true,
-    "must_acknowledge_bucket_object_lock_irreversibility": true,
+    "strict_schema_required": true,
+    "separately_prepared_and_merged": true,
+    "maximum_active_seconds": 3600,
+    "record_embeds_only_base_B": true,
+    "head_H_external": true,
+    "merge_M_external": true,
+    "expected_execution_commit_sha_required": true,
+    "independent_record_sha256_required": true,
+    "independent_human_text_sha256_required": true,
+    "single_use_create_role_consumption_required": true,
     "may_authorize_evidence_upload": false,
     "may_authorize_writer_or_verifier_assumption": false
   },
-  "executor": {
-    "path": "scripts/execute_shared_pa_statcast_june28_aws_object_lock_infrastructure_v1.py",
-    "default_mode": "VALIDATE_ONLY_NO_MUTATION",
-    "live_profile": "mlb-retention-admin",
-    "stop_after_infrastructure_creation": true,
-    "may_upload_evidence": false,
-    "may_assume_writer_role": false,
-    "may_assume_verifier_role": false,
-    "fail_closed_on_partial_or_existing_infrastructure": true
+  "atomic_consumption": {
+    "first_mutation": "iam:CreateRole MlbStatcastJune28RetentionInfrastructureV1",
+    "create_only": true,
+    "required_tags": ["AuthorizationId", "AuthorizationRecordSha256", "HumanAuthorizationSha256", "ExecutionCommit", "InfrastructurePlanSha256", "ExecutorSha256"],
+    "existing_role_fails_closed": true,
+    "automatic_rerun_after_consumption": false,
+    "automatic_cleanup": false
   },
-  "exact_evidence_boundary": {
-    "workflow_run": 30846344146,
-    "artifact_id": 8868838408,
-    "zip_bytes": 1005357,
-    "zip_sha256": "4c77f6d9572d8bc21ab79a06b0d8b77e2a04231375de000ee9e37dc7a2b530b5",
-    "zip_checksum_sha256_base64": "THf22Vcti8Iat5oGsNi3fioEIxN13gAO6eN9x6K1MLU=",
-    "object_keys_may_be_created_by_this_executor": false,
-    "maximum_object_upload_count": 0
+  "audit_mechanism": {
+    "cloudtrail_lake_executable": false,
+    "standard_trail": "arn:aws:cloudtrail:us-east-1:723322847536:trail/mlb-statcast-june28-retention-audit-v1",
+    "dedicated_audit_bucket": "mlb-statcast-audit-lock-723322847536-us-east-1-v1",
+    "log_file_validation": true,
+    "signed_digest_delivery": true,
+    "object_data_events_exact_prefix": true,
+    "audit_object_default_retention": {"Mode": "COMPLIANCE", "Days": 2557}
   },
+  "execution_boundary": {
+    "mode": "INFRASTRUCTURE_ONLY",
+    "exact_client": "C:\\Users\\nicho\\AppData\\Local\\Programs\\Amazon\\AWSCLIV2\\aws.exe",
+    "exact_client_version": "aws-cli/2.36.14",
+    "evidence_upload_count": 0,
+    "evidence_put_object_capability": false,
+    "multipart_capability": false,
+    "evidence_retention_capability": false,
+    "legal_hold_capability": false,
+    "writer_assumption_capability": false,
+    "verifier_assumption_capability": false,
+    "evidence_retain_until_unapplied": "2033-08-03T00:00:00Z"
+  },
+  "terminal_statuses": [
+    "INFRASTRUCTURE_CREATED_AND_VERIFIED",
+    "PARTIAL_INFRASTRUCTURE_PRESERVED",
+    "AUTHORIZATION_CONSUMED_NO_FURTHER_MUTATION",
+    "PRE_MUTATION_FAILURE"
+  ],
   "scientific_state": {
+    "confirmation_run": 30846344146,
     "confirmation_attempt_1": "CONSUMED",
     "total_real_statcast_requests": 4,
     "source_contract_v2_promoted": false,
@@ -82,37 +100,5 @@
     "independent_reproduction_completed": false,
     "full_capture_authorized": false,
     "model_work_authorized": false
-  },
-  "required_live_preconditions": [
-    "exact account and non-root administrator identity",
-    "administrator MFA session and registered device",
-    "audit-user registered MFA device",
-    "exact repository commit and package identities",
-    "exact region and bucket",
-    "bucket name absent",
-    "all three planned roles absent",
-    "all planned local policies absent",
-    "CloudTrail Lake event data store absent",
-    "both evidence keys absent",
-    "no partial infrastructure owned by another identity",
-    "active unused separately merged execution authorization"
-  ],
-  "allowed_future_mutations_after_separate_authorization": [
-    "create three exact roles and their inline policies",
-    "attach exact read-only audit policy to the audit user",
-    "create exact dedicated bucket with Object Lock enabled",
-    "apply exact Versioning ownership public-access encryption and bucket-policy controls",
-    "create exact CloudTrail Lake event data store"
-  ],
-  "prohibited_actions": [
-    "evidence object upload",
-    "object retention application",
-    "writer role assumption",
-    "verifier role assumption",
-    "bootstrap access removal",
-    "source request or workflow dispatch",
-    "independent reproduction",
-    "source qualification or promotion",
-    "full capture feature model scoring prediction wagering or betting"
-  ]
+  }
 }

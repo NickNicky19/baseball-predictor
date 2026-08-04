@@ -1,0 +1,199 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "shared-pa-statcast-june28-aws-object-lock-infrastructure-execution-authorization-v1",
+  "title": "June 28 AWS Object Lock infrastructure execution authorization",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "authorization_id",
+    "repository",
+    "authorization_base_main_commit",
+    "aws_account_id",
+    "authorized_administrator_arn",
+    "administrator_mfa_required",
+    "audit_user_mfa_required",
+    "region",
+    "evidence_bucket",
+    "audit_log_bucket",
+    "infrastructure_role_arn",
+    "writer_role_arn",
+    "verifier_role_arn",
+    "audit_identity_arn",
+    "executor_path",
+    "executor_sha256",
+    "validator_sha256",
+    "infrastructure_plan_sha256",
+    "authority_package_sha256",
+    "trust_policies_sha256",
+    "identity_policies_sha256",
+    "evidence_bucket_policy_sha256",
+    "audit_bucket_policy_sha256",
+    "bucket_controls_sha256",
+    "cloudtrail_trail_configuration_sha256",
+    "execution_mode",
+    "evidence_upload_authorized",
+    "writer_or_verifier_evidence_role_assumption_authorized",
+    "issued_utc",
+    "valid_from_utc",
+    "expires_utc",
+    "canonical_human_authorization_text_sha256",
+    "single_use_required",
+    "bucket_object_lock_irreversibility_acknowledged",
+    "evidence_retention_timestamp_applied_during_infrastructure_mode",
+    "infrastructure_execution_authorized",
+    "authorization_previously_used"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "shared-pa-statcast-june28-aws-object-lock-infrastructure-execution-authorization-v1"
+    },
+    "authorization_id": {
+      "type": "string",
+      "minLength": 32,
+      "maxLength": 160,
+      "pattern": "^[a-z0-9][a-z0-9-]+$"
+    },
+    "repository": {
+      "const": "NickNicky19/baseball-predictor"
+    },
+    "authorization_base_main_commit": {
+      "$ref": "#/$defs/gitSha"
+    },
+    "aws_account_id": {
+      "const": "723322847536"
+    },
+    "authorized_administrator_arn": {
+      "const": "arn:aws:iam::723322847536:user/mlb-retention-admin"
+    },
+    "administrator_mfa_required": {
+      "const": true
+    },
+    "audit_user_mfa_required": {
+      "const": true
+    },
+    "region": {
+      "const": "us-east-1"
+    },
+    "evidence_bucket": {
+      "const": "mlb-statcast-evidence-lock-20260803-8868838408-v1"
+    },
+    "audit_log_bucket": {
+      "const": "mlb-statcast-audit-lock-723322847536-us-east-1-v1"
+    },
+    "infrastructure_role_arn": {
+      "const": "arn:aws:iam::723322847536:role/mlb-retention/MlbStatcastJune28RetentionInfrastructureV1"
+    },
+    "writer_role_arn": {
+      "const": "arn:aws:iam::723322847536:role/mlb-retention/MlbStatcastJune28RetentionWriterV1"
+    },
+    "verifier_role_arn": {
+      "const": "arn:aws:iam::723322847536:role/mlb-retention/MlbStatcastJune28RetentionVerifierV1"
+    },
+    "audit_identity_arn": {
+      "const": "arn:aws:iam::723322847536:user/mlb-retention-audit"
+    },
+    "executor_path": {
+      "const": "scripts/execute_shared_pa_statcast_june28_aws_object_lock_infrastructure_v1.py"
+    },
+    "executor_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "validator_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "infrastructure_plan_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "authority_package_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "trust_policies_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "identity_policies_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "evidence_bucket_policy_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "audit_bucket_policy_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "bucket_controls_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "cloudtrail_trail_configuration_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "execution_mode": {
+      "const": "INFRASTRUCTURE_ONLY"
+    },
+    "evidence_upload_authorized": {
+      "const": false
+    },
+    "writer_or_verifier_evidence_role_assumption_authorized": {
+      "const": false
+    },
+    "issued_utc": {
+      "$ref": "#/$defs/utc"
+    },
+    "valid_from_utc": {
+      "$ref": "#/$defs/utc"
+    },
+    "expires_utc": {
+      "$ref": "#/$defs/utc"
+    },
+    "canonical_human_authorization_text_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "single_use_required": {
+      "const": true
+    },
+    "bucket_object_lock_irreversibility_acknowledged": {
+      "const": true
+    },
+    "evidence_retention_timestamp_applied_during_infrastructure_mode": {
+      "const": false
+    },
+    "infrastructure_execution_authorized": {
+      "const": true
+    },
+    "authorization_previously_used": {
+      "const": false
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "gitSha": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "utc": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "Z$"
+    }
+  },
+  "x_non_circular_binding": {
+    "record_embeds_only": "authorization base-main commit B",
+    "external_inputs": [
+      "authorization PR head H derived from protected merge parent 2",
+      "expected execution commit M",
+      "authorization-record SHA-256",
+      "canonical human-authorization-text SHA-256"
+    ],
+    "forbidden_record_identities": [
+      "record SHA-256",
+      "record Git blob",
+      "record tree",
+      "authorization PR head H",
+      "protected merge commit M"
+    ],
+    "maximum_active_seconds": 3600,
+    "future_record_path": "config/shared_pa_statcast_june28_aws_object_lock_infrastructure_execution_authorization_v1.json"
+  }
+}
