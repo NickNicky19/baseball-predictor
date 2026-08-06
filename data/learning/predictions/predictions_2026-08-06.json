@@ -1,0 +1,5629 @@
+{
+  "game_date": "2026-08-06",
+  "hitter_projections": [
+    {
+      "player_id": 685133,
+      "player_name": "Wade Meckler",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 1.03,
+      "confidence": 0.82,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.03,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.672625,
+          "2.0": 0.282375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21068874777326663,
+        "walk": 0.08590133523626396,
+        "home_run": 0.03030131107275544,
+        "single": 0.15444814362271786,
+        "double": 0.04751468612488501,
+        "triple": 0.005178534096092382,
+        "out_on_bip": 0.46596724207401874
+      }
+    },
+    {
+      "player_id": 685133,
+      "player_name": "Wade Meckler",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.985,
+      "confidence": 0.7,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.98525,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.510875,
+          "3.0": 0.32525
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21068874777326663,
+        "walk": 0.08590133523626396,
+        "home_run": 0.03030131107275544,
+        "single": 0.15444814362271786,
+        "double": 0.04751468612488501,
+        "triple": 0.005178534096092382,
+        "out_on_bip": 0.46596724207401874
+      }
+    },
+    {
+      "player_id": 685133,
+      "player_name": "Wade Meckler",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.127,
+      "confidence": 0.86,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.12725,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.120125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21068874777326663,
+        "walk": 0.08590133523626396,
+        "home_run": 0.03030131107275544,
+        "single": 0.15444814362271786,
+        "double": 0.04751468612488501,
+        "triple": 0.005178534096092382,
+        "out_on_bip": 0.46596724207401874
+      }
+    },
+    {
+      "player_id": 545361,
+      "player_name": "Mike Trout",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.9,
+      "confidence": 0.82,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.899875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.62475,
+          "2.0": 0.225375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23332378747486532,
+        "walk": 0.1437675341011113,
+        "home_run": 0.02897876528169489,
+        "single": 0.13639303882733023,
+        "double": 0.04323698399154798,
+        "triple": 0.004605898020996878,
+        "out_on_bip": 0.4096939923024535
+      }
+    },
+    {
+      "player_id": 545361,
+      "player_name": "Mike Trout",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.826,
+      "confidence": 0.74,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.82575,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4755,
+          "3.0": 0.293125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23332378747486532,
+        "walk": 0.1437675341011113,
+        "home_run": 0.02897876528169489,
+        "single": 0.13639303882733023,
+        "double": 0.04323698399154798,
+        "triple": 0.004605898020996878,
+        "out_on_bip": 0.4096939923024535
+      }
+    },
+    {
+      "player_id": 545361,
+      "player_name": "Mike Trout",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.122,
+      "confidence": 0.86,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1225,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.117125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23332378747486532,
+        "walk": 0.1437675341011113,
+        "home_run": 0.02897876528169489,
+        "single": 0.13639303882733023,
+        "double": 0.04323698399154798,
+        "triple": 0.004605898020996878,
+        "out_on_bip": 0.4096939923024535
+      }
+    },
+    {
+      "player_id": 694384,
+      "player_name": "Nolan Schanuel",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 1.06,
+      "confidence": 0.82,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.05975,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.68825,
+          "2.0": 0.292125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15761991531960315,
+        "walk": 0.0808145895992671,
+        "home_run": 0.03396914946915714,
+        "single": 0.16677170262214136,
+        "double": 0.051165578006680104,
+        "triple": 0.005588135400739012,
+        "out_on_bip": 0.5040709295824121
+      }
+    },
+    {
+      "player_id": 694384,
+      "player_name": "Nolan Schanuel",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.957,
+      "confidence": 0.7,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.956625,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.508625,
+          "3.0": 0.32275
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15761991531960315,
+        "walk": 0.0808145895992671,
+        "home_run": 0.03396914946915714,
+        "single": 0.16677170262214136,
+        "double": 0.051165578006680104,
+        "triple": 0.005588135400739012,
+        "out_on_bip": 0.5040709295824121
+      }
+    },
+    {
+      "player_id": 694384,
+      "player_name": "Nolan Schanuel",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.143,
+      "confidence": 0.86,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1435,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.136625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15761991531960315,
+        "walk": 0.0808145895992671,
+        "home_run": 0.03396914946915714,
+        "single": 0.16677170262214136,
+        "double": 0.051165578006680104,
+        "triple": 0.005588135400739012,
+        "out_on_bip": 0.5040709295824121
+      }
+    },
+    {
+      "player_id": 687263,
+      "player_name": "Zach Neto",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.783,
+      "confidence": 0.82,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.783125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.568125,
+          "2.0": 0.181625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.28750674763826034,
+        "walk": 0.08833916447658398,
+        "home_run": 0.027466322511213587,
+        "single": 0.12114621046375627,
+        "double": 0.0390532168393428,
+        "triple": 0.004107677623156386,
+        "out_on_bip": 0.43238066044768664
+      }
+    },
+    {
+      "player_id": 687263,
+      "player_name": "Zach Neto",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.522,
+      "confidence": 0.74,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.52175,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.39825,
+          "3.0": 0.237375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.28750674763826034,
+        "walk": 0.08833916447658398,
+        "home_run": 0.027466322511213587,
+        "single": 0.12114621046375627,
+        "double": 0.0390532168393428,
+        "triple": 0.004107677623156386,
+        "out_on_bip": 0.43238066044768664
+      }
+    },
+    {
+      "player_id": 687263,
+      "player_name": "Zach Neto",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.11,
+      "confidence": 0.86,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.109625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.105
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.28750674763826034,
+        "walk": 0.08833916447658398,
+        "home_run": 0.027466322511213587,
+        "single": 0.12114621046375627,
+        "double": 0.0390532168393428,
+        "triple": 0.004107677623156386,
+        "out_on_bip": 0.43238066044768664
+      }
+    },
+    {
+      "player_id": 687093,
+      "player_name": "Vaughn Grissom",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 1.014,
+      "confidence": 0.82,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.0145,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6745,
+          "2.0": 0.2705
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16937165362737489,
+        "walk": 0.07615799234251089,
+        "home_run": 0.034487928147322454,
+        "single": 0.16353013125730795,
+        "double": 0.051942156812468054,
+        "triple": 0.005524930463327591,
+        "out_on_bip": 0.4989852073496882
+      }
+    },
+    {
+      "player_id": 687093,
+      "player_name": "Vaughn Grissom",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.886,
+      "confidence": 0.7,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.88575,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.490625,
+          "3.0": 0.312375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16937165362737489,
+        "walk": 0.07615799234251089,
+        "home_run": 0.034487928147322454,
+        "single": 0.16353013125730795,
+        "double": 0.051942156812468054,
+        "triple": 0.005524930463327591,
+        "out_on_bip": 0.4989852073496882
+      }
+    },
+    {
+      "player_id": 687093,
+      "player_name": "Vaughn Grissom",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.135,
+      "confidence": 0.86,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.134625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.128
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16937165362737489,
+        "walk": 0.07615799234251089,
+        "home_run": 0.034487928147322454,
+        "single": 0.16353013125730795,
+        "double": 0.051942156812468054,
+        "triple": 0.005524930463327591,
+        "out_on_bip": 0.4989852073496882
+      }
+    },
+    {
+      "player_id": 694208,
+      "player_name": "Mois\u00e9s Ballesteros",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.882,
+      "confidence": 0.5,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_statcast_league_fallback",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.88225,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6145,
+          "2.0": 0.2185
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2002071348710995,
+        "walk": 0.08591240255559246,
+        "home_run": 0.023391484631491443,
+        "single": 0.1543336146025208,
+        "double": 0.045686164466124106,
+        "triple": 0.005128712283811408,
+        "out_on_bip": 0.4853404865893602
+      }
+    },
+    {
+      "player_id": 694208,
+      "player_name": "Mois\u00e9s Ballesteros",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.627,
+      "confidence": 0.42,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_statcast_league_fallback",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.626875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.439875,
+          "3.0": 0.25425
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2002071348710995,
+        "walk": 0.08591240255559246,
+        "home_run": 0.023391484631491443,
+        "single": 0.1543336146025208,
+        "double": 0.045686164466124106,
+        "triple": 0.005128712283811408,
+        "out_on_bip": 0.4853404865893602
+      }
+    },
+    {
+      "player_id": 694208,
+      "player_name": "Mois\u00e9s Ballesteros",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.093,
+      "confidence": 0.58,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_statcast_league_fallback",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.0935,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.09075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2002071348710995,
+        "walk": 0.08591240255559246,
+        "home_run": 0.023391484631491443,
+        "single": 0.1543336146025208,
+        "double": 0.045686164466124106,
+        "triple": 0.005128712283811408,
+        "out_on_bip": 0.4853404865893602
+      }
+    },
+    {
+      "player_id": 642350,
+      "player_name": "Jose Siri",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.772,
+      "confidence": 0.76,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.772375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.567875,
+          "2.0": 0.1745
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2584246333587242,
+        "walk": 0.07079229760060383,
+        "home_run": 0.026324855339809577,
+        "single": 0.13779589767445455,
+        "double": 0.04346738643715265,
+        "triple": 0.004647776515682236,
+        "out_on_bip": 0.45854715307357313
+      }
+    },
+    {
+      "player_id": 642350,
+      "player_name": "Jose Siri",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.479,
+      "confidence": 0.68,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.479125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.391375,
+          "3.0": 0.2305
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2584246333587242,
+        "walk": 0.07079229760060383,
+        "home_run": 0.026324855339809577,
+        "single": 0.13779589767445455,
+        "double": 0.04346738643715265,
+        "triple": 0.004647776515682236,
+        "out_on_bip": 0.45854715307357313
+      }
+    },
+    {
+      "player_id": 642350,
+      "player_name": "Jose Siri",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.1,
+      "confidence": 0.84,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.100375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.0965
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2584246333587242,
+        "walk": 0.07079229760060383,
+        "home_run": 0.026324855339809577,
+        "single": 0.13779589767445455,
+        "double": 0.04346738643715265,
+        "triple": 0.004647776515682236,
+        "out_on_bip": 0.45854715307357313
+      }
+    },
+    {
+      "player_id": 666139,
+      "player_name": "Josh Lowe",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.771,
+      "confidence": 0.82,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.771125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.57,
+          "2.0": 0.168625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24284006523702076,
+        "walk": 0.06956527541749527,
+        "home_run": 0.042547698996364666,
+        "single": 0.13193232746398822,
+        "double": 0.04554900677386619,
+        "triple": 0.004550803441996268,
+        "out_on_bip": 0.4630148226692687
+      }
+    },
+    {
+      "player_id": 666139,
+      "player_name": "Josh Lowe",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.605,
+      "confidence": 0.74,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.604875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.40675,
+          "3.0": 0.259375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24284006523702076,
+        "walk": 0.06956527541749527,
+        "home_run": 0.042547698996364666,
+        "single": 0.13193232746398822,
+        "double": 0.04554900677386619,
+        "triple": 0.004550803441996268,
+        "out_on_bip": 0.4630148226692687
+      }
+    },
+    {
+      "player_id": 666139,
+      "player_name": "Josh Lowe",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.156,
+      "confidence": 0.86,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.156375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.145625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24284006523702076,
+        "walk": 0.06956527541749527,
+        "home_run": 0.042547698996364666,
+        "single": 0.13193232746398822,
+        "double": 0.04554900677386619,
+        "triple": 0.004550803441996268,
+        "out_on_bip": 0.4630148226692687
+      }
+    },
+    {
+      "player_id": 672724,
+      "player_name": "Oswald Peraza",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.64,
+      "confidence": 0.763,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.63975,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.4915,
+          "2.0": 0.129375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.271770415374617,
+        "walk": 0.059853918903027464,
+        "home_run": 0.012684838376373206,
+        "single": 0.14060081999414784,
+        "double": 0.037777375188971334,
+        "triple": 0.004573799876490235,
+        "out_on_bip": 0.47273883228637287
+      }
+    },
+    {
+      "player_id": 672724,
+      "player_name": "Oswald Peraza",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.109,
+      "confidence": 0.723,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.1095,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.30925,
+          "3.0": 0.148
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.271770415374617,
+        "walk": 0.059853918903027464,
+        "home_run": 0.012684838376373206,
+        "single": 0.14060081999414784,
+        "double": 0.037777375188971334,
+        "triple": 0.004573799876490235,
+        "out_on_bip": 0.47273883228637287
+      }
+    },
+    {
+      "player_id": 672724,
+      "player_name": "Oswald Peraza",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.043,
+      "confidence": 0.843,
+      "team": "Los Angeles Angels",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Brandon Young",
+      "opposing_pitcher_id": 687064,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.04275,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.042375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.271770415374617,
+        "walk": 0.059853918903027464,
+        "home_run": 0.012684838376373206,
+        "single": 0.14060081999414784,
+        "double": 0.037777375188971334,
+        "triple": 0.004573799876490235,
+        "out_on_bip": 0.47273883228637287
+      }
+    },
+    {
+      "player_id": 703607,
+      "player_name": "Henry Bolte",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.948,
+      "confidence": 0.82,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.948375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.643625,
+          "2.0": 0.245875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24354578869995483,
+        "walk": 0.08280235618817988,
+        "home_run": 0.03225595163982756,
+        "single": 0.1368928019668828,
+        "double": 0.04316628554696951,
+        "triple": 0.004616899679842367,
+        "out_on_bip": 0.4567199162783431
+      }
+    },
+    {
+      "player_id": 703607,
+      "player_name": "Henry Bolte",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.836,
+      "confidence": 0.7,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.83575,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.4705,
+          "3.0": 0.296
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24354578869995483,
+        "walk": 0.08280235618817988,
+        "home_run": 0.03225595163982756,
+        "single": 0.1368928019668828,
+        "double": 0.04316628554696951,
+        "triple": 0.004616899679842367,
+        "out_on_bip": 0.4567199162783431
+      }
+    },
+    {
+      "player_id": 703607,
+      "player_name": "Henry Bolte",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.14,
+      "confidence": 0.86,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.14025,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.13175
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24354578869995483,
+        "walk": 0.08280235618817988,
+        "home_run": 0.03225595163982756,
+        "single": 0.1368928019668828,
+        "double": 0.04316628554696951,
+        "triple": 0.004616899679842367,
+        "out_on_bip": 0.4567199162783431
+      }
+    },
+    {
+      "player_id": 695720,
+      "player_name": "Tommy White",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 1.074,
+      "confidence": 0.803,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.073875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.687125,
+          "2.0": 0.294875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1727702377457569,
+        "walk": 0.06205571919972368,
+        "home_run": 0.03213912296742636,
+        "single": 0.1667751864759077,
+        "double": 0.050766116362005356,
+        "triple": 0.005577982124049054,
+        "out_on_bip": 0.5099156351251309
+      }
+    },
+    {
+      "player_id": 695720,
+      "player_name": "Tommy White",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 2.05,
+      "confidence": 0.683,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.0505,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.522625,
+          "3.0": 0.337375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1727702377457569,
+        "walk": 0.06205571919972368,
+        "home_run": 0.03213912296742636,
+        "single": 0.1667751864759077,
+        "double": 0.050766116362005356,
+        "triple": 0.005577982124049054,
+        "out_on_bip": 0.5099156351251309
+      }
+    },
+    {
+      "player_id": 695720,
+      "player_name": "Tommy White",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.141,
+      "confidence": 0.843,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.141,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.133
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1727702377457569,
+        "walk": 0.06205571919972368,
+        "home_run": 0.03213912296742636,
+        "single": 0.1667751864759077,
+        "double": 0.050766116362005356,
+        "triple": 0.005577982124049054,
+        "out_on_bip": 0.5099156351251309
+      }
+    },
+    {
+      "player_id": 641680,
+      "player_name": "Jonah Heim",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.994,
+      "confidence": 0.82,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.994375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.668,
+          "2.0": 0.26025
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1774383697491467,
+        "walk": 0.08254351483217429,
+        "home_run": 0.03838066062190194,
+        "single": 0.14644407821062091,
+        "double": 0.04685456190512731,
+        "triple": 0.004956375387583288,
+        "out_on_bip": 0.5033824392934456
+      }
+    },
+    {
+      "player_id": 641680,
+      "player_name": "Jonah Heim",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.908,
+      "confidence": 0.7,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.908125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.483625,
+          "3.0": 0.311625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1774383697491467,
+        "walk": 0.08254351483217429,
+        "home_run": 0.03838066062190194,
+        "single": 0.14644407821062091,
+        "double": 0.04685456190512731,
+        "triple": 0.004956375387583288,
+        "out_on_bip": 0.5033824392934456
+      }
+    },
+    {
+      "player_id": 641680,
+      "player_name": "Jonah Heim",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.162,
+      "confidence": 0.86,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.161625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.150625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1774383697491467,
+        "walk": 0.08254351483217429,
+        "home_run": 0.03838066062190194,
+        "single": 0.14644407821062091,
+        "double": 0.04685456190512731,
+        "triple": 0.004956375387583288,
+        "out_on_bip": 0.5033824392934456
+      }
+    },
+    {
+      "player_id": 691016,
+      "player_name": "Tyler Soderstrom",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.98,
+      "confidence": 0.82,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.9795,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.65875,
+          "2.0": 0.26075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1838844389259621,
+        "walk": 0.1105326046198726,
+        "home_run": 0.03429428173710137,
+        "single": 0.1528470652820579,
+        "double": 0.048440474509740775,
+        "triple": 0.00516121896902048,
+        "out_on_bip": 0.4648399159562448
+      }
+    },
+    {
+      "player_id": 691016,
+      "player_name": "Tyler Soderstrom",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.906,
+      "confidence": 0.7,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.906375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.484,
+          "3.0": 0.310125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1838844389259621,
+        "walk": 0.1105326046198726,
+        "home_run": 0.03429428173710137,
+        "single": 0.1528470652820579,
+        "double": 0.048440474509740775,
+        "triple": 0.00516121896902048,
+        "out_on_bip": 0.4648399159562448
+      }
+    },
+    {
+      "player_id": 691016,
+      "player_name": "Tyler Soderstrom",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.144,
+      "confidence": 0.86,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1445,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.136375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1838844389259621,
+        "walk": 0.1105326046198726,
+        "home_run": 0.03429428173710137,
+        "single": 0.1528470652820579,
+        "double": 0.048440474509740775,
+        "triple": 0.00516121896902048,
+        "out_on_bip": 0.4648399159562448
+      }
+    },
+    {
+      "player_id": 691777,
+      "player_name": "Max Muncy",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.796,
+      "confidence": 0.73,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.796,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.57575,
+          "2.0": 0.1835
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.30311562109168544,
+        "walk": 0.08459851753862337,
+        "home_run": 0.031202248175042312,
+        "single": 0.126216972763562,
+        "double": 0.04061024349228325,
+        "triple": 0.0042776209296370585,
+        "out_on_bip": 0.4099787760091665
+      }
+    },
+    {
+      "player_id": 691777,
+      "player_name": "Max Muncy",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.572,
+      "confidence": 0.65,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.572375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.413125,
+          "3.0": 0.249
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.30311562109168544,
+        "walk": 0.08459851753862337,
+        "home_run": 0.031202248175042312,
+        "single": 0.126216972763562,
+        "double": 0.04061024349228325,
+        "triple": 0.0042776209296370585,
+        "out_on_bip": 0.4099787760091665
+      }
+    },
+    {
+      "player_id": 691777,
+      "player_name": "Max Muncy",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.122,
+      "confidence": 0.77,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.121875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.117375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.30311562109168544,
+        "walk": 0.08459851753862337,
+        "home_run": 0.031202248175042312,
+        "single": 0.126216972763562,
+        "double": 0.04061024349228325,
+        "triple": 0.0042776209296370585,
+        "out_on_bip": 0.4099787760091665
+      }
+    },
+    {
+      "player_id": 671732,
+      "player_name": "Lawrence Butler",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.81,
+      "confidence": 0.82,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.809625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.58425,
+          "2.0": 0.1875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23767656910588503,
+        "walk": 0.10951297399246586,
+        "home_run": 0.03287934351763241,
+        "single": 0.13580234933289945,
+        "double": 0.04351410262380539,
+        "triple": 0.004597857742479612,
+        "out_on_bip": 0.43601680368483214
+      }
+    },
+    {
+      "player_id": 671732,
+      "player_name": "Lawrence Butler",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.625,
+      "confidence": 0.74,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.6245,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.421375,
+          "3.0": 0.2585
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23767656910588503,
+        "walk": 0.10951297399246586,
+        "home_run": 0.03287934351763241,
+        "single": 0.13580234933289945,
+        "double": 0.04351410262380539,
+        "triple": 0.004597857742479612,
+        "out_on_bip": 0.43601680368483214
+      }
+    },
+    {
+      "player_id": 671732,
+      "player_name": "Lawrence Butler",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.132,
+      "confidence": 0.86,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.132375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.125125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23767656910588503,
+        "walk": 0.10951297399246586,
+        "home_run": 0.03287934351763241,
+        "single": 0.13580234933289945,
+        "double": 0.04351410262380539,
+        "triple": 0.004597857742479612,
+        "out_on_bip": 0.43601680368483214
+      }
+    },
+    {
+      "player_id": 661531,
+      "player_name": "Brian Serven",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.885,
+      "confidence": 0.613,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.884875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.623375,
+          "2.0": 0.216
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16226089320428777,
+        "walk": 0.08437328190042442,
+        "home_run": 0.04328048012157405,
+        "single": 0.14848038972090163,
+        "double": 0.04833506513956508,
+        "triple": 0.005046550124627352,
+        "out_on_bip": 0.5082233397886198
+      }
+    },
+    {
+      "player_id": 661531,
+      "player_name": "Brian Serven",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.809,
+      "confidence": 0.493,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.80925,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.462125,
+          "3.0": 0.29525
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16226089320428777,
+        "walk": 0.08437328190042442,
+        "home_run": 0.04328048012157405,
+        "single": 0.14848038972090163,
+        "double": 0.04833506513956508,
+        "triple": 0.005046550124627352,
+        "out_on_bip": 0.5082233397886198
+      }
+    },
+    {
+      "player_id": 661531,
+      "player_name": "Brian Serven",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.156,
+      "confidence": 0.653,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.15625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.146875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16226089320428777,
+        "walk": 0.08437328190042442,
+        "home_run": 0.04328048012157405,
+        "single": 0.14848038972090163,
+        "double": 0.04833506513956508,
+        "triple": 0.005046550124627352,
+        "out_on_bip": 0.5082233397886198
+      }
+    },
+    {
+      "player_id": 675961,
+      "player_name": "Alika Williams",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.76,
+      "confidence": 0.82,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.759625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.560875,
+          "2.0": 0.169125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23537239870964477,
+        "walk": 0.06333391682387081,
+        "home_run": 0.025254053248408636,
+        "single": 0.1467136638823273,
+        "double": 0.04319789195915397,
+        "triple": 0.004869527072858495,
+        "out_on_bip": 0.48125854830373604
+      }
+    },
+    {
+      "player_id": 675961,
+      "player_name": "Alika Williams",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.421,
+      "confidence": 0.74,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.4215,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.380125,
+          "3.0": 0.216
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23537239870964477,
+        "walk": 0.06333391682387081,
+        "home_run": 0.025254053248408636,
+        "single": 0.1467136638823273,
+        "double": 0.04319789195915397,
+        "triple": 0.004869527072858495,
+        "out_on_bip": 0.48125854830373604
+      }
+    },
+    {
+      "player_id": 675961,
+      "player_name": "Alika Williams",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.091,
+      "confidence": 0.88,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.09075,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.086875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23537239870964477,
+        "walk": 0.06333391682387081,
+        "home_run": 0.025254053248408636,
+        "single": 0.1467136638823273,
+        "double": 0.04319789195915397,
+        "triple": 0.004869527072858495,
+        "out_on_bip": 0.48125854830373604
+      }
+    },
+    {
+      "player_id": 680716,
+      "player_name": "Jonathan Ornelas",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.635,
+      "confidence": 0.5,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_statcast_league_fallback",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.635125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.487625,
+          "2.0": 0.12625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.35751589499337993,
+        "walk": 0.051591617719502776,
+        "home_run": 0.021959285380452973,
+        "single": 0.1270391382915857,
+        "double": 0.03760639560326393,
+        "triple": 0.0042216803562781955,
+        "out_on_bip": 0.4000659876555365
+      }
+    },
+    {
+      "player_id": 680716,
+      "player_name": "Jonathan Ornelas",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.147,
+      "confidence": 0.46,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_statcast_league_fallback",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.14675,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.313375,
+          "3.0": 0.164625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.35751589499337993,
+        "walk": 0.051591617719502776,
+        "home_run": 0.021959285380452973,
+        "single": 0.1270391382915857,
+        "double": 0.03760639560326393,
+        "triple": 0.0042216803562781955,
+        "out_on_bip": 0.4000659876555365
+      }
+    },
+    {
+      "player_id": 680716,
+      "player_name": "Jonathan Ornelas",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.073,
+      "confidence": 0.58,
+      "team": "Athletics",
+      "opponent": "Cincinnati Reds",
+      "opposing_pitcher": "Andrew Abbott",
+      "opposing_pitcher_id": 671096,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_statcast_league_fallback",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.0735,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.071
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.35751589499337993,
+        "walk": 0.051591617719502776,
+        "home_run": 0.021959285380452973,
+        "single": 0.1270391382915857,
+        "double": 0.03760639560326393,
+        "triple": 0.0042216803562781955,
+        "out_on_bip": 0.4000659876555365
+      }
+    },
+    {
+      "player_id": 682829,
+      "player_name": "Elly De La Cruz",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 1.026,
+      "confidence": 0.82,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.025625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6705,
+          "2.0": 0.27925
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2604978176393874,
+        "walk": 0.10219848951303527,
+        "home_run": 0.04708179450211028,
+        "single": 0.13566542322047304,
+        "double": 0.047102065081494705,
+        "triple": 0.004686345853896609,
+        "out_on_bip": 0.40276806418960276
+      }
+    },
+    {
+      "player_id": 682829,
+      "player_name": "Elly De La Cruz",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 2.14,
+      "confidence": 0.7,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.1405,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.52525,
+          "3.0": 0.3545
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2604978176393874,
+        "walk": 0.10219848951303527,
+        "home_run": 0.04708179450211028,
+        "single": 0.13566542322047304,
+        "double": 0.047102065081494705,
+        "triple": 0.004686345853896609,
+        "out_on_bip": 0.40276806418960276
+      }
+    },
+    {
+      "player_id": 682829,
+      "player_name": "Elly De La Cruz",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.205,
+      "confidence": 0.86,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.205,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.188875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2604978176393874,
+        "walk": 0.10219848951303527,
+        "home_run": 0.04708179450211028,
+        "single": 0.13566542322047304,
+        "double": 0.047102065081494705,
+        "triple": 0.004686345853896609,
+        "out_on_bip": 0.40276806418960276
+      }
+    },
+    {
+      "player_id": 701398,
+      "player_name": "Sal Stewart",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.904,
+      "confidence": 0.82,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.903875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.629,
+          "2.0": 0.22275
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22155833701964814,
+        "walk": 0.10040061263048074,
+        "home_run": 0.041111024729369006,
+        "single": 0.12706253177246923,
+        "double": 0.04245584396379885,
+        "triple": 0.00434662501887867,
+        "out_on_bip": 0.4630650248653554
+      }
+    },
+    {
+      "player_id": 701398,
+      "player_name": "Sal Stewart",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.898,
+      "confidence": 0.7,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.89775,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.473875,
+          "3.0": 0.311625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22155833701964814,
+        "walk": 0.10040061263048074,
+        "home_run": 0.041111024729369006,
+        "single": 0.12706253177246923,
+        "double": 0.04245584396379885,
+        "triple": 0.00434662501887867,
+        "out_on_bip": 0.4630650248653554
+      }
+    },
+    {
+      "player_id": 701398,
+      "player_name": "Sal Stewart",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.178,
+      "confidence": 0.86,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.17825,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.166875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22155833701964814,
+        "walk": 0.10040061263048074,
+        "home_run": 0.041111024729369006,
+        "single": 0.12706253177246923,
+        "double": 0.04245584396379885,
+        "triple": 0.00434662501887867,
+        "out_on_bip": 0.4630650248653554
+      }
+    },
+    {
+      "player_id": 668709,
+      "player_name": "JJ Bleday",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.882,
+      "confidence": 0.82,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.8825,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.62225,
+          "2.0": 0.212875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21604555355303517,
+        "walk": 0.12552932436880038,
+        "home_run": 0.04082323108011805,
+        "single": 0.1273312217662092,
+        "double": 0.04161041683369786,
+        "triple": 0.004331836887177105,
+        "out_on_bip": 0.4443284155109621
+      }
+    },
+    {
+      "player_id": 668709,
+      "player_name": "JJ Bleday",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.873,
+      "confidence": 0.7,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.87275,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.47175,
+          "3.0": 0.30575
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21604555355303517,
+        "walk": 0.12552932436880038,
+        "home_run": 0.04082323108011805,
+        "single": 0.1273312217662092,
+        "double": 0.04161041683369786,
+        "triple": 0.004331836887177105,
+        "out_on_bip": 0.4443284155109621
+      }
+    },
+    {
+      "player_id": 668709,
+      "player_name": "JJ Bleday",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.173,
+      "confidence": 0.86,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.173125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.16225
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21604555355303517,
+        "walk": 0.12552932436880038,
+        "home_run": 0.04082323108011805,
+        "single": 0.1273312217662092,
+        "double": 0.04161041683369786,
+        "triple": 0.004331836887177105,
+        "out_on_bip": 0.4443284155109621
+      }
+    },
+    {
+      "player_id": 663886,
+      "player_name": "Tyler Stephenson",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.956,
+      "confidence": 0.82,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.956,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.652125,
+          "2.0": 0.24625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24420934228497831,
+        "walk": 0.10514731326695907,
+        "home_run": 0.06036948445534513,
+        "single": 0.12525772714163322,
+        "double": 0.04622995111468918,
+        "triple": 0.004397119955290319,
+        "out_on_bip": 0.4143890617811048
+      }
+    },
+    {
+      "player_id": 663886,
+      "player_name": "Tyler Stephenson",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 2.166,
+      "confidence": 0.7,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.16625,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.50975,
+          "3.0": 0.36525
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24420934228497831,
+        "walk": 0.10514731326695907,
+        "home_run": 0.06036948445534513,
+        "single": 0.12525772714163322,
+        "double": 0.04622995111468918,
+        "triple": 0.004397119955290319,
+        "out_on_bip": 0.4143890617811048
+      }
+    },
+    {
+      "player_id": 663886,
+      "player_name": "Tyler Stephenson",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.241,
+      "confidence": 0.86,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.24075,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.218125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24420934228497831,
+        "walk": 0.10514731326695907,
+        "home_run": 0.06036948445534513,
+        "single": 0.12525772714163322,
+        "double": 0.04622995111468918,
+        "triple": 0.004397119955290319,
+        "out_on_bip": 0.4143890617811048
+      }
+    },
+    {
+      "player_id": 553993,
+      "player_name": "Eugenio Su\u00e1rez",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.688,
+      "confidence": 0.82,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.688375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.52325,
+          "2.0": 0.144125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.35388198372348384,
+        "walk": 0.09011262900118135,
+        "home_run": 0.02999983578643396,
+        "single": 0.10705652542973652,
+        "double": 0.03599368103497554,
+        "triple": 0.0036679540119156943,
+        "out_on_bip": 0.37928739101227305
+      }
+    },
+    {
+      "player_id": 553993,
+      "player_name": "Eugenio Su\u00e1rez",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.404,
+      "confidence": 0.74,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.404375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.364375,
+          "3.0": 0.21875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.35388198372348384,
+        "walk": 0.09011262900118135,
+        "home_run": 0.02999983578643396,
+        "single": 0.10705652542973652,
+        "double": 0.03599368103497554,
+        "triple": 0.0036679540119156943,
+        "out_on_bip": 0.37928739101227305
+      }
+    },
+    {
+      "player_id": 553993,
+      "player_name": "Eugenio Su\u00e1rez",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.117,
+      "confidence": 0.86,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1165,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.112125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.35388198372348384,
+        "walk": 0.09011262900118135,
+        "home_run": 0.02999983578643396,
+        "single": 0.10705652542973652,
+        "double": 0.03599368103497554,
+        "triple": 0.0036679540119156943,
+        "out_on_bip": 0.37928739101227305
+      }
+    },
+    {
+      "player_id": 667472,
+      "player_name": "Dane Myers",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.746,
+      "confidence": 0.817,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.74625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.56,
+          "2.0": 0.16
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2534550011636174,
+        "walk": 0.10796011357982585,
+        "home_run": 0.019325686270838548,
+        "single": 0.13386371592510776,
+        "double": 0.03817349542026969,
+        "triple": 0.004411210547317371,
+        "out_on_bip": 0.44281077709302347
+      }
+    },
+    {
+      "player_id": 667472,
+      "player_name": "Dane Myers",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.412,
+      "confidence": 0.737,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.412,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.374,
+          "3.0": 0.210375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2534550011636174,
+        "walk": 0.10796011357982585,
+        "home_run": 0.019325686270838548,
+        "single": 0.13386371592510776,
+        "double": 0.03817349542026969,
+        "triple": 0.004411210547317371,
+        "out_on_bip": 0.44281077709302347
+      }
+    },
+    {
+      "player_id": 667472,
+      "player_name": "Dane Myers",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.073,
+      "confidence": 0.88,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.07325,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.07075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2534550011636174,
+        "walk": 0.10796011357982585,
+        "home_run": 0.019325686270838548,
+        "single": 0.13386371592510776,
+        "double": 0.03817349542026969,
+        "triple": 0.004411210547317371,
+        "out_on_bip": 0.44281077709302347
+      }
+    },
+    {
+      "player_id": 699302,
+      "player_name": "H\u00e9ctor Rodr\u00edguez",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.841,
+      "confidence": 0.5,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_statcast_league_fallback",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.8405,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.603625,
+          "2.0": 0.201
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.12375000000000001,
+        "walk": 0.15725000000000003,
+        "home_run": 0.026540409657296586,
+        "single": 0.15471686473706386,
+        "double": 0.04579961498514094,
+        "triple": 0.005141448198005252,
+        "out_on_bip": 0.48680166242249334
+      }
+    },
+    {
+      "player_id": 699302,
+      "player_name": "H\u00e9ctor Rodr\u00edguez",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.663,
+      "confidence": 0.42,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_statcast_league_fallback",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.663,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.436875,
+          "3.0": 0.257875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.12375000000000001,
+        "walk": 0.15725000000000003,
+        "home_run": 0.026540409657296586,
+        "single": 0.15471686473706386,
+        "double": 0.04579961498514094,
+        "triple": 0.005141448198005252,
+        "out_on_bip": 0.48680166242249334
+      }
+    },
+    {
+      "player_id": 699302,
+      "player_name": "H\u00e9ctor Rodr\u00edguez",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.1,
+      "confidence": 0.58,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_statcast_league_fallback",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.095875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.12375000000000001,
+        "walk": 0.15725000000000003,
+        "home_run": 0.026540409657296586,
+        "single": 0.15471686473706386,
+        "double": 0.04579961498514094,
+        "triple": 0.005141448198005252,
+        "out_on_bip": 0.48680166242249334
+      }
+    },
+    {
+      "player_id": 682622,
+      "player_name": "Noelvi Marte",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.698,
+      "confidence": 0.82,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.698125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.5305,
+          "2.0": 0.145625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24420934228497831,
+        "walk": 0.07315134893982254,
+        "home_run": 0.021174697897375454,
+        "single": 0.1370313141528421,
+        "double": 0.040447974870166645,
+        "triple": 0.004550751000589968,
+        "out_on_bip": 0.479434570854225
+      }
+    },
+    {
+      "player_id": 682622,
+      "player_name": "Noelvi Marte",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.308,
+      "confidence": 0.78,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.30825,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.358125,
+          "3.0": 0.195875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24420934228497831,
+        "walk": 0.07315134893982254,
+        "home_run": 0.021174697897375454,
+        "single": 0.1370313141528421,
+        "double": 0.040447974870166645,
+        "triple": 0.004550751000589968,
+        "out_on_bip": 0.479434570854225
+      }
+    },
+    {
+      "player_id": 682622,
+      "player_name": "Noelvi Marte",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.077,
+      "confidence": 0.88,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.076875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24420934228497831,
+        "walk": 0.07315134893982254,
+        "home_run": 0.021174697897375454,
+        "single": 0.1370313141528421,
+        "double": 0.040447974870166645,
+        "triple": 0.004550751000589968,
+        "out_on_bip": 0.479434570854225
+      }
+    },
+    {
+      "player_id": 680574,
+      "player_name": "Matt McLain",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.686,
+      "confidence": 0.727,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.686375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.520875,
+          "2.0": 0.143125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26013028528590937,
+        "walk": 0.10417448702504806,
+        "home_run": 0.020623041078497377,
+        "single": 0.1405650174109978,
+        "double": 0.042388618114534385,
+        "triple": 0.0046911188596290305,
+        "out_on_bip": 0.4274274322253841
+      }
+    },
+    {
+      "player_id": 680574,
+      "player_name": "Matt McLain",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.275,
+      "confidence": 0.687,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.275375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.34925,
+          "3.0": 0.183375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26013028528590937,
+        "walk": 0.10417448702504806,
+        "home_run": 0.020623041078497377,
+        "single": 0.1405650174109978,
+        "double": 0.042388618114534385,
+        "triple": 0.0046911188596290305,
+        "out_on_bip": 0.4274274322253841
+      }
+    },
+    {
+      "player_id": 680574,
+      "player_name": "Matt McLain",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.068,
+      "confidence": 0.807,
+      "team": "Cincinnati Reds",
+      "opponent": "Athletics",
+      "opposing_pitcher": "Mason Barnett",
+      "opposing_pitcher_id": 686930,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.068,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.064
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26013028528590937,
+        "walk": 0.10417448702504806,
+        "home_run": 0.020623041078497377,
+        "single": 0.1405650174109978,
+        "double": 0.042388618114534385,
+        "triple": 0.0046911188596290305,
+        "out_on_bip": 0.4274274322253841
+      }
+    },
+    {
+      "player_id": 683953,
+      "player_name": "Travis Bazzana",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.875,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.874625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6165,
+          "2.0": 0.211625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24511921295408834,
+        "walk": 0.09946443703968778,
+        "home_run": 0.02471358665964957,
+        "single": 0.1301017184711521,
+        "double": 0.03824060371401459,
+        "triple": 0.0043164697996196585,
+        "out_on_bip": 0.4580439713617879
+      }
+    },
+    {
+      "player_id": 683953,
+      "player_name": "Travis Bazzana",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.692,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.69225,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4435,
+          "3.0": 0.26425
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24511921295408834,
+        "walk": 0.09946443703968778,
+        "home_run": 0.02471358665964957,
+        "single": 0.1301017184711521,
+        "double": 0.03824060371401459,
+        "triple": 0.0043164697996196585,
+        "out_on_bip": 0.4580439713617879
+      }
+    },
+    {
+      "player_id": 683953,
+      "player_name": "Travis Bazzana",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.109,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.109,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.104
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24511921295408834,
+        "walk": 0.09946443703968778,
+        "home_run": 0.02471358665964957,
+        "single": 0.1301017184711521,
+        "double": 0.03824060371401459,
+        "triple": 0.0043164697996196585,
+        "out_on_bip": 0.4580439713617879
+      }
+    },
+    {
+      "player_id": 800050,
+      "player_name": "Chase DeLauter",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 1.009,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.008875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.671625,
+          "2.0": 0.269625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18184880666457937,
+        "walk": 0.09402474814753807,
+        "home_run": 0.04406254030946515,
+        "single": 0.14024055719310666,
+        "double": 0.046410755220812026,
+        "triple": 0.004785931087536377,
+        "out_on_bip": 0.4886266613769624
+      }
+    },
+    {
+      "player_id": 800050,
+      "player_name": "Chase DeLauter",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 2.089,
+      "confidence": 0.7,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.088625,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.512375,
+          "3.0": 0.345375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18184880666457937,
+        "walk": 0.09402474814753807,
+        "home_run": 0.04406254030946515,
+        "single": 0.14024055719310666,
+        "double": 0.046410755220812026,
+        "triple": 0.004785931087536377,
+        "out_on_bip": 0.4886266613769624
+      }
+    },
+    {
+      "player_id": 800050,
+      "player_name": "Chase DeLauter",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.196,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1955,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.179375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18184880666457937,
+        "walk": 0.09402474814753807,
+        "home_run": 0.04406254030946515,
+        "single": 0.14024055719310666,
+        "double": 0.046410755220812026,
+        "triple": 0.004785931087536377,
+        "out_on_bip": 0.4886266613769624
+      }
+    },
+    {
+      "player_id": 608070,
+      "player_name": "Jos\u00e9 Ram\u00edrez",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.91,
+      "confidence": 0.723,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.909625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.62925,
+          "2.0": 0.2275
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17457461580094571,
+        "walk": 0.10649466185623874,
+        "home_run": 0.02194419692951306,
+        "single": 0.15129968158372845,
+        "double": 0.04272381801857643,
+        "triple": 0.0049749615282642275,
+        "out_on_bip": 0.4979880642827334
+      }
+    },
+    {
+      "player_id": 608070,
+      "player_name": "Jos\u00e9 Ram\u00edrez",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.713,
+      "confidence": 0.643,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.71325,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.45275,
+          "3.0": 0.265875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17457461580094571,
+        "walk": 0.10649466185623874,
+        "home_run": 0.02194419692951306,
+        "single": 0.15129968158372845,
+        "double": 0.04272381801857643,
+        "triple": 0.0049749615282642275,
+        "out_on_bip": 0.4979880642827334
+      }
+    },
+    {
+      "player_id": 608070,
+      "player_name": "Jos\u00e9 Ram\u00edrez",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.091,
+      "confidence": 0.803,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.09075,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.088625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17457461580094571,
+        "walk": 0.10649466185623874,
+        "home_run": 0.02194419692951306,
+        "single": 0.15129968158372845,
+        "double": 0.04272381801857643,
+        "triple": 0.0049749615282642275,
+        "out_on_bip": 0.4979880642827334
+      }
+    },
+    {
+      "player_id": 663993,
+      "player_name": "Nathaniel Lowe",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.871,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.871375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6105,
+          "2.0": 0.213625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26340920585758465,
+        "walk": 0.08921937382258062,
+        "home_run": 0.036491796553467064,
+        "single": 0.1358128596264867,
+        "double": 0.043735009825842906,
+        "triple": 0.0046037915244187076,
+        "out_on_bip": 0.42672796278961944
+      }
+    },
+    {
+      "player_id": 663993,
+      "player_name": "Nathaniel Lowe",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.766,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.7665,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.452375,
+          "3.0": 0.288375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26340920585758465,
+        "walk": 0.08921937382258062,
+        "home_run": 0.036491796553467064,
+        "single": 0.1358128596264867,
+        "double": 0.043735009825842906,
+        "triple": 0.0046037915244187076,
+        "out_on_bip": 0.42672796278961944
+      }
+    },
+    {
+      "player_id": 663993,
+      "player_name": "Nathaniel Lowe",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.153,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.152625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.144375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26340920585758465,
+        "walk": 0.08921937382258062,
+        "home_run": 0.036491796553467064,
+        "single": 0.1358128596264867,
+        "double": 0.043735009825842906,
+        "triple": 0.0046037915244187076,
+        "out_on_bip": 0.42672796278961944
+      }
+    },
+    {
+      "player_id": 682657,
+      "player_name": "Angel Mart\u00ednez",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.856,
+      "confidence": 0.673,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.855625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.60725,
+          "2.0": 0.204875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24105667957437696,
+        "walk": 0.05718810043973364,
+        "home_run": 0.023306906697832818,
+        "single": 0.14866516737993798,
+        "double": 0.04424922487321326,
+        "triple": 0.004946522878285929,
+        "out_on_bip": 0.4805873981566194
+      }
+    },
+    {
+      "player_id": 682657,
+      "player_name": "Angel Mart\u00ednez",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.607,
+      "confidence": 0.593,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.6075,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.428625,
+          "3.0": 0.249625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24105667957437696,
+        "walk": 0.05718810043973364,
+        "home_run": 0.023306906697832818,
+        "single": 0.14866516737993798,
+        "double": 0.04424922487321326,
+        "triple": 0.004946522878285929,
+        "out_on_bip": 0.4805873981566194
+      }
+    },
+    {
+      "player_id": 682657,
+      "player_name": "Angel Mart\u00ednez",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.087,
+      "confidence": 0.753,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.087125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.08425
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24105667957437696,
+        "walk": 0.05718810043973364,
+        "home_run": 0.023306906697832818,
+        "single": 0.14866516737993798,
+        "double": 0.04424922487321326,
+        "triple": 0.004946522878285929,
+        "out_on_bip": 0.4805873981566194
+      }
+    },
+    {
+      "player_id": 677587,
+      "player_name": "Brayan Rocchio",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.836,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.836375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.592875,
+          "2.0": 0.206
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1851447012187513,
+        "walk": 0.07478555997817972,
+        "home_run": 0.02587277283835086,
+        "single": 0.14541030297969307,
+        "double": 0.04263872799082058,
+        "triple": 0.004821770024884965,
+        "out_on_bip": 0.5213261649693195
+      }
+    },
+    {
+      "player_id": 677587,
+      "player_name": "Brayan Rocchio",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.525,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.524875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.402375,
+          "3.0": 0.235
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1851447012187513,
+        "walk": 0.07478555997817972,
+        "home_run": 0.02587277283835086,
+        "single": 0.14541030297969307,
+        "double": 0.04263872799082058,
+        "triple": 0.004821770024884965,
+        "out_on_bip": 0.5213261649693195
+      }
+    },
+    {
+      "player_id": 677587,
+      "player_name": "Brayan Rocchio",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.105,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.105375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.102
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1851447012187513,
+        "walk": 0.07478555997817972,
+        "home_run": 0.02587277283835086,
+        "single": 0.14541030297969307,
+        "double": 0.04263872799082058,
+        "triple": 0.004821770024884965,
+        "out_on_bip": 0.5213261649693195
+      }
+    },
+    {
+      "player_id": 690984,
+      "player_name": "Petey Halpin",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.824,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.823625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.59125,
+          "2.0": 0.196125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21879036164140336,
+        "walk": 0.05573284992093377,
+        "home_run": 0.028422616754540178,
+        "single": 0.14584417549706263,
+        "double": 0.04394816257218494,
+        "triple": 0.004866470206903784,
+        "out_on_bip": 0.5023953634069714
+      }
+    },
+    {
+      "player_id": 690984,
+      "player_name": "Petey Halpin",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.522,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.5225,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.399875,
+          "3.0": 0.23075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21879036164140336,
+        "walk": 0.05573284992093377,
+        "home_run": 0.028422616754540178,
+        "single": 0.14584417549706263,
+        "double": 0.04394816257218494,
+        "triple": 0.004866470206903784,
+        "out_on_bip": 0.5023953634069714
+      }
+    },
+    {
+      "player_id": 690984,
+      "player_name": "Petey Halpin",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.106,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.105625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.101125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21879036164140336,
+        "walk": 0.05573284992093377,
+        "home_run": 0.028422616754540178,
+        "single": 0.14584417549706263,
+        "double": 0.04394816257218494,
+        "triple": 0.004866470206903784,
+        "out_on_bip": 0.5023953634069714
+      }
+    },
+    {
+      "player_id": 672275,
+      "player_name": "Patrick Bailey",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.746,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.74575,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.547125,
+          "2.0": 0.169875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26460206313752754,
+        "walk": 0.07401321501233382,
+        "home_run": 0.035235619508185545,
+        "single": 0.13091935268606494,
+        "double": 0.04316532550994975,
+        "triple": 0.0044637096973337105,
+        "out_on_bip": 0.4476007144486047
+      }
+    },
+    {
+      "player_id": 672275,
+      "player_name": "Patrick Bailey",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.487,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.487,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.382375,
+          "3.0": 0.235
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26460206313752754,
+        "walk": 0.07401321501233382,
+        "home_run": 0.035235619508185545,
+        "single": 0.13091935268606494,
+        "double": 0.04316532550994975,
+        "triple": 0.0044637096973337105,
+        "out_on_bip": 0.4476007144486047
+      }
+    },
+    {
+      "player_id": 672275,
+      "player_name": "Patrick Bailey",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.12,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.12025,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.113625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26460206313752754,
+        "walk": 0.07401321501233382,
+        "home_run": 0.035235619508185545,
+        "single": 0.13091935268606494,
+        "double": 0.04316532550994975,
+        "triple": 0.0044637096973337105,
+        "out_on_bip": 0.4476007144486047
+      }
+    },
+    {
+      "player_id": 694197,
+      "player_name": "Angel Genao",
+      "category": "hits",
+      "game_date": "2026-08-06",
+      "projected_value": 0.876,
+      "confidence": 0.5,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_statcast_league_fallback",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.876375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.61575,
+          "2.0": 0.215
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.12375000000000001,
+        "walk": 0.04730963563658109,
+        "home_run": 0.029032418952503664,
+        "single": 0.1785034094686722,
+        "double": 0.05284095848952177,
+        "triple": 0.0059319068707229215,
+        "out_on_bip": 0.5626316705819984
+      }
+    },
+    {
+      "player_id": 694197,
+      "player_name": "Angel Genao",
+      "category": "hrr",
+      "game_date": "2026-08-06",
+      "projected_value": 1.581,
+      "confidence": 0.42,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_statcast_league_fallback",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.580625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.424375,
+          "3.0": 0.249125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.12375000000000001,
+        "walk": 0.04730963563658109,
+        "home_run": 0.029032418952503664,
+        "single": 0.1785034094686722,
+        "double": 0.05284095848952177,
+        "triple": 0.0059319068707229215,
+        "out_on_bip": 0.5626316705819984
+      }
+    },
+    {
+      "player_id": 694197,
+      "player_name": "Angel Genao",
+      "category": "home_runs",
+      "game_date": "2026-08-06",
+      "projected_value": 0.095,
+      "confidence": 0.58,
+      "team": "Cleveland Guardians",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Nolan McLean",
+      "opposing_pitcher_id": 690997,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_statcast_league_fallback",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.094625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.090625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.12375000000000001,
+        "walk": 0.04730963563658109,
+        "home_run": 0.029032418952503664,
+        "single": 0.1785034094686722,
+        "double": 0.05284095848952177,
+        "triple": 0.0059319068707229215,
+        "out_on_bip": 0.5626316705819984
+      }
+    }
+  ],
+  "pitcher_projections": [
+    {
+      "player_id": 696270,
+      "player_name": "Ryan Johnson",
+      "category": "strikeouts",
+      "game_date": "2026-08-06",
+      "projected_value": 3.03,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.02645944986373,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.18920220593744874,
+          "6.0": 0.0866090447075255,
+          "7.0": 0.03486003765824308
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 687064,
+      "player_name": "Brandon Young",
+      "category": "strikeouts",
+      "game_date": "2026-08-06",
+      "projected_value": 4.99,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824804,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.989829969096057,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5577203952141948,
+          "6.0": 0.3822548427523724,
+          "7.0": 0.2363309640493727
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 686930,
+      "player_name": "Mason Barnett",
+      "category": "strikeouts",
+      "game_date": "2026-08-06",
+      "projected_value": 2.53,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.5304133176000057,
+        "median": 2.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.11292215359176427,
+          "6.0": 0.04408363174684893,
+          "7.0": 0.015051979673470162
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 671096,
+      "player_name": "Andrew Abbott",
+      "category": "strikeouts",
+      "game_date": "2026-08-06",
+      "projected_value": 4.5,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824481,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.502260816074719,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4683254897793707,
+          "6.0": 0.29745582167774676,
+          "7.0": 0.16923918645280778
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 690997,
+      "player_name": "Nolan McLean",
+      "category": "strikeouts",
+      "game_date": "2026-08-06",
+      "projected_value": 6.33,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.326095368955394,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.7562265753670341,
+          "6.0": 0.6051806141148072,
+          "7.0": 0.44592542145195224
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 656492,
+      "player_name": "Foster Griffin",
+      "category": "strikeouts",
+      "game_date": "2026-08-06",
+      "projected_value": 5.44,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824401,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.435655902237049,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.632368422448294,
+          "6.0": 0.4600216430569981,
+          "7.0": 0.30388534495202424
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 677952,
+      "player_name": "Braxton Ashcraft",
+      "category": "strikeouts",
+      "game_date": "2026-08-06",
+      "projected_value": 6.12,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823754,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.120679274614922,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.7307719717907889,
+          "6.0": 0.5735042360176844,
+          "7.0": 0.41307334086567515
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669160,
+      "player_name": "Dustin May",
+      "category": "strikeouts",
+      "game_date": "2026-08-06",
+      "projected_value": 5.04,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823754,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.041993464209283,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5668439984026445,
+          "6.0": 0.3914073965796885,
+          "7.0": 0.24398236328394973
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 656302,
+      "player_name": "Dylan Cease",
+      "category": "strikeouts",
+      "game_date": "2026-08-06",
+      "projected_value": 7.92,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824664,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 7.923245712663254,
+        "median": 8.0,
+        "p10": 4.0,
+        "p90": 12.0,
+        "p_ge_threshold": {
+          "5.0": 0.8958881092205518,
+          "6.0": 0.8016313543058114,
+          "7.0": 0.6771614494278502
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 656849,
+      "player_name": "David Peterson",
+      "category": "strikeouts",
+      "game_date": "2026-08-06",
+      "projected_value": 4.51,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824664,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.507879235599784,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.46939130507494853,
+          "6.0": 0.2984161361231191,
+          "7.0": 0.1699602338029329
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 664285,
+      "player_name": "Framber Valdez",
+      "category": "strikeouts",
+      "game_date": "2026-08-06",
+      "projected_value": 4.79,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823105,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.7889208812225466,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5217226713454463,
+          "6.0": 0.3470579677902549,
+          "7.0": 0.20764872677892154
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 682243,
+      "player_name": "Bryce Miller",
+      "category": "strikeouts",
+      "game_date": "2026-08-06",
+      "projected_value": 6.12,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823105,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.124467001934167,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.7312582711151683,
+          "6.0": 0.5740997166134935,
+          "7.0": 0.4136809864272968
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 571945,
+      "player_name": "Miles Mikolas",
+      "category": "strikeouts",
+      "game_date": "2026-08-06",
+      "projected_value": 2.45,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823430,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.4530269785052004,
+        "median": 2.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.102635367744361,
+          "6.0": 0.03895665196111375,
+          "7.0": 0.012922383998968723
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 650911,
+      "player_name": "Cristopher S\u00e1nchez",
+      "category": "strikeouts",
+      "game_date": "2026-08-06",
+      "projected_value": 6.92,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823430,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.91740527051056,
+        "median": 7.0,
+        "p10": 4.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.8193393668456713,
+          "6.0": 0.6886188012707417,
+          "7.0": 0.5379109463920517
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 622491,
+      "player_name": "Luis Castillo",
+      "category": "strikeouts",
+      "game_date": "2026-08-06",
+      "projected_value": 5.31,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824729,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.313182233501357,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6126415966644868,
+          "6.0": 0.4388188583113112,
+          "7.0": 0.28489354411186996
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 624133,
+      "player_name": "Ranger Suarez",
+      "category": "strikeouts",
+      "game_date": "2026-08-06",
+      "projected_value": 5.41,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824729,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.412228535760097,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6286429307040556,
+          "6.0": 0.45598028161189685,
+          "7.0": 0.3002319955324779
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 676083,
+      "player_name": "Janson Junk",
+      "category": "strikeouts",
+      "game_date": "2026-08-06",
+      "projected_value": 4.41,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824885,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.407066717365217,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.45017069836757373,
+          "6.0": 0.28128140316170747,
+          "7.0": 0.1572303378582004
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 527048,
+      "player_name": "Mart\u00edn P\u00e9rez",
+      "category": "strikeouts",
+      "game_date": "2026-08-06",
+      "projected_value": 4.81,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824885,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.812148155832489,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5259503145311831,
+          "6.0": 0.3511169508601488,
+          "7.0": 0.21089627609888895
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 641927,
+      "player_name": "Bailey Ober",
+      "category": "strikeouts",
+      "game_date": "2026-08-06",
+      "projected_value": 4.42,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824080,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.415733218988223,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.45183063455420314,
+          "6.0": 0.2827459314560995,
+          "7.0": 0.15830710807392334
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 608379,
+      "player_name": "Michael Wacha",
+      "category": "strikeouts",
+      "game_date": "2026-08-06",
+      "projected_value": 5.44,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824080,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.439239087850407,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6329362087511792,
+          "6.0": 0.46063910466694746,
+          "7.0": 0.30444491412388364
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 621111,
+      "player_name": "Walker Buehler",
+      "category": "strikeouts",
+      "game_date": "2026-08-06",
+      "projected_value": 4.29,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 825053,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.287623757371152,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.427168740889599,
+          "6.0": 0.2612823498591118,
+          "7.0": 0.14273927799129882
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 684442,
+      "player_name": "Kohl Drake",
+      "category": "strikeouts",
+      "game_date": "2026-08-06",
+      "projected_value": 4.03,
+      "confidence": 0.5,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 825053,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.034046512682654,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.3778143036719541,
+          "6.0": 0.22021324865576797,
+          "7.0": 0.11425158425857573
+        }
+      },
+      "outcome_probs": null
+    }
+  ],
+  "value_plays": [],
+  "market_status": "RESEARCH_ONLY",
+  "market_policy_sha256": "08bc0c9d56eb21c7fb438eccd8d89539e98da111f72cdf6735af9cbeb02f154c",
+  "market_policy_reason": "policy verdict is 'RESEARCH_ONLY', not BETTING_AUTHORIZED",
+  "prediction_provenance": {
+    "schema_version": "daily-prediction-provenance-v1",
+    "captured_at_utc": "2026-08-06T14:30:21.678054+00:00",
+    "model_version": "8c7eed9bb0c3",
+    "effective_config_sha256": "3a62fc507956752086919b757ae683e60f9df8fb2143f83292ac61f07830a60c",
+    "config_source_path": "/home/runner/work/baseball-predictor/baseball-predictor/config/config.kbb.json",
+    "code": {
+      "status": "available",
+      "head": "674bde0ba52eef29cb74ce50bec25b101bad3b5c",
+      "tracked_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked": [],
+      "snapshot_sha256": "64df27c587b289c5953016848293d11ca8356f4a266f96fc3f14ee571e2ba291"
+    },
+    "run_options": {
+      "game_date": "2026-08-06",
+      "hitter_categories": [
+        "hits",
+        "hrr",
+        "home_runs"
+      ],
+      "include_pitchers": true,
+      "corrections_active": false,
+      "edges_requested": false,
+      "use_projected_lineups": false
+    }
+  }
+}
