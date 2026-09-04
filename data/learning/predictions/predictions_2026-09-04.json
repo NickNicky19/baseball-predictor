@@ -1,0 +1,3463 @@
+{
+  "game_date": "2026-09-04",
+  "hitter_projections": [
+    {
+      "player_id": 650402,
+      "player_name": "Gleyber Torres",
+      "category": "hits",
+      "game_date": "2026-09-04",
+      "projected_value": 0.954,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.954,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.643875,
+          "2.0": 0.25
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2029899860053739,
+        "walk": 0.10613038236391162,
+        "home_run": 0.025386014892306803,
+        "single": 0.14504133917940187,
+        "double": 0.04462613355545908,
+        "triple": 0.004863268531663102,
+        "out_on_bip": 0.47096287547188365
+      }
+    },
+    {
+      "player_id": 650402,
+      "player_name": "Gleyber Torres",
+      "category": "hrr",
+      "game_date": "2026-09-04",
+      "projected_value": 1.815,
+      "confidence": 0.74,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.814875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.471875,
+          "3.0": 0.2925
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2029899860053739,
+        "walk": 0.10613038236391162,
+        "home_run": 0.025386014892306803,
+        "single": 0.14504133917940187,
+        "double": 0.04462613355545908,
+        "triple": 0.004863268531663102,
+        "out_on_bip": 0.47096287547188365
+      }
+    },
+    {
+      "player_id": 650402,
+      "player_name": "Gleyber Torres",
+      "category": "home_runs",
+      "game_date": "2026-09-04",
+      "projected_value": 0.103,
+      "confidence": 0.88,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.10275,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.09825
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2029899860053739,
+        "walk": 0.10613038236391162,
+        "home_run": 0.025386014892306803,
+        "single": 0.14504133917940187,
+        "double": 0.04462613355545908,
+        "triple": 0.004863268531663102,
+        "out_on_bip": 0.47096287547188365
+      }
+    },
+    {
+      "player_id": 805808,
+      "player_name": "Kevin McGonigle",
+      "category": "hits",
+      "game_date": "2026-09-04",
+      "projected_value": 0.929,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.928875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6335,
+          "2.0": 0.236625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17054557801093723,
+        "walk": 0.1056601721063408,
+        "home_run": 0.025561101404080282,
+        "single": 0.1427450581964226,
+        "double": 0.04439809423688876,
+        "triple": 0.004798542370084907,
+        "out_on_bip": 0.5062914536752453
+      }
+    },
+    {
+      "player_id": 805808,
+      "player_name": "Kevin McGonigle",
+      "category": "hrr",
+      "game_date": "2026-09-04",
+      "projected_value": 1.764,
+      "confidence": 0.74,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.763875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.461875,
+          "3.0": 0.284875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17054557801093723,
+        "walk": 0.1056601721063408,
+        "home_run": 0.025561101404080282,
+        "single": 0.1427450581964226,
+        "double": 0.04439809423688876,
+        "triple": 0.004798542370084907,
+        "out_on_bip": 0.5062914536752453
+      }
+    },
+    {
+      "player_id": 805808,
+      "player_name": "Kevin McGonigle",
+      "category": "home_runs",
+      "game_date": "2026-09-04",
+      "projected_value": 0.106,
+      "confidence": 0.86,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.105875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.10175
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17054557801093723,
+        "walk": 0.1056601721063408,
+        "home_run": 0.025561101404080282,
+        "single": 0.1427450581964226,
+        "double": 0.04439809423688876,
+        "triple": 0.004798542370084907,
+        "out_on_bip": 0.5062914536752453
+      }
+    },
+    {
+      "player_id": 701678,
+      "player_name": "Hao-Yu Lee",
+      "category": "hits",
+      "game_date": "2026-09-04",
+      "projected_value": 0.955,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.955,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.650875,
+          "2.0": 0.242375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23764689784409695,
+        "walk": 0.06850801682412476,
+        "home_run": 0.03633702250149282,
+        "single": 0.14099402326066632,
+        "double": 0.047862368563619875,
+        "triple": 0.004842471585238108,
+        "out_on_bip": 0.46380919942076115
+      }
+    },
+    {
+      "player_id": 701678,
+      "player_name": "Hao-Yu Lee",
+      "category": "hrr",
+      "game_date": "2026-09-04",
+      "projected_value": 1.873,
+      "confidence": 0.7,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.872625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.485125,
+          "3.0": 0.31325
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23764689784409695,
+        "walk": 0.06850801682412476,
+        "home_run": 0.03633702250149282,
+        "single": 0.14099402326066632,
+        "double": 0.047862368563619875,
+        "triple": 0.004842471585238108,
+        "out_on_bip": 0.46380919942076115
+      }
+    },
+    {
+      "player_id": 701678,
+      "player_name": "Hao-Yu Lee",
+      "category": "home_runs",
+      "game_date": "2026-09-04",
+      "projected_value": 0.156,
+      "confidence": 0.86,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.155875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.146
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23764689784409695,
+        "walk": 0.06850801682412476,
+        "home_run": 0.03633702250149282,
+        "single": 0.14099402326066632,
+        "double": 0.047862368563619875,
+        "triple": 0.004842471585238108,
+        "out_on_bip": 0.46380919942076115
+      }
+    },
+    {
+      "player_id": 693307,
+      "player_name": "Dillon Dingler",
+      "category": "hits",
+      "game_date": "2026-09-04",
+      "projected_value": 0.908,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.907875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.632,
+          "2.0": 0.22625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2306610971874801,
+        "walk": 0.06579391586339055,
+        "home_run": 0.027607458202341287,
+        "single": 0.14373115036821732,
+        "double": 0.04604067099597343,
+        "triple": 0.004865944137543353,
+        "out_on_bip": 0.4812997632450539
+      }
+    },
+    {
+      "player_id": 693307,
+      "player_name": "Dillon Dingler",
+      "category": "hrr",
+      "game_date": "2026-09-04",
+      "projected_value": 1.673,
+      "confidence": 0.74,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.673375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.44425,
+          "3.0": 0.267625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2306610971874801,
+        "walk": 0.06579391586339055,
+        "home_run": 0.027607458202341287,
+        "single": 0.14373115036821732,
+        "double": 0.04604067099597343,
+        "triple": 0.004865944137543353,
+        "out_on_bip": 0.4812997632450539
+      }
+    },
+    {
+      "player_id": 693307,
+      "player_name": "Dillon Dingler",
+      "category": "home_runs",
+      "game_date": "2026-09-04",
+      "projected_value": 0.111,
+      "confidence": 0.86,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.111125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.10725
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2306610971874801,
+        "walk": 0.06579391586339055,
+        "home_run": 0.027607458202341287,
+        "single": 0.14373115036821732,
+        "double": 0.04604067099597343,
+        "triple": 0.004865944137543353,
+        "out_on_bip": 0.4812997632450539
+      }
+    },
+    {
+      "player_id": 682985,
+      "player_name": "Riley Greene",
+      "category": "hits",
+      "game_date": "2026-09-04",
+      "projected_value": 0.813,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.813,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.582375,
+          "2.0": 0.192375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.27121716528883766,
+        "walk": 0.09732021694790871,
+        "home_run": 0.03630702891259045,
+        "single": 0.12266627623191391,
+        "double": 0.04298406855970605,
+        "triple": 0.004247444738246666,
+        "out_on_bip": 0.42525779932079666
+      }
+    },
+    {
+      "player_id": 682985,
+      "player_name": "Riley Greene",
+      "category": "hrr",
+      "game_date": "2026-09-04",
+      "projected_value": 1.646,
+      "confidence": 0.74,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.646375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4195,
+          "3.0": 0.2595
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.27121716528883766,
+        "walk": 0.09732021694790871,
+        "home_run": 0.03630702891259045,
+        "single": 0.12266627623191391,
+        "double": 0.04298406855970605,
+        "triple": 0.004247444738246666,
+        "out_on_bip": 0.42525779932079666
+      }
+    },
+    {
+      "player_id": 682985,
+      "player_name": "Riley Greene",
+      "category": "home_runs",
+      "game_date": "2026-09-04",
+      "projected_value": 0.137,
+      "confidence": 0.86,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.136875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.127875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.27121716528883766,
+        "walk": 0.09732021694790871,
+        "home_run": 0.03630702891259045,
+        "single": 0.12266627623191391,
+        "double": 0.04298406855970605,
+        "triple": 0.004247444738246666,
+        "out_on_bip": 0.42525779932079666
+      }
+    },
+    {
+      "player_id": 701162,
+      "player_name": "Ben Malgeri",
+      "category": "hits",
+      "game_date": "2026-09-04",
+      "projected_value": 0.802,
+      "confidence": 0.773,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.80175,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.587125,
+          "2.0": 0.18075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.25949200435640046,
+        "walk": 0.10282369412782404,
+        "home_run": 0.0306832480308553,
+        "single": 0.13407875753431503,
+        "double": 0.044199297968578966,
+        "triple": 0.004571232192381897,
+        "out_on_bip": 0.4241517657896444
+      }
+    },
+    {
+      "player_id": 701162,
+      "player_name": "Ben Malgeri",
+      "category": "hrr",
+      "game_date": "2026-09-04",
+      "projected_value": 1.551,
+      "confidence": 0.693,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.551,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.406125,
+          "3.0": 0.242625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.25949200435640046,
+        "walk": 0.10282369412782404,
+        "home_run": 0.0306832480308553,
+        "single": 0.13407875753431503,
+        "double": 0.044199297968578966,
+        "triple": 0.004571232192381897,
+        "out_on_bip": 0.4241517657896444
+      }
+    },
+    {
+      "player_id": 701162,
+      "player_name": "Ben Malgeri",
+      "category": "home_runs",
+      "game_date": "2026-09-04",
+      "projected_value": 0.111,
+      "confidence": 0.813,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.111125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.105
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.25949200435640046,
+        "walk": 0.10282369412782404,
+        "home_run": 0.0306832480308553,
+        "single": 0.13407875753431503,
+        "double": 0.044199297968578966,
+        "triple": 0.004571232192381897,
+        "out_on_bip": 0.4241517657896444
+      }
+    },
+    {
+      "player_id": 679529,
+      "player_name": "Spencer Torkelson",
+      "category": "hits",
+      "game_date": "2026-09-04",
+      "projected_value": 0.689,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.68875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.525625,
+          "2.0": 0.140125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.30379958660286505,
+        "walk": 0.09005605663618894,
+        "home_run": 0.024290484179742392,
+        "single": 0.12135884164757973,
+        "double": 0.03826925289421024,
+        "triple": 0.004093028065174102,
+        "out_on_bip": 0.41813274997423944
+      }
+    },
+    {
+      "player_id": 679529,
+      "player_name": "Spencer Torkelson",
+      "category": "hrr",
+      "game_date": "2026-09-04",
+      "projected_value": 1.329,
+      "confidence": 0.74,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.329375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.35025,
+          "3.0": 0.19675
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.30379958660286505,
+        "walk": 0.09005605663618894,
+        "home_run": 0.024290484179742392,
+        "single": 0.12135884164757973,
+        "double": 0.03826925289421024,
+        "triple": 0.004093028065174102,
+        "out_on_bip": 0.41813274997423944
+      }
+    },
+    {
+      "player_id": 679529,
+      "player_name": "Spencer Torkelson",
+      "category": "home_runs",
+      "game_date": "2026-09-04",
+      "projected_value": 0.083,
+      "confidence": 0.88,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.083125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.08025
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.30379958660286505,
+        "walk": 0.09005605663618894,
+        "home_run": 0.024290484179742392,
+        "single": 0.12135884164757973,
+        "double": 0.03826925289421024,
+        "triple": 0.004093028065174102,
+        "out_on_bip": 0.41813274997423944
+      }
+    },
+    {
+      "player_id": 703601,
+      "player_name": "Max Clark",
+      "category": "hits",
+      "game_date": "2026-09-04",
+      "projected_value": 0.82,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.820375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.592375,
+          "2.0": 0.19375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22119585381075718,
+        "walk": 0.07328030518951348,
+        "home_run": 0.02730191566886806,
+        "single": 0.1587861423540589,
+        "double": 0.049637906334620875,
+        "triple": 0.005344206376632816,
+        "out_on_bip": 0.4644536702655486
+      }
+    },
+    {
+      "player_id": 703601,
+      "player_name": "Max Clark",
+      "category": "hrr",
+      "game_date": "2026-09-04",
+      "projected_value": 1.54,
+      "confidence": 0.74,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.539875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.411875,
+          "3.0": 0.237125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22119585381075718,
+        "walk": 0.07328030518951348,
+        "home_run": 0.02730191566886806,
+        "single": 0.1587861423540589,
+        "double": 0.049637906334620875,
+        "triple": 0.005344206376632816,
+        "out_on_bip": 0.4644536702655486
+      }
+    },
+    {
+      "player_id": 703601,
+      "player_name": "Max Clark",
+      "category": "home_runs",
+      "game_date": "2026-09-04",
+      "projected_value": 0.097,
+      "confidence": 0.88,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.096875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.094
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22119585381075718,
+        "walk": 0.07328030518951348,
+        "home_run": 0.02730191566886806,
+        "single": 0.1587861423540589,
+        "double": 0.049637906334620875,
+        "triple": 0.005344206376632816,
+        "out_on_bip": 0.4644536702655486
+      }
+    },
+    {
+      "player_id": 595879,
+      "player_name": "Javier B\u00e1ez",
+      "category": "hits",
+      "game_date": "2026-09-04",
+      "projected_value": 0.731,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.7305,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.5435,
+          "2.0": 0.16075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20423761874588175,
+        "walk": 0.05424695728277793,
+        "home_run": 0.017676947512956374,
+        "single": 0.155168676276285,
+        "double": 0.04414727443542595,
+        "triple": 0.0051106654028643846,
+        "out_on_bip": 0.5194118603438086
+      }
+    },
+    {
+      "player_id": 595879,
+      "player_name": "Javier B\u00e1ez",
+      "category": "hrr",
+      "game_date": "2026-09-04",
+      "projected_value": 1.291,
+      "confidence": 0.78,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.291125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.359375,
+          "3.0": 0.187125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20423761874588175,
+        "walk": 0.05424695728277793,
+        "home_run": 0.017676947512956374,
+        "single": 0.155168676276285,
+        "double": 0.04414727443542595,
+        "triple": 0.0051106654028643846,
+        "out_on_bip": 0.5194118603438086
+      }
+    },
+    {
+      "player_id": 595879,
+      "player_name": "Javier B\u00e1ez",
+      "category": "home_runs",
+      "game_date": "2026-09-04",
+      "projected_value": 0.06,
+      "confidence": 0.88,
+      "team": "Detroit Tigers",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Logan Allen",
+      "opposing_pitcher_id": 671106,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.05975,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.058875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20423761874588175,
+        "walk": 0.05424695728277793,
+        "home_run": 0.017676947512956374,
+        "single": 0.155168676276285,
+        "double": 0.04414727443542595,
+        "triple": 0.0051106654028643846,
+        "out_on_bip": 0.5194118603438086
+      }
+    },
+    {
+      "player_id": 680757,
+      "player_name": "Steven Kwan",
+      "category": "hits",
+      "game_date": "2026-09-04",
+      "projected_value": 1.08,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.08025,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.696875,
+          "2.0": 0.299375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1256130108066572,
+        "walk": 0.09947323756689268,
+        "home_run": 0.02870944157902593,
+        "single": 0.16545874185690893,
+        "double": 0.04900667051387034,
+        "triple": 0.0054991131377122885,
+        "out_on_bip": 0.5262397845389327
+      }
+    },
+    {
+      "player_id": 680757,
+      "player_name": "Steven Kwan",
+      "category": "hrr",
+      "game_date": "2026-09-04",
+      "projected_value": 2.02,
+      "confidence": 0.7,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.020375,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.523125,
+          "3.0": 0.33525
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1256130108066572,
+        "walk": 0.09947323756689268,
+        "home_run": 0.02870944157902593,
+        "single": 0.16545874185690893,
+        "double": 0.04900667051387034,
+        "triple": 0.0054991131377122885,
+        "out_on_bip": 0.5262397845389327
+      }
+    },
+    {
+      "player_id": 680757,
+      "player_name": "Steven Kwan",
+      "category": "home_runs",
+      "game_date": "2026-09-04",
+      "projected_value": 0.126,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1255,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.120375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1256130108066572,
+        "walk": 0.09947323756689268,
+        "home_run": 0.02870944157902593,
+        "single": 0.16545874185690893,
+        "double": 0.04900667051387034,
+        "triple": 0.0054991131377122885,
+        "out_on_bip": 0.5262397845389327
+      }
+    },
+    {
+      "player_id": 800050,
+      "player_name": "Chase DeLauter",
+      "category": "hits",
+      "game_date": "2026-09-04",
+      "projected_value": 1.078,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.078,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6975,
+          "2.0": 0.294875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1512640885548238,
+        "walk": 0.0827356195882852,
+        "home_run": 0.034813404392585484,
+        "single": 0.1614070055909005,
+        "double": 0.05087743888274717,
+        "triple": 0.005443190883939684,
+        "out_on_bip": 0.5134592521067182
+      }
+    },
+    {
+      "player_id": 800050,
+      "player_name": "Chase DeLauter",
+      "category": "hrr",
+      "game_date": "2026-09-04",
+      "projected_value": 2.064,
+      "confidence": 0.7,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.064,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.52125,
+          "3.0": 0.34475
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1512640885548238,
+        "walk": 0.0827356195882852,
+        "home_run": 0.034813404392585484,
+        "single": 0.1614070055909005,
+        "double": 0.05087743888274717,
+        "triple": 0.005443190883939684,
+        "out_on_bip": 0.5134592521067182
+      }
+    },
+    {
+      "player_id": 800050,
+      "player_name": "Chase DeLauter",
+      "category": "home_runs",
+      "game_date": "2026-09-04",
+      "projected_value": 0.159,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.159125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.148625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1512640885548238,
+        "walk": 0.0827356195882852,
+        "home_run": 0.034813404392585484,
+        "single": 0.1614070055909005,
+        "double": 0.05087743888274717,
+        "triple": 0.005443190883939684,
+        "out_on_bip": 0.5134592521067182
+      }
+    },
+    {
+      "player_id": 608070,
+      "player_name": "Jos\u00e9 Ram\u00edrez",
+      "category": "hits",
+      "game_date": "2026-09-04",
+      "projected_value": 1.008,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.008375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.67125,
+          "2.0": 0.268
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1419578320687849,
+        "walk": 0.0940887326235856,
+        "home_run": 0.02617431921036987,
+        "single": 0.16121629551808953,
+        "double": 0.047644595348930965,
+        "triple": 0.005355407458128731,
+        "out_on_bip": 0.5235628177721103
+      }
+    },
+    {
+      "player_id": 608070,
+      "player_name": "Jos\u00e9 Ram\u00edrez",
+      "category": "hrr",
+      "game_date": "2026-09-04",
+      "projected_value": 1.841,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.840875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.478375,
+          "3.0": 0.295625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1419578320687849,
+        "walk": 0.0940887326235856,
+        "home_run": 0.02617431921036987,
+        "single": 0.16121629551808953,
+        "double": 0.047644595348930965,
+        "triple": 0.005355407458128731,
+        "out_on_bip": 0.5235628177721103
+      }
+    },
+    {
+      "player_id": 608070,
+      "player_name": "Jos\u00e9 Ram\u00edrez",
+      "category": "home_runs",
+      "game_date": "2026-09-04",
+      "projected_value": 0.108,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.108375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.103125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1419578320687849,
+        "walk": 0.0940887326235856,
+        "home_run": 0.02617431921036987,
+        "single": 0.16121629551808953,
+        "double": 0.047644595348930965,
+        "triple": 0.005355407458128731,
+        "out_on_bip": 0.5235628177721103
+      }
+    },
+    {
+      "player_id": 666176,
+      "player_name": "Jo Adell",
+      "category": "hits",
+      "game_date": "2026-09-04",
+      "projected_value": 1.064,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.064,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.692875,
+          "2.0": 0.29
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2079171485007639,
+        "walk": 0.05782703706511597,
+        "home_run": 0.05339802935559663,
+        "single": 0.1497733681484689,
+        "double": 0.05492516944362538,
+        "triple": 0.005248680451079341,
+        "out_on_bip": 0.47091056703534984
+      }
+    },
+    {
+      "player_id": 666176,
+      "player_name": "Jo Adell",
+      "category": "hrr",
+      "game_date": "2026-09-04",
+      "projected_value": 2.162,
+      "confidence": 0.7,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.16175,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.53025,
+          "3.0": 0.363375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2079171485007639,
+        "walk": 0.05782703706511597,
+        "home_run": 0.05339802935559663,
+        "single": 0.1497733681484689,
+        "double": 0.05492516944362538,
+        "triple": 0.005248680451079341,
+        "out_on_bip": 0.47091056703534984
+      }
+    },
+    {
+      "player_id": 666176,
+      "player_name": "Jo Adell",
+      "category": "home_runs",
+      "game_date": "2026-09-04",
+      "projected_value": 0.223,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.2225,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.204875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2079171485007639,
+        "walk": 0.05782703706511597,
+        "home_run": 0.05339802935559663,
+        "single": 0.1497733681484689,
+        "double": 0.05492516944362538,
+        "triple": 0.005248680451079341,
+        "out_on_bip": 0.47091056703534984
+      }
+    },
+    {
+      "player_id": 663993,
+      "player_name": "Nathaniel Lowe",
+      "category": "hits",
+      "game_date": "2026-09-04",
+      "projected_value": 0.925,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.9255,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.63875,
+          "2.0": 0.2315
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21066234479235327,
+        "walk": 0.07854520839138188,
+        "home_run": 0.032719385140441995,
+        "single": 0.15264603306346605,
+        "double": 0.047905373538062825,
+        "triple": 0.005142343759013561,
+        "out_on_bip": 0.4723793113152804
+      }
+    },
+    {
+      "player_id": 663993,
+      "player_name": "Nathaniel Lowe",
+      "category": "hrr",
+      "game_date": "2026-09-04",
+      "projected_value": 1.79,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.790125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.461125,
+          "3.0": 0.29225
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21066234479235327,
+        "walk": 0.07854520839138188,
+        "home_run": 0.032719385140441995,
+        "single": 0.15264603306346605,
+        "double": 0.047905373538062825,
+        "triple": 0.005142343759013561,
+        "out_on_bip": 0.4723793113152804
+      }
+    },
+    {
+      "player_id": 663993,
+      "player_name": "Nathaniel Lowe",
+      "category": "home_runs",
+      "game_date": "2026-09-04",
+      "projected_value": 0.133,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.13275,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.124875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21066234479235327,
+        "walk": 0.07854520839138188,
+        "home_run": 0.032719385140441995,
+        "single": 0.15264603306346605,
+        "double": 0.047905373538062825,
+        "triple": 0.005142343759013561,
+        "out_on_bip": 0.4723793113152804
+      }
+    },
+    {
+      "player_id": 694197,
+      "player_name": "Angel Genao",
+      "category": "hits",
+      "game_date": "2026-09-04",
+      "projected_value": 0.901,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.90125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.629875,
+          "2.0": 0.2255
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14255901467664467,
+        "walk": 0.07085727193520176,
+        "home_run": 0.02627737859531959,
+        "single": 0.16069539782554024,
+        "double": 0.04829075348654217,
+        "triple": 0.00535861926441237,
+        "out_on_bip": 0.5459615642163392
+      }
+    },
+    {
+      "player_id": 694197,
+      "player_name": "Angel Genao",
+      "category": "hrr",
+      "game_date": "2026-09-04",
+      "projected_value": 1.69,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.689625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.45075,
+          "3.0": 0.265625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14255901467664467,
+        "walk": 0.07085727193520176,
+        "home_run": 0.02627737859531959,
+        "single": 0.16069539782554024,
+        "double": 0.04829075348654217,
+        "triple": 0.00535861926441237,
+        "out_on_bip": 0.5459615642163392
+      }
+    },
+    {
+      "player_id": 694197,
+      "player_name": "Angel Genao",
+      "category": "home_runs",
+      "game_date": "2026-09-04",
+      "projected_value": 0.1,
+      "confidence": 0.88,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.10025,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.09525
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14255901467664467,
+        "walk": 0.07085727193520176,
+        "home_run": 0.02627737859531959,
+        "single": 0.16069539782554024,
+        "double": 0.04829075348654217,
+        "triple": 0.00535861926441237,
+        "out_on_bip": 0.5459615642163392
+      }
+    },
+    {
+      "player_id": 683953,
+      "player_name": "Travis Bazzana",
+      "category": "hits",
+      "game_date": "2026-09-04",
+      "projected_value": 0.796,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.7965,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.581125,
+          "2.0": 0.183375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1913063997070394,
+        "walk": 0.08819515997644359,
+        "home_run": 0.02668463218089704,
+        "single": 0.1438791214424526,
+        "double": 0.04316861648423234,
+        "triple": 0.004796095844273973,
+        "out_on_bip": 0.5019699743646611
+      }
+    },
+    {
+      "player_id": 683953,
+      "player_name": "Travis Bazzana",
+      "category": "hrr",
+      "game_date": "2026-09-04",
+      "projected_value": 1.481,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.480875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.39275,
+          "3.0": 0.22475
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1913063997070394,
+        "walk": 0.08819515997644359,
+        "home_run": 0.02668463218089704,
+        "single": 0.1438791214424526,
+        "double": 0.04316861648423234,
+        "triple": 0.004796095844273973,
+        "out_on_bip": 0.5019699743646611
+      }
+    },
+    {
+      "player_id": 683953,
+      "player_name": "Travis Bazzana",
+      "category": "home_runs",
+      "game_date": "2026-09-04",
+      "projected_value": 0.102,
+      "confidence": 0.88,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1025,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.098
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1913063997070394,
+        "walk": 0.08819515997644359,
+        "home_run": 0.02668463218089704,
+        "single": 0.1438791214424526,
+        "double": 0.04316861648423234,
+        "triple": 0.004796095844273973,
+        "out_on_bip": 0.5019699743646611
+      }
+    },
+    {
+      "player_id": 672275,
+      "player_name": "Patrick Bailey",
+      "category": "hits",
+      "game_date": "2026-09-04",
+      "projected_value": 0.884,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.883625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.616,
+          "2.0": 0.2205
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21379440828728247,
+        "walk": 0.07423576460730189,
+        "home_run": 0.052210479639642815,
+        "single": 0.14552893836374897,
+        "double": 0.05215358329258077,
+        "triple": 0.005068782606572558,
+        "out_on_bip": 0.45700804320287053
+      }
+    },
+    {
+      "player_id": 672275,
+      "player_name": "Patrick Bailey",
+      "category": "hrr",
+      "game_date": "2026-09-04",
+      "projected_value": 1.823,
+      "confidence": 0.7,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.823,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.45625,
+          "3.0": 0.3035
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21379440828728247,
+        "walk": 0.07423576460730189,
+        "home_run": 0.052210479639642815,
+        "single": 0.14552893836374897,
+        "double": 0.05215358329258077,
+        "triple": 0.005068782606572558,
+        "out_on_bip": 0.45700804320287053
+      }
+    },
+    {
+      "player_id": 672275,
+      "player_name": "Patrick Bailey",
+      "category": "home_runs",
+      "game_date": "2026-09-04",
+      "projected_value": 0.179,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.17875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.165375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21379440828728247,
+        "walk": 0.07423576460730189,
+        "home_run": 0.052210479639642815,
+        "single": 0.14552893836374897,
+        "double": 0.05215358329258077,
+        "triple": 0.005068782606572558,
+        "out_on_bip": 0.45700804320287053
+      }
+    },
+    {
+      "player_id": 677587,
+      "player_name": "Brayan Rocchio",
+      "category": "hits",
+      "game_date": "2026-09-04",
+      "projected_value": 0.733,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.7325,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.544625,
+          "2.0": 0.1585
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14977074353977474,
+        "walk": 0.06442016810034702,
+        "home_run": 0.023490605654666492,
+        "single": 0.15052412441535803,
+        "double": 0.043814253273586144,
+        "triple": 0.004983035325357543,
+        "out_on_bip": 0.56299706969091
+      }
+    },
+    {
+      "player_id": 677587,
+      "player_name": "Brayan Rocchio",
+      "category": "hrr",
+      "game_date": "2026-09-04",
+      "projected_value": 1.353,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.353125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.36475,
+          "3.0": 0.2055
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14977074353977474,
+        "walk": 0.06442016810034702,
+        "home_run": 0.023490605654666492,
+        "single": 0.15052412441535803,
+        "double": 0.043814253273586144,
+        "triple": 0.004983035325357543,
+        "out_on_bip": 0.56299706969091
+      }
+    },
+    {
+      "player_id": 677587,
+      "player_name": "Brayan Rocchio",
+      "category": "home_runs",
+      "game_date": "2026-09-04",
+      "projected_value": 0.077,
+      "confidence": 0.88,
+      "team": "Cleveland Guardians",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.077375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.075125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14977074353977474,
+        "walk": 0.06442016810034702,
+        "home_run": 0.023490605654666492,
+        "single": 0.15052412441535803,
+        "double": 0.043814253273586144,
+        "triple": 0.004983035325357543,
+        "out_on_bip": 0.56299706969091
+      }
+    }
+  ],
+  "pitcher_projections": [
+    {
+      "player_id": 672456,
+      "player_name": "Keider Montero",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 2.74,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.738921681280174,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.14293809951794878,
+          "6.0": 0.059911308859680434,
+          "7.0": 0.022010662682840132
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 671106,
+      "player_name": "Logan Allen",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 2.65,
+      "confidence": 0.5,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824424,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.6492120897644003,
+        "median": 2.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.12962752760767893,
+          "6.0": 0.05273852922814848,
+          "7.0": 0.018789318548660616
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 808825,
+      "player_name": "Andrew Sears",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 5.02,
+      "confidence": 0.5,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824387,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.015273101891937,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5621825404235987,
+          "6.0": 0.38671925537798535,
+          "7.0": 0.24005320640150818
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 656492,
+      "player_name": "Foster Griffin",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 5.44,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824387,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.441420616861259,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6332816271284518,
+          "6.0": 0.4610149426415794,
+          "7.0": 0.30478569454737936
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 675660,
+      "player_name": "Shane Drohan",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 3.45,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824471,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.4496715496958332,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.2650878083011021,
+          "6.0": 0.13580696676910675,
+          "7.0": 0.061477559943496796
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 695076,
+      "player_name": "Rhett Lowder",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 4.52,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824471,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.523200786003123,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4722943607454083,
+          "6.0": 0.30103790763306815,
+          "7.0": 0.1719333537454273
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 519242,
+      "player_name": "Chris Sale",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 6.88,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823418,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.879950449184026,
+        "median": 7.0,
+        "p10": 4.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.8157723548346312,
+          "6.0": 0.6836973029562418,
+          "7.0": 0.5322523342067871
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 650911,
+      "player_name": "Cristopher S\u00e1nchez",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 6.88,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823418,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.87783219876368,
+        "median": 7.0,
+        "p10": 4.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.8155689434216834,
+          "6.0": 0.6834174539618634,
+          "7.0": 0.5319314924083085
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 696270,
+      "player_name": "Ryan Johnson",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 4.24,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823338,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.235603983543597,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.41708904060847907,
+          "6.0": 0.2526912196571963,
+          "7.0": 0.13663720877267305
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 683003,
+      "player_name": "Jared Jones",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 4.88,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823338,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.881063161421741,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5383950935094044,
+          "6.0": 0.3631797660459303,
+          "7.0": 0.22064025267952836
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 624133,
+      "player_name": "Ranger Suarez",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 5.01,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824797,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.008217516484005,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5609474341073211,
+          "6.0": 0.3854812479274663,
+          "7.0": 0.23901911006470122
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669358,
+      "player_name": "Shane Baz",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 5.3,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824797,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.303173105619887,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6110023119817649,
+          "6.0": 0.43707853611648917,
+          "7.0": 0.28335388768372416
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 683363,
+      "player_name": "Matt Wilkinson",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 2.81,
+      "confidence": 0.5,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823579,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.8148057686378123,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.15463706111330844,
+          "6.0": 0.06640908783499977,
+          "7.0": 0.025018319811832113
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 690997,
+      "player_name": "Nolan McLean",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 6.14,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823579,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.138478021587561,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.7330515713959315,
+          "6.0": 0.5762988288492105,
+          "7.0": 0.4159282846914404
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 684007,
+      "player_name": "Shota Imanaga",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 5.47,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823824,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.474529001161834,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6384993770879106,
+          "6.0": 0.46671058674556387,
+          "7.0": 0.30996680094494966
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 676083,
+      "player_name": "Janson Junk",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 4.12,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823824,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.120894118975568,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.3947676017024965,
+          "6.0": 0.2340385221091934,
+          "7.0": 0.12364726896846023
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 805673,
+      "player_name": "Zebby Matthews",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 5.19,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824554,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.192727328753466,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5926487104506846,
+          "6.0": 0.41781566587360075,
+          "7.0": 0.2665056111161681
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 607200,
+      "player_name": "Erick Fedde",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 2.84,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824554,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.8397583738537784,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.15856807437242892,
+          "6.0": 0.06863192141724206,
+          "7.0": 0.02606576417279438
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 607259,
+      "player_name": "Nick Martinez",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 4.39,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822852,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.391844865504089,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.44725198211945505,
+          "6.0": 0.2787132515648315,
+          "7.0": 0.15534725849401487
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 592866,
+      "player_name": "Trevor Williams",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 3.08,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822852,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.07985282252667,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.1983283250582506,
+          "6.0": 0.09218187250297194,
+          "7.0": 0.03769596391904395
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 518876,
+      "player_name": "Merrill Kelly",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 4.49,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824146,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.48876313311905,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.46576225752076683,
+          "6.0": 0.29515121427318425,
+          "7.0": 0.16751245410106297
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 664299,
+      "player_name": "Cristian Javier",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 3.32,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824146,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.3207799748129827,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.24120507888955234,
+          "6.0": 0.11963607936239229,
+          "7.0": 0.052352096164418715
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 592791,
+      "player_name": "Jameson Taillon",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 4.69,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824067,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.6902619300995525,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5035890979017636,
+          "6.0": 0.3298692809844861,
+          "7.0": 0.19407070701932416
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 663738,
+      "player_name": "Daniel Lynch IV",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 2.16,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824067,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.157826914420584,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "5.0": 0.06801412842809951,
+          "6.0": 0.02295638261168287,
+          "7.0": 0.006751913174051993
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669467,
+      "player_name": "Andre Pallante",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 4.62,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824311,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.6247493517047245,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4913996163017895,
+          "6.0": 0.3185148882032418,
+          "7.0": 0.18525679917100735
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 663372,
+      "player_name": "Ryan Feltner",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 4.24,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824311,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.239253241505415,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4177971673328401,
+          "6.0": 0.25329134693701005,
+          "7.0": 0.13706104154375498
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 608331,
+      "player_name": "Max Fried",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 5.25,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823256,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.2496852237853275,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6021740313941122,
+          "6.0": 0.42776227851367454,
+          "7.0": 0.27516114485518595
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 621111,
+      "player_name": "Walker Buehler",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 4.36,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823256,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.359080145624994,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.44095622527410827,
+          "6.0": 0.2732038916263968,
+          "7.0": 0.1513295804620638
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 800600,
+      "player_name": "Jackson Kent",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 4.37,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823905,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.368883092200357,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4428417123306445,
+          "6.0": 0.2748495375460088,
+          "7.0": 0.1525265088729153
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 605483,
+      "player_name": "Blake Snell",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 6.57,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823905,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.569054410932289,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.7839477916475747,
+          "6.0": 0.640917189331377,
+          "7.0": 0.4843212211574569
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 695034,
+      "player_name": "Kade Morris",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 2.06,
+      "confidence": 0.5,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823093,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.0636921177284613,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "5.0": 0.05858248732260685,
+          "6.0": 0.018973550818402907,
+          "7.0": 0.005350109142514103
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669302,
+      "player_name": "Logan Gilbert",
+      "category": "strikeouts",
+      "game_date": "2026-09-04",
+      "projected_value": 5.97,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823093,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.967616796053215,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.7105855291761765,
+          "6.0": 0.5491049317832472,
+          "7.0": 0.3884958775767887
+        }
+      },
+      "outcome_probs": null
+    }
+  ],
+  "value_plays": [],
+  "market_status": "RESEARCH_ONLY",
+  "market_policy_sha256": "08bc0c9d56eb21c7fb438eccd8d89539e98da111f72cdf6735af9cbeb02f154c",
+  "market_policy_reason": "policy verdict is 'RESEARCH_ONLY', not BETTING_AUTHORIZED",
+  "prediction_provenance": {
+    "schema_version": "daily-prediction-provenance-v1",
+    "captured_at_utc": "2026-09-04T16:12:24.426778+00:00",
+    "model_version": "8c7eed9bb0c3",
+    "effective_config_sha256": "3a62fc507956752086919b757ae683e60f9df8fb2143f83292ac61f07830a60c",
+    "config_source_path": "/home/runner/work/baseball-predictor/baseball-predictor/config/config.kbb.json",
+    "code": {
+      "status": "available",
+      "head": "52e77b848799c7ac3e98a611ca9669ac0102c680",
+      "tracked_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked": [],
+      "snapshot_sha256": "d4bfea8db41da73b4ad47920b49246d7e4007da278c742749765c978904c87cb"
+    },
+    "run_options": {
+      "game_date": "2026-09-04",
+      "hitter_categories": [
+        "hits",
+        "hrr",
+        "home_runs"
+      ],
+      "include_pitchers": true,
+      "corrections_active": false,
+      "edges_requested": false,
+      "use_projected_lineups": false
+    }
+  }
+}
