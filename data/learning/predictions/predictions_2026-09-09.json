@@ -1,0 +1,5839 @@
+{
+  "game_date": "2026-09-09",
+  "hitter_projections": [
+    {
+      "player_id": 807712,
+      "player_name": "Luke Keaschall",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 1.075,
+      "confidence": 0.82,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.074625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.693875,
+          "2.0": 0.29425
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15157926585945614,
+        "walk": 0.08027329219398524,
+        "home_run": 0.03347662427290128,
+        "single": 0.1569472318705871,
+        "double": 0.04935688538367521,
+        "triple": 0.0052898491603657,
+        "out_on_bip": 0.5230768512590293
+      }
+    },
+    {
+      "player_id": 807712,
+      "player_name": "Luke Keaschall",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 2.048,
+      "confidence": 0.7,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.048,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.51625,
+          "3.0": 0.34225
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15157926585945614,
+        "walk": 0.08027329219398524,
+        "home_run": 0.03347662427290128,
+        "single": 0.1569472318705871,
+        "double": 0.04935688538367521,
+        "triple": 0.0052898491603657,
+        "out_on_bip": 0.5230768512590293
+      }
+    },
+    {
+      "player_id": 807712,
+      "player_name": "Luke Keaschall",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.154,
+      "confidence": 0.86,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.154,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.145625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15157926585945614,
+        "walk": 0.08027329219398524,
+        "home_run": 0.03347662427290128,
+        "single": 0.1569472318705871,
+        "double": 0.04935688538367521,
+        "triple": 0.0052898491603657,
+        "out_on_bip": 0.5230768512590293
+      }
+    },
+    {
+      "player_id": 686797,
+      "player_name": "Brooks Lee",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.967,
+      "confidence": 0.82,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.96675,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.653125,
+          "2.0": 0.253
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15796530548469856,
+        "walk": 0.0639176749421648,
+        "home_run": 0.02870353970146395,
+        "single": 0.14733523798210094,
+        "double": 0.04544681206415657,
+        "triple": 0.004943129488365577,
+        "out_on_bip": 0.5516883003370495
+      }
+    },
+    {
+      "player_id": 686797,
+      "player_name": "Brooks Lee",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.824,
+      "confidence": 0.74,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.82425,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.474875,
+          "3.0": 0.29375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15796530548469856,
+        "walk": 0.0639176749421648,
+        "home_run": 0.02870353970146395,
+        "single": 0.14733523798210094,
+        "double": 0.04544681206415657,
+        "triple": 0.004943129488365577,
+        "out_on_bip": 0.5516883003370495
+      }
+    },
+    {
+      "player_id": 686797,
+      "player_name": "Brooks Lee",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.126,
+      "confidence": 0.86,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.125625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1195
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15796530548469856,
+        "walk": 0.0639176749421648,
+        "home_run": 0.02870353970146395,
+        "single": 0.14733523798210094,
+        "double": 0.04544681206415657,
+        "triple": 0.004943129488365577,
+        "out_on_bip": 0.5516883003370495
+      }
+    },
+    {
+      "player_id": 665019,
+      "player_name": "Kody Clemens",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 1.024,
+      "confidence": 0.82,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.02425,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.682875,
+          "2.0": 0.27525
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19865387790504468,
+        "walk": 0.06761461761367661,
+        "home_run": 0.05117692006465816,
+        "single": 0.13979978571309135,
+        "double": 0.04897669549849579,
+        "triple": 0.004840422595168901,
+        "out_on_bip": 0.48893768060986464
+      }
+    },
+    {
+      "player_id": 665019,
+      "player_name": "Kody Clemens",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 2.087,
+      "confidence": 0.7,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.087,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.517625,
+          "3.0": 0.352625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19865387790504468,
+        "walk": 0.06761461761367661,
+        "home_run": 0.05117692006465816,
+        "single": 0.13979978571309135,
+        "double": 0.04897669549849579,
+        "triple": 0.004840422595168901,
+        "out_on_bip": 0.48893768060986464
+      }
+    },
+    {
+      "player_id": 665019,
+      "player_name": "Kody Clemens",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.221,
+      "confidence": 0.86,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.221375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.202875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19865387790504468,
+        "walk": 0.06761461761367661,
+        "home_run": 0.05117692006465816,
+        "single": 0.13979978571309135,
+        "double": 0.04897669549849579,
+        "triple": 0.004840422595168901,
+        "out_on_bip": 0.48893768060986464
+      }
+    },
+    {
+      "player_id": 605137,
+      "player_name": "Josh Bell",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.965,
+      "confidence": 0.82,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.96525,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6575,
+          "2.0": 0.25175
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.182368225705076,
+        "walk": 0.07281507841039773,
+        "home_run": 0.03783141139102673,
+        "single": 0.1485833689392635,
+        "double": 0.04858127235473678,
+        "triple": 0.005055503622923084,
+        "out_on_bip": 0.5047651395765761
+      }
+    },
+    {
+      "player_id": 605137,
+      "player_name": "Josh Bell",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.89,
+      "confidence": 0.7,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.889625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.481,
+          "3.0": 0.31125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.182368225705076,
+        "walk": 0.07281507841039773,
+        "home_run": 0.03783141139102673,
+        "single": 0.1485833689392635,
+        "double": 0.04858127235473678,
+        "triple": 0.005055503622923084,
+        "out_on_bip": 0.5047651395765761
+      }
+    },
+    {
+      "player_id": 605137,
+      "player_name": "Josh Bell",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.148,
+      "confidence": 0.86,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.147625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.138375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.182368225705076,
+        "walk": 0.07281507841039773,
+        "home_run": 0.03783141139102673,
+        "single": 0.1485833689392635,
+        "double": 0.04858127235473678,
+        "triple": 0.005055503622923084,
+        "out_on_bip": 0.5047651395765761
+      }
+    },
+    {
+      "player_id": 701785,
+      "player_name": "Kaelen Culpepper",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.954,
+      "confidence": 0.82,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.95375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6515,
+          "2.0": 0.244125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18643872050649954,
+        "walk": 0.062041804940489914,
+        "home_run": 0.031049591851413403,
+        "single": 0.15819333026219182,
+        "double": 0.05005635311378811,
+        "triple": 0.0053397354711789725,
+        "out_on_bip": 0.5068804638544382
+      }
+    },
+    {
+      "player_id": 701785,
+      "player_name": "Kaelen Culpepper",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.793,
+      "confidence": 0.74,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.792625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.462125,
+          "3.0": 0.285
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18643872050649954,
+        "walk": 0.062041804940489914,
+        "home_run": 0.031049591851413403,
+        "single": 0.15819333026219182,
+        "double": 0.05005635311378811,
+        "triple": 0.0053397354711789725,
+        "out_on_bip": 0.5068804638544382
+      }
+    },
+    {
+      "player_id": 701785,
+      "player_name": "Kaelen Culpepper",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.121,
+      "confidence": 0.86,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.121375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.11575
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18643872050649954,
+        "walk": 0.062041804940489914,
+        "home_run": 0.031049591851413403,
+        "single": 0.15819333026219182,
+        "double": 0.05005635311378811,
+        "triple": 0.0053397354711789725,
+        "out_on_bip": 0.5068804638544382
+      }
+    },
+    {
+      "player_id": 663616,
+      "player_name": "Trevor Larnach",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.878,
+      "confidence": 0.82,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.878,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.622125,
+          "2.0": 0.2145
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1727704374970004,
+        "walk": 0.08277472987038204,
+        "home_run": 0.02661966751702049,
+        "single": 0.15095369509493198,
+        "double": 0.04552276377655167,
+        "triple": 0.005037857919781633,
+        "out_on_bip": 0.5163208483243318
+      }
+    },
+    {
+      "player_id": 663616,
+      "player_name": "Trevor Larnach",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.609,
+      "confidence": 0.74,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.608875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.425375,
+          "3.0": 0.250625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1727704374970004,
+        "walk": 0.08277472987038204,
+        "home_run": 0.02661966751702049,
+        "single": 0.15095369509493198,
+        "double": 0.04552276377655167,
+        "triple": 0.005037857919781633,
+        "out_on_bip": 0.5163208483243318
+      }
+    },
+    {
+      "player_id": 663616,
+      "player_name": "Trevor Larnach",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.098,
+      "confidence": 0.88,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.097875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.094125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1727704374970004,
+        "walk": 0.08277472987038204,
+        "home_run": 0.02661966751702049,
+        "single": 0.15095369509493198,
+        "double": 0.04552276377655167,
+        "triple": 0.005037857919781633,
+        "out_on_bip": 0.5163208483243318
+      }
+    },
+    {
+      "player_id": 668904,
+      "player_name": "Royce Lewis",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.887,
+      "confidence": 0.82,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.887125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.62375,
+          "2.0": 0.2185
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21341230027827857,
+        "walk": 0.07340783269284686,
+        "home_run": 0.036120019836685044,
+        "single": 0.15248189770955922,
+        "double": 0.05099427873178109,
+        "triple": 0.005217337857470266,
+        "out_on_bip": 0.4683663328933789
+      }
+    },
+    {
+      "player_id": 668904,
+      "player_name": "Royce Lewis",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.683,
+      "confidence": 0.74,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.682875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4385,
+          "3.0": 0.26625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21341230027827857,
+        "walk": 0.07340783269284686,
+        "home_run": 0.036120019836685044,
+        "single": 0.15248189770955922,
+        "double": 0.05099427873178109,
+        "triple": 0.005217337857470266,
+        "out_on_bip": 0.4683663328933789
+      }
+    },
+    {
+      "player_id": 668904,
+      "player_name": "Royce Lewis",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.138,
+      "confidence": 0.86,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.13775,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.128875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21341230027827857,
+        "walk": 0.07340783269284686,
+        "home_run": 0.036120019836685044,
+        "single": 0.15248189770955922,
+        "double": 0.05099427873178109,
+        "triple": 0.005217337857470266,
+        "out_on_bip": 0.4683663328933789
+      }
+    },
+    {
+      "player_id": 605170,
+      "player_name": "Victor Caratini",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.769,
+      "confidence": 0.77,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.768875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.571375,
+          "2.0": 0.168375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18097041249443888,
+        "walk": 0.08129678836547972,
+        "home_run": 0.020006570216116973,
+        "single": 0.15047210219932888,
+        "double": 0.043112794575077565,
+        "triple": 0.004963715301907858,
+        "out_on_bip": 0.5191776168476501
+      }
+    },
+    {
+      "player_id": 605170,
+      "player_name": "Victor Caratini",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.378,
+      "confidence": 0.69,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.378,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.374125,
+          "3.0": 0.203
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18097041249443888,
+        "walk": 0.08129678836547972,
+        "home_run": 0.020006570216116973,
+        "single": 0.15047210219932888,
+        "double": 0.043112794575077565,
+        "triple": 0.004963715301907858,
+        "out_on_bip": 0.5191776168476501
+      }
+    },
+    {
+      "player_id": 605170,
+      "player_name": "Victor Caratini",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.07,
+      "confidence": 0.85,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.07025,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.068125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18097041249443888,
+        "walk": 0.08129678836547972,
+        "home_run": 0.020006570216116973,
+        "single": 0.15047210219932888,
+        "double": 0.043112794575077565,
+        "triple": 0.004963715301907858,
+        "out_on_bip": 0.5191776168476501
+      }
+    },
+    {
+      "player_id": 805805,
+      "player_name": "Walker Jenkins",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.679,
+      "confidence": 0.697,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.679125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.52,
+          "2.0": 0.13875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2076077645187643,
+        "walk": 0.09988067982138835,
+        "home_run": 0.02152490005639605,
+        "single": 0.14063670487149113,
+        "double": 0.04099404180407131,
+        "triple": 0.0046571986327067294,
+        "out_on_bip": 0.48469871029518213
+      }
+    },
+    {
+      "player_id": 805805,
+      "player_name": "Walker Jenkins",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.261,
+      "confidence": 0.657,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.260625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.345125,
+          "3.0": 0.18225
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2076077645187643,
+        "walk": 0.09988067982138835,
+        "home_run": 0.02152490005639605,
+        "single": 0.14063670487149113,
+        "double": 0.04099404180407131,
+        "triple": 0.0046571986327067294,
+        "out_on_bip": 0.48469871029518213
+      }
+    },
+    {
+      "player_id": 805805,
+      "player_name": "Walker Jenkins",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.072,
+      "confidence": 0.777,
+      "team": "Minnesota Twins",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Keider Montero",
+      "opposing_pitcher_id": 672456,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.072375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.071125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2076077645187643,
+        "walk": 0.09988067982138835,
+        "home_run": 0.02152490005639605,
+        "single": 0.14063670487149113,
+        "double": 0.04099404180407131,
+        "triple": 0.0046571986327067294,
+        "out_on_bip": 0.48469871029518213
+      }
+    },
+    {
+      "player_id": 805808,
+      "player_name": "Kevin McGonigle",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.968,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.968,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.651125,
+          "2.0": 0.253625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15480126778104175,
+        "walk": 0.10589881729993755,
+        "home_run": 0.030469350885294552,
+        "single": 0.14191861576897188,
+        "double": 0.04442899569346943,
+        "triple": 0.004778143883652342,
+        "out_on_bip": 0.5177048086876325
+      }
+    },
+    {
+      "player_id": 805808,
+      "player_name": "Kevin McGonigle",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.895,
+      "confidence": 0.7,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.8955,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.487875,
+          "3.0": 0.312375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15480126778104175,
+        "walk": 0.10589881729993755,
+        "home_run": 0.030469350885294552,
+        "single": 0.14191861576897188,
+        "double": 0.04442899569346943,
+        "triple": 0.004778143883652342,
+        "out_on_bip": 0.5177048086876325
+      }
+    },
+    {
+      "player_id": 805808,
+      "player_name": "Kevin McGonigle",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.133,
+      "confidence": 0.86,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.133375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.126375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15480126778104175,
+        "walk": 0.10589881729993755,
+        "home_run": 0.030469350885294552,
+        "single": 0.14191861576897188,
+        "double": 0.04442899569346943,
+        "triple": 0.004778143883652342,
+        "out_on_bip": 0.5177048086876325
+      }
+    },
+    {
+      "player_id": 701678,
+      "player_name": "Hao-Yu Lee",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.927,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.926625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.635625,
+          "2.0": 0.2335
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22815988727894657,
+        "walk": 0.0714236922479011,
+        "home_run": 0.027951304109896328,
+        "single": 0.1395601617719433,
+        "double": 0.044936055046048015,
+        "triple": 0.004730672226102342,
+        "out_on_bip": 0.4832382273191624
+      }
+    },
+    {
+      "player_id": 701678,
+      "player_name": "Hao-Yu Lee",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.75,
+      "confidence": 0.74,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.750125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.455125,
+          "3.0": 0.2765
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22815988727894657,
+        "walk": 0.0714236922479011,
+        "home_run": 0.027951304109896328,
+        "single": 0.1395601617719433,
+        "double": 0.044936055046048015,
+        "triple": 0.004730672226102342,
+        "out_on_bip": 0.4832382273191624
+      }
+    },
+    {
+      "player_id": 701678,
+      "player_name": "Hao-Yu Lee",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.115,
+      "confidence": 0.86,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.115,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.109875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22815988727894657,
+        "walk": 0.0714236922479011,
+        "home_run": 0.027951304109896328,
+        "single": 0.1395601617719433,
+        "double": 0.044936055046048015,
+        "triple": 0.004730672226102342,
+        "out_on_bip": 0.4832382273191624
+      }
+    },
+    {
+      "player_id": 690993,
+      "player_name": "Colt Keith",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 1.077,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.0775,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.700625,
+          "2.0": 0.295625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1942418023547228,
+        "walk": 0.07152441250547846,
+        "home_run": 0.03348920107931326,
+        "single": 0.166035002521547,
+        "double": 0.05357468577409079,
+        "triple": 0.005631017648606096,
+        "out_on_bip": 0.47550387811624156
+      }
+    },
+    {
+      "player_id": 690993,
+      "player_name": "Colt Keith",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 2.013,
+      "confidence": 0.7,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.01275,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.51775,
+          "3.0": 0.330125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1942418023547228,
+        "walk": 0.07152441250547846,
+        "home_run": 0.03348920107931326,
+        "single": 0.166035002521547,
+        "double": 0.05357468577409079,
+        "triple": 0.005631017648606096,
+        "out_on_bip": 0.47550387811624156
+      }
+    },
+    {
+      "player_id": 690993,
+      "player_name": "Colt Keith",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.135,
+      "confidence": 0.86,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.13525,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.128125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1942418023547228,
+        "walk": 0.07152441250547846,
+        "home_run": 0.03348920107931326,
+        "single": 0.166035002521547,
+        "double": 0.05357468577409079,
+        "triple": 0.005631017648606096,
+        "out_on_bip": 0.47550387811624156
+      }
+    },
+    {
+      "player_id": 682985,
+      "player_name": "Riley Greene",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.946,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.946125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.638625,
+          "2.0": 0.248125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24753065170818506,
+        "walk": 0.09573606734182599,
+        "home_run": 0.06093453492442963,
+        "single": 0.12013467841880986,
+        "double": 0.04670394060061264,
+        "triple": 0.004277913308190321,
+        "out_on_bip": 0.42468221369794656
+      }
+    },
+    {
+      "player_id": 682985,
+      "player_name": "Riley Greene",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 2.092,
+      "confidence": 0.7,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.09175,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.496625,
+          "3.0": 0.351625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24753065170818506,
+        "walk": 0.09573606734182599,
+        "home_run": 0.06093453492442963,
+        "single": 0.12013467841880986,
+        "double": 0.04670394060061264,
+        "triple": 0.004277913308190321,
+        "out_on_bip": 0.42468221369794656
+      }
+    },
+    {
+      "player_id": 682985,
+      "player_name": "Riley Greene",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.25,
+      "confidence": 0.86,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.25,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.226
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24753065170818506,
+        "walk": 0.09573606734182599,
+        "home_run": 0.06093453492442963,
+        "single": 0.12013467841880986,
+        "double": 0.04670394060061264,
+        "triple": 0.004277913308190321,
+        "out_on_bip": 0.42468221369794656
+      }
+    },
+    {
+      "player_id": 693307,
+      "player_name": "Dillon Dingler",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.862,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.86175,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.607125,
+          "2.0": 0.211125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21385622027477966,
+        "walk": 0.06503650544724922,
+        "home_run": 0.024351402813311527,
+        "single": 0.14440067613707944,
+        "double": 0.04442289715316703,
+        "triple": 0.004841630084365294,
+        "out_on_bip": 0.5030906680900478
+      }
+    },
+    {
+      "player_id": 693307,
+      "player_name": "Dillon Dingler",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.545,
+      "confidence": 0.74,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.54525,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.41025,
+          "3.0": 0.242125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21385622027477966,
+        "walk": 0.06503650544724922,
+        "home_run": 0.024351402813311527,
+        "single": 0.14440067613707944,
+        "double": 0.04442289715316703,
+        "triple": 0.004841630084365294,
+        "out_on_bip": 0.5030906680900478
+      }
+    },
+    {
+      "player_id": 693307,
+      "player_name": "Dillon Dingler",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.099,
+      "confidence": 0.88,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.0985,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.0955
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21385622027477966,
+        "walk": 0.06503650544724922,
+        "home_run": 0.024351402813311527,
+        "single": 0.14440067613707944,
+        "double": 0.04442289715316703,
+        "triple": 0.004841630084365294,
+        "out_on_bip": 0.5030906680900478
+      }
+    },
+    {
+      "player_id": 814430,
+      "player_name": "Brett Callahan",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.779,
+      "confidence": 0.72,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.77875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.571125,
+          "2.0": 0.1755
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.34158819815905167,
+        "walk": 0.05990239463456934,
+        "home_run": 0.04056475429727881,
+        "single": 0.11628063671602211,
+        "double": 0.04261299664282375,
+        "triple": 0.004074195727149894,
+        "out_on_bip": 0.39497682382310445
+      }
+    },
+    {
+      "player_id": 814430,
+      "player_name": "Brett Callahan",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.565,
+      "confidence": 0.64,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.5655,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.397625,
+          "3.0": 0.2525
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.34158819815905167,
+        "walk": 0.05990239463456934,
+        "home_run": 0.04056475429727881,
+        "single": 0.11628063671602211,
+        "double": 0.04261299664282375,
+        "triple": 0.004074195727149894,
+        "out_on_bip": 0.39497682382310445
+      }
+    },
+    {
+      "player_id": 814430,
+      "player_name": "Brett Callahan",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.152,
+      "confidence": 0.76,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1525,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.143375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.34158819815905167,
+        "walk": 0.05990239463456934,
+        "home_run": 0.04056475429727881,
+        "single": 0.11628063671602211,
+        "double": 0.04261299664282375,
+        "triple": 0.004074195727149894,
+        "out_on_bip": 0.39497682382310445
+      }
+    },
+    {
+      "player_id": 703601,
+      "player_name": "Max Clark",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.891,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.891125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.617625,
+          "2.0": 0.2215
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2131981267543327,
+        "walk": 0.07191370341147411,
+        "home_run": 0.024836140659692363,
+        "single": 0.16372390505261972,
+        "double": 0.050838297979356635,
+        "triple": 0.005501594949537856,
+        "out_on_bip": 0.46998823119298666
+      }
+    },
+    {
+      "player_id": 703601,
+      "player_name": "Max Clark",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.654,
+      "confidence": 0.74,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.653625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.437625,
+          "3.0": 0.2585
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2131981267543327,
+        "walk": 0.07191370341147411,
+        "home_run": 0.024836140659692363,
+        "single": 0.16372390505261972,
+        "double": 0.050838297979356635,
+        "triple": 0.005501594949537856,
+        "out_on_bip": 0.46998823119298666
+      }
+    },
+    {
+      "player_id": 703601,
+      "player_name": "Max Clark",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.091,
+      "confidence": 0.88,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.090875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.086875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2131981267543327,
+        "walk": 0.07191370341147411,
+        "home_run": 0.024836140659692363,
+        "single": 0.16372390505261972,
+        "double": 0.050838297979356635,
+        "triple": 0.005501594949537856,
+        "out_on_bip": 0.46998823119298666
+      }
+    },
+    {
+      "player_id": 701162,
+      "player_name": "Ben Malgeri",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.803,
+      "confidence": 0.813,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.803125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.58375,
+          "2.0": 0.18175
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2537864390249373,
+        "walk": 0.10603805827576754,
+        "home_run": 0.032367701731246576,
+        "single": 0.14391891219664588,
+        "double": 0.04840652876233681,
+        "triple": 0.004931421563050838,
+        "out_on_bip": 0.41055093844601503
+      }
+    },
+    {
+      "player_id": 701162,
+      "player_name": "Ben Malgeri",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.528,
+      "confidence": 0.733,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.5285,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.40375,
+          "3.0": 0.23725
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2537864390249373,
+        "walk": 0.10603805827576754,
+        "home_run": 0.032367701731246576,
+        "single": 0.14391891219664588,
+        "double": 0.04840652876233681,
+        "triple": 0.004931421563050838,
+        "out_on_bip": 0.41055093844601503
+      }
+    },
+    {
+      "player_id": 701162,
+      "player_name": "Ben Malgeri",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.112,
+      "confidence": 0.853,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.11225,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.107875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2537864390249373,
+        "walk": 0.10603805827576754,
+        "home_run": 0.032367701731246576,
+        "single": 0.14391891219664588,
+        "double": 0.04840652876233681,
+        "triple": 0.004931421563050838,
+        "out_on_bip": 0.41055093844601503
+      }
+    },
+    {
+      "player_id": 807726,
+      "player_name": "John Peck",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.756,
+      "confidence": 0.653,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.756375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.559375,
+          "2.0": 0.168
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22323352467657503,
+        "walk": 0.05821028052213542,
+        "home_run": 0.031753146314777644,
+        "single": 0.1460119609679947,
+        "double": 0.04802704942861559,
+        "triple": 0.004975359240938725,
+        "out_on_bip": 0.4877886788489629
+      }
+    },
+    {
+      "player_id": 807726,
+      "player_name": "John Peck",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.423,
+      "confidence": 0.573,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.42325,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.3815,
+          "3.0": 0.21925
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22323352467657503,
+        "walk": 0.05821028052213542,
+        "home_run": 0.031753146314777644,
+        "single": 0.1460119609679947,
+        "double": 0.04802704942861559,
+        "triple": 0.004975359240938725,
+        "out_on_bip": 0.4877886788489629
+      }
+    },
+    {
+      "player_id": 807726,
+      "player_name": "John Peck",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.106,
+      "confidence": 0.693,
+      "team": "Detroit Tigers",
+      "opponent": "Minnesota Twins",
+      "opposing_pitcher": "Zebby Matthews",
+      "opposing_pitcher_id": 805673,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.10625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.10225
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22323352467657503,
+        "walk": 0.05821028052213542,
+        "home_run": 0.031753146314777644,
+        "single": 0.1460119609679947,
+        "double": 0.04802704942861559,
+        "triple": 0.004975359240938725,
+        "out_on_bip": 0.4877886788489629
+      }
+    },
+    {
+      "player_id": 703607,
+      "player_name": "Henry Bolte",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 1.025,
+      "confidence": 0.82,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.024875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.673375,
+          "2.0": 0.27625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2638503826331401,
+        "walk": 0.09036436008761176,
+        "home_run": 0.0357161010699363,
+        "single": 0.14764793058700137,
+        "double": 0.04896988719706447,
+        "triple": 0.00504148250728374,
+        "out_on_bip": 0.40840985591796236
+      }
+    },
+    {
+      "player_id": 703607,
+      "player_name": "Henry Bolte",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 2.038,
+      "confidence": 0.7,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.0385,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.513875,
+          "3.0": 0.3385
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2638503826331401,
+        "walk": 0.09036436008761176,
+        "home_run": 0.0357161010699363,
+        "single": 0.14764793058700137,
+        "double": 0.04896988719706447,
+        "triple": 0.00504148250728374,
+        "out_on_bip": 0.40840985591796236
+      }
+    },
+    {
+      "player_id": 703607,
+      "player_name": "Henry Bolte",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.155,
+      "confidence": 0.86,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.155375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.146
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2638503826331401,
+        "walk": 0.09036436008761176,
+        "home_run": 0.0357161010699363,
+        "single": 0.14764793058700137,
+        "double": 0.04896988719706447,
+        "triple": 0.00504148250728374,
+        "out_on_bip": 0.40840985591796236
+      }
+    },
+    {
+      "player_id": 671732,
+      "player_name": "Lawrence Butler",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.942,
+      "confidence": 0.82,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.941625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.64375,
+          "2.0": 0.23975
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.25649812032751024,
+        "walk": 0.11237172208201847,
+        "home_run": 0.04294034120346466,
+        "single": 0.12736554430401753,
+        "double": 0.04344010434467727,
+        "triple": 0.004379632016633201,
+        "out_on_bip": 0.4130045357216785
+      }
+    },
+    {
+      "player_id": 671732,
+      "player_name": "Lawrence Butler",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.994,
+      "confidence": 0.7,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.994,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.49225,
+          "3.0": 0.333
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.25649812032751024,
+        "walk": 0.11237172208201847,
+        "home_run": 0.04294034120346466,
+        "single": 0.12736554430401753,
+        "double": 0.04344010434467727,
+        "triple": 0.004379632016633201,
+        "out_on_bip": 0.4130045357216785
+      }
+    },
+    {
+      "player_id": 671732,
+      "player_name": "Lawrence Butler",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.184,
+      "confidence": 0.86,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.184125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.170625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.25649812032751024,
+        "walk": 0.11237172208201847,
+        "home_run": 0.04294034120346466,
+        "single": 0.12736554430401753,
+        "double": 0.04344010434467727,
+        "triple": 0.004379632016633201,
+        "out_on_bip": 0.4130045357216785
+      }
+    },
+    {
+      "player_id": 680869,
+      "player_name": "Zack Gelof",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.896,
+      "confidence": 0.82,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.89575,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6245,
+          "2.0": 0.2225
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2448294595504579,
+        "walk": 0.08557445741825678,
+        "home_run": 0.054419022533279654,
+        "single": 0.11854607680582621,
+        "double": 0.042328983395703686,
+        "triple": 0.004125001543628971,
+        "out_on_bip": 0.45017699875284684
+      }
+    },
+    {
+      "player_id": 680869,
+      "player_name": "Zack Gelof",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.976,
+      "confidence": 0.7,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.97625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.48175,
+          "3.0": 0.32475
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2448294595504579,
+        "walk": 0.08557445741825678,
+        "home_run": 0.054419022533279654,
+        "single": 0.11854607680582621,
+        "double": 0.042328983395703686,
+        "triple": 0.004125001543628971,
+        "out_on_bip": 0.45017699875284684
+      }
+    },
+    {
+      "player_id": 680869,
+      "player_name": "Zack Gelof",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.225,
+      "confidence": 0.86,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.225125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.203375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2448294595504579,
+        "walk": 0.08557445741825678,
+        "home_run": 0.054419022533279654,
+        "single": 0.11854607680582621,
+        "double": 0.042328983395703686,
+        "triple": 0.004125001543628971,
+        "out_on_bip": 0.45017699875284684
+      }
+    },
+    {
+      "player_id": 666126,
+      "player_name": "Carlos Cortes",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.89,
+      "confidence": 0.82,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.890375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6245,
+          "2.0": 0.218875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18200094541563322,
+        "walk": 0.09049149121278771,
+        "home_run": 0.02484096385986165,
+        "single": 0.14697752731137256,
+        "double": 0.04287642609720038,
+        "triple": 0.004868050087399307,
+        "out_on_bip": 0.5079445960157452
+      }
+    },
+    {
+      "player_id": 666126,
+      "player_name": "Carlos Cortes",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.69,
+      "confidence": 0.74,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.6895,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.448,
+          "3.0": 0.266875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18200094541563322,
+        "walk": 0.09049149121278771,
+        "home_run": 0.02484096385986165,
+        "single": 0.14697752731137256,
+        "double": 0.04287642609720038,
+        "triple": 0.004868050087399307,
+        "out_on_bip": 0.5079445960157452
+      }
+    },
+    {
+      "player_id": 666126,
+      "player_name": "Carlos Cortes",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.103,
+      "confidence": 0.88,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.103125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.099625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18200094541563322,
+        "walk": 0.09049149121278771,
+        "home_run": 0.02484096385986165,
+        "single": 0.14697752731137256,
+        "double": 0.04287642609720038,
+        "triple": 0.004868050087399307,
+        "out_on_bip": 0.5079445960157452
+      }
+    },
+    {
+      "player_id": 695720,
+      "player_name": "Tommy White",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.958,
+      "confidence": 0.82,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.95825,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.655375,
+          "2.0": 0.24225
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1862926348953885,
+        "walk": 0.06316237703390147,
+        "home_run": 0.03086091622066209,
+        "single": 0.15735769006272654,
+        "double": 0.04910988525304052,
+        "triple": 0.0052940403927119765,
+        "out_on_bip": 0.5079224561415688
+      }
+    },
+    {
+      "player_id": 695720,
+      "player_name": "Tommy White",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.768,
+      "confidence": 0.74,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.7675,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.460375,
+          "3.0": 0.285625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1862926348953885,
+        "walk": 0.06316237703390147,
+        "home_run": 0.03086091622066209,
+        "single": 0.15735769006272654,
+        "double": 0.04910988525304052,
+        "triple": 0.0052940403927119765,
+        "out_on_bip": 0.5079224561415688
+      }
+    },
+    {
+      "player_id": 695720,
+      "player_name": "Tommy White",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.117,
+      "confidence": 0.86,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.117375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.11225
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1862926348953885,
+        "walk": 0.06316237703390147,
+        "home_run": 0.03086091622066209,
+        "single": 0.15735769006272654,
+        "double": 0.04910988525304052,
+        "triple": 0.0052940403927119765,
+        "out_on_bip": 0.5079224561415688
+      }
+    },
+    {
+      "player_id": 691777,
+      "player_name": "Max Muncy",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.731,
+      "confidence": 0.82,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.7305,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.54025,
+          "2.0": 0.1615
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3046066494750475,
+        "walk": 0.0860600465345066,
+        "home_run": 0.030082086620584012,
+        "single": 0.12081207445812986,
+        "double": 0.039052097606831156,
+        "triple": 0.004099081334999001,
+        "out_on_bip": 0.4152879639699019
+      }
+    },
+    {
+      "player_id": 691777,
+      "player_name": "Max Muncy",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.43,
+      "confidence": 0.74,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.430125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.370625,
+          "3.0": 0.217375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3046066494750475,
+        "walk": 0.0860600465345066,
+        "home_run": 0.030082086620584012,
+        "single": 0.12081207445812986,
+        "double": 0.039052097606831156,
+        "triple": 0.004099081334999001,
+        "out_on_bip": 0.4152879639699019
+      }
+    },
+    {
+      "player_id": 691777,
+      "player_name": "Max Muncy",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.111,
+      "confidence": 0.86,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.111375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.106625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3046066494750475,
+        "walk": 0.0860600465345066,
+        "home_run": 0.030082086620584012,
+        "single": 0.12081207445812986,
+        "double": 0.039052097606831156,
+        "triple": 0.004099081334999001,
+        "out_on_bip": 0.4152879639699019
+      }
+    },
+    {
+      "player_id": 622268,
+      "player_name": "Donovan Walton",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.791,
+      "confidence": 0.82,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.791375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.572,
+          "2.0": 0.1845
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17867735039423802,
+        "walk": 0.1174714848488541,
+        "home_run": 0.036671844746306505,
+        "single": 0.13528069364251472,
+        "double": 0.04200625909644552,
+        "triple": 0.0045458193009989805,
+        "out_on_bip": 0.4853465479706422
+      }
+    },
+    {
+      "player_id": 622268,
+      "player_name": "Donovan Walton",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.646,
+      "confidence": 0.74,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.646,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.419375,
+          "3.0": 0.256875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17867735039423802,
+        "walk": 0.1174714848488541,
+        "home_run": 0.036671844746306505,
+        "single": 0.13528069364251472,
+        "double": 0.04200625909644552,
+        "triple": 0.0045458193009989805,
+        "out_on_bip": 0.4853465479706422
+      }
+    },
+    {
+      "player_id": 622268,
+      "player_name": "Donovan Walton",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.131,
+      "confidence": 0.86,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1305,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1235
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17867735039423802,
+        "walk": 0.1174714848488541,
+        "home_run": 0.036671844746306505,
+        "single": 0.13528069364251472,
+        "double": 0.04200625909644552,
+        "triple": 0.0045458193009989805,
+        "out_on_bip": 0.4853465479706422
+      }
+    },
+    {
+      "player_id": 661531,
+      "player_name": "Brian Serven",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.765,
+      "confidence": 0.78,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.76525,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.565875,
+          "2.0": 0.1695
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24925003359994286,
+        "walk": 0.06521459364758941,
+        "home_run": 0.042109497957153234,
+        "single": 0.13147334512035164,
+        "double": 0.0442897754846288,
+        "triple": 0.004506746682178986,
+        "out_on_bip": 0.46315600750815505
+      }
+    },
+    {
+      "player_id": 661531,
+      "player_name": "Brian Serven",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.613,
+      "confidence": 0.7,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.612875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.41425,
+          "3.0": 0.260625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24925003359994286,
+        "walk": 0.06521459364758941,
+        "home_run": 0.042109497957153234,
+        "single": 0.13147334512035164,
+        "double": 0.0442897754846288,
+        "triple": 0.004506746682178986,
+        "out_on_bip": 0.46315600750815505
+      }
+    },
+    {
+      "player_id": 661531,
+      "player_name": "Brian Serven",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.144,
+      "confidence": 0.82,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1445,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.136
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24925003359994286,
+        "walk": 0.06521459364758941,
+        "home_run": 0.042109497957153234,
+        "single": 0.13147334512035164,
+        "double": 0.0442897754846288,
+        "triple": 0.004506746682178986,
+        "out_on_bip": 0.46315600750815505
+      }
+    },
+    {
+      "player_id": 675961,
+      "player_name": "Alika Williams",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.694,
+      "confidence": 0.82,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.693875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.526625,
+          "2.0": 0.14675
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22660375542253644,
+        "walk": 0.0696539326649892,
+        "home_run": 0.02171933259948706,
+        "single": 0.14042803027192557,
+        "double": 0.04066036745902512,
+        "triple": 0.004643292249511557,
+        "out_on_bip": 0.49629128933252503
+      }
+    },
+    {
+      "player_id": 675961,
+      "player_name": "Alika Williams",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.253,
+      "confidence": 0.78,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.253125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.3385,
+          "3.0": 0.181125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22660375542253644,
+        "walk": 0.0696539326649892,
+        "home_run": 0.02171933259948706,
+        "single": 0.14042803027192557,
+        "double": 0.04066036745902512,
+        "triple": 0.004643292249511557,
+        "out_on_bip": 0.49629128933252503
+      }
+    },
+    {
+      "player_id": 675961,
+      "player_name": "Alika Williams",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.074,
+      "confidence": 0.88,
+      "team": "Athletics",
+      "opponent": "Toronto Blue Jays",
+      "opposing_pitcher": "Braydon Fisher",
+      "opposing_pitcher_id": 680755,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.074125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.072125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22660375542253644,
+        "walk": 0.0696539326649892,
+        "home_run": 0.02171933259948706,
+        "single": 0.14042803027192557,
+        "double": 0.04066036745902512,
+        "triple": 0.004643292249511557,
+        "out_on_bip": 0.49629128933252503
+      }
+    },
+    {
+      "player_id": 663494,
+      "player_name": "Bryan Torres",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.959,
+      "confidence": 0.82,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.958875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.65225,
+          "2.0": 0.245875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1902922642917645,
+        "walk": 0.08933174782989049,
+        "home_run": 0.02034771477202761,
+        "single": 0.1534264618800927,
+        "double": 0.04443010229923541,
+        "triple": 0.0050732452353673884,
+        "out_on_bip": 0.4970984636916219
+      }
+    },
+    {
+      "player_id": 663494,
+      "player_name": "Bryan Torres",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.761,
+      "confidence": 0.74,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.760625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.47475,
+          "3.0": 0.2835
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1902922642917645,
+        "walk": 0.08933174782989049,
+        "home_run": 0.02034771477202761,
+        "single": 0.1534264618800927,
+        "double": 0.04443010229923541,
+        "triple": 0.0050732452353673884,
+        "out_on_bip": 0.4970984636916219
+      }
+    },
+    {
+      "player_id": 663494,
+      "player_name": "Bryan Torres",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.092,
+      "confidence": 0.88,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.091875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.089
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1902922642917645,
+        "walk": 0.08933174782989049,
+        "home_run": 0.02034771477202761,
+        "single": 0.1534264618800927,
+        "double": 0.04443010229923541,
+        "triple": 0.0050732452353673884,
+        "out_on_bip": 0.4970984636916219
+      }
+    },
+    {
+      "player_id": 671056,
+      "player_name": "Iv\u00e1n Herrera",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 1.005,
+      "confidence": 0.82,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.004625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.663125,
+          "2.0": 0.27125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18371058435089324,
+        "walk": 0.09801355443704218,
+        "home_run": 0.029133391023548325,
+        "single": 0.1547763196695565,
+        "double": 0.04956367793023741,
+        "triple": 0.005239487117943434,
+        "out_on_bip": 0.4795629854707789
+      }
+    },
+    {
+      "player_id": 671056,
+      "player_name": "Iv\u00e1n Herrera",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.958,
+      "confidence": 0.7,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.958375,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.503375,
+          "3.0": 0.324625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18371058435089324,
+        "walk": 0.09801355443704218,
+        "home_run": 0.029133391023548325,
+        "single": 0.1547763196695565,
+        "double": 0.04956367793023741,
+        "triple": 0.005239487117943434,
+        "out_on_bip": 0.4795629854707789
+      }
+    },
+    {
+      "player_id": 671056,
+      "player_name": "Iv\u00e1n Herrera",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.119,
+      "confidence": 0.86,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1195,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.11425
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18371058435089324,
+        "walk": 0.09801355443704218,
+        "home_run": 0.029133391023548325,
+        "single": 0.1547763196695565,
+        "double": 0.04956367793023741,
+        "triple": 0.005239487117943434,
+        "out_on_bip": 0.4795629854707789
+      }
+    },
+    {
+      "player_id": 676475,
+      "player_name": "Alec Burleson",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 1.069,
+      "confidence": 0.82,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.0685,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.69775,
+          "2.0": 0.29175
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17721203171445096,
+        "walk": 0.0841597629791076,
+        "home_run": 0.05162472453021587,
+        "single": 0.14741335835420272,
+        "double": 0.051473790230890666,
+        "triple": 0.005099670476540856,
+        "out_on_bip": 0.48301666171459134
+      }
+    },
+    {
+      "player_id": 676475,
+      "player_name": "Alec Burleson",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 2.22,
+      "confidence": 0.7,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.22,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.538125,
+          "3.0": 0.370875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17721203171445096,
+        "walk": 0.0841597629791076,
+        "home_run": 0.05162472453021587,
+        "single": 0.14741335835420272,
+        "double": 0.051473790230890666,
+        "triple": 0.005099670476540856,
+        "out_on_bip": 0.48301666171459134
+      }
+    },
+    {
+      "player_id": 676475,
+      "player_name": "Alec Burleson",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.21,
+      "confidence": 0.86,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.21,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1935
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17721203171445096,
+        "walk": 0.0841597629791076,
+        "home_run": 0.05162472453021587,
+        "single": 0.14741335835420272,
+        "double": 0.051473790230890666,
+        "triple": 0.005099670476540856,
+        "out_on_bip": 0.48301666171459134
+      }
+    },
+    {
+      "player_id": 699024,
+      "player_name": "Leo Bernal",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.941,
+      "confidence": 0.69,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.941125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.642,
+          "2.0": 0.242875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19233949544192702,
+        "walk": 0.1002062517312617,
+        "home_run": 0.03219397423463793,
+        "single": 0.1447837731606501,
+        "double": 0.047035633829587364,
+        "triple": 0.0049184463330830125,
+        "out_on_bip": 0.4785224252688528
+      }
+    },
+    {
+      "player_id": 699024,
+      "player_name": "Leo Bernal",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.852,
+      "confidence": 0.57,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.85225,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.4765,
+          "3.0": 0.305
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19233949544192702,
+        "walk": 0.1002062517312617,
+        "home_run": 0.03219397423463793,
+        "single": 0.1447837731606501,
+        "double": 0.047035633829587364,
+        "triple": 0.0049184463330830125,
+        "out_on_bip": 0.4785224252688528
+      }
+    },
+    {
+      "player_id": 699024,
+      "player_name": "Leo Bernal",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.133,
+      "confidence": 0.73,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.132875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.126625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19233949544192702,
+        "walk": 0.1002062517312617,
+        "home_run": 0.03219397423463793,
+        "single": 0.1447837731606501,
+        "double": 0.047035633829587364,
+        "triple": 0.0049184463330830125,
+        "out_on_bip": 0.4785224252688528
+      }
+    },
+    {
+      "player_id": 695491,
+      "player_name": "Joshua B\u00e1ez",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.803,
+      "confidence": 0.82,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.803375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.58225,
+          "2.0": 0.18675
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2982470489563519,
+        "walk": 0.06630985156746864,
+        "home_run": 0.04145722190516244,
+        "single": 0.11724294298268513,
+        "double": 0.04271143822565583,
+        "triple": 0.004101394389957461,
+        "out_on_bip": 0.42993010197271864
+      }
+    },
+    {
+      "player_id": 695491,
+      "player_name": "Joshua B\u00e1ez",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.633,
+      "confidence": 0.74,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.633,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.410875,
+          "3.0": 0.267625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2982470489563519,
+        "walk": 0.06630985156746864,
+        "home_run": 0.04145722190516244,
+        "single": 0.11724294298268513,
+        "double": 0.04271143822565583,
+        "triple": 0.004101394389957461,
+        "out_on_bip": 0.42993010197271864
+      }
+    },
+    {
+      "player_id": 695491,
+      "player_name": "Joshua B\u00e1ez",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.157,
+      "confidence": 0.86,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1565,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.14675
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2982470489563519,
+        "walk": 0.06630985156746864,
+        "home_run": 0.04145722190516244,
+        "single": 0.11724294298268513,
+        "double": 0.04271143822565583,
+        "triple": 0.004101394389957461,
+        "out_on_bip": 0.42993010197271864
+      }
+    },
+    {
+      "player_id": 669357,
+      "player_name": "Nolan Gorman",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.704,
+      "confidence": 0.713,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.703625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.529875,
+          "2.0": 0.150125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.29287699534630346,
+        "walk": 0.0931213486264262,
+        "home_run": 0.030541293978829178,
+        "single": 0.11197590453630213,
+        "double": 0.038643826189242884,
+        "triple": 0.003862044377578077,
+        "out_on_bip": 0.42897858694531804
+      }
+    },
+    {
+      "player_id": 669357,
+      "player_name": "Nolan Gorman",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.451,
+      "confidence": 0.633,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.451125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.379,
+          "3.0": 0.227625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.29287699534630346,
+        "walk": 0.0931213486264262,
+        "home_run": 0.030541293978829178,
+        "single": 0.11197590453630213,
+        "double": 0.038643826189242884,
+        "triple": 0.003862044377578077,
+        "out_on_bip": 0.42897858694531804
+      }
+    },
+    {
+      "player_id": 669357,
+      "player_name": "Nolan Gorman",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.121,
+      "confidence": 0.753,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.120875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.115125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.29287699534630346,
+        "walk": 0.0931213486264262,
+        "home_run": 0.030541293978829178,
+        "single": 0.11197590453630213,
+        "double": 0.038643826189242884,
+        "triple": 0.003862044377578077,
+        "out_on_bip": 0.42897858694531804
+      }
+    },
+    {
+      "player_id": 695336,
+      "player_name": "Thomas Saggese",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.802,
+      "confidence": 0.7,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.8025,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.58175,
+          "2.0": 0.1865
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24987919715897813,
+        "walk": 0.08393966003275789,
+        "home_run": 0.04320028437921106,
+        "single": 0.1293639373544214,
+        "double": 0.04588109077362787,
+        "triple": 0.004493462259693571,
+        "out_on_bip": 0.4432423680413101
+      }
+    },
+    {
+      "player_id": 695336,
+      "player_name": "Thomas Saggese",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.683,
+      "confidence": 0.62,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.683,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4275,
+          "3.0": 0.274375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24987919715897813,
+        "walk": 0.08393966003275789,
+        "home_run": 0.04320028437921106,
+        "single": 0.1293639373544214,
+        "double": 0.04588109077362787,
+        "triple": 0.004493462259693571,
+        "out_on_bip": 0.4432423680413101
+      }
+    },
+    {
+      "player_id": 695336,
+      "player_name": "Thomas Saggese",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.155,
+      "confidence": 0.74,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.154875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1465
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24987919715897813,
+        "walk": 0.08393966003275789,
+        "home_run": 0.04320028437921106,
+        "single": 0.1293639373544214,
+        "double": 0.04588109077362787,
+        "triple": 0.004493462259693571,
+        "out_on_bip": 0.4432423680413101
+      }
+    },
+    {
+      "player_id": 691026,
+      "player_name": "Masyn Winn",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.821,
+      "confidence": 0.82,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.820875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.5925,
+          "2.0": 0.19025
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20468712932553254,
+        "walk": 0.08738693725381295,
+        "home_run": 0.025677243785069487,
+        "single": 0.15576444207028664,
+        "double": 0.04970428075127946,
+        "triple": 0.005268428790296567,
+        "out_on_bip": 0.47151153802372225
+      }
+    },
+    {
+      "player_id": 691026,
+      "player_name": "Masyn Winn",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.545,
+      "confidence": 0.74,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.545375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4125,
+          "3.0": 0.241875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20468712932553254,
+        "walk": 0.08738693725381295,
+        "home_run": 0.025677243785069487,
+        "single": 0.15576444207028664,
+        "double": 0.04970428075127946,
+        "triple": 0.005268428790296567,
+        "out_on_bip": 0.47151153802372225
+      }
+    },
+    {
+      "player_id": 691026,
+      "player_name": "Masyn Winn",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.092,
+      "confidence": 0.88,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.092125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.08975
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20468712932553254,
+        "walk": 0.08738693725381295,
+        "home_run": 0.025677243785069487,
+        "single": 0.15576444207028664,
+        "double": 0.04970428075127946,
+        "triple": 0.005268428790296567,
+        "out_on_bip": 0.47151153802372225
+      }
+    },
+    {
+      "player_id": 701675,
+      "player_name": "Nathan Church",
+      "category": "hits",
+      "game_date": "2026-09-09",
+      "projected_value": 0.741,
+      "confidence": 0.82,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.74075,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.54325,
+          "2.0": 0.167375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18209871854369553,
+        "walk": 0.06964562650502153,
+        "home_run": 0.02154610251643565,
+        "single": 0.1550202292392612,
+        "double": 0.04554878397834245,
+        "triple": 0.005142795210707787,
+        "out_on_bip": 0.5209977440065359
+      }
+    },
+    {
+      "player_id": 701675,
+      "player_name": "Nathan Church",
+      "category": "hrr",
+      "game_date": "2026-09-09",
+      "projected_value": 1.356,
+      "confidence": 0.74,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.356375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.369875,
+          "3.0": 0.197375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18209871854369553,
+        "walk": 0.06964562650502153,
+        "home_run": 0.02154610251643565,
+        "single": 0.1550202292392612,
+        "double": 0.04554878397834245,
+        "triple": 0.005142795210707787,
+        "out_on_bip": 0.5209977440065359
+      }
+    },
+    {
+      "player_id": 701675,
+      "player_name": "Nathan Church",
+      "category": "home_runs",
+      "game_date": "2026-09-09",
+      "projected_value": 0.071,
+      "confidence": 0.88,
+      "team": "St. Louis Cardinals",
+      "opponent": "San Francisco Giants",
+      "opposing_pitcher": "Blade Tidwell",
+      "opposing_pitcher_id": 694918,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.07125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.069125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18209871854369553,
+        "walk": 0.06964562650502153,
+        "home_run": 0.02154610251643565,
+        "single": 0.1550202292392612,
+        "double": 0.04554878397834245,
+        "triple": 0.005142795210707787,
+        "out_on_bip": 0.5209977440065359
+      }
+    }
+  ],
+  "pitcher_projections": [
+    {
+      "player_id": 805673,
+      "player_name": "Zebby Matthews",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 5.1,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.100802077050035,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5770124163324017,
+          "6.0": 0.40172089116465626,
+          "7.0": 0.25269966188717197
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 672456,
+      "player_name": "Keider Montero",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 2.76,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824226,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.756258064195908,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.1455761919316051,
+          "6.0": 0.06136099408302298,
+          "7.0": 0.022674524383354933
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 680755,
+      "player_name": "Braydon Fisher",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 2.51,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.5116046983974294,
+        "median": 2.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.11037777850006958,
+          "6.0": 0.042800744440630645,
+          "7.0": 0.014512945066055605
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669620,
+      "player_name": "Brady Basso",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 2.12,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824956,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.1194583810072616,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "5.0": 0.06407397592707942,
+          "6.0": 0.02127098283827822,
+          "7.0": 0.0061511224325689895
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669467,
+      "player_name": "Andre Pallante",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 4.49,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.486988772558421,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.46542502128059593,
+          "6.0": 0.29484851939257006,
+          "7.0": 0.16728604458692664
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 694918,
+      "player_name": "Blade Tidwell",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 3.11,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823172,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.1088702455867154,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.20335016209744627,
+          "6.0": 0.09528976900188124,
+          "7.0": 0.039298812198346855
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 800600,
+      "player_name": "Jackson Kent",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 4.41,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823251,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.4126428718909585,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.45123887974542853,
+          "6.0": 0.28222350806439245,
+          "7.0": 0.15792276221633827
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 621111,
+      "player_name": "Walker Buehler",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 4.4,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823251,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.395853281770515,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4480209667317584,
+          "6.0": 0.2793890120116551,
+          "7.0": 0.1558421234170313
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 674003,
+      "player_name": "Cody Bradford",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 3.62,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823090,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.6237879853248813,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.2981162291061874,
+          "6.0": 0.15917167412969357,
+          "7.0": 0.0752540726380051
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 807739,
+      "player_name": "Kade Anderson",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 4.11,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823090,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.1142534183764115,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.3934724266858509,
+          "6.0": 0.2329719264014979,
+          "7.0": 0.12291530441049414
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 656492,
+      "player_name": "Foster Griffin",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 5.42,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824791,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.421263333181496,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6300823856363021,
+          "6.0": 0.4575397134301201,
+          "7.0": 0.3016398363900319
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669358,
+      "player_name": "Shane Baz",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 5.31,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824791,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.311226083656164,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6123215384711473,
+          "6.0": 0.4384788154232243,
+          "7.0": 0.28459248123890024
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 686613,
+      "player_name": "Hunter Brown",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 5.58,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823416,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.583461237598884,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6553379877612473,
+          "6.0": 0.48532978516754754,
+          "7.0": 0.3271240836249174
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 650911,
+      "player_name": "Cristopher S\u00e1nchez",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 6.83,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823416,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.8285728602712465,
+        "median": 7.0,
+        "p10": 4.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.8107876276266097,
+          "6.0": 0.676864069363264,
+          "7.0": 0.5244462734785913
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 476594,
+      "player_name": "Robert Stock",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 4.2,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823818,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.199825958432277,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.41013914075209623,
+          "6.0": 0.24682868797608393,
+          "7.0": 0.1325161081674131
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 676083,
+      "player_name": "Janson Junk",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 4.06,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823818,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.057573833535945,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.38240953905586794,
+          "6.0": 0.22393153818863654,
+          "7.0": 0.11675883993697567
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 696270,
+      "player_name": "Ryan Johnson",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 4.3,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824713,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.298883248795185,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.42934603386611303,
+          "6.0": 0.2631518836846063,
+          "7.0": 0.14407700897410114
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 687562,
+      "player_name": "Jake Bennett",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 5.13,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824713,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.129310313277401,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5818957737821654,
+          "6.0": 0.4067166063004919,
+          "7.0": 0.2569585545613089
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 608372,
+      "player_name": "Tomoyuki Sugano",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 3.97,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823497,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.9673055880637715,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.36477594734032326,
+          "6.0": 0.20978080082342676,
+          "7.0": 0.10729528234021912
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 701542,
+      "player_name": "Will Warren",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 5.05,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823497,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.053287476238549,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5688065812250029,
+          "6.0": 0.39338867820979173,
+          "7.0": 0.24564916280732585
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 643377,
+      "player_name": "Griffin Jax",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 3.62,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824871,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.6242050658538356,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.2981961900791691,
+          "6.0": 0.1592296297873712,
+          "7.0": 0.07528907782173522
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 668678,
+      "player_name": "Zac Gallen",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 3.95,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824064,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.95489482995285,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.3623517625955185,
+          "6.0": 0.20786031302244534,
+          "7.0": 0.10602740715770065
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 663738,
+      "player_name": "Daniel Lynch IV",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 2.08,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824064,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.0750806853293935,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "5.0": 0.05968124261853047,
+          "6.0": 0.019428302887852023,
+          "7.0": 0.0055069532607088245
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669199,
+      "player_name": "Lake Bachar",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 2.63,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824549,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.63144371089618,
+        "median": 2.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.12706076074771633,
+          "6.0": 0.05138310104219368,
+          "7.0": 0.018192850760953894
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 663436,
+      "player_name": "Davis Martin",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 4.71,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824549,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.7114155253452035,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5075004305333848,
+          "6.0": 0.3335465854179174,
+          "7.0": 0.19695177765616623
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 592332,
+      "player_name": "Kevin Gausman",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 5.97,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823739,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.967719073533048,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.7105993668191,
+          "6.0": 0.5491214474748398,
+          "7.0": 0.38851230427064465
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 701656,
+      "player_name": "Logan Henderson",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 5.97,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823739,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.969913621745401,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.7108961660333585,
+          "6.0": 0.5494757554673882,
+          "7.0": 0.388864770823135
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 695076,
+      "player_name": "Rhett Lowder",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 4.49,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823900,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.491818000391471,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.46634271503514246,
+          "6.0": 0.29567249884356694,
+          "7.0": 0.16790257397356312
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 808967,
+      "player_name": "Yoshinobu Yamamoto",
+      "category": "strikeouts",
+      "game_date": "2026-09-09",
+      "projected_value": 6.41,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823900,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.413787950610465,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.7665273162669994,
+          "6.0": 0.6183031466758186,
+          "7.0": 0.4598567478569592
+        }
+      },
+      "outcome_probs": null
+    }
+  ],
+  "value_plays": [],
+  "market_status": "RESEARCH_ONLY",
+  "market_policy_sha256": "08bc0c9d56eb21c7fb438eccd8d89539e98da111f72cdf6735af9cbeb02f154c",
+  "market_policy_reason": "policy verdict is 'RESEARCH_ONLY', not BETTING_AUTHORIZED",
+  "prediction_provenance": {
+    "schema_version": "daily-prediction-provenance-v1",
+    "captured_at_utc": "2026-09-09T16:27:16.821239+00:00",
+    "model_version": "8c7eed9bb0c3",
+    "effective_config_sha256": "3a62fc507956752086919b757ae683e60f9df8fb2143f83292ac61f07830a60c",
+    "config_source_path": "/home/runner/work/baseball-predictor/baseball-predictor/config/config.kbb.json",
+    "code": {
+      "status": "available",
+      "head": "62cf013faed3f2edd1988430f1421f48efbb5b69",
+      "tracked_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked": [],
+      "snapshot_sha256": "656236c4fe76e85e0afa56714df3dd84ea23a69c43c738973b519f0fc701604b"
+    },
+    "run_options": {
+      "game_date": "2026-09-09",
+      "hitter_categories": [
+        "hits",
+        "hrr",
+        "home_runs"
+      ],
+      "include_pitchers": true,
+      "corrections_active": false,
+      "edges_requested": false,
+      "use_projected_lineups": false
+    }
+  }
+}
