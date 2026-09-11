@@ -1,0 +1,3313 @@
+{
+  "game_date": "2026-09-11",
+  "hitter_projections": [
+    {
+      "player_id": 804606,
+      "player_name": "Konnor Griffin",
+      "category": "hits",
+      "game_date": "2026-09-11",
+      "projected_value": 0.944,
+      "confidence": 0.653,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.94375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.64475,
+          "2.0": 0.239875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.25553321146969854,
+        "walk": 0.06619853939039021,
+        "home_run": 0.023392285711941678,
+        "single": 0.14422569532865676,
+        "double": 0.04464540352718778,
+        "triple": 0.004842848688611399,
+        "out_on_bip": 0.46116201588351363
+      }
+    },
+    {
+      "player_id": 804606,
+      "player_name": "Konnor Griffin",
+      "category": "hrr",
+      "game_date": "2026-09-11",
+      "projected_value": 1.764,
+      "confidence": 0.573,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.763875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.463625,
+          "3.0": 0.28175
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.25553321146969854,
+        "walk": 0.06619853939039021,
+        "home_run": 0.023392285711941678,
+        "single": 0.14422569532865676,
+        "double": 0.04464540352718778,
+        "triple": 0.004842848688611399,
+        "out_on_bip": 0.46116201588351363
+      }
+    },
+    {
+      "player_id": 804606,
+      "player_name": "Konnor Griffin",
+      "category": "home_runs",
+      "game_date": "2026-09-11",
+      "projected_value": 0.098,
+      "confidence": 0.733,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.097875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.09325
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.25553321146969854,
+        "walk": 0.06619853939039021,
+        "home_run": 0.023392285711941678,
+        "single": 0.14422569532865676,
+        "double": 0.04464540352718778,
+        "triple": 0.004842848688611399,
+        "out_on_bip": 0.46116201588351363
+      }
+    },
+    {
+      "player_id": 665833,
+      "player_name": "Oneil Cruz",
+      "category": "hits",
+      "game_date": "2026-09-11",
+      "projected_value": 0.849,
+      "confidence": 0.82,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.848625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.60175,
+          "2.0": 0.203625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3221439984043774,
+        "walk": 0.08830010159734816,
+        "home_run": 0.03995573029793819,
+        "single": 0.11407237043630146,
+        "double": 0.04128423168203788,
+        "triple": 0.003983502618418957,
+        "out_on_bip": 0.3902600649635779
+      }
+    },
+    {
+      "player_id": 665833,
+      "player_name": "Oneil Cruz",
+      "category": "hrr",
+      "game_date": "2026-09-11",
+      "projected_value": 1.78,
+      "confidence": 0.7,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.779625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.441375,
+          "3.0": 0.2875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3221439984043774,
+        "walk": 0.08830010159734816,
+        "home_run": 0.03995573029793819,
+        "single": 0.11407237043630146,
+        "double": 0.04128423168203788,
+        "triple": 0.003983502618418957,
+        "out_on_bip": 0.3902600649635779
+      }
+    },
+    {
+      "player_id": 665833,
+      "player_name": "Oneil Cruz",
+      "category": "home_runs",
+      "game_date": "2026-09-11",
+      "projected_value": 0.179,
+      "confidence": 0.86,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.178875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.16675
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3221439984043774,
+        "walk": 0.08830010159734816,
+        "home_run": 0.03995573029793819,
+        "single": 0.11407237043630146,
+        "double": 0.04128423168203788,
+        "triple": 0.003983502618418957,
+        "out_on_bip": 0.3902600649635779
+      }
+    },
+    {
+      "player_id": 668804,
+      "player_name": "Bryan Reynolds",
+      "category": "hits",
+      "game_date": "2026-09-11",
+      "projected_value": 0.937,
+      "confidence": 0.82,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.937375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6375,
+          "2.0": 0.23925
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2292145231440393,
+        "walk": 0.09777973746693953,
+        "home_run": 0.0378114293170542,
+        "single": 0.14098728795641666,
+        "double": 0.04818707712881723,
+        "triple": 0.0048506247457752285,
+        "out_on_bip": 0.44116932024095784
+      }
+    },
+    {
+      "player_id": 668804,
+      "player_name": "Bryan Reynolds",
+      "category": "hrr",
+      "game_date": "2026-09-11",
+      "projected_value": 1.968,
+      "confidence": 0.7,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.968375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.491875,
+          "3.0": 0.32175
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2292145231440393,
+        "walk": 0.09777973746693953,
+        "home_run": 0.0378114293170542,
+        "single": 0.14098728795641666,
+        "double": 0.04818707712881723,
+        "triple": 0.0048506247457752285,
+        "out_on_bip": 0.44116932024095784
+      }
+    },
+    {
+      "player_id": 668804,
+      "player_name": "Bryan Reynolds",
+      "category": "home_runs",
+      "game_date": "2026-09-11",
+      "projected_value": 0.159,
+      "confidence": 0.86,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.15875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.149625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2292145231440393,
+        "walk": 0.09777973746693953,
+        "home_run": 0.0378114293170542,
+        "single": 0.14098728795641666,
+        "double": 0.04818707712881723,
+        "triple": 0.0048506247457752285,
+        "out_on_bip": 0.44116932024095784
+      }
+    },
+    {
+      "player_id": 804668,
+      "player_name": "Rafael Flores Jr.",
+      "category": "hits",
+      "game_date": "2026-09-11",
+      "projected_value": 0.884,
+      "confidence": 0.82,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.8845,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.61825,
+          "2.0": 0.2185
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26792056513476303,
+        "walk": 0.07861582958448622,
+        "home_run": 0.04495711901192073,
+        "single": 0.12410934408939715,
+        "double": 0.04473551155207632,
+        "triple": 0.004329355272858295,
+        "out_on_bip": 0.43533227535449825
+      }
+    },
+    {
+      "player_id": 804668,
+      "player_name": "Rafael Flores Jr.",
+      "category": "hrr",
+      "game_date": "2026-09-11",
+      "projected_value": 1.855,
+      "confidence": 0.7,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.854625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.46475,
+          "3.0": 0.307875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26792056513476303,
+        "walk": 0.07861582958448622,
+        "home_run": 0.04495711901192073,
+        "single": 0.12410934408939715,
+        "double": 0.04473551155207632,
+        "triple": 0.004329355272858295,
+        "out_on_bip": 0.43533227535449825
+      }
+    },
+    {
+      "player_id": 804668,
+      "player_name": "Rafael Flores Jr.",
+      "category": "home_runs",
+      "game_date": "2026-09-11",
+      "projected_value": 0.189,
+      "confidence": 0.86,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.188625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.175125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26792056513476303,
+        "walk": 0.07861582958448622,
+        "home_run": 0.04495711901192073,
+        "single": 0.12410934408939715,
+        "double": 0.04473551155207632,
+        "triple": 0.004329355272858295,
+        "out_on_bip": 0.43533227535449825
+      }
+    },
+    {
+      "player_id": 699013,
+      "player_name": "Esmerlyn Valdez",
+      "category": "hits",
+      "game_date": "2026-09-11",
+      "projected_value": 0.643,
+      "confidence": 0.82,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.64325,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.488125,
+          "2.0": 0.135125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3534294649072335,
+        "walk": 0.1103930889127321,
+        "home_run": 0.029650333638940016,
+        "single": 0.10063003720590995,
+        "double": 0.033464166343590646,
+        "triple": 0.0034383129115256564,
+        "out_on_bip": 0.3689945960800682
+      }
+    },
+    {
+      "player_id": 699013,
+      "player_name": "Esmerlyn Valdez",
+      "category": "hrr",
+      "game_date": "2026-09-11",
+      "projected_value": 1.406,
+      "confidence": 0.74,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.406375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.36175,
+          "3.0": 0.220125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3534294649072335,
+        "walk": 0.1103930889127321,
+        "home_run": 0.029650333638940016,
+        "single": 0.10063003720590995,
+        "double": 0.033464166343590646,
+        "triple": 0.0034383129115256564,
+        "out_on_bip": 0.3689945960800682
+      }
+    },
+    {
+      "player_id": 699013,
+      "player_name": "Esmerlyn Valdez",
+      "category": "home_runs",
+      "game_date": "2026-09-11",
+      "projected_value": 0.114,
+      "confidence": 0.86,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.114375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.109
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3534294649072335,
+        "walk": 0.1103930889127321,
+        "home_run": 0.029650333638940016,
+        "single": 0.10063003720590995,
+        "double": 0.033464166343590646,
+        "triple": 0.0034383129115256564,
+        "out_on_bip": 0.3689945960800682
+      }
+    },
+    {
+      "player_id": 693304,
+      "player_name": "Nick Gonzales",
+      "category": "hits",
+      "game_date": "2026-09-11",
+      "projected_value": 0.925,
+      "confidence": 0.82,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.924875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.63675,
+          "2.0": 0.237375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18057662631283902,
+        "walk": 0.06746872967887724,
+        "home_run": 0.02656089051589435,
+        "single": 0.1634742545907915,
+        "double": 0.05003147466017238,
+        "triple": 0.005474505878229843,
+        "out_on_bip": 0.5064135183631957
+      }
+    },
+    {
+      "player_id": 693304,
+      "player_name": "Nick Gonzales",
+      "category": "hrr",
+      "game_date": "2026-09-11",
+      "projected_value": 1.716,
+      "confidence": 0.74,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.716,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4545,
+          "3.0": 0.26975
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18057662631283902,
+        "walk": 0.06746872967887724,
+        "home_run": 0.02656089051589435,
+        "single": 0.1634742545907915,
+        "double": 0.05003147466017238,
+        "triple": 0.005474505878229843,
+        "out_on_bip": 0.5064135183631957
+      }
+    },
+    {
+      "player_id": 693304,
+      "player_name": "Nick Gonzales",
+      "category": "home_runs",
+      "game_date": "2026-09-11",
+      "projected_value": 0.09,
+      "confidence": 0.88,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.08975,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.0875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18057662631283902,
+        "walk": 0.06746872967887724,
+        "home_run": 0.02656089051589435,
+        "single": 0.1634742545907915,
+        "double": 0.05003147466017238,
+        "triple": 0.005474505878229843,
+        "out_on_bip": 0.5064135183631957
+      }
+    },
+    {
+      "player_id": 663968,
+      "player_name": "Jake Mangum",
+      "category": "hits",
+      "game_date": "2026-09-11",
+      "projected_value": 0.85,
+      "confidence": 0.82,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.8495,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6065,
+          "2.0": 0.203625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20160421284376218,
+        "walk": 0.06078191415170502,
+        "home_run": 0.02376320182224806,
+        "single": 0.1557379931813418,
+        "double": 0.04717923926591822,
+        "triple": 0.005203005960186155,
+        "out_on_bip": 0.5057304327748385
+      }
+    },
+    {
+      "player_id": 663968,
+      "player_name": "Jake Mangum",
+      "category": "hrr",
+      "game_date": "2026-09-11",
+      "projected_value": 1.548,
+      "confidence": 0.74,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.547625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.413625,
+          "3.0": 0.24325
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20160421284376218,
+        "walk": 0.06078191415170502,
+        "home_run": 0.02376320182224806,
+        "single": 0.1557379931813418,
+        "double": 0.04717923926591822,
+        "triple": 0.005203005960186155,
+        "out_on_bip": 0.5057304327748385
+      }
+    },
+    {
+      "player_id": 663968,
+      "player_name": "Jake Mangum",
+      "category": "home_runs",
+      "game_date": "2026-09-11",
+      "projected_value": 0.083,
+      "confidence": 0.88,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.0825,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.079
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20160421284376218,
+        "walk": 0.06078191415170502,
+        "home_run": 0.02376320182224806,
+        "single": 0.1557379931813418,
+        "double": 0.04717923926591822,
+        "triple": 0.005203005960186155,
+        "out_on_bip": 0.5057304327748385
+      }
+    },
+    {
+      "player_id": 669707,
+      "player_name": "Jared Triolo",
+      "category": "hits",
+      "game_date": "2026-09-11",
+      "projected_value": 0.782,
+      "confidence": 0.82,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.7825,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.5715,
+          "2.0": 0.177375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2023050053465849,
+        "walk": 0.07338856720784545,
+        "home_run": 0.02319454562926459,
+        "single": 0.15509128272974035,
+        "double": 0.046302227456946676,
+        "triple": 0.005163936158633001,
+        "out_on_bip": 0.494554435470985
+      }
+    },
+    {
+      "player_id": 669707,
+      "player_name": "Jared Triolo",
+      "category": "hrr",
+      "game_date": "2026-09-11",
+      "projected_value": 1.459,
+      "confidence": 0.74,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.45925,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.3905,
+          "3.0": 0.21825
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2023050053465849,
+        "walk": 0.07338856720784545,
+        "home_run": 0.02319454562926459,
+        "single": 0.15509128272974035,
+        "double": 0.046302227456946676,
+        "triple": 0.005163936158633001,
+        "out_on_bip": 0.494554435470985
+      }
+    },
+    {
+      "player_id": 669707,
+      "player_name": "Jared Triolo",
+      "category": "home_runs",
+      "game_date": "2026-09-11",
+      "projected_value": 0.085,
+      "confidence": 0.88,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.0845,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.08175
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2023050053465849,
+        "walk": 0.07338856720784545,
+        "home_run": 0.02319454562926459,
+        "single": 0.15509128272974035,
+        "double": 0.046302227456946676,
+        "triple": 0.005163936158633001,
+        "out_on_bip": 0.494554435470985
+      }
+    },
+    {
+      "player_id": 680779,
+      "player_name": "Henry Davis",
+      "category": "hits",
+      "game_date": "2026-09-11",
+      "projected_value": 0.715,
+      "confidence": 0.79,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.714875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.541375,
+          "2.0": 0.1505
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21472775424902665,
+        "walk": 0.07586701873669542,
+        "home_run": 0.02098631505064027,
+        "single": 0.14346996960078262,
+        "double": 0.04339402837047886,
+        "triple": 0.004791384563365679,
+        "out_on_bip": 0.4967635294290104
+      }
+    },
+    {
+      "player_id": 680779,
+      "player_name": "Henry Davis",
+      "category": "hrr",
+      "game_date": "2026-09-11",
+      "projected_value": 1.293,
+      "confidence": 0.75,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.293125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.353375,
+          "3.0": 0.18825
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21472775424902665,
+        "walk": 0.07586701873669542,
+        "home_run": 0.02098631505064027,
+        "single": 0.14346996960078262,
+        "double": 0.04339402837047886,
+        "triple": 0.004791384563365679,
+        "out_on_bip": 0.4967635294290104
+      }
+    },
+    {
+      "player_id": 680779,
+      "player_name": "Henry Davis",
+      "category": "home_runs",
+      "game_date": "2026-09-11",
+      "projected_value": 0.067,
+      "confidence": 0.87,
+      "team": "Pittsburgh Pirates",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Shota Imanaga",
+      "opposing_pitcher_id": 684007,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.06725,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.065125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21472775424902665,
+        "walk": 0.07586701873669542,
+        "home_run": 0.02098631505064027,
+        "single": 0.14346996960078262,
+        "double": 0.04339402837047886,
+        "triple": 0.004791384563365679,
+        "out_on_bip": 0.4967635294290104
+      }
+    },
+    {
+      "player_id": 691718,
+      "player_name": "Pete Crow-Armstrong",
+      "category": "hits",
+      "game_date": "2026-09-11",
+      "projected_value": 0.984,
+      "confidence": 0.82,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.98425,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.65525,
+          "2.0": 0.257875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.25905320320498737,
+        "walk": 0.10329014411714892,
+        "home_run": 0.059164523406197,
+        "single": 0.11945987693093485,
+        "double": 0.045969121491849854,
+        "triple": 0.004241769190327813,
+        "out_on_bip": 0.4088213616585542
+      }
+    },
+    {
+      "player_id": 691718,
+      "player_name": "Pete Crow-Armstrong",
+      "category": "hrr",
+      "game_date": "2026-09-11",
+      "projected_value": 2.213,
+      "confidence": 0.7,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.2135,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.521125,
+          "3.0": 0.37025
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.25905320320498737,
+        "walk": 0.10329014411714892,
+        "home_run": 0.059164523406197,
+        "single": 0.11945987693093485,
+        "double": 0.045969121491849854,
+        "triple": 0.004241769190327813,
+        "out_on_bip": 0.4088213616585542
+      }
+    },
+    {
+      "player_id": 691718,
+      "player_name": "Pete Crow-Armstrong",
+      "category": "home_runs",
+      "game_date": "2026-09-11",
+      "projected_value": 0.255,
+      "confidence": 0.86,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.25525,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.23025
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.25905320320498737,
+        "walk": 0.10329014411714892,
+        "home_run": 0.059164523406197,
+        "single": 0.11945987693093485,
+        "double": 0.045969121491849854,
+        "triple": 0.004241769190327813,
+        "out_on_bip": 0.4088213616585542
+      }
+    },
+    {
+      "player_id": 673548,
+      "player_name": "Seiya Suzuki",
+      "category": "hits",
+      "game_date": "2026-09-11",
+      "projected_value": 0.856,
+      "confidence": 0.82,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.856125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.61325,
+          "2.0": 0.20175
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24280833769240284,
+        "walk": 0.11359353320187167,
+        "home_run": 0.03776665943440404,
+        "single": 0.1201942113826673,
+        "double": 0.03888919580109683,
+        "triple": 0.004079061722660619,
+        "out_on_bip": 0.4426690007648967
+      }
+    },
+    {
+      "player_id": 673548,
+      "player_name": "Seiya Suzuki",
+      "category": "hrr",
+      "game_date": "2026-09-11",
+      "projected_value": 1.815,
+      "confidence": 0.7,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.815375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.452625,
+          "3.0": 0.295125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24280833769240284,
+        "walk": 0.11359353320187167,
+        "home_run": 0.03776665943440404,
+        "single": 0.1201942113826673,
+        "double": 0.03888919580109683,
+        "triple": 0.004079061722660619,
+        "out_on_bip": 0.4426690007648967
+      }
+    },
+    {
+      "player_id": 673548,
+      "player_name": "Seiya Suzuki",
+      "category": "home_runs",
+      "game_date": "2026-09-11",
+      "projected_value": 0.156,
+      "confidence": 0.86,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.156375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.143875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24280833769240284,
+        "walk": 0.11359353320187167,
+        "home_run": 0.03776665943440404,
+        "single": 0.1201942113826673,
+        "double": 0.03888919580109683,
+        "triple": 0.004079061722660619,
+        "out_on_bip": 0.4426690007648967
+      }
+    },
+    {
+      "player_id": 683737,
+      "player_name": "Michael Busch",
+      "category": "hits",
+      "game_date": "2026-09-11",
+      "projected_value": 0.825,
+      "confidence": 0.82,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.824625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.590875,
+          "2.0": 0.195125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2345940815363594,
+        "walk": 0.11076083684099201,
+        "home_run": 0.03259601286660652,
+        "single": 0.12291751697376495,
+        "double": 0.03848907212261629,
+        "triple": 0.004138630489650802,
+        "out_on_bip": 0.45650384917000997
+      }
+    },
+    {
+      "player_id": 683737,
+      "player_name": "Michael Busch",
+      "category": "hrr",
+      "game_date": "2026-09-11",
+      "projected_value": 1.699,
+      "confidence": 0.74,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.69875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.439875,
+          "3.0": 0.27625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2345940815363594,
+        "walk": 0.11076083684099201,
+        "home_run": 0.03259601286660652,
+        "single": 0.12291751697376495,
+        "double": 0.03848907212261629,
+        "triple": 0.004138630489650802,
+        "out_on_bip": 0.45650384917000997
+      }
+    },
+    {
+      "player_id": 683737,
+      "player_name": "Michael Busch",
+      "category": "home_runs",
+      "game_date": "2026-09-11",
+      "projected_value": 0.137,
+      "confidence": 0.86,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.137,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.12875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2345940815363594,
+        "walk": 0.11076083684099201,
+        "home_run": 0.03259601286660652,
+        "single": 0.12291751697376495,
+        "double": 0.03848907212261629,
+        "triple": 0.004138630489650802,
+        "out_on_bip": 0.45650384917000997
+      }
+    },
+    {
+      "player_id": 608324,
+      "player_name": "Alex Bregman",
+      "category": "hits",
+      "game_date": "2026-09-11",
+      "projected_value": 0.944,
+      "confidence": 0.82,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.943875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.642,
+          "2.0": 0.242375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17889421829593882,
+        "walk": 0.09877324411203624,
+        "home_run": 0.03983032451847656,
+        "single": 0.14393121315043725,
+        "double": 0.0460345106231328,
+        "triple": 0.004870915994194104,
+        "out_on_bip": 0.4876655733057843
+      }
+    },
+    {
+      "player_id": 608324,
+      "player_name": "Alex Bregman",
+      "category": "hrr",
+      "game_date": "2026-09-11",
+      "projected_value": 1.918,
+      "confidence": 0.7,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.918375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.489875,
+          "3.0": 0.318625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17889421829593882,
+        "walk": 0.09877324411203624,
+        "home_run": 0.03983032451847656,
+        "single": 0.14393121315043725,
+        "double": 0.0460345106231328,
+        "triple": 0.004870915994194104,
+        "out_on_bip": 0.4876655733057843
+      }
+    },
+    {
+      "player_id": 608324,
+      "player_name": "Alex Bregman",
+      "category": "home_runs",
+      "game_date": "2026-09-11",
+      "projected_value": 0.164,
+      "confidence": 0.86,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.163875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.152875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17889421829593882,
+        "walk": 0.09877324411203624,
+        "home_run": 0.03983032451847656,
+        "single": 0.14393121315043725,
+        "double": 0.0460345106231328,
+        "triple": 0.004870915994194104,
+        "out_on_bip": 0.4876655733057843
+      }
+    },
+    {
+      "player_id": 664023,
+      "player_name": "Ian Happ",
+      "category": "hits",
+      "game_date": "2026-09-11",
+      "projected_value": 0.737,
+      "confidence": 0.82,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.737375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.548625,
+          "2.0": 0.159625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2992824178026647,
+        "walk": 0.10945003502795737,
+        "home_run": 0.03134049729240351,
+        "single": 0.11668305269429134,
+        "double": 0.03767680489920475,
+        "triple": 0.0039579450664999,
+        "out_on_bip": 0.4016092472169784
+      }
+    },
+    {
+      "player_id": 664023,
+      "player_name": "Ian Happ",
+      "category": "hrr",
+      "game_date": "2026-09-11",
+      "projected_value": 1.518,
+      "confidence": 0.74,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.518125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.3925,
+          "3.0": 0.2335
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2992824178026647,
+        "walk": 0.10945003502795737,
+        "home_run": 0.03134049729240351,
+        "single": 0.11668305269429134,
+        "double": 0.03767680489920475,
+        "triple": 0.0039579450664999,
+        "out_on_bip": 0.4016092472169784
+      }
+    },
+    {
+      "player_id": 664023,
+      "player_name": "Ian Happ",
+      "category": "home_runs",
+      "game_date": "2026-09-11",
+      "projected_value": 0.121,
+      "confidence": 0.86,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.12125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.115
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2992824178026647,
+        "walk": 0.10945003502795737,
+        "home_run": 0.03134049729240351,
+        "single": 0.11668305269429134,
+        "double": 0.03767680489920475,
+        "triple": 0.0039579450664999,
+        "out_on_bip": 0.4016092472169784
+      }
+    },
+    {
+      "player_id": 663538,
+      "player_name": "Nico Hoerner",
+      "category": "hits",
+      "game_date": "2026-09-11",
+      "projected_value": 1.013,
+      "confidence": 0.82,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.012625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.679,
+          "2.0": 0.268625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14336935067884685,
+        "walk": 0.07557432029203402,
+        "home_run": 0.033687667680145306,
+        "single": 0.1747015225480227,
+        "double": 0.05340456459311573,
+        "triple": 0.005848874029259961,
+        "out_on_bip": 0.5134137001785755
+      }
+    },
+    {
+      "player_id": 663538,
+      "player_name": "Nico Hoerner",
+      "category": "hrr",
+      "game_date": "2026-09-11",
+      "projected_value": 1.889,
+      "confidence": 0.74,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.88925,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.491,
+          "3.0": 0.308125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14336935067884685,
+        "walk": 0.07557432029203402,
+        "home_run": 0.033687667680145306,
+        "single": 0.1747015225480227,
+        "double": 0.05340456459311573,
+        "triple": 0.005848874029259961,
+        "out_on_bip": 0.5134137001785755
+      }
+    },
+    {
+      "player_id": 663538,
+      "player_name": "Nico Hoerner",
+      "category": "home_runs",
+      "game_date": "2026-09-11",
+      "projected_value": 0.131,
+      "confidence": 0.86,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.130625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.125125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14336935067884685,
+        "walk": 0.07557432029203402,
+        "home_run": 0.033687667680145306,
+        "single": 0.1747015225480227,
+        "double": 0.05340456459311573,
+        "triple": 0.005848874029259961,
+        "out_on_bip": 0.5134137001785755
+      }
+    },
+    {
+      "player_id": 624424,
+      "player_name": "Michael Conforto",
+      "category": "hits",
+      "game_date": "2026-09-11",
+      "projected_value": 0.769,
+      "confidence": 0.82,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.7695,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.5635,
+          "2.0": 0.17325
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26709438132061647,
+        "walk": 0.10649007148423358,
+        "home_run": 0.047861416989105246,
+        "single": 0.11666641324533097,
+        "double": 0.03987124483722054,
+        "triple": 0.004013786104680808,
+        "out_on_bip": 0.41800268601881235
+      }
+    },
+    {
+      "player_id": 624424,
+      "player_name": "Michael Conforto",
+      "category": "hrr",
+      "game_date": "2026-09-11",
+      "projected_value": 1.633,
+      "confidence": 0.74,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.633125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4095,
+          "3.0": 0.269
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26709438132061647,
+        "walk": 0.10649007148423358,
+        "home_run": 0.047861416989105246,
+        "single": 0.11666641324533097,
+        "double": 0.03987124483722054,
+        "triple": 0.004013786104680808,
+        "out_on_bip": 0.41800268601881235
+      }
+    },
+    {
+      "player_id": 624424,
+      "player_name": "Michael Conforto",
+      "category": "home_runs",
+      "game_date": "2026-09-11",
+      "projected_value": 0.181,
+      "confidence": 0.86,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.18075,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.168375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26709438132061647,
+        "walk": 0.10649007148423358,
+        "home_run": 0.047861416989105246,
+        "single": 0.11666641324533097,
+        "double": 0.03987124483722054,
+        "triple": 0.004013786104680808,
+        "out_on_bip": 0.41800268601881235
+      }
+    },
+    {
+      "player_id": 699393,
+      "player_name": "Pedro Ram\u00edrez",
+      "category": "hits",
+      "game_date": "2026-09-11",
+      "projected_value": 0.761,
+      "confidence": 0.82,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.761,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.558875,
+          "2.0": 0.172125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.204265435585127,
+        "walk": 0.08206545332567952,
+        "home_run": 0.031061425220313847,
+        "single": 0.1406517213268921,
+        "double": 0.04303734412430936,
+        "triple": 0.004709976037210294,
+        "out_on_bip": 0.49420864438046785
+      }
+    },
+    {
+      "player_id": 699393,
+      "player_name": "Pedro Ram\u00edrez",
+      "category": "hrr",
+      "game_date": "2026-09-11",
+      "projected_value": 1.465,
+      "confidence": 0.74,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.46525,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.3845,
+          "3.0": 0.225875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.204265435585127,
+        "walk": 0.08206545332567952,
+        "home_run": 0.031061425220313847,
+        "single": 0.1406517213268921,
+        "double": 0.04303734412430936,
+        "triple": 0.004709976037210294,
+        "out_on_bip": 0.49420864438046785
+      }
+    },
+    {
+      "player_id": 699393,
+      "player_name": "Pedro Ram\u00edrez",
+      "category": "home_runs",
+      "game_date": "2026-09-11",
+      "projected_value": 0.112,
+      "confidence": 0.86,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.11225,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.10825
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.204265435585127,
+        "walk": 0.08206545332567952,
+        "home_run": 0.031061425220313847,
+        "single": 0.1406517213268921,
+        "double": 0.04303734412430936,
+        "triple": 0.004709976037210294,
+        "out_on_bip": 0.49420864438046785
+      }
+    },
+    {
+      "player_id": 608348,
+      "player_name": "Carson Kelly",
+      "category": "hits",
+      "game_date": "2026-09-11",
+      "projected_value": 0.723,
+      "confidence": 0.82,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.723125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.540625,
+          "2.0": 0.155
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19145159970307876,
+        "walk": 0.09276503496687781,
+        "home_run": 0.028533114683367222,
+        "single": 0.1446777620317354,
+        "double": 0.04378561569503744,
+        "triple": 0.004832394300686483,
+        "out_on_bip": 0.4939544786192169
+      }
+    },
+    {
+      "player_id": 608348,
+      "player_name": "Carson Kelly",
+      "category": "hrr",
+      "game_date": "2026-09-11",
+      "projected_value": 1.398,
+      "confidence": 0.74,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.39825,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.373,
+          "3.0": 0.211875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19145159970307876,
+        "walk": 0.09276503496687781,
+        "home_run": 0.028533114683367222,
+        "single": 0.1446777620317354,
+        "double": 0.04378561569503744,
+        "triple": 0.004832394300686483,
+        "out_on_bip": 0.4939544786192169
+      }
+    },
+    {
+      "player_id": 608348,
+      "player_name": "Carson Kelly",
+      "category": "home_runs",
+      "game_date": "2026-09-11",
+      "projected_value": 0.089,
+      "confidence": 0.88,
+      "team": "Chicago Cubs",
+      "opponent": "Pittsburgh Pirates",
+      "opposing_pitcher": "Wilber Dotel",
+      "opposing_pitcher_id": 696062,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.08925,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.086125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19145159970307876,
+        "walk": 0.09276503496687781,
+        "home_run": 0.028533114683367222,
+        "single": 0.1446777620317354,
+        "double": 0.04378561569503744,
+        "triple": 0.004832394300686483,
+        "out_on_bip": 0.4939544786192169
+      }
+    }
+  ],
+  "pitcher_projections": [
+    {
+      "player_id": 696062,
+      "player_name": "Wilber Dotel",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 2.64,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.639492500288509,
+        "median": 2.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.12822055449914238,
+          "6.0": 0.0519944215787439,
+          "7.0": 0.01846137055051278
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 684007,
+      "player_name": "Shota Imanaga",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 5.43,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824631,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.429839115302304,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6314455584699952,
+          "6.0": 0.45901890579843774,
+          "7.0": 0.3029774085989936
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 690279,
+      "player_name": "Mason Adams",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 5.33,
+      "confidence": 0.5,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824227,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.326863456301831,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6148757389440223,
+          "6.0": 0.44119599417516475,
+          "7.0": 0.28700127992365543
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 664285,
+      "player_name": "Framber Valdez",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 4.68,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824227,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.67663456254069,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5010629000629021,
+          "6.0": 0.3275030187578123,
+          "7.0": 0.19222366216083842
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 579328,
+      "player_name": "Yusei Kikuchi",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 4.84,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822684,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.840304566044745,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5310529115591862,
+          "6.0": 0.35604219697533024,
+          "7.0": 0.21485800349083173
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 676917,
+      "player_name": "Cade Cavalli",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 5.84,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822684,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.836096581051979,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6924057473715821,
+          "6.0": 0.5276477270943678,
+          "7.0": 0.36739044062091053
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 690997,
+      "player_name": "Nolan McLean",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 6.15,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823498,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.147390255379048,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.7341877232687275,
+          "6.0": 0.5776946895497147,
+          "7.0": 0.4173573977965541
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 607074,
+      "player_name": "Carlos Rod\u00f3n",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 5.15,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823498,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.148417767421166,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5851517342454522,
+          "6.0": 0.41006298953808284,
+          "7.0": 0.2598246555169347
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 605135,
+      "player_name": "Chris Bassitt",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 4.63,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822767,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.628369891061788,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.49207617476352994,
+          "6.0": 0.3191409157953433,
+          "7.0": 0.18573952484345524
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 453286,
+      "player_name": "Max Scherzer",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 3.79,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822767,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.7873003544947816,
+        "median": 4.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.32968895527214825,
+          "6.0": 0.18257161955923928,
+          "7.0": 0.08970869660960135
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 607625,
+      "player_name": "Seth Lugo",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 4.58,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824711,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.5753017358775505,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.48212701115696077,
+          "6.0": 0.30998409338489097,
+          "7.0": 0.1787164616346283
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 543243,
+      "player_name": "Sonny Gray",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 5.34,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824711,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.3394809222586375,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6169294334672242,
+          "6.0": 0.4433865341162859,
+          "7.0": 0.28894836740332175
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 699044,
+      "player_name": "Miguel Ullola",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 3.37,
+      "confidence": 0.5,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822930,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.374319887882589,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.2510573344009889,
+          "6.0": 0.12623235455873427,
+          "7.0": 0.05603245256102385
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 656876,
+      "player_name": "Drew Rasmussen",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 5.7,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822930,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.697667539117433,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6724418177518872,
+          "6.0": 0.5046237547540745,
+          "7.0": 0.3452618330840409
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 687473,
+      "player_name": "Ryan Gusto",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 3.14,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823817,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.1375006808197807,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.2083461419756545,
+          "6.0": 0.09841046250978369,
+          "7.0": 0.04092325098135796
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 605400,
+      "player_name": "Aaron Nola",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 5.4,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824873,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.396350386340051,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6261049422387341,
+          "6.0": 0.45323707951993397,
+          "7.0": 0.2977611532252047
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 519242,
+      "player_name": "Chris Sale",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 6.87,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824873,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.870251387990189,
+        "median": 7.0,
+        "p10": 4.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.8148394947091043,
+          "6.0": 0.6824146020667008,
+          "7.0": 0.5307825516532133
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 671096,
+      "player_name": "Andrew Abbott",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 4.53,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823736,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.530196879218225,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4736182457575856,
+          "6.0": 0.3022364732552366,
+          "7.0": 0.17283761143106513
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669160,
+      "player_name": "Dustin May",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 5.03,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823736,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.027525382680255,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.564323154659347,
+          "6.0": 0.388869030028859,
+          "7.0": 0.24185235251623838
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 800048,
+      "player_name": "Parker Messick",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 6.07,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823659,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.068762843443947,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.7240421167697098,
+          "6.0": 0.5653010220961796,
+          "7.0": 0.4047406792491235
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 671737,
+      "player_name": "Taj Bradley",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 6.23,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823659,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.231739142499457,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.744766060713704,
+          "6.0": 0.5907893066455459,
+          "7.0": 0.4308654790852873
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 641743,
+      "player_name": "Anthony Kay",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 4.55,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823012,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.552125585842018,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4777607850201745,
+          "6.0": 0.3059988570395752,
+          "7.0": 0.175685212533902
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669461,
+      "player_name": "Matthew Liberatore",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 5.06,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823012,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.057302369536623,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5695031468399274,
+          "6.0": 0.3940929470940442,
+          "7.0": 0.2462425439580862
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669923,
+      "player_name": "George Kirby",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 5.21,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824954,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.208671317083411,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5953278618510086,
+          "6.0": 0.4206023554276703,
+          "7.0": 0.2689210664826511
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 605488,
+      "player_name": "Jeffrey Springs",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 4.31,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824954,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.310206938958274,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.43153402275670105,
+          "6.0": 0.2650355427226736,
+          "7.0": 0.1454283920612286
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 592662,
+      "player_name": "Robbie Ray",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 3.99,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823173,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.988178318112552,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.36885351395248756,
+          "6.0": 0.21302470254508632,
+          "7.0": 0.10944585471304513
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 683627,
+      "player_name": "Anthony Molina",
+      "category": "strikeouts",
+      "game_date": "2026-09-11",
+      "projected_value": 1.85,
+      "confidence": 0.5,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823173,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 1.85233976621443,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "5.0": 0.04031237576456059,
+          "6.0": 0.011804748854054914,
+          "7.0": 0.0030037803595992507
+        }
+      },
+      "outcome_probs": null
+    }
+  ],
+  "value_plays": [],
+  "market_status": "RESEARCH_ONLY",
+  "market_policy_sha256": "08bc0c9d56eb21c7fb438eccd8d89539e98da111f72cdf6735af9cbeb02f154c",
+  "market_policy_reason": "policy verdict is 'RESEARCH_ONLY', not BETTING_AUTHORIZED",
+  "prediction_provenance": {
+    "schema_version": "daily-prediction-provenance-v1",
+    "captured_at_utc": "2026-09-11T16:19:50.016242+00:00",
+    "model_version": "8c7eed9bb0c3",
+    "effective_config_sha256": "3a62fc507956752086919b757ae683e60f9df8fb2143f83292ac61f07830a60c",
+    "config_source_path": "/home/runner/work/baseball-predictor/baseball-predictor/config/config.kbb.json",
+    "code": {
+      "status": "available",
+      "head": "6b7da02c97b632ba16428d4797e5d1671e6240ab",
+      "tracked_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked": [],
+      "snapshot_sha256": "bed1acc0e4d6e8c924bb3432ba3e8ca464cd3e25019d2d169946e3d730c3a317"
+    },
+    "run_options": {
+      "game_date": "2026-09-11",
+      "hitter_categories": [
+        "hits",
+        "hrr",
+        "home_runs"
+      ],
+      "include_pitchers": true,
+      "corrections_active": false,
+      "edges_requested": false,
+      "use_projected_lineups": false
+    }
+  }
+}
