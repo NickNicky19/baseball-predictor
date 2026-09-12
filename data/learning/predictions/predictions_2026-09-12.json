@@ -1,0 +1,5809 @@
+{
+  "game_date": "2026-09-12",
+  "hitter_projections": [
+    {
+      "player_id": 664983,
+      "player_name": "Jake McCarthy",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 1.132,
+      "confidence": 0.82,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.131625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.707125,
+          "2.0": 0.324875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1578367927623196,
+        "walk": 0.06145480888551648,
+        "home_run": 0.038659554851131664,
+        "single": 0.1657476424793877,
+        "double": 0.05276603112507549,
+        "triple": 0.005602914707806749,
+        "out_on_bip": 0.5179322551887622
+      }
+    },
+    {
+      "player_id": 664983,
+      "player_name": "Jake McCarthy",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 2.18,
+      "confidence": 0.7,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.180375,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.546375,
+          "3.0": 0.3645
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1578367927623196,
+        "walk": 0.06145480888551648,
+        "home_run": 0.038659554851131664,
+        "single": 0.1657476424793877,
+        "double": 0.05276603112507549,
+        "triple": 0.005602914707806749,
+        "out_on_bip": 0.5179322551887622
+      }
+    },
+    {
+      "player_id": 664983,
+      "player_name": "Jake McCarthy",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.166,
+      "confidence": 0.86,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.165625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.15425
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1578367927623196,
+        "walk": 0.06145480888551648,
+        "home_run": 0.038659554851131664,
+        "single": 0.1657476424793877,
+        "double": 0.05276603112507549,
+        "triple": 0.005602914707806749,
+        "out_on_bip": 0.5179322551887622
+      }
+    },
+    {
+      "player_id": 681393,
+      "player_name": "Connor Norby",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 1.026,
+      "confidence": 0.82,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.025625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.678375,
+          "2.0": 0.27425
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2517608241740007,
+        "walk": 0.08778373856973057,
+        "home_run": 0.03655287571988032,
+        "single": 0.14801485023835176,
+        "double": 0.04985684632981311,
+        "triple": 0.00507363324533756,
+        "out_on_bip": 0.420957231722886
+      }
+    },
+    {
+      "player_id": 681393,
+      "player_name": "Connor Norby",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.979,
+      "confidence": 0.7,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.979,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.506,
+          "3.0": 0.328625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2517608241740007,
+        "walk": 0.08778373856973057,
+        "home_run": 0.03655287571988032,
+        "single": 0.14801485023835176,
+        "double": 0.04985684632981311,
+        "triple": 0.00507363324533756,
+        "out_on_bip": 0.420957231722886
+      }
+    },
+    {
+      "player_id": 681393,
+      "player_name": "Connor Norby",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.161,
+      "confidence": 0.86,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1605,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.15075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2517608241740007,
+        "walk": 0.08778373856973057,
+        "home_run": 0.03655287571988032,
+        "single": 0.14801485023835176,
+        "double": 0.04985684632981311,
+        "triple": 0.00507363324533756,
+        "out_on_bip": 0.420957231722886
+      }
+    },
+    {
+      "player_id": 696100,
+      "player_name": "Hunter Goodman",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.812,
+      "confidence": 0.82,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.811625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.58275,
+          "2.0": 0.194
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2711707250776586,
+        "walk": 0.0731778313021001,
+        "home_run": 0.029969556871694628,
+        "single": 0.12241437206021087,
+        "double": 0.03911036373880405,
+        "triple": 0.004141659892282434,
+        "out_on_bip": 0.46001549105724926
+      }
+    },
+    {
+      "player_id": 696100,
+      "player_name": "Hunter Goodman",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.589,
+      "confidence": 0.74,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.58925,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.416125,
+          "3.0": 0.255375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2711707250776586,
+        "walk": 0.0731778313021001,
+        "home_run": 0.029969556871694628,
+        "single": 0.12241437206021087,
+        "double": 0.03911036373880405,
+        "triple": 0.004141659892282434,
+        "out_on_bip": 0.46001549105724926
+      }
+    },
+    {
+      "player_id": 696100,
+      "player_name": "Hunter Goodman",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.13,
+      "confidence": 0.86,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1295,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.122
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2711707250776586,
+        "walk": 0.0731778313021001,
+        "home_run": 0.029969556871694628,
+        "single": 0.12241437206021087,
+        "double": 0.03911036373880405,
+        "triple": 0.004141659892282434,
+        "out_on_bip": 0.46001549105724926
+      }
+    },
+    {
+      "player_id": 681198,
+      "player_name": "TJ Rumfield",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 1.01,
+      "confidence": 0.82,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.0095,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6735,
+          "2.0": 0.267375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14519767270756073,
+        "walk": 0.09280357772845062,
+        "home_run": 0.032166975950650614,
+        "single": 0.1581050203650603,
+        "double": 0.04869409037985206,
+        "triple": 0.005302541301151599,
+        "out_on_bip": 0.517730121567274
+      }
+    },
+    {
+      "player_id": 681198,
+      "player_name": "TJ Rumfield",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.883,
+      "confidence": 0.7,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.8825,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.483125,
+          "3.0": 0.302
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14519767270756073,
+        "walk": 0.09280357772845062,
+        "home_run": 0.032166975950650614,
+        "single": 0.1581050203650603,
+        "double": 0.04869409037985206,
+        "triple": 0.005302541301151599,
+        "out_on_bip": 0.517730121567274
+      }
+    },
+    {
+      "player_id": 681198,
+      "player_name": "TJ Rumfield",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.128,
+      "confidence": 0.86,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1275,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.121875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14519767270756073,
+        "walk": 0.09280357772845062,
+        "home_run": 0.032166975950650614,
+        "single": 0.1581050203650603,
+        "double": 0.04869409037985206,
+        "triple": 0.005302541301151599,
+        "out_on_bip": 0.517730121567274
+      }
+    },
+    {
+      "player_id": 694249,
+      "player_name": "Cole Carrigg",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.954,
+      "confidence": 0.82,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.954125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.649125,
+          "2.0": 0.24375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20135217611798667,
+        "walk": 0.07848733468878978,
+        "home_run": 0.032505989820684554,
+        "single": 0.15723730043141604,
+        "double": 0.05021150931806091,
+        "triple": 0.0053192002499865875,
+        "out_on_bip": 0.4748864893730756
+      }
+    },
+    {
+      "player_id": 694249,
+      "player_name": "Cole Carrigg",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.851,
+      "confidence": 0.7,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.851125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.478625,
+          "3.0": 0.296375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20135217611798667,
+        "walk": 0.07848733468878978,
+        "home_run": 0.032505989820684554,
+        "single": 0.15723730043141604,
+        "double": 0.05021150931806091,
+        "triple": 0.0053192002499865875,
+        "out_on_bip": 0.4748864893730756
+      }
+    },
+    {
+      "player_id": 694249,
+      "player_name": "Cole Carrigg",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.128,
+      "confidence": 0.86,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.128,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.11975
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20135217611798667,
+        "walk": 0.07848733468878978,
+        "home_run": 0.032505989820684554,
+        "single": 0.15723730043141604,
+        "double": 0.05021150931806091,
+        "triple": 0.0053192002499865875,
+        "out_on_bip": 0.4748864893730756
+      }
+    },
+    {
+      "player_id": 691720,
+      "player_name": "Kyle Karros",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.891,
+      "confidence": 0.777,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.89125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.62725,
+          "2.0": 0.215875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18635991171128438,
+        "walk": 0.0911926708905132,
+        "home_run": 0.037215605783122795,
+        "single": 0.14324205698730935,
+        "double": 0.04649144407906888,
+        "triple": 0.00486496156580457,
+        "out_on_bip": 0.49063334898289684
+      }
+    },
+    {
+      "player_id": 691720,
+      "player_name": "Kyle Karros",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.737,
+      "confidence": 0.697,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.737125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.450625,
+          "3.0": 0.2775
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18635991171128438,
+        "walk": 0.0911926708905132,
+        "home_run": 0.037215605783122795,
+        "single": 0.14324205698730935,
+        "double": 0.04649144407906888,
+        "triple": 0.00486496156580457,
+        "out_on_bip": 0.49063334898289684
+      }
+    },
+    {
+      "player_id": 691720,
+      "player_name": "Kyle Karros",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.14,
+      "confidence": 0.817,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.139875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.132
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18635991171128438,
+        "walk": 0.0911926708905132,
+        "home_run": 0.037215605783122795,
+        "single": 0.14324205698730935,
+        "double": 0.04649144407906888,
+        "triple": 0.00486496156580457,
+        "out_on_bip": 0.49063334898289684
+      }
+    },
+    {
+      "player_id": 687597,
+      "player_name": "Jordan Beck",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.782,
+      "confidence": 0.79,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.781875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.569375,
+          "2.0": 0.1775
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24723991505341394,
+        "walk": 0.06936030200896424,
+        "home_run": 0.02297866209082165,
+        "single": 0.14382759220615338,
+        "double": 0.0430436447192229,
+        "triple": 0.004791570177573751,
+        "out_on_bip": 0.46875831374385013
+      }
+    },
+    {
+      "player_id": 687597,
+      "player_name": "Jordan Beck",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.451,
+      "confidence": 0.71,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.451375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.3865,
+          "3.0": 0.22125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24723991505341394,
+        "walk": 0.06936030200896424,
+        "home_run": 0.02297866209082165,
+        "single": 0.14382759220615338,
+        "double": 0.0430436447192229,
+        "triple": 0.004791570177573751,
+        "out_on_bip": 0.46875831374385013
+      }
+    },
+    {
+      "player_id": 687597,
+      "player_name": "Jordan Beck",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.084,
+      "confidence": 0.87,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.08375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.08025
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24723991505341394,
+        "walk": 0.06936030200896424,
+        "home_run": 0.02297866209082165,
+        "single": 0.14382759220615338,
+        "double": 0.0430436447192229,
+        "triple": 0.004791570177573751,
+        "out_on_bip": 0.46875831374385013
+      }
+    },
+    {
+      "player_id": 691182,
+      "player_name": "Adael Amador",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.769,
+      "confidence": 0.72,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.769125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.559125,
+          "2.0": 0.17675
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15456213245912814,
+        "walk": 0.08910133387431636,
+        "home_run": 0.02326795625795938,
+        "single": 0.15270934538517886,
+        "double": 0.04486064915290129,
+        "triple": 0.005065897295848209,
+        "out_on_bip": 0.5304326855746676
+      }
+    },
+    {
+      "player_id": 691182,
+      "player_name": "Adael Amador",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.458,
+      "confidence": 0.64,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.457625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.393875,
+          "3.0": 0.219625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15456213245912814,
+        "walk": 0.08910133387431636,
+        "home_run": 0.02326795625795938,
+        "single": 0.15270934538517886,
+        "double": 0.04486064915290129,
+        "triple": 0.005065897295848209,
+        "out_on_bip": 0.5304326855746676
+      }
+    },
+    {
+      "player_id": 691182,
+      "player_name": "Adael Amador",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.082,
+      "confidence": 0.8,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.08175,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.078875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15456213245912814,
+        "walk": 0.08910133387431636,
+        "home_run": 0.02326795625795938,
+        "single": 0.15270934538517886,
+        "double": 0.04486064915290129,
+        "triple": 0.005065897295848209,
+        "out_on_bip": 0.5304326855746676
+      }
+    },
+    {
+      "player_id": 678662,
+      "player_name": "Ezequiel Tovar",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.77,
+      "confidence": 0.82,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.769625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.5625,
+          "2.0": 0.173625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22019872194357704,
+        "walk": 0.06445522570306637,
+        "home_run": 0.029046398194772918,
+        "single": 0.15412563297221687,
+        "double": 0.04944171981529104,
+        "triple": 0.005219675712500204,
+        "out_on_bip": 0.47751262565857544
+      }
+    },
+    {
+      "player_id": 678662,
+      "player_name": "Ezequiel Tovar",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.437,
+      "confidence": 0.74,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.436625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.382125,
+          "3.0": 0.218625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22019872194357704,
+        "walk": 0.06445522570306637,
+        "home_run": 0.029046398194772918,
+        "single": 0.15412563297221687,
+        "double": 0.04944171981529104,
+        "triple": 0.005219675712500204,
+        "out_on_bip": 0.47751262565857544
+      }
+    },
+    {
+      "player_id": 678662,
+      "player_name": "Ezequiel Tovar",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.101,
+      "confidence": 0.88,
+      "team": "Colorado Rockies",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Andrew Sears",
+      "opposing_pitcher_id": 808825,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1005,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.097375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22019872194357704,
+        "walk": 0.06445522570306637,
+        "home_run": 0.029046398194772918,
+        "single": 0.15412563297221687,
+        "double": 0.04944171981529104,
+        "triple": 0.005219675712500204,
+        "out_on_bip": 0.47751262565857544
+      }
+    },
+    {
+      "player_id": 805808,
+      "player_name": "Kevin McGonigle",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.961,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.96075,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.649875,
+          "2.0": 0.25225
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15540230976833572,
+        "walk": 0.09901777947488517,
+        "home_run": 0.030613945235501056,
+        "single": 0.14095109963167693,
+        "double": 0.0441308133069149,
+        "triple": 0.004745690075348509,
+        "out_on_bip": 0.5251383625073377
+      }
+    },
+    {
+      "player_id": 805808,
+      "player_name": "Kevin McGonigle",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.884,
+      "confidence": 0.74,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.883625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.486625,
+          "3.0": 0.3085
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15540230976833572,
+        "walk": 0.09901777947488517,
+        "home_run": 0.030613945235501056,
+        "single": 0.14095109963167693,
+        "double": 0.0441308133069149,
+        "triple": 0.004745690075348509,
+        "out_on_bip": 0.5251383625073377
+      }
+    },
+    {
+      "player_id": 805808,
+      "player_name": "Kevin McGonigle",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.13,
+      "confidence": 0.86,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.12975,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1235
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15540230976833572,
+        "walk": 0.09901777947488517,
+        "home_run": 0.030613945235501056,
+        "single": 0.14095109963167693,
+        "double": 0.0441308133069149,
+        "triple": 0.004745690075348509,
+        "out_on_bip": 0.5251383625073377
+      }
+    },
+    {
+      "player_id": 701678,
+      "player_name": "Hao-Yu Lee",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.953,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.9525,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6485,
+          "2.0": 0.242875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2262712232193648,
+        "walk": 0.07065564773804855,
+        "home_run": 0.02821875306625535,
+        "single": 0.14191482200454153,
+        "double": 0.04558904419570983,
+        "triple": 0.004807791441032086,
+        "out_on_bip": 0.48254271833504797
+      }
+    },
+    {
+      "player_id": 701678,
+      "player_name": "Hao-Yu Lee",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.791,
+      "confidence": 0.74,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.791375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.46725,
+          "3.0": 0.289
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2262712232193648,
+        "walk": 0.07065564773804855,
+        "home_run": 0.02821875306625535,
+        "single": 0.14191482200454153,
+        "double": 0.04558904419570983,
+        "triple": 0.004807791441032086,
+        "out_on_bip": 0.48254271833504797
+      }
+    },
+    {
+      "player_id": 701678,
+      "player_name": "Hao-Yu Lee",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.117,
+      "confidence": 0.86,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.116625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.11075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2262712232193648,
+        "walk": 0.07065564773804855,
+        "home_run": 0.02821875306625535,
+        "single": 0.14191482200454153,
+        "double": 0.04558904419570983,
+        "triple": 0.004807791441032086,
+        "out_on_bip": 0.48254271833504797
+      }
+    },
+    {
+      "player_id": 690993,
+      "player_name": "Colt Keith",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 1.106,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.10625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.704625,
+          "2.0": 0.312625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19474184229056807,
+        "walk": 0.06647566370641345,
+        "home_run": 0.036769179587950014,
+        "single": 0.16700102293874464,
+        "double": 0.05506880445443081,
+        "triple": 0.0056940981382865505,
+        "out_on_bip": 0.47424938888360657
+      }
+    },
+    {
+      "player_id": 690993,
+      "player_name": "Colt Keith",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 2.062,
+      "confidence": 0.7,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.062375,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.52625,
+          "3.0": 0.349875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19474184229056807,
+        "walk": 0.06647566370641345,
+        "home_run": 0.036769179587950014,
+        "single": 0.16700102293874464,
+        "double": 0.05506880445443081,
+        "triple": 0.0056940981382865505,
+        "out_on_bip": 0.47424938888360657
+      }
+    },
+    {
+      "player_id": 690993,
+      "player_name": "Colt Keith",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.152,
+      "confidence": 0.86,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.15225,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.14275
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19474184229056807,
+        "walk": 0.06647566370641345,
+        "home_run": 0.036769179587950014,
+        "single": 0.16700102293874464,
+        "double": 0.05506880445443081,
+        "triple": 0.0056940981382865505,
+        "out_on_bip": 0.47424938888360657
+      }
+    },
+    {
+      "player_id": 682985,
+      "player_name": "Riley Greene",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.931,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.93125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.638,
+          "2.0": 0.2375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24291611164150667,
+        "walk": 0.09075015229416114,
+        "home_run": 0.058953992131728195,
+        "single": 0.12009783839728394,
+        "double": 0.04521637597224852,
+        "triple": 0.004238826009475192,
+        "out_on_bip": 0.4378267035535964
+      }
+    },
+    {
+      "player_id": 682985,
+      "player_name": "Riley Greene",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.998,
+      "confidence": 0.7,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.998125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.484,
+          "3.0": 0.33675
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24291611164150667,
+        "walk": 0.09075015229416114,
+        "home_run": 0.058953992131728195,
+        "single": 0.12009783839728394,
+        "double": 0.04521637597224852,
+        "triple": 0.004238826009475192,
+        "out_on_bip": 0.4378267035535964
+      }
+    },
+    {
+      "player_id": 682985,
+      "player_name": "Riley Greene",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.236,
+      "confidence": 0.86,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.235625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.21225
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24291611164150667,
+        "walk": 0.09075015229416114,
+        "home_run": 0.058953992131728195,
+        "single": 0.12009783839728394,
+        "double": 0.04521637597224852,
+        "triple": 0.004238826009475192,
+        "out_on_bip": 0.4378267035535964
+      }
+    },
+    {
+      "player_id": 680664,
+      "player_name": "Eduardo Valencia",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.903,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.903375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.630375,
+          "2.0": 0.226875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24788932754153312,
+        "walk": 0.04675000000000001,
+        "home_run": 0.03767906708686016,
+        "single": 0.1381279818189539,
+        "double": 0.047880867017271816,
+        "triple": 0.004769457662467325,
+        "out_on_bip": 0.47690329887291366
+      }
+    },
+    {
+      "player_id": 680664,
+      "player_name": "Eduardo Valencia",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.746,
+      "confidence": 0.74,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.745625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.448625,
+          "3.0": 0.28375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24788932754153312,
+        "walk": 0.04675000000000001,
+        "home_run": 0.03767906708686016,
+        "single": 0.1381279818189539,
+        "double": 0.047880867017271816,
+        "triple": 0.004769457662467325,
+        "out_on_bip": 0.47690329887291366
+      }
+    },
+    {
+      "player_id": 680664,
+      "player_name": "Eduardo Valencia",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.153,
+      "confidence": 0.86,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.152875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.145125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24788932754153312,
+        "walk": 0.04675000000000001,
+        "home_run": 0.03767906708686016,
+        "single": 0.1381279818189539,
+        "double": 0.047880867017271816,
+        "triple": 0.004769457662467325,
+        "out_on_bip": 0.47690329887291366
+      }
+    },
+    {
+      "player_id": 703601,
+      "player_name": "Max Clark",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.919,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.919,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.628,
+          "2.0": 0.238625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20798647288984645,
+        "walk": 0.07153828263868267,
+        "home_run": 0.026439789361828014,
+        "single": 0.1643882956067482,
+        "double": 0.051307299540550494,
+        "triple": 0.005530656285828171,
+        "out_on_bip": 0.47280920367651613
+      }
+    },
+    {
+      "player_id": 703601,
+      "player_name": "Max Clark",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.704,
+      "confidence": 0.74,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.7045,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.451,
+          "3.0": 0.26925
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20798647288984645,
+        "walk": 0.07153828263868267,
+        "home_run": 0.026439789361828014,
+        "single": 0.1643882956067482,
+        "double": 0.051307299540550494,
+        "triple": 0.005530656285828171,
+        "out_on_bip": 0.47280920367651613
+      }
+    },
+    {
+      "player_id": 703601,
+      "player_name": "Max Clark",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.105,
+      "confidence": 0.86,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1055,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.100375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20798647288984645,
+        "walk": 0.07153828263868267,
+        "home_run": 0.026439789361828014,
+        "single": 0.1643882956067482,
+        "double": 0.051307299540550494,
+        "triple": 0.005530656285828171,
+        "out_on_bip": 0.47280920367651613
+      }
+    },
+    {
+      "player_id": 679529,
+      "player_name": "Spencer Torkelson",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.709,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.709125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.529125,
+          "2.0": 0.15325
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2820573824775355,
+        "walk": 0.0832248652784688,
+        "home_run": 0.022401866197414712,
+        "single": 0.12901490870373694,
+        "double": 0.040556567611348,
+        "triple": 0.004347986572181665,
+        "out_on_bip": 0.43839642315931443
+      }
+    },
+    {
+      "player_id": 679529,
+      "player_name": "Spencer Torkelson",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.341,
+      "confidence": 0.74,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.340625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.358375,
+          "3.0": 0.1995
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2820573824775355,
+        "walk": 0.0832248652784688,
+        "home_run": 0.022401866197414712,
+        "single": 0.12901490870373694,
+        "double": 0.040556567611348,
+        "triple": 0.004347986572181665,
+        "out_on_bip": 0.43839642315931443
+      }
+    },
+    {
+      "player_id": 679529,
+      "player_name": "Spencer Torkelson",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.084,
+      "confidence": 0.88,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.084,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.081
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2820573824775355,
+        "walk": 0.0832248652784688,
+        "home_run": 0.022401866197414712,
+        "single": 0.12901490870373694,
+        "double": 0.040556567611348,
+        "triple": 0.004347986572181665,
+        "out_on_bip": 0.43839642315931443
+      }
+    },
+    {
+      "player_id": 814430,
+      "player_name": "Brett Callahan",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.692,
+      "confidence": 0.733,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.692,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.518375,
+          "2.0": 0.149125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3495896804992915,
+        "walk": 0.054646169803857225,
+        "home_run": 0.03506615480787547,
+        "single": 0.11819833078122921,
+        "double": 0.04201754464239405,
+        "triple": 0.004108099369836494,
+        "out_on_bip": 0.3963740200955161
+      }
+    },
+    {
+      "player_id": 814430,
+      "player_name": "Brett Callahan",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.382,
+      "confidence": 0.653,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.38225,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.358625,
+          "3.0": 0.221125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3495896804992915,
+        "walk": 0.054646169803857225,
+        "home_run": 0.03506615480787547,
+        "single": 0.11819833078122921,
+        "double": 0.04201754464239405,
+        "triple": 0.004108099369836494,
+        "out_on_bip": 0.3963740200955161
+      }
+    },
+    {
+      "player_id": 814430,
+      "player_name": "Brett Callahan",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.119,
+      "confidence": 0.773,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.119375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.112
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3495896804992915,
+        "walk": 0.054646169803857225,
+        "home_run": 0.03506615480787547,
+        "single": 0.11819833078122921,
+        "double": 0.04201754464239405,
+        "triple": 0.004108099369836494,
+        "out_on_bip": 0.3963740200955161
+      }
+    },
+    {
+      "player_id": 807726,
+      "player_name": "John Peck",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.76,
+      "confidence": 0.68,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.760375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.5625,
+          "2.0": 0.165375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2019999776169433,
+        "walk": 0.09113807693650851,
+        "home_run": 0.03506314040407656,
+        "single": 0.14192783495752773,
+        "double": 0.047484874761067636,
+        "triple": 0.00485673614663065,
+        "out_on_bip": 0.4775293591772456
+      }
+    },
+    {
+      "player_id": 807726,
+      "player_name": "John Peck",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.463,
+      "confidence": 0.6,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.462875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.3835,
+          "3.0": 0.23175
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2019999776169433,
+        "walk": 0.09113807693650851,
+        "home_run": 0.03506314040407656,
+        "single": 0.14192783495752773,
+        "double": 0.047484874761067636,
+        "triple": 0.00485673614663065,
+        "out_on_bip": 0.4775293591772456
+      }
+    },
+    {
+      "player_id": 807726,
+      "player_name": "John Peck",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.116,
+      "confidence": 0.72,
+      "team": "Detroit Tigers",
+      "opponent": "Colorado Rockies",
+      "opposing_pitcher": "Tanner Gordon",
+      "opposing_pitcher_id": 685299,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.11625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.112625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2019999776169433,
+        "walk": 0.09113807693650851,
+        "home_run": 0.03506314040407656,
+        "single": 0.14192783495752773,
+        "double": 0.047484874761067636,
+        "triple": 0.00485673614663065,
+        "out_on_bip": 0.4775293591772456
+      }
+    },
+    {
+      "player_id": 596019,
+      "player_name": "Francisco Lindor",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.936,
+      "confidence": 0.82,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.936125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.641875,
+          "2.0": 0.238625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2076815010402025,
+        "walk": 0.07850452032233117,
+        "home_run": 0.03867713922803612,
+        "single": 0.13005194728861394,
+        "double": 0.042247934371806656,
+        "triple": 0.004417945683600528,
+        "out_on_bip": 0.49841901206540923
+      }
+    },
+    {
+      "player_id": 596019,
+      "player_name": "Francisco Lindor",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.905,
+      "confidence": 0.7,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.905125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.47625,
+          "3.0": 0.31725
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2076815010402025,
+        "walk": 0.07850452032233117,
+        "home_run": 0.03867713922803612,
+        "single": 0.13005194728861394,
+        "double": 0.042247934371806656,
+        "triple": 0.004417945683600528,
+        "out_on_bip": 0.49841901206540923
+      }
+    },
+    {
+      "player_id": 596019,
+      "player_name": "Francisco Lindor",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.165,
+      "confidence": 0.86,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.16475,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.15325
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2076815010402025,
+        "walk": 0.07850452032233117,
+        "home_run": 0.03867713922803612,
+        "single": 0.13005194728861394,
+        "double": 0.042247934371806656,
+        "triple": 0.004417945683600528,
+        "out_on_bip": 0.49841901206540923
+      }
+    },
+    {
+      "player_id": 665742,
+      "player_name": "Juan Soto",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.98,
+      "confidence": 0.747,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.97975,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.655125,
+          "2.0": 0.25925
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16673221561185475,
+        "walk": 0.12226378329108117,
+        "home_run": 0.05429269123899889,
+        "single": 0.12484749657777346,
+        "double": 0.0417555401376537,
+        "triple": 0.004271872736293004,
+        "out_on_bip": 0.4858364004063451
+      }
+    },
+    {
+      "player_id": 665742,
+      "player_name": "Juan Soto",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 2.125,
+      "confidence": 0.627,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.125375,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.512875,
+          "3.0": 0.357125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16673221561185475,
+        "walk": 0.12226378329108117,
+        "home_run": 0.05429269123899889,
+        "single": 0.12484749657777346,
+        "double": 0.0417555401376537,
+        "triple": 0.004271872736293004,
+        "out_on_bip": 0.4858364004063451
+      }
+    },
+    {
+      "player_id": 665742,
+      "player_name": "Juan Soto",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.238,
+      "confidence": 0.787,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.237625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.214875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16673221561185475,
+        "walk": 0.12226378329108117,
+        "home_run": 0.05429269123899889,
+        "single": 0.12484749657777346,
+        "double": 0.0417555401376537,
+        "triple": 0.004271872736293004,
+        "out_on_bip": 0.4858364004063451
+      }
+    },
+    {
+      "player_id": 666182,
+      "player_name": "Bo Bichette",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 1.021,
+      "confidence": 0.82,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.020875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.674875,
+          "2.0": 0.27225
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19664549618611563,
+        "walk": 0.06678934270624223,
+        "home_run": 0.03988095545691955,
+        "single": 0.15008154145042724,
+        "double": 0.04850484703684347,
+        "triple": 0.005091958679160788,
+        "out_on_bip": 0.493005858484291
+      }
+    },
+    {
+      "player_id": 666182,
+      "player_name": "Bo Bichette",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.974,
+      "confidence": 0.7,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.973625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.498875,
+          "3.0": 0.325625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19664549618611563,
+        "walk": 0.06678934270624223,
+        "home_run": 0.03988095545691955,
+        "single": 0.15008154145042724,
+        "double": 0.04850484703684347,
+        "triple": 0.005091958679160788,
+        "out_on_bip": 0.493005858484291
+      }
+    },
+    {
+      "player_id": 666182,
+      "player_name": "Bo Bichette",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.162,
+      "confidence": 0.86,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.162125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1515
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19664549618611563,
+        "walk": 0.06678934270624223,
+        "home_run": 0.03988095545691955,
+        "single": 0.15008154145042724,
+        "double": 0.04850484703684347,
+        "triple": 0.005091958679160788,
+        "out_on_bip": 0.493005858484291
+      }
+    },
+    {
+      "player_id": 701807,
+      "player_name": "Carson Benge",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.96,
+      "confidence": 0.82,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.959625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6485,
+          "2.0": 0.25225
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22487018984493107,
+        "walk": 0.06962131398591748,
+        "home_run": 0.04012436326742943,
+        "single": 0.1446116133141352,
+        "double": 0.04676383733066744,
+        "triple": 0.004907062837046222,
+        "out_on_bip": 0.46910161941987333
+      }
+    },
+    {
+      "player_id": 701807,
+      "player_name": "Carson Benge",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.886,
+      "confidence": 0.7,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.886125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.478375,
+          "3.0": 0.310625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22487018984493107,
+        "walk": 0.06962131398591748,
+        "home_run": 0.04012436326742943,
+        "single": 0.1446116133141352,
+        "double": 0.04676383733066744,
+        "triple": 0.004907062837046222,
+        "out_on_bip": 0.46910161941987333
+      }
+    },
+    {
+      "player_id": 701807,
+      "player_name": "Carson Benge",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.161,
+      "confidence": 0.86,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.161125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.147625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22487018984493107,
+        "walk": 0.06962131398591748,
+        "home_run": 0.04012436326742943,
+        "single": 0.1446116133141352,
+        "double": 0.04676383733066744,
+        "triple": 0.004907062837046222,
+        "out_on_bip": 0.46910161941987333
+      }
+    },
+    {
+      "player_id": 676724,
+      "player_name": "Jared Young",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.875,
+      "confidence": 0.82,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.874625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.611375,
+          "2.0": 0.216375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20400142721160916,
+        "walk": 0.06622696007267004,
+        "home_run": 0.03234282795300488,
+        "single": 0.14449356883266387,
+        "double": 0.043997148438242685,
+        "triple": 0.00483309531463863,
+        "out_on_bip": 0.5041049721771707
+      }
+    },
+    {
+      "player_id": 676724,
+      "player_name": "Jared Young",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.711,
+      "confidence": 0.74,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.711375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.444375,
+          "3.0": 0.27375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20400142721160916,
+        "walk": 0.06622696007267004,
+        "home_run": 0.03234282795300488,
+        "single": 0.14449356883266387,
+        "double": 0.043997148438242685,
+        "triple": 0.00483309531463863,
+        "out_on_bip": 0.5041049721771707
+      }
+    },
+    {
+      "player_id": 676724,
+      "player_name": "Jared Young",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.119,
+      "confidence": 0.86,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.119125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.114875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20400142721160916,
+        "walk": 0.06622696007267004,
+        "home_run": 0.03234282795300488,
+        "single": 0.14449356883266387,
+        "double": 0.043997148438242685,
+        "triple": 0.00483309531463863,
+        "out_on_bip": 0.5041049721771707
+      }
+    },
+    {
+      "player_id": 543760,
+      "player_name": "Marcus Semien",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.84,
+      "confidence": 0.82,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.839625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.59525,
+          "2.0": 0.205625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21133055196512798,
+        "walk": 0.0722718576362634,
+        "home_run": 0.025818321473736264,
+        "single": 0.14537090392976376,
+        "double": 0.04267462536360222,
+        "triple": 0.004821680238291435,
+        "out_on_bip": 0.4977120593932149
+      }
+    },
+    {
+      "player_id": 543760,
+      "player_name": "Marcus Semien",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.526,
+      "confidence": 0.74,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.52575,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.39975,
+          "3.0": 0.235625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21133055196512798,
+        "walk": 0.0722718576362634,
+        "home_run": 0.025818321473736264,
+        "single": 0.14537090392976376,
+        "double": 0.04267462536360222,
+        "triple": 0.004821680238291435,
+        "out_on_bip": 0.4977120593932149
+      }
+    },
+    {
+      "player_id": 543760,
+      "player_name": "Marcus Semien",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.095,
+      "confidence": 0.88,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.09475,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.09075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21133055196512798,
+        "walk": 0.0722718576362634,
+        "home_run": 0.025818321473736264,
+        "single": 0.14537090392976376,
+        "double": 0.04267462536360222,
+        "triple": 0.004821680238291435,
+        "out_on_bip": 0.4977120593932149
+      }
+    },
+    {
+      "player_id": 805999,
+      "player_name": "A.J. Ewing",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.848,
+      "confidence": 0.82,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.848125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.604,
+          "2.0": 0.203
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2488913668393739,
+        "walk": 0.07565042928303412,
+        "home_run": 0.040754928801791046,
+        "single": 0.14167315448793166,
+        "double": 0.0466436931902478,
+        "triple": 0.004828637119953319,
+        "out_on_bip": 0.44155779027766806
+      }
+    },
+    {
+      "player_id": 805999,
+      "player_name": "A.J. Ewing",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.688,
+      "confidence": 0.74,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.687875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.42725,
+          "3.0": 0.272375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2488913668393739,
+        "walk": 0.07565042928303412,
+        "home_run": 0.040754928801791046,
+        "single": 0.14167315448793166,
+        "double": 0.0466436931902478,
+        "triple": 0.004828637119953319,
+        "out_on_bip": 0.44155779027766806
+      }
+    },
+    {
+      "player_id": 805999,
+      "player_name": "A.J. Ewing",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.148,
+      "confidence": 0.86,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.148375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.13875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2488913668393739,
+        "walk": 0.07565042928303412,
+        "home_run": 0.040754928801791046,
+        "single": 0.14167315448793166,
+        "double": 0.0466436931902478,
+        "triple": 0.004828637119953319,
+        "out_on_bip": 0.44155779027766806
+      }
+    },
+    {
+      "player_id": 620443,
+      "player_name": "Luis Torrens",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.793,
+      "confidence": 0.77,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.7935,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.578875,
+          "2.0": 0.181375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2090747424793345,
+        "walk": 0.06504299448920493,
+        "home_run": 0.04346255344972189,
+        "single": 0.13394106317986282,
+        "double": 0.04485256870353687,
+        "triple": 0.0045844520995743515,
+        "out_on_bip": 0.4990416255987647
+      }
+    },
+    {
+      "player_id": 620443,
+      "player_name": "Luis Torrens",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.56,
+      "confidence": 0.69,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.56025,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.398875,
+          "3.0": 0.249875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2090747424793345,
+        "walk": 0.06504299448920493,
+        "home_run": 0.04346255344972189,
+        "single": 0.13394106317986282,
+        "double": 0.04485256870353687,
+        "triple": 0.0045844520995743515,
+        "out_on_bip": 0.4990416255987647
+      }
+    },
+    {
+      "player_id": 620443,
+      "player_name": "Luis Torrens",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.143,
+      "confidence": 0.81,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.143,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.135
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2090747424793345,
+        "walk": 0.06504299448920493,
+        "home_run": 0.04346255344972189,
+        "single": 0.13394106317986282,
+        "double": 0.04485256870353687,
+        "triple": 0.0045844520995743515,
+        "out_on_bip": 0.4990416255987647
+      }
+    },
+    {
+      "player_id": 703492,
+      "player_name": "Nick Morabito",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.635,
+      "confidence": 0.62,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.635375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.4865,
+          "2.0": 0.127625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.35585341507404183,
+        "walk": 0.0684247391005719,
+        "home_run": 0.03206660592471335,
+        "single": 0.11681796441060206,
+        "double": 0.036747237675808286,
+        "triple": 0.003937569284266932,
+        "out_on_bip": 0.38615246852999574
+      }
+    },
+    {
+      "player_id": 703492,
+      "player_name": "Nick Morabito",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.227,
+      "confidence": 0.58,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.227125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.322625,
+          "3.0": 0.183125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.35585341507404183,
+        "walk": 0.0684247391005719,
+        "home_run": 0.03206660592471335,
+        "single": 0.11681796441060206,
+        "double": 0.036747237675808286,
+        "triple": 0.003937569284266932,
+        "out_on_bip": 0.38615246852999574
+      }
+    },
+    {
+      "player_id": 703492,
+      "player_name": "Nick Morabito",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.112,
+      "confidence": 0.66,
+      "team": "New York Mets",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Gerrit Cole",
+      "opposing_pitcher_id": 543037,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.11175,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.10775
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.35585341507404183,
+        "walk": 0.0684247391005719,
+        "home_run": 0.03206660592471335,
+        "single": 0.11681796441060206,
+        "double": 0.036747237675808286,
+        "triple": 0.003937569284266932,
+        "out_on_bip": 0.38615246852999574
+      }
+    },
+    {
+      "player_id": 502671,
+      "player_name": "Paul Goldschmidt",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 1.012,
+      "confidence": 0.78,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.0115,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.671,
+          "2.0": 0.269375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21569833214206963,
+        "walk": 0.0714918183937946,
+        "home_run": 0.04513698774263151,
+        "single": 0.13969169555226907,
+        "double": 0.045814247834623956,
+        "triple": 0.004756562650945976,
+        "out_on_bip": 0.4774103556836653
+      }
+    },
+    {
+      "player_id": 502671,
+      "player_name": "Paul Goldschmidt",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 2.068,
+      "confidence": 0.66,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.068125,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.510625,
+          "3.0": 0.3415
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21569833214206963,
+        "walk": 0.0714918183937946,
+        "home_run": 0.04513698774263151,
+        "single": 0.13969169555226907,
+        "double": 0.045814247834623956,
+        "triple": 0.004756562650945976,
+        "out_on_bip": 0.4774103556836653
+      }
+    },
+    {
+      "player_id": 502671,
+      "player_name": "Paul Goldschmidt",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.195,
+      "confidence": 0.82,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.195125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.181375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21569833214206963,
+        "walk": 0.0714918183937946,
+        "home_run": 0.04513698774263151,
+        "single": 0.13969169555226907,
+        "double": 0.045814247834623956,
+        "triple": 0.004756562650945976,
+        "out_on_bip": 0.4774103556836653
+      }
+    },
+    {
+      "player_id": 592450,
+      "player_name": "Aaron Judge",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.885,
+      "confidence": 0.607,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.88475,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.61525,
+          "2.0": 0.22
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2511803566817253,
+        "walk": 0.11761595284673276,
+        "home_run": 0.04184425374659052,
+        "single": 0.12217404320903202,
+        "double": 0.04228507860521756,
+        "triple": 0.004216900559339733,
+        "out_on_bip": 0.4206834143513622
+      }
+    },
+    {
+      "player_id": 592450,
+      "player_name": "Aaron Judge",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.885,
+      "confidence": 0.487,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.884625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.470875,
+          "3.0": 0.31075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2511803566817253,
+        "walk": 0.11761595284673276,
+        "home_run": 0.04184425374659052,
+        "single": 0.12217404320903202,
+        "double": 0.04228507860521756,
+        "triple": 0.004216900559339733,
+        "out_on_bip": 0.4206834143513622
+      }
+    },
+    {
+      "player_id": 592450,
+      "player_name": "Aaron Judge",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.177,
+      "confidence": 0.647,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.17725,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.166625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2511803566817253,
+        "walk": 0.11761595284673276,
+        "home_run": 0.04184425374659052,
+        "single": 0.12217404320903202,
+        "double": 0.04228507860521756,
+        "triple": 0.004216900559339733,
+        "out_on_bip": 0.4206834143513622
+      }
+    },
+    {
+      "player_id": 641355,
+      "player_name": "Cody Bellinger",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.953,
+      "confidence": 0.82,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.95325,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.64825,
+          "2.0": 0.24525
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1656629282350273,
+        "walk": 0.08738095179636614,
+        "home_run": 0.0299930298366873,
+        "single": 0.15115520007796562,
+        "double": 0.04645169031862088,
+        "triple": 0.0050668433435022186,
+        "out_on_bip": 0.5142893563918306
+      }
+    },
+    {
+      "player_id": 641355,
+      "player_name": "Cody Bellinger",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.838,
+      "confidence": 0.7,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.837875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.466125,
+          "3.0": 0.297875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1656629282350273,
+        "walk": 0.08738095179636614,
+        "home_run": 0.0299930298366873,
+        "single": 0.15115520007796562,
+        "double": 0.04645169031862088,
+        "triple": 0.0050668433435022186,
+        "out_on_bip": 0.5142893563918306
+      }
+    },
+    {
+      "player_id": 641355,
+      "player_name": "Cody Bellinger",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.124,
+      "confidence": 0.86,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.123625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.117875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1656629282350273,
+        "walk": 0.08738095179636614,
+        "home_run": 0.0299930298366873,
+        "single": 0.15115520007796562,
+        "double": 0.04645169031862088,
+        "triple": 0.0050668433435022186,
+        "out_on_bip": 0.5142893563918306
+      }
+    },
+    {
+      "player_id": 671218,
+      "player_name": "Heliot Ramos",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.929,
+      "confidence": 0.82,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.92875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.642625,
+          "2.0": 0.2305
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24144456947321002,
+        "walk": 0.06526270409120238,
+        "home_run": 0.04006149176115116,
+        "single": 0.13579908981000385,
+        "double": 0.04435570269963369,
+        "triple": 0.0046193536540932705,
+        "out_on_bip": 0.46845708851070567
+      }
+    },
+    {
+      "player_id": 671218,
+      "player_name": "Heliot Ramos",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.76,
+      "confidence": 0.74,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.759625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4535,
+          "3.0": 0.28825
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24144456947321002,
+        "walk": 0.06526270409120238,
+        "home_run": 0.04006149176115116,
+        "single": 0.13579908981000385,
+        "double": 0.04435570269963369,
+        "triple": 0.0046193536540932705,
+        "out_on_bip": 0.46845708851070567
+      }
+    },
+    {
+      "player_id": 671218,
+      "player_name": "Heliot Ramos",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.158,
+      "confidence": 0.86,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.157625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.147625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24144456947321002,
+        "walk": 0.06526270409120238,
+        "home_run": 0.04006149176115116,
+        "single": 0.13579908981000385,
+        "double": 0.04435570269963369,
+        "triple": 0.0046193536540932705,
+        "out_on_bip": 0.46845708851070567
+      }
+    },
+    {
+      "player_id": 642708,
+      "player_name": "Amed Rosario",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.913,
+      "confidence": 0.74,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.913375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.634375,
+          "2.0": 0.226625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22298559184162636,
+        "walk": 0.06441522142687223,
+        "home_run": 0.040782343538360175,
+        "single": 0.13900551494841065,
+        "double": 0.04681352794714289,
+        "triple": 0.004764590843475732,
+        "out_on_bip": 0.4812332094541119
+      }
+    },
+    {
+      "player_id": 642708,
+      "player_name": "Amed Rosario",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.784,
+      "confidence": 0.66,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.784,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.453625,
+          "3.0": 0.295125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22298559184162636,
+        "walk": 0.06441522142687223,
+        "home_run": 0.040782343538360175,
+        "single": 0.13900551494841065,
+        "double": 0.04681352794714289,
+        "triple": 0.004764590843475732,
+        "out_on_bip": 0.4812332094541119
+      }
+    },
+    {
+      "player_id": 642708,
+      "player_name": "Amed Rosario",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.165,
+      "confidence": 0.78,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.16475,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.155125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22298559184162636,
+        "walk": 0.06441522142687223,
+        "home_run": 0.040782343538360175,
+        "single": 0.13900551494841065,
+        "double": 0.04681352794714289,
+        "triple": 0.004764590843475732,
+        "out_on_bip": 0.4812332094541119
+      }
+    },
+    {
+      "player_id": 682987,
+      "player_name": "Spencer Jones",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.899,
+      "confidence": 0.82,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.8995,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.62525,
+          "2.0": 0.225125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.31405311071316,
+        "walk": 0.08238688016984233,
+        "home_run": 0.05600089034825299,
+        "single": 0.12440576342234051,
+        "double": 0.0486727542826683,
+        "triple": 0.004437910710384841,
+        "out_on_bip": 0.3700426903533511
+      }
+    },
+    {
+      "player_id": 682987,
+      "player_name": "Spencer Jones",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.879,
+      "confidence": 0.7,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.879375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.46175,
+          "3.0": 0.3115
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.31405311071316,
+        "walk": 0.08238688016984233,
+        "home_run": 0.05600089034825299,
+        "single": 0.12440576342234051,
+        "double": 0.0486727542826683,
+        "triple": 0.004437910710384841,
+        "out_on_bip": 0.3700426903533511
+      }
+    },
+    {
+      "player_id": 682987,
+      "player_name": "Spencer Jones",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.214,
+      "confidence": 0.86,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.21425,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.196625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.31405311071316,
+        "walk": 0.08238688016984233,
+        "home_run": 0.05600089034825299,
+        "single": 0.12440576342234051,
+        "double": 0.0486727542826683,
+        "triple": 0.004437910710384841,
+        "out_on_bip": 0.3700426903533511
+      }
+    },
+    {
+      "player_id": 806146,
+      "player_name": "George Lombard Jr.",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.785,
+      "confidence": 0.82,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.78525,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.576875,
+          "2.0": 0.17475
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24730767059199998,
+        "walk": 0.06775154126111252,
+        "home_run": 0.025673367416373247,
+        "single": 0.14239435376590126,
+        "double": 0.04343698058876827,
+        "triple": 0.00476490600909409,
+        "out_on_bip": 0.4686711803667507
+      }
+    },
+    {
+      "player_id": 806146,
+      "player_name": "George Lombard Jr.",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.485,
+      "confidence": 0.74,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.485,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.396125,
+          "3.0": 0.231
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24730767059199998,
+        "walk": 0.06775154126111252,
+        "home_run": 0.025673367416373247,
+        "single": 0.14239435376590126,
+        "double": 0.04343698058876827,
+        "triple": 0.00476490600909409,
+        "out_on_bip": 0.4686711803667507
+      }
+    },
+    {
+      "player_id": 806146,
+      "player_name": "George Lombard Jr.",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.096,
+      "confidence": 0.88,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.09625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.091875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24730767059199998,
+        "walk": 0.06775154126111252,
+        "home_run": 0.025673367416373247,
+        "single": 0.14239435376590126,
+        "double": 0.04343698058876827,
+        "triple": 0.00476490600909409,
+        "out_on_bip": 0.4686711803667507
+      }
+    },
+    {
+      "player_id": 683011,
+      "player_name": "Anthony Volpe",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.742,
+      "confidence": 0.65,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.7415,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.54675,
+          "2.0": 0.16575
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20571993649951237,
+        "walk": 0.08689422404423654,
+        "home_run": 0.021145575808431665,
+        "single": 0.14548631704699963,
+        "double": 0.04217261349049161,
+        "triple": 0.004811767449679262,
+        "out_on_bip": 0.49376956566064895
+      }
+    },
+    {
+      "player_id": 683011,
+      "player_name": "Anthony Volpe",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.402,
+      "confidence": 0.57,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.401625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.378125,
+          "3.0": 0.2095
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20571993649951237,
+        "walk": 0.08689422404423654,
+        "home_run": 0.021145575808431665,
+        "single": 0.14548631704699963,
+        "double": 0.04217261349049161,
+        "triple": 0.004811767449679262,
+        "out_on_bip": 0.49376956566064895
+      }
+    },
+    {
+      "player_id": 683011,
+      "player_name": "Anthony Volpe",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.08,
+      "confidence": 0.73,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.079625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.076625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20571993649951237,
+        "walk": 0.08689422404423654,
+        "home_run": 0.021145575808431665,
+        "single": 0.14548631704699963,
+        "double": 0.04217261349049161,
+        "triple": 0.004811767449679262,
+        "out_on_bip": 0.49376956566064895
+      }
+    },
+    {
+      "player_id": 669224,
+      "player_name": "Austin Wells",
+      "category": "hits",
+      "game_date": "2026-09-12",
+      "projected_value": 0.653,
+      "confidence": 0.82,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.653125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.505125,
+          "2.0": 0.1295
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23890254436987143,
+        "walk": 0.09053989015074727,
+        "home_run": 0.021754733085528964,
+        "single": 0.13273850797521994,
+        "double": 0.040036649782298005,
+        "triple": 0.004430132250192767,
+        "out_on_bip": 0.4715975423861416
+      }
+    },
+    {
+      "player_id": 669224,
+      "player_name": "Austin Wells",
+      "category": "hrr",
+      "game_date": "2026-09-12",
+      "projected_value": 1.244,
+      "confidence": 0.78,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.243875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.331625,
+          "3.0": 0.182625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23890254436987143,
+        "walk": 0.09053989015074727,
+        "home_run": 0.021754733085528964,
+        "single": 0.13273850797521994,
+        "double": 0.040036649782298005,
+        "triple": 0.004430132250192767,
+        "out_on_bip": 0.4715975423861416
+      }
+    },
+    {
+      "player_id": 669224,
+      "player_name": "Austin Wells",
+      "category": "home_runs",
+      "game_date": "2026-09-12",
+      "projected_value": 0.071,
+      "confidence": 0.88,
+      "team": "New York Yankees",
+      "opponent": "New York Mets",
+      "opposing_pitcher": "Zac Thornton",
+      "opposing_pitcher_id": 804267,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.071125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.069375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23890254436987143,
+        "walk": 0.09053989015074727,
+        "home_run": 0.021754733085528964,
+        "single": 0.13273850797521994,
+        "double": 0.040036649782298005,
+        "triple": 0.004430132250192767,
+        "out_on_bip": 0.4715975423861416
+      }
+    }
+  ],
+  "pitcher_projections": [
+    {
+      "player_id": 685299,
+      "player_name": "Tanner Gordon",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 3.05,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.0474951062325295,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.19277959236977837,
+          "6.0": 0.08878194133558015,
+          "7.0": 0.03595988590451393
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 808825,
+      "player_name": "Andrew Sears",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 2.71,
+      "confidence": 0.5,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824224,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.7130749422449725,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.1390440008162266,
+          "6.0": 0.05778822729897193,
+          "7.0": 0.02104606012523924
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 804267,
+      "player_name": "Zac Thornton",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 4.64,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.639703172096006,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4941918321815154,
+          "6.0": 0.3211017219283253,
+          "7.0": 0.18725393299496307
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 543037,
+      "player_name": "Gerrit Cole",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 5.8,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823496,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.797626618751072,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6869427122317884,
+          "6.0": 0.5212922253172085,
+          "7.0": 0.3612289465930343
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 694973,
+      "player_name": "Paul Skenes",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 5.84,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824630,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.8444542199825955,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6935839127833594,
+          "6.0": 0.5290238887566097,
+          "7.0": 0.3687299676126804
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 605280,
+      "player_name": "Clay Holmes",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 4.36,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824630,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.358114264825502,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.44077036588006946,
+          "6.0": 0.27304187437954996,
+          "7.0": 0.15121188580853728
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 680694,
+      "player_name": "Kyle Bradish",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 5.06,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822768,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.058383080275894,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5696905454304615,
+          "6.0": 0.3942825136128395,
+          "7.0": 0.2464023435643804
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 693686,
+      "player_name": "Spencer Miles",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 2.44,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822768,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.4410289615569516,
+        "median": 2.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.10108397224287957,
+          "6.0": 0.038197387961984686,
+          "7.0": 0.01261272570814198
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 700712,
+      "player_name": "Walbert Ure\u00f1a",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 5.23,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822685,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.2340588267887185,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.599573412120639,
+          "6.0": 0.4250358583375171,
+          "7.0": 0.27277922100674046
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 674841,
+      "player_name": "Andrew Alvarez",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 3.36,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822685,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.3608461212727128,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.24856832088021819,
+          "6.0": 0.12455596121829549,
+          "7.0": 0.05509155155835399
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 650633,
+      "player_name": "Michael King",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 5.2,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823170,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.19928684250135,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5937521335316911,
+          "6.0": 0.4189623445209347,
+          "7.0": 0.26749863615306624
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 702885,
+      "player_name": "Cesar Perdomo",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 6.03,
+      "confidence": 0.5,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823170,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.034289714541584,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.7195070382752493,
+          "6.0": 0.5598122232099683,
+          "7.0": 0.39920475987429405
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 677976,
+      "player_name": "Randy Dobnak",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 5.06,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824712,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.055922939650308,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5692638879071656,
+          "6.0": 0.39385097914620437,
+          "7.0": 0.24603862092698248
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 624133,
+      "player_name": "Ranger Suarez",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 4.91,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824712,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.91153766020209,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5438496452095983,
+          "6.0": 0.368521175337332,
+          "7.0": 0.22499911155679142
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 682982,
+      "player_name": "Daniel Espino",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 4.17,
+      "confidence": 0.5,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823657,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.172141998035314,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.40475328964601465,
+          "6.0": 0.24231967374467223,
+          "7.0": 0.1293703219455511
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 687570,
+      "player_name": "Connor Prielipp",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 5.92,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823657,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.915227668297048,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.7034362150595874,
+          "6.0": 0.5406096198757704,
+          "7.0": 0.38008355638145086
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 607192,
+      "player_name": "Tyler Glasnow",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 6.59,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823819,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.58516230913265,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.7856958907179812,
+          "6.0": 0.6432166737713747,
+          "7.0": 0.48684187889278685
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 663969,
+      "player_name": "Tyler Phillips",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 3.03,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823819,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.031124727454946,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.18999353346766512,
+          "6.0": 0.08708839811218261,
+          "7.0": 0.03510201471916563
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 663567,
+      "player_name": "Peter Lambert",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 5.46,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822927,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.462315487202085,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6365799492704183,
+          "6.0": 0.4646113396723244,
+          "7.0": 0.3080535397522781
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 693855,
+      "player_name": "Ian Seymour",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 3.95,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822927,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.9485418745923297,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.3611109710198134,
+          "6.0": 0.206879661244036,
+          "7.0": 0.10538153040688969
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 663903,
+      "player_name": "Brady Singer",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 4.54,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823737,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.538160254833214,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.47512385232015464,
+          "6.0": 0.30360181086903726,
+          "7.0": 0.17386939231215115
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 641816,
+      "player_name": "Tyler Mahle",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 5.86,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824870,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.856379036294735,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6952595651861431,
+          "6.0": 0.5309845404365721,
+          "7.0": 0.37064173858154104
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 656794,
+      "player_name": "Sean Newcomb",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 2.39,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823009,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.3863167940876195,
+        "median": 2.0,
+        "p10": 1.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "5.0": 0.09416044006854396,
+          "6.0": 0.0348549325850015,
+          "7.0": 0.011267977836690424
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 681517,
+      "player_name": "Kyle Leahy",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 4.65,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823009,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.6456019485644156,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4952916909956062,
+          "6.0": 0.32212297430788184,
+          "7.0": 0.18804415302873312
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 677958,
+      "player_name": "Kumar Rocker",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 5.33,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 825035,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.325226457842403,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6146088169245908,
+          "6.0": 0.4409116664430279,
+          "7.0": 0.28674888954365263
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 694297,
+      "player_name": "Brandon Pfaadt",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 2.73,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 825035,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.728129203140006,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.14130637542485436,
+          "6.0": 0.05901923552744048,
+          "7.0": 0.021604243961273584
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 693433,
+      "player_name": "Bryan Woo",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 5.77,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824955,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.7719537514074135,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6832604828841534,
+          "6.0": 0.5170320529590607,
+          "7.0": 0.3571215846762772
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 695611,
+      "player_name": "Gage Jump",
+      "category": "strikeouts",
+      "game_date": "2026-09-12",
+      "projected_value": 5.37,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824955,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.370258441178029,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6219116929434955,
+          "6.0": 0.44872238425794453,
+          "7.0": 0.2937104931095501
+        }
+      },
+      "outcome_probs": null
+    }
+  ],
+  "value_plays": [],
+  "market_status": "RESEARCH_ONLY",
+  "market_policy_sha256": "08bc0c9d56eb21c7fb438eccd8d89539e98da111f72cdf6735af9cbeb02f154c",
+  "market_policy_reason": "policy verdict is 'RESEARCH_ONLY', not BETTING_AUTHORIZED",
+  "prediction_provenance": {
+    "schema_version": "daily-prediction-provenance-v1",
+    "captured_at_utc": "2026-09-12T15:26:38.943961+00:00",
+    "model_version": "8c7eed9bb0c3",
+    "effective_config_sha256": "3a62fc507956752086919b757ae683e60f9df8fb2143f83292ac61f07830a60c",
+    "config_source_path": "/home/runner/work/baseball-predictor/baseball-predictor/config/config.kbb.json",
+    "code": {
+      "status": "available",
+      "head": "22f7938babc39a7be05447c56d68cc1e5639c170",
+      "tracked_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked": [],
+      "snapshot_sha256": "2ff24a845b5409926135098f40acada0371688aae3dcb32a1a3a82d9c9d5c3ed"
+    },
+    "run_options": {
+      "game_date": "2026-09-12",
+      "hitter_categories": [
+        "hits",
+        "hrr",
+        "home_runs"
+      ],
+      "include_pitchers": true,
+      "corrections_active": false,
+      "edges_requested": false,
+      "use_projected_lineups": false
+    }
+  }
+}
