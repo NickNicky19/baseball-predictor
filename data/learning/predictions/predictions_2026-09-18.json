@@ -1,0 +1,876 @@
+{
+  "game_date": "2026-09-18",
+  "hitter_projections": [],
+  "pitcher_projections": [
+    {
+      "player_id": 605280,
+      "player_name": "Clay Holmes",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 4.52,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824463,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.515056460924141,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4707518442231473,
+          "6.0": 0.2996437417153731,
+          "7.0": 0.17088328442467393
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 695505,
+      "player_name": "Chase Burns",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 6.06,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824463,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.061829098583183,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.7231342125324729,
+          "6.0": 0.5641996807614604,
+          "7.0": 0.40362735251825765
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 677976,
+      "player_name": "Randy Dobnak",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 4.98,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823331,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.984768187513251,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5568299703372038,
+          "6.0": 0.3813666797939814,
+          "7.0": 0.23559270833127322
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 694973,
+      "player_name": "Paul Skenes",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 5.86,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823331,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.857275793706089,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6953853202875576,
+          "6.0": 0.5311318456211458,
+          "7.0": 0.37078552875519744
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669160,
+      "player_name": "Dustin May",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 5.03,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824790,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.028839459436007,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5645524217447636,
+          "6.0": 0.38909958937323386,
+          "7.0": 0.24204556825660706
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 686930,
+      "player_name": "Mason Barnett",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 3.31,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824383,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.308328893140979,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.23892891850236198,
+          "6.0": 0.11812718664540478,
+          "7.0": 0.05151854333809802
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 682982,
+      "player_name": "Daniel Espino",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 3.95,
+      "confidence": 0.5,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824383,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.9543943612289394,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.36225401294544657,
+          "6.0": 0.20778299999736527,
+          "7.0": 0.10597644956816255
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 624133,
+      "player_name": "Ranger Suarez",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 5.04,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822923,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.043729414905493,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5671459569892158,
+          "6.0": 0.3917119436390647,
+          "7.0": 0.24423832805421808
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 693855,
+      "player_name": "Ian Seymour",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 4.01,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822923,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.007646642994277,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.3726569614698282,
+          "6.0": 0.2160658726174014,
+          "7.0": 0.11147224735702688
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 691725,
+      "player_name": "Andrew Painter",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 4.96,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823572,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.964298857890821,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.553220126357125,
+          "6.0": 0.3777752267542559,
+          "7.0": 0.23261507430070716
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 804267,
+      "player_name": "Zac Thornton",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 4.66,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823572,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.6621138986260116,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.49836562102748627,
+          "6.0": 0.32498409907248094,
+          "7.0": 0.19026336519392095
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 808825,
+      "player_name": "Andrew Sears",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 2.98,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824547,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.975492495811553,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.18063568388101148,
+          "6.0": 0.08146733586824983,
+          "7.0": 0.032288223312583075
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 689818,
+      "player_name": "David Sandlin",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 3.36,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824547,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.355819306876119,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.24764133957222256,
+          "6.0": 0.12393333881330804,
+          "7.0": 0.05474305591967288
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 656302,
+      "player_name": "Dylan Cease",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 7.61,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822847,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 7.610996121290633,
+        "median": 7.0,
+        "p10": 4.0,
+        "p90": 11.0,
+        "p_ge_threshold": {
+          "5.0": 0.875824412660108,
+          "6.0": 0.7704797250116213,
+          "7.0": 0.636850056829754
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 677958,
+      "player_name": "Kumar Rocker",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 5.26,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822847,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.261597026905501,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6041499675563219,
+          "6.0": 0.4298392396683184,
+          "7.0": 0.27698043839944286
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 693433,
+      "player_name": "Bryan Woo",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 5.75,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824303,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.7463593747236485,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6795605093602126,
+          "6.0": 0.5127703199373339,
+          "7.0": 0.35303092517031875
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 641816,
+      "player_name": "Tyler Mahle",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 5.69,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824138,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.693252077845973,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.671791129111197,
+          "6.0": 0.503882560616838,
+          "7.0": 0.34455825953872954
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 663567,
+      "player_name": "Peter Lambert",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 5.41,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824138,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.41365168681679,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6288698976545349,
+          "6.0": 0.45622599331193403,
+          "7.0": 0.3004536659847745
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 676917,
+      "player_name": "Cade Cavalli",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 5.88,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823005,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.882158851835717,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6988604838649596,
+          "6.0": 0.5352114797678891,
+          "7.0": 0.37477657342727555
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 681517,
+      "player_name": "Kyle Leahy",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 4.58,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823005,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.578194983904137,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4826711954192332,
+          "6.0": 0.31048221226129025,
+          "7.0": 0.17909642243174906
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 687570,
+      "player_name": "Connor Prielipp",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 5.75,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823977,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.752597308790211,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6804649427141698,
+          "6.0": 0.5138103237548831,
+          "7.0": 0.3540275050011079
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 680570,
+      "player_name": "Grayson Rodriguez",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 4.46,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823977,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.455806466319559,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4594880695415625,
+          "6.0": 0.2895392351609152,
+          "7.0": 0.16332938263145536
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 663969,
+      "player_name": "Tyler Phillips",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 3.03,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823252,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.031124727454946,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.18999353346766512,
+          "6.0": 0.08708839811218261,
+          "7.0": 0.03510201471916563
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 601713,
+      "player_name": "Nick Pivetta",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 4.85,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823252,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.850001662588007,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5328045198894841,
+          "6.0": 0.3577395586078047,
+          "7.0": 0.21622866639496308
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 543037,
+      "player_name": "Gerrit Cole",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 5.78,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 825032,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.784780378373609,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6851038367894233,
+          "6.0": 0.5191623665024903,
+          "7.0": 0.3591732062901041
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 593958,
+      "player_name": "Eduardo Rodriguez",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 4.93,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 825032,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.934831257991602,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5479981982146301,
+          "6.0": 0.37260598663886335,
+          "7.0": 0.22835082529013495
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 702885,
+      "player_name": "Cesar Perdomo",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 2.91,
+      "confidence": 0.5,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823898,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.9138211866412576,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.17046993060448268,
+          "6.0": 0.07548017393034123,
+          "7.0": 0.029349646345172786
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 607192,
+      "player_name": "Tyler Glasnow",
+      "category": "strikeouts",
+      "game_date": "2026-09-18",
+      "projected_value": 6.5,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823898,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.503117337407872,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.7766765617878173,
+          "6.0": 0.6314123172081461,
+          "7.0": 0.47396724596955986
+        }
+      },
+      "outcome_probs": null
+    }
+  ],
+  "value_plays": [],
+  "market_status": "RESEARCH_ONLY",
+  "market_policy_sha256": "08bc0c9d56eb21c7fb438eccd8d89539e98da111f72cdf6735af9cbeb02f154c",
+  "market_policy_reason": "policy verdict is 'RESEARCH_ONLY', not BETTING_AUTHORIZED",
+  "prediction_provenance": {
+    "schema_version": "daily-prediction-provenance-v1",
+    "captured_at_utc": "2026-09-18T16:14:58.427428+00:00",
+    "model_version": "8c7eed9bb0c3",
+    "effective_config_sha256": "3a62fc507956752086919b757ae683e60f9df8fb2143f83292ac61f07830a60c",
+    "config_source_path": "/home/runner/work/baseball-predictor/baseball-predictor/config/config.kbb.json",
+    "code": {
+      "status": "available",
+      "head": "312341e08d840c6743e7dbc11b4ab936379b1362",
+      "tracked_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked": [],
+      "snapshot_sha256": "b41213f11f157919314980b7bac4359f6f569d7567bf3613732cbc1579ebd659"
+    },
+    "run_options": {
+      "game_date": "2026-09-18",
+      "hitter_categories": [
+        "hits",
+        "hrr",
+        "home_runs"
+      ],
+      "include_pitchers": true,
+      "corrections_active": false,
+      "edges_requested": false,
+      "use_projected_lineups": false
+    }
+  }
+}
