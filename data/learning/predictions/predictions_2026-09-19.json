@@ -1,0 +1,3343 @@
+{
+  "game_date": "2026-09-19",
+  "hitter_projections": [
+    {
+      "player_id": 805808,
+      "player_name": "Kevin McGonigle",
+      "category": "hits",
+      "game_date": "2026-09-19",
+      "projected_value": 0.964,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.964375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.64925,
+          "2.0": 0.249875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17162361228360984,
+        "walk": 0.11349070908906762,
+        "home_run": 0.04880315926677778,
+        "single": 0.1308559569341761,
+        "double": 0.04312307192611664,
+        "triple": 0.004461000740007506,
+        "out_on_bip": 0.4876424897602444
+      }
+    },
+    {
+      "player_id": 805808,
+      "player_name": "Kevin McGonigle",
+      "category": "hrr",
+      "game_date": "2026-09-19",
+      "projected_value": 2.106,
+      "confidence": 0.7,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.105625,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.51225,
+          "3.0": 0.348125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17162361228360984,
+        "walk": 0.11349070908906762,
+        "home_run": 0.04880315926677778,
+        "single": 0.1308559569341761,
+        "double": 0.04312307192611664,
+        "triple": 0.004461000740007506,
+        "out_on_bip": 0.4876424897602444
+      }
+    },
+    {
+      "player_id": 805808,
+      "player_name": "Kevin McGonigle",
+      "category": "home_runs",
+      "game_date": "2026-09-19",
+      "projected_value": 0.212,
+      "confidence": 0.86,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.21175,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.194375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17162361228360984,
+        "walk": 0.11349070908906762,
+        "home_run": 0.04880315926677778,
+        "single": 0.1308559569341761,
+        "double": 0.04312307192611664,
+        "triple": 0.004461000740007506,
+        "out_on_bip": 0.4876424897602444
+      }
+    },
+    {
+      "player_id": 701678,
+      "player_name": "Hao-Yu Lee",
+      "category": "hits",
+      "game_date": "2026-09-19",
+      "projected_value": 0.934,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.934,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6395,
+          "2.0": 0.238125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2446752940068122,
+        "walk": 0.0791072281542446,
+        "home_run": 0.040273079640057385,
+        "single": 0.1294352332702955,
+        "double": 0.04280150853241634,
+        "triple": 0.004416326712890046,
+        "out_on_bip": 0.45929132968328384
+      }
+    },
+    {
+      "player_id": 701678,
+      "player_name": "Hao-Yu Lee",
+      "category": "hrr",
+      "game_date": "2026-09-19",
+      "projected_value": 1.854,
+      "confidence": 0.7,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.853625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.45875,
+          "3.0": 0.308875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2446752940068122,
+        "walk": 0.0791072281542446,
+        "home_run": 0.040273079640057385,
+        "single": 0.1294352332702955,
+        "double": 0.04280150853241634,
+        "triple": 0.004416326712890046,
+        "out_on_bip": 0.45929132968328384
+      }
+    },
+    {
+      "player_id": 701678,
+      "player_name": "Hao-Yu Lee",
+      "category": "home_runs",
+      "game_date": "2026-09-19",
+      "projected_value": 0.172,
+      "confidence": 0.86,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.17175,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.159875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2446752940068122,
+        "walk": 0.0791072281542446,
+        "home_run": 0.040273079640057385,
+        "single": 0.1294352332702955,
+        "double": 0.04280150853241634,
+        "triple": 0.004416326712890046,
+        "out_on_bip": 0.45929132968328384
+      }
+    },
+    {
+      "player_id": 690993,
+      "player_name": "Colt Keith",
+      "category": "hits",
+      "game_date": "2026-09-19",
+      "projected_value": 1.074,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.07425,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6965,
+          "2.0": 0.295125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21319723115228742,
+        "walk": 0.07734636485432721,
+        "home_run": 0.045036789896724286,
+        "single": 0.1530318989143881,
+        "double": 0.05023233937602524,
+        "triple": 0.005211903545908034,
+        "out_on_bip": 0.4559434722603397
+      }
+    },
+    {
+      "player_id": 690993,
+      "player_name": "Colt Keith",
+      "category": "hrr",
+      "game_date": "2026-09-19",
+      "projected_value": 2.149,
+      "confidence": 0.7,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.14925,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.530375,
+          "3.0": 0.357625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21319723115228742,
+        "walk": 0.07734636485432721,
+        "home_run": 0.045036789896724286,
+        "single": 0.1530318989143881,
+        "double": 0.05023233937602524,
+        "triple": 0.005211903545908034,
+        "out_on_bip": 0.4559434722603397
+      }
+    },
+    {
+      "player_id": 690993,
+      "player_name": "Colt Keith",
+      "category": "home_runs",
+      "game_date": "2026-09-19",
+      "projected_value": 0.183,
+      "confidence": 0.86,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.182625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1695
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21319723115228742,
+        "walk": 0.07734636485432721,
+        "home_run": 0.045036789896724286,
+        "single": 0.1530318989143881,
+        "double": 0.05023233937602524,
+        "triple": 0.005211903545908034,
+        "out_on_bip": 0.4559434722603397
+      }
+    },
+    {
+      "player_id": 682985,
+      "player_name": "Riley Greene",
+      "category": "hits",
+      "game_date": "2026-09-19",
+      "projected_value": 0.946,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.946375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.64825,
+          "2.0": 0.2415
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2687281105383237,
+        "walk": 0.10007973210303137,
+        "home_run": 0.05856471976105823,
+        "single": 0.1216444642945977,
+        "double": 0.048566033860743124,
+        "triple": 0.004364371747572842,
+        "out_on_bip": 0.39805256769467307
+      }
+    },
+    {
+      "player_id": 682985,
+      "player_name": "Riley Greene",
+      "category": "hrr",
+      "game_date": "2026-09-19",
+      "projected_value": 2.084,
+      "confidence": 0.7,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.084125,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.505125,
+          "3.0": 0.35425
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2687281105383237,
+        "walk": 0.10007973210303137,
+        "home_run": 0.05856471976105823,
+        "single": 0.1216444642945977,
+        "double": 0.048566033860743124,
+        "triple": 0.004364371747572842,
+        "out_on_bip": 0.39805256769467307
+      }
+    },
+    {
+      "player_id": 682985,
+      "player_name": "Riley Greene",
+      "category": "home_runs",
+      "game_date": "2026-09-19",
+      "projected_value": 0.225,
+      "confidence": 0.86,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.225375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.20575
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2687281105383237,
+        "walk": 0.10007973210303137,
+        "home_run": 0.05856471976105823,
+        "single": 0.1216444642945977,
+        "double": 0.048566033860743124,
+        "triple": 0.004364371747572842,
+        "out_on_bip": 0.39805256769467307
+      }
+    },
+    {
+      "player_id": 693307,
+      "player_name": "Dillon Dingler",
+      "category": "hits",
+      "game_date": "2026-09-19",
+      "projected_value": 0.827,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.82725,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.592375,
+          "2.0": 0.194
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23770141442276307,
+        "walk": 0.06743062118512685,
+        "home_run": 0.031041088009253058,
+        "single": 0.13256420932139207,
+        "double": 0.04114871210280095,
+        "triple": 0.004454177472415206,
+        "out_on_bip": 0.4856597774862487
+      }
+    },
+    {
+      "player_id": 693307,
+      "player_name": "Dillon Dingler",
+      "category": "hrr",
+      "game_date": "2026-09-19",
+      "projected_value": 1.583,
+      "confidence": 0.74,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.583375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.411875,
+          "3.0": 0.248
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23770141442276307,
+        "walk": 0.06743062118512685,
+        "home_run": 0.031041088009253058,
+        "single": 0.13256420932139207,
+        "double": 0.04114871210280095,
+        "triple": 0.004454177472415206,
+        "out_on_bip": 0.4856597774862487
+      }
+    },
+    {
+      "player_id": 693307,
+      "player_name": "Dillon Dingler",
+      "category": "home_runs",
+      "game_date": "2026-09-19",
+      "projected_value": 0.127,
+      "confidence": 0.86,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.127,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.122125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23770141442276307,
+        "walk": 0.06743062118512685,
+        "home_run": 0.031041088009253058,
+        "single": 0.13256420932139207,
+        "double": 0.04114871210280095,
+        "triple": 0.004454177472415206,
+        "out_on_bip": 0.4856597774862487
+      }
+    },
+    {
+      "player_id": 703601,
+      "player_name": "Max Clark",
+      "category": "hits",
+      "game_date": "2026-09-19",
+      "projected_value": 0.878,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.877875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.618625,
+          "2.0": 0.215625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21822092598558077,
+        "walk": 0.0818824129657097,
+        "home_run": 0.02989986853429431,
+        "single": 0.15071668767831276,
+        "double": 0.045728731932852096,
+        "triple": 0.00503706204131192,
+        "out_on_bip": 0.46851431086193857
+      }
+    },
+    {
+      "player_id": 703601,
+      "player_name": "Max Clark",
+      "category": "hrr",
+      "game_date": "2026-09-19",
+      "projected_value": 1.657,
+      "confidence": 0.74,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.6575,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.436375,
+          "3.0": 0.2635
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21822092598558077,
+        "walk": 0.0818824129657097,
+        "home_run": 0.02989986853429431,
+        "single": 0.15071668767831276,
+        "double": 0.045728731932852096,
+        "triple": 0.00503706204131192,
+        "out_on_bip": 0.46851431086193857
+      }
+    },
+    {
+      "player_id": 703601,
+      "player_name": "Max Clark",
+      "category": "home_runs",
+      "game_date": "2026-09-19",
+      "projected_value": 0.118,
+      "confidence": 0.86,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.117625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.113
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21822092598558077,
+        "walk": 0.0818824129657097,
+        "home_run": 0.02989986853429431,
+        "single": 0.15071668767831276,
+        "double": 0.045728731932852096,
+        "triple": 0.00503706204131192,
+        "out_on_bip": 0.46851431086193857
+      }
+    },
+    {
+      "player_id": 701162,
+      "player_name": "Ben Malgeri",
+      "category": "hits",
+      "game_date": "2026-09-19",
+      "projected_value": 0.773,
+      "confidence": 0.803,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.77275,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.566625,
+          "2.0": 0.173125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.274083256469414,
+        "walk": 0.11032515461210392,
+        "home_run": 0.03374599980820682,
+        "single": 0.131317150216982,
+        "double": 0.04279979790689187,
+        "triple": 0.004464537131381382,
+        "out_on_bip": 0.40326410385502004
+      }
+    },
+    {
+      "player_id": 701162,
+      "player_name": "Ben Malgeri",
+      "category": "hrr",
+      "game_date": "2026-09-19",
+      "projected_value": 1.556,
+      "confidence": 0.723,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.556,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4055,
+          "3.0": 0.24625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.274083256469414,
+        "walk": 0.11032515461210392,
+        "home_run": 0.03374599980820682,
+        "single": 0.131317150216982,
+        "double": 0.04279979790689187,
+        "triple": 0.004464537131381382,
+        "out_on_bip": 0.40326410385502004
+      }
+    },
+    {
+      "player_id": 701162,
+      "player_name": "Ben Malgeri",
+      "category": "home_runs",
+      "game_date": "2026-09-19",
+      "projected_value": 0.118,
+      "confidence": 0.843,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.118125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.111375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.274083256469414,
+        "walk": 0.11032515461210392,
+        "home_run": 0.03374599980820682,
+        "single": 0.131317150216982,
+        "double": 0.04279979790689187,
+        "triple": 0.004464537131381382,
+        "out_on_bip": 0.40326410385502004
+      }
+    },
+    {
+      "player_id": 814430,
+      "player_name": "Brett Callahan",
+      "category": "hits",
+      "game_date": "2026-09-19",
+      "projected_value": 0.675,
+      "confidence": 0.78,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.67475,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.51125,
+          "2.0": 0.139875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3416707909702035,
+        "walk": 0.07891301474000319,
+        "home_run": 0.036879211003363284,
+        "single": 0.11276661327175903,
+        "double": 0.038318252296171786,
+        "triple": 0.0038739709119982265,
+        "out_on_bip": 0.38757814680650093
+      }
+    },
+    {
+      "player_id": 814430,
+      "player_name": "Brett Callahan",
+      "category": "hrr",
+      "game_date": "2026-09-19",
+      "projected_value": 1.386,
+      "confidence": 0.7,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.385625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.360375,
+          "3.0": 0.217875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3416707909702035,
+        "walk": 0.07891301474000319,
+        "home_run": 0.036879211003363284,
+        "single": 0.11276661327175903,
+        "double": 0.038318252296171786,
+        "triple": 0.0038739709119982265,
+        "out_on_bip": 0.38757814680650093
+      }
+    },
+    {
+      "player_id": 814430,
+      "player_name": "Brett Callahan",
+      "category": "home_runs",
+      "game_date": "2026-09-19",
+      "projected_value": 0.124,
+      "confidence": 0.82,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1245,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.118375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3416707909702035,
+        "walk": 0.07891301474000319,
+        "home_run": 0.036879211003363284,
+        "single": 0.11276661327175903,
+        "double": 0.038318252296171786,
+        "triple": 0.0038739709119982265,
+        "out_on_bip": 0.38757814680650093
+      }
+    },
+    {
+      "player_id": 807726,
+      "player_name": "John Peck",
+      "category": "hits",
+      "game_date": "2026-09-19",
+      "projected_value": 0.721,
+      "confidence": 0.75,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.721375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.531,
+          "2.0": 0.160125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21760588017077254,
+        "walk": 0.0962426599247983,
+        "home_run": 0.03679905942407408,
+        "single": 0.13733526498244772,
+        "double": 0.044348136141159164,
+        "triple": 0.004658548746759151,
+        "out_on_bip": 0.46301045060998897
+      }
+    },
+    {
+      "player_id": 807726,
+      "player_name": "John Peck",
+      "category": "hrr",
+      "game_date": "2026-09-19",
+      "projected_value": 1.441,
+      "confidence": 0.67,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.441375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.3735,
+          "3.0": 0.2255
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21760588017077254,
+        "walk": 0.0962426599247983,
+        "home_run": 0.03679905942407408,
+        "single": 0.13733526498244772,
+        "double": 0.044348136141159164,
+        "triple": 0.004658548746759151,
+        "out_on_bip": 0.46301045060998897
+      }
+    },
+    {
+      "player_id": 807726,
+      "player_name": "John Peck",
+      "category": "home_runs",
+      "game_date": "2026-09-19",
+      "projected_value": 0.124,
+      "confidence": 0.79,
+      "team": "Detroit Tigers",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Burke",
+      "opposing_pitcher_id": 680732,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.124125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.118375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21760588017077254,
+        "walk": 0.0962426599247983,
+        "home_run": 0.03679905942407408,
+        "single": 0.13733526498244772,
+        "double": 0.044348136141159164,
+        "triple": 0.004658548746759151,
+        "out_on_bip": 0.46301045060998897
+      }
+    },
+    {
+      "player_id": 803011,
+      "player_name": "Sam Antonacci",
+      "category": "hits",
+      "game_date": "2026-09-19",
+      "projected_value": 1.027,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.027375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.674875,
+          "2.0": 0.27475
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17657435390668774,
+        "walk": 0.0799381676995913,
+        "home_run": 0.0268084209658604,
+        "single": 0.1564658563682741,
+        "double": 0.04593946208094642,
+        "triple": 0.005189879960236423,
+        "out_on_bip": 0.5090838590184036
+      }
+    },
+    {
+      "player_id": 803011,
+      "player_name": "Sam Antonacci",
+      "category": "hrr",
+      "game_date": "2026-09-19",
+      "projected_value": 1.889,
+      "confidence": 0.7,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.888875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.48625,
+          "3.0": 0.305
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17657435390668774,
+        "walk": 0.0799381676995913,
+        "home_run": 0.0268084209658604,
+        "single": 0.1564658563682741,
+        "double": 0.04593946208094642,
+        "triple": 0.005189879960236423,
+        "out_on_bip": 0.5090838590184036
+      }
+    },
+    {
+      "player_id": 803011,
+      "player_name": "Sam Antonacci",
+      "category": "home_runs",
+      "game_date": "2026-09-19",
+      "projected_value": 0.12,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.119625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.112875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17657435390668774,
+        "walk": 0.0799381676995913,
+        "home_run": 0.0268084209658604,
+        "single": 0.1564658563682741,
+        "double": 0.04593946208094642,
+        "triple": 0.005189879960236423,
+        "out_on_bip": 0.5090838590184036
+      }
+    },
+    {
+      "player_id": 691019,
+      "player_name": "Kyle Teel",
+      "category": "hits",
+      "game_date": "2026-09-19",
+      "projected_value": 0.728,
+      "confidence": 0.71,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.727625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.539875,
+          "2.0": 0.1595
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.356129756766561,
+        "walk": 0.11178534042194554,
+        "home_run": 0.04079056384037604,
+        "single": 0.09303885819069221,
+        "double": 0.03387801298891378,
+        "triple": 0.0032542787481950257,
+        "out_on_bip": 0.3611231890433164
+      }
+    },
+    {
+      "player_id": 691019,
+      "player_name": "Kyle Teel",
+      "category": "hrr",
+      "game_date": "2026-09-19",
+      "projected_value": 1.646,
+      "confidence": 0.63,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.645875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4115,
+          "3.0": 0.2635
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.356129756766561,
+        "walk": 0.11178534042194554,
+        "home_run": 0.04079056384037604,
+        "single": 0.09303885819069221,
+        "double": 0.03387801298891378,
+        "triple": 0.0032542787481950257,
+        "out_on_bip": 0.3611231890433164
+      }
+    },
+    {
+      "player_id": 691019,
+      "player_name": "Kyle Teel",
+      "category": "home_runs",
+      "game_date": "2026-09-19",
+      "projected_value": 0.172,
+      "confidence": 0.75,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.17175,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.159625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.356129756766561,
+        "walk": 0.11178534042194554,
+        "home_run": 0.04079056384037604,
+        "single": 0.09303885819069221,
+        "double": 0.03387801298891378,
+        "triple": 0.0032542787481950257,
+        "out_on_bip": 0.3611231890433164
+      }
+    },
+    {
+      "player_id": 678246,
+      "player_name": "Miguel Vargas",
+      "category": "hits",
+      "game_date": "2026-09-19",
+      "projected_value": 0.939,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.93925,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.64075,
+          "2.0": 0.242375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19359422098466791,
+        "walk": 0.11294019611265735,
+        "home_run": 0.03708779169523397,
+        "single": 0.13870208203049486,
+        "double": 0.045654182733106556,
+        "triple": 0.004727083711887217,
+        "out_on_bip": 0.4672944427319521
+      }
+    },
+    {
+      "player_id": 678246,
+      "player_name": "Miguel Vargas",
+      "category": "hrr",
+      "game_date": "2026-09-19",
+      "projected_value": 1.932,
+      "confidence": 0.7,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.93175,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.491625,
+          "3.0": 0.315875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19359422098466791,
+        "walk": 0.11294019611265735,
+        "home_run": 0.03708779169523397,
+        "single": 0.13870208203049486,
+        "double": 0.045654182733106556,
+        "triple": 0.004727083711887217,
+        "out_on_bip": 0.4672944427319521
+      }
+    },
+    {
+      "player_id": 678246,
+      "player_name": "Miguel Vargas",
+      "category": "home_runs",
+      "game_date": "2026-09-19",
+      "projected_value": 0.161,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.160625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.150625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19359422098466791,
+        "walk": 0.11294019611265735,
+        "home_run": 0.03708779169523397,
+        "single": 0.13870208203049486,
+        "double": 0.045654182733106556,
+        "triple": 0.004727083711887217,
+        "out_on_bip": 0.4672944427319521
+      }
+    },
+    {
+      "player_id": 808959,
+      "player_name": "Munetaka Murakami",
+      "category": "hits",
+      "game_date": "2026-09-19",
+      "projected_value": 0.677,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.677375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.515375,
+          "2.0": 0.14175
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3394380202194415,
+        "walk": 0.1389524516210228,
+        "home_run": 0.03355986601078492,
+        "single": 0.09395323398883855,
+        "double": 0.03245089751882477,
+        "triple": 0.0032411315771195726,
+        "out_on_bip": 0.3584043990639678
+      }
+    },
+    {
+      "player_id": 808959,
+      "player_name": "Munetaka Murakami",
+      "category": "hrr",
+      "game_date": "2026-09-19",
+      "projected_value": 1.486,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.485625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.3765,
+          "3.0": 0.236375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3394380202194415,
+        "walk": 0.1389524516210228,
+        "home_run": 0.03355986601078492,
+        "single": 0.09395323398883855,
+        "double": 0.03245089751882477,
+        "triple": 0.0032411315771195726,
+        "out_on_bip": 0.3584043990639678
+      }
+    },
+    {
+      "player_id": 808959,
+      "player_name": "Munetaka Murakami",
+      "category": "home_runs",
+      "game_date": "2026-09-19",
+      "projected_value": 0.135,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.135375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.129125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3394380202194415,
+        "walk": 0.1389524516210228,
+        "home_run": 0.03355986601078492,
+        "single": 0.09395323398883855,
+        "double": 0.03245089751882477,
+        "triple": 0.0032411315771195726,
+        "out_on_bip": 0.3584043990639678
+      }
+    },
+    {
+      "player_id": 643217,
+      "player_name": "Andrew Benintendi",
+      "category": "hits",
+      "game_date": "2026-09-19",
+      "projected_value": 0.824,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.824375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.593125,
+          "2.0": 0.1945
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22764943864058826,
+        "walk": 0.08028607556629613,
+        "home_run": 0.02715082981374236,
+        "single": 0.13766143578112677,
+        "double": 0.04222919840790396,
+        "triple": 0.004612580363821301,
+        "out_on_bip": 0.4804104414265211
+      }
+    },
+    {
+      "player_id": 643217,
+      "player_name": "Andrew Benintendi",
+      "category": "hrr",
+      "game_date": "2026-09-19",
+      "projected_value": 1.587,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.5875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.42325,
+          "3.0": 0.251
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22764943864058826,
+        "walk": 0.08028607556629613,
+        "home_run": 0.02715082981374236,
+        "single": 0.13766143578112677,
+        "double": 0.04222919840790396,
+        "triple": 0.004612580363821301,
+        "out_on_bip": 0.4804104414265211
+      }
+    },
+    {
+      "player_id": 643217,
+      "player_name": "Andrew Benintendi",
+      "category": "home_runs",
+      "game_date": "2026-09-19",
+      "projected_value": 0.104,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.104375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.100375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22764943864058826,
+        "walk": 0.08028607556629613,
+        "home_run": 0.02715082981374236,
+        "single": 0.13766143578112677,
+        "double": 0.04222919840790396,
+        "triple": 0.004612580363821301,
+        "out_on_bip": 0.4804104414265211
+      }
+    },
+    {
+      "player_id": 695657,
+      "player_name": "Colson Montgomery",
+      "category": "hits",
+      "game_date": "2026-09-19",
+      "projected_value": 0.765,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.765125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.566375,
+          "2.0": 0.16825
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3322614303145463,
+        "walk": 0.08284693275967556,
+        "home_run": 0.03635523289139691,
+        "single": 0.11897390213725216,
+        "double": 0.04178520999017341,
+        "triple": 0.0041220285160878355,
+        "out_on_bip": 0.3836552633908678
+      }
+    },
+    {
+      "player_id": 695657,
+      "player_name": "Colson Montgomery",
+      "category": "hrr",
+      "game_date": "2026-09-19",
+      "projected_value": 1.57,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.57025,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.40075,
+          "3.0": 0.25375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3322614303145463,
+        "walk": 0.08284693275967556,
+        "home_run": 0.03635523289139691,
+        "single": 0.11897390213725216,
+        "double": 0.04178520999017341,
+        "triple": 0.0041220285160878355,
+        "out_on_bip": 0.3836552633908678
+      }
+    },
+    {
+      "player_id": 695657,
+      "player_name": "Colson Montgomery",
+      "category": "home_runs",
+      "game_date": "2026-09-19",
+      "projected_value": 0.135,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.135375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1285
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3322614303145463,
+        "walk": 0.08284693275967556,
+        "home_run": 0.03635523289139691,
+        "single": 0.11897390213725216,
+        "double": 0.04178520999017341,
+        "triple": 0.0041220285160878355,
+        "out_on_bip": 0.3836552633908678
+      }
+    },
+    {
+      "player_id": 805367,
+      "player_name": "Chase Meidroth",
+      "category": "hits",
+      "game_date": "2026-09-19",
+      "projected_value": 0.786,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.7865,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.568125,
+          "2.0": 0.184125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22079900118176135,
+        "walk": 0.08880788838711474,
+        "home_run": 0.02484763636210483,
+        "single": 0.14298132041938097,
+        "double": 0.04385446426391468,
+        "triple": 0.00479066114572553,
+        "out_on_bip": 0.47391902823999793
+      }
+    },
+    {
+      "player_id": 805367,
+      "player_name": "Chase Meidroth",
+      "category": "hrr",
+      "game_date": "2026-09-19",
+      "projected_value": 1.507,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.507125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.399,
+          "3.0": 0.228625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22079900118176135,
+        "walk": 0.08880788838711474,
+        "home_run": 0.02484763636210483,
+        "single": 0.14298132041938097,
+        "double": 0.04385446426391468,
+        "triple": 0.00479066114572553,
+        "out_on_bip": 0.47391902823999793
+      }
+    },
+    {
+      "player_id": 805367,
+      "player_name": "Chase Meidroth",
+      "category": "home_runs",
+      "game_date": "2026-09-19",
+      "projected_value": 0.093,
+      "confidence": 0.88,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.0935,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.09025
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22079900118176135,
+        "walk": 0.08880788838711474,
+        "home_run": 0.02484763636210483,
+        "single": 0.14298132041938097,
+        "double": 0.04385446426391468,
+        "triple": 0.00479066114572553,
+        "out_on_bip": 0.47391902823999793
+      }
+    },
+    {
+      "player_id": 695731,
+      "player_name": "Braden Montgomery",
+      "category": "hits",
+      "game_date": "2026-09-19",
+      "projected_value": 0.787,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.78725,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.571375,
+          "2.0": 0.1825
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21046464676695262,
+        "walk": 0.09817401136870718,
+        "home_run": 0.03200586785861259,
+        "single": 0.1408994569250462,
+        "double": 0.04543206129372312,
+        "triple": 0.004777731236378702,
+        "out_on_bip": 0.4682462245505795
+      }
+    },
+    {
+      "player_id": 695731,
+      "player_name": "Braden Montgomery",
+      "category": "hrr",
+      "game_date": "2026-09-19",
+      "projected_value": 1.502,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.501875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.392875,
+          "3.0": 0.229375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21046464676695262,
+        "walk": 0.09817401136870718,
+        "home_run": 0.03200586785861259,
+        "single": 0.1408994569250462,
+        "double": 0.04543206129372312,
+        "triple": 0.004777731236378702,
+        "out_on_bip": 0.4682462245505795
+      }
+    },
+    {
+      "player_id": 695731,
+      "player_name": "Braden Montgomery",
+      "category": "home_runs",
+      "game_date": "2026-09-19",
+      "projected_value": 0.115,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.114625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1105
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21046464676695262,
+        "walk": 0.09817401136870718,
+        "home_run": 0.03200586785861259,
+        "single": 0.1408994569250462,
+        "double": 0.04543206129372312,
+        "triple": 0.004777731236378702,
+        "out_on_bip": 0.4682462245505795
+      }
+    },
+    {
+      "player_id": 686668,
+      "player_name": "Brenton Doyle",
+      "category": "hits",
+      "game_date": "2026-09-19",
+      "projected_value": 0.645,
+      "confidence": 0.817,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.644875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.493125,
+          "2.0": 0.1295
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.31901626004442085,
+        "walk": 0.06509655290821723,
+        "home_run": 0.017930766838215872,
+        "single": 0.1307659750568507,
+        "double": 0.0395131025003517,
+        "triple": 0.004366130193774421,
+        "out_on_bip": 0.4233112124581692
+      }
+    },
+    {
+      "player_id": 686668,
+      "player_name": "Brenton Doyle",
+      "category": "hrr",
+      "game_date": "2026-09-19",
+      "projected_value": 1.146,
+      "confidence": 0.777,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.14575,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.315,
+          "3.0": 0.159875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.31901626004442085,
+        "walk": 0.06509655290821723,
+        "home_run": 0.017930766838215872,
+        "single": 0.1307659750568507,
+        "double": 0.0395131025003517,
+        "triple": 0.004366130193774421,
+        "out_on_bip": 0.4233112124581692
+      }
+    },
+    {
+      "player_id": 686668,
+      "player_name": "Brenton Doyle",
+      "category": "home_runs",
+      "game_date": "2026-09-19",
+      "projected_value": 0.062,
+      "confidence": 0.88,
+      "team": "Chicago White Sox",
+      "opponent": "Detroit Tigers",
+      "opposing_pitcher": "Jackson Jobe",
+      "opposing_pitcher_id": 695549,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.062125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.061375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.31901626004442085,
+        "walk": 0.06509655290821723,
+        "home_run": 0.017930766838215872,
+        "single": 0.1307659750568507,
+        "double": 0.0395131025003517,
+        "triple": 0.004366130193774421,
+        "out_on_bip": 0.4233112124581692
+      }
+    }
+  ],
+  "pitcher_projections": [
+    {
+      "player_id": 695549,
+      "player_name": "Jackson Jobe",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 4.88,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.877067399287577,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.537677656570636,
+          "6.0": 0.36247968174856904,
+          "7.0": 0.22007095984425107
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 680732,
+      "player_name": "Sean Burke",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 6.64,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824545,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.641659136333527,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.7917402566846374,
+          "6.0": 0.6512113216474507,
+          "7.0": 0.4956537740959588
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 688107,
+      "player_name": "Robert Gasser",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 5.18,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824788,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.177549787751727,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5900892161217309,
+          "6.0": 0.4151614015726819,
+          "7.0": 0.26421182339096505
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669432,
+      "player_name": "Trevor Rogers",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 5.19,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824788,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.19451388275053,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.592949404625191,
+          "6.0": 0.41812800416207374,
+          "7.0": 0.26677597221081495
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 642547,
+      "player_name": "Freddy Peralta",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 5.03,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822921,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.034286055854927,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5655020322860478,
+          "6.0": 0.3900551942837338,
+          "7.0": 0.2428469326005861
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 691725,
+      "player_name": "Andrew Painter",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 4.96,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823571,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.964298857890821,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.553220126357125,
+          "6.0": 0.3777752267542559,
+          "7.0": 0.23261507430070716
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 681035,
+      "player_name": "Christian Scott",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 5.42,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823571,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.422830276556096,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6303316901253988,
+          "6.0": 0.4578100615491536,
+          "7.0": 0.30188414308181555
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 682052,
+      "player_name": "Jacob Lopez",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 4.91,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824380,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.91153766020209,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5438496452095983,
+          "6.0": 0.368521175337332,
+          "7.0": 0.22499911155679142
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 676440,
+      "player_name": "Tanner Bibee",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 4.88,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824380,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.879631291365575,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5381380614007919,
+          "6.0": 0.3629288848598423,
+          "7.0": 0.22043618812924015
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 571510,
+      "player_name": "Matthew Boyd",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 4.83,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824461,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.834564619271364,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5300147001120411,
+          "6.0": 0.35503774108024033,
+          "7.0": 0.21404817185976732
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 666157,
+      "player_name": "Nick Lodolo",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 4.45,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824461,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.450887942240266,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4585498476025358,
+          "6.0": 0.28870358958959286,
+          "7.0": 0.162709145952187
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 702070,
+      "player_name": "Noah Cameron",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 5.43,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823330,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.431540938159649,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6317157081484394,
+          "6.0": 0.4593123256278929,
+          "7.0": 0.303242987288302
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 696149,
+      "player_name": "Bubba Chandler",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 4.88,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823330,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.879180842753583,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5380571885544732,
+          "6.0": 0.362849962568494,
+          "7.0": 0.22037200581136263
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 667755,
+      "player_name": "Jos\u00e9 Soriano",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 4.92,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822843,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.923381395622493,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5459612603283195,
+          "6.0": 0.37059793079324366,
+          "7.0": 0.22670117177534232
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 615698,
+      "player_name": "Cal Quantrill",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 2.9,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822843,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.9047670001815553,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.16899660807604844,
+          "6.0": 0.07462290746972355,
+          "7.0": 0.02893397226867922
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 656550,
+      "player_name": "Grant Holmes",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 4.33,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824137,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.325663080400694,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4345176048727226,
+          "6.0": 0.26761212458260286,
+          "7.0": 0.14728264558135007
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669713,
+      "player_name": "Hayden Wesneski",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 4.59,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824137,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.594312618517001,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4856990629274527,
+          "6.0": 0.31325952435935156,
+          "7.0": 0.18121933303023896
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 674841,
+      "player_name": "Andrew Alvarez",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 3.39,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823003,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.3911181779439086,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.254169192017463,
+          "6.0": 0.12833766522678025,
+          "7.0": 0.05721940225039357
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 700241,
+      "player_name": "Michael McGreevy",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 4.42,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823003,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.420717498175025,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.45278468556006113,
+          "6.0": 0.28358897388819915,
+          "7.0": 0.15892790002086954
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 682243,
+      "player_name": "Bryce Miller",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 5.49,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824304,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.486761526324215,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.640415474085716,
+          "6.0": 0.46881087504177,
+          "7.0": 0.3118852897460005
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 500779,
+      "player_name": "Jose Quintana",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 3.17,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824304,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.1747781803532265,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.2149099824453976,
+          "6.0": 0.10255378230055212,
+          "7.0": 0.043102780192676216
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 693645,
+      "player_name": "Cam Schlittler",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 6.9,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 825029,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.904235475337395,
+        "median": 7.0,
+        "p10": 4.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.8180915370863505,
+          "6.0": 0.6868940973255242,
+          "7.0": 0.5359244276805011
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 694297,
+      "player_name": "Brandon Pfaadt",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 2.77,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 825029,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.769315659729584,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.14757687092309735,
+          "6.0": 0.062466486555512235,
+          "7.0": 0.02318356651638598
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 691587,
+      "player_name": "Eury P\u00e9rez",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 5.5,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823249,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.500123972276202,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6425013144572811,
+          "6.0": 0.4711025622873397,
+          "7.0": 0.31398349801598635
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 663554,
+      "player_name": "Casey Mize",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 3.73,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823249,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.728026422882305,
+        "median": 4.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.31819753346639,
+          "6.0": 0.1739353971549389,
+          "7.0": 0.08429988782318243
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669373,
+      "player_name": "Tarik Skubal",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 6.78,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823899,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.776437669457547,
+        "median": 7.0,
+        "p10": 4.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.8056197898929316,
+          "6.0": 0.6698333171319619,
+          "7.0": 0.516475222295261
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 657746,
+      "player_name": "Joe Ryan",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 5.56,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823976,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.564647347030056,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6524660778322657,
+          "6.0": 0.4821281535785509,
+          "7.0": 0.32414974052904433
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 672282,
+      "player_name": "Reid Detmers",
+      "category": "strikeouts",
+      "game_date": "2026-09-19",
+      "projected_value": 6.3,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823976,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.295675639058581,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.7525746396104275,
+          "6.0": 0.6005712450529687,
+          "7.0": 0.441077233691368
+        }
+      },
+      "outcome_probs": null
+    }
+  ],
+  "value_plays": [],
+  "market_status": "RESEARCH_ONLY",
+  "market_policy_sha256": "08bc0c9d56eb21c7fb438eccd8d89539e98da111f72cdf6735af9cbeb02f154c",
+  "market_policy_reason": "policy verdict is 'RESEARCH_ONLY', not BETTING_AUTHORIZED",
+  "prediction_provenance": {
+    "schema_version": "daily-prediction-provenance-v1",
+    "captured_at_utc": "2026-09-19T15:46:53.723171+00:00",
+    "model_version": "8c7eed9bb0c3",
+    "effective_config_sha256": "3a62fc507956752086919b757ae683e60f9df8fb2143f83292ac61f07830a60c",
+    "config_source_path": "/home/runner/work/baseball-predictor/baseball-predictor/config/config.kbb.json",
+    "code": {
+      "status": "available",
+      "head": "0f91fff20b5f13bf65344e918e0da91777c4c347",
+      "tracked_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked": [],
+      "snapshot_sha256": "cef6a0502d49baa8b99d4d9a925ca2218b7e0b746b12a85afb85457f264765fc"
+    },
+    "run_options": {
+      "game_date": "2026-09-19",
+      "hitter_categories": [
+        "hits",
+        "hrr",
+        "home_runs"
+      ],
+      "include_pitchers": true,
+      "corrections_active": false,
+      "edges_requested": false,
+      "use_projected_lineups": false
+    }
+  }
+}
