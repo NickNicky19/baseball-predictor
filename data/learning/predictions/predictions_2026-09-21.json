@@ -1,0 +1,216 @@
+{
+  "game_date": "2026-09-21",
+  "hitter_projections": [],
+  "pitcher_projections": [
+    {
+      "player_id": 702056,
+      "player_name": "Trey Yesavage",
+      "category": "strikeouts",
+      "game_date": "2026-09-21",
+      "projected_value": 5.04,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824787,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.038232721516665,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.566189467477561,
+          "6.0": 0.39074761463448837,
+          "7.0": 0.24342813401490848
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669358,
+      "player_name": "Shane Baz",
+      "category": "strikeouts",
+      "game_date": "2026-09-21",
+      "projected_value": 5.28,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824787,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.279067069742098,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6070377072302098,
+          "6.0": 0.43288310551785547,
+          "7.0": 0.27965413502723213
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 687792,
+      "player_name": "DJ Herz",
+      "category": "strikeouts",
+      "game_date": "2026-09-21",
+      "projected_value": 5.35,
+      "confidence": 0.5,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824221,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.352797402615396,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6190898637964853,
+          "6.0": 0.4456965247467386,
+          "7.0": 0.29100662226402274
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 689981,
+      "player_name": "River Ryan",
+      "category": "strikeouts",
+      "game_date": "2026-09-21",
+      "projected_value": 5.35,
+      "confidence": 0.5,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824221,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.352797402615396,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6190898637964853,
+          "6.0": 0.4456965247467386,
+          "7.0": 0.29100662226402274
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 805673,
+      "player_name": "Zebby Matthews",
+      "category": "strikeouts",
+      "game_date": "2026-09-21",
+      "projected_value": 5.1,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823169,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.0979580275929965,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.576523580770949,
+          "6.0": 0.4012223395166763,
+          "7.0": 0.252275944500137
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 694918,
+      "player_name": "Blade Tidwell",
+      "category": "strikeouts",
+      "game_date": "2026-09-21",
+      "projected_value": 2.99,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823169,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.991639448540337,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.18333388366350745,
+          "6.0": 0.08307739127405578,
+          "7.0": 0.03308884500662779
+        }
+      },
+      "outcome_probs": null
+    }
+  ],
+  "value_plays": [],
+  "market_status": "RESEARCH_ONLY",
+  "market_policy_sha256": "08bc0c9d56eb21c7fb438eccd8d89539e98da111f72cdf6735af9cbeb02f154c",
+  "market_policy_reason": "policy verdict is 'RESEARCH_ONLY', not BETTING_AUTHORIZED",
+  "prediction_provenance": {
+    "schema_version": "daily-prediction-provenance-v1",
+    "captured_at_utc": "2026-09-21T18:08:43.308867+00:00",
+    "model_version": "8c7eed9bb0c3",
+    "effective_config_sha256": "3a62fc507956752086919b757ae683e60f9df8fb2143f83292ac61f07830a60c",
+    "config_source_path": "/home/runner/work/baseball-predictor/baseball-predictor/config/config.kbb.json",
+    "code": {
+      "status": "available",
+      "head": "0ad25d1745c9b979b3d73bfb5cdc986111d7f393",
+      "tracked_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked": [],
+      "snapshot_sha256": "06ae48cdfcd6fb97d0aa593905e2f0cfa63c40ba7b8f892a0daea43e9353e880"
+    },
+    "run_options": {
+      "game_date": "2026-09-21",
+      "hitter_categories": [
+        "hits",
+        "hrr",
+        "home_runs"
+      ],
+      "include_pitchers": true,
+      "corrections_active": false,
+      "edges_requested": false,
+      "use_projected_lineups": false
+    }
+  }
+}
