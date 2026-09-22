@@ -9437,3 +9437,9 @@ mlb_game_pk,player_id,player_name,game_date,category,predicted_value,actual_valu
 825032,593958,Eduardo Rodriguez,2026-09-18,strikeouts,4.93,5.0,0.72,8c7eed9bb0c3,,,,,,,,,5,5.33,4,2
 823898,702885,Cesar Perdomo,2026-09-18,strikeouts,2.91,1.0,0.5,8c7eed9bb0c3,,,,,,,,,1,4.67,3,1
 823898,607192,Tyler Glasnow,2026-09-18,strikeouts,6.5,10.0,0.72,8c7eed9bb0c3,,,,,,,,,10,6.0,2,1
+824787,702056,Trey Yesavage,2026-09-21,strikeouts,5.04,3.0,0.72,8c7eed9bb0c3,,,,,,,,,3,2.0,0,1
+824787,669358,Shane Baz,2026-09-21,strikeouts,5.28,2.0,0.72,8c7eed9bb0c3,,,,,,,,,2,6.67,3,0
+824221,687792,DJ Herz,2026-09-21,strikeouts,5.35,4.0,0.5,8c7eed9bb0c3,,,,,,,,,4,4.0,2,1
+824221,689981,River Ryan,2026-09-21,strikeouts,5.35,3.0,0.5,8c7eed9bb0c3,,,,,,,,,3,3.0,1,0
+823169,805673,Zebby Matthews,2026-09-21,strikeouts,5.1,9.0,0.72,8c7eed9bb0c3,,,,,,,,,9,5.0,0,1
+823169,694918,Blade Tidwell,2026-09-21,strikeouts,2.99,4.0,0.72,8c7eed9bb0c3,,,,,,,,,4,3.33,0,1
