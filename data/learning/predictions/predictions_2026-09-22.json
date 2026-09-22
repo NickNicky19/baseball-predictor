@@ -1,0 +1,3433 @@
+{
+  "game_date": "2026-09-22",
+  "hitter_projections": [
+    {
+      "player_id": 650490,
+      "player_name": "Yandy D\u00edaz",
+      "category": "hits",
+      "game_date": "2026-09-22",
+      "projected_value": 1.014,
+      "confidence": 0.82,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.01375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.67225,
+          "2.0": 0.2685
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17846901294181136,
+        "walk": 0.08838173337680491,
+        "home_run": 0.04465795797164773,
+        "single": 0.14255507580675314,
+        "double": 0.04535015947431633,
+        "triple": 0.004818082955924859,
+        "out_on_bip": 0.49576797747274165
+      }
+    },
+    {
+      "player_id": 650490,
+      "player_name": "Yandy D\u00edaz",
+      "category": "hrr",
+      "game_date": "2026-09-22",
+      "projected_value": 2.086,
+      "confidence": 0.7,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.086,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.509875,
+          "3.0": 0.344125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17846901294181136,
+        "walk": 0.08838173337680491,
+        "home_run": 0.04465795797164773,
+        "single": 0.14255507580675314,
+        "double": 0.04535015947431633,
+        "triple": 0.004818082955924859,
+        "out_on_bip": 0.49576797747274165
+      }
+    },
+    {
+      "player_id": 650490,
+      "player_name": "Yandy D\u00edaz",
+      "category": "home_runs",
+      "game_date": "2026-09-22",
+      "projected_value": 0.21,
+      "confidence": 0.86,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.2105,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.192625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17846901294181136,
+        "walk": 0.08838173337680491,
+        "home_run": 0.04465795797164773,
+        "single": 0.14255507580675314,
+        "double": 0.04535015947431633,
+        "triple": 0.004818082955924859,
+        "out_on_bip": 0.49576797747274165
+      }
+    },
+    {
+      "player_id": 666018,
+      "player_name": "Jonathan Aranda",
+      "category": "hits",
+      "game_date": "2026-09-22",
+      "projected_value": 0.928,
+      "confidence": 0.82,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.927875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.635,
+          "2.0": 0.2375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24458422937798788,
+        "walk": 0.09946084626917352,
+        "home_run": 0.04043697096739283,
+        "single": 0.126469023211132,
+        "double": 0.04199119168416982,
+        "triple": 0.004319492689623124,
+        "out_on_bip": 0.44273824580052085
+      }
+    },
+    {
+      "player_id": 666018,
+      "player_name": "Jonathan Aranda",
+      "category": "hrr",
+      "game_date": "2026-09-22",
+      "projected_value": 1.87,
+      "confidence": 0.7,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.87,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.46975,
+          "3.0": 0.304
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24458422937798788,
+        "walk": 0.09946084626917352,
+        "home_run": 0.04043697096739283,
+        "single": 0.126469023211132,
+        "double": 0.04199119168416982,
+        "triple": 0.004319492689623124,
+        "out_on_bip": 0.44273824580052085
+      }
+    },
+    {
+      "player_id": 666018,
+      "player_name": "Jonathan Aranda",
+      "category": "home_runs",
+      "game_date": "2026-09-22",
+      "projected_value": 0.172,
+      "confidence": 0.86,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.172125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.16075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24458422937798788,
+        "walk": 0.09946084626917352,
+        "home_run": 0.04043697096739283,
+        "single": 0.126469023211132,
+        "double": 0.04199119168416982,
+        "triple": 0.004319492689623124,
+        "out_on_bip": 0.44273824580052085
+      }
+    },
+    {
+      "player_id": 691406,
+      "player_name": "Junior Caminero",
+      "category": "hits",
+      "game_date": "2026-09-22",
+      "projected_value": 0.921,
+      "confidence": 0.82,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.921125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.635,
+          "2.0": 0.235
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20505320279505573,
+        "walk": 0.10796748581877302,
+        "home_run": 0.04443515004954124,
+        "single": 0.13061542147114136,
+        "double": 0.04193194700164369,
+        "triple": 0.004424291499302181,
+        "out_on_bip": 0.46557250136454276
+      }
+    },
+    {
+      "player_id": 691406,
+      "player_name": "Junior Caminero",
+      "category": "hrr",
+      "game_date": "2026-09-22",
+      "projected_value": 1.95,
+      "confidence": 0.7,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.9495,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.485875,
+          "3.0": 0.321375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20505320279505573,
+        "walk": 0.10796748581877302,
+        "home_run": 0.04443515004954124,
+        "single": 0.13061542147114136,
+        "double": 0.04193194700164369,
+        "triple": 0.004424291499302181,
+        "out_on_bip": 0.46557250136454276
+      }
+    },
+    {
+      "player_id": 691406,
+      "player_name": "Junior Caminero",
+      "category": "home_runs",
+      "game_date": "2026-09-22",
+      "projected_value": 0.178,
+      "confidence": 0.86,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.178,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.16625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20505320279505573,
+        "walk": 0.10796748581877302,
+        "home_run": 0.04443515004954124,
+        "single": 0.13061542147114136,
+        "double": 0.04193194700164369,
+        "triple": 0.004424291499302181,
+        "out_on_bip": 0.46557250136454276
+      }
+    },
+    {
+      "player_id": 689414,
+      "player_name": "Liam Hicks",
+      "category": "hits",
+      "game_date": "2026-09-22",
+      "projected_value": 1.016,
+      "confidence": 0.82,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.016,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.67125,
+          "2.0": 0.27375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15079878406660815,
+        "walk": 0.09880399741365925,
+        "home_run": 0.032755226868223,
+        "single": 0.16275724039856837,
+        "double": 0.049453668488829435,
+        "triple": 0.005441305356087124,
+        "out_on_bip": 0.49998977740802464
+      }
+    },
+    {
+      "player_id": 689414,
+      "player_name": "Liam Hicks",
+      "category": "hrr",
+      "game_date": "2026-09-22",
+      "projected_value": 1.958,
+      "confidence": 0.7,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.9575,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.4995,
+          "3.0": 0.3185
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15079878406660815,
+        "walk": 0.09880399741365925,
+        "home_run": 0.032755226868223,
+        "single": 0.16275724039856837,
+        "double": 0.049453668488829435,
+        "triple": 0.005441305356087124,
+        "out_on_bip": 0.49998977740802464
+      }
+    },
+    {
+      "player_id": 689414,
+      "player_name": "Liam Hicks",
+      "category": "home_runs",
+      "game_date": "2026-09-22",
+      "projected_value": 0.13,
+      "confidence": 0.86,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1295,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.122875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15079878406660815,
+        "walk": 0.09880399741365925,
+        "home_run": 0.032755226868223,
+        "single": 0.16275724039856837,
+        "double": 0.049453668488829435,
+        "triple": 0.005441305356087124,
+        "out_on_bip": 0.49998977740802464
+      }
+    },
+    {
+      "player_id": 802415,
+      "player_name": "Chandler Simpson",
+      "category": "hits",
+      "game_date": "2026-09-22",
+      "projected_value": 0.937,
+      "confidence": 0.82,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.937125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.64825,
+          "2.0": 0.238
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1398830644330079,
+        "walk": 0.06896487767756873,
+        "home_run": 0.02235428837136833,
+        "single": 0.16338145318550357,
+        "double": 0.045753053563232206,
+        "triple": 0.005362423249967585,
+        "out_on_bip": 0.5543008395193517
+      }
+    },
+    {
+      "player_id": 802415,
+      "player_name": "Chandler Simpson",
+      "category": "hrr",
+      "game_date": "2026-09-22",
+      "projected_value": 1.674,
+      "confidence": 0.74,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.674375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.446125,
+          "3.0": 0.26325
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1398830644330079,
+        "walk": 0.06896487767756873,
+        "home_run": 0.02235428837136833,
+        "single": 0.16338145318550357,
+        "double": 0.045753053563232206,
+        "triple": 0.005362423249967585,
+        "out_on_bip": 0.5543008395193517
+      }
+    },
+    {
+      "player_id": 802415,
+      "player_name": "Chandler Simpson",
+      "category": "home_runs",
+      "game_date": "2026-09-22",
+      "projected_value": 0.085,
+      "confidence": 0.88,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.084875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.0825
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1398830644330079,
+        "walk": 0.06896487767756873,
+        "home_run": 0.02235428837136833,
+        "single": 0.16338145318550357,
+        "double": 0.045753053563232206,
+        "triple": 0.005362423249967585,
+        "out_on_bip": 0.5543008395193517
+      }
+    },
+    {
+      "player_id": 676356,
+      "player_name": "Jonny DeLuca",
+      "category": "hits",
+      "game_date": "2026-09-22",
+      "projected_value": 0.78,
+      "confidence": 0.82,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.780125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.567875,
+          "2.0": 0.179375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21985467182576307,
+        "walk": 0.06787509577006401,
+        "home_run": 0.023403997396775584,
+        "single": 0.138079372417575,
+        "double": 0.039103308365990026,
+        "triple": 0.004543145661117052,
+        "out_on_bip": 0.5071404085627154
+      }
+    },
+    {
+      "player_id": 676356,
+      "player_name": "Jonny DeLuca",
+      "category": "hrr",
+      "game_date": "2026-09-22",
+      "projected_value": 1.433,
+      "confidence": 0.74,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.43325,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.384875,
+          "3.0": 0.218
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21985467182576307,
+        "walk": 0.06787509577006401,
+        "home_run": 0.023403997396775584,
+        "single": 0.138079372417575,
+        "double": 0.039103308365990026,
+        "triple": 0.004543145661117052,
+        "out_on_bip": 0.5071404085627154
+      }
+    },
+    {
+      "player_id": 676356,
+      "player_name": "Jonny DeLuca",
+      "category": "home_runs",
+      "game_date": "2026-09-22",
+      "projected_value": 0.088,
+      "confidence": 0.88,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.087625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.08525
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21985467182576307,
+        "walk": 0.06787509577006401,
+        "home_run": 0.023403997396775584,
+        "single": 0.138079372417575,
+        "double": 0.039103308365990026,
+        "triple": 0.004543145661117052,
+        "out_on_bip": 0.5071404085627154
+      }
+    },
+    {
+      "player_id": 683748,
+      "player_name": "Victor Mesa Jr.",
+      "category": "hits",
+      "game_date": "2026-09-22",
+      "projected_value": 0.792,
+      "confidence": 0.82,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.792375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.572875,
+          "2.0": 0.185625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21841743686472231,
+        "walk": 0.09316203727845351,
+        "home_run": 0.048028913224110986,
+        "single": 0.12521315099659627,
+        "double": 0.04211224523075467,
+        "triple": 0.004290394775060281,
+        "out_on_bip": 0.468775821630302
+      }
+    },
+    {
+      "player_id": 683748,
+      "player_name": "Victor Mesa Jr.",
+      "category": "hrr",
+      "game_date": "2026-09-22",
+      "projected_value": 1.687,
+      "confidence": 0.74,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.687,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.42225,
+          "3.0": 0.275
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21841743686472231,
+        "walk": 0.09316203727845351,
+        "home_run": 0.048028913224110986,
+        "single": 0.12521315099659627,
+        "double": 0.04211224523075467,
+        "triple": 0.004290394775060281,
+        "out_on_bip": 0.468775821630302
+      }
+    },
+    {
+      "player_id": 683748,
+      "player_name": "Victor Mesa Jr.",
+      "category": "home_runs",
+      "game_date": "2026-09-22",
+      "projected_value": 0.174,
+      "confidence": 0.86,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.174125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.16225
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21841743686472231,
+        "walk": 0.09316203727845351,
+        "home_run": 0.048028913224110986,
+        "single": 0.12521315099659627,
+        "double": 0.04211224523075467,
+        "triple": 0.004290394775060281,
+        "out_on_bip": 0.468775821630302
+      }
+    },
+    {
+      "player_id": 622761,
+      "player_name": "Jorge Mateo",
+      "category": "hits",
+      "game_date": "2026-09-22",
+      "projected_value": 0.627,
+      "confidence": 0.803,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.626625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.487875,
+          "2.0": 0.12075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3048323469515426,
+        "walk": 0.0737852391583542,
+        "home_run": 0.019732483052857748,
+        "single": 0.1238970938695142,
+        "double": 0.03519588828967336,
+        "triple": 0.004079307234850963,
+        "out_on_bip": 0.4384776414432069
+      }
+    },
+    {
+      "player_id": 622761,
+      "player_name": "Jorge Mateo",
+      "category": "hrr",
+      "game_date": "2026-09-22",
+      "projected_value": 1.207,
+      "confidence": 0.763,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.20675,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.3245,
+          "3.0": 0.173375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3048323469515426,
+        "walk": 0.0737852391583542,
+        "home_run": 0.019732483052857748,
+        "single": 0.1238970938695142,
+        "double": 0.03519588828967336,
+        "triple": 0.004079307234850963,
+        "out_on_bip": 0.4384776414432069
+      }
+    },
+    {
+      "player_id": 622761,
+      "player_name": "Jorge Mateo",
+      "category": "home_runs",
+      "game_date": "2026-09-22",
+      "projected_value": 0.07,
+      "confidence": 0.88,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.0705,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.06975
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3048323469515426,
+        "walk": 0.0737852391583542,
+        "home_run": 0.019732483052857748,
+        "single": 0.1238970938695142,
+        "double": 0.03519588828967336,
+        "triple": 0.004079307234850963,
+        "out_on_bip": 0.4384776414432069
+      }
+    },
+    {
+      "player_id": 680700,
+      "player_name": "Richie Palacios",
+      "category": "hits",
+      "game_date": "2026-09-22",
+      "projected_value": 0.714,
+      "confidence": 0.82,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.713625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.53825,
+          "2.0": 0.15275
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19541898700127164,
+        "walk": 0.10814670506719423,
+        "home_run": 0.02914266860435724,
+        "single": 0.14100490274368957,
+        "double": 0.04195900437555954,
+        "triple": 0.004691382233826901,
+        "out_on_bip": 0.47963634997410076
+      }
+    },
+    {
+      "player_id": 680700,
+      "player_name": "Richie Palacios",
+      "category": "hrr",
+      "game_date": "2026-09-22",
+      "projected_value": 1.414,
+      "confidence": 0.74,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.41425,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.37725,
+          "3.0": 0.21025
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19541898700127164,
+        "walk": 0.10814670506719423,
+        "home_run": 0.02914266860435724,
+        "single": 0.14100490274368957,
+        "double": 0.04195900437555954,
+        "triple": 0.004691382233826901,
+        "out_on_bip": 0.47963634997410076
+      }
+    },
+    {
+      "player_id": 680700,
+      "player_name": "Richie Palacios",
+      "category": "home_runs",
+      "game_date": "2026-09-22",
+      "projected_value": 0.101,
+      "confidence": 0.88,
+      "team": "Tampa Bay Rays",
+      "opponent": "New York Yankees",
+      "opposing_pitcher": "Carlos Rod\u00f3n",
+      "opposing_pitcher_id": 607074,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.100625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.097
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19541898700127164,
+        "walk": 0.10814670506719423,
+        "home_run": 0.02914266860435724,
+        "single": 0.14100490274368957,
+        "double": 0.04195900437555954,
+        "triple": 0.004691382233826901,
+        "out_on_bip": 0.47963634997410076
+      }
+    },
+    {
+      "player_id": 700250,
+      "player_name": "Ben Rice",
+      "category": "hits",
+      "game_date": "2026-09-22",
+      "projected_value": 1.049,
+      "confidence": 0.82,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.048625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.679625,
+          "2.0": 0.28475
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20222522982683952,
+        "walk": 0.0915330981309314,
+        "home_run": 0.05940649149626286,
+        "single": 0.1300363509495479,
+        "double": 0.04555889986140035,
+        "triple": 0.004502442328485854,
+        "out_on_bip": 0.4667374874065321
+      }
+    },
+    {
+      "player_id": 700250,
+      "player_name": "Ben Rice",
+      "category": "hrr",
+      "game_date": "2026-09-22",
+      "projected_value": 2.274,
+      "confidence": 0.7,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.274,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.52925,
+          "3.0": 0.386125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20222522982683952,
+        "walk": 0.0915330981309314,
+        "home_run": 0.05940649149626286,
+        "single": 0.1300363509495479,
+        "double": 0.04555889986140035,
+        "triple": 0.004502442328485854,
+        "out_on_bip": 0.4667374874065321
+      }
+    },
+    {
+      "player_id": 700250,
+      "player_name": "Ben Rice",
+      "category": "home_runs",
+      "game_date": "2026-09-22",
+      "projected_value": 0.259,
+      "confidence": 0.86,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.258875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.2335
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20222522982683952,
+        "walk": 0.0915330981309314,
+        "home_run": 0.05940649149626286,
+        "single": 0.1300363509495479,
+        "double": 0.04555889986140035,
+        "triple": 0.004502442328485854,
+        "out_on_bip": 0.4667374874065321
+      }
+    },
+    {
+      "player_id": 641355,
+      "player_name": "Cody Bellinger",
+      "category": "hits",
+      "game_date": "2026-09-22",
+      "projected_value": 1.024,
+      "confidence": 0.82,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.02375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.67675,
+          "2.0": 0.27525
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15180804509298312,
+        "walk": 0.0806876285647694,
+        "home_run": 0.03430914395727384,
+        "single": 0.15334128099933134,
+        "double": 0.04732681213678998,
+        "triple": 0.005145335721439008,
+        "out_on_bip": 0.5273817535274135
+      }
+    },
+    {
+      "player_id": 641355,
+      "player_name": "Cody Bellinger",
+      "category": "hrr",
+      "game_date": "2026-09-22",
+      "projected_value": 1.96,
+      "confidence": 0.7,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.96025,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.50125,
+          "3.0": 0.321625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15180804509298312,
+        "walk": 0.0806876285647694,
+        "home_run": 0.03430914395727384,
+        "single": 0.15334128099933134,
+        "double": 0.04732681213678998,
+        "triple": 0.005145335721439008,
+        "out_on_bip": 0.5273817535274135
+      }
+    },
+    {
+      "player_id": 641355,
+      "player_name": "Cody Bellinger",
+      "category": "home_runs",
+      "game_date": "2026-09-22",
+      "projected_value": 0.14,
+      "confidence": 0.86,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.14,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.132375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15180804509298312,
+        "walk": 0.0806876285647694,
+        "home_run": 0.03430914395727384,
+        "single": 0.15334128099933134,
+        "double": 0.04732681213678998,
+        "triple": 0.005145335721439008,
+        "out_on_bip": 0.5273817535274135
+      }
+    },
+    {
+      "player_id": 671218,
+      "player_name": "Heliot Ramos",
+      "category": "hits",
+      "game_date": "2026-09-22",
+      "projected_value": 0.988,
+      "confidence": 0.82,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.987875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.666,
+          "2.0": 0.2605
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22530705912404006,
+        "walk": 0.06330897300334495,
+        "home_run": 0.045380399708105854,
+        "single": 0.13715844746656441,
+        "double": 0.04748899265132172,
+        "triple": 0.004734549746612466,
+        "out_on_bip": 0.4766215783000107
+      }
+    },
+    {
+      "player_id": 671218,
+      "player_name": "Heliot Ramos",
+      "category": "hrr",
+      "game_date": "2026-09-22",
+      "projected_value": 1.968,
+      "confidence": 0.7,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.968125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.48925,
+          "3.0": 0.329375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22530705912404006,
+        "walk": 0.06330897300334495,
+        "home_run": 0.045380399708105854,
+        "single": 0.13715844746656441,
+        "double": 0.04748899265132172,
+        "triple": 0.004734549746612466,
+        "out_on_bip": 0.4766215783000107
+      }
+    },
+    {
+      "player_id": 671218,
+      "player_name": "Heliot Ramos",
+      "category": "home_runs",
+      "game_date": "2026-09-22",
+      "projected_value": 0.191,
+      "confidence": 0.86,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1905,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.17425
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22530705912404006,
+        "walk": 0.06330897300334495,
+        "home_run": 0.045380399708105854,
+        "single": 0.13715844746656441,
+        "double": 0.04748899265132172,
+        "triple": 0.004734549746612466,
+        "out_on_bip": 0.4766215783000107
+      }
+    },
+    {
+      "player_id": 671277,
+      "player_name": "Luis Garc\u00eda Jr.",
+      "category": "hits",
+      "game_date": "2026-09-22",
+      "projected_value": 1.046,
+      "confidence": 0.82,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.0465,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6845,
+          "2.0": 0.284625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16196362274436518,
+        "walk": 0.054012432183883956,
+        "home_run": 0.04982555615235087,
+        "single": 0.14967692503967014,
+        "double": 0.05021864056491715,
+        "triple": 0.005125527323194546,
+        "out_on_bip": 0.5291772959916182
+      }
+    },
+    {
+      "player_id": 671277,
+      "player_name": "Luis Garc\u00eda Jr.",
+      "category": "hrr",
+      "game_date": "2026-09-22",
+      "projected_value": 2.13,
+      "confidence": 0.7,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.1295,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.52475,
+          "3.0": 0.36175
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16196362274436518,
+        "walk": 0.054012432183883956,
+        "home_run": 0.04982555615235087,
+        "single": 0.14967692503967014,
+        "double": 0.05021864056491715,
+        "triple": 0.005125527323194546,
+        "out_on_bip": 0.5291772959916182
+      }
+    },
+    {
+      "player_id": 671277,
+      "player_name": "Luis Garc\u00eda Jr.",
+      "category": "home_runs",
+      "game_date": "2026-09-22",
+      "projected_value": 0.205,
+      "confidence": 0.86,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.205125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.19075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16196362274436518,
+        "walk": 0.054012432183883956,
+        "home_run": 0.04982555615235087,
+        "single": 0.14967692503967014,
+        "double": 0.05021864056491715,
+        "triple": 0.005125527323194546,
+        "out_on_bip": 0.5291772959916182
+      }
+    },
+    {
+      "player_id": 806146,
+      "player_name": "George Lombard Jr.",
+      "category": "hits",
+      "game_date": "2026-09-22",
+      "projected_value": 0.951,
+      "confidence": 0.82,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.95125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.650625,
+          "2.0": 0.242875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20773456337024576,
+        "walk": 0.06347147479755763,
+        "home_run": 0.029862474662061916,
+        "single": 0.152328809097097,
+        "double": 0.04815940544034823,
+        "triple": 0.005140723449678084,
+        "out_on_bip": 0.4933025491830113
+      }
+    },
+    {
+      "player_id": 806146,
+      "player_name": "George Lombard Jr.",
+      "category": "hrr",
+      "game_date": "2026-09-22",
+      "projected_value": 1.709,
+      "confidence": 0.74,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.70875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.445875,
+          "3.0": 0.27475
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20773456337024576,
+        "walk": 0.06347147479755763,
+        "home_run": 0.029862474662061916,
+        "single": 0.152328809097097,
+        "double": 0.04815940544034823,
+        "triple": 0.005140723449678084,
+        "out_on_bip": 0.4933025491830113
+      }
+    },
+    {
+      "player_id": 806146,
+      "player_name": "George Lombard Jr.",
+      "category": "home_runs",
+      "game_date": "2026-09-22",
+      "projected_value": 0.114,
+      "confidence": 0.86,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.114125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.10875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20773456337024576,
+        "walk": 0.06347147479755763,
+        "home_run": 0.029862474662061916,
+        "single": 0.152328809097097,
+        "double": 0.04815940544034823,
+        "triple": 0.005140723449678084,
+        "out_on_bip": 0.4933025491830113
+      }
+    },
+    {
+      "player_id": 682987,
+      "player_name": "Spencer Jones",
+      "category": "hits",
+      "game_date": "2026-09-22",
+      "projected_value": 0.909,
+      "confidence": 0.82,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.909125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.62975,
+          "2.0": 0.230625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.30282948770743023,
+        "walk": 0.07245497456417556,
+        "home_run": 0.05796379117025972,
+        "single": 0.12625012004167244,
+        "double": 0.049575443816273455,
+        "triple": 0.004508347791229383,
+        "out_on_bip": 0.38641783490895915
+      }
+    },
+    {
+      "player_id": 682987,
+      "player_name": "Spencer Jones",
+      "category": "hrr",
+      "game_date": "2026-09-22",
+      "projected_value": 1.898,
+      "confidence": 0.7,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.898375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.461375,
+          "3.0": 0.316
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.30282948770743023,
+        "walk": 0.07245497456417556,
+        "home_run": 0.05796379117025972,
+        "single": 0.12625012004167244,
+        "double": 0.049575443816273455,
+        "triple": 0.004508347791229383,
+        "out_on_bip": 0.38641783490895915
+      }
+    },
+    {
+      "player_id": 682987,
+      "player_name": "Spencer Jones",
+      "category": "home_runs",
+      "game_date": "2026-09-22",
+      "projected_value": 0.217,
+      "confidence": 0.86,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.21675,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.196625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.30282948770743023,
+        "walk": 0.07245497456417556,
+        "home_run": 0.05796379117025972,
+        "single": 0.12625012004167244,
+        "double": 0.049575443816273455,
+        "triple": 0.004508347791229383,
+        "out_on_bip": 0.38641783490895915
+      }
+    },
+    {
+      "player_id": 683011,
+      "player_name": "Anthony Volpe",
+      "category": "hits",
+      "game_date": "2026-09-22",
+      "projected_value": 0.835,
+      "confidence": 0.693,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.83475,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.596125,
+          "2.0": 0.19925
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18447004637647094,
+        "walk": 0.07951079579754125,
+        "home_run": 0.033376769821081044,
+        "single": 0.14613524879985937,
+        "double": 0.0461932772944394,
+        "triple": 0.004931500669084584,
+        "out_on_bip": 0.5053823612415234
+      }
+    },
+    {
+      "player_id": 683011,
+      "player_name": "Anthony Volpe",
+      "category": "hrr",
+      "game_date": "2026-09-22",
+      "projected_value": 1.592,
+      "confidence": 0.613,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.59225,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.42125,
+          "3.0": 0.252125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18447004637647094,
+        "walk": 0.07951079579754125,
+        "home_run": 0.033376769821081044,
+        "single": 0.14613524879985937,
+        "double": 0.0461932772944394,
+        "triple": 0.004931500669084584,
+        "out_on_bip": 0.5053823612415234
+      }
+    },
+    {
+      "player_id": 683011,
+      "player_name": "Anthony Volpe",
+      "category": "home_runs",
+      "game_date": "2026-09-22",
+      "projected_value": 0.124,
+      "confidence": 0.733,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.124,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.117
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18447004637647094,
+        "walk": 0.07951079579754125,
+        "home_run": 0.033376769821081044,
+        "single": 0.14613524879985937,
+        "double": 0.0461932772944394,
+        "triple": 0.004931500669084584,
+        "out_on_bip": 0.5053823612415234
+      }
+    },
+    {
+      "player_id": 645305,
+      "player_name": "Ali S\u00e1nchez",
+      "category": "hits",
+      "game_date": "2026-09-22",
+      "projected_value": 0.77,
+      "confidence": 0.64,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.770125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.566875,
+          "2.0": 0.172125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24499880764274548,
+        "walk": 0.04675000000000001,
+        "home_run": 0.0213898477823719,
+        "single": 0.14951737314655356,
+        "double": 0.04480986166742587,
+        "triple": 0.004982749610614857,
+        "out_on_bip": 0.4875513601502884
+      }
+    },
+    {
+      "player_id": 645305,
+      "player_name": "Ali S\u00e1nchez",
+      "category": "hrr",
+      "game_date": "2026-09-22",
+      "projected_value": 1.363,
+      "confidence": 0.56,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.36275,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.372625,
+          "3.0": 0.1995
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24499880764274548,
+        "walk": 0.04675000000000001,
+        "home_run": 0.0213898477823719,
+        "single": 0.14951737314655356,
+        "double": 0.04480986166742587,
+        "triple": 0.004982749610614857,
+        "out_on_bip": 0.4875513601502884
+      }
+    },
+    {
+      "player_id": 645305,
+      "player_name": "Ali S\u00e1nchez",
+      "category": "home_runs",
+      "game_date": "2026-09-22",
+      "projected_value": 0.082,
+      "confidence": 0.72,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.08175,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.07725
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24499880764274548,
+        "walk": 0.04675000000000001,
+        "home_run": 0.0213898477823719,
+        "single": 0.14951737314655356,
+        "double": 0.04480986166742587,
+        "triple": 0.004982749610614857,
+        "out_on_bip": 0.4875513601502884
+      }
+    },
+    {
+      "player_id": 676609,
+      "player_name": "Jos\u00e9 Caballero",
+      "category": "hits",
+      "game_date": "2026-09-22",
+      "projected_value": 0.798,
+      "confidence": 0.82,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.798,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.579125,
+          "2.0": 0.1845
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20144270676609596,
+        "walk": 0.06052057580047067,
+        "home_run": 0.028222727666588256,
+        "single": 0.15523526562694948,
+        "double": 0.04756827132320774,
+        "triple": 0.005200090691029673,
+        "out_on_bip": 0.5018103621256581
+      }
+    },
+    {
+      "player_id": 676609,
+      "player_name": "Jos\u00e9 Caballero",
+      "category": "hrr",
+      "game_date": "2026-09-22",
+      "projected_value": 1.458,
+      "confidence": 0.74,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.45775,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.38925,
+          "3.0": 0.22225
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20144270676609596,
+        "walk": 0.06052057580047067,
+        "home_run": 0.028222727666588256,
+        "single": 0.15523526562694948,
+        "double": 0.04756827132320774,
+        "triple": 0.005200090691029673,
+        "out_on_bip": 0.5018103621256581
+      }
+    },
+    {
+      "player_id": 676609,
+      "player_name": "Jos\u00e9 Caballero",
+      "category": "home_runs",
+      "game_date": "2026-09-22",
+      "projected_value": 0.096,
+      "confidence": 0.88,
+      "team": "New York Yankees",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Nick Martinez",
+      "opposing_pitcher_id": 607259,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.09575,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.092875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20144270676609596,
+        "walk": 0.06052057580047067,
+        "home_run": 0.028222727666588256,
+        "single": 0.15523526562694948,
+        "double": 0.04756827132320774,
+        "triple": 0.005200090691029673,
+        "out_on_bip": 0.5018103621256581
+      }
+    }
+  ],
+  "pitcher_projections": [
+    {
+      "player_id": 607259,
+      "player_name": "Nick Martinez",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 4.38,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.384839008837073,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4459073020082248,
+          "6.0": 0.27753306843733594,
+          "7.0": 0.15448408386322288
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 607074,
+      "player_name": "Carlos Rod\u00f3n",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 5.34,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823543,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.339093101007983,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6168664059003975,
+          "6.0": 0.4433192296625392,
+          "7.0": 0.2888884744373783
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 656876,
+      "player_name": "Drew Rasmussen",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 5.58,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823494,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.57643661894467,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6542674762666617,
+          "6.0": 0.4841351055234504,
+          "7.0": 0.32601304181006474
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 608331,
+      "player_name": "Max Fried",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 5.33,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823494,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.325226457842403,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6146088169245908,
+          "6.0": 0.4409116664430279,
+          "7.0": 0.28674888954365263
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 453286,
+      "player_name": "Max Scherzer",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 3.73,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824785,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.7288901129404093,
+        "median": 4.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.31836464828774846,
+          "6.0": 0.17406001328256715,
+          "7.0": 0.08437732549551802
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 605135,
+      "player_name": "Chris Bassitt",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 4.72,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824785,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.7195841827337635,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5090075047053361,
+          "6.0": 0.3349679067711785,
+          "7.0": 0.1980688178412795
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 683000,
+      "player_name": "Riley Cornelio",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 2.68,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824222,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.6765561304598333,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.13362311301995633,
+          "6.0": 0.054866510410906066,
+          "7.0": 0.019733765822999016
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 623454,
+      "player_name": "Drew Anderson",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 3.62,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824222,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.6189100614066843,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.29718131160097083,
+          "6.0": 0.15849454157203802,
+          "7.0": 0.07484538366508808
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669467,
+      "player_name": "Andre Pallante",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 4.47,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823328,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.465894045264044,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4614108215914121,
+          "6.0": 0.2912546566187051,
+          "7.0": 0.16460475596594226
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 683003,
+      "player_name": "Jared Jones",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 5.41,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823328,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.411302161796608,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6284951454510335,
+          "6.0": 0.4558203257901752,
+          "7.0": 0.3000877216370682
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669160,
+      "player_name": "Dustin May",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 5.04,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823412,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.044627152775512,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5673020707623305,
+          "6.0": 0.3918694367794615,
+          "7.0": 0.24437073196730985
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 554430,
+      "player_name": "Zack Wheeler",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 6.44,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823412,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.437079498235312,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.7692068975506523,
+          "6.0": 0.6217466319199901,
+          "7.0": 0.46354438980407886
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 800048,
+      "player_name": "Parker Messick",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 6.0,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824709,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.998433373422538,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.714733747862438,
+          "6.0": 0.5540686893134089,
+          "7.0": 0.39344558112284533
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 801139,
+      "player_name": "Payton Tolle",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 6.26,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824709,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.2586047685571735,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.7480691472878286,
+          "6.0": 0.5949149610889158,
+          "7.0": 0.4351597077440812
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 682227,
+      "player_name": "Brandon Williamson",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 2.83,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824867,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.8330968961447347,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.1575146556447351,
+          "6.0": 0.06803433189954655,
+          "7.0": 0.025783260654793305
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 702275,
+      "player_name": "JR Ritchie",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 3.29,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824867,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.2884761465285566,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.23531195889161083,
+          "6.0": 0.11574114385273093,
+          "7.0": 0.05020684834000855
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 641743,
+      "player_name": "Anthony Kay",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 4.43,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824061,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.433810609782159,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4552886973904411,
+          "6.0": 0.28580615751122906,
+          "7.0": 0.16056391026301597
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 663738,
+      "player_name": "Daniel Lynch IV",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 2.06,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824061,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.057205918656263,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "5.0": 0.05796192580091286,
+          "6.0": 0.018717823333188832,
+          "7.0": 0.005262290021696425
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 676083,
+      "player_name": "Janson Junk",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 3.97,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824624,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.97488671993638,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.3662568926165548,
+          "6.0": 0.210956996051898,
+          "7.0": 0.10807374664150671
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 684007,
+      "player_name": "Shota Imanaga",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 5.44,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824624,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.437945521942494,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6327312942441458,
+          "6.0": 0.4604162153762361,
+          "7.0": 0.30424288012741685
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 640455,
+      "player_name": "Sean Manaea",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 3.35,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822840,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.3482890171216826,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.24625437425096752,
+          "6.0": 0.12300350198439969,
+          "7.0": 0.05422357832426361
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669022,
+      "player_name": "MacKenzie Gore",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 5.27,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822840,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.267344838796866,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6051014033924993,
+          "6.0": 0.43084100080329324,
+          "7.0": 0.2778593954391402
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 647336,
+      "player_name": "Michael Soroka",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 5.32,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824302,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.316979335266491,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.613262423094639,
+          "6.0": 0.4394788068002672,
+          "7.0": 0.2854781573594246
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 607536,
+      "player_name": "Kyle Freeland",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 4.6,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824302,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.600600826660054,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4868786664404924,
+          "6.0": 0.3143441594785298,
+          "7.0": 0.182050426919098
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 579328,
+      "player_name": "Yusei Kikuchi",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 4.78,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824953,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.776789311509583,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5195081152786054,
+          "6.0": 0.3449395885252837,
+          "7.0": 0.20596007640507674
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669620,
+      "player_name": "Brady Basso",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 2.81,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824953,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.8131838624750154,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.1543829607897479,
+          "6.0": 0.06626608043167848,
+          "7.0": 0.0249512494591847
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 664299,
+      "player_name": "Cristian Javier",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 3.31,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823089,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.308328893140979,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.23892891850236198,
+          "6.0": 0.11812718664540478,
+          "7.0": 0.05151854333809802
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669302,
+      "player_name": "Logan Gilbert",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 6.19,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823089,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.185598288593804,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.7390185650911482,
+          "6.0": 0.5836525199403083,
+          "7.0": 0.4234805294418711
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 671737,
+      "player_name": "Taj Bradley",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 6.23,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823166,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.231739142499457,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.744766060713704,
+          "6.0": 0.5907893066455459,
+          "7.0": 0.4308654790852873
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 683627,
+      "player_name": "Anthony Molina",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 1.91,
+      "confidence": 0.5,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823166,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 1.908353401540852,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "5.0": 0.044762969068804837,
+          "6.0": 0.013478742760758111,
+          "7.0": 0.003528516145835603
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 650633,
+      "player_name": "Michael King",
+      "category": "strikeouts",
+      "game_date": "2026-09-22",
+      "projected_value": 5.18,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823897,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.179479611927352,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5904151481125313,
+          "6.0": 0.41549897028917926,
+          "7.0": 0.2645031741504609
+        }
+      },
+      "outcome_probs": null
+    }
+  ],
+  "value_plays": [],
+  "market_status": "RESEARCH_ONLY",
+  "market_policy_sha256": "08bc0c9d56eb21c7fb438eccd8d89539e98da111f72cdf6735af9cbeb02f154c",
+  "market_policy_reason": "policy verdict is 'RESEARCH_ONLY', not BETTING_AUTHORIZED",
+  "prediction_provenance": {
+    "schema_version": "daily-prediction-provenance-v1",
+    "captured_at_utc": "2026-09-22T16:45:46.189499+00:00",
+    "model_version": "8c7eed9bb0c3",
+    "effective_config_sha256": "3a62fc507956752086919b757ae683e60f9df8fb2143f83292ac61f07830a60c",
+    "config_source_path": "/home/runner/work/baseball-predictor/baseball-predictor/config/config.kbb.json",
+    "code": {
+      "status": "available",
+      "head": "37901435a16ad9d0153cc7bd81c70dc920358c32",
+      "tracked_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked": [],
+      "snapshot_sha256": "dc2f82bb7b8c5480303d98d6ea883bab9c25abd30bd83dc54334b99bbb6b207d"
+    },
+    "run_options": {
+      "game_date": "2026-09-22",
+      "hitter_categories": [
+        "hits",
+        "hrr",
+        "home_runs"
+      ],
+      "include_pitchers": true,
+      "corrections_active": false,
+      "edges_requested": false,
+      "use_projected_lineups": false
+    }
+  }
+}
