@@ -1,0 +1,122 @@
+{
+  "schema_version": "batter-walk-forward-control-contract-v1",
+  "status": "IMPLEMENTED_NOT_ACTIVATED",
+  "purpose": "Publish a separate prospective batter-walk CONTROL distribution from the already locked batter-only shared-PA snapshot and PA-volume distribution. This is not a challenger, improvement claim, promotion, production change, or betting authorization.",
+  "market": {
+    "market_id": "batter_walks",
+    "official_count_field": "baseOnBalls",
+    "binary_lines": [0.5, 1.5],
+    "full_count_distribution_required": true,
+    "prediction_method": "exact_iid_walk_pa_mixture_v1"
+  },
+  "decision_horizon": "T-4h",
+  "source_shared_pa": {
+    "contract": {
+      "path": "config/shared_pa_forward_evidence_contract_v1.json",
+      "sha256": "b93827a465e5145d1e725f84cbed53d413f0c2e8601e41021221e3d13d079401"
+    },
+    "player_snapshot_schema_version": "shared-pa-forward-player-snapshot-v1",
+    "required_terminal_state": "captured_complete",
+    "control": {
+      "path": "config/shared_pa_forward_eb_control_v1.json",
+      "candidate_id": "empirical_bayes_player_rate_pa_200_2023_control_v1",
+      "sha256": "033934ec8dc06bc49d02fd46e223f840ef5cef01bb545c09054fe9b740628c6c"
+    },
+    "pa_volume": {
+      "path": "data/analysis/system_integrity_v2/pa_volume_chronology_v1/pa_distribution_fit_2023.json",
+      "candidate_id": "pa_volume_2023_only_v1",
+      "sha256": "7ffd6a8fecb1c4f8aed1966c234a61499050346f87f884f731c440daca793c90"
+    },
+    "walk_probability_path": "per_pa_probability.walk",
+    "source_snapshot_sha256_required": true
+  },
+  "lineup_rule": {
+    "confirmed": "consume the exact confirmed-slot PA distribution already bound in the source snapshot",
+    "projected": "consume the pooled projected-lineup PA distribution already bound in the source snapshot",
+    "unknown_or_excluded": "mirror the source side terminal state and publish no player probability"
+  },
+  "publication": {
+    "separate_output_namespace": true,
+    "append_only": true,
+    "atomic": true,
+    "immutable": true,
+    "terminal_record_published_after_content_addressed_dependencies": true,
+    "retained_source_snapshot_and_source_terminal_required": true,
+    "orphaned_or_missing_artifact_is_health_failure": true,
+    "one_terminal_state_per_planned_game_side": true,
+    "complete_side_requires_exactly_nine_unique_player_outputs": true,
+    "late_backfill_forbidden": true,
+    "output_sha256_required": true,
+    "source_snapshot_sha256_required": true,
+    "contract_code_and_test_hashes_required": true,
+    "source_error_requires_typed_failed_attempt_transport_receipt": true,
+    "source_error_without_receipt_rejected": true
+  },
+  "source_terminal_states": [
+    "captured_complete",
+    "lineup_unavailable",
+    "lineup_malformed",
+    "source_error",
+    "missed_before_horizon",
+    "game_identity_ambiguous",
+    "raw_schema_changed"
+  ],
+  "settlement": {
+    "path": "config/batter_walk_official_settlement_contract_v1.json",
+    "sha256": "c4ec54bb4500ccbdfd09f65aa3ce5bfeada02d97f146888b5225b62eaf42d1f2"
+  },
+  "implementation": {
+    "adapter": {
+      "path": "src/evaluation/batter_walk_forward_control.py",
+      "sha256": "c26d666a9ea28e672cd1b09b8b3aba7e4e38cf4b5a9d79dd1f9399ecf5b8f0c5"
+    },
+    "ledger": {
+      "path": "src/evaluation/batter_walk_forward_ledger.py",
+      "sha256": "88fbbead580abda52030440983b1033b3847deae418d8b179b2f5f4d4191a0c3"
+    },
+    "settlement_boundary": {
+      "path": "src/evaluation/batter_walk_official_settlement.py",
+      "sha256": "7e5e8284e3c94032e6cd40fa6a2a108ce95d6e259d5e4dde03e579aa19aa523c"
+    },
+    "regression_and_mutation_tests": {
+      "path": "tests/test_batter_walk_forward_control.py",
+      "sha256": "9e8a9b142fd53adf1b090f3a73f9456c7826b796ccf28a3455746c141588d8a8"
+    }
+  },
+  "coverage": {
+    "every_planned_side_requires_explicit_terminal_state": true,
+    "excluded_sides_publish_zero_predictions": true,
+    "predicted_rows_require_one_explicit_settlement_disposition_after_opening": true,
+    "minimum_gradeable_fraction_for_any_future_promotion_protocol": 0.95,
+    "control_collection_itself_is_not_promotion_eligible": true
+  },
+  "evaluation_boundary": {
+    "control_role": "required_time_safe_player_empirical_bayes_walk_baseline",
+    "future_challenger_must_have_distinct_preoutcome_identity_and_outputs": true,
+    "walk_lines_cannot_rescue_each_other": true,
+    "other_markets_cannot_rescue_batter_walks": true,
+    "missing_required_comparator_means_future_gate_unassessable": true,
+    "post_hoc_line_threshold_or_policy_changes_forbidden": true
+  },
+  "release_authority": {
+    "status": "UNCOMMITTED_RESEARCH_CANDIDATE",
+    "source_parent_commit": "9f9d839187550f7a7a6da3b4bfdb25b2dff3e794",
+    "release_commit": null,
+    "exact_release_manifest_required_before_activation": true,
+    "dirty_or_uncommitted_bytes_activation_forbidden": true,
+    "coverage_and_settlement_gradeability_inactive_until_release_bound": true,
+    "activation_eligible": false
+  },
+  "protected_boundaries": {
+    "outcomes_forbidden_during_control_collection": true,
+    "pitcher_features_forbidden": true,
+    "prices_and_economic_fields_forbidden": true,
+    "source_shared_pa_snapshot_mutation_forbidden": true,
+    "new_fit_or_parameter_tuning_forbidden": true,
+    "historical_backfill_forbidden": true,
+    "production_changed": false,
+    "research_only": true,
+    "promotion_eligible": false,
+    "betting_authorized": false
+  }
+}

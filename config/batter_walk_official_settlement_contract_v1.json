@@ -1,0 +1,72 @@
+{
+  "schema_version": "batter-walk-official-settlement-contract-v1",
+  "status": "SEALED_SCHEMA_BOUNDARY_NOT_OPENED",
+  "market_id": "batter_walks",
+  "research_target": {
+    "source": "semantic replay of retained official MLB final live-feed bytes",
+    "count_field": "baseOnBalls",
+    "plate_appearance_field": "plateAppearances",
+    "definition": "official integer baseOnBalls; hit-by-pitch and other non-walk reaches excluded",
+    "final_status_required": true,
+    "raw_payload_and_projection_hashes_required": true,
+    "hard_game_team_side_player_identity_required": true,
+    "official_starter_batting_orders": [
+      "100", "200", "300", "400", "500", "600", "700", "800", "900"
+    ]
+  },
+  "source_protocol": {
+    "source_id": "official_mlb_statsapi_live_feed_v1",
+    "scheme": "https",
+    "host": "statsapi.mlb.com",
+    "path_template": "/api/v1.1/game/{mlb_game_pk}/feed/live",
+    "fields": "gamePk,gameData,datetime,officialDate,status,abstractGameState,liveData,boxscore,teams,away,home,team,id,players,person,battingOrder,stats,batting,plateAppearances,baseOnBalls",
+    "retained_raw_bytes_required": true,
+    "request_url_and_receipt_required": true,
+    "transport_receipt_schema": "batter-walk-official-transport-receipt-v1",
+    "immutable_transport_receipt_required": true
+  },
+  "parser_protocol": {
+    "parser_id": "batter_walk_official_raw_parser_v1",
+    "raw_bytes_replayed_for_every_disposition": true,
+    "transport_receipt_replayed_for_every_disposition": true,
+    "label_only_projection_forbidden": true,
+    "duplicate_json_keys_rejected": true
+  },
+  "evidence_authority": {
+    "state": "UNBOUND_NO_TRUSTED_APPEND_ONLY_SETTLEMENT_COLLECTOR",
+    "trusted_collector_ledger_present": false,
+    "exact_collector_release_manifest_required": true,
+    "collector_code_identity_required": true,
+    "monotonic_observation_sequence_required": true,
+    "retained_gate_transport_and_raw_bytes_required": true,
+    "caller_helper_or_self_hash_can_establish_gradeability": false
+  },
+  "opening_boundary": {
+    "opening_gate_schema": "batter-walk-official-opening-gate-v1",
+    "not_before_utc": "2026-09-28T00:00:00Z",
+    "opening_gate_sha256_required": true,
+    "opening_gate_independently_retained_required": true,
+    "opening_gate_must_run_before_raw_parse": true,
+    "outcome_paths_forbidden_during_control_collection": true,
+    "settlement_projection_is_not_a_pregame_input": true
+  },
+  "dispositions": {
+    "untrusted_evidence_not_gradeable": "semantic parser replay only; no independently release-bound append-only settlement collector exists",
+    "retained_coverage_failure_not_scored": "DNP or official nonstarter",
+    "final_status_missing_not_scored": "game is not official final",
+    "support_breach_model_invalid_not_scored": "official walk count exceeds the declared PMF support",
+    "malformed_official_projection_not_scored": "official counts or identity are invalid"
+  },
+  "commercial_boundary": {
+    "product_rules_assumed_identical": false,
+    "commercial_quote_gradeable_only_if_retained_rules_prove_identical_settlement": true,
+    "prices_required": false,
+    "executability_claimed": false
+  },
+  "governance": {
+    "research_only": true,
+    "promotion_eligible": false,
+    "betting_authorized": false,
+    "post_hoc_settlement_change_forbidden": true
+  }
+}
