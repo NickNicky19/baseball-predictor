@@ -1,0 +1,24 @@
+{
+  "schema_version": "omega-production-boundary-v1",
+  "canonical_base_commit": "67efa1427987517d2c283cd502c1898b97c6bb2b",
+  "files": {
+    "config/forward_pitcher_context_runtime_v1.json": "e02dcda63574ad63d870127be1a31b0fb7d482c94c018769b8b68f3d87ac62f7",
+    "config/projected_lineup_roster_runtime_v1.json": "ce84226524c78cde13b799434e6c93f78273d828818481e42ec1e698747a75ae",
+    "config/shared_pa_forward_evidence_contract_v1.json": "b93827a465e5145d1e725f84cbed53d413f0c2e8601e41021221e3d13d079401",
+    "config/shared_pa_forward_runtime_v1.json": "4dbaeb60c8b0dab0a22dbd3d92485bd5be2e6b1d51c2de5f6dd2124c669d615a",
+    "deploy/forward_pitcher_receipts/install_exact_release.sh": "bbd0e4a6de765f5bde1f42513293083b9977efcaf1de870203cd57625a4d0031",
+    "deploy/projected_lineup_roster/install_exact_release.sh": "b33407690c08e19ed342fb24bc28bd0bef66a68d0c2a4ce90ac6b4d92f426700",
+    "deploy/shared_pa_comparators/install_exact_release.sh": "f9600329406c27d644882005b5e192728932dd30574091b74043761dfd529b3c",
+    "deploy/shared_pa_forward/install_exact_release.sh": "b30cb7a8c3f7fb0efab6cf0d96096abb0628f67f9082eb508a3c636ba4258d65",
+    "src/evaluation/forward_pitcher_context.py": "cfe56c92fbfa0702f36cf226fabe9e77f0202d2172f70f7b4a2d51ee941378cb",
+    "src/evaluation/forward_pitcher_context_collector.py": "efc001d135e1ce675865da32f939ce5165d88990111f25c3971e091bb60f4bf7",
+    "src/evaluation/forward_pitcher_context_ledger.py": "ff34f4c9b7dea869b5c66ace5d3769e03212646ddb7cf8c58e80f074dae685dd",
+    "src/evaluation/projected_lineup_official_roster.py": "7262291152725333c3c024369ceef5ba208dcb188cf161e8caeee9d9be640af6",
+    "src/evaluation/projected_lineup_roster_ledger.py": "690ff2eb1157eb92b2166b1d674055a8013010eb6feb905620cc471e9b6ef5d8",
+    "src/evaluation/projected_lineup_roster_runner.py": "089d50ade4392f3b8a20308a93129008648f171884c312f16609b4d1873317da",
+    "src/evaluation/shared_pa_forward_collector.py": "c3b7b7297f57c154885fc1811a22a9a15329e2d95f2afc65f1d996d9152f1c23",
+    "src/evaluation/shared_pa_forward_evidence.py": "9b8f79ce7b12d8ead102a4c2cbfedb227a18c6e1ebb47e70b19f24910fea59f1",
+    "src/evaluation/shared_pa_forward_runner.py": "b835f9ee31a44e7e52d3bcee9a59d73da8eef9ed4763e27b7e9196411279096c",
+    "src/simulation/pa_simulator.py": "2e209c5ffe1c75bbb0c3f1efd4e0f1ec1b6b96a217bf2528fc89bc346e74df71"
+  }
+}

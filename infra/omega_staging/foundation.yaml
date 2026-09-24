@@ -1,0 +1,172 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >-
+  Isolated research-only foundation for the Omega staging dashboard. This stack
+  grants no access to Lightsail, collectors, production probabilities, or source data.
+
+Parameters:
+  RepositoryName:
+    Type: String
+    Default: baseball-predictor-omega-staging
+    AllowedPattern: '^baseball-predictor-omega-staging$'
+
+Resources:
+  DashboardRepository:
+    Type: AWS::ECR::Repository
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      RepositoryName: !Ref RepositoryName
+      ImageTagMutability: IMMUTABLE
+      ImageScanningConfiguration:
+        ScanOnPush: true
+      EncryptionConfiguration:
+        EncryptionType: AES256
+      EmptyOnDelete: false
+      Tags:
+        - Key: Environment
+          Value: omega-staging
+        - Key: ResearchOnly
+          Value: "true"
+        - Key: Production
+          Value: "false"
+
+  DashboardAuthSecret:
+    Type: AWS::SecretsManager::Secret
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      Description: Bearer secret for the private Omega staging dashboard
+      GenerateSecretString:
+        ExcludePunctuation: true
+        PasswordLength: 48
+      Tags:
+        - Key: Environment
+          Value: omega-staging
+        - Key: ResearchOnly
+          Value: "true"
+
+  AppRunnerEcrAccessRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: baseball-predictor-omega-staging-ecr-access
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: build.apprunner.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: pull-exact-staging-repository
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Sid: AuthorizationToken
+                Effect: Allow
+                Action: ecr:GetAuthorizationToken
+                Resource: "*"
+              - Sid: PullStagingImages
+                Effect: Allow
+                Action:
+                  - ecr:BatchCheckLayerAvailability
+                  - ecr:BatchGetImage
+                  - ecr:GetDownloadUrlForLayer
+                Resource: !GetAtt DashboardRepository.Arn
+      Tags:
+        - Key: Environment
+          Value: omega-staging
+        - Key: ResearchOnly
+          Value: "true"
+
+  AppRunnerInstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: baseball-predictor-omega-staging-instance
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: tasks.apprunner.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: read-dashboard-auth-secret-only
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: secretsmanager:GetSecretValue
+                Resource: !Ref DashboardAuthSecret
+      Tags:
+        - Key: Environment
+          Value: omega-staging
+        - Key: ResearchOnly
+          Value: "true"
+
+  ServiceCloudFormationRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: baseball-predictor-omega-staging-cfn
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: cloudformation.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: manage-private-omega-staging-service-only
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Sid: CreateTaggedService
+                Effect: Allow
+                Action: apprunner:CreateService
+                Resource: "*"
+                Condition:
+                  StringEquals:
+                    aws:RequestTag/Environment: omega-staging
+                    aws:RequestTag/ResearchOnly: "true"
+                    aws:RequestTag/Production: "false"
+              - Sid: ManageExactServiceName
+                Effect: Allow
+                Action:
+                  - apprunner:DeleteService
+                  - apprunner:DescribeService
+                  - apprunner:ListOperations
+                  - apprunner:PauseService
+                  - apprunner:ResumeService
+                  - apprunner:TagResource
+                  - apprunner:UntagResource
+                  - apprunner:UpdateService
+                Resource: !Sub arn:${AWS::Partition}:apprunner:${AWS::Region}:${AWS::AccountId}:service/baseball-predictor-omega-staging/*
+              - Sid: PassOnlyStagingRoles
+                Effect: Allow
+                Action: iam:PassRole
+                Resource:
+                  - !GetAtt AppRunnerEcrAccessRole.Arn
+                  - !GetAtt AppRunnerInstanceRole.Arn
+                Condition:
+                  StringEquals:
+                    iam:PassedToService:
+                      - build.apprunner.amazonaws.com
+                      - tasks.apprunner.amazonaws.com
+      Tags:
+        - Key: Environment
+          Value: omega-staging
+        - Key: ResearchOnly
+          Value: "true"
+
+Outputs:
+  RepositoryUri:
+    Value: !GetAtt DashboardRepository.RepositoryUri
+  RepositoryArn:
+    Value: !GetAtt DashboardRepository.Arn
+  AppRunnerEcrAccessRoleArn:
+    Value: !GetAtt AppRunnerEcrAccessRole.Arn
+  AppRunnerInstanceRoleArn:
+    Value: !GetAtt AppRunnerInstanceRole.Arn
+  DashboardAuthSecretArn:
+    Value: !Ref DashboardAuthSecret
+  ServiceCloudFormationRoleArn:
+    Value: !GetAtt ServiceCloudFormationRole.Arn

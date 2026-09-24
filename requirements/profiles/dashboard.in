@@ -1,0 +1,7 @@
+# OPERATIONAL dependency profile for the read-only dashboard only.
+# These values do not affect prediction mathematics.  Compile this file with
+# CPython 3.12 on Linux and --generate-hashes before any image is built.
+fastapi==0.115.12
+jinja2==3.1.6
+pydantic==2.11.5
+uvicorn==0.34.2

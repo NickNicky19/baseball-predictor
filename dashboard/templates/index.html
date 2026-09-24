@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prediction Snapshot Viewer</title>
+    <link rel="stylesheet" href="{{ url_for('dashboard_static', filename='style.css') }}">
+  </head>
+  <body>
+    <a class="skip-link" href="#predictions">Skip to predictions</a>
+    <header class="page-header">
+      <div>
+        <p class="eyebrow">Research-only, read-only</p>
+        <h1>Prediction Snapshot Viewer</h1>
+        <p>This screen displays verified snapshot values. It does not calculate probabilities or provide betting advice.</p>
+      </div>
+      <dl class="build-meta">
+        <div><dt>Dashboard</dt><dd>{{ dashboard_version }}</dd></div>
+        <div><dt>Source commit</dt><dd><code>{{ source_commit }}</code></dd></div>
+      </dl>
+    </header>
+
+    <main>
+      {% if not available %}
+      <section class="empty-state" aria-labelledby="unavailable-title">
+        <p class="status status-unavailable">Snapshot unavailable</p>
+        <h2 id="unavailable-title">No legitimate prediction snapshot is available.</h2>
+        <p>No values were generated or substituted. Configure one exact authorized, content-addressed manifest to display data.</p>
+      </section>
+      {% else %}
+      <section class="summary-grid" aria-label="Snapshot identity and health">
+        <article>
+          <h2>Slate</h2>
+          <dl>
+            <div><dt>Official date</dt><dd>{{ loaded.snapshot.official_slate_date }}</dd></div>
+            <div><dt>Latest refresh</dt><dd>{{ loaded.snapshot.source_health.latest_refresh_utc }}</dd></div>
+            <div><dt>Created</dt><dd>{{ loaded.snapshot.created_utc }}</dd></div>
+            <div><dt>Snapshot hash</dt><dd><code>{{ loaded.snapshot_sha256 }}</code></dd></div>
+          </dl>
+        </article>
+        <article>
+          <h2>Source health</h2>
+          <p class="status status-{{ loaded.snapshot.source_health.status }}">{{ loaded.snapshot.source_health.status }}</p>
+          <p>{{ loaded.snapshot.source_health.message }}</p>
+          <dl>
+            <div><dt>Producer</dt><dd>{{ loaded.snapshot.producer.producer_id }} / {{ loaded.snapshot.producer.producer_version }}</dd></div>
+            <div><dt>Snapshot source</dt><dd><code>{{ loaded.snapshot.source_commit }}</code></dd></div>
+          </dl>
+        </article>
+        <article>
+          <h2>Model state</h2>
+          <dl>
+            <div><dt>Model</dt><dd>{{ loaded.snapshot.model_banner.model_id }} / {{ loaded.snapshot.model_banner.model_version }}</dd></div>
+            <div><dt>Qualification</dt><dd>{{ loaded.snapshot.model_banner.qualification_state }}</dd></div>
+            <div><dt>Current live</dt><dd>{{ loaded.snapshot.model_banner.current_live_model_id or "Unavailable" }}</dd></div>
+            <div><dt>Frozen comparator</dt><dd>{{ loaded.snapshot.model_banner.frozen_comparator_model_id or "Unavailable" }}</dd></div>
+            <div><dt>Research candidate</dt><dd>{{ loaded.snapshot.model_banner.research_candidate_model_id or "Unavailable" }} ({{ loaded.snapshot.model_banner.research_candidate_state }})</dd></div>
+            <div><dt>Betting authorization</dt><dd>No</dd></div>
+          </dl>
+        </article>
+        <article>
+          <h2>Bindings</h2>
+          <dl>
+            <div><dt>Config SHA-256</dt><dd><code>{{ loaded.snapshot.config_sha256 }}</code></dd></div>
+            {% for name, digest in loaded.snapshot.artifact_sha256s.items() %}
+            <div><dt>{{ name }}</dt><dd><code>{{ digest }}</code></dd></div>
+            {% endfor %}
+          </dl>
+        </article>
+      </section>
+
+      <nav class="market-tabs" aria-label="Market tabs">
+        <a class="{% if not filters.market %}selected{% endif %}" href="/?show_abstentions=true">All supported</a>
+        {% for market in loaded.snapshot.supported_markets %}
+        <a class="{% if filters.market == market %}selected{% endif %}" href="/?market={{ market }}&show_abstentions=true">{{ market_labels[market] }}</a>
+        {% endfor %}
+      </nav>
+
+      <section class="controls" aria-labelledby="filters-title">
+        <h2 id="filters-title">Inspect the snapshot</h2>
+        <form method="get" action="/">
+          <label>Game date<input type="date" name="game_date" value="{{ filters.game_date or loaded.snapshot.official_slate_date }}"></label>
+          <label>Player search<input type="search" name="search" value="{{ filters.search or '' }}"></label>
+          <label>Team<select name="team"><option value="">All</option>{% for value in teams %}<option value="{{ value }}" {% if filters.team == value %}selected{% endif %}>{{ value }}</option>{% endfor %}</select></label>
+          <label>Opponent<select name="opponent"><option value="">All</option>{% for value in opponents %}<option value="{{ value }}" {% if filters.opponent == value %}selected{% endif %}>{{ value }}</option>{% endfor %}</select></label>
+          <label>Market<select name="market"><option value="">All supported</option>{% for value in loaded.snapshot.supported_markets %}<option value="{{ value }}" {% if filters.market == value %}selected{% endif %}>{{ market_labels[value] }}</option>{% endfor %}</select></label>
+          <label>Lineup status<select name="lineup_status"><option value="">All</option>{% for value in ['projected','confirmed','unknown','not_applicable'] %}<option value="{{ value }}" {% if filters.lineup_status == value %}selected{% endif %}>{{ value }}</option>{% endfor %}</select></label>
+          <label>Data health<select name="data_health_tier"><option value="">All</option>{% for value in ['healthy','degraded','unknown','quarantined'] %}<option value="{{ value }}" {% if filters.data_health_tier == value %}selected{% endif %}>{{ value }}</option>{% endfor %}</select></label>
+          <label>Maximum source age (seconds)<input type="number" min="0" name="max_source_age_seconds" value="{{ filters.max_source_age_seconds if filters.max_source_age_seconds is not none else '' }}"></label>
+          <label>Sort<select name="sort_by">{% for value in ['player','projection','uncertainty','data_quality'] %}<option value="{{ value }}" {% if filters.sort_by == value %}selected{% endif %}>{{ value }}</option>{% endfor %}</select></label>
+          <label>Direction<select name="sort_direction"><option value="asc" {% if filters.sort_direction == 'asc' %}selected{% endif %}>Ascending</option><option value="desc" {% if filters.sort_direction == 'desc' %}selected{% endif %}>Descending</option></select></label>
+          <label class="checkbox"><input type="checkbox" name="show_abstentions" value="true" {% if filters.show_abstentions %}checked{% endif %}>Show abstentions</label>
+          <button type="submit">Apply display filters</button>
+        </form>
+        <p class="note">Sorting changes presentation only. It does not select or recommend any action.</p>
+        <div class="exports">
+          <a href="/exports/predictions.csv">Export CSV</a>
+          <a href="/exports/predictions.json">Export exact snapshot JSON</a>
+          <a href="/exports/manifest.json">Export exact manifest</a>
+        </div>
+      </section>
+
+      <section id="predictions" class="table-section" aria-labelledby="predictions-title">
+        <div class="section-heading">
+          <h2 id="predictions-title">Snapshot rows</h2>
+          <p>{{ rows|length }} displayed of {{ loaded.snapshot.rows|length }}</p>
+        </div>
+        {% if rows %}
+        <div class="table-wrap" tabindex="0" aria-label="Scrollable prediction snapshot table">
+          <table>
+            <thead>
+              <tr>
+                <th>Player / ID</th><th>Game</th><th>Lineup</th><th>PA</th><th>Starter</th>
+                <th>Market / product</th><th>Prediction</th><th>Distribution</th><th>Uncertainty</th>
+                <th>Health / freshness</th><th>Flags / abstention</th><th>Neutral comparison</th><th>Identity</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in rows %}
+              <tr>
+                <td><strong>{{ row.player_name }}</strong><br><small>MLB {{ row.mlb_player_id or "Unavailable" }}</small></td>
+                <td>{{ row.team }} {{ row.home_away }} vs {{ row.opponent }}<br><small>{{ row.game_time_utc }} · gamePk {{ row.game_pk }}</small></td>
+                <td>{{ row.lineup_status }}{% if row.batting_slot %}, slot {{ row.batting_slot }}{% endif %}</td>
+                <td>{{ row.projected_pa if row.projected_pa is not none else "Unavailable" }}{% if row.pa_distribution %}<details><summary>PA distribution</summary><code>{{ row.pa_distribution|tojson }}</code></details>{% endif %}</td>
+                <td>{% if row.opposing_starter %}{{ row.opposing_starter.name }} (MLB {{ row.opposing_starter.mlb_player_id }})<br><small>{{ row.opposing_starter.status }}</small>{% else %}Unavailable{% endif %}</td>
+                <td>{{ market_labels[row.market] }}<br><small>{{ row.product_id }}{% if row.market_side %} · {{ row.market_side }} {{ row.market_line }}{% endif %}</small></td>
+                <td>{% if row.point_prediction is not none %}{{ row.point_prediction }}<br><small>{{ row.point_prediction_kind }}</small>{% else %}Abstained{% endif %}</td>
+                <td>{% if row.count_distribution %}<code>{{ row.count_distribution|tojson }}</code>{% else %}Unavailable{% endif %}</td>
+                <td>{% if row.uncertainty %}{{ row.uncertainty.lower }}–{{ row.uncertainty.upper }}<br><small>{{ row.uncertainty.method }}</small>{% else %}Unavailable{% endif %}</td>
+                <td><span class="status status-{{ row.data_health_tier }}">{{ row.data_health_tier }}</span><br><small>{{ row.source_freshness_seconds if row.source_freshness_seconds is not none else "Unavailable" }} sec · {{ row.source_observed_utc or "Unavailable" }}</small></td>
+                <td>{% if row.abstention_reason %}<strong>{{ row.abstention_reason }}</strong><br>{% endif %}<small>Exclusions: {{ row.exclusion_flags|join(', ') or 'None' }}<br>Fallbacks: {{ row.fallback_flags|join(', ') or 'None' }}</small></td>
+                <td><small>Current live: {{ row.comparison.current_live_prediction if row.comparison.current_live_prediction is not none else "Unavailable" }}<br>Frozen: {{ row.comparison.frozen_comparator_prediction if row.comparison.frozen_comparator_prediction is not none else "Unavailable" }}<br>Research: {{ row.comparison.research_candidate_prediction if row.comparison.research_candidate_prediction is not none else "Unavailable" }} ({{ row.comparison.research_candidate_state }})</small></td>
+                <td><small>Model: {{ row.model_id }}<br>Row: {{ row.row_id }}<br>Snapshot: <code>{{ loaded.snapshot_sha256 }}</code></small></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <div class="empty-state"><h3>No rows match these display filters.</h3><p>No values were substituted.</p></div>
+        {% endif %}
+      </section>
+      {% endif %}
+    </main>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+# Research-only dependency roots used by existing optional scripts and model
+# development paths.  No package in this profile is installed in the dashboard
+# image and this file does not authorize fitting.
+-r ../../requirements.txt
+catboost>=1.2.8
+duckdb>=1.3.0
+joblib>=1.4.2
+lightgbm>=4.6.0
+matplotlib>=3.9.0
+scikit-learn>=1.6.0
