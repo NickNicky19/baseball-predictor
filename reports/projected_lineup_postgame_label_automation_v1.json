@@ -1,0 +1,21 @@
+{
+  "schema_version": "projected-lineup-postgame-label-automation-v1",
+  "status": "research_only_not_authorized_for_betting",
+  "purpose": "Attach official completed-game original batting orders as immutable labels to already-captured T-minus-4 active-roster receipts, without changing live predictions.",
+  "scope": {
+    "allowed": [
+      "read_existing_t_minus_4_active_roster_receipts",
+      "read_existing_official_pitcher_plan_only_for_game_identity",
+      "fetch_official_completed_game_feed_after_game",
+      "retain_hash-bound_label_ledger"
+    ],
+    "forbidden": [
+      "may_2026_access",
+      "live_prediction_consumption",
+      "historical_backfill_of_missed_t_minus_4_receipts",
+      "market_or_price_claims",
+      "betting_authorization"
+    ]
+  },
+  "next_action": "Allow the AWS label collector to accumulate fresh paired roster-plus-final-lineup evidence, then predeclare and test one lineup-aware challenger only after sufficient untouched prospective coverage exists."
+}
