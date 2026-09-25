@@ -1,0 +1,4606 @@
+{
+  "game_date": "2026-09-25",
+  "hitter_projections": [
+    {
+      "player_id": 691718,
+      "player_name": "Pete Crow-Armstrong",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 1.065,
+      "confidence": 0.82,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.06475,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.690625,
+          "2.0": 0.289125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22655394354560177,
+        "walk": 0.09589861101964856,
+        "home_run": 0.06286576251637506,
+        "single": 0.12984469595207648,
+        "double": 0.05012002979491305,
+        "triple": 0.004614480147358706,
+        "out_on_bip": 0.4301024770240263
+      }
+    },
+    {
+      "player_id": 691718,
+      "player_name": "Pete Crow-Armstrong",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 2.369,
+      "confidence": 0.7,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.369375,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "2.0": 0.55525,
+          "3.0": 0.40475
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22655394354560177,
+        "walk": 0.09589861101964856,
+        "home_run": 0.06286576251637506,
+        "single": 0.12984469595207648,
+        "double": 0.05012002979491305,
+        "triple": 0.004614480147358706,
+        "out_on_bip": 0.4301024770240263
+      }
+    },
+    {
+      "player_id": 691718,
+      "player_name": "Pete Crow-Armstrong",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.281,
+      "confidence": 0.86,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.2805,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.24875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22655394354560177,
+        "walk": 0.09589861101964856,
+        "home_run": 0.06286576251637506,
+        "single": 0.12984469595207648,
+        "double": 0.05012002979491305,
+        "triple": 0.004614480147358706,
+        "out_on_bip": 0.4301024770240263
+      }
+    },
+    {
+      "player_id": 673548,
+      "player_name": "Seiya Suzuki",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 0.945,
+      "confidence": 0.82,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.944875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.640375,
+          "2.0": 0.2445
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21535326804047375,
+        "walk": 0.10318881793944175,
+        "home_run": 0.05458510864272647,
+        "single": 0.12360228708120888,
+        "double": 0.041811795160861254,
+        "triple": 0.004241386724155645,
+        "out_on_bip": 0.45721733641113227
+      }
+    },
+    {
+      "player_id": 673548,
+      "player_name": "Seiya Suzuki",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 2.095,
+      "confidence": 0.7,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.094625,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.505,
+          "3.0": 0.353625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21535326804047375,
+        "walk": 0.10318881793944175,
+        "home_run": 0.05458510864272647,
+        "single": 0.12360228708120888,
+        "double": 0.041811795160861254,
+        "triple": 0.004241386724155645,
+        "out_on_bip": 0.45721733641113227
+      }
+    },
+    {
+      "player_id": 673548,
+      "player_name": "Seiya Suzuki",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.235,
+      "confidence": 0.86,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.2355,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.214625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21535326804047375,
+        "walk": 0.10318881793944175,
+        "home_run": 0.05458510864272647,
+        "single": 0.12360228708120888,
+        "double": 0.041811795160861254,
+        "triple": 0.004241386724155645,
+        "out_on_bip": 0.45721733641113227
+      }
+    },
+    {
+      "player_id": 608324,
+      "player_name": "Alex Bregman",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 1.005,
+      "confidence": 0.82,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.005125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.662625,
+          "2.0": 0.2675
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15306231423864358,
+        "walk": 0.09222066431293771,
+        "home_run": 0.047386428233346316,
+        "single": 0.14340353434673245,
+        "double": 0.04608374345557282,
+        "triple": 0.0048586481487770585,
+        "out_on_bip": 0.5129846672639901
+      }
+    },
+    {
+      "player_id": 608324,
+      "player_name": "Alex Bregman",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 2.054,
+      "confidence": 0.7,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.05375,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.502375,
+          "3.0": 0.343
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15306231423864358,
+        "walk": 0.09222066431293771,
+        "home_run": 0.047386428233346316,
+        "single": 0.14340353434673245,
+        "double": 0.04608374345557282,
+        "triple": 0.0048586481487770585,
+        "out_on_bip": 0.5129846672639901
+      }
+    },
+    {
+      "player_id": 608324,
+      "player_name": "Alex Bregman",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.201,
+      "confidence": 0.86,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.20125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.18375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15306231423864358,
+        "walk": 0.09222066431293771,
+        "home_run": 0.047386428233346316,
+        "single": 0.14340353434673245,
+        "double": 0.04608374345557282,
+        "triple": 0.0048586481487770585,
+        "out_on_bip": 0.5129846672639901
+      }
+    },
+    {
+      "player_id": 621438,
+      "player_name": "Tyrone Taylor",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 0.967,
+      "confidence": 0.77,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.96725,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.653,
+          "2.0": 0.253125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1652220823973547,
+        "walk": 0.06854565872432095,
+        "home_run": 0.031756919391698245,
+        "single": 0.1542489860266276,
+        "double": 0.04492776886808218,
+        "triple": 0.005107096279351533,
+        "out_on_bip": 0.5301914883125649
+      }
+    },
+    {
+      "player_id": 621438,
+      "player_name": "Tyrone Taylor",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 1.796,
+      "confidence": 0.69,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.7965,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.47,
+          "3.0": 0.292
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1652220823973547,
+        "walk": 0.06854565872432095,
+        "home_run": 0.031756919391698245,
+        "single": 0.1542489860266276,
+        "double": 0.04492776886808218,
+        "triple": 0.005107096279351533,
+        "out_on_bip": 0.5301914883125649
+      }
+    },
+    {
+      "player_id": 621438,
+      "player_name": "Tyrone Taylor",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.127,
+      "confidence": 0.81,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1265,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.120375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1652220823973547,
+        "walk": 0.06854565872432095,
+        "home_run": 0.031756919391698245,
+        "single": 0.1542489860266276,
+        "double": 0.04492776886808218,
+        "triple": 0.005107096279351533,
+        "out_on_bip": 0.5301914883125649
+      }
+    },
+    {
+      "player_id": 663538,
+      "player_name": "Nico Hoerner",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 1.027,
+      "confidence": 0.82,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.027375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6835,
+          "2.0": 0.277375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.12375000000000001,
+        "walk": 0.06949685433163535,
+        "home_run": 0.0326941787777144,
+        "single": 0.17330696044025112,
+        "double": 0.0515129425398703,
+        "triple": 0.00576461289692619,
+        "out_on_bip": 0.5434744510136026
+      }
+    },
+    {
+      "player_id": 663538,
+      "player_name": "Nico Hoerner",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 1.924,
+      "confidence": 0.7,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.924,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.501875,
+          "3.0": 0.313375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.12375000000000001,
+        "walk": 0.06949685433163535,
+        "home_run": 0.0326941787777144,
+        "single": 0.17330696044025112,
+        "double": 0.0515129425398703,
+        "triple": 0.00576461289692619,
+        "out_on_bip": 0.5434744510136026
+      }
+    },
+    {
+      "player_id": 663538,
+      "player_name": "Nico Hoerner",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.128,
+      "confidence": 0.86,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.127625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.12025
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.12375000000000001,
+        "walk": 0.06949685433163535,
+        "home_run": 0.0326941787777144,
+        "single": 0.17330696044025112,
+        "double": 0.0515129425398703,
+        "triple": 0.00576461289692619,
+        "out_on_bip": 0.5434744510136026
+      }
+    },
+    {
+      "player_id": 807713,
+      "player_name": "Matt Shaw",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 0.79,
+      "confidence": 0.72,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.789625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.574,
+          "2.0": 0.182125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17449676302190617,
+        "walk": 0.08991894062089482,
+        "home_run": 0.027091908174549467,
+        "single": 0.14037510936947323,
+        "double": 0.04053911380726345,
+        "triple": 0.004638826235300941,
+        "out_on_bip": 0.5229393387706119
+      }
+    },
+    {
+      "player_id": 807713,
+      "player_name": "Matt Shaw",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 1.54,
+      "confidence": 0.64,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.540375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.415125,
+          "3.0": 0.237875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17449676302190617,
+        "walk": 0.08991894062089482,
+        "home_run": 0.027091908174549467,
+        "single": 0.14037510936947323,
+        "double": 0.04053911380726345,
+        "triple": 0.004638826235300941,
+        "out_on_bip": 0.5229393387706119
+      }
+    },
+    {
+      "player_id": 807713,
+      "player_name": "Matt Shaw",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.102,
+      "confidence": 0.8,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.10225,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.09925
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17449676302190617,
+        "walk": 0.08991894062089482,
+        "home_run": 0.027091908174549467,
+        "single": 0.14037510936947323,
+        "double": 0.04053911380726345,
+        "triple": 0.004638826235300941,
+        "out_on_bip": 0.5229393387706119
+      }
+    },
+    {
+      "player_id": 683737,
+      "player_name": "Michael Busch",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 0.809,
+      "confidence": 0.82,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.80875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.582375,
+          "2.0": 0.190375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20819027684044408,
+        "walk": 0.10561426070304306,
+        "home_run": 0.04066186858846076,
+        "single": 0.13367312798165457,
+        "double": 0.04404590961790811,
+        "triple": 0.004556898399988787,
+        "out_on_bip": 0.4632576578685006
+      }
+    },
+    {
+      "player_id": 683737,
+      "player_name": "Michael Busch",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 1.658,
+      "confidence": 0.74,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.658,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.420375,
+          "3.0": 0.264125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20819027684044408,
+        "walk": 0.10561426070304306,
+        "home_run": 0.04066186858846076,
+        "single": 0.13367312798165457,
+        "double": 0.04404590961790811,
+        "triple": 0.004556898399988787,
+        "out_on_bip": 0.4632576578685006
+      }
+    },
+    {
+      "player_id": 683737,
+      "player_name": "Michael Busch",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.151,
+      "confidence": 0.86,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.150625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.14
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20819027684044408,
+        "walk": 0.10561426070304306,
+        "home_run": 0.04066186858846076,
+        "single": 0.13367312798165457,
+        "double": 0.04404590961790811,
+        "triple": 0.004556898399988787,
+        "out_on_bip": 0.4632576578685006
+      }
+    },
+    {
+      "player_id": 621020,
+      "player_name": "Dansby Swanson",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 0.834,
+      "confidence": 0.687,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.834375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.603375,
+          "2.0": 0.196125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20898248795713284,
+        "walk": 0.09016362372631267,
+        "home_run": 0.059137588694471686,
+        "single": 0.12744216183784435,
+        "double": 0.04529653706784088,
+        "triple": 0.004429197407838083,
+        "out_on_bip": 0.4645484033085595
+      }
+    },
+    {
+      "player_id": 621020,
+      "player_name": "Dansby Swanson",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 1.792,
+      "confidence": 0.567,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.792125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.43975,
+          "3.0": 0.295
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20898248795713284,
+        "walk": 0.09016362372631267,
+        "home_run": 0.059137588694471686,
+        "single": 0.12744216183784435,
+        "double": 0.04529653706784088,
+        "triple": 0.004429197407838083,
+        "out_on_bip": 0.4645484033085595
+      }
+    },
+    {
+      "player_id": 621020,
+      "player_name": "Dansby Swanson",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.203,
+      "confidence": 0.727,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.203,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.186375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20898248795713284,
+        "walk": 0.09016362372631267,
+        "home_run": 0.059137588694471686,
+        "single": 0.12744216183784435,
+        "double": 0.04529653706784088,
+        "triple": 0.004429197407838083,
+        "out_on_bip": 0.4645484033085595
+      }
+    },
+    {
+      "player_id": 665804,
+      "player_name": "Miguel Amaya",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 0.698,
+      "confidence": 0.743,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.698375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.525125,
+          "2.0": 0.14975
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2340873880289899,
+        "walk": 0.0841123974907856,
+        "home_run": 0.03140285706373549,
+        "single": 0.1343146107724041,
+        "double": 0.04189332714779783,
+        "triple": 0.004518152254364153,
+        "out_on_bip": 0.46967126724192293
+      }
+    },
+    {
+      "player_id": 665804,
+      "player_name": "Miguel Amaya",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 1.355,
+      "confidence": 0.663,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.355,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.350875,
+          "3.0": 0.20775
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2340873880289899,
+        "walk": 0.0841123974907856,
+        "home_run": 0.03140285706373549,
+        "single": 0.1343146107724041,
+        "double": 0.04189332714779783,
+        "triple": 0.004518152254364153,
+        "out_on_bip": 0.46967126724192293
+      }
+    },
+    {
+      "player_id": 665804,
+      "player_name": "Miguel Amaya",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.103,
+      "confidence": 0.823,
+      "team": "Chicago Cubs",
+      "opponent": "Boston Red Sox",
+      "opposing_pitcher": "Alec Gamboa",
+      "opposing_pitcher_id": 687941,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.10325,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.09925
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2340873880289899,
+        "walk": 0.0841123974907856,
+        "home_run": 0.03140285706373549,
+        "single": 0.1343146107724041,
+        "double": 0.04189332714779783,
+        "triple": 0.004518152254364153,
+        "out_on_bip": 0.46967126724192293
+      }
+    },
+    {
+      "player_id": 701350,
+      "player_name": "Roman Anthony",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 0.999,
+      "confidence": 0.82,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.99925,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.66275,
+          "2.0": 0.26275
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23034034079676638,
+        "walk": 0.10705196126385137,
+        "home_run": 0.04112637063953262,
+        "single": 0.1357613491944307,
+        "double": 0.04628416483830515,
+        "triple": 0.004667833693147073,
+        "out_on_bip": 0.4347679795739666
+      }
+    },
+    {
+      "player_id": 701350,
+      "player_name": "Roman Anthony",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 2.026,
+      "confidence": 0.7,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.02625,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.503875,
+          "3.0": 0.34
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23034034079676638,
+        "walk": 0.10705196126385137,
+        "home_run": 0.04112637063953262,
+        "single": 0.1357613491944307,
+        "double": 0.04628416483830515,
+        "triple": 0.004667833693147073,
+        "out_on_bip": 0.4347679795739666
+      }
+    },
+    {
+      "player_id": 701350,
+      "player_name": "Roman Anthony",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.179,
+      "confidence": 0.86,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1795,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.165125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23034034079676638,
+        "walk": 0.10705196126385137,
+        "home_run": 0.04112637063953262,
+        "single": 0.1357613491944307,
+        "double": 0.04628416483830515,
+        "triple": 0.004667833693147073,
+        "out_on_bip": 0.4347679795739666
+      }
+    },
+    {
+      "player_id": 681508,
+      "player_name": "Mickey Gasper",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 1.034,
+      "confidence": 0.82,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.033875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.673125,
+          "2.0": 0.2815
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1601788270451665,
+        "walk": 0.11053437058893416,
+        "home_run": 0.06766636230831517,
+        "single": 0.12769008178819655,
+        "double": 0.04692654167871193,
+        "triple": 0.0044773493196643204,
+        "out_on_bip": 0.4825264672710114
+      }
+    },
+    {
+      "player_id": 681508,
+      "player_name": "Mickey Gasper",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 2.382,
+      "confidence": 0.7,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.3825,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "2.0": 0.5515,
+          "3.0": 0.4035
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1601788270451665,
+        "walk": 0.11053437058893416,
+        "home_run": 0.06766636230831517,
+        "single": 0.12769008178819655,
+        "double": 0.04692654167871193,
+        "triple": 0.0044773493196643204,
+        "out_on_bip": 0.4825264672710114
+      }
+    },
+    {
+      "player_id": 681508,
+      "player_name": "Mickey Gasper",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.289,
+      "confidence": 0.86,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.2895,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.254875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1601788270451665,
+        "walk": 0.11053437058893416,
+        "home_run": 0.06766636230831517,
+        "single": 0.12769008178819655,
+        "double": 0.04692654167871193,
+        "triple": 0.0044773493196643204,
+        "out_on_bip": 0.4825264672710114
+      }
+    },
+    {
+      "player_id": 668939,
+      "player_name": "Adley Rutschman",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 0.933,
+      "confidence": 0.82,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.932875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.63575,
+          "2.0": 0.240625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16709597497417827,
+        "walk": 0.09039159262370926,
+        "home_run": 0.030287114536307808,
+        "single": 0.1432281073945325,
+        "double": 0.04432083542187238,
+        "triple": 0.00480894725170269,
+        "out_on_bip": 0.5198674277976971
+      }
+    },
+    {
+      "player_id": 668939,
+      "player_name": "Adley Rutschman",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 1.803,
+      "confidence": 0.74,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.802875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.46525,
+          "3.0": 0.29
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16709597497417827,
+        "walk": 0.09039159262370926,
+        "home_run": 0.030287114536307808,
+        "single": 0.1432281073945325,
+        "double": 0.04432083542187238,
+        "triple": 0.00480894725170269,
+        "out_on_bip": 0.5198674277976971
+      }
+    },
+    {
+      "player_id": 668939,
+      "player_name": "Adley Rutschman",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.124,
+      "confidence": 0.86,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.124125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.118625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16709597497417827,
+        "walk": 0.09039159262370926,
+        "home_run": 0.030287114536307808,
+        "single": 0.1432281073945325,
+        "double": 0.04432083542187238,
+        "triple": 0.00480894725170269,
+        "out_on_bip": 0.5198674277976971
+      }
+    },
+    {
+      "player_id": 677800,
+      "player_name": "Wilyer Abreu",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 0.922,
+      "confidence": 0.82,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.922,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.63475,
+          "2.0": 0.232
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1872833934179606,
+        "walk": 0.09959855520966156,
+        "home_run": 0.0403061632819008,
+        "single": 0.13737540738787812,
+        "double": 0.04497791301573932,
+        "triple": 0.0046757261641953195,
+        "out_on_bip": 0.4857828415226642
+      }
+    },
+    {
+      "player_id": 677800,
+      "player_name": "Wilyer Abreu",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 1.9,
+      "confidence": 0.7,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.89975,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.477625,
+          "3.0": 0.309875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1872833934179606,
+        "walk": 0.09959855520966156,
+        "home_run": 0.0403061632819008,
+        "single": 0.13737540738787812,
+        "double": 0.04497791301573932,
+        "triple": 0.0046757261641953195,
+        "out_on_bip": 0.4857828415226642
+      }
+    },
+    {
+      "player_id": 677800,
+      "player_name": "Wilyer Abreu",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.156,
+      "confidence": 0.86,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.15575,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.145625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1872833934179606,
+        "walk": 0.09959855520966156,
+        "home_run": 0.0403061632819008,
+        "single": 0.13737540738787812,
+        "double": 0.04497791301573932,
+        "triple": 0.0046757261641953195,
+        "out_on_bip": 0.4857828415226642
+      }
+    },
+    {
+      "player_id": 702332,
+      "player_name": "Caleb Durbin",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 0.925,
+      "confidence": 0.82,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.92525,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.636875,
+          "2.0": 0.23475
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14602103450198903,
+        "walk": 0.0899657175783861,
+        "home_run": 0.02574438623306163,
+        "single": 0.1585687728470649,
+        "double": 0.04588042052867402,
+        "triple": 0.0052422870096343315,
+        "out_on_bip": 0.52857738130119
+      }
+    },
+    {
+      "player_id": 702332,
+      "player_name": "Caleb Durbin",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 1.721,
+      "confidence": 0.74,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.721,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.459625,
+          "3.0": 0.268375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14602103450198903,
+        "walk": 0.0899657175783861,
+        "home_run": 0.02574438623306163,
+        "single": 0.1585687728470649,
+        "double": 0.04588042052867402,
+        "triple": 0.0052422870096343315,
+        "out_on_bip": 0.52857738130119
+      }
+    },
+    {
+      "player_id": 702332,
+      "player_name": "Caleb Durbin",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.1,
+      "confidence": 0.88,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.096
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14602103450198903,
+        "walk": 0.0899657175783861,
+        "home_run": 0.02574438623306163,
+        "single": 0.1585687728470649,
+        "double": 0.04588042052867402,
+        "triple": 0.0052422870096343315,
+        "out_on_bip": 0.52857738130119
+      }
+    },
+    {
+      "player_id": 686765,
+      "player_name": "Nick Sogard",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 0.922,
+      "confidence": 0.82,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.92175,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.641625,
+          "2.0": 0.2335
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1881130011977645,
+        "walk": 0.10258720119877443,
+        "home_run": 0.03443904541065289,
+        "single": 0.15039832817436302,
+        "double": 0.047714732384457,
+        "triple": 0.005079822065610771,
+        "out_on_bip": 0.47166786956837736
+      }
+    },
+    {
+      "player_id": 686765,
+      "player_name": "Nick Sogard",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 1.789,
+      "confidence": 0.74,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.789375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.468125,
+          "3.0": 0.293625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1881130011977645,
+        "walk": 0.10258720119877443,
+        "home_run": 0.03443904541065289,
+        "single": 0.15039832817436302,
+        "double": 0.047714732384457,
+        "triple": 0.005079822065610771,
+        "out_on_bip": 0.47166786956837736
+      }
+    },
+    {
+      "player_id": 686765,
+      "player_name": "Nick Sogard",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.133,
+      "confidence": 0.86,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.132875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.12625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1881130011977645,
+        "walk": 0.10258720119877443,
+        "home_run": 0.03443904541065289,
+        "single": 0.15039832817436302,
+        "double": 0.047714732384457,
+        "triple": 0.005079822065610771,
+        "out_on_bip": 0.47166786956837736
+      }
+    },
+    {
+      "player_id": 680776,
+      "player_name": "Jarren Duran",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 0.821,
+      "confidence": 0.82,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.821125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.592,
+          "2.0": 0.192125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23535512542198447,
+        "walk": 0.07780753995309672,
+        "home_run": 0.03575089068514965,
+        "single": 0.14200670961486117,
+        "double": 0.0463276675382507,
+        "triple": 0.004829086593669535,
+        "out_on_bip": 0.45792298019298766
+      }
+    },
+    {
+      "player_id": 680776,
+      "player_name": "Jarren Duran",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 1.662,
+      "confidence": 0.74,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.662,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4295,
+          "3.0": 0.26625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23535512542198447,
+        "walk": 0.07780753995309672,
+        "home_run": 0.03575089068514965,
+        "single": 0.14200670961486117,
+        "double": 0.0463276675382507,
+        "triple": 0.004829086593669535,
+        "out_on_bip": 0.45792298019298766
+      }
+    },
+    {
+      "player_id": 680776,
+      "player_name": "Jarren Duran",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.136,
+      "confidence": 0.86,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.136,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1285
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23535512542198447,
+        "walk": 0.07780753995309672,
+        "home_run": 0.03575089068514965,
+        "single": 0.14200670961486117,
+        "double": 0.0463276675382507,
+        "triple": 0.004829086593669535,
+        "out_on_bip": 0.45792298019298766
+      }
+    },
+    {
+      "player_id": 655316,
+      "player_name": "Andruw Monasterio",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 0.72,
+      "confidence": 0.82,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.720125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.539375,
+          "2.0": 0.155375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18246069428214892,
+        "walk": 0.08393846345712318,
+        "home_run": 0.017067891676712597,
+        "single": 0.14509074920754253,
+        "double": 0.039766591900402895,
+        "triple": 0.004739931823280653,
+        "out_on_bip": 0.5269356776527891
+      }
+    },
+    {
+      "player_id": 655316,
+      "player_name": "Andruw Monasterio",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 1.299,
+      "confidence": 0.78,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.298875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.360375,
+          "3.0": 0.186625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18246069428214892,
+        "walk": 0.08393846345712318,
+        "home_run": 0.017067891676712597,
+        "single": 0.14509074920754253,
+        "double": 0.039766591900402895,
+        "triple": 0.004739931823280653,
+        "out_on_bip": 0.5269356776527891
+      }
+    },
+    {
+      "player_id": 655316,
+      "player_name": "Andruw Monasterio",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.061,
+      "confidence": 0.88,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.061125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.059
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18246069428214892,
+        "walk": 0.08393846345712318,
+        "home_run": 0.017067891676712597,
+        "single": 0.14509074920754253,
+        "double": 0.039766591900402895,
+        "triple": 0.004739931823280653,
+        "out_on_bip": 0.5269356776527891
+      }
+    },
+    {
+      "player_id": 643396,
+      "player_name": "Isiah Kiner-Falefa",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 0.753,
+      "confidence": 0.717,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.753125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.557375,
+          "2.0": 0.1675
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15519475756893614,
+        "walk": 0.09476436092786547,
+        "home_run": 0.017200965226563756,
+        "single": 0.15924205188123083,
+        "double": 0.043041893058603335,
+        "triple": 0.005186767818970107,
+        "out_on_bip": 0.5253692035178305
+      }
+    },
+    {
+      "player_id": 643396,
+      "player_name": "Isiah Kiner-Falefa",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 1.329,
+      "confidence": 0.677,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.32925,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.362125,
+          "3.0": 0.196
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15519475756893614,
+        "walk": 0.09476436092786547,
+        "home_run": 0.017200965226563756,
+        "single": 0.15924205188123083,
+        "double": 0.043041893058603335,
+        "triple": 0.005186767818970107,
+        "out_on_bip": 0.5253692035178305
+      }
+    },
+    {
+      "player_id": 643396,
+      "player_name": "Isiah Kiner-Falefa",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.059,
+      "confidence": 0.797,
+      "team": "Boston Red Sox",
+      "opponent": "Chicago Cubs",
+      "opposing_pitcher": "Clay Holmes",
+      "opposing_pitcher_id": 605280,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.05925,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.057625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15519475756893614,
+        "walk": 0.09476436092786547,
+        "home_run": 0.017200965226563756,
+        "single": 0.15924205188123083,
+        "double": 0.043041893058603335,
+        "triple": 0.005186767818970107,
+        "out_on_bip": 0.5253692035178305
+      }
+    },
+    {
+      "player_id": 502671,
+      "player_name": "Paul Goldschmidt",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 0.993,
+      "confidence": 0.727,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.993125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6595,
+          "2.0": 0.263
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22350368922541944,
+        "walk": 0.0716387058625968,
+        "home_run": 0.05353747688254736,
+        "single": 0.13095104528533644,
+        "double": 0.04372212551583212,
+        "triple": 0.004478799251312014,
+        "out_on_bip": 0.47216815797695577
+      }
+    },
+    {
+      "player_id": 502671,
+      "player_name": "Paul Goldschmidt",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 2.152,
+      "confidence": 0.607,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.1525,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.523625,
+          "3.0": 0.365625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22350368922541944,
+        "walk": 0.0716387058625968,
+        "home_run": 0.05353747688254736,
+        "single": 0.13095104528533644,
+        "double": 0.04372212551583212,
+        "triple": 0.004478799251312014,
+        "out_on_bip": 0.47216815797695577
+      }
+    },
+    {
+      "player_id": 502671,
+      "player_name": "Paul Goldschmidt",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.233,
+      "confidence": 0.767,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.232625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.212
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22350368922541944,
+        "walk": 0.0716387058625968,
+        "home_run": 0.05353747688254736,
+        "single": 0.13095104528533644,
+        "double": 0.04372212551583212,
+        "triple": 0.004478799251312014,
+        "out_on_bip": 0.47216815797695577
+      }
+    },
+    {
+      "player_id": 700250,
+      "player_name": "Ben Rice",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 1.001,
+      "confidence": 0.82,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.00075,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.67075,
+          "2.0": 0.262125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2316333381199394,
+        "walk": 0.09823814319927816,
+        "home_run": 0.055663642472519856,
+        "single": 0.12705928910524955,
+        "double": 0.04469059346895809,
+        "triple": 0.004403843142928401,
+        "out_on_bip": 0.4383111504911266
+      }
+    },
+    {
+      "player_id": 700250,
+      "player_name": "Ben Rice",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 2.192,
+      "confidence": 0.7,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.1925,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.52225,
+          "3.0": 0.375875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2316333381199394,
+        "walk": 0.09823814319927816,
+        "home_run": 0.055663642472519856,
+        "single": 0.12705928910524955,
+        "double": 0.04469059346895809,
+        "triple": 0.004403843142928401,
+        "out_on_bip": 0.4383111504911266
+      }
+    },
+    {
+      "player_id": 700250,
+      "player_name": "Ben Rice",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.235,
+      "confidence": 0.86,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.234625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.2135
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2316333381199394,
+        "walk": 0.09823814319927816,
+        "home_run": 0.055663642472519856,
+        "single": 0.12705928910524955,
+        "double": 0.04469059346895809,
+        "triple": 0.004403843142928401,
+        "out_on_bip": 0.4383111504911266
+      }
+    },
+    {
+      "player_id": 671218,
+      "player_name": "Heliot Ramos",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 0.913,
+      "confidence": 0.82,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.9135,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.63325,
+          "2.0": 0.228625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2599900372759632,
+        "walk": 0.06656936446911696,
+        "home_run": 0.04908209648046286,
+        "single": 0.12558447203310502,
+        "double": 0.04266386095838958,
+        "triple": 0.0043140598202947335,
+        "out_on_bip": 0.45179610896266764
+      }
+    },
+    {
+      "player_id": 671218,
+      "player_name": "Heliot Ramos",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 1.942,
+      "confidence": 0.7,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.942,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.47975,
+          "3.0": 0.322875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2599900372759632,
+        "walk": 0.06656936446911696,
+        "home_run": 0.04908209648046286,
+        "single": 0.12558447203310502,
+        "double": 0.04266386095838958,
+        "triple": 0.0043140598202947335,
+        "out_on_bip": 0.45179610896266764
+      }
+    },
+    {
+      "player_id": 671218,
+      "player_name": "Heliot Ramos",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.209,
+      "confidence": 0.86,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.20875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.192875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2599900372759632,
+        "walk": 0.06656936446911696,
+        "home_run": 0.04908209648046286,
+        "single": 0.12558447203310502,
+        "double": 0.04266386095838958,
+        "triple": 0.0043140598202947335,
+        "out_on_bip": 0.45179610896266764
+      }
+    },
+    {
+      "player_id": 642708,
+      "player_name": "Amed Rosario",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 0.896,
+      "confidence": 0.713,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.895875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.620125,
+          "2.0": 0.225125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22649404552337754,
+        "walk": 0.06344877890556085,
+        "home_run": 0.03252453967425982,
+        "single": 0.14136862474606487,
+        "double": 0.04417416495186633,
+        "triple": 0.004757507428152083,
+        "out_on_bip": 0.4872323387707185
+      }
+    },
+    {
+      "player_id": 642708,
+      "player_name": "Amed Rosario",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 1.725,
+      "confidence": 0.633,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.725,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.45,
+          "3.0": 0.276125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22649404552337754,
+        "walk": 0.06344877890556085,
+        "home_run": 0.03252453967425982,
+        "single": 0.14136862474606487,
+        "double": 0.04417416495186633,
+        "triple": 0.004757507428152083,
+        "out_on_bip": 0.4872323387707185
+      }
+    },
+    {
+      "player_id": 642708,
+      "player_name": "Amed Rosario",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.13,
+      "confidence": 0.753,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.130125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.122
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22649404552337754,
+        "walk": 0.06344877890556085,
+        "home_run": 0.03252453967425982,
+        "single": 0.14136862474606487,
+        "double": 0.04417416495186633,
+        "triple": 0.004757507428152083,
+        "out_on_bip": 0.4872323387707185
+      }
+    },
+    {
+      "player_id": 806146,
+      "player_name": "George Lombard Jr.",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 0.875,
+      "confidence": 0.82,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.874625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.61425,
+          "2.0": 0.21425
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24655663816300077,
+        "walk": 0.06484522968358081,
+        "home_run": 0.03752563834797618,
+        "single": 0.13875181531941208,
+        "double": 0.04488689111406917,
+        "triple": 0.004708684780345674,
+        "out_on_bip": 0.46272510259161537
+      }
+    },
+    {
+      "player_id": 806146,
+      "player_name": "George Lombard Jr.",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 1.762,
+      "confidence": 0.74,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.761625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.44925,
+          "3.0": 0.28725
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24655663816300077,
+        "walk": 0.06484522968358081,
+        "home_run": 0.03752563834797618,
+        "single": 0.13875181531941208,
+        "double": 0.04488689111406917,
+        "triple": 0.004708684780345674,
+        "out_on_bip": 0.46272510259161537
+      }
+    },
+    {
+      "player_id": 806146,
+      "player_name": "George Lombard Jr.",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.147,
+      "confidence": 0.86,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.147375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.139875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24655663816300077,
+        "walk": 0.06484522968358081,
+        "home_run": 0.03752563834797618,
+        "single": 0.13875181531941208,
+        "double": 0.04488689111406917,
+        "triple": 0.004708684780345674,
+        "out_on_bip": 0.46272510259161537
+      }
+    },
+    {
+      "player_id": 682987,
+      "player_name": "Spencer Jones",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 0.841,
+      "confidence": 0.82,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.84075,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6025,
+          "2.0": 0.200875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3379733664766477,
+        "walk": 0.07712500257421058,
+        "home_run": 0.054269685871364264,
+        "single": 0.1167476602369641,
+        "double": 0.04479885068400859,
+        "triple": 0.00414221822874289,
+        "out_on_bip": 0.3649432159280617
+      }
+    },
+    {
+      "player_id": 682987,
+      "player_name": "Spencer Jones",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 1.805,
+      "confidence": 0.7,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.80475,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.445125,
+          "3.0": 0.307
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3379733664766477,
+        "walk": 0.07712500257421058,
+        "home_run": 0.054269685871364264,
+        "single": 0.1167476602369641,
+        "double": 0.04479885068400859,
+        "triple": 0.00414221822874289,
+        "out_on_bip": 0.3649432159280617
+      }
+    },
+    {
+      "player_id": 682987,
+      "player_name": "Spencer Jones",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.202,
+      "confidence": 0.86,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.201625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.186625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3379733664766477,
+        "walk": 0.07712500257421058,
+        "home_run": 0.054269685871364264,
+        "single": 0.1167476602369641,
+        "double": 0.04479885068400859,
+        "triple": 0.00414221822874289,
+        "out_on_bip": 0.3649432159280617
+      }
+    },
+    {
+      "player_id": 683011,
+      "player_name": "Anthony Volpe",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 0.792,
+      "confidence": 0.717,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.792,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.579375,
+          "2.0": 0.17825
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2185989089935463,
+        "walk": 0.08533846603793956,
+        "home_run": 0.03461839627080178,
+        "single": 0.13594825093082424,
+        "double": 0.04274859451569343,
+        "triple": 0.0045819703960645565,
+        "out_on_bip": 0.4781654128551301
+      }
+    },
+    {
+      "player_id": 683011,
+      "player_name": "Anthony Volpe",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 1.573,
+      "confidence": 0.637,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.573125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.408,
+          "3.0": 0.246
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2185989089935463,
+        "walk": 0.08533846603793956,
+        "home_run": 0.03461839627080178,
+        "single": 0.13594825093082424,
+        "double": 0.04274859451569343,
+        "triple": 0.0045819703960645565,
+        "out_on_bip": 0.4781654128551301
+      }
+    },
+    {
+      "player_id": 683011,
+      "player_name": "Anthony Volpe",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.125,
+      "confidence": 0.757,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.12475,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1185
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2185989089935463,
+        "walk": 0.08533846603793956,
+        "home_run": 0.03461839627080178,
+        "single": 0.13594825093082424,
+        "double": 0.04274859451569343,
+        "triple": 0.0045819703960645565,
+        "out_on_bip": 0.4781654128551301
+      }
+    },
+    {
+      "player_id": 645305,
+      "player_name": "Ali S\u00e1nchez",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 0.739,
+      "confidence": 0.663,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.738875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.5475,
+          "2.0": 0.163625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2668622472012635,
+        "walk": 0.04680621732827621,
+        "home_run": 0.023923870604493948,
+        "single": 0.1436470318524344,
+        "double": 0.04233103535613972,
+        "triple": 0.004768668389963439,
+        "out_on_bip": 0.4716609292674288
+      }
+    },
+    {
+      "player_id": 645305,
+      "player_name": "Ali S\u00e1nchez",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 1.327,
+      "confidence": 0.583,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.327,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.359,
+          "3.0": 0.2005
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2668622472012635,
+        "walk": 0.04680621732827621,
+        "home_run": 0.023923870604493948,
+        "single": 0.1436470318524344,
+        "double": 0.04233103535613972,
+        "triple": 0.004768668389963439,
+        "out_on_bip": 0.4716609292674288
+      }
+    },
+    {
+      "player_id": 645305,
+      "player_name": "Ali S\u00e1nchez",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.081,
+      "confidence": 0.743,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.0805,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.07875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2668622472012635,
+        "walk": 0.04680621732827621,
+        "home_run": 0.023923870604493948,
+        "single": 0.1436470318524344,
+        "double": 0.04233103535613972,
+        "triple": 0.004768668389963439,
+        "out_on_bip": 0.4716609292674288
+      }
+    },
+    {
+      "player_id": 676609,
+      "player_name": "Jos\u00e9 Caballero",
+      "category": "hits",
+      "game_date": "2026-09-25",
+      "projected_value": 0.721,
+      "confidence": 0.82,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.721375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.539375,
+          "2.0": 0.158375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23241934389757885,
+        "walk": 0.06493607886486434,
+        "home_run": 0.02793382169195944,
+        "single": 0.14509057346684207,
+        "double": 0.04377827480576008,
+        "triple": 0.0048427909813487735,
+        "out_on_bip": 0.48099911629164654
+      }
+    },
+    {
+      "player_id": 676609,
+      "player_name": "Jos\u00e9 Caballero",
+      "category": "hrr",
+      "game_date": "2026-09-25",
+      "projected_value": 1.385,
+      "confidence": 0.74,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.3845,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.36875,
+          "3.0": 0.210125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23241934389757885,
+        "walk": 0.06493607886486434,
+        "home_run": 0.02793382169195944,
+        "single": 0.14509057346684207,
+        "double": 0.04377827480576008,
+        "triple": 0.0048427909813487735,
+        "out_on_bip": 0.48099911629164654
+      }
+    },
+    {
+      "player_id": 676609,
+      "player_name": "Jos\u00e9 Caballero",
+      "category": "home_runs",
+      "game_date": "2026-09-25",
+      "projected_value": 0.093,
+      "confidence": 0.88,
+      "team": "New York Yankees",
+      "opponent": "Baltimore Orioles",
+      "opposing_pitcher": "Trevor Rogers",
+      "opposing_pitcher_id": 669432,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.092875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.089
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23241934389757885,
+        "walk": 0.06493607886486434,
+        "home_run": 0.02793382169195944,
+        "single": 0.14509057346684207,
+        "double": 0.04377827480576008,
+        "triple": 0.0048427909813487735,
+        "out_on_bip": 0.48099911629164654
+      }
+    }
+  ],
+  "pitcher_projections": [
+    {
+      "player_id": 605280,
+      "player_name": "Clay Holmes",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 4.45,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.453578421173015,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4590631220381787,
+          "6.0": 0.2891606330780412,
+          "7.0": 0.16304828998863208
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 687941,
+      "player_name": "Alec Gamboa",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 2.1,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824703,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.1045862657075176,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "5.0": 0.06258215914816734,
+          "6.0": 0.020640827854458088,
+          "7.0": 0.005929302886753196
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 656849,
+      "player_name": "David Peterson",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 5.01,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824706,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.008427694896422,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5609842520211614,
+          "6.0": 0.38551812712549727,
+          "7.0": 0.23904989388489728
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 678394,
+      "player_name": "Brayan Bello",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 3.02,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824706,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.019471510203479,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.18801912860158765,
+          "6.0": 0.08589376400702387,
+          "7.0": 0.034499659196619126
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669432,
+      "player_name": "Trevor Rogers",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 5.35,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.347457005183983,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6182243220753383,
+          "6.0": 0.4447703731888778,
+          "7.0": 0.2901807841805901
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 694341,
+      "player_name": "Brendan Beck",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 2.72,
+      "confidence": 0.5,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823491,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.7195188848407716,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.14001044412058483,
+          "6.0": 0.05831325700801393,
+          "7.0": 0.021283749809512864
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 687064,
+      "player_name": "Brandon Young",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 4.96,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823489,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.955195940317438,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5516101611627451,
+          "6.0": 0.3761782230474138,
+          "7.0": 0.23129495178889548
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 696149,
+      "player_name": "Bubba Chandler",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 4.84,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824220,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.841729391870191,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5313104665643011,
+          "6.0": 0.35629156260437167,
+          "7.0": 0.21505920069842244
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 695549,
+      "player_name": "Jackson Jobe",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 5.23,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824220,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.234805043069609,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5996978196885417,
+          "6.0": 0.42516609892652046,
+          "7.0": 0.2728928435897462
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 642547,
+      "player_name": "Freddy Peralta",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 5.04,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823409,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.039548758022878,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5664185721856334,
+          "6.0": 0.3909785013515137,
+          "7.0": 0.24362203617159162
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 650911,
+      "player_name": "Cristopher S\u00e1nchez",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 6.57,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823409,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.566583623609929,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.7836786745567761,
+          "6.0": 0.6405636868727187,
+          "7.0": 0.48393426446950716
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 674841,
+      "player_name": "Andrew Alvarez",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 3.44,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822681,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.436883159497698,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.2626939668279191,
+          "6.0": 0.134158433687106,
+          "7.0": 0.06053149881231956
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 666157,
+      "player_name": "Nick Lodolo",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 4.4,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 822760,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.3968387033014915,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.44820997006055374,
+          "6.0": 0.2795551968168043,
+          "7.0": 0.15596389106769526
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 691587,
+      "player_name": "Eury P\u00e9rez",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 5.62,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823816,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.624388758915121,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6615326606272143,
+          "6.0": 0.49227263209602534,
+          "7.0": 0.3336085984619469
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 668909,
+      "player_name": "Gavin Williams",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 7.16,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824058,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 7.16407882777776,
+        "median": 7.0,
+        "p10": 4.0,
+        "p90": 11.0,
+        "p_ge_threshold": {
+          "5.0": 0.8414573797023375,
+          "6.0": 0.7197545628363683,
+          "7.0": 0.5744398005713011
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 702070,
+      "player_name": "Noah Cameron",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 5.44,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824058,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.443892553391311,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6336727868019815,
+          "6.0": 0.46144073218561465,
+          "7.0": 0.30517193225539385
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 608372,
+      "player_name": "Tomoyuki Sugano",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 4.01,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824544,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.014965086025787,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.3740867187794751,
+          "6.0": 0.2172129113900071,
+          "7.0": 0.11223910145989902
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 680732,
+      "player_name": "Sean Burke",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 6.6,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824544,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.602929971335816,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.7876113348100333,
+          "6.0": 0.645742775151143,
+          "7.0": 0.48961808105748805
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 700241,
+      "player_name": "Michael McGreevy",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 4.39,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823735,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.3861459373129,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.44615821252855703,
+          "6.0": 0.27775314167637444,
+          "7.0": 0.1546449387861759
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 688107,
+      "player_name": "Robert Gasser",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 5.02,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823735,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.020361914247498,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.563072262025725,
+          "6.0": 0.38761214742658523,
+          "7.0": 0.2407999346260813
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 594798,
+      "player_name": "Jacob deGrom",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 6.1,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823652,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.1030373443325505,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.7284985411915513,
+          "6.0": 0.5707252629527555,
+          "7.0": 0.4102425614478987
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 657746,
+      "player_name": "Joe Ryan",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 5.55,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823652,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.552510865407539,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6506053778438521,
+          "6.0": 0.48005958524362535,
+          "7.0": 0.3222333574999088
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 686613,
+      "player_name": "Hunter Brown",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 5.99,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824947,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.98886669824681,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.7134505129302892,
+          "6.0": 0.5525304377450772,
+          "7.0": 0.39190895785239555
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 682052,
+      "player_name": "Jacob Lopez",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 4.77,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 824947,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.7737622019491335,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5189548482552222,
+          "6.0": 0.3444111880182499,
+          "7.0": 0.2055395333800647
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 694297,
+      "player_name": "Brandon Pfaadt",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 2.77,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823248,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.769315659729584,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.14757687092309735,
+          "6.0": 0.062466486555512235,
+          "7.0": 0.02318356651638598
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 672282,
+      "player_name": "Reid Detmers",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 6.28,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823085,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.282099315326154,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.7509316409229049,
+          "6.0": 0.5985047201157305,
+          "7.0": 0.4389112109757265
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 682243,
+      "player_name": "Bryce Miller",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 5.51,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823085,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.511283580100752,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6442374841007414,
+          "6.0": 0.47301432845424163,
+          "7.0": 0.31573776741297654
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669373,
+      "player_name": "Tarik Skubal",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 6.5,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823167,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.501529666373206,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.7764991835417078,
+          "6.0": 0.6311816430633335,
+          "7.0": 0.4737172596525767
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 805074,
+      "player_name": "Yunior Marte",
+      "category": "strikeouts",
+      "game_date": "2026-09-25",
+      "projected_value": 2.56,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 823167,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.5619528960766202,
+        "median": 2.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.11725132380640846,
+          "6.0": 0.04628824474134052,
+          "7.0": 0.015987567087129673
+        }
+      },
+      "outcome_probs": null
+    }
+  ],
+  "value_plays": [],
+  "market_status": "RESEARCH_ONLY",
+  "market_policy_sha256": "08bc0c9d56eb21c7fb438eccd8d89539e98da111f72cdf6735af9cbeb02f154c",
+  "market_policy_reason": "policy verdict is 'RESEARCH_ONLY', not BETTING_AUTHORIZED",
+  "prediction_provenance": {
+    "schema_version": "daily-prediction-provenance-v1",
+    "captured_at_utc": "2026-09-25T17:01:38.099412+00:00",
+    "model_version": "8c7eed9bb0c3",
+    "effective_config_sha256": "3a62fc507956752086919b757ae683e60f9df8fb2143f83292ac61f07830a60c",
+    "config_source_path": "/home/runner/work/baseball-predictor/baseball-predictor/config/config.kbb.json",
+    "code": {
+      "status": "available",
+      "head": "ea6428fc2b3dd4603461dc12d6e88cef82f4276b",
+      "tracked_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked": [],
+      "snapshot_sha256": "abf65cc9f2f6bd97bb0dad36911b65428e01e07dde5504e443245229b119698b"
+    },
+    "run_options": {
+      "game_date": "2026-09-25",
+      "hitter_categories": [
+        "hits",
+        "hrr",
+        "home_runs"
+      ],
+      "include_pitchers": true,
+      "corrections_active": false,
+      "edges_requested": false,
+      "use_projected_lineups": false
+    }
+  }
+}
