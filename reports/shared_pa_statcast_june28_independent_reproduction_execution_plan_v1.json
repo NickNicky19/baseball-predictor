@@ -1,0 +1,40 @@
+{
+  "schema_version": "shared-pa-statcast-june28-independent-reproduction-execution-plan-v1",
+  "status": "PREPARED_NOT_AUTHORIZED_BLOCKED_ON_REQUIRED_EXTERNAL_RECEIPTS_AND_POST_ATTEMPT_STATE",
+  "authority_package": "config/shared_pa_statcast_june28_independent_reproduction_authority_package_v1.json",
+  "implementation": "scripts/reproduce_shared_pa_statcast_june28_v1.py",
+  "execution_environment": {
+    "new_clean_runner": true,
+    "python_isolated_mode": true,
+    "bytecode_disabled": true,
+    "network_disabled": true,
+    "static_no_transport_boundary": "implementation imports no HTTP client and contains no source endpoint; separate execution authorization binds verifier SHA-256",
+    "socket_guard": true,
+    "repository_checkout_read_only": true,
+    "artifact_zip_read_only": true,
+    "output_report_create_only": true
+  },
+  "inputs": [
+    "exact artifact ZIP 8868838408",
+    "immutable external artifact-retrieval receipt",
+    "immutable post-terminal GitHub run receipt",
+    "exact repository dependency files after SHA-256 verification",
+    "append-only successor attempt ledger and terminal adjudication record",
+    "hash-bound official PA denominator receipt",
+    "hash-bound certified official-PA source bytes with exact game, team-side and PA components",
+    "hash-bound certified source-release bytes and separate official-PA verifier bytes",
+    "separate execution authorization whose externally supplied expected SHA-256 binds every input SHA-256, exact verifier, commit, runtime, valid-from/expiry and create-only output path"
+  ],
+  "outputs": [
+    "one canonical no-overwrite reproduction report",
+    "report SHA-256 and byte count",
+    "verifier source SHA-256 and runtime identity",
+    "stdout, stderr and exit code",
+    "complete independently calculated metrics and disagreement list",
+    "INDEPENDENT_REPRODUCTION_PASSED, INDEPENDENT_REPRODUCTION_INCOMPLETE or INDEPENDENT_REPRODUCTION_FAILED"
+  ],
+  "artifact_mutation_allowed": false,
+  "source_request_allowed": false,
+  "source_qualification_allowed": false,
+  "execution_performed": false
+}
