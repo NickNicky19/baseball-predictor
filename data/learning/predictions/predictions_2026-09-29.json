@@ -1,0 +1,5209 @@
+{
+  "game_date": "2026-09-29",
+  "hitter_projections": [
+    {
+      "player_id": 607208,
+      "player_name": "Trea Turner",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.889,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.8895,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.613625,
+          "2.0": 0.2225
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23593201336266717,
+        "walk": 0.0657193859124281,
+        "home_run": 0.027950716725863932,
+        "single": 0.13459357782956952,
+        "double": 0.03981260182025373,
+        "triple": 0.0044719533243544425,
+        "out_on_bip": 0.4915197510248631
+      }
+    },
+    {
+      "player_id": 607208,
+      "player_name": "Trea Turner",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.689,
+      "confidence": 0.74,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.688625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.44025,
+          "3.0": 0.264125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23593201336266717,
+        "walk": 0.0657193859124281,
+        "home_run": 0.027950716725863932,
+        "single": 0.13459357782956952,
+        "double": 0.03981260182025373,
+        "triple": 0.0044719533243544425,
+        "out_on_bip": 0.4915197510248631
+      }
+    },
+    {
+      "player_id": 607208,
+      "player_name": "Trea Turner",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.122,
+      "confidence": 0.86,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.12225,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.116375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23593201336266717,
+        "walk": 0.0657193859124281,
+        "home_run": 0.027950716725863932,
+        "single": 0.13459357782956952,
+        "double": 0.03981260182025373,
+        "triple": 0.0044719533243544425,
+        "out_on_bip": 0.4915197510248631
+      }
+    },
+    {
+      "player_id": 656941,
+      "player_name": "Kyle Schwarber",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.759,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.759125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.5595,
+          "2.0": 0.170375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3252101776686228,
+        "walk": 0.10930013097966919,
+        "home_run": 0.04365684589787028,
+        "single": 0.09947091920368493,
+        "double": 0.03354727382414207,
+        "triple": 0.0034107228981494105,
+        "out_on_bip": 0.3854039295278613
+      }
+    },
+    {
+      "player_id": 656941,
+      "player_name": "Kyle Schwarber",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.707,
+      "confidence": 0.7,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.706625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.422625,
+          "3.0": 0.278875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3252101776686228,
+        "walk": 0.10930013097966919,
+        "home_run": 0.04365684589787028,
+        "single": 0.09947091920368493,
+        "double": 0.03354727382414207,
+        "triple": 0.0034107228981494105,
+        "out_on_bip": 0.3854039295278613
+      }
+    },
+    {
+      "player_id": 656941,
+      "player_name": "Kyle Schwarber",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.184,
+      "confidence": 0.86,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1845,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.171875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3252101776686228,
+        "walk": 0.10930013097966919,
+        "home_run": 0.04365684589787028,
+        "single": 0.09947091920368493,
+        "double": 0.03354727382414207,
+        "triple": 0.0034107228981494105,
+        "out_on_bip": 0.3854039295278613
+      }
+    },
+    {
+      "player_id": 547180,
+      "player_name": "Bryce Harper",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.925,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.92475,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.64125,
+          "2.0": 0.232125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23869777961515604,
+        "walk": 0.11241693038627099,
+        "home_run": 0.040219416653223386,
+        "single": 0.1347069389875854,
+        "double": 0.0438862471152182,
+        "triple": 0.004579312464174452,
+        "out_on_bip": 0.4254933747783715
+      }
+    },
+    {
+      "player_id": 547180,
+      "player_name": "Bryce Harper",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.947,
+      "confidence": 0.7,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.94675,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.494375,
+          "3.0": 0.321875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23869777961515604,
+        "walk": 0.11241693038627099,
+        "home_run": 0.040219416653223386,
+        "single": 0.1347069389875854,
+        "double": 0.0438862471152182,
+        "triple": 0.004579312464174452,
+        "out_on_bip": 0.4254933747783715
+      }
+    },
+    {
+      "player_id": 547180,
+      "player_name": "Bryce Harper",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.166,
+      "confidence": 0.86,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.165875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.155375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23869777961515604,
+        "walk": 0.11241693038627099,
+        "home_run": 0.040219416653223386,
+        "single": 0.1347069389875854,
+        "double": 0.0438862471152182,
+        "triple": 0.004579312464174452,
+        "out_on_bip": 0.4254933747783715
+      }
+    },
+    {
+      "player_id": 664761,
+      "player_name": "Alec Bohm",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 1.03,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.03,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.674375,
+          "2.0": 0.2865
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18608777236064772,
+        "walk": 0.06905170984388974,
+        "home_run": 0.054016292532134635,
+        "single": 0.1455998359795921,
+        "double": 0.04761052788319134,
+        "triple": 0.004954111893917524,
+        "out_on_bip": 0.4926797495066268
+      }
+    },
+    {
+      "player_id": 664761,
+      "player_name": "Alec Bohm",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 2.091,
+      "confidence": 0.7,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.090875,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.5125,
+          "3.0": 0.3505
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18608777236064772,
+        "walk": 0.06905170984388974,
+        "home_run": 0.054016292532134635,
+        "single": 0.1455998359795921,
+        "double": 0.04761052788319134,
+        "triple": 0.004954111893917524,
+        "out_on_bip": 0.4926797495066268
+      }
+    },
+    {
+      "player_id": 664761,
+      "player_name": "Alec Bohm",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.213,
+      "confidence": 0.86,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.213125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.196625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18608777236064772,
+        "walk": 0.06905170984388974,
+        "home_run": 0.054016292532134635,
+        "single": 0.1455998359795921,
+        "double": 0.04761052788319134,
+        "triple": 0.004954111893917524,
+        "out_on_bip": 0.4926797495066268
+      }
+    },
+    {
+      "player_id": 656537,
+      "player_name": "Derek Hill",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.728,
+      "confidence": 0.71,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.727875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.54325,
+          "2.0": 0.157125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.33071417571467077,
+        "walk": 0.06367084903106396,
+        "home_run": 0.031092756040821106,
+        "single": 0.11531234593867098,
+        "double": 0.03589360503595289,
+        "triple": 0.0038770756660159974,
+        "out_on_bip": 0.41943919257280426
+      }
+    },
+    {
+      "player_id": 656537,
+      "player_name": "Derek Hill",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.471,
+      "confidence": 0.63,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.471125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.372375,
+          "3.0": 0.233125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.33071417571467077,
+        "walk": 0.06367084903106396,
+        "home_run": 0.031092756040821106,
+        "single": 0.11531234593867098,
+        "double": 0.03589360503595289,
+        "triple": 0.0038770756660159974,
+        "out_on_bip": 0.41943919257280426
+      }
+    },
+    {
+      "player_id": 656537,
+      "player_name": "Derek Hill",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.119,
+      "confidence": 0.75,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.118875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.113875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.33071417571467077,
+        "walk": 0.06367084903106396,
+        "home_run": 0.031092756040821106,
+        "single": 0.11531234593867098,
+        "double": 0.03589360503595289,
+        "triple": 0.0038770756660159974,
+        "out_on_bip": 0.41943919257280426
+      }
+    },
+    {
+      "player_id": 650559,
+      "player_name": "Bryan De La Cruz",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.814,
+      "confidence": 0.743,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.814,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.590375,
+          "2.0": 0.187375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2353932304593821,
+        "walk": 0.07132480581961391,
+        "home_run": 0.02529417057872768,
+        "single": 0.14394654234051762,
+        "double": 0.04131202103777266,
+        "triple": 0.0047502195738023155,
+        "out_on_bip": 0.47797901019018385
+      }
+    },
+    {
+      "player_id": 650559,
+      "player_name": "Bryan De La Cruz",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.507,
+      "confidence": 0.663,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.50725,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.40575,
+          "3.0": 0.23075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2353932304593821,
+        "walk": 0.07132480581961391,
+        "home_run": 0.02529417057872768,
+        "single": 0.14394654234051762,
+        "double": 0.04131202103777266,
+        "triple": 0.0047502195738023155,
+        "out_on_bip": 0.47797901019018385
+      }
+    },
+    {
+      "player_id": 650559,
+      "player_name": "Bryan De La Cruz",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.097,
+      "confidence": 0.823,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.097,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.093125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2353932304593821,
+        "walk": 0.07132480581961391,
+        "home_run": 0.02529417057872768,
+        "single": 0.14394654234051762,
+        "double": 0.04131202103777266,
+        "triple": 0.0047502195738023155,
+        "out_on_bip": 0.47797901019018385
+      }
+    },
+    {
+      "player_id": 681082,
+      "player_name": "Bryson Stott",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.821,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.821375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.5925,
+          "2.0": 0.193875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20257158694743002,
+        "walk": 0.0812476651904719,
+        "home_run": 0.03484566886895374,
+        "single": 0.13942496942797533,
+        "double": 0.04246563761199098,
+        "triple": 0.004663861718973495,
+        "out_on_bip": 0.4947806102342045
+      }
+    },
+    {
+      "player_id": 681082,
+      "player_name": "Bryson Stott",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.577,
+      "confidence": 0.74,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.57725,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4115,
+          "3.0": 0.252625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20257158694743002,
+        "walk": 0.0812476651904719,
+        "home_run": 0.03484566886895374,
+        "single": 0.13942496942797533,
+        "double": 0.04246563761199098,
+        "triple": 0.004663861718973495,
+        "out_on_bip": 0.4947806102342045
+      }
+    },
+    {
+      "player_id": 681082,
+      "player_name": "Bryson Stott",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.119,
+      "confidence": 0.86,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.11875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.11375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20257158694743002,
+        "walk": 0.0812476651904719,
+        "home_run": 0.03484566886895374,
+        "single": 0.13942496942797533,
+        "double": 0.04246563761199098,
+        "triple": 0.004663861718973495,
+        "out_on_bip": 0.4947806102342045
+      }
+    },
+    {
+      "player_id": 624641,
+      "player_name": "Edmundo Sosa",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.818,
+      "confidence": 0.75,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.818375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.588125,
+          "2.0": 0.191125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24060066569754304,
+        "walk": 0.05057622668365084,
+        "home_run": 0.05005126373312459,
+        "single": 0.13338044260206394,
+        "double": 0.04407725337752728,
+        "triple": 0.004550197332810031,
+        "out_on_bip": 0.47676395057328036
+      }
+    },
+    {
+      "player_id": 624641,
+      "player_name": "Edmundo Sosa",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.626,
+      "confidence": 0.67,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.626,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.409375,
+          "3.0": 0.262125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24060066569754304,
+        "walk": 0.05057622668365084,
+        "home_run": 0.05005126373312459,
+        "single": 0.13338044260206394,
+        "double": 0.04407725337752728,
+        "triple": 0.004550197332810031,
+        "out_on_bip": 0.47676395057328036
+      }
+    },
+    {
+      "player_id": 624641,
+      "player_name": "Edmundo Sosa",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.165,
+      "confidence": 0.79,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.165375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.154625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24060066569754304,
+        "walk": 0.05057622668365084,
+        "home_run": 0.05005126373312459,
+        "single": 0.13338044260206394,
+        "double": 0.04407725337752728,
+        "triple": 0.004550197332810031,
+        "out_on_bip": 0.47676395057328036
+      }
+    },
+    {
+      "player_id": 592663,
+      "player_name": "J.T. Realmuto",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.718,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.717625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.532375,
+          "2.0": 0.158375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23914101561512202,
+        "walk": 0.07034789278351082,
+        "home_run": 0.03780230600614137,
+        "single": 0.13410160262325274,
+        "double": 0.042756951602334094,
+        "triple": 0.004534834723732996,
+        "out_on_bip": 0.47131539664590594
+      }
+    },
+    {
+      "player_id": 592663,
+      "player_name": "J.T. Realmuto",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.419,
+      "confidence": 0.74,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.419125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.366,
+          "3.0": 0.219125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23914101561512202,
+        "walk": 0.07034789278351082,
+        "home_run": 0.03780230600614137,
+        "single": 0.13410160262325274,
+        "double": 0.042756951602334094,
+        "triple": 0.004534834723732996,
+        "out_on_bip": 0.47131539664590594
+      }
+    },
+    {
+      "player_id": 592663,
+      "player_name": "J.T. Realmuto",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.116,
+      "confidence": 0.86,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Chris Sale",
+      "opposing_pitcher_id": 519242,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.116375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.11075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23914101561512202,
+        "walk": 0.07034789278351082,
+        "home_run": 0.03780230600614137,
+        "single": 0.13410160262325274,
+        "double": 0.042756951602334094,
+        "triple": 0.004534834723732996,
+        "out_on_bip": 0.47131539664590594
+      }
+    },
+    {
+      "player_id": 686948,
+      "player_name": "Drake Baldwin",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 1.034,
+      "confidence": 0.82,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.03375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.67675,
+          "2.0": 0.279
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23958227471132598,
+        "walk": 0.08019720745066297,
+        "home_run": 0.05516346530706872,
+        "single": 0.13112997337344215,
+        "double": 0.04611740280280988,
+        "triple": 0.0045448045173397955,
+        "out_on_bip": 0.4432648718373505
+      }
+    },
+    {
+      "player_id": 686948,
+      "player_name": "Drake Baldwin",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 2.211,
+      "confidence": 0.7,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.210625,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.526625,
+          "3.0": 0.376125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23958227471132598,
+        "walk": 0.08019720745066297,
+        "home_run": 0.05516346530706872,
+        "single": 0.13112997337344215,
+        "double": 0.04611740280280988,
+        "triple": 0.0045448045173397955,
+        "out_on_bip": 0.4432648718373505
+      }
+    },
+    {
+      "player_id": 686948,
+      "player_name": "Drake Baldwin",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.244,
+      "confidence": 0.86,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.243625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.221625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23958227471132598,
+        "walk": 0.08019720745066297,
+        "home_run": 0.05516346530706872,
+        "single": 0.13112997337344215,
+        "double": 0.04611740280280988,
+        "triple": 0.0045448045173397955,
+        "out_on_bip": 0.4432648718373505
+      }
+    },
+    {
+      "player_id": 660670,
+      "player_name": "Ronald Acu\u00f1a Jr.",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.956,
+      "confidence": 0.82,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.956,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.652375,
+          "2.0": 0.246875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24349524861326244,
+        "walk": 0.09295015773081235,
+        "home_run": 0.05254363290029084,
+        "single": 0.12377006546492995,
+        "double": 0.04269272921259125,
+        "triple": 0.004268276786603108,
+        "out_on_bip": 0.44027988929151
+      }
+    },
+    {
+      "player_id": 660670,
+      "player_name": "Ronald Acu\u00f1a Jr.",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 2.013,
+      "confidence": 0.7,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.01325,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.48975,
+          "3.0": 0.334375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24349524861326244,
+        "walk": 0.09295015773081235,
+        "home_run": 0.05254363290029084,
+        "single": 0.12377006546492995,
+        "double": 0.04269272921259125,
+        "triple": 0.004268276786603108,
+        "out_on_bip": 0.44027988929151
+      }
+    },
+    {
+      "player_id": 660670,
+      "player_name": "Ronald Acu\u00f1a Jr.",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.233,
+      "confidence": 0.86,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.232625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.214125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24349524861326244,
+        "walk": 0.09295015773081235,
+        "home_run": 0.05254363290029084,
+        "single": 0.12377006546492995,
+        "double": 0.04269272921259125,
+        "triple": 0.004268276786603108,
+        "out_on_bip": 0.44027988929151
+      }
+    },
+    {
+      "player_id": 621566,
+      "player_name": "Matt Olson",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.866,
+      "confidence": 0.82,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.865625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.608,
+          "2.0": 0.21175
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2640848271648018,
+        "walk": 0.08134675900252605,
+        "home_run": 0.0481668044219498,
+        "single": 0.11774934746836131,
+        "double": 0.0393505268676981,
+        "triple": 0.004028201906052806,
+        "out_on_bip": 0.4452735331686102
+      }
+    },
+    {
+      "player_id": 621566,
+      "player_name": "Matt Olson",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.864,
+      "confidence": 0.7,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.864125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.454375,
+          "3.0": 0.31
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2640848271648018,
+        "walk": 0.08134675900252605,
+        "home_run": 0.0481668044219498,
+        "single": 0.11774934746836131,
+        "double": 0.0393505268676981,
+        "triple": 0.004028201906052806,
+        "out_on_bip": 0.4452735331686102
+      }
+    },
+    {
+      "player_id": 621566,
+      "player_name": "Matt Olson",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.201,
+      "confidence": 0.86,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.200625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.18675
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2640848271648018,
+        "walk": 0.08134675900252605,
+        "home_run": 0.0481668044219498,
+        "single": 0.11774934746836131,
+        "double": 0.0393505268676981,
+        "triple": 0.004028201906052806,
+        "out_on_bip": 0.4452735331686102
+      }
+    },
+    {
+      "player_id": 643289,
+      "player_name": "Mauricio Dub\u00f3n",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.955,
+      "confidence": 0.82,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.95475,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.651,
+          "2.0": 0.2475
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17227870955589294,
+        "walk": 0.0650695205439035,
+        "home_run": 0.02990664201609032,
+        "single": 0.1536546477691781,
+        "double": 0.04492253347268438,
+        "triple": 0.0050917225959451915,
+        "out_on_bip": 0.5290762240463056
+      }
+    },
+    {
+      "player_id": 643289,
+      "player_name": "Mauricio Dub\u00f3n",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.815,
+      "confidence": 0.74,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.81475,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.471625,
+          "3.0": 0.29175
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17227870955589294,
+        "walk": 0.0650695205439035,
+        "home_run": 0.02990664201609032,
+        "single": 0.1536546477691781,
+        "double": 0.04492253347268438,
+        "triple": 0.0050917225959451915,
+        "out_on_bip": 0.5290762240463056
+      }
+    },
+    {
+      "player_id": 643289,
+      "player_name": "Mauricio Dub\u00f3n",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.126,
+      "confidence": 0.86,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.12625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.12
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17227870955589294,
+        "walk": 0.0650695205439035,
+        "home_run": 0.02990664201609032,
+        "single": 0.1536546477691781,
+        "double": 0.04492253347268438,
+        "triple": 0.0050917225959451915,
+        "out_on_bip": 0.5290762240463056
+      }
+    },
+    {
+      "player_id": 671739,
+      "player_name": "Michael Harris II",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.97,
+      "confidence": 0.82,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.9695,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6585,
+          "2.0": 0.25
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22207543393716037,
+        "walk": 0.057396238901406424,
+        "home_run": 0.042270470671887,
+        "single": 0.14878995562097155,
+        "double": 0.048315592382846766,
+        "triple": 0.005053988410354316,
+        "out_on_bip": 0.4760983200753735
+      }
+    },
+    {
+      "player_id": 671739,
+      "player_name": "Michael Harris II",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.894,
+      "confidence": 0.7,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.894375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.476875,
+          "3.0": 0.31425
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22207543393716037,
+        "walk": 0.057396238901406424,
+        "home_run": 0.042270470671887,
+        "single": 0.14878995562097155,
+        "double": 0.048315592382846766,
+        "triple": 0.005053988410354316,
+        "out_on_bip": 0.4760983200753735
+      }
+    },
+    {
+      "player_id": 671739,
+      "player_name": "Michael Harris II",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.155,
+      "confidence": 0.86,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.15475,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.14525
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22207543393716037,
+        "walk": 0.057396238901406424,
+        "home_run": 0.042270470671887,
+        "single": 0.14878995562097155,
+        "double": 0.048315592382846766,
+        "triple": 0.005053988410354316,
+        "out_on_bip": 0.4760983200753735
+      }
+    },
+    {
+      "player_id": 645277,
+      "player_name": "Ozzie Albies",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.745,
+      "confidence": 0.82,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.745125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.55675,
+          "2.0": 0.162875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19527824330889457,
+        "walk": 0.0697220477116078,
+        "home_run": 0.0222869860064538,
+        "single": 0.13535532515025117,
+        "double": 0.037647531050879784,
+        "triple": 0.004435970671823872,
+        "out_on_bip": 0.535273896100089
+      }
+    },
+    {
+      "player_id": 645277,
+      "player_name": "Ozzie Albies",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.402,
+      "confidence": 0.74,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.401875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.3755,
+          "3.0": 0.20625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19527824330889457,
+        "walk": 0.0697220477116078,
+        "home_run": 0.0222869860064538,
+        "single": 0.13535532515025117,
+        "double": 0.037647531050879784,
+        "triple": 0.004435970671823872,
+        "out_on_bip": 0.535273896100089
+      }
+    },
+    {
+      "player_id": 645277,
+      "player_name": "Ozzie Albies",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.081,
+      "confidence": 0.88,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.0805,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.07825
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19527824330889457,
+        "walk": 0.0697220477116078,
+        "home_run": 0.0222869860064538,
+        "single": 0.13535532515025117,
+        "double": 0.037647531050879784,
+        "triple": 0.004435970671823872,
+        "out_on_bip": 0.535273896100089
+      }
+    },
+    {
+      "player_id": 663586,
+      "player_name": "Austin Riley",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.73,
+      "confidence": 0.82,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.729625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.544125,
+          "2.0": 0.160375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3301918164822944,
+        "walk": 0.07375483491737395,
+        "home_run": 0.0379224548108393,
+        "single": 0.11899283685493411,
+        "double": 0.04004544545334672,
+        "triple": 0.004077904674571304,
+        "out_on_bip": 0.3950147068066402
+      }
+    },
+    {
+      "player_id": 663586,
+      "player_name": "Austin Riley",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.487,
+      "confidence": 0.74,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.487375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.378875,
+          "3.0": 0.23875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3301918164822944,
+        "walk": 0.07375483491737395,
+        "home_run": 0.0379224548108393,
+        "single": 0.11899283685493411,
+        "double": 0.04004544545334672,
+        "triple": 0.004077904674571304,
+        "out_on_bip": 0.3950147068066402
+      }
+    },
+    {
+      "player_id": 663586,
+      "player_name": "Austin Riley",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.141,
+      "confidence": 0.86,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.140625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1315
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3301918164822944,
+        "walk": 0.07375483491737395,
+        "home_run": 0.0379224548108393,
+        "single": 0.11899283685493411,
+        "double": 0.04004544545334672,
+        "triple": 0.004077904674571304,
+        "out_on_bip": 0.3950147068066402
+      }
+    },
+    {
+      "player_id": 573262,
+      "player_name": "Mike Yastrzemski",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.745,
+      "confidence": 0.82,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.744625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.550125,
+          "2.0": 0.1645
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26011344811228865,
+        "walk": 0.08596775669997526,
+        "home_run": 0.03232552470967333,
+        "single": 0.1356778222493275,
+        "double": 0.04237258574078165,
+        "triple": 0.004565395076669466,
+        "out_on_bip": 0.43897746741128413
+      }
+    },
+    {
+      "player_id": 573262,
+      "player_name": "Mike Yastrzemski",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.468,
+      "confidence": 0.74,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.4685,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.3805,
+          "3.0": 0.226375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26011344811228865,
+        "walk": 0.08596775669997526,
+        "home_run": 0.03232552470967333,
+        "single": 0.1356778222493275,
+        "double": 0.04237258574078165,
+        "triple": 0.004565395076669466,
+        "out_on_bip": 0.43897746741128413
+      }
+    },
+    {
+      "player_id": 573262,
+      "player_name": "Mike Yastrzemski",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.106,
+      "confidence": 0.86,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1065,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.102125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26011344811228865,
+        "walk": 0.08596775669997526,
+        "home_run": 0.03232552470967333,
+        "single": 0.1356778222493275,
+        "double": 0.04237258574078165,
+        "triple": 0.004565395076669466,
+        "out_on_bip": 0.43897746741128413
+      }
+    },
+    {
+      "player_id": 673490,
+      "player_name": "Ha-Seong Kim",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.612,
+      "confidence": 0.78,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.61225,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.47825,
+          "2.0": 0.11625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.27550087714659466,
+        "walk": 0.09057309530278897,
+        "home_run": 0.017249155646398652,
+        "single": 0.13019953019183392,
+        "double": 0.03576170529035247,
+        "triple": 0.004255416294415036,
+        "out_on_bip": 0.44646022012761627
+      }
+    },
+    {
+      "player_id": 673490,
+      "player_name": "Ha-Seong Kim",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.151,
+      "confidence": 0.74,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.15075,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.31425,
+          "3.0": 0.16
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.27550087714659466,
+        "walk": 0.09057309530278897,
+        "home_run": 0.017249155646398652,
+        "single": 0.13019953019183392,
+        "double": 0.03576170529035247,
+        "triple": 0.004255416294415036,
+        "out_on_bip": 0.44646022012761627
+      }
+    },
+    {
+      "player_id": 673490,
+      "player_name": "Ha-Seong Kim",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.059,
+      "confidence": 0.86,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Jes\u00fas Luzardo",
+      "opposing_pitcher_id": 666200,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.0585,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.05725
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.27550087714659466,
+        "walk": 0.09057309530278897,
+        "home_run": 0.017249155646398652,
+        "single": 0.13019953019183392,
+        "double": 0.03576170529035247,
+        "triple": 0.004255416294415036,
+        "out_on_bip": 0.44646022012761627
+      }
+    },
+    {
+      "player_id": 803011,
+      "player_name": "Sam Antonacci",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 1.088,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.08775,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.695,
+          "2.0": 0.305375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1722761974296623,
+        "walk": 0.08196463536330693,
+        "home_run": 0.03173829012557579,
+        "single": 0.15990606554854353,
+        "double": 0.04783248513531206,
+        "triple": 0.005326629504714246,
+        "out_on_bip": 0.5009556968928851
+      }
+    },
+    {
+      "player_id": 803011,
+      "player_name": "Sam Antonacci",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.985,
+      "confidence": 0.7,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.984875,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.515,
+          "3.0": 0.3315
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1722761974296623,
+        "walk": 0.08196463536330693,
+        "home_run": 0.03173829012557579,
+        "single": 0.15990606554854353,
+        "double": 0.04783248513531206,
+        "triple": 0.005326629504714246,
+        "out_on_bip": 0.5009556968928851
+      }
+    },
+    {
+      "player_id": 803011,
+      "player_name": "Sam Antonacci",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.137,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.13675,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.129125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1722761974296623,
+        "walk": 0.08196463536330693,
+        "home_run": 0.03173829012557579,
+        "single": 0.15990606554854353,
+        "double": 0.04783248513531206,
+        "triple": 0.005326629504714246,
+        "out_on_bip": 0.5009556968928851
+      }
+    },
+    {
+      "player_id": 691019,
+      "player_name": "Kyle Teel",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.732,
+      "confidence": 0.817,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.731875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.5435,
+          "2.0": 0.160625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3357429811570997,
+        "walk": 0.11498117130044497,
+        "home_run": 0.03824272273411216,
+        "single": 0.10023060905773565,
+        "double": 0.034851379133889214,
+        "triple": 0.003463640722862176,
+        "out_on_bip": 0.37248749589385616
+      }
+    },
+    {
+      "player_id": 691019,
+      "player_name": "Kyle Teel",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.645,
+      "confidence": 0.737,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.645,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.41525,
+          "3.0": 0.2585
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3357429811570997,
+        "walk": 0.11498117130044497,
+        "home_run": 0.03824272273411216,
+        "single": 0.10023060905773565,
+        "double": 0.034851379133889214,
+        "triple": 0.003463640722862176,
+        "out_on_bip": 0.37248749589385616
+      }
+    },
+    {
+      "player_id": 691019,
+      "player_name": "Kyle Teel",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.16,
+      "confidence": 0.857,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.16,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.15075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3357429811570997,
+        "walk": 0.11498117130044497,
+        "home_run": 0.03824272273411216,
+        "single": 0.10023060905773565,
+        "double": 0.034851379133889214,
+        "triple": 0.003463640722862176,
+        "out_on_bip": 0.37248749589385616
+      }
+    },
+    {
+      "player_id": 678246,
+      "player_name": "Miguel Vargas",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.96,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.960125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.656875,
+          "2.0": 0.247625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1925671038387401,
+        "walk": 0.12326191751493391,
+        "home_run": 0.04035438430900578,
+        "single": 0.139581724049234,
+        "double": 0.04602221975137212,
+        "triple": 0.004759075482066825,
+        "out_on_bip": 0.4534535750546474
+      }
+    },
+    {
+      "player_id": 678246,
+      "player_name": "Miguel Vargas",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.979,
+      "confidence": 0.7,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.979,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.49475,
+          "3.0": 0.32725
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1925671038387401,
+        "walk": 0.12326191751493391,
+        "home_run": 0.04035438430900578,
+        "single": 0.139581724049234,
+        "double": 0.04602221975137212,
+        "triple": 0.004759075482066825,
+        "out_on_bip": 0.4534535750546474
+      }
+    },
+    {
+      "player_id": 678246,
+      "player_name": "Miguel Vargas",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.171,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.171125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.159625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1925671038387401,
+        "walk": 0.12326191751493391,
+        "home_run": 0.04035438430900578,
+        "single": 0.139581724049234,
+        "double": 0.04602221975137212,
+        "triple": 0.004759075482066825,
+        "out_on_bip": 0.4534535750546474
+      }
+    },
+    {
+      "player_id": 808959,
+      "player_name": "Munetaka Murakami",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.715,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.71525,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.53825,
+          "2.0": 0.151375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3359951786316146,
+        "walk": 0.14124436142476204,
+        "home_run": 0.04796590817049785,
+        "single": 0.08900757220376715,
+        "double": 0.032913341391144706,
+        "triple": 0.0031261772716644066,
+        "out_on_bip": 0.34974746090654923
+      }
+    },
+    {
+      "player_id": 808959,
+      "player_name": "Munetaka Murakami",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.719,
+      "confidence": 0.7,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.71925,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.41825,
+          "3.0": 0.2825
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3359951786316146,
+        "walk": 0.14124436142476204,
+        "home_run": 0.04796590817049785,
+        "single": 0.08900757220376715,
+        "double": 0.032913341391144706,
+        "triple": 0.0031261772716644066,
+        "out_on_bip": 0.34974746090654923
+      }
+    },
+    {
+      "player_id": 808959,
+      "player_name": "Munetaka Murakami",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.192,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.192,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.17675
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3359951786316146,
+        "walk": 0.14124436142476204,
+        "home_run": 0.04796590817049785,
+        "single": 0.08900757220376715,
+        "double": 0.032913341391144706,
+        "triple": 0.0031261772716644066,
+        "out_on_bip": 0.34974746090654923
+      }
+    },
+    {
+      "player_id": 643217,
+      "player_name": "Andrew Benintendi",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.847,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.8465,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.60325,
+          "2.0": 0.2
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23600231686356135,
+        "walk": 0.08518330668538844,
+        "home_run": 0.032167722845377195,
+        "single": 0.1357988356465274,
+        "double": 0.042917182563510854,
+        "triple": 0.004582462005385596,
+        "out_on_bip": 0.4633481733902492
+      }
+    },
+    {
+      "player_id": 643217,
+      "player_name": "Andrew Benintendi",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.617,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.616875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.425875,
+          "3.0": 0.256625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23600231686356135,
+        "walk": 0.08518330668538844,
+        "home_run": 0.032167722845377195,
+        "single": 0.1357988356465274,
+        "double": 0.042917182563510854,
+        "triple": 0.004582462005385596,
+        "out_on_bip": 0.4633481733902492
+      }
+    },
+    {
+      "player_id": 643217,
+      "player_name": "Andrew Benintendi",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.124,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.12425,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.119375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23600231686356135,
+        "walk": 0.08518330668538844,
+        "home_run": 0.032167722845377195,
+        "single": 0.1357988356465274,
+        "double": 0.042917182563510854,
+        "triple": 0.004582462005385596,
+        "out_on_bip": 0.4633481733902492
+      }
+    },
+    {
+      "player_id": 671976,
+      "player_name": "Tristan Peters",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.885,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.88475,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.630125,
+          "2.0": 0.21
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19546470767747326,
+        "walk": 0.08101949218436853,
+        "home_run": 0.04052428797193326,
+        "single": 0.14183139745467235,
+        "double": 0.04586285716803825,
+        "triple": 0.004812673195454119,
+        "out_on_bip": 0.4904845843480602
+      }
+    },
+    {
+      "player_id": 671976,
+      "player_name": "Tristan Peters",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.753,
+      "confidence": 0.7,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.75325,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.44075,
+          "3.0": 0.283375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19546470767747326,
+        "walk": 0.08101949218436853,
+        "home_run": 0.04052428797193326,
+        "single": 0.14183139745467235,
+        "double": 0.04586285716803825,
+        "triple": 0.004812673195454119,
+        "out_on_bip": 0.4904845843480602
+      }
+    },
+    {
+      "player_id": 671976,
+      "player_name": "Tristan Peters",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.154,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.154125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.146
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19546470767747326,
+        "walk": 0.08101949218436853,
+        "home_run": 0.04052428797193326,
+        "single": 0.14183139745467235,
+        "double": 0.04586285716803825,
+        "triple": 0.004812673195454119,
+        "out_on_bip": 0.4904845843480602
+      }
+    },
+    {
+      "player_id": 695731,
+      "player_name": "Braden Montgomery",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.855,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.854875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.608,
+          "2.0": 0.207375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20504919790264828,
+        "walk": 0.09695182180889977,
+        "home_run": 0.034314552293580707,
+        "single": 0.14635799329510493,
+        "double": 0.047159920865100124,
+        "triple": 0.004961997798979617,
+        "out_on_bip": 0.46520451603568647
+      }
+    },
+    {
+      "player_id": 695731,
+      "player_name": "Braden Montgomery",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.637,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.63675,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.430125,
+          "3.0": 0.264875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20504919790264828,
+        "walk": 0.09695182180889977,
+        "home_run": 0.034314552293580707,
+        "single": 0.14635799329510493,
+        "double": 0.047159920865100124,
+        "triple": 0.004961997798979617,
+        "out_on_bip": 0.46520451603568647
+      }
+    },
+    {
+      "player_id": 695731,
+      "player_name": "Braden Montgomery",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.123,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.122875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.117125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20504919790264828,
+        "walk": 0.09695182180889977,
+        "home_run": 0.034314552293580707,
+        "single": 0.14635799329510493,
+        "double": 0.047159920865100124,
+        "triple": 0.004961997798979617,
+        "out_on_bip": 0.46520451603568647
+      }
+    },
+    {
+      "player_id": 805367,
+      "player_name": "Chase Meidroth",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.749,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.749125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.552375,
+          "2.0": 0.168625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22086975220450142,
+        "walk": 0.09154744088968919,
+        "home_run": 0.028289938050775603,
+        "single": 0.14335606521107472,
+        "double": 0.04459336029023216,
+        "triple": 0.004819216038495049,
+        "out_on_bip": 0.46652422731523185
+      }
+    },
+    {
+      "player_id": 805367,
+      "player_name": "Chase Meidroth",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.474,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.473625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.38775,
+          "3.0": 0.22875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22086975220450142,
+        "walk": 0.09154744088968919,
+        "home_run": 0.028289938050775603,
+        "single": 0.14335606521107472,
+        "double": 0.04459336029023216,
+        "triple": 0.004819216038495049,
+        "out_on_bip": 0.46652422731523185
+      }
+    },
+    {
+      "player_id": 805367,
+      "player_name": "Chase Meidroth",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.096,
+      "confidence": 0.88,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.09625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.092625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22086975220450142,
+        "walk": 0.09154744088968919,
+        "home_run": 0.028289938050775603,
+        "single": 0.14335606521107472,
+        "double": 0.04459336029023216,
+        "triple": 0.004819216038495049,
+        "out_on_bip": 0.46652422731523185
+      }
+    },
+    {
+      "player_id": 695657,
+      "player_name": "Colson Montgomery",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.623,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.622875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.485625,
+          "2.0": 0.12
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.33730589268004446,
+        "walk": 0.0858833244350848,
+        "home_run": 0.030855089690134146,
+        "single": 0.11423425051478006,
+        "double": 0.038445402053938746,
+        "triple": 0.003914862886377405,
+        "out_on_bip": 0.38936117773964024
+      }
+    },
+    {
+      "player_id": 695657,
+      "player_name": "Colson Montgomery",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.244,
+      "confidence": 0.78,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.2435,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.32525,
+          "3.0": 0.182875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.33730589268004446,
+        "walk": 0.0858833244350848,
+        "home_run": 0.030855089690134146,
+        "single": 0.11423425051478006,
+        "double": 0.038445402053938746,
+        "triple": 0.003914862886377405,
+        "out_on_bip": 0.38936117773964024
+      }
+    },
+    {
+      "player_id": 695657,
+      "player_name": "Colson Montgomery",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.1,
+      "confidence": 0.88,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "AJ Blubaugh",
+      "opposing_pitcher_id": 805123,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.0995,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.096875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.33730589268004446,
+        "walk": 0.0858833244350848,
+        "home_run": 0.030855089690134146,
+        "single": 0.11423425051478006,
+        "double": 0.038445402053938746,
+        "triple": 0.003914862886377405,
+        "out_on_bip": 0.38936117773964024
+      }
+    },
+    {
+      "player_id": 665161,
+      "player_name": "Jeremy Pe\u00f1a",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.925,
+      "confidence": 0.82,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.924875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.636375,
+          "2.0": 0.233125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2832747161385673,
+        "walk": 0.07535613167870932,
+        "home_run": 0.05150486989246908,
+        "single": 0.11836418350849018,
+        "double": 0.040910327486962404,
+        "triple": 0.004083961820396219,
+        "out_on_bip": 0.4265058094744054
+      }
+    },
+    {
+      "player_id": 665161,
+      "player_name": "Jeremy Pe\u00f1a",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 2.042,
+      "confidence": 0.7,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.0415,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.495875,
+          "3.0": 0.34075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2832747161385673,
+        "walk": 0.07535613167870932,
+        "home_run": 0.05150486989246908,
+        "single": 0.11836418350849018,
+        "double": 0.040910327486962404,
+        "triple": 0.004083961820396219,
+        "out_on_bip": 0.4265058094744054
+      }
+    },
+    {
+      "player_id": 665161,
+      "player_name": "Jeremy Pe\u00f1a",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.21,
+      "confidence": 0.86,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.210125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.192125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2832747161385673,
+        "walk": 0.07535613167870932,
+        "home_run": 0.05150486989246908,
+        "single": 0.11836418350849018,
+        "double": 0.040910327486962404,
+        "triple": 0.004083961820396219,
+        "out_on_bip": 0.4265058094744054
+      }
+    },
+    {
+      "player_id": 670541,
+      "player_name": "Yordan Alvarez",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.891,
+      "confidence": 0.82,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.891,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.618375,
+          "2.0": 0.224375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22891001082548834,
+        "walk": 0.14574404428020035,
+        "home_run": 0.05247378733132662,
+        "single": 0.11682793328270066,
+        "double": 0.03922381907719703,
+        "triple": 0.004001326983587121,
+        "out_on_bip": 0.4128190782194999
+      }
+    },
+    {
+      "player_id": 670541,
+      "player_name": "Yordan Alvarez",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 2.039,
+      "confidence": 0.7,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.039125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.4915,
+          "3.0": 0.336375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22891001082548834,
+        "walk": 0.14574404428020035,
+        "home_run": 0.05247378733132662,
+        "single": 0.11682793328270066,
+        "double": 0.03922381907719703,
+        "triple": 0.004001326983587121,
+        "out_on_bip": 0.4128190782194999
+      }
+    },
+    {
+      "player_id": 670541,
+      "player_name": "Yordan Alvarez",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.221,
+      "confidence": 0.86,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.220875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.20125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22891001082548834,
+        "walk": 0.14574404428020035,
+        "home_run": 0.05247378733132662,
+        "single": 0.11682793328270066,
+        "double": 0.03922381907719703,
+        "triple": 0.004001326983587121,
+        "out_on_bip": 0.4128190782194999
+      }
+    },
+    {
+      "player_id": 670623,
+      "player_name": "Isaac Paredes",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.837,
+      "confidence": 0.82,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.836875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.5915,
+          "2.0": 0.203375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20013806182637486,
+        "walk": 0.10818321141854084,
+        "home_run": 0.03691520459606239,
+        "single": 0.12320374257638203,
+        "double": 0.036831577957051595,
+        "triple": 0.004103469757267529,
+        "out_on_bip": 0.4906247318683209
+      }
+    },
+    {
+      "player_id": 670623,
+      "player_name": "Isaac Paredes",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.754,
+      "confidence": 0.74,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.754125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.445875,
+          "3.0": 0.284875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20013806182637486,
+        "walk": 0.10818321141854084,
+        "home_run": 0.03691520459606239,
+        "single": 0.12320374257638203,
+        "double": 0.036831577957051595,
+        "triple": 0.004103469757267529,
+        "out_on_bip": 0.4906247318683209
+      }
+    },
+    {
+      "player_id": 670623,
+      "player_name": "Isaac Paredes",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.152,
+      "confidence": 0.86,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.152375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.143875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20013806182637486,
+        "walk": 0.10818321141854084,
+        "home_run": 0.03691520459606239,
+        "single": 0.12320374257638203,
+        "double": 0.036831577957051595,
+        "triple": 0.004103469757267529,
+        "out_on_bip": 0.4906247318683209
+      }
+    },
+    {
+      "player_id": 514888,
+      "player_name": "Jose Altuve",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.814,
+      "confidence": 0.82,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.814,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.589375,
+          "2.0": 0.185875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2488102924563655,
+        "walk": 0.08648133305506069,
+        "home_run": 0.02917791352628706,
+        "single": 0.12889456410008568,
+        "double": 0.03750914257854353,
+        "triple": 0.004266761709708441,
+        "out_on_bip": 0.46485999257394905
+      }
+    },
+    {
+      "player_id": 514888,
+      "player_name": "Jose Altuve",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.556,
+      "confidence": 0.74,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.555875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.407125,
+          "3.0": 0.246375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2488102924563655,
+        "walk": 0.08648133305506069,
+        "home_run": 0.02917791352628706,
+        "single": 0.12889456410008568,
+        "double": 0.03750914257854353,
+        "triple": 0.004266761709708441,
+        "out_on_bip": 0.46485999257394905
+      }
+    },
+    {
+      "player_id": 514888,
+      "player_name": "Jose Altuve",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.126,
+      "confidence": 0.86,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1255,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.12075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2488102924563655,
+        "walk": 0.08648133305506069,
+        "home_run": 0.02917791352628706,
+        "single": 0.12889456410008568,
+        "double": 0.03750914257854353,
+        "triple": 0.004266761709708441,
+        "out_on_bip": 0.46485999257394905
+      }
+    },
+    {
+      "player_id": 673237,
+      "player_name": "Yainer Diaz",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.931,
+      "confidence": 0.82,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.931,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.642375,
+          "2.0": 0.233875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21738061559759103,
+        "walk": 0.06786949341939506,
+        "home_run": 0.048396681048422395,
+        "single": 0.13842741126739375,
+        "double": 0.044321406371428944,
+        "triple": 0.004685867118944172,
+        "out_on_bip": 0.4789185251768246
+      }
+    },
+    {
+      "player_id": 673237,
+      "player_name": "Yainer Diaz",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.858,
+      "confidence": 0.7,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.858,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.461375,
+          "3.0": 0.30625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21738061559759103,
+        "walk": 0.06786949341939506,
+        "home_run": 0.048396681048422395,
+        "single": 0.13842741126739375,
+        "double": 0.044321406371428944,
+        "triple": 0.004685867118944172,
+        "out_on_bip": 0.4789185251768246
+      }
+    },
+    {
+      "player_id": 673237,
+      "player_name": "Yainer Diaz",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.189,
+      "confidence": 0.86,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.189125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.17475
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21738061559759103,
+        "walk": 0.06786949341939506,
+        "home_run": 0.048396681048422395,
+        "single": 0.13842741126739375,
+        "double": 0.044321406371428944,
+        "triple": 0.004685867118944172,
+        "out_on_bip": 0.4789185251768246
+      }
+    },
+    {
+      "player_id": 572233,
+      "player_name": "Christian Walker",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.748,
+      "confidence": 0.82,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.747875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.5485,
+          "2.0": 0.169125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.27578941403543084,
+        "walk": 0.0913434301481714,
+        "home_run": 0.04513190105569941,
+        "single": 0.11171119846135132,
+        "double": 0.03658766768788353,
+        "triple": 0.003802535029467561,
+        "out_on_bip": 0.43563385358199586
+      }
+    },
+    {
+      "player_id": 572233,
+      "player_name": "Christian Walker",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.585,
+      "confidence": 0.74,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.585125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.402125,
+          "3.0": 0.25675
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.27578941403543084,
+        "walk": 0.0913434301481714,
+        "home_run": 0.04513190105569941,
+        "single": 0.11171119846135132,
+        "double": 0.03658766768788353,
+        "triple": 0.003802535029467561,
+        "out_on_bip": 0.43563385358199586
+      }
+    },
+    {
+      "player_id": 572233,
+      "player_name": "Christian Walker",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.17,
+      "confidence": 0.86,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.169875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1595
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.27578941403543084,
+        "walk": 0.0913434301481714,
+        "home_run": 0.04513190105569941,
+        "single": 0.11171119846135132,
+        "double": 0.03658766768788353,
+        "triple": 0.003802535029467561,
+        "out_on_bip": 0.43563385358199586
+      }
+    },
+    {
+      "player_id": 828599,
+      "player_name": "Lucas Spence",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.597,
+      "confidence": 0.643,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.597,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.46375,
+          "2.0": 0.11825
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.386799947518774,
+        "walk": 0.11043266836190799,
+        "home_run": 0.04664891762781802,
+        "single": 0.08080927058682802,
+        "double": 0.03603793630108888,
+        "triple": 0.002996082227895306,
+        "out_on_bip": 0.33627517737568774
+      }
+    },
+    {
+      "player_id": 828599,
+      "player_name": "Lucas Spence",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.453,
+      "confidence": 0.563,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.452875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.3585,
+          "3.0": 0.24225
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.386799947518774,
+        "walk": 0.11043266836190799,
+        "home_run": 0.04664891762781802,
+        "single": 0.08080927058682802,
+        "double": 0.03603793630108888,
+        "triple": 0.002996082227895306,
+        "out_on_bip": 0.33627517737568774
+      }
+    },
+    {
+      "player_id": 828599,
+      "player_name": "Lucas Spence",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.167,
+      "confidence": 0.683,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.166875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1555
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.386799947518774,
+        "walk": 0.11043266836190799,
+        "home_run": 0.04664891762781802,
+        "single": 0.08080927058682802,
+        "double": 0.03603793630108888,
+        "triple": 0.002996082227895306,
+        "out_on_bip": 0.33627517737568774
+      }
+    },
+    {
+      "player_id": 701358,
+      "player_name": "Cam Smith",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.648,
+      "confidence": 0.82,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.64825,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.496875,
+          "2.0": 0.13025
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3013612896925524,
+        "walk": 0.0897354071973531,
+        "home_run": 0.03698176952953442,
+        "single": 0.11033579460397283,
+        "double": 0.03539786797874618,
+        "triple": 0.003736760579044078,
+        "out_on_bip": 0.42245111041879696
+      }
+    },
+    {
+      "player_id": 701358,
+      "player_name": "Cam Smith",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.366,
+      "confidence": 0.74,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.366375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.35625,
+          "3.0": 0.216625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3013612896925524,
+        "walk": 0.0897354071973531,
+        "home_run": 0.03698176952953442,
+        "single": 0.11033579460397283,
+        "double": 0.03539786797874618,
+        "triple": 0.003736760579044078,
+        "out_on_bip": 0.42245111041879696
+      }
+    },
+    {
+      "player_id": 701358,
+      "player_name": "Cam Smith",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.129,
+      "confidence": 0.86,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.129375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.122625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3013612896925524,
+        "walk": 0.0897354071973531,
+        "home_run": 0.03698176952953442,
+        "single": 0.11033579460397283,
+        "double": 0.03539786797874618,
+        "triple": 0.003736760579044078,
+        "out_on_bip": 0.42245111041879696
+      }
+    },
+    {
+      "player_id": 666211,
+      "player_name": "Taylor Trammell",
+      "category": "hits",
+      "game_date": "2026-09-29",
+      "projected_value": 0.497,
+      "confidence": 0.86,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.496625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.4075,
+          "2.0": 0.081625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3593270313748512,
+        "walk": 0.10339207540528557,
+        "home_run": 0.02178635579646786,
+        "single": 0.09607666897202032,
+        "double": 0.02838847648848136,
+        "triple": 0.00319141398616671,
+        "out_on_bip": 0.3878379779767269
+      }
+    },
+    {
+      "player_id": 666211,
+      "player_name": "Taylor Trammell",
+      "category": "hrr",
+      "game_date": "2026-09-29",
+      "projected_value": 1.015,
+      "confidence": 0.78,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.01475,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.266875,
+          "3.0": 0.1425
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3593270313748512,
+        "walk": 0.10339207540528557,
+        "home_run": 0.02178635579646786,
+        "single": 0.09607666897202032,
+        "double": 0.02838847648848136,
+        "triple": 0.00319141398616671,
+        "out_on_bip": 0.3878379779767269
+      }
+    },
+    {
+      "player_id": 666211,
+      "player_name": "Taylor Trammell",
+      "category": "home_runs",
+      "game_date": "2026-09-29",
+      "projected_value": 0.072,
+      "confidence": 0.88,
+      "team": "Houston Astros",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.07225,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.070625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3593270313748512,
+        "walk": 0.10339207540528557,
+        "home_run": 0.02178635579646786,
+        "single": 0.09607666897202032,
+        "double": 0.02838847648848136,
+        "triple": 0.00319141398616671,
+        "out_on_bip": 0.3878379779767269
+      }
+    }
+  ],
+  "pitcher_projections": [
+    {
+      "player_id": 666200,
+      "player_name": "Jes\u00fas Luzardo",
+      "category": "strikeouts",
+      "game_date": "2026-09-29",
+      "projected_value": 7.11,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 7.11429662444171,
+        "median": 7.0,
+        "p10": 4.0,
+        "p90": 11.0,
+        "p_ge_threshold": {
+          "5.0": 0.8371822096241399,
+          "6.0": 0.7136503921311038,
+          "7.0": 0.5671767267641279
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 519242,
+      "player_name": "Chris Sale",
+      "category": "strikeouts",
+      "game_date": "2026-09-29",
+      "projected_value": 6.88,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849845,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.884803184943591,
+        "median": 7.0,
+        "p10": 4.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.8162376740154111,
+          "6.0": 0.6843378032682225,
+          "7.0": 0.5329870282325736
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 696146,
+      "player_name": "Hagen Smith",
+      "category": "strikeouts",
+      "game_date": "2026-09-29",
+      "projected_value": 3.45,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.4471211605250227,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.2646100102450637,
+          "6.0": 0.1354774393458369,
+          "7.0": 0.061288169735883136
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 805123,
+      "player_name": "AJ Blubaugh",
+      "category": "strikeouts",
+      "game_date": "2026-09-29",
+      "projected_value": 2.53,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849849,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.5322995796235337,
+        "median": 2.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.11317886776043706,
+          "6.0": 0.04421359876894504,
+          "7.0": 0.015106811822981903
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 801139,
+      "player_name": "Payton Tolle",
+      "category": "strikeouts",
+      "game_date": "2026-09-29",
+      "projected_value": 6.21,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849851,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.213870301270109,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.7425514355701768,
+          "6.0": 0.5880330748952217,
+          "7.0": 0.42800689949538095
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 693645,
+      "player_name": "Cam Schlittler",
+      "category": "strikeouts",
+      "game_date": "2026-09-29",
+      "projected_value": 6.79,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849851,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.789164884081771,
+        "median": 7.0,
+        "p10": 4.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.806891609661933,
+          "6.0": 0.6715586158738782,
+          "7.0": 0.5184256143599588
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 571510,
+      "player_name": "Matthew Boyd",
+      "category": "strikeouts",
+      "game_date": "2026-09-29",
+      "projected_value": 4.85,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849843,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.854959761948798,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5336989647988715,
+          "6.0": 0.3586076138776221,
+          "7.0": 0.21693070331296838
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 650633,
+      "player_name": "Michael King",
+      "category": "strikeouts",
+      "game_date": "2026-09-29",
+      "projected_value": 5.21,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849843,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.211197645979237,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5957514676411712,
+          "6.0": 0.42104374709975456,
+          "7.0": 0.2693043367631165
+        }
+      },
+      "outcome_probs": null
+    }
+  ],
+  "value_plays": [],
+  "market_status": "RESEARCH_ONLY",
+  "market_policy_sha256": "08bc0c9d56eb21c7fb438eccd8d89539e98da111f72cdf6735af9cbeb02f154c",
+  "market_policy_reason": "policy verdict is 'RESEARCH_ONLY', not BETTING_AUTHORIZED",
+  "prediction_provenance": {
+    "schema_version": "daily-prediction-provenance-v1",
+    "captured_at_utc": "2026-09-29T18:01:02.943916+00:00",
+    "model_version": "8c7eed9bb0c3",
+    "effective_config_sha256": "3a62fc507956752086919b757ae683e60f9df8fb2143f83292ac61f07830a60c",
+    "config_source_path": "/home/runner/work/baseball-predictor/baseball-predictor/config/config.kbb.json",
+    "code": {
+      "status": "available",
+      "head": "17398c395fb67f568de423a1601b50c5b944fcc6",
+      "tracked_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked": [],
+      "snapshot_sha256": "9dbe6a1d32e3d8dd48fe15167463d25bf1f08dfbe2b864584f2a99976d4a2677"
+    },
+    "run_options": {
+      "game_date": "2026-09-29",
+      "hitter_categories": [
+        "hits",
+        "hrr",
+        "home_runs"
+      ],
+      "include_pitchers": true,
+      "corrections_active": false,
+      "edges_requested": false,
+      "use_projected_lineups": false
+    }
+  }
+}
