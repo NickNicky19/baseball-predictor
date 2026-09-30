@@ -1,0 +1,3976 @@
+{
+  "game_date": "2026-09-30",
+  "hitter_projections": [
+    {
+      "player_id": 607208,
+      "player_name": "Trea Turner",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 0.914,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.914125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.623625,
+          "2.0": 0.230375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20614430504340897,
+        "walk": 0.06461650303179281,
+        "home_run": 0.025057371532605704,
+        "single": 0.14235589050314493,
+        "double": 0.04194289499897612,
+        "triple": 0.00472560988466977,
+        "out_on_bip": 0.5151574250054017
+      }
+    },
+    {
+      "player_id": 607208,
+      "player_name": "Trea Turner",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 1.71,
+      "confidence": 0.74,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.71025,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.45275,
+          "3.0": 0.27125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20614430504340897,
+        "walk": 0.06461650303179281,
+        "home_run": 0.025057371532605704,
+        "single": 0.14235589050314493,
+        "double": 0.04194289499897612,
+        "triple": 0.00472560988466977,
+        "out_on_bip": 0.5151574250054017
+      }
+    },
+    {
+      "player_id": 607208,
+      "player_name": "Trea Turner",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.117,
+      "confidence": 0.86,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.11725,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.111375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20614430504340897,
+        "walk": 0.06461650303179281,
+        "home_run": 0.025057371532605704,
+        "single": 0.14235589050314493,
+        "double": 0.04194289499897612,
+        "triple": 0.00472560988466977,
+        "out_on_bip": 0.5151574250054017
+      }
+    },
+    {
+      "player_id": 656941,
+      "player_name": "Kyle Schwarber",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 0.838,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.838375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.596625,
+          "2.0": 0.199125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.28840529026306455,
+        "walk": 0.10755007986782367,
+        "home_run": 0.04324297509505145,
+        "single": 0.10997841624892117,
+        "double": 0.0369354027317291,
+        "triple": 0.0037670209995038536,
+        "out_on_bip": 0.41012081479390616
+      }
+    },
+    {
+      "player_id": 656941,
+      "player_name": "Kyle Schwarber",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 1.771,
+      "confidence": 0.7,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.771125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.444625,
+          "3.0": 0.289625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.28840529026306455,
+        "walk": 0.10755007986782367,
+        "home_run": 0.04324297509505145,
+        "single": 0.10997841624892117,
+        "double": 0.0369354027317291,
+        "triple": 0.0037670209995038536,
+        "out_on_bip": 0.41012081479390616
+      }
+    },
+    {
+      "player_id": 656941,
+      "player_name": "Kyle Schwarber",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.18,
+      "confidence": 0.86,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.180375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1675
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.28840529026306455,
+        "walk": 0.10755007986782367,
+        "home_run": 0.04324297509505145,
+        "single": 0.10997841624892117,
+        "double": 0.0369354027317291,
+        "triple": 0.0037670209995038536,
+        "out_on_bip": 0.41012081479390616
+      }
+    },
+    {
+      "player_id": 547180,
+      "player_name": "Bryce Harper",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 0.944,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.944125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.646625,
+          "2.0": 0.2405
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20865623790563737,
+        "walk": 0.11062317289631506,
+        "home_run": 0.044557685097309646,
+        "single": 0.13895901276699968,
+        "double": 0.04508298388899686,
+        "triple": 0.004719025555281963,
+        "out_on_bip": 0.44740188188945945
+      }
+    },
+    {
+      "player_id": 547180,
+      "player_name": "Bryce Harper",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 2.049,
+      "confidence": 0.7,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.048625,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.506375,
+          "3.0": 0.3425
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20865623790563737,
+        "walk": 0.11062317289631506,
+        "home_run": 0.044557685097309646,
+        "single": 0.13895901276699968,
+        "double": 0.04508298388899686,
+        "triple": 0.004719025555281963,
+        "out_on_bip": 0.44740188188945945
+      }
+    },
+    {
+      "player_id": 547180,
+      "player_name": "Bryce Harper",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.179,
+      "confidence": 0.86,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.179125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.16725
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20865623790563737,
+        "walk": 0.11062317289631506,
+        "home_run": 0.044557685097309646,
+        "single": 0.13895901276699968,
+        "double": 0.04508298388899686,
+        "triple": 0.004719025555281963,
+        "out_on_bip": 0.44740188188945945
+      }
+    },
+    {
+      "player_id": 664761,
+      "player_name": "Alec Bohm",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 1.062,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.062125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.694625,
+          "2.0": 0.291
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1612649427008005,
+        "walk": 0.06789696893275644,
+        "home_run": 0.040320113206942426,
+        "single": 0.16092989219343837,
+        "double": 0.05246938049393175,
+        "triple": 0.005471776222753081,
+        "out_on_bip": 0.5116469262493775
+      }
+    },
+    {
+      "player_id": 664761,
+      "player_name": "Alec Bohm",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 2.074,
+      "confidence": 0.7,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.0735,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.5255,
+          "3.0": 0.346
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1612649427008005,
+        "walk": 0.06789696893275644,
+        "home_run": 0.040320113206942426,
+        "single": 0.16092989219343837,
+        "double": 0.05246938049393175,
+        "triple": 0.005471776222753081,
+        "out_on_bip": 0.5116469262493775
+      }
+    },
+    {
+      "player_id": 664761,
+      "player_name": "Alec Bohm",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.157,
+      "confidence": 0.86,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.15675,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.147375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1612649427008005,
+        "walk": 0.06789696893275644,
+        "home_run": 0.040320113206942426,
+        "single": 0.16092989219343837,
+        "double": 0.05246938049393175,
+        "triple": 0.005471776222753081,
+        "out_on_bip": 0.5116469262493775
+      }
+    },
+    {
+      "player_id": 681082,
+      "player_name": "Bryson Stott",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 0.906,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.90625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.62775,
+          "2.0": 0.224
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17602547198965654,
+        "walk": 0.07990647904805658,
+        "home_run": 0.03170347655496548,
+        "single": 0.14647036174884748,
+        "double": 0.044695587959748456,
+        "triple": 0.0049016910181691265,
+        "out_on_bip": 0.5162969316805562
+      }
+    },
+    {
+      "player_id": 681082,
+      "player_name": "Bryson Stott",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 1.718,
+      "confidence": 0.74,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.717625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4495,
+          "3.0": 0.273875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17602547198965654,
+        "walk": 0.07990647904805658,
+        "home_run": 0.03170347655496548,
+        "single": 0.14647036174884748,
+        "double": 0.044695587959748456,
+        "triple": 0.0049016910181691265,
+        "out_on_bip": 0.5162969316805562
+      }
+    },
+    {
+      "player_id": 681082,
+      "player_name": "Bryson Stott",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.123,
+      "confidence": 0.86,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.12325,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.118125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17602547198965654,
+        "walk": 0.07990647904805658,
+        "home_run": 0.03170347655496548,
+        "single": 0.14647036174884748,
+        "double": 0.044695587959748456,
+        "triple": 0.0049016910181691265,
+        "out_on_bip": 0.5162969316805562
+      }
+    },
+    {
+      "player_id": 669016,
+      "player_name": "Brandon Marsh",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 0.761,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.760875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.55775,
+          "2.0": 0.176
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23562216607959321,
+        "walk": 0.061100852682025204,
+        "home_run": 0.02495330215284584,
+        "single": 0.1362861849729302,
+        "double": 0.04065224506304108,
+        "triple": 0.004536882821435162,
+        "out_on_bip": 0.4968483662281292
+      }
+    },
+    {
+      "player_id": 669016,
+      "player_name": "Brandon Marsh",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 1.434,
+      "confidence": 0.74,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.434125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.383,
+          "3.0": 0.22
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23562216607959321,
+        "walk": 0.061100852682025204,
+        "home_run": 0.02495330215284584,
+        "single": 0.1362861849729302,
+        "double": 0.04065224506304108,
+        "triple": 0.004536882821435162,
+        "out_on_bip": 0.4968483662281292
+      }
+    },
+    {
+      "player_id": 669016,
+      "player_name": "Brandon Marsh",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.095,
+      "confidence": 0.88,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.09525,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.091
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23562216607959321,
+        "walk": 0.061100852682025204,
+        "home_run": 0.02495330215284584,
+        "single": 0.1362861849729302,
+        "double": 0.04065224506304108,
+        "triple": 0.004536882821435162,
+        "out_on_bip": 0.4968483662281292
+      }
+    },
+    {
+      "player_id": 624641,
+      "player_name": "Edmundo Sosa",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 0.875,
+      "confidence": 0.757,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6195,
+          "2.0": 0.212125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21038581733543316,
+        "walk": 0.04971394934087343,
+        "home_run": 0.036647457380150614,
+        "single": 0.15136146078001866,
+        "double": 0.04993039033151618,
+        "triple": 0.005161329515680381,
+        "out_on_bip": 0.4967995953163275
+      }
+    },
+    {
+      "player_id": 624641,
+      "player_name": "Edmundo Sosa",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 1.639,
+      "confidence": 0.677,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.639375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.424875,
+          "3.0": 0.267125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21038581733543316,
+        "walk": 0.04971394934087343,
+        "home_run": 0.036647457380150614,
+        "single": 0.15136146078001866,
+        "double": 0.04993039033151618,
+        "triple": 0.005161329515680381,
+        "out_on_bip": 0.4967995953163275
+      }
+    },
+    {
+      "player_id": 624641,
+      "player_name": "Edmundo Sosa",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.137,
+      "confidence": 0.797,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.137375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.128875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21038581733543316,
+        "walk": 0.04971394934087343,
+        "home_run": 0.036647457380150614,
+        "single": 0.15136146078001866,
+        "double": 0.04993039033151618,
+        "triple": 0.005161329515680381,
+        "out_on_bip": 0.4967995953163275
+      }
+    },
+    {
+      "player_id": 702222,
+      "player_name": "Justin Crawford",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 0.808,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.8085,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.5915,
+          "2.0": 0.1855
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18352899146910231,
+        "walk": 0.06039921929838842,
+        "home_run": 0.02671028269247108,
+        "single": 0.15417852522275355,
+        "double": 0.04591432099344921,
+        "triple": 0.005130585800415455,
+        "out_on_bip": 0.52413807452342
+      }
+    },
+    {
+      "player_id": 702222,
+      "player_name": "Justin Crawford",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 1.464,
+      "confidence": 0.74,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.464375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.392375,
+          "3.0": 0.22975
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18352899146910231,
+        "walk": 0.06039921929838842,
+        "home_run": 0.02671028269247108,
+        "single": 0.15417852522275355,
+        "double": 0.04591432099344921,
+        "triple": 0.005130585800415455,
+        "out_on_bip": 0.52413807452342
+      }
+    },
+    {
+      "player_id": 702222,
+      "player_name": "Justin Crawford",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.088,
+      "confidence": 0.88,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.08775,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.084125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18352899146910231,
+        "walk": 0.06039921929838842,
+        "home_run": 0.02671028269247108,
+        "single": 0.15417852522275355,
+        "double": 0.04591432099344921,
+        "triple": 0.005130585800415455,
+        "out_on_bip": 0.52413807452342
+      }
+    },
+    {
+      "player_id": 592663,
+      "player_name": "J.T. Realmuto",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 0.736,
+      "confidence": 0.82,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.7355,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.545875,
+          "2.0": 0.161875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20905900866248844,
+        "walk": 0.06917308660959913,
+        "home_run": 0.03362201293538045,
+        "single": 0.14491947559458151,
+        "double": 0.0461099892554133,
+        "triple": 0.004898191406410124,
+        "out_on_bip": 0.4922182355361271
+      }
+    },
+    {
+      "player_id": 592663,
+      "player_name": "J.T. Realmuto",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 1.46,
+      "confidence": 0.74,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.45975,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.38425,
+          "3.0": 0.225375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20905900866248844,
+        "walk": 0.06917308660959913,
+        "home_run": 0.03362201293538045,
+        "single": 0.14491947559458151,
+        "double": 0.0461099892554133,
+        "triple": 0.004898191406410124,
+        "out_on_bip": 0.4922182355361271
+      }
+    },
+    {
+      "player_id": 592663,
+      "player_name": "J.T. Realmuto",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.113,
+      "confidence": 0.86,
+      "team": "Philadelphia Phillies",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.108
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20905900866248844,
+        "walk": 0.06917308660959913,
+        "home_run": 0.03362201293538045,
+        "single": 0.14491947559458151,
+        "double": 0.0461099892554133,
+        "triple": 0.004898191406410124,
+        "out_on_bip": 0.4922182355361271
+      }
+    },
+    {
+      "player_id": 660670,
+      "player_name": "Ronald Acu\u00f1a Jr.",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 0.983,
+      "confidence": 0.82,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.983,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.65925,
+          "2.0": 0.258
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23312908224319756,
+        "walk": 0.08863273098956416,
+        "home_run": 0.05241637595758257,
+        "single": 0.12608888737217058,
+        "double": 0.04352113043760206,
+        "triple": 0.004348974815635196,
+        "out_on_bip": 0.451862818184248
+      }
+    },
+    {
+      "player_id": 660670,
+      "player_name": "Ronald Acu\u00f1a Jr.",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 2.112,
+      "confidence": 0.7,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.11225,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.507625,
+          "3.0": 0.354375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23312908224319756,
+        "walk": 0.08863273098956416,
+        "home_run": 0.05241637595758257,
+        "single": 0.12608888737217058,
+        "double": 0.04352113043760206,
+        "triple": 0.004348974815635196,
+        "out_on_bip": 0.451862818184248
+      }
+    },
+    {
+      "player_id": 660670,
+      "player_name": "Ronald Acu\u00f1a Jr.",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.226,
+      "confidence": 0.86,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.2255,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.20525
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23312908224319756,
+        "walk": 0.08863273098956416,
+        "home_run": 0.05241637595758257,
+        "single": 0.12608888737217058,
+        "double": 0.04352113043760206,
+        "triple": 0.004348974815635196,
+        "out_on_bip": 0.451862818184248
+      }
+    },
+    {
+      "player_id": 686948,
+      "player_name": "Drake Baldwin",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 1.026,
+      "confidence": 0.82,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.026,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.67775,
+          "2.0": 0.276625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22933219325150173,
+        "walk": 0.07642223197090285,
+        "home_run": 0.05442645605092975,
+        "single": 0.13533003000544974,
+        "double": 0.047602891000721285,
+        "triple": 0.00469058771810695,
+        "out_on_bip": 0.45219561000238767
+      }
+    },
+    {
+      "player_id": 686948,
+      "player_name": "Drake Baldwin",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 2.169,
+      "confidence": 0.7,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.169,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.523,
+          "3.0": 0.3625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22933219325150173,
+        "walk": 0.07642223197090285,
+        "home_run": 0.05442645605092975,
+        "single": 0.13533003000544974,
+        "double": 0.047602891000721285,
+        "triple": 0.00469058771810695,
+        "out_on_bip": 0.45219561000238767
+      }
+    },
+    {
+      "player_id": 686948,
+      "player_name": "Drake Baldwin",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.225,
+      "confidence": 0.86,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.224625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.206125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22933219325150173,
+        "walk": 0.07642223197090285,
+        "home_run": 0.05442645605092975,
+        "single": 0.13533003000544974,
+        "double": 0.047602891000721285,
+        "triple": 0.00469058771810695,
+        "out_on_bip": 0.45219561000238767
+      }
+    },
+    {
+      "player_id": 645277,
+      "player_name": "Ozzie Albies",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 0.841,
+      "confidence": 0.82,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.84075,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.599875,
+          "2.0": 0.202625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18645884816953961,
+        "walk": 0.0664045527058907,
+        "home_run": 0.022870322299447403,
+        "single": 0.1378993767669332,
+        "double": 0.03872973631933375,
+        "triple": 0.004528951617596589,
+        "out_on_bip": 0.5431082121212587
+      }
+    },
+    {
+      "player_id": 645277,
+      "player_name": "Ozzie Albies",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 1.596,
+      "confidence": 0.74,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.596125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.426375,
+          "3.0": 0.25275
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18645884816953961,
+        "walk": 0.0664045527058907,
+        "home_run": 0.022870322299447403,
+        "single": 0.1378993767669332,
+        "double": 0.03872973631933375,
+        "triple": 0.004528951617596589,
+        "out_on_bip": 0.5431082121212587
+      }
+    },
+    {
+      "player_id": 645277,
+      "player_name": "Ozzie Albies",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.096,
+      "confidence": 0.88,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.095875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.0935
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18645884816953961,
+        "walk": 0.0664045527058907,
+        "home_run": 0.022870322299447403,
+        "single": 0.1378993767669332,
+        "double": 0.03872973631933375,
+        "triple": 0.004528951617596589,
+        "out_on_bip": 0.5431082121212587
+      }
+    },
+    {
+      "player_id": 621566,
+      "player_name": "Matt Olson",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 0.873,
+      "confidence": 0.82,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.87275,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.616,
+          "2.0": 0.213125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.25313541685451135,
+        "walk": 0.07752223332477558,
+        "home_run": 0.044066229142795385,
+        "single": 0.12433486024196914,
+        "double": 0.04150324742635239,
+        "triple": 0.0042522591709826035,
+        "out_on_bip": 0.4551857538386136
+      }
+    },
+    {
+      "player_id": 621566,
+      "player_name": "Matt Olson",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 1.816,
+      "confidence": 0.7,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.815875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.4545,
+          "3.0": 0.29725
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.25313541685451135,
+        "walk": 0.07752223332477558,
+        "home_run": 0.044066229142795385,
+        "single": 0.12433486024196914,
+        "double": 0.04150324742635239,
+        "triple": 0.0042522591709826035,
+        "out_on_bip": 0.4551857538386136
+      }
+    },
+    {
+      "player_id": 621566,
+      "player_name": "Matt Olson",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.181,
+      "confidence": 0.86,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.181375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1665
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.25313541685451135,
+        "walk": 0.07752223332477558,
+        "home_run": 0.044066229142795385,
+        "single": 0.12433486024196914,
+        "double": 0.04150324742635239,
+        "triple": 0.0042522591709826035,
+        "out_on_bip": 0.4551857538386136
+      }
+    },
+    {
+      "player_id": 643289,
+      "player_name": "Mauricio Dub\u00f3n",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 0.948,
+      "confidence": 0.82,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.948125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.643375,
+          "2.0": 0.24525
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1642859875244913,
+        "walk": 0.06195865668474614,
+        "home_run": 0.029141196258734153,
+        "single": 0.15732847864727348,
+        "double": 0.04600508656848913,
+        "triple": 0.005213681159378529,
+        "out_on_bip": 0.5360669131568874
+      }
+    },
+    {
+      "player_id": 643289,
+      "player_name": "Mauricio Dub\u00f3n",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 1.71,
+      "confidence": 0.74,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.709875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4485,
+          "3.0": 0.272375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1642859875244913,
+        "walk": 0.06195865668474614,
+        "home_run": 0.029141196258734153,
+        "single": 0.15732847864727348,
+        "double": 0.04600508656848913,
+        "triple": 0.005213681159378529,
+        "out_on_bip": 0.5360669131568874
+      }
+    },
+    {
+      "player_id": 643289,
+      "player_name": "Mauricio Dub\u00f3n",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.116,
+      "confidence": 0.86,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.115875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.11
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1642859875244913,
+        "walk": 0.06195865668474614,
+        "home_run": 0.029141196258734153,
+        "single": 0.15732847864727348,
+        "double": 0.04600508656848913,
+        "triple": 0.005213681159378529,
+        "out_on_bip": 0.5360669131568874
+      }
+    },
+    {
+      "player_id": 663586,
+      "player_name": "Austin Riley",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 0.793,
+      "confidence": 0.82,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.793125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.57575,
+          "2.0": 0.180125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3176847106761558,
+        "walk": 0.07025994536417554,
+        "home_run": 0.04051405609350253,
+        "single": 0.12118579329068518,
+        "double": 0.041431595318870085,
+        "triple": 0.004169676631014238,
+        "out_on_bip": 0.4047542226255966
+      }
+    },
+    {
+      "player_id": 663586,
+      "player_name": "Austin Riley",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 1.622,
+      "confidence": 0.74,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.622125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.41025,
+          "3.0": 0.263
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3176847106761558,
+        "walk": 0.07025994536417554,
+        "home_run": 0.04051405609350253,
+        "single": 0.12118579329068518,
+        "double": 0.041431595318870085,
+        "triple": 0.004169676631014238,
+        "out_on_bip": 0.4047542226255966
+      }
+    },
+    {
+      "player_id": 663586,
+      "player_name": "Austin Riley",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.155,
+      "confidence": 0.86,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.15525,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1475
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3176847106761558,
+        "walk": 0.07025994536417554,
+        "home_run": 0.04051405609350253,
+        "single": 0.12118579329068518,
+        "double": 0.041431595318870085,
+        "triple": 0.004169676631014238,
+        "out_on_bip": 0.4047542226255966
+      }
+    },
+    {
+      "player_id": 671739,
+      "player_name": "Michael Harris II",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 0.928,
+      "confidence": 0.82,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.928,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.642875,
+          "2.0": 0.2325
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2123651742370854,
+        "walk": 0.054630785728974736,
+        "home_run": 0.04135540825991456,
+        "single": 0.15290090528873101,
+        "double": 0.04962918097033507,
+        "triple": 0.00519307913484785,
+        "out_on_bip": 0.48392546638011136
+      }
+    },
+    {
+      "player_id": 671739,
+      "player_name": "Michael Harris II",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 1.787,
+      "confidence": 0.74,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.786875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.460875,
+          "3.0": 0.2935
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2123651742370854,
+        "walk": 0.054630785728974736,
+        "home_run": 0.04135540825991456,
+        "single": 0.15290090528873101,
+        "double": 0.04962918097033507,
+        "triple": 0.00519307913484785,
+        "out_on_bip": 0.48392546638011136
+      }
+    },
+    {
+      "player_id": 671739,
+      "player_name": "Michael Harris II",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.146,
+      "confidence": 0.86,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.145625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.137375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2123651742370854,
+        "walk": 0.054630785728974736,
+        "home_run": 0.04135540825991456,
+        "single": 0.15290090528873101,
+        "double": 0.04962918097033507,
+        "triple": 0.00519307913484785,
+        "out_on_bip": 0.48392546638011136
+      }
+    },
+    {
+      "player_id": 669221,
+      "player_name": "Sean Murphy",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 0.679,
+      "confidence": 0.82,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.67875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.5175,
+          "2.0": 0.140375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.30548927659110525,
+        "walk": 0.07714018968727411,
+        "home_run": 0.03207750676012472,
+        "single": 0.12096187570013281,
+        "double": 0.03877426604005567,
+        "triple": 0.0040957985061586795,
+        "out_on_bip": 0.4214610867151488
+      }
+    },
+    {
+      "player_id": 669221,
+      "player_name": "Sean Murphy",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 1.317,
+      "confidence": 0.74,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.317,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.344,
+          "3.0": 0.20075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.30548927659110525,
+        "walk": 0.07714018968727411,
+        "home_run": 0.03207750676012472,
+        "single": 0.12096187570013281,
+        "double": 0.03877426604005567,
+        "triple": 0.0040957985061586795,
+        "out_on_bip": 0.4214610867151488
+      }
+    },
+    {
+      "player_id": 669221,
+      "player_name": "Sean Murphy",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.105,
+      "confidence": 0.88,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1055,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.1000000000003638,
+        "p_ge_threshold": {
+          "1.0": 0.1
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.30548927659110525,
+        "walk": 0.07714018968727411,
+        "home_run": 0.03207750676012472,
+        "single": 0.12096187570013281,
+        "double": 0.03877426604005567,
+        "triple": 0.0040957985061586795,
+        "out_on_bip": 0.4214610867151488
+      }
+    },
+    {
+      "player_id": 673490,
+      "player_name": "Ha-Seong Kim",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 0.623,
+      "confidence": 0.787,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.623375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.486,
+          "2.0": 0.121375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2642480980136818,
+        "walk": 0.08635556860673418,
+        "home_run": 0.016897480029541567,
+        "single": 0.13378624921106472,
+        "double": 0.03673806189269733,
+        "triple": 0.004372418233429797,
+        "out_on_bip": 0.4576021240128504
+      }
+    },
+    {
+      "player_id": 673490,
+      "player_name": "Ha-Seong Kim",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 1.143,
+      "confidence": 0.747,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.143125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.3115,
+          "3.0": 0.158625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2642480980136818,
+        "walk": 0.08635556860673418,
+        "home_run": 0.016897480029541567,
+        "single": 0.13378624921106472,
+        "double": 0.03673806189269733,
+        "triple": 0.004372418233429797,
+        "out_on_bip": 0.4576021240128504
+      }
+    },
+    {
+      "player_id": 673490,
+      "player_name": "Ha-Seong Kim",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.056,
+      "confidence": 0.867,
+      "team": "Atlanta Braves",
+      "opponent": "Philadelphia Phillies",
+      "opposing_pitcher": "Cristopher S\u00e1nchez",
+      "opposing_pitcher_id": 650911,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.05575,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.05375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2642480980136818,
+        "walk": 0.08635556860673418,
+        "home_run": 0.016897480029541567,
+        "single": 0.13378624921106472,
+        "double": 0.03673806189269733,
+        "triple": 0.004372418233429797,
+        "out_on_bip": 0.4576021240128504
+      }
+    },
+    {
+      "player_id": 803011,
+      "player_name": "Sam Antonacci",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 1.024,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.024125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.672625,
+          "2.0": 0.281125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18521082596016245,
+        "walk": 0.08615291741316485,
+        "home_run": 0.03419155377625298,
+        "single": 0.15387211584182584,
+        "double": 0.04604598827826619,
+        "triple": 0.005126105233848513,
+        "out_on_bip": 0.4894004934964791
+      }
+    },
+    {
+      "player_id": 803011,
+      "player_name": "Sam Antonacci",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 2.023,
+      "confidence": 0.7,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.02275,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.512,
+          "3.0": 0.3345
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18521082596016245,
+        "walk": 0.08615291741316485,
+        "home_run": 0.03419155377625298,
+        "single": 0.15387211584182584,
+        "double": 0.04604598827826619,
+        "triple": 0.005126105233848513,
+        "out_on_bip": 0.4894004934964791
+      }
+    },
+    {
+      "player_id": 803011,
+      "player_name": "Sam Antonacci",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.153,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.15325,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.14425
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18521082596016245,
+        "walk": 0.08615291741316485,
+        "home_run": 0.03419155377625298,
+        "single": 0.15387211584182584,
+        "double": 0.04604598827826619,
+        "triple": 0.005126105233848513,
+        "out_on_bip": 0.4894004934964791
+      }
+    },
+    {
+      "player_id": 691019,
+      "player_name": "Kyle Teel",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 0.746,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.74575,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.547,
+          "2.0": 0.16875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.355676961968549,
+        "walk": 0.12063485950046816,
+        "home_run": 0.040015495530750095,
+        "single": 0.09518986897859404,
+        "double": 0.033090004637094196,
+        "triple": 0.0032892275286073905,
+        "out_on_bip": 0.35210358185593715
+      }
+    },
+    {
+      "player_id": 691019,
+      "player_name": "Kyle Teel",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 1.652,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.65175,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.41225,
+          "3.0": 0.26375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.355676961968549,
+        "walk": 0.12063485950046816,
+        "home_run": 0.040015495530750095,
+        "single": 0.09518986897859404,
+        "double": 0.033090004637094196,
+        "triple": 0.0032892275286073905,
+        "out_on_bip": 0.35210358185593715
+      }
+    },
+    {
+      "player_id": 691019,
+      "player_name": "Kyle Teel",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.169,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.16925,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.156375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.355676961968549,
+        "walk": 0.12063485950046816,
+        "home_run": 0.040015495530750095,
+        "single": 0.09518986897859404,
+        "double": 0.033090004637094196,
+        "triple": 0.0032892275286073905,
+        "out_on_bip": 0.35210358185593715
+      }
+    },
+    {
+      "player_id": 678246,
+      "player_name": "Miguel Vargas",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 0.914,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.914375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.628625,
+          "2.0": 0.232375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20664485151276993,
+        "walk": 0.1292633046973903,
+        "home_run": 0.03898909475643495,
+        "single": 0.13531214862419774,
+        "double": 0.04365260636163282,
+        "triple": 0.004588839871431554,
+        "out_on_bip": 0.44154915417614266
+      }
+    },
+    {
+      "player_id": 678246,
+      "player_name": "Miguel Vargas",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 1.9,
+      "confidence": 0.7,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.899625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.486625,
+          "3.0": 0.30925
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20664485151276993,
+        "walk": 0.1292633046973903,
+        "home_run": 0.03898909475643495,
+        "single": 0.13531214862419774,
+        "double": 0.04365260636163282,
+        "triple": 0.004588839871431554,
+        "out_on_bip": 0.44154915417614266
+      }
+    },
+    {
+      "player_id": 678246,
+      "player_name": "Miguel Vargas",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.156,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.155625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.14525
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20664485151276993,
+        "walk": 0.1292633046973903,
+        "home_run": 0.03898909475643495,
+        "single": 0.13531214862419774,
+        "double": 0.04365260636163282,
+        "triple": 0.004588839871431554,
+        "out_on_bip": 0.44154915417614266
+      }
+    },
+    {
+      "player_id": 808959,
+      "player_name": "Munetaka Murakami",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 0.666,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.666125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.51025,
+          "2.0": 0.134625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3559361096006662,
+        "walk": 0.1479735096806114,
+        "home_run": 0.046029396570021794,
+        "single": 0.08549717110112871,
+        "double": 0.031370863105995274,
+        "triple": 0.002996616261721128,
+        "out_on_bip": 0.33019633367985557
+      }
+    },
+    {
+      "player_id": 808959,
+      "player_name": "Munetaka Murakami",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 1.623,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.62275,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.39725,
+          "3.0": 0.26375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3559361096006662,
+        "walk": 0.1479735096806114,
+        "home_run": 0.046029396570021794,
+        "single": 0.08549717110112871,
+        "double": 0.031370863105995274,
+        "triple": 0.002996616261721128,
+        "out_on_bip": 0.33019633367985557
+      }
+    },
+    {
+      "player_id": 808959,
+      "player_name": "Munetaka Murakami",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.187,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.187125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.173
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3559361096006662,
+        "walk": 0.1479735096806114,
+        "home_run": 0.046029396570021794,
+        "single": 0.08549717110112871,
+        "double": 0.031370863105995274,
+        "triple": 0.002996616261721128,
+        "out_on_bip": 0.33019633367985557
+      }
+    },
+    {
+      "player_id": 643217,
+      "player_name": "Andrew Benintendi",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 0.812,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.8125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.589375,
+          "2.0": 0.18525
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.25226335854461107,
+        "walk": 0.08952002061394443,
+        "home_run": 0.0348736739623105,
+        "single": 0.1295767399469672,
+        "double": 0.04120642149202454,
+        "triple": 0.004379055421512609,
+        "out_on_bip": 0.44818073001862974
+      }
+    },
+    {
+      "player_id": 643217,
+      "player_name": "Andrew Benintendi",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 1.663,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.66275,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.423,
+          "3.0": 0.2655
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.25226335854461107,
+        "walk": 0.08952002061394443,
+        "home_run": 0.0348736739623105,
+        "single": 0.1295767399469672,
+        "double": 0.04120642149202454,
+        "triple": 0.004379055421512609,
+        "out_on_bip": 0.44818073001862974
+      }
+    },
+    {
+      "player_id": 643217,
+      "player_name": "Andrew Benintendi",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.136,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.136,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.12925
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.25226335854461107,
+        "walk": 0.08952002061394443,
+        "home_run": 0.0348736739623105,
+        "single": 0.1295767399469672,
+        "double": 0.04120642149202454,
+        "triple": 0.004379055421512609,
+        "out_on_bip": 0.44818073001862974
+      }
+    },
+    {
+      "player_id": 671976,
+      "player_name": "Tristan Peters",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 0.849,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.8485,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.602625,
+          "2.0": 0.203625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20969927169891345,
+        "walk": 0.08516395895796376,
+        "home_run": 0.03942052145045748,
+        "single": 0.1350492139744411,
+        "double": 0.04283645680973658,
+        "triple": 0.004561171045748147,
+        "out_on_bip": 0.4832694060627394
+      }
+    },
+    {
+      "player_id": 671976,
+      "player_name": "Tristan Peters",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 1.714,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.714,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4355,
+          "3.0": 0.281
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20969927169891345,
+        "walk": 0.08516395895796376,
+        "home_run": 0.03942052145045748,
+        "single": 0.1350492139744411,
+        "double": 0.04283645680973658,
+        "triple": 0.004561171045748147,
+        "out_on_bip": 0.4832694060627394
+      }
+    },
+    {
+      "player_id": 671976,
+      "player_name": "Tristan Peters",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.157,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.15675,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.148625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20969927169891345,
+        "walk": 0.08516395895796376,
+        "home_run": 0.03942052145045748,
+        "single": 0.1350492139744411,
+        "double": 0.04283645680973658,
+        "triple": 0.004561171045748147,
+        "out_on_bip": 0.4832694060627394
+      }
+    },
+    {
+      "player_id": 805367,
+      "player_name": "Chase Meidroth",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 0.792,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.792375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.5755,
+          "2.0": 0.18375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23641077049167142,
+        "walk": 0.0961740933057179,
+        "home_run": 0.0301861749642741,
+        "single": 0.13765640532175435,
+        "double": 0.04292078552170755,
+        "triple": 0.0046301843806015874,
+        "out_on_bip": 0.45202158601427317
+      }
+    },
+    {
+      "player_id": 805367,
+      "player_name": "Chase Meidroth",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 1.548,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.548125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.40225,
+          "3.0": 0.24475
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23641077049167142,
+        "walk": 0.0961740933057179,
+        "home_run": 0.0301861749642741,
+        "single": 0.13765640532175435,
+        "double": 0.04292078552170755,
+        "triple": 0.0046301843806015874,
+        "out_on_bip": 0.45202158601427317
+      }
+    },
+    {
+      "player_id": 805367,
+      "player_name": "Chase Meidroth",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.115,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.11475,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.10975
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23641077049167142,
+        "walk": 0.0961740933057179,
+        "home_run": 0.0301861749642741,
+        "single": 0.13765640532175435,
+        "double": 0.04292078552170755,
+        "triple": 0.0046301843806015874,
+        "out_on_bip": 0.45202158601427317
+      }
+    },
+    {
+      "player_id": 695731,
+      "player_name": "Braden Montgomery",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 0.77,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.769875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.56325,
+          "2.0": 0.17525
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21979106287833616,
+        "walk": 0.1018209897687584,
+        "home_run": 0.033866813112854846,
+        "single": 0.1413979835896468,
+        "double": 0.0449174582725916,
+        "triple": 0.004777319022108678,
+        "out_on_bip": 0.4534283733557034
+      }
+    },
+    {
+      "player_id": 695731,
+      "player_name": "Braden Montgomery",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 1.54,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.54025,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.403,
+          "3.0": 0.239125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21979106287833616,
+        "walk": 0.1018209897687584,
+        "home_run": 0.033866813112854846,
+        "single": 0.1413979835896468,
+        "double": 0.0449174582725916,
+        "triple": 0.004777319022108678,
+        "out_on_bip": 0.4534283733557034
+      }
+    },
+    {
+      "player_id": 695731,
+      "player_name": "Braden Montgomery",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.119,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.118875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.113
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21979106287833616,
+        "walk": 0.1018209897687584,
+        "home_run": 0.033866813112854846,
+        "single": 0.1413979835896468,
+        "double": 0.0449174582725916,
+        "triple": 0.004777319022108678,
+        "out_on_bip": 0.4534283733557034
+      }
+    },
+    {
+      "player_id": 695657,
+      "player_name": "Colson Montgomery",
+      "category": "hits",
+      "game_date": "2026-09-30",
+      "projected_value": 0.599,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.598875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.472625,
+          "2.0": 0.11175
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.35728275670267506,
+        "walk": 0.0902521606094997,
+        "home_run": 0.035735837854866934,
+        "single": 0.10633114298073768,
+        "double": 0.03663765250605045,
+        "triple": 0.0036658665509432856,
+        "out_on_bip": 0.37009458279522695
+      }
+    },
+    {
+      "player_id": 695657,
+      "player_name": "Colson Montgomery",
+      "category": "hrr",
+      "game_date": "2026-09-30",
+      "projected_value": 1.227,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.226625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.31675,
+          "3.0": 0.188375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.35728275670267506,
+        "walk": 0.0902521606094997,
+        "home_run": 0.035735837854866934,
+        "single": 0.10633114298073768,
+        "double": 0.03663765250605045,
+        "triple": 0.0036658665509432856,
+        "out_on_bip": 0.37009458279522695
+      }
+    },
+    {
+      "player_id": 695657,
+      "player_name": "Colson Montgomery",
+      "category": "home_runs",
+      "game_date": "2026-09-30",
+      "projected_value": 0.124,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Houston Astros",
+      "opposing_pitcher": "Hunter Brown",
+      "opposing_pitcher_id": 686613,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.123875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.118375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.35728275670267506,
+        "walk": 0.0902521606094997,
+        "home_run": 0.035735837854866934,
+        "single": 0.10633114298073768,
+        "double": 0.03663765250605045,
+        "triple": 0.0036658665509432856,
+        "out_on_bip": 0.37009458279522695
+      }
+    }
+  ],
+  "pitcher_projections": [
+    {
+      "player_id": 650911,
+      "player_name": "Cristopher S\u00e1nchez",
+      "category": "strikeouts",
+      "game_date": "2026-09-30",
+      "projected_value": 6.72,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.716152824463577,
+        "median": 7.0,
+        "p10": 4.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.7995049568845021,
+          "6.0": 0.6615829741315824,
+          "7.0": 0.5071987884613093
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 641816,
+      "player_name": "Tyler Mahle",
+      "category": "strikeouts",
+      "game_date": "2026-09-30",
+      "projected_value": 5.53,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849841,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.5259022621027665,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6465037754803787,
+          "6.0": 0.4755156741459783,
+          "7.0": 0.3180384181532415
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 680732,
+      "player_name": "Sean Burke",
+      "category": "strikeouts",
+      "game_date": "2026-09-30",
+      "projected_value": 6.64,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.6368096550413,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.7912267179351731,
+          "6.0": 0.6505294209016735,
+          "7.0": 0.4948992243366497
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 686613,
+      "player_name": "Hunter Brown",
+      "category": "strikeouts",
+      "game_date": "2026-09-30",
+      "projected_value": 5.91,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849846,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.907989891893988,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.7024388880498781,
+          "6.0": 0.539430458735898,
+          "7.0": 0.37892176662247956
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 543243,
+      "player_name": "Sonny Gray",
+      "category": "strikeouts",
+      "game_date": "2026-09-30",
+      "projected_value": 5.29,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849848,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.287093598035826,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6083603806396115,
+          "6.0": 0.4342806631484052,
+          "7.0": 0.28088470316579817
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 608331,
+      "player_name": "Max Fried",
+      "category": "strikeouts",
+      "game_date": "2026-09-30",
+      "projected_value": 5.25,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849848,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.253641970005317,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6028310020988935,
+          "6.0": 0.42845231629972347,
+          "7.0": 0.27576511923490843
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 592332,
+      "player_name": "Kevin Gausman",
+      "category": "strikeouts",
+      "game_date": "2026-09-30",
+      "projected_value": 5.9,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849842,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.903399989318264,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.7018052145639158,
+          "6.0": 0.5386820023476855,
+          "7.0": 0.3781850741385432
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 601713,
+      "player_name": "Nick Pivetta",
+      "category": "strikeouts",
+      "game_date": "2026-09-30",
+      "projected_value": 4.88,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849842,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.875195107167071,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5373413099939437,
+          "6.0": 0.3621516677411949,
+          "7.0": 0.21980438661836965
+        }
+      },
+      "outcome_probs": null
+    }
+  ],
+  "value_plays": [],
+  "market_status": "RESEARCH_ONLY",
+  "market_policy_sha256": "08bc0c9d56eb21c7fb438eccd8d89539e98da111f72cdf6735af9cbeb02f154c",
+  "market_policy_reason": "policy verdict is 'RESEARCH_ONLY', not BETTING_AUTHORIZED",
+  "prediction_provenance": {
+    "schema_version": "daily-prediction-provenance-v1",
+    "captured_at_utc": "2026-09-30T17:56:38.216050+00:00",
+    "model_version": "8c7eed9bb0c3",
+    "effective_config_sha256": "3a62fc507956752086919b757ae683e60f9df8fb2143f83292ac61f07830a60c",
+    "config_source_path": "/home/runner/work/baseball-predictor/baseball-predictor/config/config.kbb.json",
+    "code": {
+      "status": "available",
+      "head": "50f8d1ee503c9ea8527ad792fa7524b0a96f61f9",
+      "tracked_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked": [],
+      "snapshot_sha256": "cac8cdb9035cf588daa6f83d37cea5e67160a3baff605a092cb771c43144f61d"
+    },
+    "run_options": {
+      "game_date": "2026-09-30",
+      "hitter_categories": [
+        "hits",
+        "hrr",
+        "home_runs"
+      ],
+      "include_pitchers": true,
+      "corrections_active": false,
+      "edges_requested": false,
+      "use_projected_lineups": false
+    }
+  }
+}
