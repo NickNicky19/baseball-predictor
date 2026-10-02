@@ -10463,3 +10463,5 @@ mlb_game_pk,player_id,player_name,game_date,category,predicted_value,actual_valu
 823814,676083,Janson Junk,2026-09-27,strikeouts,4.03,5.0,0.72,8c7eed9bb0c3,,,,,,,,,5,4.67,1,1
 823731,669467,Andre Pallante,2026-09-27,strikeouts,4.42,4.0,0.72,8c7eed9bb0c3,,,,,,,,,4,5.0,1,1
 823731,694819,Jacob Misiorowski,2026-09-27,strikeouts,7.66,5.0,0.72,8c7eed9bb0c3,,,,,,,,,5,5.33,2,0
+849844,605400,Aaron Nola,2026-10-01,strikeouts,5.27,1.0,0.72,8c7eed9bb0c3,,,,,,,,,1,1.67,2,1
+849844,678061,Ray Kerr,2026-10-01,strikeouts,1.95,2.0,0.62,8c7eed9bb0c3,,,,,,,,,2,3.33,1,0
