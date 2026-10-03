@@ -1,0 +1,2713 @@
+{
+  "game_date": "2026-10-03",
+  "hitter_projections": [
+    {
+      "player_id": 805367,
+      "player_name": "Chase Meidroth",
+      "category": "hits",
+      "game_date": "2026-10-03",
+      "projected_value": 0.991,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.9905,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.658125,
+          "2.0": 0.26525
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22578427599895576,
+        "walk": 0.08153815322799184,
+        "home_run": 0.03866572109588178,
+        "single": 0.14003421756341247,
+        "double": 0.0443341516882252,
+        "triple": 0.004727394083375326,
+        "out_on_bip": 0.4649160863421576
+      }
+    },
+    {
+      "player_id": 805367,
+      "player_name": "Chase Meidroth",
+      "category": "hrr",
+      "game_date": "2026-10-03",
+      "projected_value": 1.974,
+      "confidence": 0.7,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.9745,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.49325,
+          "3.0": 0.323
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22578427599895576,
+        "walk": 0.08153815322799184,
+        "home_run": 0.03866572109588178,
+        "single": 0.14003421756341247,
+        "double": 0.0443341516882252,
+        "triple": 0.004727394083375326,
+        "out_on_bip": 0.4649160863421576
+      }
+    },
+    {
+      "player_id": 805367,
+      "player_name": "Chase Meidroth",
+      "category": "home_runs",
+      "game_date": "2026-10-03",
+      "projected_value": 0.169,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.16925,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1575
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22578427599895576,
+        "walk": 0.08153815322799184,
+        "home_run": 0.03866572109588178,
+        "single": 0.14003421756341247,
+        "double": 0.0443341516882252,
+        "triple": 0.004727394083375326,
+        "out_on_bip": 0.4649160863421576
+      }
+    },
+    {
+      "player_id": 545341,
+      "player_name": "Randal Grichuk",
+      "category": "hits",
+      "game_date": "2026-10-03",
+      "projected_value": 1.022,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.02225,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.67775,
+          "2.0": 0.273
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22405065453427905,
+        "walk": 0.05727765831603129,
+        "home_run": 0.046294926792090046,
+        "single": 0.14164715801559183,
+        "double": 0.046926423007638815,
+        "triple": 0.004835220026236683,
+        "out_on_bip": 0.4789679593081323
+      }
+    },
+    {
+      "player_id": 545341,
+      "player_name": "Randal Grichuk",
+      "category": "hrr",
+      "game_date": "2026-10-03",
+      "projected_value": 2.049,
+      "confidence": 0.7,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.04875,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.502875,
+          "3.0": 0.342625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22405065453427905,
+        "walk": 0.05727765831603129,
+        "home_run": 0.046294926792090046,
+        "single": 0.14164715801559183,
+        "double": 0.046926423007638815,
+        "triple": 0.004835220026236683,
+        "out_on_bip": 0.4789679593081323
+      }
+    },
+    {
+      "player_id": 545341,
+      "player_name": "Randal Grichuk",
+      "category": "home_runs",
+      "game_date": "2026-10-03",
+      "projected_value": 0.193,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.193125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1795
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22405065453427905,
+        "walk": 0.05727765831603129,
+        "home_run": 0.046294926792090046,
+        "single": 0.14164715801559183,
+        "double": 0.046926423007638815,
+        "triple": 0.004835220026236683,
+        "out_on_bip": 0.4789679593081323
+      }
+    },
+    {
+      "player_id": 678246,
+      "player_name": "Miguel Vargas",
+      "category": "hits",
+      "game_date": "2026-10-03",
+      "projected_value": 0.956,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.956,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.652625,
+          "2.0": 0.247
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19701111197073093,
+        "walk": 0.11020579140742236,
+        "home_run": 0.03881992649303318,
+        "single": 0.14110329242286065,
+        "double": 0.04500263350239497,
+        "triple": 0.004771946818596299,
+        "out_on_bip": 0.4630852973849615
+      }
+    },
+    {
+      "player_id": 678246,
+      "player_name": "Miguel Vargas",
+      "category": "hrr",
+      "game_date": "2026-10-03",
+      "projected_value": 1.941,
+      "confidence": 0.7,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.940625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.488125,
+          "3.0": 0.319875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19701111197073093,
+        "walk": 0.11020579140742236,
+        "home_run": 0.03881992649303318,
+        "single": 0.14110329242286065,
+        "double": 0.04500263350239497,
+        "triple": 0.004771946818596299,
+        "out_on_bip": 0.4630852973849615
+      }
+    },
+    {
+      "player_id": 678246,
+      "player_name": "Miguel Vargas",
+      "category": "home_runs",
+      "game_date": "2026-10-03",
+      "projected_value": 0.162,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1615,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.15175
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19701111197073093,
+        "walk": 0.11020579140742236,
+        "home_run": 0.03881992649303318,
+        "single": 0.14110329242286065,
+        "double": 0.04500263350239497,
+        "triple": 0.004771946818596299,
+        "out_on_bip": 0.4630852973849615
+      }
+    },
+    {
+      "player_id": 808959,
+      "player_name": "Munetaka Murakami",
+      "category": "hits",
+      "game_date": "2026-10-03",
+      "projected_value": 0.713,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.713,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.53525,
+          "2.0": 0.152625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.34234576573240244,
+        "walk": 0.12655845328060514,
+        "home_run": 0.037702666555970175,
+        "single": 0.0976548024831993,
+        "double": 0.03519880852210748,
+        "triple": 0.0034065028462899175,
+        "out_on_bip": 0.35713300057942554
+      }
+    },
+    {
+      "player_id": 808959,
+      "player_name": "Munetaka Murakami",
+      "category": "hrr",
+      "game_date": "2026-10-03",
+      "projected_value": 1.551,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.551125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.395125,
+          "3.0": 0.249
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.34234576573240244,
+        "walk": 0.12655845328060514,
+        "home_run": 0.037702666555970175,
+        "single": 0.0976548024831993,
+        "double": 0.03519880852210748,
+        "triple": 0.0034065028462899175,
+        "out_on_bip": 0.35713300057942554
+      }
+    },
+    {
+      "player_id": 808959,
+      "player_name": "Munetaka Murakami",
+      "category": "home_runs",
+      "game_date": "2026-10-03",
+      "projected_value": 0.15,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.15,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.141
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.34234576573240244,
+        "walk": 0.12655845328060514,
+        "home_run": 0.037702666555970175,
+        "single": 0.0976548024831993,
+        "double": 0.03519880852210748,
+        "triple": 0.0034065028462899175,
+        "out_on_bip": 0.35713300057942554
+      }
+    },
+    {
+      "player_id": 502054,
+      "player_name": "Tommy Pham",
+      "category": "hits",
+      "game_date": "2026-10-03",
+      "projected_value": 0.793,
+      "confidence": 0.64,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.7935,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.57875,
+          "2.0": 0.1805
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.29596586053375573,
+        "walk": 0.11619970112439466,
+        "home_run": 0.048840565732563915,
+        "single": 0.10860290298968359,
+        "double": 0.03857922583269398,
+        "triple": 0.003773900739035322,
+        "out_on_bip": 0.3880378430478728
+      }
+    },
+    {
+      "player_id": 502054,
+      "player_name": "Tommy Pham",
+      "category": "hrr",
+      "game_date": "2026-10-03",
+      "projected_value": 1.733,
+      "confidence": 0.52,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.732875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.420875,
+          "3.0": 0.283625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.29596586053375573,
+        "walk": 0.11619970112439466,
+        "home_run": 0.048840565732563915,
+        "single": 0.10860290298968359,
+        "double": 0.03857922583269398,
+        "triple": 0.003773900739035322,
+        "out_on_bip": 0.3880378430478728
+      }
+    },
+    {
+      "player_id": 502054,
+      "player_name": "Tommy Pham",
+      "category": "home_runs",
+      "game_date": "2026-10-03",
+      "projected_value": 0.186,
+      "confidence": 0.68,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.185625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.172875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.29596586053375573,
+        "walk": 0.11619970112439466,
+        "home_run": 0.048840565732563915,
+        "single": 0.10860290298968359,
+        "double": 0.03857922583269398,
+        "triple": 0.003773900739035322,
+        "out_on_bip": 0.3880378430478728
+      }
+    },
+    {
+      "player_id": 686668,
+      "player_name": "Brenton Doyle",
+      "category": "hits",
+      "game_date": "2026-10-03",
+      "projected_value": 0.792,
+      "confidence": 0.78,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.79225,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.57375,
+          "2.0": 0.184
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3168850175730724,
+        "walk": 0.05868238116583373,
+        "home_run": 0.037674688237844055,
+        "single": 0.12580643475361697,
+        "double": 0.04271880836352396,
+        "triple": 0.004321160079926691,
+        "out_on_bip": 0.4139115098261822
+      }
+    },
+    {
+      "player_id": 686668,
+      "player_name": "Brenton Doyle",
+      "category": "hrr",
+      "game_date": "2026-10-03",
+      "projected_value": 1.581,
+      "confidence": 0.7,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.58075,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.402,
+          "3.0": 0.25175
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3168850175730724,
+        "walk": 0.05868238116583373,
+        "home_run": 0.037674688237844055,
+        "single": 0.12580643475361697,
+        "double": 0.04271880836352396,
+        "triple": 0.004321160079926691,
+        "out_on_bip": 0.4139115098261822
+      }
+    },
+    {
+      "player_id": 686668,
+      "player_name": "Brenton Doyle",
+      "category": "home_runs",
+      "game_date": "2026-10-03",
+      "projected_value": 0.142,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.142125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.13275
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3168850175730724,
+        "walk": 0.05868238116583373,
+        "home_run": 0.037674688237844055,
+        "single": 0.12580643475361697,
+        "double": 0.04271880836352396,
+        "triple": 0.004321160079926691,
+        "out_on_bip": 0.4139115098261822
+      }
+    },
+    {
+      "player_id": 691019,
+      "player_name": "Kyle Teel",
+      "category": "hits",
+      "game_date": "2026-10-03",
+      "projected_value": 0.673,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.672625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.513875,
+          "2.0": 0.136
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3420912573128942,
+        "walk": 0.10269941369165535,
+        "home_run": 0.03647296432141924,
+        "single": 0.10832231429272984,
+        "double": 0.03780670091167695,
+        "triple": 0.00374689782575402,
+        "out_on_bip": 0.3688604516438704
+      }
+    },
+    {
+      "player_id": 691019,
+      "player_name": "Kyle Teel",
+      "category": "hrr",
+      "game_date": "2026-10-03",
+      "projected_value": 1.46,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.4605,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.3715,
+          "3.0": 0.230125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3420912573128942,
+        "walk": 0.10269941369165535,
+        "home_run": 0.03647296432141924,
+        "single": 0.10832231429272984,
+        "double": 0.03780670091167695,
+        "triple": 0.00374689782575402,
+        "out_on_bip": 0.3688604516438704
+      }
+    },
+    {
+      "player_id": 691019,
+      "player_name": "Kyle Teel",
+      "category": "home_runs",
+      "game_date": "2026-10-03",
+      "projected_value": 0.132,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1315,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.12625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3420912573128942,
+        "walk": 0.10269941369165535,
+        "home_run": 0.03647296432141924,
+        "single": 0.10832231429272984,
+        "double": 0.03780670091167695,
+        "triple": 0.00374689782575402,
+        "out_on_bip": 0.3688604516438704
+      }
+    },
+    {
+      "player_id": 695731,
+      "player_name": "Braden Montgomery",
+      "category": "hits",
+      "game_date": "2026-10-03",
+      "projected_value": 0.8,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.8005,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.582375,
+          "2.0": 0.18175
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20970644974455466,
+        "walk": 0.08640785148808512,
+        "home_run": 0.032531890092995355,
+        "single": 0.14762405578794963,
+        "double": 0.04641123717861069,
+        "triple": 0.004975263922219496,
+        "out_on_bip": 0.472343251785585
+      }
+    },
+    {
+      "player_id": 695731,
+      "player_name": "Braden Montgomery",
+      "category": "hrr",
+      "game_date": "2026-10-03",
+      "projected_value": 1.529,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.528625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.392875,
+          "3.0": 0.2385
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20970644974455466,
+        "walk": 0.08640785148808512,
+        "home_run": 0.032531890092995355,
+        "single": 0.14762405578794963,
+        "double": 0.04641123717861069,
+        "triple": 0.004975263922219496,
+        "out_on_bip": 0.472343251785585
+      }
+    },
+    {
+      "player_id": 695731,
+      "player_name": "Braden Montgomery",
+      "category": "home_runs",
+      "game_date": "2026-10-03",
+      "projected_value": 0.119,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.119375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.111375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20970644974455466,
+        "walk": 0.08640785148808512,
+        "home_run": 0.032531890092995355,
+        "single": 0.14762405578794963,
+        "double": 0.04641123717861069,
+        "triple": 0.004975263922219496,
+        "out_on_bip": 0.472343251785585
+      }
+    },
+    {
+      "player_id": 695657,
+      "player_name": "Colson Montgomery",
+      "category": "hits",
+      "game_date": "2026-10-03",
+      "projected_value": 0.618,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.618375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.485,
+          "2.0": 0.115375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3436684313197491,
+        "walk": 0.07644121053773921,
+        "home_run": 0.034088567063578226,
+        "single": 0.11164455232317205,
+        "double": 0.03869781336571254,
+        "triple": 0.0038549324535611437,
+        "out_on_bip": 0.39160449293648775
+      }
+    },
+    {
+      "player_id": 695657,
+      "player_name": "Colson Montgomery",
+      "category": "hrr",
+      "game_date": "2026-10-03",
+      "projected_value": 1.243,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.24275,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.322375,
+          "3.0": 0.192375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3436684313197491,
+        "walk": 0.07644121053773921,
+        "home_run": 0.034088567063578226,
+        "single": 0.11164455232317205,
+        "double": 0.03869781336571254,
+        "triple": 0.0038549324535611437,
+        "out_on_bip": 0.39160449293648775
+      }
+    },
+    {
+      "player_id": 695657,
+      "player_name": "Colson Montgomery",
+      "category": "home_runs",
+      "game_date": "2026-10-03",
+      "projected_value": 0.115,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Parker Messick",
+      "opposing_pitcher_id": 800048,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.11475,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1085
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.3436684313197491,
+        "walk": 0.07644121053773921,
+        "home_run": 0.034088567063578226,
+        "single": 0.11164455232317205,
+        "double": 0.03869781336571254,
+        "triple": 0.0038549324535611437,
+        "out_on_bip": 0.39160449293648775
+      }
+    },
+    {
+      "player_id": 680757,
+      "player_name": "Steven Kwan",
+      "category": "hits",
+      "game_date": "2026-10-03",
+      "projected_value": 0.992,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.991875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.656875,
+          "2.0": 0.262
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17644059513286992,
+        "walk": 0.12638046853883336,
+        "home_run": 0.028688355772635,
+        "single": 0.14876053592114363,
+        "double": 0.04394012947517798,
+        "triple": 0.004941042702469786,
+        "out_on_bip": 0.47084887245687035
+      }
+    },
+    {
+      "player_id": 680757,
+      "player_name": "Steven Kwan",
+      "category": "hrr",
+      "game_date": "2026-10-03",
+      "projected_value": 1.959,
+      "confidence": 0.7,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.95925,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.508375,
+          "3.0": 0.3225
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17644059513286992,
+        "walk": 0.12638046853883336,
+        "home_run": 0.028688355772635,
+        "single": 0.14876053592114363,
+        "double": 0.04394012947517798,
+        "triple": 0.004941042702469786,
+        "out_on_bip": 0.47084887245687035
+      }
+    },
+    {
+      "player_id": 680757,
+      "player_name": "Steven Kwan",
+      "category": "home_runs",
+      "game_date": "2026-10-03",
+      "projected_value": 0.129,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.128875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.120375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17644059513286992,
+        "walk": 0.12638046853883336,
+        "home_run": 0.028688355772635,
+        "single": 0.14876053592114363,
+        "double": 0.04394012947517798,
+        "triple": 0.004941042702469786,
+        "out_on_bip": 0.47084887245687035
+      }
+    },
+    {
+      "player_id": 608070,
+      "player_name": "Jos\u00e9 Ram\u00edrez",
+      "category": "hits",
+      "game_date": "2026-10-03",
+      "projected_value": 0.844,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.844375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.604625,
+          "2.0": 0.198125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19558099949505517,
+        "walk": 0.10988393953669469,
+        "home_run": 0.02415514700823253,
+        "single": 0.13418815504231604,
+        "double": 0.038129554915781905,
+        "triple": 0.00441840281943841,
+        "out_on_bip": 0.49364380118248125
+      }
+    },
+    {
+      "player_id": 608070,
+      "player_name": "Jos\u00e9 Ram\u00edrez",
+      "category": "hrr",
+      "game_date": "2026-10-03",
+      "projected_value": 1.643,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.64275,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.429125,
+          "3.0": 0.25625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19558099949505517,
+        "walk": 0.10988393953669469,
+        "home_run": 0.02415514700823253,
+        "single": 0.13418815504231604,
+        "double": 0.038129554915781905,
+        "triple": 0.00441840281943841,
+        "out_on_bip": 0.49364380118248125
+      }
+    },
+    {
+      "player_id": 608070,
+      "player_name": "Jos\u00e9 Ram\u00edrez",
+      "category": "home_runs",
+      "game_date": "2026-10-03",
+      "projected_value": 0.099,
+      "confidence": 0.88,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.09925,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.0955
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19558099949505517,
+        "walk": 0.10988393953669469,
+        "home_run": 0.02415514700823253,
+        "single": 0.13418815504231604,
+        "double": 0.038129554915781905,
+        "triple": 0.00441840281943841,
+        "out_on_bip": 0.49364380118248125
+      }
+    },
+    {
+      "player_id": 800050,
+      "player_name": "Chase DeLauter",
+      "category": "hits",
+      "game_date": "2026-10-03",
+      "projected_value": 0.948,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.94775,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.649,
+          "2.0": 0.240875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2093194162505875,
+        "walk": 0.10791611814824123,
+        "home_run": 0.0379666335522304,
+        "single": 0.13801312974164648,
+        "double": 0.04310393949699667,
+        "triple": 0.004644027416375466,
+        "out_on_bip": 0.45903673539392226
+      }
+    },
+    {
+      "player_id": 800050,
+      "player_name": "Chase DeLauter",
+      "category": "hrr",
+      "game_date": "2026-10-03",
+      "projected_value": 1.923,
+      "confidence": 0.7,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.923375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.485875,
+          "3.0": 0.316625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2093194162505875,
+        "walk": 0.10791611814824123,
+        "home_run": 0.0379666335522304,
+        "single": 0.13801312974164648,
+        "double": 0.04310393949699667,
+        "triple": 0.004644027416375466,
+        "out_on_bip": 0.45903673539392226
+      }
+    },
+    {
+      "player_id": 800050,
+      "player_name": "Chase DeLauter",
+      "category": "home_runs",
+      "game_date": "2026-10-03",
+      "projected_value": 0.153,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.153375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.144875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2093194162505875,
+        "walk": 0.10791611814824123,
+        "home_run": 0.0379666335522304,
+        "single": 0.13801312974164648,
+        "double": 0.04310393949699667,
+        "triple": 0.004644027416375466,
+        "out_on_bip": 0.45903673539392226
+      }
+    },
+    {
+      "player_id": 666176,
+      "player_name": "Jo Adell",
+      "category": "hits",
+      "game_date": "2026-10-03",
+      "projected_value": 0.893,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.892875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.61825,
+          "2.0": 0.228625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2812179263728842,
+        "walk": 0.0746946928077873,
+        "home_run": 0.04951858585780549,
+        "single": 0.12263296224446527,
+        "double": 0.04072167535699101,
+        "triple": 0.004188580451319392,
+        "out_on_bip": 0.4270255769087473
+      }
+    },
+    {
+      "player_id": 666176,
+      "player_name": "Jo Adell",
+      "category": "hrr",
+      "game_date": "2026-10-03",
+      "projected_value": 1.835,
+      "confidence": 0.7,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.834625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.4485,
+          "3.0": 0.303
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2812179263728842,
+        "walk": 0.0746946928077873,
+        "home_run": 0.04951858585780549,
+        "single": 0.12263296224446527,
+        "double": 0.04072167535699101,
+        "triple": 0.004188580451319392,
+        "out_on_bip": 0.4270255769087473
+      }
+    },
+    {
+      "player_id": 666176,
+      "player_name": "Jo Adell",
+      "category": "home_runs",
+      "game_date": "2026-10-03",
+      "projected_value": 0.201,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.201375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.18475
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2812179263728842,
+        "walk": 0.0746946928077873,
+        "home_run": 0.04951858585780549,
+        "single": 0.12263296224446527,
+        "double": 0.04072167535699101,
+        "triple": 0.004188580451319392,
+        "out_on_bip": 0.4270255769087473
+      }
+    },
+    {
+      "player_id": 682657,
+      "player_name": "Angel Mart\u00ednez",
+      "category": "hits",
+      "game_date": "2026-10-03",
+      "projected_value": 0.83,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.83025,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.593,
+          "2.0": 0.198625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26500967234809286,
+        "walk": 0.06701152249327587,
+        "home_run": 0.03224957761107683,
+        "single": 0.1318208391443835,
+        "double": 0.04050475667836994,
+        "triple": 0.004418605021096242,
+        "out_on_bip": 0.45898502670370483
+      }
+    },
+    {
+      "player_id": 682657,
+      "player_name": "Angel Mart\u00ednez",
+      "category": "hrr",
+      "game_date": "2026-10-03",
+      "projected_value": 1.629,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.6285,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.42075,
+          "3.0": 0.256875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26500967234809286,
+        "walk": 0.06701152249327587,
+        "home_run": 0.03224957761107683,
+        "single": 0.1318208391443835,
+        "double": 0.04050475667836994,
+        "triple": 0.004418605021096242,
+        "out_on_bip": 0.45898502670370483
+      }
+    },
+    {
+      "player_id": 682657,
+      "player_name": "Angel Mart\u00ednez",
+      "category": "home_runs",
+      "game_date": "2026-10-03",
+      "projected_value": 0.125,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.124625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.119
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26500967234809286,
+        "walk": 0.06701152249327587,
+        "home_run": 0.03224957761107683,
+        "single": 0.1318208391443835,
+        "double": 0.04050475667836994,
+        "triple": 0.004418605021096242,
+        "out_on_bip": 0.45898502670370483
+      }
+    },
+    {
+      "player_id": 681807,
+      "player_name": "David Fry",
+      "category": "hits",
+      "game_date": "2026-10-03",
+      "projected_value": 0.663,
+      "confidence": 0.723,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.662875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.508625,
+          "2.0": 0.135625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.31519892619030004,
+        "walk": 0.12442894702010589,
+        "home_run": 0.029719712205654614,
+        "single": 0.10715509610009628,
+        "double": 0.033852115080453174,
+        "triple": 0.0036155695174499864,
+        "out_on_bip": 0.3860296338859399
+      }
+    },
+    {
+      "player_id": 681807,
+      "player_name": "David Fry",
+      "category": "hrr",
+      "game_date": "2026-10-03",
+      "projected_value": 1.401,
+      "confidence": 0.643,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.4005,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.36525,
+          "3.0": 0.21075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.31519892619030004,
+        "walk": 0.12442894702010589,
+        "home_run": 0.029719712205654614,
+        "single": 0.10715509610009628,
+        "double": 0.033852115080453174,
+        "triple": 0.0036155695174499864,
+        "out_on_bip": 0.3860296338859399
+      }
+    },
+    {
+      "player_id": 681807,
+      "player_name": "David Fry",
+      "category": "home_runs",
+      "game_date": "2026-10-03",
+      "projected_value": 0.11,
+      "confidence": 0.763,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1095,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.104875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.31519892619030004,
+        "walk": 0.12442894702010589,
+        "home_run": 0.029719712205654614,
+        "single": 0.10715509610009628,
+        "double": 0.033852115080453174,
+        "triple": 0.0036155695174499864,
+        "out_on_bip": 0.3860296338859399
+      }
+    },
+    {
+      "player_id": 683953,
+      "player_name": "Travis Bazzana",
+      "category": "hits",
+      "game_date": "2026-10-03",
+      "projected_value": 0.692,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.691875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.52075,
+          "2.0": 0.1505
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.25528433548049356,
+        "walk": 0.10856604489221525,
+        "home_run": 0.02668401685553747,
+        "single": 0.12343306868419149,
+        "double": 0.037616136500378164,
+        "triple": 0.00412946679960435,
+        "out_on_bip": 0.4442869307875798
+      }
+    },
+    {
+      "player_id": 683953,
+      "player_name": "Travis Bazzana",
+      "category": "hrr",
+      "game_date": "2026-10-03",
+      "projected_value": 1.381,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.381125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.36425,
+          "3.0": 0.206125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.25528433548049356,
+        "walk": 0.10856604489221525,
+        "home_run": 0.02668401685553747,
+        "single": 0.12343306868419149,
+        "double": 0.037616136500378164,
+        "triple": 0.00412946679960435,
+        "out_on_bip": 0.4442869307875798
+      }
+    },
+    {
+      "player_id": 683953,
+      "player_name": "Travis Bazzana",
+      "category": "home_runs",
+      "game_date": "2026-10-03",
+      "projected_value": 0.098,
+      "confidence": 0.88,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.098375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.094625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.25528433548049356,
+        "walk": 0.10856604489221525,
+        "home_run": 0.02668401685553747,
+        "single": 0.12343306868419149,
+        "double": 0.037616136500378164,
+        "triple": 0.00412946679960435,
+        "out_on_bip": 0.4442869307875798
+      }
+    },
+    {
+      "player_id": 595978,
+      "player_name": "Austin Hedges",
+      "category": "hits",
+      "game_date": "2026-10-03",
+      "projected_value": 0.681,
+      "confidence": 0.767,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.681125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.515625,
+          "2.0": 0.14275
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23561879890049073,
+        "walk": 0.10394507105473638,
+        "home_run": 0.025686908748471408,
+        "single": 0.1296289999806267,
+        "double": 0.037459301520200224,
+        "triple": 0.004284315423098127,
+        "out_on_bip": 0.4633766043723763
+      }
+    },
+    {
+      "player_id": 595978,
+      "player_name": "Austin Hedges",
+      "category": "hrr",
+      "game_date": "2026-10-03",
+      "projected_value": 1.323,
+      "confidence": 0.687,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.322625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.35175,
+          "3.0": 0.19425
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23561879890049073,
+        "walk": 0.10394507105473638,
+        "home_run": 0.025686908748471408,
+        "single": 0.1296289999806267,
+        "double": 0.037459301520200224,
+        "triple": 0.004284315423098127,
+        "out_on_bip": 0.4633766043723763
+      }
+    },
+    {
+      "player_id": 595978,
+      "player_name": "Austin Hedges",
+      "category": "home_runs",
+      "game_date": "2026-10-03",
+      "projected_value": 0.098,
+      "confidence": 0.847,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.098,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.094875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23561879890049073,
+        "walk": 0.10394507105473638,
+        "home_run": 0.025686908748471408,
+        "single": 0.1296289999806267,
+        "double": 0.037459301520200224,
+        "triple": 0.004284315423098127,
+        "out_on_bip": 0.4633766043723763
+      }
+    },
+    {
+      "player_id": 677587,
+      "player_name": "Brayan Rocchio",
+      "category": "hits",
+      "game_date": "2026-10-03",
+      "projected_value": 0.735,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.734625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.544,
+          "2.0": 0.16125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20712159832433835,
+        "walk": 0.08257735569991068,
+        "home_run": 0.029516883144046862,
+        "single": 0.14438575234057255,
+        "double": 0.042678662243485176,
+        "triple": 0.004796523450873276,
+        "out_on_bip": 0.4889232247967731
+      }
+    },
+    {
+      "player_id": 677587,
+      "player_name": "Brayan Rocchio",
+      "category": "hrr",
+      "game_date": "2026-10-03",
+      "projected_value": 1.384,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.38375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.36775,
+          "3.0": 0.2125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20712159832433835,
+        "walk": 0.08257735569991068,
+        "home_run": 0.029516883144046862,
+        "single": 0.14438575234057255,
+        "double": 0.042678662243485176,
+        "triple": 0.004796523450873276,
+        "out_on_bip": 0.4889232247967731
+      }
+    },
+    {
+      "player_id": 677587,
+      "player_name": "Brayan Rocchio",
+      "category": "home_runs",
+      "game_date": "2026-10-03",
+      "projected_value": 0.098,
+      "confidence": 0.88,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Hagen Smith",
+      "opposing_pitcher_id": 696146,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.09775,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.094
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20712159832433835,
+        "walk": 0.08257735569991068,
+        "home_run": 0.029516883144046862,
+        "single": 0.14438575234057255,
+        "double": 0.042678662243485176,
+        "triple": 0.004796523450873276,
+        "out_on_bip": 0.4889232247967731
+      }
+    }
+  ],
+  "pitcher_projections": [
+    {
+      "player_id": 696146,
+      "player_name": "Hagen Smith",
+      "category": "strikeouts",
+      "game_date": "2026-10-03",
+      "projected_value": 3.45,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.4471211605250227,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.2646100102450637,
+          "6.0": 0.1354774393458369,
+          "7.0": 0.061288169735883136
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 800048,
+      "player_name": "Parker Messick",
+      "category": "strikeouts",
+      "game_date": "2026-10-03",
+      "projected_value": 5.87,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849829,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.866470748662482,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6966726945602889,
+          "6.0": 0.5326411300128221,
+          "7.0": 0.3722600674669795
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669373,
+      "player_name": "Tarik Skubal",
+      "category": "strikeouts",
+      "game_date": "2026-10-03",
+      "projected_value": 6.73,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849828,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.733007259072573,
+        "median": 7.0,
+        "p10": 4.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.8012296665604534,
+          "6.0": 0.663902560476066,
+          "7.0": 0.5097984934537979
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 543037,
+      "player_name": "Gerrit Cole",
+      "category": "strikeouts",
+      "game_date": "2026-10-03",
+      "projected_value": 5.85,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849835,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.849207521499504,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6942525951280624,
+          "6.0": 0.529805823192219,
+          "7.0": 0.3694919406433108
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 656876,
+      "player_name": "Drew Rasmussen",
+      "category": "strikeouts",
+      "game_date": "2026-10-03",
+      "projected_value": 5.67,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849835,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.672437307417631,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.668712232130619,
+          "6.0": 0.500383188527394,
+          "7.0": 0.3412438640512503
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 592662,
+      "player_name": "Robbie Ray",
+      "category": "strikeouts",
+      "game_date": "2026-10-03",
+      "projected_value": 4.12,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849830,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.1234624612226485,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.3952684537204656,
+          "6.0": 0.23445144237056637,
+          "7.0": 0.12393095746601213
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 694819,
+      "player_name": "Jacob Misiorowski",
+      "category": "strikeouts",
+      "game_date": "2026-10-03",
+      "projected_value": 7.59,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849830,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 7.588008093947546,
+        "median": 7.0,
+        "p10": 4.0,
+        "p90": 11.0,
+        "p_ge_threshold": {
+          "5.0": 0.8742248153141412,
+          "6.0": 0.7680485030041779,
+          "7.0": 0.6337707168052609
+        }
+      },
+      "outcome_probs": null
+    }
+  ],
+  "value_plays": [],
+  "market_status": "RESEARCH_ONLY",
+  "market_policy_sha256": "08bc0c9d56eb21c7fb438eccd8d89539e98da111f72cdf6735af9cbeb02f154c",
+  "market_policy_reason": "policy verdict is 'RESEARCH_ONLY', not BETTING_AUTHORIZED",
+  "prediction_provenance": {
+    "schema_version": "daily-prediction-provenance-v1",
+    "captured_at_utc": "2026-10-03T16:05:59.586773+00:00",
+    "model_version": "8c7eed9bb0c3",
+    "effective_config_sha256": "3a62fc507956752086919b757ae683e60f9df8fb2143f83292ac61f07830a60c",
+    "config_source_path": "/home/runner/work/baseball-predictor/baseball-predictor/config/config.kbb.json",
+    "code": {
+      "status": "available",
+      "head": "3c8bd17189fc01515be139fa23b77c70f85b684c",
+      "tracked_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked": [],
+      "snapshot_sha256": "7ab49a81eb75f585f69dcbd542aee0529394cc31eb732b6a0f8feea343d42454"
+    },
+    "run_options": {
+      "game_date": "2026-10-03",
+      "hitter_categories": [
+        "hits",
+        "hrr",
+        "home_runs"
+      ],
+      "include_pitchers": true,
+      "corrections_active": false,
+      "edges_requested": false,
+      "use_projected_lineups": false
+    }
+  }
+}
