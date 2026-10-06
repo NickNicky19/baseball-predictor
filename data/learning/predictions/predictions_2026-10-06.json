@@ -1,0 +1,1390 @@
+{
+  "game_date": "2026-10-06",
+  "hitter_projections": [
+    {
+      "player_id": 686948,
+      "player_name": "Drake Baldwin",
+      "category": "hits",
+      "game_date": "2026-10-06",
+      "projected_value": 1.037,
+      "confidence": 0.82,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.03675,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.68125,
+          "2.0": 0.28025
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.217851304946095,
+        "walk": 0.07691759208197324,
+        "home_run": 0.05159437673518118,
+        "single": 0.13440006703144244,
+        "double": 0.04586372303479652,
+        "triple": 0.004622148463236897,
+        "out_on_bip": 0.4687507877072747
+      }
+    },
+    {
+      "player_id": 686948,
+      "player_name": "Drake Baldwin",
+      "category": "hrr",
+      "game_date": "2026-10-06",
+      "projected_value": 2.164,
+      "confidence": 0.7,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.163875,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.525,
+          "3.0": 0.36
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.217851304946095,
+        "walk": 0.07691759208197324,
+        "home_run": 0.05159437673518118,
+        "single": 0.13440006703144244,
+        "double": 0.04586372303479652,
+        "triple": 0.004622148463236897,
+        "out_on_bip": 0.4687507877072747
+      }
+    },
+    {
+      "player_id": 686948,
+      "player_name": "Drake Baldwin",
+      "category": "home_runs",
+      "game_date": "2026-10-06",
+      "projected_value": 0.229,
+      "confidence": 0.86,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.229125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.208125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.217851304946095,
+        "walk": 0.07691759208197324,
+        "home_run": 0.05159437673518118,
+        "single": 0.13440006703144244,
+        "double": 0.04586372303479652,
+        "triple": 0.004622148463236897,
+        "out_on_bip": 0.4687507877072747
+      }
+    },
+    {
+      "player_id": 660670,
+      "player_name": "Ronald Acu\u00f1a Jr.",
+      "category": "hits",
+      "game_date": "2026-10-06",
+      "projected_value": 0.96,
+      "confidence": 0.82,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.959625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.646625,
+          "2.0": 0.2515
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2215127479519675,
+        "walk": 0.08919959408893746,
+        "home_run": 0.04736257521710199,
+        "single": 0.1305913871962426,
+        "double": 0.04442786106478048,
+        "triple": 0.004487673032333926,
+        "out_on_bip": 0.46241816144863607
+      }
+    },
+    {
+      "player_id": 660670,
+      "player_name": "Ronald Acu\u00f1a Jr.",
+      "category": "hrr",
+      "game_date": "2026-10-06",
+      "projected_value": 2.041,
+      "confidence": 0.7,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.041125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.498,
+          "3.0": 0.340375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2215127479519675,
+        "walk": 0.08919959408893746,
+        "home_run": 0.04736257521710199,
+        "single": 0.1305913871962426,
+        "double": 0.04442786106478048,
+        "triple": 0.004487673032333926,
+        "out_on_bip": 0.46241816144863607
+      }
+    },
+    {
+      "player_id": 660670,
+      "player_name": "Ronald Acu\u00f1a Jr.",
+      "category": "home_runs",
+      "game_date": "2026-10-06",
+      "projected_value": 0.209,
+      "confidence": 0.86,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.20875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1895
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2215127479519675,
+        "walk": 0.08919959408893746,
+        "home_run": 0.04736257521710199,
+        "single": 0.1305913871962426,
+        "double": 0.04442786106478048,
+        "triple": 0.004487673032333926,
+        "out_on_bip": 0.46241816144863607
+      }
+    },
+    {
+      "player_id": 621566,
+      "player_name": "Matt Olson",
+      "category": "hits",
+      "game_date": "2026-10-06",
+      "projected_value": 0.873,
+      "confidence": 0.82,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.8725,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6105,
+          "2.0": 0.215
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2408352762939221,
+        "walk": 0.07802412116657081,
+        "home_run": 0.04075528067522668,
+        "single": 0.12639080965482716,
+        "double": 0.04134601734827287,
+        "triple": 0.00430094428213077,
+        "out_on_bip": 0.46834755057904953
+      }
+    },
+    {
+      "player_id": 621566,
+      "player_name": "Matt Olson",
+      "category": "hrr",
+      "game_date": "2026-10-06",
+      "projected_value": 1.809,
+      "confidence": 0.7,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.809,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.458,
+          "3.0": 0.296
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2408352762939221,
+        "walk": 0.07802412116657081,
+        "home_run": 0.04075528067522668,
+        "single": 0.12639080965482716,
+        "double": 0.04134601734827287,
+        "triple": 0.00430094428213077,
+        "out_on_bip": 0.46834755057904953
+      }
+    },
+    {
+      "player_id": 621566,
+      "player_name": "Matt Olson",
+      "category": "home_runs",
+      "game_date": "2026-10-06",
+      "projected_value": 0.178,
+      "confidence": 0.86,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.177625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.164875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2408352762939221,
+        "walk": 0.07802412116657081,
+        "home_run": 0.04075528067522668,
+        "single": 0.12639080965482716,
+        "double": 0.04134601734827287,
+        "triple": 0.00430094428213077,
+        "out_on_bip": 0.46834755057904953
+      }
+    },
+    {
+      "player_id": 645277,
+      "player_name": "Ozzie Albies",
+      "category": "hits",
+      "game_date": "2026-10-06",
+      "projected_value": 0.859,
+      "confidence": 0.82,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.859125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.604125,
+          "2.0": 0.208375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17663236920402553,
+        "walk": 0.06683967863138224,
+        "home_run": 0.025821777660906715,
+        "single": 0.1398228554093689,
+        "double": 0.04082404425789389,
+        "triple": 0.004631971786340072,
+        "out_on_bip": 0.5454273030500826
+      }
+    },
+    {
+      "player_id": 645277,
+      "player_name": "Ozzie Albies",
+      "category": "hrr",
+      "game_date": "2026-10-06",
+      "projected_value": 1.625,
+      "confidence": 0.74,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.625125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.422125,
+          "3.0": 0.254625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17663236920402553,
+        "walk": 0.06683967863138224,
+        "home_run": 0.025821777660906715,
+        "single": 0.1398228554093689,
+        "double": 0.04082404425789389,
+        "triple": 0.004631971786340072,
+        "out_on_bip": 0.5454273030500826
+      }
+    },
+    {
+      "player_id": 645277,
+      "player_name": "Ozzie Albies",
+      "category": "home_runs",
+      "game_date": "2026-10-06",
+      "projected_value": 0.107,
+      "confidence": 0.86,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.107,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.10325
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17663236920402553,
+        "walk": 0.06683967863138224,
+        "home_run": 0.025821777660906715,
+        "single": 0.1398228554093689,
+        "double": 0.04082404425789389,
+        "triple": 0.004631971786340072,
+        "out_on_bip": 0.5454273030500826
+      }
+    },
+    {
+      "player_id": 671739,
+      "player_name": "Michael Harris II",
+      "category": "hits",
+      "game_date": "2026-10-06",
+      "projected_value": 0.994,
+      "confidence": 0.82,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.994,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.66875,
+          "2.0": 0.262625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20151159313980715,
+        "walk": 0.054993306730946594,
+        "home_run": 0.04291180313543064,
+        "single": 0.1539880723898192,
+        "double": 0.050029425591081075,
+        "triple": 0.005231217896946161,
+        "out_on_bip": 0.49133458111596917
+      }
+    },
+    {
+      "player_id": 671739,
+      "player_name": "Michael Harris II",
+      "category": "hrr",
+      "game_date": "2026-10-06",
+      "projected_value": 1.917,
+      "confidence": 0.7,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.916875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.488625,
+          "3.0": 0.317875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20151159313980715,
+        "walk": 0.054993306730946594,
+        "home_run": 0.04291180313543064,
+        "single": 0.1539880723898192,
+        "double": 0.050029425591081075,
+        "triple": 0.005231217896946161,
+        "out_on_bip": 0.49133458111596917
+      }
+    },
+    {
+      "player_id": 671739,
+      "player_name": "Michael Harris II",
+      "category": "home_runs",
+      "game_date": "2026-10-06",
+      "projected_value": 0.173,
+      "confidence": 0.86,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.173,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.15975
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20151159313980715,
+        "walk": 0.054993306730946594,
+        "home_run": 0.04291180313543064,
+        "single": 0.1539880723898192,
+        "double": 0.050029425591081075,
+        "triple": 0.005231217896946161,
+        "out_on_bip": 0.49133458111596917
+      }
+    },
+    {
+      "player_id": 643289,
+      "player_name": "Mauricio Dub\u00f3n",
+      "category": "hits",
+      "game_date": "2026-10-06",
+      "projected_value": 0.932,
+      "confidence": 0.82,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.932375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.63925,
+          "2.0": 0.240625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15540481583855106,
+        "walk": 0.06236659632123863,
+        "home_run": 0.028652095081209427,
+        "single": 0.16237818188932632,
+        "double": 0.04784647800921366,
+        "triple": 0.005390375894834359,
+        "out_on_bip": 0.5379614569656265
+      }
+    },
+    {
+      "player_id": 643289,
+      "player_name": "Mauricio Dub\u00f3n",
+      "category": "hrr",
+      "game_date": "2026-10-06",
+      "projected_value": 1.723,
+      "confidence": 0.74,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.72275,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4585,
+          "3.0": 0.274125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15540481583855106,
+        "walk": 0.06236659632123863,
+        "home_run": 0.028652095081209427,
+        "single": 0.16237818188932632,
+        "double": 0.04784647800921366,
+        "triple": 0.005390375894834359,
+        "out_on_bip": 0.5379614569656265
+      }
+    },
+    {
+      "player_id": 643289,
+      "player_name": "Mauricio Dub\u00f3n",
+      "category": "home_runs",
+      "game_date": "2026-10-06",
+      "projected_value": 0.105,
+      "confidence": 0.86,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.105375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.100125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15540481583855106,
+        "walk": 0.06236659632123863,
+        "home_run": 0.028652095081209427,
+        "single": 0.16237818188932632,
+        "double": 0.04784647800921366,
+        "triple": 0.005390375894834359,
+        "out_on_bip": 0.5379614569656265
+      }
+    },
+    {
+      "player_id": 669221,
+      "player_name": "Sean Murphy",
+      "category": "hits",
+      "game_date": "2026-10-06",
+      "projected_value": 0.728,
+      "confidence": 0.82,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.728,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.547625,
+          "2.0": 0.154125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2916385671079204,
+        "walk": 0.07763981230650363,
+        "home_run": 0.036830378477799706,
+        "single": 0.12245076220699792,
+        "double": 0.041379262392045764,
+        "triple": 0.004200769861513941,
+        "out_on_bip": 0.42586044764721853
+      }
+    },
+    {
+      "player_id": 669221,
+      "player_name": "Sean Murphy",
+      "category": "hrr",
+      "game_date": "2026-10-06",
+      "projected_value": 1.494,
+      "confidence": 0.74,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.494375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.385125,
+          "3.0": 0.23575
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2916385671079204,
+        "walk": 0.07763981230650363,
+        "home_run": 0.036830378477799706,
+        "single": 0.12245076220699792,
+        "double": 0.041379262392045764,
+        "triple": 0.004200769861513941,
+        "out_on_bip": 0.42586044764721853
+      }
+    },
+    {
+      "player_id": 669221,
+      "player_name": "Sean Murphy",
+      "category": "home_runs",
+      "game_date": "2026-10-06",
+      "projected_value": 0.134,
+      "confidence": 0.86,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.133625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1265
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2916385671079204,
+        "walk": 0.07763981230650363,
+        "home_run": 0.036830378477799706,
+        "single": 0.12245076220699792,
+        "double": 0.041379262392045764,
+        "triple": 0.004200769861513941,
+        "out_on_bip": 0.42586044764721853
+      }
+    },
+    {
+      "player_id": 663586,
+      "player_name": "Austin Riley",
+      "category": "hits",
+      "game_date": "2026-10-06",
+      "projected_value": 0.692,
+      "confidence": 0.82,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.692375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.52025,
+          "2.0": 0.14825
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.30352271647967527,
+        "walk": 0.07071842069915121,
+        "home_run": 0.03364498789426551,
+        "single": 0.12314767043905046,
+        "double": 0.04092009394066312,
+        "triple": 0.004206865753325989,
+        "out_on_bip": 0.4238392447938684
+      }
+    },
+    {
+      "player_id": 663586,
+      "player_name": "Austin Riley",
+      "category": "hrr",
+      "game_date": "2026-10-06",
+      "projected_value": 1.372,
+      "confidence": 0.74,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.371875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.354875,
+          "3.0": 0.2155
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.30352271647967527,
+        "walk": 0.07071842069915121,
+        "home_run": 0.03364498789426551,
+        "single": 0.12314767043905046,
+        "double": 0.04092009394066312,
+        "triple": 0.004206865753325989,
+        "out_on_bip": 0.4238392447938684
+      }
+    },
+    {
+      "player_id": 663586,
+      "player_name": "Austin Riley",
+      "category": "home_runs",
+      "game_date": "2026-10-06",
+      "projected_value": 0.13,
+      "confidence": 0.86,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.12975,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.124375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.30352271647967527,
+        "walk": 0.07071842069915121,
+        "home_run": 0.03364498789426551,
+        "single": 0.12314767043905046,
+        "double": 0.04092009394066312,
+        "triple": 0.004206865753325989,
+        "out_on_bip": 0.4238392447938684
+      }
+    },
+    {
+      "player_id": 673490,
+      "player_name": "Ha-Seong Kim",
+      "category": "hits",
+      "game_date": "2026-10-06",
+      "projected_value": 0.641,
+      "confidence": 0.8,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.640875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.49525,
+          "2.0": 0.12775
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2515898772600564,
+        "walk": 0.08690925662878932,
+        "home_run": 0.015398731874991039,
+        "single": 0.13580750406827025,
+        "double": 0.037080399898073026,
+        "triple": 0.004433023178624187,
+        "out_on_bip": 0.46878120709119564
+      }
+    },
+    {
+      "player_id": 673490,
+      "player_name": "Ha-Seong Kim",
+      "category": "hrr",
+      "game_date": "2026-10-06",
+      "projected_value": 1.155,
+      "confidence": 0.76,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.15475,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.319,
+          "3.0": 0.16075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2515898772600564,
+        "walk": 0.08690925662878932,
+        "home_run": 0.015398731874991039,
+        "single": 0.13580750406827025,
+        "double": 0.037080399898073026,
+        "triple": 0.004433023178624187,
+        "out_on_bip": 0.46878120709119564
+      }
+    },
+    {
+      "player_id": 673490,
+      "player_name": "Ha-Seong Kim",
+      "category": "home_runs",
+      "game_date": "2026-10-06",
+      "projected_value": 0.051,
+      "confidence": 0.88,
+      "team": "Atlanta Braves",
+      "opponent": "Los Angeles Dodgers",
+      "opposing_pitcher": "Yoshinobu Yamamoto",
+      "opposing_pitcher_id": 808967,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.051375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.050125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2515898772600564,
+        "walk": 0.08690925662878932,
+        "home_run": 0.015398731874991039,
+        "single": 0.13580750406827025,
+        "double": 0.037080399898073026,
+        "triple": 0.004433023178624187,
+        "out_on_bip": 0.46878120709119564
+      }
+    }
+  ],
+  "pitcher_projections": [
+    {
+      "player_id": 808967,
+      "player_name": "Yoshinobu Yamamoto",
+      "category": "strikeouts",
+      "game_date": "2026-10-06",
+      "projected_value": 6.45,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.4473228094644535,
+        "median": 6.0,
+        "p10": 3.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.7703778895537472,
+          "6.0": 0.6232553843503865,
+          "7.0": 0.46516433708652327
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 519242,
+      "player_name": "Chris Sale",
+      "category": "strikeouts",
+      "game_date": "2026-10-06",
+      "projected_value": 6.88,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849819,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.884803184943591,
+        "median": 7.0,
+        "p10": 4.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.8162376740154111,
+          "6.0": 0.6843378032682225,
+          "7.0": 0.5329870282325736
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 669160,
+      "player_name": "Dustin May",
+      "category": "strikeouts",
+      "game_date": "2026-10-06",
+      "projected_value": 5.06,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849826,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.06176958219336,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5702775008338994,
+          "6.0": 0.39487652141822094,
+          "7.0": 0.2469032977026867
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 601713,
+      "player_name": "Nick Pivetta",
+      "category": "strikeouts",
+      "game_date": "2026-10-06",
+      "projected_value": 4.88,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849826,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.875195107167071,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5373413099939437,
+          "6.0": 0.3621516677411949,
+          "7.0": 0.21980438661836965
+        }
+      },
+      "outcome_probs": null
+    }
+  ],
+  "value_plays": [],
+  "market_status": "RESEARCH_ONLY",
+  "market_policy_sha256": "08bc0c9d56eb21c7fb438eccd8d89539e98da111f72cdf6735af9cbeb02f154c",
+  "market_policy_reason": "policy verdict is 'RESEARCH_ONLY', not BETTING_AUTHORIZED",
+  "prediction_provenance": {
+    "schema_version": "daily-prediction-provenance-v1",
+    "captured_at_utc": "2026-10-06T18:15:11.010003+00:00",
+    "model_version": "8c7eed9bb0c3",
+    "effective_config_sha256": "3a62fc507956752086919b757ae683e60f9df8fb2143f83292ac61f07830a60c",
+    "config_source_path": "/home/runner/work/baseball-predictor/baseball-predictor/config/config.kbb.json",
+    "code": {
+      "status": "available",
+      "head": "88030b249bdfb5f229c7322ee114e37d89fcd6a5",
+      "tracked_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked": [],
+      "snapshot_sha256": "f6bb3b8245597276413aa0888d8dc7bf51a67cebfd910bf7c67a6259013f5a2c"
+    },
+    "run_options": {
+      "game_date": "2026-10-06",
+      "hitter_categories": [
+        "hits",
+        "hrr",
+        "home_runs"
+      ],
+      "include_pitchers": true,
+      "corrections_active": false,
+      "edges_requested": false,
+      "use_projected_lineups": false
+    }
+  }
+}
