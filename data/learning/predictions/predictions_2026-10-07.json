@@ -1,0 +1,3946 @@
+{
+  "game_date": "2026-10-07",
+  "hitter_projections": [
+    {
+      "player_id": 680757,
+      "player_name": "Steven Kwan",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 1.034,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.0345,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.67825,
+          "2.0": 0.27925
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14086534665422093,
+        "walk": 0.1115515775851393,
+        "home_run": 0.029959976944382863,
+        "single": 0.1592404164085433,
+        "double": 0.046884662554298843,
+        "triple": 0.005285258434944672,
+        "out_on_bip": 0.50621276141847
+      }
+    },
+    {
+      "player_id": 680757,
+      "player_name": "Steven Kwan",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 2.025,
+      "confidence": 0.7,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.02475,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.51875,
+          "3.0": 0.333
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14086534665422093,
+        "walk": 0.1115515775851393,
+        "home_run": 0.029959976944382863,
+        "single": 0.1592404164085433,
+        "double": 0.046884662554298843,
+        "triple": 0.005285258434944672,
+        "out_on_bip": 0.50621276141847
+      }
+    },
+    {
+      "player_id": 680757,
+      "player_name": "Steven Kwan",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.134,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1335,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.12625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14086534665422093,
+        "walk": 0.1115515775851393,
+        "home_run": 0.029959976944382863,
+        "single": 0.1592404164085433,
+        "double": 0.046884662554298843,
+        "triple": 0.005285258434944672,
+        "out_on_bip": 0.50621276141847
+      }
+    },
+    {
+      "player_id": 608070,
+      "player_name": "Jos\u00e9 Ram\u00edrez",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 0.92,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.919625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.631125,
+          "2.0": 0.2335
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15688167528419697,
+        "walk": 0.09677625264748504,
+        "home_run": 0.02563369900113202,
+        "single": 0.14295207775466456,
+        "double": 0.04038038062928826,
+        "triple": 0.0047008322662552005,
+        "out_on_bip": 0.532675082416978
+      }
+    },
+    {
+      "player_id": 608070,
+      "player_name": "Jos\u00e9 Ram\u00edrez",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 1.74,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.740375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.452,
+          "3.0": 0.27625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15688167528419697,
+        "walk": 0.09677625264748504,
+        "home_run": 0.02563369900113202,
+        "single": 0.14295207775466456,
+        "double": 0.04038038062928826,
+        "triple": 0.0047008322662552005,
+        "out_on_bip": 0.532675082416978
+      }
+    },
+    {
+      "player_id": 608070,
+      "player_name": "Jos\u00e9 Ram\u00edrez",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.108,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.10825,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.104375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15688167528419697,
+        "walk": 0.09677625264748504,
+        "home_run": 0.02563369900113202,
+        "single": 0.14295207775466456,
+        "double": 0.04038038062928826,
+        "triple": 0.0047008322662552005,
+        "out_on_bip": 0.532675082416978
+      }
+    },
+    {
+      "player_id": 800050,
+      "player_name": "Chase DeLauter",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 1.022,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.022375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.678,
+          "2.0": 0.275625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16847101153389538,
+        "walk": 0.09501810860537463,
+        "home_run": 0.04021900029853115,
+        "single": 0.149849141792062,
+        "double": 0.04661962738172354,
+        "triple": 0.005037660748045783,
+        "out_on_bip": 0.4947854496403675
+      }
+    },
+    {
+      "player_id": 800050,
+      "player_name": "Chase DeLauter",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 2.018,
+      "confidence": 0.7,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.017625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.498375,
+          "3.0": 0.332
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16847101153389538,
+        "walk": 0.09501810860537463,
+        "home_run": 0.04021900029853115,
+        "single": 0.149849141792062,
+        "double": 0.04661962738172354,
+        "triple": 0.005037660748045783,
+        "out_on_bip": 0.4947854496403675
+      }
+    },
+    {
+      "player_id": 800050,
+      "player_name": "Chase DeLauter",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.172,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.172375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.159125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16847101153389538,
+        "walk": 0.09501810860537463,
+        "home_run": 0.04021900029853115,
+        "single": 0.149849141792062,
+        "double": 0.04661962738172354,
+        "triple": 0.005037660748045783,
+        "out_on_bip": 0.4947854496403675
+      }
+    },
+    {
+      "player_id": 666176,
+      "player_name": "Jo Adell",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 0.951,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.950875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.64675,
+          "2.0": 0.243875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23042764092681453,
+        "walk": 0.06547584239986,
+        "home_run": 0.05358972252736875,
+        "single": 0.13163920843828436,
+        "double": 0.04363969564388683,
+        "triple": 0.004494330873901825,
+        "out_on_bip": 0.4707335591898837
+      }
+    },
+    {
+      "player_id": 666176,
+      "player_name": "Jo Adell",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 1.983,
+      "confidence": 0.7,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.982625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.485875,
+          "3.0": 0.333125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23042764092681453,
+        "walk": 0.06547584239986,
+        "home_run": 0.05358972252736875,
+        "single": 0.13163920843828436,
+        "double": 0.04363969564388683,
+        "triple": 0.004494330873901825,
+        "out_on_bip": 0.4707335591898837
+      }
+    },
+    {
+      "player_id": 666176,
+      "player_name": "Jo Adell",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.213,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.213125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.19675
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23042764092681453,
+        "walk": 0.06547584239986,
+        "home_run": 0.05358972252736875,
+        "single": 0.13163920843828436,
+        "double": 0.04363969564388683,
+        "triple": 0.004494330873901825,
+        "out_on_bip": 0.4707335591898837
+      }
+    },
+    {
+      "player_id": 663993,
+      "player_name": "Nathaniel Lowe",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 0.882,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.882125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.615,
+          "2.0": 0.219
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22647043975100561,
+        "walk": 0.08587340143833692,
+        "home_run": 0.036742745242860995,
+        "single": 0.141612742671625,
+        "double": 0.04486320122730634,
+        "triple": 0.004781434458946957,
+        "out_on_bip": 0.4596560352099182
+      }
+    },
+    {
+      "player_id": 663993,
+      "player_name": "Nathaniel Lowe",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 1.755,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.75525,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.447,
+          "3.0": 0.286125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22647043975100561,
+        "walk": 0.08587340143833692,
+        "home_run": 0.036742745242860995,
+        "single": 0.141612742671625,
+        "double": 0.04486320122730634,
+        "triple": 0.004781434458946957,
+        "out_on_bip": 0.4596560352099182
+      }
+    },
+    {
+      "player_id": 663993,
+      "player_name": "Nathaniel Lowe",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.145,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.145125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.134375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22647043975100561,
+        "walk": 0.08587340143833692,
+        "home_run": 0.036742745242860995,
+        "single": 0.141612742671625,
+        "double": 0.04486320122730634,
+        "triple": 0.004781434458946957,
+        "out_on_bip": 0.4596560352099182
+      }
+    },
+    {
+      "player_id": 682657,
+      "player_name": "Angel Mart\u00ednez",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 0.848,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.84775,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.602875,
+          "2.0": 0.204875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21626595709313234,
+        "walk": 0.05868079565949968,
+        "home_run": 0.03477844960885507,
+        "single": 0.1415696082990758,
+        "double": 0.04362850762278899,
+        "triple": 0.004748669639022174,
+        "out_on_bip": 0.5003280120776259
+      }
+    },
+    {
+      "player_id": 682657,
+      "player_name": "Angel Mart\u00ednez",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 1.673,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.6735,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4375,
+          "3.0": 0.270625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21626595709313234,
+        "walk": 0.05868079565949968,
+        "home_run": 0.03477844960885507,
+        "single": 0.1415696082990758,
+        "double": 0.04362850762278899,
+        "triple": 0.004748669639022174,
+        "out_on_bip": 0.5003280120776259
+      }
+    },
+    {
+      "player_id": 682657,
+      "player_name": "Angel Mart\u00ednez",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.125,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.124875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.11925
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21626595709313234,
+        "walk": 0.05868079565949968,
+        "home_run": 0.03477844960885507,
+        "single": 0.1415696082990758,
+        "double": 0.04362850762278899,
+        "triple": 0.004748669639022174,
+        "out_on_bip": 0.5003280120776259
+      }
+    },
+    {
+      "player_id": 683953,
+      "player_name": "Travis Bazzana",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 0.738,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.73825,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.544875,
+          "2.0": 0.166125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20782362391298873,
+        "walk": 0.09559868114315835,
+        "home_run": 0.027874512380348396,
+        "single": 0.13242803174524306,
+        "double": 0.03997213307368986,
+        "triple": 0.004420517046639307,
+        "out_on_bip": 0.49188250069793227
+      }
+    },
+    {
+      "player_id": 683953,
+      "player_name": "Travis Bazzana",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 1.444,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.443625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.381375,
+          "3.0": 0.219875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20782362391298873,
+        "walk": 0.09559868114315835,
+        "home_run": 0.027874512380348396,
+        "single": 0.13242803174524306,
+        "double": 0.03997213307368986,
+        "triple": 0.004420517046639307,
+        "out_on_bip": 0.49188250069793227
+      }
+    },
+    {
+      "player_id": 683953,
+      "player_name": "Travis Bazzana",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.101,
+      "confidence": 0.88,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.10125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.097125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.20782362391298873,
+        "walk": 0.09559868114315835,
+        "home_run": 0.027874512380348396,
+        "single": 0.13242803174524306,
+        "double": 0.03997213307368986,
+        "triple": 0.004420517046639307,
+        "out_on_bip": 0.49188250069793227
+      }
+    },
+    {
+      "player_id": 672275,
+      "player_name": "Patrick Bailey",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 0.834,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.8335,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.597875,
+          "2.0": 0.196125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2518683078108994,
+        "walk": 0.08042689644893414,
+        "home_run": 0.06195251919681017,
+        "single": 0.12939806948873472,
+        "double": 0.04680259660908845,
+        "triple": 0.004517965797380082,
+        "out_on_bip": 0.425033644648153
+      }
+    },
+    {
+      "player_id": 672275,
+      "player_name": "Patrick Bailey",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 1.803,
+      "confidence": 0.7,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.803375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.4375,
+          "3.0": 0.299875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2518683078108994,
+        "walk": 0.08042689644893414,
+        "home_run": 0.06195251919681017,
+        "single": 0.12939806948873472,
+        "double": 0.04680259660908845,
+        "triple": 0.004517965797380082,
+        "out_on_bip": 0.425033644648153
+      }
+    },
+    {
+      "player_id": 672275,
+      "player_name": "Patrick Bailey",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.221,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.220875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.20175
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2518683078108994,
+        "walk": 0.08042689644893414,
+        "home_run": 0.06195251919681017,
+        "single": 0.12939806948873472,
+        "double": 0.04680259660908845,
+        "triple": 0.004517965797380082,
+        "out_on_bip": 0.425033644648153
+      }
+    },
+    {
+      "player_id": 677587,
+      "player_name": "Brayan Rocchio",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 0.773,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.77275,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.5675,
+          "2.0": 0.17575
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16661171704324523,
+        "walk": 0.0724618112895685,
+        "home_run": 0.03146706544453485,
+        "single": 0.15350959215822468,
+        "double": 0.04515827447527492,
+        "triple": 0.005094047862397426,
+        "out_on_bip": 0.5256974917267544
+      }
+    },
+    {
+      "player_id": 677587,
+      "player_name": "Brayan Rocchio",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 1.463,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.46275,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.390125,
+          "3.0": 0.224875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16661171704324523,
+        "walk": 0.0724618112895685,
+        "home_run": 0.03146706544453485,
+        "single": 0.15350959215822468,
+        "double": 0.04515827447527492,
+        "triple": 0.005094047862397426,
+        "out_on_bip": 0.5256974917267544
+      }
+    },
+    {
+      "player_id": 677587,
+      "player_name": "Brayan Rocchio",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.101,
+      "confidence": 0.88,
+      "team": "Cleveland Guardians",
+      "opponent": "Chicago White Sox",
+      "opposing_pitcher": "Sean Newcomb",
+      "opposing_pitcher_id": 656794,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.101,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.09575
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16661171704324523,
+        "walk": 0.0724618112895685,
+        "home_run": 0.03146706544453485,
+        "single": 0.15350959215822468,
+        "double": 0.04515827447527492,
+        "triple": 0.005094047862397426,
+        "out_on_bip": 0.5256974917267544
+      }
+    },
+    {
+      "player_id": 803011,
+      "player_name": "Sam Antonacci",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 1.009,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.009,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.664875,
+          "2.0": 0.273125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22380728069364508,
+        "walk": 0.08301007873218609,
+        "home_run": 0.03390835536730913,
+        "single": 0.14878307205561445,
+        "double": 0.04520827429565923,
+        "triple": 0.004974137085930095,
+        "out_on_bip": 0.46030880176965583
+      }
+    },
+    {
+      "player_id": 803011,
+      "player_name": "Sam Antonacci",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 1.927,
+      "confidence": 0.7,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.9275,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.490375,
+          "3.0": 0.31725
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22380728069364508,
+        "walk": 0.08301007873218609,
+        "home_run": 0.03390835536730913,
+        "single": 0.14878307205561445,
+        "double": 0.04520827429565923,
+        "triple": 0.004974137085930095,
+        "out_on_bip": 0.46030880176965583
+      }
+    },
+    {
+      "player_id": 803011,
+      "player_name": "Sam Antonacci",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.151,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.150875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.142375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.22380728069364508,
+        "walk": 0.08301007873218609,
+        "home_run": 0.03390835536730913,
+        "single": 0.14878307205561445,
+        "double": 0.04520827429565923,
+        "triple": 0.004974137085930095,
+        "out_on_bip": 0.46030880176965583
+      }
+    },
+    {
+      "player_id": 678246,
+      "player_name": "Miguel Vargas",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 0.875,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.874875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.613625,
+          "2.0": 0.217375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.248346548359219,
+        "walk": 0.12476251518478138,
+        "home_run": 0.03048184681795354,
+        "single": 0.12956888856404164,
+        "double": 0.04016849084773528,
+        "triple": 0.00435224049773787,
+        "out_on_bip": 0.42231946972853124
+      }
+    },
+    {
+      "player_id": 678246,
+      "player_name": "Miguel Vargas",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 1.748,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.748,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.451625,
+          "3.0": 0.277125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.248346548359219,
+        "walk": 0.12476251518478138,
+        "home_run": 0.03048184681795354,
+        "single": 0.12956888856404164,
+        "double": 0.04016849084773528,
+        "triple": 0.00435224049773787,
+        "out_on_bip": 0.42231946972853124
+      }
+    },
+    {
+      "player_id": 678246,
+      "player_name": "Miguel Vargas",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.129,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.128625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.12075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.248346548359219,
+        "walk": 0.12476251518478138,
+        "home_run": 0.03048184681795354,
+        "single": 0.12956888856404164,
+        "double": 0.04016849084773528,
+        "triple": 0.00435224049773787,
+        "out_on_bip": 0.42231946972853124
+      }
+    },
+    {
+      "player_id": 808959,
+      "player_name": "Munetaka Murakami",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 0.617,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.617,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.482125,
+          "2.0": 0.12
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.41211532501466885,
+        "walk": 0.1429281895891464,
+        "home_run": 0.04128497410699973,
+        "single": 0.0771571141500473,
+        "double": 0.028644374516286,
+        "triple": 0.0027128586837521364,
+        "out_on_bip": 0.2951571639390995
+      }
+    },
+    {
+      "player_id": 808959,
+      "player_name": "Munetaka Murakami",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 1.51,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.509875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.366625,
+          "3.0": 0.2435
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.41211532501466885,
+        "walk": 0.1429281895891464,
+        "home_run": 0.04128497410699973,
+        "single": 0.0771571141500473,
+        "double": 0.028644374516286,
+        "triple": 0.0027128586837521364,
+        "out_on_bip": 0.2951571639390995
+      }
+    },
+    {
+      "player_id": 808959,
+      "player_name": "Munetaka Murakami",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.18,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1805,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.16775
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.41211532501466885,
+        "walk": 0.1429281895891464,
+        "home_run": 0.04128497410699973,
+        "single": 0.0771571141500473,
+        "double": 0.028644374516286,
+        "triple": 0.0027128586837521364,
+        "out_on_bip": 0.2951571639390995
+      }
+    },
+    {
+      "player_id": 691019,
+      "player_name": "Kyle Teel",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 0.641,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.641125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.4945,
+          "2.0": 0.126875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.41184142961998066,
+        "walk": 0.11639434210103539,
+        "home_run": 0.033911089253585575,
+        "single": 0.09065088184942152,
+        "double": 0.031293489892011805,
+        "triple": 0.0031267787626008546,
+        "out_on_bip": 0.3127819885213643
+      }
+    },
+    {
+      "player_id": 691019,
+      "player_name": "Kyle Teel",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 1.397,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.396625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.353,
+          "3.0": 0.216875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.41184142961998066,
+        "walk": 0.11639434210103539,
+        "home_run": 0.033911089253585575,
+        "single": 0.09065088184942152,
+        "double": 0.031293489892011805,
+        "triple": 0.0031267787626008546,
+        "out_on_bip": 0.3127819885213643
+      }
+    },
+    {
+      "player_id": 691019,
+      "player_name": "Kyle Teel",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.136,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.13625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.130625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.41184142961998066,
+        "walk": 0.11639434210103539,
+        "home_run": 0.033911089253585575,
+        "single": 0.09065088184942152,
+        "double": 0.031293489892011805,
+        "triple": 0.0031267787626008546,
+        "out_on_bip": 0.3127819885213643
+      }
+    },
+    {
+      "player_id": 805367,
+      "player_name": "Chase Meidroth",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 0.838,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.837625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.59875,
+          "2.0": 0.197625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2819843015560168,
+        "walk": 0.0927027687144266,
+        "home_run": 0.032075608344815876,
+        "single": 0.133274816993509,
+        "double": 0.042728940836800754,
+        "triple": 0.0045129168674438395,
+        "out_on_bip": 0.41272064668698705
+      }
+    },
+    {
+      "player_id": 805367,
+      "player_name": "Chase Meidroth",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 1.646,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.64575,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.426125,
+          "3.0": 0.26325
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2819843015560168,
+        "walk": 0.0927027687144266,
+        "home_run": 0.032075608344815876,
+        "single": 0.133274816993509,
+        "double": 0.042728940836800754,
+        "triple": 0.0045129168674438395,
+        "out_on_bip": 0.41272064668698705
+      }
+    },
+    {
+      "player_id": 805367,
+      "player_name": "Chase Meidroth",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.133,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.13275,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.125875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2819843015560168,
+        "walk": 0.0927027687144266,
+        "home_run": 0.032075608344815876,
+        "single": 0.133274816993509,
+        "double": 0.042728940836800754,
+        "triple": 0.0045129168674438395,
+        "out_on_bip": 0.41272064668698705
+      }
+    },
+    {
+      "player_id": 671976,
+      "player_name": "Tristan Peters",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 0.751,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.7515,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.552,
+          "2.0": 0.16975
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.251821710240621,
+        "walk": 0.08205395791759805,
+        "home_run": 0.03344148126630726,
+        "single": 0.12451877271814285,
+        "double": 0.03871171162417819,
+        "triple": 0.0041853970344184884,
+        "out_on_bip": 0.4652669691987341
+      }
+    },
+    {
+      "player_id": 671976,
+      "player_name": "Tristan Peters",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 1.536,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.535875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.395125,
+          "3.0": 0.23825
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.251821710240621,
+        "walk": 0.08205395791759805,
+        "home_run": 0.03344148126630726,
+        "single": 0.12451877271814285,
+        "double": 0.03871171162417819,
+        "triple": 0.0041853970344184884,
+        "out_on_bip": 0.4652669691987341
+      }
+    },
+    {
+      "player_id": 671976,
+      "player_name": "Tristan Peters",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.124,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.124125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.11825
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.251821710240621,
+        "walk": 0.08205395791759805,
+        "home_run": 0.03344148126630726,
+        "single": 0.12451877271814285,
+        "double": 0.03871171162417819,
+        "triple": 0.0041853970344184884,
+        "out_on_bip": 0.4652669691987341
+      }
+    },
+    {
+      "player_id": 695731,
+      "player_name": "Braden Montgomery",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 0.759,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.758625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.5615,
+          "2.0": 0.167125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26326536296682235,
+        "walk": 0.09816798278233511,
+        "home_run": 0.031941069279384886,
+        "single": 0.13245586196261847,
+        "double": 0.04220737075816325,
+        "triple": 0.004478544428737992,
+        "out_on_bip": 0.427483807821938
+      }
+    },
+    {
+      "player_id": 695731,
+      "player_name": "Braden Montgomery",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 1.537,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.537375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4025,
+          "3.0": 0.240125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26326536296682235,
+        "walk": 0.09816798278233511,
+        "home_run": 0.031941069279384886,
+        "single": 0.13245586196261847,
+        "double": 0.04220737075816325,
+        "triple": 0.004478544428737992,
+        "out_on_bip": 0.427483807821938
+      }
+    },
+    {
+      "player_id": 695731,
+      "player_name": "Braden Montgomery",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.113,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.112875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.10825
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26326536296682235,
+        "walk": 0.09816798278233511,
+        "home_run": 0.031941069279384886,
+        "single": 0.13245586196261847,
+        "double": 0.04220737075816325,
+        "triple": 0.004478544428737992,
+        "out_on_bip": 0.427483807821938
+      }
+    },
+    {
+      "player_id": 545341,
+      "player_name": "Randal Grichuk",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 0.769,
+      "confidence": 0.82,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.7695,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.568625,
+          "2.0": 0.169625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.27997521063646524,
+        "walk": 0.06535678514523431,
+        "home_run": 0.03749729577520035,
+        "single": 0.13200426111926242,
+        "double": 0.04378346368967654,
+        "triple": 0.004507377559203563,
+        "out_on_bip": 0.43687560607495757
+      }
+    },
+    {
+      "player_id": 545341,
+      "player_name": "Randal Grichuk",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 1.524,
+      "confidence": 0.74,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.523625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.39375,
+          "3.0": 0.2395
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.27997521063646524,
+        "walk": 0.06535678514523431,
+        "home_run": 0.03749729577520035,
+        "single": 0.13200426111926242,
+        "double": 0.04378346368967654,
+        "triple": 0.004507377559203563,
+        "out_on_bip": 0.43687560607495757
+      }
+    },
+    {
+      "player_id": 545341,
+      "player_name": "Randal Grichuk",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.137,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.13675,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.12925
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.27997521063646524,
+        "walk": 0.06535678514523431,
+        "home_run": 0.03749729577520035,
+        "single": 0.13200426111926242,
+        "double": 0.04378346368967654,
+        "triple": 0.004507377559203563,
+        "out_on_bip": 0.43687560607495757
+      }
+    },
+    {
+      "player_id": 695657,
+      "player_name": "Colson Montgomery",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 0.494,
+      "confidence": 0.86,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.493625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.404875,
+          "2.0": 0.08
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.41353804818986317,
+        "walk": 0.08697401466758242,
+        "home_run": 0.024032934580140494,
+        "single": 0.09431699157232022,
+        "double": 0.030478561702685408,
+        "triple": 0.003199885981410401,
+        "out_on_bip": 0.3474595633059979
+      }
+    },
+    {
+      "player_id": 695657,
+      "player_name": "Colson Montgomery",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 1.007,
+      "confidence": 0.78,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.006625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.26675,
+          "3.0": 0.146
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.41353804818986317,
+        "walk": 0.08697401466758242,
+        "home_run": 0.024032934580140494,
+        "single": 0.09431699157232022,
+        "double": 0.030478561702685408,
+        "triple": 0.003199885981410401,
+        "out_on_bip": 0.3474595633059979
+      }
+    },
+    {
+      "player_id": 695657,
+      "player_name": "Colson Montgomery",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.08,
+      "confidence": 0.88,
+      "team": "Chicago White Sox",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Daniel Espino",
+      "opposing_pitcher_id": 682982,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.08025,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.078
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.41353804818986317,
+        "walk": 0.08697401466758242,
+        "home_run": 0.024032934580140494,
+        "single": 0.09431699157232022,
+        "double": 0.030478561702685408,
+        "triple": 0.003199885981410401,
+        "out_on_bip": 0.3474595633059979
+      }
+    },
+    {
+      "player_id": 605141,
+      "player_name": "Mookie Betts",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 1.093,
+      "confidence": 0.82,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.0935,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.69875,
+          "2.0": 0.305
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1445865882879701,
+        "walk": 0.07361720711951722,
+        "home_run": 0.03880288389694367,
+        "single": 0.15659253987578864,
+        "double": 0.04895708474603981,
+        "triple": 0.005270503195431499,
+        "out_on_bip": 0.5321731928783091
+      }
+    },
+    {
+      "player_id": 605141,
+      "player_name": "Mookie Betts",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 2.092,
+      "confidence": 0.7,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.09175,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.52125,
+          "3.0": 0.34575
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1445865882879701,
+        "walk": 0.07361720711951722,
+        "home_run": 0.03880288389694367,
+        "single": 0.15659253987578864,
+        "double": 0.04895708474603981,
+        "triple": 0.005270503195431499,
+        "out_on_bip": 0.5321731928783091
+      }
+    },
+    {
+      "player_id": 605141,
+      "player_name": "Mookie Betts",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.168,
+      "confidence": 0.86,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.168125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.159
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1445865882879701,
+        "walk": 0.07361720711951722,
+        "home_run": 0.03880288389694367,
+        "single": 0.15659253987578864,
+        "double": 0.04895708474603981,
+        "triple": 0.005270503195431499,
+        "out_on_bip": 0.5321731928783091
+      }
+    },
+    {
+      "player_id": 518692,
+      "player_name": "Freddie Freeman",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 1.102,
+      "confidence": 0.82,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.101875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.706625,
+          "2.0": 0.3035
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18366782158932637,
+        "walk": 0.07914557233289474,
+        "home_run": 0.04714778836497851,
+        "single": 0.15216743496404728,
+        "double": 0.05025452835917382,
+        "triple": 0.005190306751877464,
+        "out_on_bip": 0.4824265476377018
+      }
+    },
+    {
+      "player_id": 518692,
+      "player_name": "Freddie Freeman",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 2.182,
+      "confidence": 0.7,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.182125,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.530375,
+          "3.0": 0.366
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18366782158932637,
+        "walk": 0.07914557233289474,
+        "home_run": 0.04714778836497851,
+        "single": 0.15216743496404728,
+        "double": 0.05025452835917382,
+        "triple": 0.005190306751877464,
+        "out_on_bip": 0.4824265476377018
+      }
+    },
+    {
+      "player_id": 518692,
+      "player_name": "Freddie Freeman",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.196,
+      "confidence": 0.86,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1955,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.180875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.18366782158932637,
+        "walk": 0.07914557233289474,
+        "home_run": 0.04714778836497851,
+        "single": 0.15216743496404728,
+        "double": 0.05025452835917382,
+        "triple": 0.005190306751877464,
+        "out_on_bip": 0.4824265476377018
+      }
+    },
+    {
+      "player_id": 669257,
+      "player_name": "Will Smith",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 0.99,
+      "confidence": 0.82,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.989625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6635,
+          "2.0": 0.2615
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17513788690403448,
+        "walk": 0.09126737130649283,
+        "home_run": 0.0449777039210496,
+        "single": 0.14131762049441499,
+        "double": 0.04692163169863516,
+        "triple": 0.0048266474921294916,
+        "out_on_bip": 0.49555113818324337
+      }
+    },
+    {
+      "player_id": 669257,
+      "player_name": "Will Smith",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 2.052,
+      "confidence": 0.7,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.051625,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.5035,
+          "3.0": 0.34425
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17513788690403448,
+        "walk": 0.09126737130649283,
+        "home_run": 0.0449777039210496,
+        "single": 0.14131762049441499,
+        "double": 0.04692163169863516,
+        "triple": 0.0048266474921294916,
+        "out_on_bip": 0.49555113818324337
+      }
+    },
+    {
+      "player_id": 669257,
+      "player_name": "Will Smith",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.192,
+      "confidence": 0.86,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.192125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.17925
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17513788690403448,
+        "walk": 0.09126737130649283,
+        "home_run": 0.0449777039210496,
+        "single": 0.14131762049441499,
+        "double": 0.04692163169863516,
+        "triple": 0.0048266474921294916,
+        "out_on_bip": 0.49555113818324337
+      }
+    },
+    {
+      "player_id": 660271,
+      "player_name": "Shohei Ohtani",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 0.923,
+      "confidence": 0.82,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.92325,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.63475,
+          "2.0": 0.234625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23251285992795245,
+        "walk": 0.09584506356559917,
+        "home_run": 0.037862982040230246,
+        "single": 0.13760729440564715,
+        "double": 0.04474205879798715,
+        "triple": 0.004675624441118829,
+        "out_on_bip": 0.44675411682146504
+      }
+    },
+    {
+      "player_id": 660271,
+      "player_name": "Shohei Ohtani",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 1.815,
+      "confidence": 0.7,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.81475,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.459625,
+          "3.0": 0.289625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23251285992795245,
+        "walk": 0.09584506356559917,
+        "home_run": 0.037862982040230246,
+        "single": 0.13760729440564715,
+        "double": 0.04474205879798715,
+        "triple": 0.004675624441118829,
+        "out_on_bip": 0.44675411682146504
+      }
+    },
+    {
+      "player_id": 660271,
+      "player_name": "Shohei Ohtani",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.155,
+      "confidence": 0.86,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.155125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1465
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23251285992795245,
+        "walk": 0.09584506356559917,
+        "home_run": 0.037862982040230246,
+        "single": 0.13760729440564715,
+        "double": 0.04474205879798715,
+        "triple": 0.004675624441118829,
+        "out_on_bip": 0.44675411682146504
+      }
+    },
+    {
+      "player_id": 606192,
+      "player_name": "Teoscar Hern\u00e1ndez",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 0.999,
+      "confidence": 0.82,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.999125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.672125,
+          "2.0": 0.261
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.25542816620330244,
+        "walk": 0.07200959425942961,
+        "home_run": 0.060216642469326453,
+        "single": 0.13695042926393017,
+        "double": 0.05073640439360608,
+        "triple": 0.004812482914295802,
+        "out_on_bip": 0.4198462804961094
+      }
+    },
+    {
+      "player_id": 606192,
+      "player_name": "Teoscar Hern\u00e1ndez",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 2.096,
+      "confidence": 0.7,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.096,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.504125,
+          "3.0": 0.352875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.25542816620330244,
+        "walk": 0.07200959425942961,
+        "home_run": 0.060216642469326453,
+        "single": 0.13695042926393017,
+        "double": 0.05073640439360608,
+        "triple": 0.004812482914295802,
+        "out_on_bip": 0.4198462804961094
+      }
+    },
+    {
+      "player_id": 606192,
+      "player_name": "Teoscar Hern\u00e1ndez",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.235,
+      "confidence": 0.86,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.234625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.213875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.25542816620330244,
+        "walk": 0.07200959425942961,
+        "home_run": 0.060216642469326453,
+        "single": 0.13695042926393017,
+        "double": 0.05073640439360608,
+        "triple": 0.004812482914295802,
+        "out_on_bip": 0.4198462804961094
+      }
+    },
+    {
+      "player_id": 571970,
+      "player_name": "Max Muncy",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 0.876,
+      "confidence": 0.82,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.875625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.614,
+          "2.0": 0.21725
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23527823827727104,
+        "walk": 0.08718985488375802,
+        "home_run": 0.048375424441892426,
+        "single": 0.1307957691404438,
+        "double": 0.04434963859888823,
+        "triple": 0.004490907890752104,
+        "out_on_bip": 0.4495201667669943
+      }
+    },
+    {
+      "player_id": 571970,
+      "player_name": "Max Muncy",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 1.764,
+      "confidence": 0.7,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.764125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.445375,
+          "3.0": 0.285625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23527823827727104,
+        "walk": 0.08718985488375802,
+        "home_run": 0.048375424441892426,
+        "single": 0.1307957691404438,
+        "double": 0.04434963859888823,
+        "triple": 0.004490907890752104,
+        "out_on_bip": 0.4495201667669943
+      }
+    },
+    {
+      "player_id": 571970,
+      "player_name": "Max Muncy",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.18,
+      "confidence": 0.86,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.180125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.168375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23527823827727104,
+        "walk": 0.08718985488375802,
+        "home_run": 0.048375424441892426,
+        "single": 0.1307957691404438,
+        "double": 0.04434963859888823,
+        "triple": 0.004490907890752104,
+        "out_on_bip": 0.4495201667669943
+      }
+    },
+    {
+      "player_id": 571771,
+      "player_name": "Enrique Hern\u00e1ndez",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 0.803,
+      "confidence": 0.783,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.803375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.582625,
+          "2.0": 0.187125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26929653753179406,
+        "walk": 0.06214718594929951,
+        "home_run": 0.03920941859280395,
+        "single": 0.1317923188075365,
+        "double": 0.04462301172185969,
+        "triple": 0.004523470013574261,
+        "out_on_bip": 0.44840805738313216
+      }
+    },
+    {
+      "player_id": 571771,
+      "player_name": "Enrique Hern\u00e1ndez",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 1.619,
+      "confidence": 0.703,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.6185,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.4145,
+          "3.0": 0.262
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26929653753179406,
+        "walk": 0.06214718594929951,
+        "home_run": 0.03920941859280395,
+        "single": 0.1317923188075365,
+        "double": 0.04462301172185969,
+        "triple": 0.004523470013574261,
+        "out_on_bip": 0.44840805738313216
+      }
+    },
+    {
+      "player_id": 571771,
+      "player_name": "Enrique Hern\u00e1ndez",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.141,
+      "confidence": 0.823,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.141125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.13375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.26929653753179406,
+        "walk": 0.06214718594929951,
+        "home_run": 0.03920941859280395,
+        "single": 0.1317923188075365,
+        "double": 0.04462301172185969,
+        "triple": 0.004523470013574261,
+        "out_on_bip": 0.44840805738313216
+      }
+    },
+    {
+      "player_id": 663656,
+      "player_name": "Kyle Tucker",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 0.799,
+      "confidence": 0.82,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.799125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.577375,
+          "2.0": 0.1845
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17789275470893742,
+        "walk": 0.09195933021548269,
+        "home_run": 0.03760838459462254,
+        "single": 0.14325608673539128,
+        "double": 0.04541056490868361,
+        "triple": 0.004837606452412177,
+        "out_on_bip": 0.4990352723844702
+      }
+    },
+    {
+      "player_id": 663656,
+      "player_name": "Kyle Tucker",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 1.57,
+      "confidence": 0.74,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.57025,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.401625,
+          "3.0": 0.251
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17789275470893742,
+        "walk": 0.09195933021548269,
+        "home_run": 0.03760838459462254,
+        "single": 0.14325608673539128,
+        "double": 0.04541056490868361,
+        "triple": 0.004837606452412177,
+        "out_on_bip": 0.4990352723844702
+      }
+    },
+    {
+      "player_id": 663656,
+      "player_name": "Kyle Tucker",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.129,
+      "confidence": 0.86,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.128625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.121625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17789275470893742,
+        "walk": 0.09195933021548269,
+        "home_run": 0.03760838459462254,
+        "single": 0.14325608673539128,
+        "double": 0.04541056490868361,
+        "triple": 0.004837606452412177,
+        "out_on_bip": 0.4990352723844702
+      }
+    },
+    {
+      "player_id": 681624,
+      "player_name": "Andy Pages",
+      "category": "hits",
+      "game_date": "2026-10-07",
+      "projected_value": 0.822,
+      "confidence": 0.69,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.822375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.591625,
+          "2.0": 0.19375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19708037843499024,
+        "walk": 0.07193002869941975,
+        "home_run": 0.055137466355032715,
+        "single": 0.142949407886236,
+        "double": 0.05032389243897143,
+        "triple": 0.0049557256493642935,
+        "out_on_bip": 0.4776231005359855
+      }
+    },
+    {
+      "player_id": 681624,
+      "player_name": "Andy Pages",
+      "category": "hrr",
+      "game_date": "2026-10-07",
+      "projected_value": 1.747,
+      "confidence": 0.57,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.747375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.44,
+          "3.0": 0.287875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19708037843499024,
+        "walk": 0.07193002869941975,
+        "home_run": 0.055137466355032715,
+        "single": 0.142949407886236,
+        "double": 0.05032389243897143,
+        "triple": 0.0049557256493642935,
+        "out_on_bip": 0.4776231005359855
+      }
+    },
+    {
+      "player_id": 681624,
+      "player_name": "Andy Pages",
+      "category": "home_runs",
+      "game_date": "2026-10-07",
+      "projected_value": 0.174,
+      "confidence": 0.73,
+      "team": "Los Angeles Dodgers",
+      "opponent": "Atlanta Braves",
+      "opposing_pitcher": "Tyler Mahle",
+      "opposing_pitcher_id": 641816,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1745,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.1635
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19708037843499024,
+        "walk": 0.07193002869941975,
+        "home_run": 0.055137466355032715,
+        "single": 0.142949407886236,
+        "double": 0.05032389243897143,
+        "triple": 0.0049557256493642935,
+        "out_on_bip": 0.4776231005359855
+      }
+    }
+  ],
+  "pitcher_projections": [
+    {
+      "player_id": 682982,
+      "player_name": "Daniel Espino",
+      "category": "strikeouts",
+      "game_date": "2026-10-07",
+      "projected_value": 5.11,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.1110442786068075,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.5787703590439954,
+          "6.0": 0.4035160745862225,
+          "7.0": 0.2542273399396844
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 656794,
+      "player_name": "Sean Newcomb",
+      "category": "strikeouts",
+      "game_date": "2026-10-07",
+      "projected_value": 2.45,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849833,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.4502339860895703,
+        "median": 2.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.10227316733491654,
+          "6.0": 0.038779055618473945,
+          "7.0": 0.012849817211108006
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 607192,
+      "player_name": "Tyler Glasnow",
+      "category": "strikeouts",
+      "game_date": "2026-10-07",
+      "projected_value": 6.94,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.939746065223952,
+        "median": 7.0,
+        "p10": 4.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.8214403468275808,
+          "6.0": 0.691530153639826,
+          "7.0": 0.5412728616386249
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 641816,
+      "player_name": "Tyler Mahle",
+      "category": "strikeouts",
+      "game_date": "2026-10-07",
+      "projected_value": 5.53,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849822,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.5259022621027665,
+        "median": 5.0,
+        "p10": 3.0,
+        "p90": 9.0,
+        "p_ge_threshold": {
+          "5.0": 0.6465037754803787,
+          "6.0": 0.4755156741459783,
+          "7.0": 0.3180384181532415
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 607259,
+      "player_name": "Nick Martinez",
+      "category": "strikeouts",
+      "game_date": "2026-10-07",
+      "projected_value": 4.36,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849838,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.35891085024118,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.44092364971600717,
+          "6.0": 0.27317549228417715,
+          "7.0": 0.15130894836124886
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 608331,
+      "player_name": "Max Fried",
+      "category": "strikeouts",
+      "game_date": "2026-10-07",
+      "projected_value": 5.25,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849838,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 5.253641970005317,
+        "median": 5.0,
+        "p10": 2.0,
+        "p90": 8.0,
+        "p_ge_threshold": {
+          "5.0": 0.6028310020988935,
+          "6.0": 0.42845231629972347,
+          "7.0": 0.27576511923490843
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 621111,
+      "player_name": "Walker Buehler",
+      "category": "strikeouts",
+      "game_date": "2026-10-07",
+      "projected_value": 4.29,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849827,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.289740673440881,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.4275782247863733,
+          "6.0": 0.2616335791181714,
+          "7.0": 0.14299032977440151
+        }
+      },
+      "outcome_probs": null
+    }
+  ],
+  "value_plays": [],
+  "market_status": "RESEARCH_ONLY",
+  "market_policy_sha256": "08bc0c9d56eb21c7fb438eccd8d89539e98da111f72cdf6735af9cbeb02f154c",
+  "market_policy_reason": "policy verdict is 'RESEARCH_ONLY', not BETTING_AUTHORIZED",
+  "prediction_provenance": {
+    "schema_version": "daily-prediction-provenance-v1",
+    "captured_at_utc": "2026-10-07T18:48:05.927821+00:00",
+    "model_version": "8c7eed9bb0c3",
+    "effective_config_sha256": "3a62fc507956752086919b757ae683e60f9df8fb2143f83292ac61f07830a60c",
+    "config_source_path": "/home/runner/work/baseball-predictor/baseball-predictor/config/config.kbb.json",
+    "code": {
+      "status": "available",
+      "head": "ccc397e82f2cfb8d0aa4cc7440d58805ebbdf933",
+      "tracked_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked": [],
+      "snapshot_sha256": "a8e48ce9b4f28a1d56a4d71854ee59f8936fd769beb2e53edfa8a2694f007199"
+    },
+    "run_options": {
+      "game_date": "2026-10-07",
+      "hitter_categories": [
+        "hits",
+        "hrr",
+        "home_runs"
+      ],
+      "include_pitchers": true,
+      "corrections_active": false,
+      "edges_requested": false,
+      "use_projected_lineups": false
+    }
+  }
+}
