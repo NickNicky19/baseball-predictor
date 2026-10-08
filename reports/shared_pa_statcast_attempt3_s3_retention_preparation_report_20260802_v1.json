@@ -1,0 +1,196 @@
+{
+  "schema_version": "shared-pa-statcast-attempt3-s3-retention-preparation-report-v1",
+    "statuses": [
+      "AWS_RETENTION_AUTHORITY_PACKAGE_PREPARED",
+      "AWS_RETENTION_READ_ONLY_IDENTITY_VERIFIED",
+      "AWS_READ_ONLY_POLICY_DRAFT_PREPARED",
+      "AWS_READ_ONLY_POLICY_NOT_VALIDATED",
+      "AWS_READ_ONLY_POLICY_NOT_ATTACHED",
+      "DURABLE_RETENTION_EXECUTION_NOT_PERFORMED",
+    "SOURCE_CONTRACT_V2_PROPOSAL_MERGE_VERIFIED"
+  ],
+  "prepared_date_utc": "2026-08-02",
+  "base_commit": "b1cef71c16e7c9af51f57bf71f88d78c2b7c11d3",
+  "branch": "codex/aws-attempt3-retention-authority-v1",
+  "scope": "provider-specific Amazon S3 Object Lock durable-retention preparation only",
+    "aws_read_only_identity_inspection": {
+      "status": "AWS_RETENTION_READ_ONLY_IDENTITY_VERIFIED_SERVICE_AUDIT_BLOCKED_ON_POLICY",
+      "aws_cli": "aws-cli/2.36.14 Python/3.14.6 Windows/11 exe/AMD64",
+      "aws_profile": "mlb-retention-audit",
+      "credential_source": "AWS_LOGIN_TEMPORARY_SESSION",
+      "credentials_temporary": true,
+      "configured_region": null,
+      "sts_get_caller_identity_performed": true,
+      "caller_account_id": "723322847536",
+      "caller_arn": "arn:aws:iam::723322847536:user/mlb-retention-audit",
+      "caller_is_root": false,
+      "identity_type": "IAM_USER",
+      "partition": "aws",
+    "organization_region_policy": null,
+    "permission_probe_performed": false,
+    "existing_bucket_list_inspected": false,
+    "existing_object_lock_candidate_selected": false,
+    "existing_cloudtrail_coverage_verified": false,
+      "reason": "The exact named profile and non-root caller were verified. Service-configuration inspection remains blocked because the target user has no read-only audit policy; no service permission is inferred from STS success."
+    },
+    "read_only_audit_policy": {
+      "status": "AWS_READ_ONLY_POLICY_DRAFT_PREPARED_ACCESS_ANALYZER_VALIDATION_BLOCKED",
+      "name": "MlbRetentionAuditReadOnlyV1",
+      "recommended_form": "CUSTOMER_MANAGED",
+      "form_reason": "The exact 4908-byte canonical policy exceeds the 2048-character aggregate IAM-user inline-policy quota and fits the 6144-character customer-managed-policy quota. Every Allow is additionally bound to the exact user ARN and account, so accidental attachment elsewhere grants nothing.",
+      "target_principal": "arn:aws:iam::723322847536:user/mlb-retention-audit",
+      "canonical_policy_byte_count": 4908,
+      "canonical_policy_sha256": "5076611dad2b6abd27e8331d0e0b665d0d65b5ce52862ad2f654be5dc724d150",
+      "action_count": 61,
+      "activation_utc": "2026-08-04T21:00:00Z",
+      "expiration_utc": "2026-08-05T21:00:00Z",
+      "expiration_behavior": "Every Allow evaluates false at and after the exact expiration even if the policy remains attached.",
+      "offline_action_classification": "PASS_ALL_61_ACTIONS_AWS_SERVICE_REFERENCE_V1_4_READ_OR_LIST_NO_WRITE_NO_PERMISSION_MANAGEMENT_NO_DEPENDENCIES",
+      "access_analyzer_validation": {
+        "status": "AWS_READ_ONLY_POLICY_NOT_VALIDATED",
+        "attempted_profile": "mlb-retention-audit",
+        "region": "us-east-1",
+        "denied_action": "access-analyzer:ValidatePolicy",
+        "denied_resource": "arn:aws:access-analyzer:us-east-1:723322847536:*",
+        "reason": "no identity-based policy allows access-analyzer:ValidatePolicy",
+        "findings_returned": false,
+        "errors": [],
+        "security_warnings": [],
+        "general_warnings": [],
+        "suggestions": [],
+        "interpretation": "No policy finding was produced; authorization failed before policy analysis. A separate non-root administrator must validate this exact hash before any attachment proposal becomes executable."
+      },
+      "forbidden_permissions_present": false,
+      "s3_object_contents_readable": false,
+      "policy_created": false,
+      "policy_attached": false,
+      "aws_permission_changed": false,
+      "simulation_status": "PLAN_ONLY_NOT_EXECUTED",
+      "cleanup_status": "PLAN_ONLY_SEPARATE_MUTATION_AUTHORIZATION_REQUIRED"
+    },
+    "region_decision": {
+    "region": null,
+    "status": "UNRESOLVED_BLOCKING",
+    "required_resolution": "A separate read-only audit must bind the caller account, partition, configured/allowed regions, data-residency policy, bucket availability and CloudTrail coverage; a human must then approve one exact region."
+  },
+  "bucket_decision": {
+    "proposed_name": "mlb-statcast-evidence-lock-20260802-8826086488-v1",
+    "syntactically_valid": true,
+    "global_availability_verified": false,
+    "design": "new dedicated general-purpose evidence bucket only",
+    "existing_bucket_considered": "NO_CANDIDATE_COULD_BE_INSPECTED_WITHOUT_AWS_IDENTITY",
+    "existing_bucket_selected": false,
+    "reason_existing_bucket_not_selected": "Object Lock is irreversible at bucket level and Versioning cannot be suspended afterward; no general-purpose or unverified bucket may be modified merely because it exists.",
+    "controls": [
+      "BucketOwnerEnforced ownership with ACLs disabled",
+      "Versioning Enabled",
+      "Object Lock Enabled",
+      "no bucket-wide default retention rule",
+      "all four Block Public Access controls enabled",
+      "TLS-only bucket policy",
+      "no public or anonymous access",
+      "no unrelated contents or lifecycle rules",
+      "explicit object-version COMPLIANCE retention through 2033-08-02T00:00:00Z"
+    ]
+  },
+  "encryption_decision": {
+    "recommendation": "SSE-S3_AES256",
+    "reason": "The retained evidence is public historical baseball source data. SSE-S3 supplies service-managed encryption at rest while avoiding a separate KMS key whose disablement, deletion or policy loss could strand unreadable bytes under an unshortenable Compliance lock.",
+    "sse_s3": {
+      "confidentiality": "encrypted at rest with S3-managed keys and private bucket access",
+      "integrity": "client SHA-256, S3 checksum response and full read-back remain authoritative; ETag is metadata only",
+      "availability": "no customer-managed key dependency",
+      "permissions": "S3 role permissions only with explicit AES256 request enforcement",
+      "auditability": "S3/CloudTrail object events record encryption response",
+      "additional_aws_resources": false
+    },
+    "sse_kms": {
+      "confidentiality": "stronger independent key-policy separation",
+      "integrity": "does not replace content hashes",
+      "availability_risk": "disabled, deleted or inaccessible key can make Compliance-locked bytes unreadable",
+      "permissions": "adds kms:Encrypt, Decrypt, GenerateDataKey and DescribeKey",
+      "auditability": "adds KMS events and key-policy audit surface",
+      "long_term_dependency": "key and policy must outlive retention plus recovery margin",
+      "additional_aws_resources_and_authorization": true,
+      "selected": false
+    }
+  },
+  "iam_and_bucket_policy": {
+    "root_user_execution": false,
+    "roles": [
+      "MlbStatcastEvidenceRetentionInfrastructureV1: one exact bucket configuration only; no IAM/KMS/object deletion",
+      "MlbStatcastEvidenceRetentionWriterV1: exact prefix inspection, exactly two PutObject/PutObjectRetention targets and exact-version read-back; no delete or bucket administration",
+      "MlbStatcastEvidenceRetentionVerifierV1: bucket-control, exact-version, retention and audit reads only"
+    ],
+    "bucket_policy": "deny insecure transport, public access, deletion and wrong encryption/retention; grant PutObject only to the bound writer role for the exact two object ARNs; no third-key grant",
+    "exact_role_arns_and_policy_hash": "UNRESOLVED_AND_EXECUTION_BLOCKING",
+    "iam_modification_performed": false
+  },
+  "audit_design": {
+    "required": "An approved CloudTrail trail or event data store must already capture management events plus AWS::S3::Object data events for the exact bucket/prefix before upload.",
+    "coverage_status": "UNVERIFIED_AND_EXECUTION_BLOCKING",
+    "if_absent": "stop for separate exact audit-configuration authorization; do not upload",
+    "retained_execution_evidence": ["STS identity", "organization/region policy evidence", "bucket configurations", "event selector and SHA-256", "CloudTrail event IDs", "S3 request IDs", "VersionIds", "ETags as metadata", "checksum responses", "retention responses", "full read-back hashes"],
+    "audit_modification_performed": false
+  },
+  "object_identities": {
+    "artifact_zip_key": "mlb-source-evidence/statcast/attempt-03/run-30725195810/artifact-8826086488/shared-pa-statcast-attempt-03-30725195810.zip",
+    "custody_manifest_key": "mlb-source-evidence/statcast/attempt-03/run-30725195810/artifact-8826086488/shared-pa-statcast-attempt-03-30725195810.custody-v1.json",
+    "maximum_uploads": 2,
+    "separate_raw_response_object": false,
+    "no_overwrite": true,
+    "unexpected_existing_object": "STOP_NO_WRITE"
+  },
+  "proposal_files": {
+    "authority_package": {"path": "config/shared_pa_statcast_attempt3_s3_retention_authority_package_20260802_v1.json", "sha256": "3950c282888e8e82dd163fbbdd049bdc0ce89a8a9911aa674d7e286d93a5cb49"},
+    "custody_manifest_schema": {"path": "contracts/schemas/shared_pa_statcast_attempt3_s3_custody_manifest_v1.schema.json", "sha256": "5f2c63cb9ba534a38f723416c17ac625650b238612c11800078bc96cf355efad"},
+    "execution_plan": {"path": "reports/shared_pa_statcast_attempt3_s3_retention_execution_plan_20260802_v1.json", "sha256": "dd5ed0c299fc7f906c22d01aa452a7034319369166c2183ea8c63df7e9bce774"},
+    "offline_validator": {"path": "scripts/validate_shared_pa_statcast_attempt3_s3_retention_authority_v1.py", "sha256": "88da4b40a06703c5f321f319a82e1346afaafd784011ca6a522a48f77c15e51a"},
+    "focused_tests": {"path": "tests/test_shared_pa_statcast_attempt3_s3_retention_authority_v1.py", "sha256": "194eeb962feb4bf962495f5be9738b728a9f3c17dedcf37df6b063f48ca1d1d8"}
+  },
+  "documentation_basis": [
+    "https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html",
+    "https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock-configure.html",
+    "https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock-managing.html",
+    "https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html",
+    "https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies.html",
+    "https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html",
+    "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/filtering-data-events.html"
+  ],
+  "local_validation": {
+    "focused_no_network_no_write_tests": 30,
+    "result": "PASS",
+    "aws_api_calls": 1,
+    "aws_read_only_api_calls": 1,
+    "aws_access_analyzer_policy_findings_returned": false,
+    "aws_write_calls": 0,
+    "statcast_requests": 0
+  },
+  "scientific_boundaries": {
+    "attempt_3": "CONSUMED_INVALID_UNDER_SOURCE_CONTRACT_V1_QUARANTINED_NON_PROMOTABLE_DEVELOPMENT_EVIDENCE_ONLY",
+    "source_contract_v2": "INACTIVE_PROPOSAL_ONLY",
+    "june_28_confirmation_response": "UNSEEN",
+    "old_july_25_attempt_4": "UNUSED_UNAUTHORIZED",
+    "total_real_statcast_requests": 3
+  },
+  "actions_not_performed": [
+    "no S3 bucket or object creation",
+    "no Versioning or Object Lock change",
+    "no IAM, KMS, CloudTrail, encryption, policy, public-access or retention change",
+    "no evidence download, upload, relocation or deletion",
+    "no workflow dispatch or Statcast request",
+    "no source-contract activation, confirmation capture or scientific promotion"
+  ],
+  "authorization_proposal": {
+    "label": "AWS_DURABLE_RETENTION_AUTHORIZATION_PROPOSAL_ONLY",
+    "not_an_authorization": true,
+    "not_executable_with_unresolved_placeholders": true,
+    "copyable_text": "AWS_DURABLE_RETENTION_AUTHORIZATION_PROPOSAL_ONLY\n\nThis is a proposal only and is not current authorization. After a read-only AWS audit and protected repository merge, replace every bracketed field with verified exact values and obtain a new explicit human approval. Proposed scope: in AWS account 723322847536, partition aws, region [AWS_REGION], using non-root infrastructure role [INFRASTRUCTURE_ROLE_ARN], writer role [WRITER_ROLE_ARN], verifier role [VERIFIER_ROLE_ARN], and verified audit trail or event data store [AUDIT_ARN], create only the dedicated bucket mlb-statcast-evidence-lock-20260802-8826086488-v1 with BucketOwnerEnforced ownership, Versioning Enabled, Object Lock Enabled, all Block Public Access controls enabled, explicit SSE-S3 AES256, TLS-only access, no bucket-wide default retention, and the exact reviewed bucket-policy SHA-256 [BUCKET_POLICY_SHA256]. After verifying the bucket and both authorized keys begin absent, upload exactly the 977314-byte artifact ZIP with SHA-256 a2fb41e783e80e067b958b0c0666d9e53cb36fffc591e33e04a0238f9c1c8fe4 to mlb-source-evidence/statcast/attempt-03/run-30725195810/artifact-8826086488/shared-pa-statcast-attempt-03-30725195810.zip and one canonical custody manifest to mlb-source-evidence/statcast/attempt-03/run-30725195810/artifact-8826086488/shared-pa-statcast-attempt-03-30725195810.custody-v1.json. Apply explicit COMPLIANCE retention through exactly 2033-08-02T00:00:00Z to each object version. Bind authority package SHA-256 [AUTHORITY_PACKAGE_SHA256], custody schema SHA-256 5f2c63cb9ba534a38f723416c17ac625650b238612c11800078bc96cf355efad, execution-plan SHA-256 dd5ed0c299fc7f906c22d01aa452a7034319369166c2183ea8c63df7e9bce774, and execution commit [EXECUTION_COMMIT]. Require exact-version read-back, ZIP and manifest SHA-256 equality, VersionIds, request IDs, AES256 response and verified COMPLIANCE retention before success. Fail closed on any identity, permission, bucket, region, key, pre-existing version, audit, encryption, retention, read-back or source-state mismatch. Permit no third object, overwrite, alternative key, deletion, retention shortening, Governance bypass, KMS change, source-contract activation, confirmation capture, Statcast request or scientific promotion. Preserve the GitHub artifact until natural expiration or separate disposal authorization."
+  },
+  "read_only_audit_policy_authorization_proposal": {
+    "label": "AWS_READ_ONLY_AUDIT_POLICY_AUTHORIZATION_PROPOSAL_ONLY",
+    "not_an_authorization": true,
+    "not_executable_with_unresolved_grantor_identity_or_validation": true,
+    "copyable_text": "AWS_READ_ONLY_AUDIT_POLICY_AUTHORIZATION_PROPOSAL_ONLY\n\nThis is a proposal only and is not current authorization. A later explicit approval may authorize only the separately verified, MFA-authenticated, non-root administrative identity [SEPARATELY_VERIFIED_NON_ROOT_MFA_ADMIN_ARN], which must not be arn:aws:iam::723322847536:user/mlb-retention-audit, to: (1) run IAM Access Analyzer ValidatePolicy in us-east-1 against the exact 4908-byte canonical identity policy SHA-256 5076611dad2b6abd27e8331d0e0b665d0d65b5ce52862ad2f654be5dc724d150 and stop unless every error is resolved and every warning or suggestion is recorded; (2) perform the complete existing-permission safety check for target arn:aws:iam::723322847536:user/mlb-retention-audit and stop on any unexpected group, managed policy, inline policy, permissions boundary, access key, MFA/login state or effective permission; (3) only if both gates pass, create exactly one customer-managed policy named MlbRetentionAuditReadOnlyV1 in account 723322847536 with that exact canonical document and attach it only to the exact target user. The policy's Allow conditions are active only from 2026-08-04T21:00:00Z inclusive until 2026-08-05T21:00:00Z exclusive and are also bound to the exact target principal ARN and principal account. No inline policy, policy version beyond initial v1, other attachment, self-grant, role assumption, access key, object read, AWS mutation, evidence transfer, source request or workflow dispatch is authorized. After expiration, cleanup remains a separate protected mutation requiring explicit approval: verify expiry by simulation, detach from the exact user, verify zero other attachments, delete any separately approved unexpected nondefault version, delete the managed policy, and verify return to the recorded pre-audit permission baseline without changing any evidence object. If the activation window cannot be met, this proposal expires unused and a new exact policy document, hash, validation and approval are required."
+  }
+}

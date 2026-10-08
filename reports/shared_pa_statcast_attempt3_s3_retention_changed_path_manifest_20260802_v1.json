@@ -1,0 +1,32 @@
+{
+  "schema_version": "shared-pa-statcast-attempt3-s3-retention-changed-path-manifest-v1",
+  "status": "FAIL_CLOSED_PATH_SCOPE_DECLARED",
+  "base_commit": "b1cef71c16e7c9af51f57bf71f88d78c2b7c11d3",
+  "branch": "codex/aws-attempt3-retention-authority-v1",
+  "sorted_path_manifest_sha256": "2ca7fc6cce21300e8febe84bf89a405f36b3a744bce14357ff0a78bb4e2ef7c5",
+  "sorted_paths": [
+    "config/shared_pa_statcast_attempt3_s3_retention_authority_package_20260802_v1.json",
+    "contracts/schemas/shared_pa_statcast_attempt3_s3_custody_manifest_v1.schema.json",
+    "reports/shared_pa_statcast_attempt3_s3_retention_changed_path_manifest_20260802_v1.json",
+    "reports/shared_pa_statcast_attempt3_s3_retention_execution_plan_20260802_v1.json",
+    "reports/shared_pa_statcast_attempt3_s3_retention_preparation_report_20260802_v1.json",
+    "scripts/validate_shared_pa_statcast_attempt3_s3_retention_authority_v1.py",
+    "tests/test_shared_pa_statcast_attempt3_s3_retention_authority_v1.py"
+  ],
+  "file_sha256": {
+    "config/shared_pa_statcast_attempt3_s3_retention_authority_package_20260802_v1.json": "3950c282888e8e82dd163fbbdd049bdc0ce89a8a9911aa674d7e286d93a5cb49",
+    "contracts/schemas/shared_pa_statcast_attempt3_s3_custody_manifest_v1.schema.json": "5f2c63cb9ba534a38f723416c17ac625650b238612c11800078bc96cf355efad",
+    "reports/shared_pa_statcast_attempt3_s3_retention_execution_plan_20260802_v1.json": "dd5ed0c299fc7f906c22d01aa452a7034319369166c2183ea8c63df7e9bce774",
+    "reports/shared_pa_statcast_attempt3_s3_retention_preparation_report_20260802_v1.json": "a76adb2c5aca9d2bff31f1ebe1bb0a410cd867bd1707e62bf8decf5513d52ed3",
+    "scripts/validate_shared_pa_statcast_attempt3_s3_retention_authority_v1.py": "88da4b40a06703c5f321f319a82e1346afaafd784011ca6a522a48f77c15e51a",
+    "tests/test_shared_pa_statcast_attempt3_s3_retention_authority_v1.py": "194eeb962feb4bf962495f5be9738b728a9f3c17dedcf37df6b063f48ca1d1d8"
+  },
+  "prohibited_paths_present": false,
+  "raw_artifact_bytes_included": false,
+  "raw_response_bytes_included": false,
+  "credential_or_secret_files_included": false,
+  "source_contract_changed": false,
+  "capture_or_confirmation_workflow_changed": false,
+  "model_feature_prediction_or_aws_state_changed": false,
+  "fail_closed_rule": "the proposed commit must contain exactly sorted_paths as regular non-symlink files and every listed content hash must match"
+}
