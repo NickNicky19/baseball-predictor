@@ -10696,3 +10696,5 @@ mlb_game_pk,player_id,player_name,game_date,category,predicted_value,actual_valu
 849838,607259,Nick Martinez,2026-10-07,strikeouts,4.36,3.0,0.72,8c7eed9bb0c3,,,,,,,,,3,3.67,1,0
 849838,608331,Max Fried,2026-10-07,strikeouts,5.25,7.0,0.72,8c7eed9bb0c3,,,,,,,,,7,5.67,0,2
 849827,621111,Walker Buehler,2026-10-07,strikeouts,4.29,0.0,0.72,8c7eed9bb0c3,,,,,,,,,0,3.0,2,0
+849831,680732,Sean Burke,2026-10-10,strikeouts,6.64,4.0,0.72,8c7eed9bb0c3,,,,,,,,,4,5.0,0,1
+849831,668909,Gavin Williams,2026-10-10,strikeouts,7.15,12.0,0.72,8c7eed9bb0c3,,,,,,,,,12,5.67,2,0
