@@ -1,0 +1,1712 @@
+{
+  "schema_version": "shared-pa-statcast-attempt3-s3-retention-authority-package-v1",
+  "status": "INACTIVE_PROPOSAL_BLOCKED_ON_READ_ONLY_AUDIT_POLICY_VALIDATION_AND_ATTACHMENT_AUTHORIZATION",
+  "preparation_is_aws_authorization": false,
+  "aws_write_authorized": false,
+  "upload_authorized": false,
+  "retention_lock_authorized": false,
+  "deletion_authorized": false,
+  "self_authorization_permitted": false,
+  "purpose": "Provider-specific preparation for durable preservation of the exact attempt-3 GitHub artifact and one detached custody manifest in Amazon S3 Object Lock without changing scientific disposition",
+  "repository": {
+    "preparation_base_commit": "b1cef71c16e7c9af51f57bf71f88d78c2b7c11d3",
+    "execution_commit": null,
+    "execution_commit_status": "MUST_BE_BOUND_BY_SEPARATE_AUTHORIZATION_AFTER_THIS_DRAFT_IS_REVIEWED_AND_MERGED",
+    "path_allowlist_sha256": "2ca7fc6cce21300e8febe84bf89a405f36b3a744bce14357ff0a78bb4e2ef7c5",
+    "path_allowlist": [
+      "config/shared_pa_statcast_attempt3_s3_retention_authority_package_20260802_v1.json",
+      "contracts/schemas/shared_pa_statcast_attempt3_s3_custody_manifest_v1.schema.json",
+      "reports/shared_pa_statcast_attempt3_s3_retention_changed_path_manifest_20260802_v1.json",
+      "reports/shared_pa_statcast_attempt3_s3_retention_execution_plan_20260802_v1.json",
+      "reports/shared_pa_statcast_attempt3_s3_retention_preparation_report_20260802_v1.json",
+      "scripts/validate_shared_pa_statcast_attempt3_s3_retention_authority_v1.py",
+      "tests/test_shared_pa_statcast_attempt3_s3_retention_authority_v1.py"
+    ]
+  },
+  "aws_identity": {
+    "verification_status": "AWS_RETENTION_READ_ONLY_IDENTITY_VERIFIED_SERVICE_AUDIT_BLOCKED_ON_POLICY",
+    "reason": "AWS CLI v2.36.14 verified the exact named profile mlb-retention-audit as a temporary aws login session for a non-root IAM user. Only STS caller identity was accepted; service configuration remains uninspected pending a separately authorized read-only policy.",
+    "profile": "mlb-retention-audit",
+    "credential_source": "AWS_LOGIN_TEMPORARY_SESSION",
+    "credentials_temporary": true,
+    "account_id": "723322847536",
+    "caller_arn": "arn:aws:iam::723322847536:user/mlb-retention-audit",
+    "caller_is_root": false,
+    "identity_type": "IAM_USER",
+    "partition": "aws",
+    "region": null,
+    "configured_region": null,
+    "organization_allowed_region_policy": null,
+    "permissions": {
+      "s3_read": null,
+      "s3_write": null,
+      "iam_read": null,
+      "iam_write": null,
+      "object_lock_read": null,
+      "object_lock_write": null,
+      "encryption_read": null,
+      "cloudtrail_read": null,
+      "cloudtrail_write": null
+    },
+    "execution_blocked_until_every_null_binding_is_verified": true,
+    "no_service_permission_inferred_from_sts_success": true
+  },
+  "read_only_audit_policy": {
+    "status": "DRAFT_PREPARED_ACCESS_ANALYZER_VALIDATION_PENDING",
+    "policy_name": "MlbRetentionAuditReadOnlyV1",
+    "target_principal": "arn:aws:iam::723322847536:user/mlb-retention-audit",
+    "form_decision": {
+      "recommended": "CUSTOMER_MANAGED",
+      "user_inline": {
+        "blast_radius": "One-to-one and no attachment reuse surface.",
+        "accidental_attachment": "Not applicable outside the embedded user.",
+        "versioning_rollback": "No policy versions; replacement overwrites the inline document.",
+        "auditability": "PutUserPolicy/DeleteUserPolicy events identify changes.",
+        "removal": "DeleteUserPolicy on the exact user.",
+        "suitability": "Preferred in principle for one temporary user.",
+        "operational_burden": "Lowest.",
+        "aws_non_whitespace_character_quota": 2048,
+        "exact_policy_fits": false
+      },
+      "customer_managed": {
+        "blast_radius": "Potential attachment surface exists, but every Allow is conditioned on the exact target principal ARN and account, so attachment elsewhere grants nothing.",
+        "accidental_attachment": "Administratively possible; exact-principal condition makes it non-authorizing.",
+        "versioning_rollback": "Supports versions; only initial v1 is proposed and no new version is permitted without separate approval.",
+        "auditability": "CreatePolicy, AttachUserPolicy, DetachUserPolicy, DeletePolicy and version events are separate.",
+        "removal": "Detach from the exact user, delete any separately authorized nondefault versions, then DeletePolicy.",
+        "suitability": "Required because the exact enumerated policy exceeds the inline-user quota.",
+        "operational_burden": "Higher controlled lifecycle.",
+        "aws_non_whitespace_character_quota": 6144,
+        "exact_policy_fits": true
+      },
+      "exact_reason": "The 4908-byte canonical no-wildcard policy exceeds the 2048-character aggregate IAM-user inline-policy quota and fits the 6144-character customer-managed-policy quota."
+    },
+    "time_boundary": {
+      "activation_utc": "2026-08-04T21:00:00Z",
+      "expiration_utc": "2026-08-05T21:00:00Z",
+      "duration_seconds": 86400,
+      "activation_basis": "PREREGISTERED_PROPOSED_ATTACHMENT_WINDOW_NOT_AN_OBSERVED_OR_GUESSED_ATTACHMENT_TIMESTAMP",
+      "if_not_attached_before_activation": "REGENERATE_AND_REVIEW_A_NEW_EXACT_POLICY_WINDOW",
+      "condition_expression": "DateGreaterThanEquals aws:CurrentTime 2026-08-04T21:00:00Z AND DateLessThan aws:CurrentTime 2026-08-05T21:00:00Z",
+      "post_expiration_behavior": "All Allows evaluate false at and after the expiration even if attached; cleanup still requires separate approval."
+    },
+    "canonicalization": "UTF-8 without BOM; recursively sorted object keys; compact separators; one terminal LF",
+    "canonical_policy_byte_count": 4908,
+    "canonical_policy_sha256": "5076611dad2b6abd27e8331d0e0b665d0d65b5ce52862ad2f654be5dc724d150",
+    "policy_document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "GlobalReadOnlyDiscovery",
+          "Effect": "Allow",
+          "Action": [
+            "access-analyzer:ValidatePolicy",
+            "cloudtrail:DescribeTrails",
+            "cloudtrail:ListEventDataStores",
+            "cloudtrail:ListTrails",
+            "ec2:DescribeRegions",
+            "iam:ListGroups",
+            "iam:ListPolicies",
+            "iam:ListRoles",
+            "iam:ListUsers",
+            "kms:ListAliases",
+            "kms:ListKeys",
+            "organizations:DescribeOrganization",
+            "organizations:ListAccounts",
+            "organizations:ListParents",
+            "organizations:ListPolicies",
+            "organizations:ListRoots",
+            "s3:GetAccountPublicAccessBlock",
+            "s3:ListAllMyBuckets",
+            "sts:GetCallerIdentity"
+          ],
+          "Resource": "*",
+          "Condition": {
+            "ArnEquals": {
+              "aws:PrincipalArn": "arn:aws:iam::723322847536:user/mlb-retention-audit"
+            },
+            "DateGreaterThanEquals": {
+              "aws:CurrentTime": "2026-08-04T21:00:00Z"
+            },
+            "DateLessThan": {
+              "aws:CurrentTime": "2026-08-05T21:00:00Z"
+            },
+            "StringEquals": {
+              "aws:PrincipalAccount": "723322847536"
+            }
+          }
+        },
+        {
+          "Sid": "AccountRegionState",
+          "Effect": "Allow",
+          "Action": [
+            "account:GetRegionOptStatus",
+            "account:ListRegions"
+          ],
+          "Resource": "arn:aws:account::723322847536:account",
+          "Condition": {
+            "ArnEquals": {
+              "aws:PrincipalArn": "arn:aws:iam::723322847536:user/mlb-retention-audit"
+            },
+            "DateGreaterThanEquals": {
+              "aws:CurrentTime": "2026-08-04T21:00:00Z"
+            },
+            "DateLessThan": {
+              "aws:CurrentTime": "2026-08-05T21:00:00Z"
+            },
+            "StringEquals": {
+              "aws:PrincipalAccount": "723322847536"
+            }
+          }
+        },
+        {
+          "Sid": "S3BucketConfigurationAndKeyNames",
+          "Effect": "Allow",
+          "Action": [
+            "s3:GetBucketAcl",
+            "s3:GetBucketLocation",
+            "s3:GetBucketObjectLockConfiguration",
+            "s3:GetBucketOwnershipControls",
+            "s3:GetBucketPolicy",
+            "s3:GetBucketPolicyStatus",
+            "s3:GetBucketPublicAccessBlock",
+            "s3:GetBucketVersioning",
+            "s3:GetEncryptionConfiguration",
+            "s3:GetLifecycleConfiguration",
+            "s3:ListBucket",
+            "s3:ListBucketVersions"
+          ],
+          "Resource": "arn:aws:s3:::*",
+          "Condition": {
+            "ArnEquals": {
+              "aws:PrincipalArn": "arn:aws:iam::723322847536:user/mlb-retention-audit"
+            },
+            "DateGreaterThanEquals": {
+              "aws:CurrentTime": "2026-08-04T21:00:00Z"
+            },
+            "DateLessThan": {
+              "aws:CurrentTime": "2026-08-05T21:00:00Z"
+            },
+            "StringEquals": {
+              "aws:PrincipalAccount": "723322847536",
+              "s3:ResourceAccount": "723322847536"
+            }
+          }
+        },
+        {
+          "Sid": "CloudTrailConfiguration",
+          "Effect": "Allow",
+          "Action": [
+            "cloudtrail:GetEventDataStore",
+            "cloudtrail:GetEventSelectors",
+            "cloudtrail:GetTrailStatus"
+          ],
+          "Resource": [
+            "arn:aws:cloudtrail:*:723322847536:eventdatastore/*",
+            "arn:aws:cloudtrail:*:723322847536:trail/*"
+          ],
+          "Condition": {
+            "ArnEquals": {
+              "aws:PrincipalArn": "arn:aws:iam::723322847536:user/mlb-retention-audit"
+            },
+            "DateGreaterThanEquals": {
+              "aws:CurrentTime": "2026-08-04T21:00:00Z"
+            },
+            "DateLessThan": {
+              "aws:CurrentTime": "2026-08-05T21:00:00Z"
+            },
+            "StringEquals": {
+              "aws:PrincipalAccount": "723322847536"
+            }
+          }
+        },
+        {
+          "Sid": "IAMEntityAndPolicyDocuments",
+          "Effect": "Allow",
+          "Action": [
+            "iam:GetGroup",
+            "iam:GetGroupPolicy",
+            "iam:GetPolicy",
+            "iam:GetPolicyVersion",
+            "iam:GetRole",
+            "iam:GetRolePolicy",
+            "iam:GetUser",
+            "iam:GetUserPolicy",
+            "iam:ListAttachedGroupPolicies",
+            "iam:ListAttachedRolePolicies",
+            "iam:ListAttachedUserPolicies",
+            "iam:ListEntitiesForPolicy",
+            "iam:ListGroupsForUser",
+            "iam:ListGroupPolicies",
+            "iam:ListPolicyVersions",
+            "iam:ListRolePolicies",
+            "iam:ListUserPolicies"
+          ],
+          "Resource": [
+            "arn:aws:iam::723322847536:group/*",
+            "arn:aws:iam::723322847536:policy/*",
+            "arn:aws:iam::723322847536:role/*",
+            "arn:aws:iam::723322847536:user/*",
+            "arn:aws:iam::aws:policy/*"
+          ],
+          "Condition": {
+            "ArnEquals": {
+              "aws:PrincipalArn": "arn:aws:iam::723322847536:user/mlb-retention-audit"
+            },
+            "DateGreaterThanEquals": {
+              "aws:CurrentTime": "2026-08-04T21:00:00Z"
+            },
+            "DateLessThan": {
+              "aws:CurrentTime": "2026-08-05T21:00:00Z"
+            },
+            "StringEquals": {
+              "aws:PrincipalAccount": "723322847536"
+            }
+          }
+        },
+        {
+          "Sid": "IAMExactPrincipalSimulation",
+          "Effect": "Allow",
+          "Action": "iam:SimulatePrincipalPolicy",
+          "Resource": "arn:aws:iam::723322847536:user/mlb-retention-audit",
+          "Condition": {
+            "ArnEquals": {
+              "aws:PrincipalArn": "arn:aws:iam::723322847536:user/mlb-retention-audit"
+            },
+            "DateGreaterThanEquals": {
+              "aws:CurrentTime": "2026-08-04T21:00:00Z"
+            },
+            "DateLessThan": {
+              "aws:CurrentTime": "2026-08-05T21:00:00Z"
+            },
+            "StringEquals": {
+              "aws:PrincipalAccount": "723322847536"
+            }
+          }
+        },
+        {
+          "Sid": "KMSKeyConfiguration",
+          "Effect": "Allow",
+          "Action": [
+            "kms:DescribeKey",
+            "kms:GetKeyPolicy",
+            "kms:GetKeyRotationStatus",
+            "kms:ListKeyPolicies"
+          ],
+          "Resource": "arn:aws:kms:*:723322847536:key/*",
+          "Condition": {
+            "ArnEquals": {
+              "aws:PrincipalArn": "arn:aws:iam::723322847536:user/mlb-retention-audit"
+            },
+            "DateGreaterThanEquals": {
+              "aws:CurrentTime": "2026-08-04T21:00:00Z"
+            },
+            "DateLessThan": {
+              "aws:CurrentTime": "2026-08-05T21:00:00Z"
+            },
+            "StringEquals": {
+              "aws:PrincipalAccount": "723322847536"
+            }
+          }
+        },
+        {
+          "Sid": "OrganizationsPolicyDocuments",
+          "Effect": "Allow",
+          "Action": [
+            "organizations:DescribePolicy",
+            "organizations:ListPoliciesForTarget",
+            "organizations:ListTargetsForPolicy"
+          ],
+          "Resource": "arn:aws:organizations::723322847536:*/*",
+          "Condition": {
+            "ArnEquals": {
+              "aws:PrincipalArn": "arn:aws:iam::723322847536:user/mlb-retention-audit"
+            },
+            "DateGreaterThanEquals": {
+              "aws:CurrentTime": "2026-08-04T21:00:00Z"
+            },
+            "DateLessThan": {
+              "aws:CurrentTime": "2026-08-05T21:00:00Z"
+            },
+            "StringEquals": {
+              "aws:PrincipalAccount": "723322847536"
+            }
+          }
+        }
+      ]
+    },
+    "service_authorization_reference": {
+      "source": "https://servicereference.us-east-1.amazonaws.com/",
+      "retrieved_date_utc": "2026-08-02",
+      "version": "v1.4",
+      "files": {
+        "access-analyzer": {
+          "version": "v1.4",
+          "sha256": "dfdbc9a0f0d1eb8910f3ae1351285298a2d3f7ce3e9072b0f8f36b2091f7568f"
+        },
+        "account": {
+          "version": "v1.4",
+          "sha256": "cac5e25df32042b79eba3f50d39ca03066aea61706b10c5103d2f7bddce5eb0d"
+        },
+        "cloudtrail": {
+          "version": "v1.4",
+          "sha256": "c1c03e5392e20a3649d010a098318592958b15bf1b02572ea1dafc1eb9acd371"
+        },
+        "ec2": {
+          "version": "v1.4",
+          "sha256": "142fa3563c16beb9a862e47c1614c174cddf5379d7c26eba7047b04457e16531"
+        },
+        "iam": {
+          "version": "v1.4",
+          "sha256": "64c591f57d99aae9219011c2d9b3fd4cf0c6aa55234552af1b2e0fc154ffda62"
+        },
+        "kms": {
+          "version": "v1.4",
+          "sha256": "74b830358c2bfc37765c7918a6655f0aa31f434c1968faeed305359cc930c664"
+        },
+        "organizations": {
+          "version": "v1.4",
+          "sha256": "1130f718ec3956989da819e5c98898f60646182a44d1f4c06d2cb581a72939eb"
+        },
+        "s3": {
+          "version": "v1.4",
+          "sha256": "3b21de4e8a34a1b730c94c360682bc408dd084cf2d67f8e9bd509163c1b0b67f"
+        },
+        "sts": {
+          "version": "v1.4",
+          "sha256": "fdde2cc1fd6f0b2a924902f39eec3714b9fedced21ec587e753e3cc2dde74a44"
+        }
+      }
+    },
+    "action_count": 61,
+    "allowed_action_matrix": [
+      {
+        "action": "access-analyzer:ValidatePolicy",
+        "service": "access-analyzer",
+        "access_level": "Read",
+        "resource_scope": "*",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Discover exact account, Region, bucket, trail, IAM/KMS, Organizations and policy-validation metadata; AWS defines no resource-level scope for these discovery actions.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "dfdbc9a0f0d1eb8910f3ae1351285298a2d3f7ce3e9072b0f8f36b2091f7568f",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "cloudtrail:DescribeTrails",
+        "service": "cloudtrail",
+        "access_level": "Read",
+        "resource_scope": "*",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Discover exact account, Region, bucket, trail, IAM/KMS, Organizations and policy-validation metadata; AWS defines no resource-level scope for these discovery actions.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "c1c03e5392e20a3649d010a098318592958b15bf1b02572ea1dafc1eb9acd371",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "cloudtrail:ListEventDataStores",
+        "service": "cloudtrail",
+        "access_level": "List",
+        "resource_scope": "*",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Discover exact account, Region, bucket, trail, IAM/KMS, Organizations and policy-validation metadata; AWS defines no resource-level scope for these discovery actions.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "c1c03e5392e20a3649d010a098318592958b15bf1b02572ea1dafc1eb9acd371",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "cloudtrail:ListTrails",
+        "service": "cloudtrail",
+        "access_level": "List",
+        "resource_scope": "*",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Discover exact account, Region, bucket, trail, IAM/KMS, Organizations and policy-validation metadata; AWS defines no resource-level scope for these discovery actions.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "c1c03e5392e20a3649d010a098318592958b15bf1b02572ea1dafc1eb9acd371",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "ec2:DescribeRegions",
+        "service": "ec2",
+        "access_level": "List",
+        "resource_scope": "*",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Discover exact account, Region, bucket, trail, IAM/KMS, Organizations and policy-validation metadata; AWS defines no resource-level scope for these discovery actions.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "142fa3563c16beb9a862e47c1614c174cddf5379d7c26eba7047b04457e16531",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "iam:ListGroups",
+        "service": "iam",
+        "access_level": "List",
+        "resource_scope": "*",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Discover exact account, Region, bucket, trail, IAM/KMS, Organizations and policy-validation metadata; AWS defines no resource-level scope for these discovery actions.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "64c591f57d99aae9219011c2d9b3fd4cf0c6aa55234552af1b2e0fc154ffda62",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "iam:ListPolicies",
+        "service": "iam",
+        "access_level": "List",
+        "resource_scope": "*",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Discover exact account, Region, bucket, trail, IAM/KMS, Organizations and policy-validation metadata; AWS defines no resource-level scope for these discovery actions.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "64c591f57d99aae9219011c2d9b3fd4cf0c6aa55234552af1b2e0fc154ffda62",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "iam:ListRoles",
+        "service": "iam",
+        "access_level": "List",
+        "resource_scope": "*",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Discover exact account, Region, bucket, trail, IAM/KMS, Organizations and policy-validation metadata; AWS defines no resource-level scope for these discovery actions.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "64c591f57d99aae9219011c2d9b3fd4cf0c6aa55234552af1b2e0fc154ffda62",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "iam:ListUsers",
+        "service": "iam",
+        "access_level": "List",
+        "resource_scope": "*",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Discover exact account, Region, bucket, trail, IAM/KMS, Organizations and policy-validation metadata; AWS defines no resource-level scope for these discovery actions.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "64c591f57d99aae9219011c2d9b3fd4cf0c6aa55234552af1b2e0fc154ffda62",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "kms:ListAliases",
+        "service": "kms",
+        "access_level": "List",
+        "resource_scope": "*",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Discover exact account, Region, bucket, trail, IAM/KMS, Organizations and policy-validation metadata; AWS defines no resource-level scope for these discovery actions.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "74b830358c2bfc37765c7918a6655f0aa31f434c1968faeed305359cc930c664",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "kms:ListKeys",
+        "service": "kms",
+        "access_level": "List",
+        "resource_scope": "*",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Discover exact account, Region, bucket, trail, IAM/KMS, Organizations and policy-validation metadata; AWS defines no resource-level scope for these discovery actions.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "74b830358c2bfc37765c7918a6655f0aa31f434c1968faeed305359cc930c664",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "organizations:DescribeOrganization",
+        "service": "organizations",
+        "access_level": "Read",
+        "resource_scope": "*",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Discover exact account, Region, bucket, trail, IAM/KMS, Organizations and policy-validation metadata; AWS defines no resource-level scope for these discovery actions.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "1130f718ec3956989da819e5c98898f60646182a44d1f4c06d2cb581a72939eb",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "organizations:ListAccounts",
+        "service": "organizations",
+        "access_level": "List",
+        "resource_scope": "*",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Discover exact account, Region, bucket, trail, IAM/KMS, Organizations and policy-validation metadata; AWS defines no resource-level scope for these discovery actions.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "1130f718ec3956989da819e5c98898f60646182a44d1f4c06d2cb581a72939eb",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "organizations:ListParents",
+        "service": "organizations",
+        "access_level": "List",
+        "resource_scope": "*",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Discover exact account, Region, bucket, trail, IAM/KMS, Organizations and policy-validation metadata; AWS defines no resource-level scope for these discovery actions.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "1130f718ec3956989da819e5c98898f60646182a44d1f4c06d2cb581a72939eb",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "organizations:ListPolicies",
+        "service": "organizations",
+        "access_level": "List",
+        "resource_scope": "*",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Discover exact account, Region, bucket, trail, IAM/KMS, Organizations and policy-validation metadata; AWS defines no resource-level scope for these discovery actions.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "1130f718ec3956989da819e5c98898f60646182a44d1f4c06d2cb581a72939eb",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "organizations:ListRoots",
+        "service": "organizations",
+        "access_level": "List",
+        "resource_scope": "*",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Discover exact account, Region, bucket, trail, IAM/KMS, Organizations and policy-validation metadata; AWS defines no resource-level scope for these discovery actions.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "1130f718ec3956989da819e5c98898f60646182a44d1f4c06d2cb581a72939eb",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "s3:GetAccountPublicAccessBlock",
+        "service": "s3",
+        "access_level": "Read",
+        "resource_scope": "*",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Discover exact account, Region, bucket, trail, IAM/KMS, Organizations and policy-validation metadata; AWS defines no resource-level scope for these discovery actions.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "3b21de4e8a34a1b730c94c360682bc408dd084cf2d67f8e9bd509163c1b0b67f",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "s3:ListAllMyBuckets",
+        "service": "s3",
+        "access_level": "List",
+        "resource_scope": "*",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Discover exact account, Region, bucket, trail, IAM/KMS, Organizations and policy-validation metadata; AWS defines no resource-level scope for these discovery actions.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "3b21de4e8a34a1b730c94c360682bc408dd084cf2d67f8e9bd509163c1b0b67f",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "sts:GetCallerIdentity",
+        "service": "sts",
+        "access_level": "Read",
+        "resource_scope": "*",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Discover exact account, Region, bucket, trail, IAM/KMS, Organizations and policy-validation metadata; AWS defines no resource-level scope for these discovery actions.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "fdde2cc1fd6f0b2a924902f39eec3714b9fedced21ec587e753e3cc2dde74a44",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "account:GetRegionOptStatus",
+        "service": "account",
+        "access_level": "Read",
+        "resource_scope": "arn:aws:account::723322847536:account",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Read this exact account's Region availability and opt-in state.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "cac5e25df32042b79eba3f50d39ca03066aea61706b10c5103d2f7bddce5eb0d",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "account:ListRegions",
+        "service": "account",
+        "access_level": "List",
+        "resource_scope": "arn:aws:account::723322847536:account",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Read this exact account's Region availability and opt-in state.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "cac5e25df32042b79eba3f50d39ca03066aea61706b10c5103d2f7bddce5eb0d",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "s3:GetBucketAcl",
+        "service": "s3",
+        "access_level": "Read",
+        "resource_scope": "arn:aws:s3:::*",
+        "condition": "exact principal ARN, principal account, inclusive activation, exclusive expiration and s3:ResourceAccount=723322847536",
+        "reason_required": "Inspect configuration and key/version names for buckets owned by account 723322847536 without reading object contents.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "3b21de4e8a34a1b730c94c360682bc408dd084cf2d67f8e9bd509163c1b0b67f",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "s3:GetBucketLocation",
+        "service": "s3",
+        "access_level": "Read",
+        "resource_scope": "arn:aws:s3:::*",
+        "condition": "exact principal ARN, principal account, inclusive activation, exclusive expiration and s3:ResourceAccount=723322847536",
+        "reason_required": "Inspect configuration and key/version names for buckets owned by account 723322847536 without reading object contents.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "3b21de4e8a34a1b730c94c360682bc408dd084cf2d67f8e9bd509163c1b0b67f",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "s3:GetBucketObjectLockConfiguration",
+        "service": "s3",
+        "access_level": "Read",
+        "resource_scope": "arn:aws:s3:::*",
+        "condition": "exact principal ARN, principal account, inclusive activation, exclusive expiration and s3:ResourceAccount=723322847536",
+        "reason_required": "Inspect configuration and key/version names for buckets owned by account 723322847536 without reading object contents.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "3b21de4e8a34a1b730c94c360682bc408dd084cf2d67f8e9bd509163c1b0b67f",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "s3:GetBucketOwnershipControls",
+        "service": "s3",
+        "access_level": "Read",
+        "resource_scope": "arn:aws:s3:::*",
+        "condition": "exact principal ARN, principal account, inclusive activation, exclusive expiration and s3:ResourceAccount=723322847536",
+        "reason_required": "Inspect configuration and key/version names for buckets owned by account 723322847536 without reading object contents.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "3b21de4e8a34a1b730c94c360682bc408dd084cf2d67f8e9bd509163c1b0b67f",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "s3:GetBucketPolicy",
+        "service": "s3",
+        "access_level": "Read",
+        "resource_scope": "arn:aws:s3:::*",
+        "condition": "exact principal ARN, principal account, inclusive activation, exclusive expiration and s3:ResourceAccount=723322847536",
+        "reason_required": "Inspect configuration and key/version names for buckets owned by account 723322847536 without reading object contents.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "3b21de4e8a34a1b730c94c360682bc408dd084cf2d67f8e9bd509163c1b0b67f",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "s3:GetBucketPolicyStatus",
+        "service": "s3",
+        "access_level": "Read",
+        "resource_scope": "arn:aws:s3:::*",
+        "condition": "exact principal ARN, principal account, inclusive activation, exclusive expiration and s3:ResourceAccount=723322847536",
+        "reason_required": "Inspect configuration and key/version names for buckets owned by account 723322847536 without reading object contents.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "3b21de4e8a34a1b730c94c360682bc408dd084cf2d67f8e9bd509163c1b0b67f",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "s3:GetBucketPublicAccessBlock",
+        "service": "s3",
+        "access_level": "Read",
+        "resource_scope": "arn:aws:s3:::*",
+        "condition": "exact principal ARN, principal account, inclusive activation, exclusive expiration and s3:ResourceAccount=723322847536",
+        "reason_required": "Inspect configuration and key/version names for buckets owned by account 723322847536 without reading object contents.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "3b21de4e8a34a1b730c94c360682bc408dd084cf2d67f8e9bd509163c1b0b67f",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "s3:GetBucketVersioning",
+        "service": "s3",
+        "access_level": "Read",
+        "resource_scope": "arn:aws:s3:::*",
+        "condition": "exact principal ARN, principal account, inclusive activation, exclusive expiration and s3:ResourceAccount=723322847536",
+        "reason_required": "Inspect configuration and key/version names for buckets owned by account 723322847536 without reading object contents.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "3b21de4e8a34a1b730c94c360682bc408dd084cf2d67f8e9bd509163c1b0b67f",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "s3:GetEncryptionConfiguration",
+        "service": "s3",
+        "access_level": "Read",
+        "resource_scope": "arn:aws:s3:::*",
+        "condition": "exact principal ARN, principal account, inclusive activation, exclusive expiration and s3:ResourceAccount=723322847536",
+        "reason_required": "Inspect configuration and key/version names for buckets owned by account 723322847536 without reading object contents.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "3b21de4e8a34a1b730c94c360682bc408dd084cf2d67f8e9bd509163c1b0b67f",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "s3:GetLifecycleConfiguration",
+        "service": "s3",
+        "access_level": "Read",
+        "resource_scope": "arn:aws:s3:::*",
+        "condition": "exact principal ARN, principal account, inclusive activation, exclusive expiration and s3:ResourceAccount=723322847536",
+        "reason_required": "Inspect configuration and key/version names for buckets owned by account 723322847536 without reading object contents.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "3b21de4e8a34a1b730c94c360682bc408dd084cf2d67f8e9bd509163c1b0b67f",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "s3:ListBucket",
+        "service": "s3",
+        "access_level": "List",
+        "resource_scope": "arn:aws:s3:::*",
+        "condition": "exact principal ARN, principal account, inclusive activation, exclusive expiration and s3:ResourceAccount=723322847536",
+        "reason_required": "Inspect configuration and key/version names for buckets owned by account 723322847536 without reading object contents.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "3b21de4e8a34a1b730c94c360682bc408dd084cf2d67f8e9bd509163c1b0b67f",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "s3:ListBucketVersions",
+        "service": "s3",
+        "access_level": "List",
+        "resource_scope": "arn:aws:s3:::*",
+        "condition": "exact principal ARN, principal account, inclusive activation, exclusive expiration and s3:ResourceAccount=723322847536",
+        "reason_required": "Inspect configuration and key/version names for buckets owned by account 723322847536 without reading object contents.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "3b21de4e8a34a1b730c94c360682bc408dd084cf2d67f8e9bd509163c1b0b67f",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "cloudtrail:GetEventDataStore",
+        "service": "cloudtrail",
+        "access_level": "Read",
+        "resource_scope": [
+          "arn:aws:cloudtrail:*:723322847536:eventdatastore/*",
+          "arn:aws:cloudtrail:*:723322847536:trail/*"
+        ],
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect exact-account trail and event-data-store status/selectors for S3 object-level audit coverage.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "c1c03e5392e20a3649d010a098318592958b15bf1b02572ea1dafc1eb9acd371",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "cloudtrail:GetEventSelectors",
+        "service": "cloudtrail",
+        "access_level": "Read",
+        "resource_scope": [
+          "arn:aws:cloudtrail:*:723322847536:eventdatastore/*",
+          "arn:aws:cloudtrail:*:723322847536:trail/*"
+        ],
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect exact-account trail and event-data-store status/selectors for S3 object-level audit coverage.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "c1c03e5392e20a3649d010a098318592958b15bf1b02572ea1dafc1eb9acd371",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "cloudtrail:GetTrailStatus",
+        "service": "cloudtrail",
+        "access_level": "Read",
+        "resource_scope": [
+          "arn:aws:cloudtrail:*:723322847536:eventdatastore/*",
+          "arn:aws:cloudtrail:*:723322847536:trail/*"
+        ],
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect exact-account trail and event-data-store status/selectors for S3 object-level audit coverage.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "c1c03e5392e20a3649d010a098318592958b15bf1b02572ea1dafc1eb9acd371",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "iam:GetGroup",
+        "service": "iam",
+        "access_level": "Read",
+        "resource_scope": [
+          "arn:aws:iam::723322847536:group/*",
+          "arn:aws:iam::723322847536:policy/*",
+          "arn:aws:iam::723322847536:role/*",
+          "arn:aws:iam::723322847536:user/*",
+          "arn:aws:iam::aws:policy/*"
+        ],
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect exact-account IAM entity and inline/managed policy documents, including attached AWS-managed policy documents, without IAM mutation.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "64c591f57d99aae9219011c2d9b3fd4cf0c6aa55234552af1b2e0fc154ffda62",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "iam:GetGroupPolicy",
+        "service": "iam",
+        "access_level": "Read",
+        "resource_scope": [
+          "arn:aws:iam::723322847536:group/*",
+          "arn:aws:iam::723322847536:policy/*",
+          "arn:aws:iam::723322847536:role/*",
+          "arn:aws:iam::723322847536:user/*",
+          "arn:aws:iam::aws:policy/*"
+        ],
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect exact-account IAM entity and inline/managed policy documents, including attached AWS-managed policy documents, without IAM mutation.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "64c591f57d99aae9219011c2d9b3fd4cf0c6aa55234552af1b2e0fc154ffda62",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "iam:GetPolicy",
+        "service": "iam",
+        "access_level": "Read",
+        "resource_scope": [
+          "arn:aws:iam::723322847536:group/*",
+          "arn:aws:iam::723322847536:policy/*",
+          "arn:aws:iam::723322847536:role/*",
+          "arn:aws:iam::723322847536:user/*",
+          "arn:aws:iam::aws:policy/*"
+        ],
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect exact-account IAM entity and inline/managed policy documents, including attached AWS-managed policy documents, without IAM mutation.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "64c591f57d99aae9219011c2d9b3fd4cf0c6aa55234552af1b2e0fc154ffda62",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "iam:GetPolicyVersion",
+        "service": "iam",
+        "access_level": "Read",
+        "resource_scope": [
+          "arn:aws:iam::723322847536:group/*",
+          "arn:aws:iam::723322847536:policy/*",
+          "arn:aws:iam::723322847536:role/*",
+          "arn:aws:iam::723322847536:user/*",
+          "arn:aws:iam::aws:policy/*"
+        ],
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect exact-account IAM entity and inline/managed policy documents, including attached AWS-managed policy documents, without IAM mutation.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "64c591f57d99aae9219011c2d9b3fd4cf0c6aa55234552af1b2e0fc154ffda62",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "iam:GetRole",
+        "service": "iam",
+        "access_level": "Read",
+        "resource_scope": [
+          "arn:aws:iam::723322847536:group/*",
+          "arn:aws:iam::723322847536:policy/*",
+          "arn:aws:iam::723322847536:role/*",
+          "arn:aws:iam::723322847536:user/*",
+          "arn:aws:iam::aws:policy/*"
+        ],
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect exact-account IAM entity and inline/managed policy documents, including attached AWS-managed policy documents, without IAM mutation.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "64c591f57d99aae9219011c2d9b3fd4cf0c6aa55234552af1b2e0fc154ffda62",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "iam:GetRolePolicy",
+        "service": "iam",
+        "access_level": "Read",
+        "resource_scope": [
+          "arn:aws:iam::723322847536:group/*",
+          "arn:aws:iam::723322847536:policy/*",
+          "arn:aws:iam::723322847536:role/*",
+          "arn:aws:iam::723322847536:user/*",
+          "arn:aws:iam::aws:policy/*"
+        ],
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect exact-account IAM entity and inline/managed policy documents, including attached AWS-managed policy documents, without IAM mutation.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "64c591f57d99aae9219011c2d9b3fd4cf0c6aa55234552af1b2e0fc154ffda62",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "iam:GetUser",
+        "service": "iam",
+        "access_level": "Read",
+        "resource_scope": [
+          "arn:aws:iam::723322847536:group/*",
+          "arn:aws:iam::723322847536:policy/*",
+          "arn:aws:iam::723322847536:role/*",
+          "arn:aws:iam::723322847536:user/*",
+          "arn:aws:iam::aws:policy/*"
+        ],
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect exact-account IAM entity and inline/managed policy documents, including attached AWS-managed policy documents, without IAM mutation.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "64c591f57d99aae9219011c2d9b3fd4cf0c6aa55234552af1b2e0fc154ffda62",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "iam:GetUserPolicy",
+        "service": "iam",
+        "access_level": "Read",
+        "resource_scope": [
+          "arn:aws:iam::723322847536:group/*",
+          "arn:aws:iam::723322847536:policy/*",
+          "arn:aws:iam::723322847536:role/*",
+          "arn:aws:iam::723322847536:user/*",
+          "arn:aws:iam::aws:policy/*"
+        ],
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect exact-account IAM entity and inline/managed policy documents, including attached AWS-managed policy documents, without IAM mutation.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "64c591f57d99aae9219011c2d9b3fd4cf0c6aa55234552af1b2e0fc154ffda62",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "iam:ListAttachedGroupPolicies",
+        "service": "iam",
+        "access_level": "List",
+        "resource_scope": [
+          "arn:aws:iam::723322847536:group/*",
+          "arn:aws:iam::723322847536:policy/*",
+          "arn:aws:iam::723322847536:role/*",
+          "arn:aws:iam::723322847536:user/*",
+          "arn:aws:iam::aws:policy/*"
+        ],
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect exact-account IAM entity and inline/managed policy documents, including attached AWS-managed policy documents, without IAM mutation.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "64c591f57d99aae9219011c2d9b3fd4cf0c6aa55234552af1b2e0fc154ffda62",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "iam:ListAttachedRolePolicies",
+        "service": "iam",
+        "access_level": "List",
+        "resource_scope": [
+          "arn:aws:iam::723322847536:group/*",
+          "arn:aws:iam::723322847536:policy/*",
+          "arn:aws:iam::723322847536:role/*",
+          "arn:aws:iam::723322847536:user/*",
+          "arn:aws:iam::aws:policy/*"
+        ],
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect exact-account IAM entity and inline/managed policy documents, including attached AWS-managed policy documents, without IAM mutation.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "64c591f57d99aae9219011c2d9b3fd4cf0c6aa55234552af1b2e0fc154ffda62",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "iam:ListAttachedUserPolicies",
+        "service": "iam",
+        "access_level": "List",
+        "resource_scope": [
+          "arn:aws:iam::723322847536:group/*",
+          "arn:aws:iam::723322847536:policy/*",
+          "arn:aws:iam::723322847536:role/*",
+          "arn:aws:iam::723322847536:user/*",
+          "arn:aws:iam::aws:policy/*"
+        ],
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect exact-account IAM entity and inline/managed policy documents, including attached AWS-managed policy documents, without IAM mutation.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "64c591f57d99aae9219011c2d9b3fd4cf0c6aa55234552af1b2e0fc154ffda62",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "iam:ListEntitiesForPolicy",
+        "service": "iam",
+        "access_level": "List",
+        "resource_scope": [
+          "arn:aws:iam::723322847536:group/*",
+          "arn:aws:iam::723322847536:policy/*",
+          "arn:aws:iam::723322847536:role/*",
+          "arn:aws:iam::723322847536:user/*",
+          "arn:aws:iam::aws:policy/*"
+        ],
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect exact-account IAM entity and inline/managed policy documents, including attached AWS-managed policy documents, without IAM mutation.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "64c591f57d99aae9219011c2d9b3fd4cf0c6aa55234552af1b2e0fc154ffda62",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "iam:ListGroupsForUser",
+        "service": "iam",
+        "access_level": "List",
+        "resource_scope": [
+          "arn:aws:iam::723322847536:group/*",
+          "arn:aws:iam::723322847536:policy/*",
+          "arn:aws:iam::723322847536:role/*",
+          "arn:aws:iam::723322847536:user/*",
+          "arn:aws:iam::aws:policy/*"
+        ],
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect exact-account IAM entity and inline/managed policy documents, including attached AWS-managed policy documents, without IAM mutation.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "64c591f57d99aae9219011c2d9b3fd4cf0c6aa55234552af1b2e0fc154ffda62",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "iam:ListGroupPolicies",
+        "service": "iam",
+        "access_level": "List",
+        "resource_scope": [
+          "arn:aws:iam::723322847536:group/*",
+          "arn:aws:iam::723322847536:policy/*",
+          "arn:aws:iam::723322847536:role/*",
+          "arn:aws:iam::723322847536:user/*",
+          "arn:aws:iam::aws:policy/*"
+        ],
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect exact-account IAM entity and inline/managed policy documents, including attached AWS-managed policy documents, without IAM mutation.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "64c591f57d99aae9219011c2d9b3fd4cf0c6aa55234552af1b2e0fc154ffda62",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "iam:ListPolicyVersions",
+        "service": "iam",
+        "access_level": "List",
+        "resource_scope": [
+          "arn:aws:iam::723322847536:group/*",
+          "arn:aws:iam::723322847536:policy/*",
+          "arn:aws:iam::723322847536:role/*",
+          "arn:aws:iam::723322847536:user/*",
+          "arn:aws:iam::aws:policy/*"
+        ],
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect exact-account IAM entity and inline/managed policy documents, including attached AWS-managed policy documents, without IAM mutation.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "64c591f57d99aae9219011c2d9b3fd4cf0c6aa55234552af1b2e0fc154ffda62",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "iam:ListRolePolicies",
+        "service": "iam",
+        "access_level": "List",
+        "resource_scope": [
+          "arn:aws:iam::723322847536:group/*",
+          "arn:aws:iam::723322847536:policy/*",
+          "arn:aws:iam::723322847536:role/*",
+          "arn:aws:iam::723322847536:user/*",
+          "arn:aws:iam::aws:policy/*"
+        ],
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect exact-account IAM entity and inline/managed policy documents, including attached AWS-managed policy documents, without IAM mutation.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "64c591f57d99aae9219011c2d9b3fd4cf0c6aa55234552af1b2e0fc154ffda62",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "iam:ListUserPolicies",
+        "service": "iam",
+        "access_level": "List",
+        "resource_scope": [
+          "arn:aws:iam::723322847536:group/*",
+          "arn:aws:iam::723322847536:policy/*",
+          "arn:aws:iam::723322847536:role/*",
+          "arn:aws:iam::723322847536:user/*",
+          "arn:aws:iam::aws:policy/*"
+        ],
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect exact-account IAM entity and inline/managed policy documents, including attached AWS-managed policy documents, without IAM mutation.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "64c591f57d99aae9219011c2d9b3fd4cf0c6aa55234552af1b2e0fc154ffda62",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "iam:SimulatePrincipalPolicy",
+        "service": "iam",
+        "access_level": "Read",
+        "resource_scope": "arn:aws:iam::723322847536:user/mlb-retention-audit",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Simulate only the exact audit principal's effective permissions.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "64c591f57d99aae9219011c2d9b3fd4cf0c6aa55234552af1b2e0fc154ffda62",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "kms:DescribeKey",
+        "service": "kms",
+        "access_level": "Read",
+        "resource_scope": "arn:aws:kms:*:723322847536:key/*",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect exact-account KMS key identity, state, policy names/documents and rotation state without cryptographic use or mutation.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "74b830358c2bfc37765c7918a6655f0aa31f434c1968faeed305359cc930c664",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "kms:GetKeyPolicy",
+        "service": "kms",
+        "access_level": "Read",
+        "resource_scope": "arn:aws:kms:*:723322847536:key/*",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect exact-account KMS key identity, state, policy names/documents and rotation state without cryptographic use or mutation.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "74b830358c2bfc37765c7918a6655f0aa31f434c1968faeed305359cc930c664",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "kms:GetKeyRotationStatus",
+        "service": "kms",
+        "access_level": "Read",
+        "resource_scope": "arn:aws:kms:*:723322847536:key/*",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect exact-account KMS key identity, state, policy names/documents and rotation state without cryptographic use or mutation.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "74b830358c2bfc37765c7918a6655f0aa31f434c1968faeed305359cc930c664",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "kms:ListKeyPolicies",
+        "service": "kms",
+        "access_level": "List",
+        "resource_scope": "arn:aws:kms:*:723322847536:key/*",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect exact-account KMS key identity, state, policy names/documents and rotation state without cryptographic use or mutation.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "74b830358c2bfc37765c7918a6655f0aa31f434c1968faeed305359cc930c664",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "organizations:DescribePolicy",
+        "service": "organizations",
+        "access_level": "Read",
+        "resource_scope": "arn:aws:organizations::723322847536:*/*",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect visible organization policy documents and target relationships under this account's Organizations namespace.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "1130f718ec3956989da819e5c98898f60646182a44d1f4c06d2cb581a72939eb",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "organizations:ListPoliciesForTarget",
+        "service": "organizations",
+        "access_level": "List",
+        "resource_scope": "arn:aws:organizations::723322847536:*/*",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect visible organization policy documents and target relationships under this account's Organizations namespace.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "1130f718ec3956989da819e5c98898f60646182a44d1f4c06d2cb581a72939eb",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      },
+      {
+        "action": "organizations:ListTargetsForPolicy",
+        "service": "organizations",
+        "access_level": "List",
+        "resource_scope": "arn:aws:organizations::723322847536:*/*",
+        "condition": "exact principal ARN, principal account, inclusive activation and exclusive expiration",
+        "reason_required": "Inspect visible organization policy documents and target relationships under this account's Organizations namespace.",
+        "service_reference_version": "v1.4",
+        "service_reference_sha256": "1130f718ec3956989da819e5c98898f60646182a44d1f4c06d2cb581a72939eb",
+        "is_write": false,
+        "is_permission_management": false,
+        "dependent_actions": [],
+        "read_only_validation": "PASSED_OFFLINE_AGAINST_AWS_SERVICE_REFERENCE_V1_4"
+      }
+    ],
+    "wildcard_service_actions_present": false,
+    "action_star_present": false,
+    "not_action_present": false,
+    "object_read_actions_present": false,
+    "forbidden_actions_present": false,
+    "access_analyzer_validation": {
+      "status": "BLOCKED_ACCESS_DENIED_CURRENT_TARGET_HAS_NO_VALIDATE_POLICY_PERMISSION",
+      "region_for_validation": "us-east-1",
+      "attempted_with_profile": "mlb-retention-audit",
+      "caller_arn": "arn:aws:iam::723322847536:user/mlb-retention-audit",
+      "aws_write_performed": false,
+      "denied_action": "access-analyzer:ValidatePolicy",
+      "denied_resource": "arn:aws:access-analyzer:us-east-1:723322847536:*",
+      "denial_reason": "no identity-based policy allows access-analyzer:ValidatePolicy",
+      "policy_findings_returned": false,
+      "findings": [],
+      "errors": [],
+      "security_warnings": [],
+      "general_warnings": [],
+      "suggestions": [],
+      "attachment_blocked_until_zero_errors": true,
+      "required_resolution": "A separately verified non-root administrator must run Access Analyzer ValidatePolicy on this exact canonical policy and bind the complete findings before any attachment authorization."
+    },
+    "simulation_plan": {
+      "status": "PREPARED_NOT_EXECUTED",
+      "exact_principal": "arn:aws:iam::723322847536:user/mlb-retention-audit",
+      "mechanism": "A separately authorized non-root administrator runs iam:SimulatePrincipalPolicy with the exact current principal plus this policy as PolicyInputList and supplies aws:CurrentTime, aws:PrincipalArn, aws:PrincipalAccount and s3:ResourceAccount context values.",
+      "required_allowed_examples": [
+        "sts:GetCallerIdentity",
+        "account:ListRegions",
+        "s3:ListAllMyBuckets",
+        "s3:GetBucketObjectLockConfiguration",
+        "s3:ListBucketVersions",
+        "cloudtrail:GetEventSelectors",
+        "iam:GetRolePolicy",
+        "iam:SimulatePrincipalPolicy",
+        "kms:GetKeyPolicy",
+        "organizations:DescribePolicy",
+        "access-analyzer:ValidatePolicy"
+      ],
+      "required_denied_examples": [
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:CreateBucket",
+        "s3:PutObjectRetention",
+        "iam:CreatePolicy",
+        "iam:AttachUserPolicy",
+        "iam:PutUserPolicy",
+        "iam:PassRole",
+        "sts:AssumeRole",
+        "kms:Decrypt",
+        "kms:CreateKey",
+        "cloudtrail:CreateTrail",
+        "organizations:CreatePolicy"
+      ],
+      "pass_rule": "Every required read is allowed inside the exact window with matching context; every prohibited action is implicitDeny or explicitDeny; simulation performs no represented operation."
+    },
+    "existing_permission_safety_check": {
+      "executor": "SEPARATELY_VERIFIED_NON_ROOT_ADMINISTRATOR_NOT_THE_TARGET_USER",
+      "immediately_before_attachment": [
+        "GetUser and record permissions boundary",
+        "ListGroupsForUser and retrieve every group inline and attached managed policy document",
+        "ListAttachedUserPolicies and retrieve each default policy version",
+        "ListUserPolicies and retrieve every inline document",
+        "ListAccessKeys",
+        "ListMFADevices",
+        "GetLoginProfile status",
+        "SimulatePrincipalPolicy for the current principal across all allowed and prohibited examples",
+        "SimulatePrincipalPolicy again with this exact proposal supplied as PolicyInputList"
+      ],
+      "fail_closed_rule": "Do not attach if any group, managed policy, inline policy, boundary, access key, MFA state, login state or effective permission differs from the approved baseline or combines with this proposal to broaden access."
+    },
+    "cleanup_contract": {
+      "separate_mutation_authorization_required": true,
+      "steps": [
+        "After expiration, simulate representative actions and verify this policy supplies no Allow outside its window.",
+        "Detach arn:aws:iam::723322847536:policy/MlbRetentionAuditReadOnlyV1 from the exact user.",
+        "Verify no other principal is attached.",
+        "Delete any unexpected nondefault policy version only under separate cleanup approval.",
+        "Delete the customer-managed policy.",
+        "Repeat the inventory and simulation and verify return to baseline.",
+        "Retain only non-secret hashes, validation/simulation results, identities, request IDs and timestamps; never delete or change evidence objects."
+      ]
+    },
+    "future_grantor_requirements": {
+      "root_prohibited": true,
+      "target_self_grant_prohibited": true,
+      "exact_requirement": "A separately verified, MFA-authenticated, non-root administrative identity other than the target user, with exact ARN bound in later human authorization.",
+      "minimum_creation_attachment_actions": [
+        "iam:CreatePolicy",
+        "iam:AttachUserPolicy"
+      ],
+      "minimum_validation_and_safety_actions": [
+        "access-analyzer:ValidatePolicy",
+        "iam:GetUser",
+        "iam:ListGroupsForUser",
+        "iam:ListAttachedUserPolicies",
+        "iam:ListUserPolicies",
+        "iam:GetUserPolicy",
+        "iam:ListAccessKeys",
+        "iam:ListMFADevices",
+        "iam:GetLoginProfile",
+        "iam:GetPolicy",
+        "iam:GetPolicyVersion",
+        "iam:ListAttachedGroupPolicies",
+        "iam:ListGroupPolicies",
+        "iam:GetGroupPolicy",
+        "iam:SimulatePrincipalPolicy"
+      ],
+      "prohibited_for_target": [
+        "iam:CreatePolicy",
+        "iam:CreatePolicyVersion",
+        "iam:DeletePolicy",
+        "iam:DeletePolicyVersion",
+        "iam:AttachUserPolicy",
+        "iam:DetachUserPolicy",
+        "iam:PutUserPolicy",
+        "iam:DeleteUserPolicy",
+        "iam:AddUserToGroup",
+        "iam:CreateAccessKey",
+        "iam:UpdateAccessKey",
+        "iam:DeleteAccessKey",
+        "iam:ChangePassword",
+        "iam:CreateVirtualMFADevice",
+        "iam:EnableMFADevice",
+        "iam:DeactivateMFADevice",
+        "iam:DeleteVirtualMFADevice",
+        "iam:PassRole",
+        "sts:AssumeRole"
+      ]
+    },
+    "preparation_is_attachment_authorization": false,
+    "policy_creation_authorized": false,
+    "policy_attachment_authorized": false,
+    "cleanup_authorized": false
+  },
+  "evidence": {
+    "attempt": 3,
+    "disposition": "CONSUMED_INVALID_UNDER_SOURCE_CONTRACT_V1_QUARANTINED_NON_PROMOTABLE_DEVELOPMENT_EVIDENCE_ONLY",
+    "workflow_run_id": 30725195810,
+    "artifact_name": "shared-pa-statcast-attempt-03-30725195810",
+    "artifact_id": 8826086488,
+    "artifact_expiration_utc": "2026-10-31T00:25:53Z",
+    "source_url_identity": "https://api.github.com/repos/NickNicky19/baseball-predictor/actions/artifacts/8826086488/zip",
+    "zip_file_name": "shared-pa-statcast-attempt-03-30725195810.zip",
+    "zip_byte_count": 977314,
+    "zip_sha256": "a2fb41e783e80e067b958b0c0666d9e53cb36fffc591e33e04a0238f9c1c8fe4",
+    "raw_response_byte_count": 2918703,
+    "raw_response_sha256": "0d4c91cb2d0eabaeaeed726fcf1d4aabd7f9d888fb4c9f90789a7ba679e0a968",
+    "failure_package_byte_count": 2449,
+    "failure_package_sha256": "a166ab2c08c49238be1e45986764a6a7a960360d405b721602f28679e2bebdd0",
+    "incident_record_sha256": "52c5d6c03be7a5683f74b5d6aac3d6358c1f868d0718c02f42ef9d57c4b0d797",
+    "offline_validation_report_sha256": "21daea2df80c000f4abfeffde3c9c3f4ac44f4e0ea7e4e8727c869dc39372cdf",
+    "preservation_manifest_sha256": "55e73f0f6292b3220796ee3d2524b36c29bd115d9626a6432ebc70ff7042f660",
+    "durable_retention_proposal_sha256": "eac1c63f86846816bc87f4a79681c6955ad35012da2daa0da5ccf7480f595b57",
+    "source_contract_v1_sha256": "7078857cc1815e5c8dcecd667a9b6d69079ef31c1fc68057473d1fb1dc9ceebd",
+    "source_contract_v2_proposal_sha256": "166c49a5ea66bf4491c9d04c7f233c7bc51c032683b9883b695236dabc637328"
+  },
+  "bucket": {
+    "name": "mlb-statcast-evidence-lock-20260802-8826086488-v1",
+    "name_status": "SYNTACTICALLY_VALID_GLOBAL_AVAILABILITY_UNVERIFIED",
+    "global_availability_verified": false,
+    "account_ownership_verified": false,
+    "region": null,
+    "region_status": "UNRESOLVED_PENDING_ACCOUNT_POLICY_AND_HUMAN_BINDING",
+    "dedicated_new_bucket_required": true,
+    "existing_bucket_selected": false,
+    "existing_bucket_inspection_status": "NOT_PERFORMED_NO_AWS_IDENTITY",
+    "general_purpose_bucket": true,
+    "object_ownership": "BucketOwnerEnforced",
+    "acls_enabled": false,
+    "versioning": "Enabled",
+    "object_lock": "Enabled",
+    "default_retention_rule": null,
+    "default_retention_rule_reason": "Only the two explicitly authorized object versions are in scope; accidental future objects must not inherit an unreviewed lock",
+    "block_public_access": {
+      "BlockPublicAcls": true,
+      "IgnorePublicAcls": true,
+      "BlockPublicPolicy": true,
+      "RestrictPublicBuckets": true
+    },
+    "anonymous_or_public_principal_allowed": false,
+    "tls_only": true,
+    "unrelated_contents_allowed": false,
+    "lifecycle_rules": [],
+    "replication": null,
+    "root_user_execution_allowed": false
+  },
+  "retention": {
+    "mode": "COMPLIANCE",
+    "retain_until_utc": "2033-08-02T00:00:00Z",
+    "object_level_explicit": true,
+    "bucket_wide_default": false,
+    "shortening_allowed": false,
+    "governance_mode_allowed": false,
+    "legal_hold_required": false,
+    "deletion_or_delete_marker_creation_allowed": false
+  },
+  "objects": [
+    {
+      "type": "ARTIFACT_ZIP",
+      "key": "mlb-source-evidence/statcast/attempt-03/run-30725195810/artifact-8826086488/shared-pa-statcast-attempt-03-30725195810.zip",
+      "content_type": "application/zip",
+      "byte_count": 977314,
+      "sha256": "a2fb41e783e80e067b958b0c0666d9e53cb36fffc591e33e04a0238f9c1c8fe4",
+      "create_only": true
+    },
+    {
+      "type": "DETACHED_CUSTODY_MANIFEST",
+      "key": "mlb-source-evidence/statcast/attempt-03/run-30725195810/artifact-8826086488/shared-pa-statcast-attempt-03-30725195810.custody-v1.json",
+      "content_type": "application/json",
+      "byte_count": null,
+      "sha256": null,
+      "identity_status": "DETERMINED_ONLY_AFTER_ACTUAL_PROVIDER_FIELDS_ARE_INSERTED_AND_CANONICALIZED",
+      "create_only": true
+    }
+  ],
+  "maximum_upload_object_count": 2,
+  "raw_response_separate_third_object_allowed": false,
+  "allowed_object_prefix": "mlb-source-evidence/statcast/attempt-03/run-30725195810/artifact-8826086488/",
+  "no_overwrite_policy": {
+    "if_none_match_star_required": true,
+    "list_all_versions_and_delete_markers_before_write": true,
+    "new_version_as_replacement_allowed": false,
+    "unexpected_existing_object_behavior": "FAIL_CLOSED_NO_WRITE",
+    "matching_existing_version_behavior": "STOP_FOR_SEPARATE_READ_ONLY_ADOPTION_ADJUDICATION",
+    "alternative_key_allowed": false
+  },
+  "encryption": {
+    "recommendation": "SSE-S3",
+    "put_object_value": "AES256",
+    "kms_key_arn": null,
+    "decision": "The evidence is public historical baseball source data. Explicit SSE-S3 provides at-rest confidentiality without introducing a customer-managed key whose disablement, policy loss or deletion could make Compliance-locked evidence unreadable.",
+    "comparison": [
+      {
+        "option": "SSE-S3",
+        "confidentiality": "S3-managed encryption at rest; sufficient for non-secret public source evidence with private bucket access",
+        "integrity_and_availability": "No customer key dependency; content authority remains client SHA-256 plus read-back, not ETag",
+        "key_loss_or_deletion_risk": "No customer-managed key lifecycle that can be lost or scheduled for deletion",
+        "permissions": ["s3:PutObject with x-amz-server-side-encryption AES256", "s3:GetObjectVersion"],
+        "auditability": "S3 object and CloudTrail data events record the encryption response; fewer KMS events",
+        "long_term_dependency": "S3 service only",
+        "additional_resources_or_authorization": false
+      },
+      {
+        "option": "SSE-KMS_WITH_DEDICATED_CUSTOMER_MANAGED_KEY",
+        "confidentiality": "Adds key-policy separation and KMS authorization boundaries",
+        "integrity_and_availability": "Does not replace content SHA-256; availability additionally depends on the key remaining enabled and permitted",
+        "key_loss_or_deletion_risk": "Key disablement, deletion scheduling, policy loss or grant loss can make locked bytes unreadable while they remain undeletable",
+        "permissions": ["kms:Encrypt", "kms:Decrypt", "kms:GenerateDataKey", "kms:DescribeKey", "S3 object permissions"],
+        "auditability": "Adds KMS API events and key-policy audit surface",
+        "long_term_dependency": "Requires key retention at least through object retention, rotation/policy continuity, recovery ownership and deletion prevention",
+        "additional_resources_or_authorization": true,
+        "minimum_controls_if_later_selected": ["multi-party key administration", "automatic rotation without key-material deletion", "explicit deny ScheduleKeyDeletion through retention plus recovery margin", "key policy bound to exact S3 roles and bucket encryption context", "annual decrypt/read-back test", "separate recovery owner"]
+      }
+    ]
+  },
+  "iam_design": {
+    "root_user_prohibited": true,
+    "infrastructure_role": {
+      "name": "MlbStatcastEvidenceRetentionInfrastructureV1",
+      "arn": null,
+      "purpose": "create and configure only the one exact dedicated bucket after separate approval",
+      "allowed_actions": ["s3:CreateBucket", "s3:PutBucketOwnershipControls", "s3:PutPublicAccessBlock", "s3:PutBucketVersioning", "s3:PutBucketObjectLockConfiguration", "s3:PutEncryptionConfiguration", "s3:PutBucketPolicy", "s3:GetBucketLocation", "s3:GetBucketOwnershipControls", "s3:GetBucketPublicAccessBlock", "s3:GetBucketVersioning", "s3:GetBucketObjectLockConfiguration", "s3:GetEncryptionConfiguration", "s3:GetBucketPolicy", "s3:GetBucketPolicyStatus"],
+      "forbidden_actions": ["s3:DeleteBucket", "s3:DeleteBucketPolicy", "s3:DeleteObject", "s3:DeleteObjectVersion", "s3:BypassGovernanceRetention", "kms:*", "iam:*", "organizations:*"]
+    },
+    "writer_role": {
+      "name": "MlbStatcastEvidenceRetentionWriterV1",
+      "arn": null,
+      "allowed_actions": ["s3:ListBucketVersions for the exact prefix", "s3:GetBucketLocation", "s3:GetBucketVersioning", "s3:GetBucketObjectLockConfiguration", "s3:GetEncryptionConfiguration", "s3:GetBucketPublicAccessBlock", "s3:GetBucketOwnershipControls", "s3:GetBucketPolicyStatus", "s3:PutObject for exactly the two object ARNs", "s3:PutObjectRetention for exactly the two object ARNs", "s3:GetObjectVersion for exactly the two object ARNs", "s3:GetObjectRetention for exactly the two object ARNs"],
+      "forbidden_actions": ["s3:DeleteObject", "s3:DeleteObjectVersion", "s3:PutObject outside exact two keys", "s3:BypassGovernanceRetention", "s3:PutObjectLegalHold", "s3:PutBucketObjectLockConfiguration", "s3:PutBucketVersioning", "s3:PutBucketPolicy", "s3:DeleteBucket", "kms:*", "iam:*"]
+    },
+    "verifier_role": {
+      "name": "MlbStatcastEvidenceRetentionVerifierV1",
+      "arn": null,
+      "allowed_actions": ["s3:GetBucketLocation", "s3:GetBucketVersioning", "s3:GetBucketObjectLockConfiguration", "s3:GetEncryptionConfiguration", "s3:GetBucketPublicAccessBlock", "s3:GetBucketOwnershipControls", "s3:GetBucketPolicy", "s3:GetBucketPolicyStatus", "s3:ListBucketVersions for the exact prefix", "s3:GetObjectVersion for exactly the two object ARNs", "s3:GetObjectRetention for exactly the two object ARNs", "cloudtrail:GetEventSelectors", "cloudtrail:LookupEvents", "cloudtrail:GetTrailStatus", "cloudtrail:DescribeTrails"],
+      "write_actions": []
+    },
+    "role_creation_or_policy_attachment_authorized": false
+  },
+  "bucket_policy_design": {
+    "status": "TEMPLATE_REQUIRES_EXACT_ACCOUNT_AND_ROLE_ARN_BINDINGS",
+    "requirements": [
+      "deny s3:* for aws:SecureTransport=false on the bucket and all objects",
+      "permit no anonymous or public principal and require all four Block Public Access settings",
+      "allow PutObject only from the exact approved writer role to the two exact object ARNs",
+      "explicitly deny PutObject by the writer outside the authorized prefix and provide no PutObject grant for any third key",
+      "deny DeleteObject and DeleteObjectVersion for all proposed operating roles as defense in depth",
+      "deny PutObject when x-amz-server-side-encryption is absent or not AES256",
+      "deny PutObject when Object Lock mode is absent or not COMPLIANCE; use the AWS-supported s3:object-lock-remaining-retention-days condition key to deny retention shorter than the separately reviewed execution-time minimum, while enforcing the exact 2033-08-02T00:00:00Z timestamp in the hash-bound PutObject command and exact-version retention read-back",
+      "do not grant BypassGovernanceRetention, PutObjectLegalHold, bucket policy alteration, Object Lock configuration alteration or Versioning suspension to writer or verifier",
+      "scope read access to exact object versions and audit roles"
+    ],
+    "policy_hash": null,
+    "execution_blocked_until_exact_policy_is_rendered_reviewed_and_hash_bound": true
+  },
+  "audit_design": {
+    "existing_cloudtrail_coverage": null,
+    "status": "UNVERIFIED_AND_EXECUTION_BLOCKING",
+    "requirement": "Before any upload, verify an approved CloudTrail trail or event data store records management configuration events and S3 object-level data events for the exact bucket and prefix using an advanced event selector",
+    "required_events": ["CreateBucket", "PutBucketVersioning", "PutBucketObjectLockConfiguration", "PutBucketOwnershipControls", "PutPublicAccessBlock", "PutBucketEncryption", "PutBucketPolicy", "PutObject", "GetObject", "GetObjectRetention", "ListObjectVersions"],
+    "evidence_to_retain": ["trail or event-data-store ARN", "event-selector canonical JSON and SHA-256", "trail status", "CloudTrail event IDs", "S3 x-amz-request-id and x-amz-id-2 response identities", "STS caller identity", "bucket configuration responses", "object VersionIds", "ETags as non-authoritative metadata", "S3 checksum responses", "retention responses", "full read-back hashes"],
+    "cloudtrail_change_authorized": false,
+    "if_existing_coverage_is_absent": "STOP_AND_REQUIRE_SEPARATE_EXACT_AUDIT_CONFIGURATION_AUTHORIZATION; DO_NOT_UPLOAD"
+  },
+  "custody_manifest": {
+    "schema_path": "contracts/schemas/shared_pa_statcast_attempt3_s3_custody_manifest_v1.schema.json",
+    "schema_sha256": "5f2c63cb9ba534a38f723416c17ac625650b238612c11800078bc96cf355efad",
+    "canonicalization": "UTF-8 without BOM; recursively sorted object keys; compact separators; one terminal LF",
+    "provider_fields_must_come_from_actual_responses": true,
+    "self_referential_manifest_receipt_prohibited": true,
+    "custody_manifest_object_receipt_location": "separate machine-readable execution report"
+  },
+  "implementation": {
+    "execution_plan_path": "reports/shared_pa_statcast_attempt3_s3_retention_execution_plan_20260802_v1.json",
+    "execution_plan_sha256": "dd5ed0c299fc7f906c22d01aa452a7034319369166c2183ea8c63df7e9bce774",
+    "offline_validator_path": "scripts/validate_shared_pa_statcast_attempt3_s3_retention_authority_v1.py",
+    "offline_validator_sha256": "88da4b40a06703c5f321f319a82e1346afaafd784011ca6a522a48f77c15e51a",
+    "contains_execution_path": false
+  },
+  "allowed_future_aws_actions_after_separate_exact_authorization": [
+    "read-only identity and organization-policy verification",
+    "read-only bucket-name, candidate-bucket, permissions and CloudTrail coverage verification",
+    "create and configure exactly one dedicated bucket if every binding and permission is approved",
+    "upload exactly the two listed objects under explicit COMPLIANCE retention",
+    "read exact object versions back and verify retention",
+    "retain provider responses and execution report"
+  ],
+  "forbidden_actions": [
+    "any AWS write during preparation",
+    "root-user execution",
+    "existing general-purpose bucket modification",
+    "bucket-wide default retention",
+    "Governance mode",
+    "public access",
+    "ACL enablement",
+    "upload outside exact two keys",
+    "third raw-response object",
+    "overwrite or silent alternative key",
+    "object or version deletion",
+    "retention shortening",
+    "KMS key creation or modification",
+    "CloudTrail modification without separate exact authorization",
+    "source-contract activation",
+    "June 28 confirmation capture",
+    "Statcast request",
+    "scientific promotion, feature, model, scoring, prediction, evaluation or betting use"
+  ],
+  "fail_closed_conditions": [
+    "any unresolved AWS identity remains",
+    "caller is root or differs from approved role",
+    "region or partition differs or is disallowed by organization policy",
+    "bucket name unavailable, unexpectedly exists or is owned by another account",
+    "any candidate existing bucket is general-purpose, unrelated, lacks verified controls or has conflicting lifecycle",
+    "Versioning, Object Lock, Block Public Access, Object Ownership, encryption, TLS policy or audit coverage mismatch",
+    "Object Lock mode is not COMPLIANCE or retain-until is shortened",
+    "either key has any existing version or delete marker",
+    "artifact, inventory, raw-response or failure-package identity mismatch",
+    "missing VersionId, request identity, read-back equality or retention verification",
+    "provider field fabrication",
+    "any third object or path outside the allowlist",
+    "source-contract v2 activation, confirmation response visibility or real request count other than three"
+  ]
+}

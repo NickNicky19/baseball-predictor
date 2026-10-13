@@ -1,0 +1,207 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/NickNicky19/baseball-predictor/contracts/schemas/shared_pa_statcast_attempt3_s3_custody_manifest_v1.schema.json",
+  "title": "Attempt-3 S3 Object Lock custody manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "manifest_phase",
+    "evidence_purpose",
+    "attempt",
+    "github_workflow",
+    "github_artifact",
+    "zip_evidence",
+    "embedded_evidence",
+    "repository_evidence",
+    "aws_custody",
+    "verification",
+    "chain_of_custody_events",
+    "authorization_identity",
+    "execution_commit",
+    "immutable_result_status"
+  ],
+  "properties": {
+    "schema_version": {"const": "shared-pa-statcast-attempt3-s3-custody-manifest-v1"},
+    "manifest_phase": {"enum": ["PRE_UPLOAD_DETERMINISTIC", "FINALIZED_FROM_ACTUAL_AWS_RESPONSES"]},
+    "evidence_purpose": {"const": "DURABLE_PRESERVATION_OF_INVALID_QUARANTINED_ATTEMPT_3_DEVELOPMENT_EVIDENCE"},
+    "attempt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["number", "disposition"],
+      "properties": {
+        "number": {"const": 3},
+        "disposition": {"const": "CONSUMED_INVALID_UNDER_SOURCE_CONTRACT_V1_QUARANTINED_NON_PROMOTABLE_DEVELOPMENT_EVIDENCE_ONLY"}
+      }
+    },
+    "github_workflow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["run_id"],
+      "properties": {"run_id": {"const": 30725195810}}
+    },
+    "github_artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "id", "expires_at_utc", "source_url_identity"],
+      "properties": {
+        "name": {"const": "shared-pa-statcast-attempt-03-30725195810"},
+        "id": {"const": 8826086488},
+        "expires_at_utc": {"const": "2026-10-31T00:25:53Z"},
+        "source_url_identity": {"const": "https://api.github.com/repos/NickNicky19/baseball-predictor/actions/artifacts/8826086488/zip"}
+      }
+    },
+    "zip_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file_name", "byte_count", "sha256"],
+      "properties": {
+        "file_name": {"const": "shared-pa-statcast-attempt-03-30725195810.zip"},
+        "byte_count": {"const": 977314},
+        "sha256": {"const": "a2fb41e783e80e067b958b0c0666d9e53cb36fffc591e33e04a0238f9c1c8fe4"}
+      }
+    },
+    "embedded_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["raw_response", "failure_package"],
+      "properties": {
+        "raw_response": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["byte_count", "sha256"],
+          "properties": {
+            "byte_count": {"const": 2918703},
+            "sha256": {"const": "0d4c91cb2d0eabaeaeed726fcf1d4aabd7f9d888fb4c9f90789a7ba679e0a968"}
+          }
+        },
+        "failure_package": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["byte_count", "sha256"],
+          "properties": {
+            "byte_count": {"const": 2449},
+            "sha256": {"const": "a166ab2c08c49238be1e45986764a6a7a960360d405b721602f28679e2bebdd0"}
+          }
+        }
+      }
+    },
+    "repository_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["incident_record_sha256", "offline_validation_report_sha256", "preservation_manifest_sha256", "source_contract_v1_sha256", "source_contract_v2_proposal_sha256"],
+      "properties": {
+        "incident_record_sha256": {"const": "52c5d6c03be7a5683f74b5d6aac3d6358c1f868d0718c02f42ef9d57c4b0d797"},
+        "offline_validation_report_sha256": {"const": "21daea2df80c000f4abfeffde3c9c3f4ac44f4e0ea7e4e8727c869dc39372cdf"},
+        "preservation_manifest_sha256": {"const": "55e73f0f6292b3220796ee3d2524b36c29bd115d9626a6432ebc70ff7042f660"},
+        "source_contract_v1_sha256": {"const": "7078857cc1815e5c8dcecd667a9b6d69079ef31c1fc68057473d1fb1dc9ceebd"},
+        "source_contract_v2_proposal_sha256": {"const": "166c49a5ea66bf4491c9d04c7f233c7bc51c032683b9883b695236dabc637328"}
+      }
+    },
+    "aws_custody": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["uploader_identity", "upload_utc_timestamp", "account_id", "partition", "region", "bucket", "artifact_object", "custody_manifest_key", "encryption_mode", "kms_key_arn", "object_lock_mode", "retain_until_utc", "provider_request_ids"],
+      "properties": {
+        "uploader_identity": {"type": ["string", "null"]},
+        "upload_utc_timestamp": {"type": ["string", "null"], "format": "date-time"},
+        "account_id": {"type": ["string", "null"], "pattern": "^[0-9]{12}$"},
+        "partition": {"type": ["string", "null"], "enum": ["aws", "aws-cn", "aws-us-gov", "aws-eusc", null]},
+        "region": {"type": ["string", "null"]},
+        "bucket": {"type": ["string", "null"]},
+        "artifact_object": {"$ref": "#/$defs/objectReceipt"},
+        "custody_manifest_key": {"const": "mlb-source-evidence/statcast/attempt-03/run-30725195810/artifact-8826086488/shared-pa-statcast-attempt-03-30725195810.custody-v1.json"},
+        "encryption_mode": {"type": ["string", "null"], "enum": ["AES256", "aws:kms", null]},
+        "kms_key_arn": {"type": ["string", "null"]},
+        "object_lock_mode": {"type": ["string", "null"], "enum": ["COMPLIANCE", null]},
+        "retain_until_utc": {"type": ["string", "null"], "format": "date-time"},
+        "provider_request_ids": {
+          "type": "object",
+          "additionalProperties": {"type": "string"}
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["read_back_byte_count", "read_back_sha256", "retention_verification_result"],
+      "properties": {
+        "read_back_byte_count": {"type": ["integer", "null"], "minimum": 0},
+        "read_back_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+        "retention_verification_result": {"type": ["string", "null"], "enum": ["VERIFIED_COMPLIANCE_THROUGH_REQUIRED_TIMESTAMP", null]}
+      }
+    },
+    "chain_of_custody_events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["event_type", "observed_at_utc", "actor_identity", "evidence_sha256", "source"],
+        "properties": {
+          "event_type": {"type": "string"},
+          "observed_at_utc": {"type": "string", "format": "date-time"},
+          "actor_identity": {"type": "string"},
+          "evidence_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "source": {"type": "string"}
+        }
+      }
+    },
+    "authorization_identity": {"type": ["string", "null"]},
+    "execution_commit": {"type": ["string", "null"], "pattern": "^[0-9a-f]{40}$"},
+    "immutable_result_status": {"enum": ["PREPARED_NOT_UPLOADED", "FINALIZED_VERIFIED_COMPLIANCE_LOCKED"]}
+  },
+  "$defs": {
+    "objectReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key", "version_id", "etag", "byte_count", "sha256"],
+      "properties": {
+        "key": {"type": "string"},
+        "version_id": {"type": ["string", "null"]},
+        "etag": {"type": ["string", "null"], "description": "Provider response metadata only; never authoritative content identity"},
+        "byte_count": {"type": ["integer", "null"]},
+        "sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"manifest_phase": {"const": "FINALIZED_FROM_ACTUAL_AWS_RESPONSES"}}},
+      "then": {
+        "properties": {
+          "immutable_result_status": {"const": "FINALIZED_VERIFIED_COMPLIANCE_LOCKED"},
+          "aws_custody": {
+            "properties": {
+              "uploader_identity": {"type": "string", "minLength": 1},
+              "upload_utc_timestamp": {"type": "string"},
+              "account_id": {"type": "string"},
+              "partition": {"type": "string"},
+              "region": {"type": "string", "minLength": 1},
+              "bucket": {"type": "string", "minLength": 3},
+              "encryption_mode": {"const": "AES256"},
+              "kms_key_arn": {"type": "null"},
+              "object_lock_mode": {"const": "COMPLIANCE"},
+              "retain_until_utc": {"const": "2033-08-02T00:00:00Z"},
+              "artifact_object": {"properties": {"version_id": {"type": "string", "minLength": 1}, "etag": {"type": "string", "minLength": 1}, "byte_count": {"const": 977314}, "sha256": {"const": "a2fb41e783e80e067b958b0c0666d9e53cb36fffc591e33e04a0238f9c1c8fe4"}}}
+            }
+          },
+          "verification": {
+            "properties": {
+              "read_back_byte_count": {"const": 977314},
+              "read_back_sha256": {"const": "a2fb41e783e80e067b958b0c0666d9e53cb36fffc591e33e04a0238f9c1c8fe4"},
+              "retention_verification_result": {"const": "VERIFIED_COMPLIANCE_THROUGH_REQUIRED_TIMESTAMP"}
+            }
+          },
+          "authorization_identity": {"type": "string", "minLength": 1},
+          "execution_commit": {"type": "string"}
+        }
+      }
+    }
+  ],
+  "x-canonicalization": "UTF-8 without BOM; recursively sorted object keys; compact separators; one terminal LF; raw provider strings retained exactly",
+  "x-field-phases": {
+    "pre_upload_deterministic": ["evidence_purpose", "attempt", "github_workflow", "github_artifact", "zip_evidence", "embedded_evidence", "repository_evidence", "two exact object keys", "Object Lock mode", "retain-until timestamp", "encryption decision"],
+    "actual_execution_only": ["uploader identity", "upload UTC timestamp", "AWS account", "partition", "region", "bucket verification", "object version IDs", "ETags", "request IDs", "encryption responses", "retention responses", "read-back results", "authorization identity", "execution commit"],
+    "fabrication_prohibited": true
+  }
+}
