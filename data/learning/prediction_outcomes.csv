@@ -10700,3 +10700,5 @@ mlb_game_pk,player_id,player_name,game_date,category,predicted_value,actual_valu
 849831,668909,Gavin Williams,2026-10-10,strikeouts,7.15,12.0,0.72,8c7eed9bb0c3,,,,,,,,,12,5.67,2,0
 849809,669373,Tarik Skubal,2026-10-11,strikeouts,6.73,7.0,0.72,8c7eed9bb0c3,,,,,,,,,7,5.0,2,1
 849809,694819,Jacob Misiorowski,2026-10-11,strikeouts,7.59,5.0,0.72,8c7eed9bb0c3,,,,,,,,,5,4.33,3,0
+849813,800048,Parker Messick,2026-10-13,strikeouts,5.87,3.0,0.72,8c7eed9bb0c3,,,,,,,,,3,5.0,2,0
+849813,642547,Freddy Peralta,2026-10-13,strikeouts,5.03,6.0,0.72,8c7eed9bb0c3,,,,,,,,,6,6.0,2,0
