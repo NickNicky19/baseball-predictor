@@ -1,0 +1,2593 @@
+{
+  "game_date": "2026-10-15",
+  "hitter_projections": [
+    {
+      "player_id": 650490,
+      "player_name": "Yandy D\u00edaz",
+      "category": "hits",
+      "game_date": "2026-10-15",
+      "projected_value": 1.014,
+      "confidence": 0.82,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.013875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.673875,
+          "2.0": 0.268125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1970276106771716,
+        "walk": 0.07849539260697785,
+        "home_run": 0.029979367067056614,
+        "single": 0.14944585787122383,
+        "double": 0.0459444901170713,
+        "triple": 0.005010008922776799,
+        "out_on_bip": 0.4940972727377221
+      }
+    },
+    {
+      "player_id": 650490,
+      "player_name": "Yandy D\u00edaz",
+      "category": "hrr",
+      "game_date": "2026-10-15",
+      "projected_value": 1.89,
+      "confidence": 0.7,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.889875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.479125,
+          "3.0": 0.303375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1970276106771716,
+        "walk": 0.07849539260697785,
+        "home_run": 0.029979367067056614,
+        "single": 0.14944585787122383,
+        "double": 0.0459444901170713,
+        "triple": 0.005010008922776799,
+        "out_on_bip": 0.4940972727377221
+      }
+    },
+    {
+      "player_id": 650490,
+      "player_name": "Yandy D\u00edaz",
+      "category": "home_runs",
+      "game_date": "2026-10-15",
+      "projected_value": 0.128,
+      "confidence": 0.86,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.127625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.121125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.1970276106771716,
+        "walk": 0.07849539260697785,
+        "home_run": 0.029979367067056614,
+        "single": 0.14944585787122383,
+        "double": 0.0459444901170713,
+        "triple": 0.005010008922776799,
+        "out_on_bip": 0.4940972727377221
+      }
+    },
+    {
+      "player_id": 666018,
+      "player_name": "Jonathan Aranda",
+      "category": "hits",
+      "game_date": "2026-10-15",
+      "projected_value": 0.9,
+      "confidence": 0.82,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.89975,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.629,
+          "2.0": 0.22525
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.27462268328789663,
+        "walk": 0.08992501574807929,
+        "home_run": 0.04668425293043493,
+        "single": 0.11929887952852458,
+        "double": 0.0416319076838926,
+        "triple": 0.004126430441344031,
+        "out_on_bip": 0.4237108303798279
+      }
+    },
+    {
+      "player_id": 666018,
+      "player_name": "Jonathan Aranda",
+      "category": "hrr",
+      "game_date": "2026-10-15",
+      "projected_value": 1.933,
+      "confidence": 0.7,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.933,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.4775,
+          "3.0": 0.3235
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.27462268328789663,
+        "walk": 0.08992501574807929,
+        "home_run": 0.04668425293043493,
+        "single": 0.11929887952852458,
+        "double": 0.0416319076838926,
+        "triple": 0.004126430441344031,
+        "out_on_bip": 0.4237108303798279
+      }
+    },
+    {
+      "player_id": 666018,
+      "player_name": "Jonathan Aranda",
+      "category": "home_runs",
+      "game_date": "2026-10-15",
+      "projected_value": 0.195,
+      "confidence": 0.86,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.19475,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.181
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.27462268328789663,
+        "walk": 0.08992501574807929,
+        "home_run": 0.04668425293043493,
+        "single": 0.11929887952852458,
+        "double": 0.0416319076838926,
+        "triple": 0.004126430441344031,
+        "out_on_bip": 0.4237108303798279
+      }
+    },
+    {
+      "player_id": 691406,
+      "player_name": "Junior Caminero",
+      "category": "hits",
+      "game_date": "2026-10-15",
+      "projected_value": 0.955,
+      "confidence": 0.82,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.95525,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.645625,
+          "2.0": 0.250125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2262496735173215,
+        "walk": 0.09524390695265686,
+        "home_run": 0.04432623560257334,
+        "single": 0.13358675007965917,
+        "double": 0.04562105914771203,
+        "triple": 0.004595072031471057,
+        "out_on_bip": 0.45037730266860604
+      }
+    },
+    {
+      "player_id": 691406,
+      "player_name": "Junior Caminero",
+      "category": "hrr",
+      "game_date": "2026-10-15",
+      "projected_value": 1.978,
+      "confidence": 0.7,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.978125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.4875,
+          "3.0": 0.331375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2262496735173215,
+        "walk": 0.09524390695265686,
+        "home_run": 0.04432623560257334,
+        "single": 0.13358675007965917,
+        "double": 0.04562105914771203,
+        "triple": 0.004595072031471057,
+        "out_on_bip": 0.45037730266860604
+      }
+    },
+    {
+      "player_id": 691406,
+      "player_name": "Junior Caminero",
+      "category": "home_runs",
+      "game_date": "2026-10-15",
+      "projected_value": 0.181,
+      "confidence": 0.86,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1815,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.169875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2262496735173215,
+        "walk": 0.09524390695265686,
+        "home_run": 0.04432623560257334,
+        "single": 0.13358675007965917,
+        "double": 0.04562105914771203,
+        "triple": 0.004595072031471057,
+        "out_on_bip": 0.45037730266860604
+      }
+    },
+    {
+      "player_id": 683748,
+      "player_name": "Victor Mesa Jr.",
+      "category": "hits",
+      "game_date": "2026-10-15",
+      "projected_value": 0.936,
+      "confidence": 0.82,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.936,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.646375,
+          "2.0": 0.239
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24045825766107384,
+        "walk": 0.08159997859810321,
+        "home_run": 0.037530330759648525,
+        "single": 0.1393394524762996,
+        "double": 0.04565008662901143,
+        "triple": 0.004743321515520796,
+        "out_on_bip": 0.4506785723603426
+      }
+    },
+    {
+      "player_id": 683748,
+      "player_name": "Victor Mesa Jr.",
+      "category": "hrr",
+      "game_date": "2026-10-15",
+      "projected_value": 1.857,
+      "confidence": 0.7,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.856875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.467875,
+          "3.0": 0.3005
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24045825766107384,
+        "walk": 0.08159997859810321,
+        "home_run": 0.037530330759648525,
+        "single": 0.1393394524762996,
+        "double": 0.04565008662901143,
+        "triple": 0.004743321515520796,
+        "out_on_bip": 0.4506785723603426
+      }
+    },
+    {
+      "player_id": 683748,
+      "player_name": "Victor Mesa Jr.",
+      "category": "home_runs",
+      "game_date": "2026-10-15",
+      "projected_value": 0.158,
+      "confidence": 0.86,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.157875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.14825
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24045825766107384,
+        "walk": 0.08159997859810321,
+        "home_run": 0.037530330759648525,
+        "single": 0.1393394524762996,
+        "double": 0.04565008662901143,
+        "triple": 0.004743321515520796,
+        "out_on_bip": 0.4506785723603426
+      }
+    },
+    {
+      "player_id": 802415,
+      "player_name": "Chandler Simpson",
+      "category": "hits",
+      "game_date": "2026-10-15",
+      "projected_value": 0.962,
+      "confidence": 0.82,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.961625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.65075,
+          "2.0": 0.25225
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15693795760502652,
+        "walk": 0.06115652537783201,
+        "home_run": 0.020694722414775626,
+        "single": 0.17091182930343574,
+        "double": 0.048207159125853376,
+        "triple": 0.005618435600751004,
+        "out_on_bip": 0.5364733705723257
+      }
+    },
+    {
+      "player_id": 802415,
+      "player_name": "Chandler Simpson",
+      "category": "hrr",
+      "game_date": "2026-10-15",
+      "projected_value": 1.681,
+      "confidence": 0.74,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.6805,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.452875,
+          "3.0": 0.265625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15693795760502652,
+        "walk": 0.06115652537783201,
+        "home_run": 0.020694722414775626,
+        "single": 0.17091182930343574,
+        "double": 0.048207159125853376,
+        "triple": 0.005618435600751004,
+        "out_on_bip": 0.5364733705723257
+      }
+    },
+    {
+      "player_id": 802415,
+      "player_name": "Chandler Simpson",
+      "category": "home_runs",
+      "game_date": "2026-10-15",
+      "projected_value": 0.081,
+      "confidence": 0.88,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.08125,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.078625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.15693795760502652,
+        "walk": 0.06115652537783201,
+        "home_run": 0.020694722414775626,
+        "single": 0.17091182930343574,
+        "double": 0.048207159125853376,
+        "triple": 0.005618435600751004,
+        "out_on_bip": 0.5364733705723257
+      }
+    },
+    {
+      "player_id": 689414,
+      "player_name": "Liam Hicks",
+      "category": "hits",
+      "game_date": "2026-10-15",
+      "projected_value": 0.93,
+      "confidence": 0.82,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.929625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.643,
+          "2.0": 0.2385
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16894360453593874,
+        "walk": 0.08833778206776613,
+        "home_run": 0.03208331878324859,
+        "single": 0.1612910879779238,
+        "double": 0.048910447194301314,
+        "triple": 0.005389782953133977,
+        "out_on_bip": 0.49504397648768755
+      }
+    },
+    {
+      "player_id": 689414,
+      "player_name": "Liam Hicks",
+      "category": "hrr",
+      "game_date": "2026-10-15",
+      "projected_value": 1.768,
+      "confidence": 0.74,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.76825,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.460375,
+          "3.0": 0.28425
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16894360453593874,
+        "walk": 0.08833778206776613,
+        "home_run": 0.03208331878324859,
+        "single": 0.1612910879779238,
+        "double": 0.048910447194301314,
+        "triple": 0.005389782953133977,
+        "out_on_bip": 0.49504397648768755
+      }
+    },
+    {
+      "player_id": 689414,
+      "player_name": "Liam Hicks",
+      "category": "home_runs",
+      "game_date": "2026-10-15",
+      "projected_value": 0.126,
+      "confidence": 0.86,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.125625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.11925
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16894360453593874,
+        "walk": 0.08833778206776613,
+        "home_run": 0.03208331878324859,
+        "single": 0.1612910879779238,
+        "double": 0.048910447194301314,
+        "triple": 0.005389782953133977,
+        "out_on_bip": 0.49504397648768755
+      }
+    },
+    {
+      "player_id": 676356,
+      "player_name": "Jonny DeLuca",
+      "category": "hits",
+      "game_date": "2026-10-15",
+      "projected_value": 0.768,
+      "confidence": 0.82,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.768375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.562125,
+          "2.0": 0.176375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24719333066927332,
+        "walk": 0.06253288957545752,
+        "home_run": 0.019098316578326217,
+        "single": 0.14597726107073336,
+        "double": 0.041467971022363485,
+        "triple": 0.004806288002387099,
+        "out_on_bip": 0.47892394308145897
+      }
+    },
+    {
+      "player_id": 676356,
+      "player_name": "Jonny DeLuca",
+      "category": "hrr",
+      "game_date": "2026-10-15",
+      "projected_value": 1.394,
+      "confidence": 0.74,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.393875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.37925,
+          "3.0": 0.207625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24719333066927332,
+        "walk": 0.06253288957545752,
+        "home_run": 0.019098316578326217,
+        "single": 0.14597726107073336,
+        "double": 0.041467971022363485,
+        "triple": 0.004806288002387099,
+        "out_on_bip": 0.47892394308145897
+      }
+    },
+    {
+      "player_id": 676356,
+      "player_name": "Jonny DeLuca",
+      "category": "home_runs",
+      "game_date": "2026-10-15",
+      "projected_value": 0.07,
+      "confidence": 0.88,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.07025,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.0695
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.24719333066927332,
+        "walk": 0.06253288957545752,
+        "home_run": 0.019098316578326217,
+        "single": 0.14597726107073336,
+        "double": 0.041467971022363485,
+        "triple": 0.004806288002387099,
+        "out_on_bip": 0.47892394308145897
+      }
+    },
+    {
+      "player_id": 680700,
+      "player_name": "Richie Palacios",
+      "category": "hits",
+      "game_date": "2026-10-15",
+      "projected_value": 0.773,
+      "confidence": 0.82,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.7735,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.572,
+          "2.0": 0.171125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21639835987470854,
+        "walk": 0.09688162149910931,
+        "home_run": 0.026146217981423817,
+        "single": 0.14334818927800522,
+        "double": 0.04275562896605462,
+        "triple": 0.004771892775488714,
+        "out_on_bip": 0.4696980896252098
+      }
+    },
+    {
+      "player_id": 680700,
+      "player_name": "Richie Palacios",
+      "category": "hrr",
+      "game_date": "2026-10-15",
+      "projected_value": 1.443,
+      "confidence": 0.74,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.442625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.382875,
+          "3.0": 0.21775
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21639835987470854,
+        "walk": 0.09688162149910931,
+        "home_run": 0.026146217981423817,
+        "single": 0.14334818927800522,
+        "double": 0.04275562896605462,
+        "triple": 0.004771892775488714,
+        "out_on_bip": 0.4696980896252098
+      }
+    },
+    {
+      "player_id": 680700,
+      "player_name": "Richie Palacios",
+      "category": "home_runs",
+      "game_date": "2026-10-15",
+      "projected_value": 0.092,
+      "confidence": 0.88,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.091875,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.089
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21639835987470854,
+        "walk": 0.09688162149910931,
+        "home_run": 0.026146217981423817,
+        "single": 0.14334818927800522,
+        "double": 0.04275562896605462,
+        "triple": 0.004771892775488714,
+        "out_on_bip": 0.4696980896252098
+      }
+    },
+    {
+      "player_id": 670764,
+      "player_name": "Taylor Walls",
+      "category": "hits",
+      "game_date": "2026-10-15",
+      "projected_value": 0.593,
+      "confidence": 0.78,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.593,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.466875,
+          "2.0": 0.11225
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.273328344654254,
+        "walk": 0.09028042316309012,
+        "home_run": 0.01662540981774655,
+        "single": 0.12840661047279964,
+        "double": 0.03611819914446563,
+        "triple": 0.004218584861981161,
+        "out_on_bip": 0.4510224278856628
+      }
+    },
+    {
+      "player_id": 670764,
+      "player_name": "Taylor Walls",
+      "category": "hrr",
+      "game_date": "2026-10-15",
+      "projected_value": 1.148,
+      "confidence": 0.74,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.148125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 3.0,
+        "p_ge_threshold": {
+          "2.0": 0.309875,
+          "3.0": 0.160375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.273328344654254,
+        "walk": 0.09028042316309012,
+        "home_run": 0.01662540981774655,
+        "single": 0.12840661047279964,
+        "double": 0.03611819914446563,
+        "triple": 0.004218584861981161,
+        "out_on_bip": 0.4510224278856628
+      }
+    },
+    {
+      "player_id": 670764,
+      "player_name": "Taylor Walls",
+      "category": "home_runs",
+      "game_date": "2026-10-15",
+      "projected_value": 0.056,
+      "confidence": 0.86,
+      "team": "Tampa Bay Rays",
+      "opponent": "Cleveland Guardians",
+      "opposing_pitcher": "Gavin Williams",
+      "opposing_pitcher_id": 668909,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.05575,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.05475
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.273328344654254,
+        "walk": 0.09028042316309012,
+        "home_run": 0.01662540981774655,
+        "single": 0.12840661047279964,
+        "double": 0.03611819914446563,
+        "triple": 0.004218584861981161,
+        "out_on_bip": 0.4510224278856628
+      }
+    },
+    {
+      "player_id": 680757,
+      "player_name": "Steven Kwan",
+      "category": "hits",
+      "game_date": "2026-10-15",
+      "projected_value": 1.081,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.08075,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.695875,
+          "2.0": 0.29975
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14720497996289988,
+        "walk": 0.10697156985393892,
+        "home_run": 0.028071298512555253,
+        "single": 0.16457383439166418,
+        "double": 0.04879365073700768,
+        "triple": 0.005470961157145433,
+        "out_on_bip": 0.49891370538478863
+      }
+    },
+    {
+      "player_id": 680757,
+      "player_name": "Steven Kwan",
+      "category": "hrr",
+      "game_date": "2026-10-15",
+      "projected_value": 2.02,
+      "confidence": 0.7,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.01975,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.52275,
+          "3.0": 0.332375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14720497996289988,
+        "walk": 0.10697156985393892,
+        "home_run": 0.028071298512555253,
+        "single": 0.16457383439166418,
+        "double": 0.04879365073700768,
+        "triple": 0.005470961157145433,
+        "out_on_bip": 0.49891370538478863
+      }
+    },
+    {
+      "player_id": 680757,
+      "player_name": "Steven Kwan",
+      "category": "home_runs",
+      "game_date": "2026-10-15",
+      "projected_value": 0.116,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.11625,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.109625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.14720497996289988,
+        "walk": 0.10697156985393892,
+        "home_run": 0.028071298512555253,
+        "single": 0.16457383439166418,
+        "double": 0.04879365073700768,
+        "triple": 0.005470961157145433,
+        "out_on_bip": 0.49891370538478863
+      }
+    },
+    {
+      "player_id": 608070,
+      "player_name": "Jos\u00e9 Ram\u00edrez",
+      "category": "hits",
+      "game_date": "2026-10-15",
+      "projected_value": 0.927,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.92725,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.6405,
+          "2.0": 0.232375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16380469008802478,
+        "walk": 0.09273955718406339,
+        "home_run": 0.019812954490558587,
+        "single": 0.14718618517808704,
+        "double": 0.04179512420960568,
+        "triple": 0.004845674599684429,
+        "out_on_bip": 0.529815814249976
+      }
+    },
+    {
+      "player_id": 608070,
+      "player_name": "Jos\u00e9 Ram\u00edrez",
+      "category": "hrr",
+      "game_date": "2026-10-15",
+      "projected_value": 1.675,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.67525,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.44925,
+          "3.0": 0.26325
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16380469008802478,
+        "walk": 0.09273955718406339,
+        "home_run": 0.019812954490558587,
+        "single": 0.14718618517808704,
+        "double": 0.04179512420960568,
+        "triple": 0.004845674599684429,
+        "out_on_bip": 0.529815814249976
+      }
+    },
+    {
+      "player_id": 608070,
+      "player_name": "Jos\u00e9 Ram\u00edrez",
+      "category": "home_runs",
+      "game_date": "2026-10-15",
+      "projected_value": 0.084,
+      "confidence": 0.88,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.08375,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.081
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.16380469008802478,
+        "walk": 0.09273955718406339,
+        "home_run": 0.019812954490558587,
+        "single": 0.14718618517808704,
+        "double": 0.04179512420960568,
+        "triple": 0.004845674599684429,
+        "out_on_bip": 0.529815814249976
+      }
+    },
+    {
+      "player_id": 800050,
+      "player_name": "Chase DeLauter",
+      "category": "hits",
+      "game_date": "2026-10-15",
+      "projected_value": 1.026,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.026,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.67675,
+          "2.0": 0.274625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17579881365781524,
+        "walk": 0.09104735583086876,
+        "home_run": 0.036540985670856445,
+        "single": 0.15714837295111544,
+        "double": 0.049971872037032294,
+        "triple": 0.005310775512516608,
+        "out_on_bip": 0.48418182433979523
+      }
+    },
+    {
+      "player_id": 800050,
+      "player_name": "Chase DeLauter",
+      "category": "hrr",
+      "game_date": "2026-10-15",
+      "projected_value": 2.015,
+      "confidence": 0.7,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 2.01525,
+        "median": 2.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.511,
+          "3.0": 0.3295
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17579881365781524,
+        "walk": 0.09104735583086876,
+        "home_run": 0.036540985670856445,
+        "single": 0.15714837295111544,
+        "double": 0.049971872037032294,
+        "triple": 0.005310775512516608,
+        "out_on_bip": 0.48418182433979523
+      }
+    },
+    {
+      "player_id": 800050,
+      "player_name": "Chase DeLauter",
+      "category": "home_runs",
+      "game_date": "2026-10-15",
+      "projected_value": 0.158,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.158,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.14725
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17579881365781524,
+        "walk": 0.09104735583086876,
+        "home_run": 0.036540985670856445,
+        "single": 0.15714837295111544,
+        "double": 0.049971872037032294,
+        "triple": 0.005310775512516608,
+        "out_on_bip": 0.48418182433979523
+      }
+    },
+    {
+      "player_id": 666176,
+      "player_name": "Jo Adell",
+      "category": "hits",
+      "game_date": "2026-10-15",
+      "projected_value": 0.924,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.9245,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.64,
+          "2.0": 0.237
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23967355775981,
+        "walk": 0.0626541728307953,
+        "home_run": 0.029835667561960107,
+        "single": 0.14553231719279688,
+        "double": 0.04718291797579759,
+        "triple": 0.004941416286374217,
+        "out_on_bip": 0.47017995039246585
+      }
+    },
+    {
+      "player_id": 666176,
+      "player_name": "Jo Adell",
+      "category": "hrr",
+      "game_date": "2026-10-15",
+      "projected_value": 1.703,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.703,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.442875,
+          "3.0": 0.268875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23967355775981,
+        "walk": 0.0626541728307953,
+        "home_run": 0.029835667561960107,
+        "single": 0.14553231719279688,
+        "double": 0.04718291797579759,
+        "triple": 0.004941416286374217,
+        "out_on_bip": 0.47017995039246585
+      }
+    },
+    {
+      "player_id": 666176,
+      "player_name": "Jo Adell",
+      "category": "home_runs",
+      "game_date": "2026-10-15",
+      "projected_value": 0.128,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.128,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.121625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23967355775981,
+        "walk": 0.0626541728307953,
+        "home_run": 0.029835667561960107,
+        "single": 0.14553231719279688,
+        "double": 0.04718291797579759,
+        "triple": 0.004941416286374217,
+        "out_on_bip": 0.47017995039246585
+      }
+    },
+    {
+      "player_id": 663993,
+      "player_name": "Nathaniel Lowe",
+      "category": "hits",
+      "game_date": "2026-10-15",
+      "projected_value": 0.889,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.8895,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.617875,
+          "2.0": 0.22375
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23560618544904044,
+        "walk": 0.08225006855234009,
+        "home_run": 0.03562757146474793,
+        "single": 0.14340865132357808,
+        "double": 0.04591937327335831,
+        "triple": 0.004854564733254779,
+        "out_on_bip": 0.45233358520368033
+      }
+    },
+    {
+      "player_id": 663993,
+      "player_name": "Nathaniel Lowe",
+      "category": "hrr",
+      "game_date": "2026-10-15",
+      "projected_value": 1.759,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.759375,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.45325,
+          "3.0": 0.28875
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23560618544904044,
+        "walk": 0.08225006855234009,
+        "home_run": 0.03562757146474793,
+        "single": 0.14340865132357808,
+        "double": 0.04591937327335831,
+        "triple": 0.004854564733254779,
+        "out_on_bip": 0.45233358520368033
+      }
+    },
+    {
+      "player_id": 663993,
+      "player_name": "Nathaniel Lowe",
+      "category": "home_runs",
+      "game_date": "2026-10-15",
+      "projected_value": 0.14,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.14025,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.13125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.23560618544904044,
+        "walk": 0.08225006855234009,
+        "home_run": 0.03562757146474793,
+        "single": 0.14340865132357808,
+        "double": 0.04591937327335831,
+        "triple": 0.004854564733254779,
+        "out_on_bip": 0.45233358520368033
+      }
+    },
+    {
+      "player_id": 683953,
+      "player_name": "Travis Bazzana",
+      "category": "hits",
+      "game_date": "2026-10-15",
+      "projected_value": 0.803,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.80325,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.58325,
+          "2.0": 0.18625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21641761487574038,
+        "walk": 0.09160612245455056,
+        "home_run": 0.03097367903166773,
+        "single": 0.13280988667682284,
+        "double": 0.04152587859591039,
+        "triple": 0.00447014782750598,
+        "out_on_bip": 0.48219667053780213
+      }
+    },
+    {
+      "player_id": 683953,
+      "player_name": "Travis Bazzana",
+      "category": "hrr",
+      "game_date": "2026-10-15",
+      "projected_value": 1.573,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.572875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.41225,
+          "3.0": 0.24925
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21641761487574038,
+        "walk": 0.09160612245455056,
+        "home_run": 0.03097367903166773,
+        "single": 0.13280988667682284,
+        "double": 0.04152587859591039,
+        "triple": 0.00447014782750598,
+        "out_on_bip": 0.48219667053780213
+      }
+    },
+    {
+      "player_id": 683953,
+      "player_name": "Travis Bazzana",
+      "category": "home_runs",
+      "game_date": "2026-10-15",
+      "projected_value": 0.108,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.10775,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.10225
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.21641761487574038,
+        "walk": 0.09160612245455056,
+        "home_run": 0.03097367903166773,
+        "single": 0.13280988667682284,
+        "double": 0.04152587859591039,
+        "triple": 0.00447014782750598,
+        "out_on_bip": 0.48219667053780213
+      }
+    },
+    {
+      "player_id": 672275,
+      "player_name": "Patrick Bailey",
+      "category": "hits",
+      "game_date": "2026-10-15",
+      "projected_value": 0.863,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.862875,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.61275,
+          "2.0": 0.2075
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2616819969552091,
+        "walk": 0.07701401165954075,
+        "home_run": 0.05310073659673132,
+        "single": 0.13085777441877675,
+        "double": 0.04855955339394232,
+        "triple": 0.004600444302890232,
+        "out_on_bip": 0.4241854826729095
+      }
+    },
+    {
+      "player_id": 672275,
+      "player_name": "Patrick Bailey",
+      "category": "hrr",
+      "game_date": "2026-10-15",
+      "projected_value": 1.829,
+      "confidence": 0.7,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.828625,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "2.0": 0.450375,
+          "3.0": 0.303
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2616819969552091,
+        "walk": 0.07701401165954075,
+        "home_run": 0.05310073659673132,
+        "single": 0.13085777441877675,
+        "double": 0.04855955339394232,
+        "triple": 0.004600444302890232,
+        "out_on_bip": 0.4241854826729095
+      }
+    },
+    {
+      "player_id": 672275,
+      "player_name": "Patrick Bailey",
+      "category": "home_runs",
+      "game_date": "2026-10-15",
+      "projected_value": 0.181,
+      "confidence": 0.86,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.1815,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 1.0,
+        "p_ge_threshold": {
+          "1.0": 0.168625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.2616819969552091,
+        "walk": 0.07701401165954075,
+        "home_run": 0.05310073659673132,
+        "single": 0.13085777441877675,
+        "double": 0.04855955339394232,
+        "triple": 0.004600444302890232,
+        "out_on_bip": 0.4241854826729095
+      }
+    },
+    {
+      "player_id": 690984,
+      "player_name": "Petey Halpin",
+      "category": "hits",
+      "game_date": "2026-10-15",
+      "projected_value": 0.832,
+      "confidence": 0.727,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.832,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.596,
+          "2.0": 0.1965
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19710856785656627,
+        "walk": 0.06179673174271607,
+        "home_run": 0.028032540734303515,
+        "single": 0.1570609264537732,
+        "double": 0.04824255419334982,
+        "triple": 0.005264191811464694,
+        "out_on_bip": 0.5024944872078265
+      }
+    },
+    {
+      "player_id": 690984,
+      "player_name": "Petey Halpin",
+      "category": "hrr",
+      "game_date": "2026-10-15",
+      "projected_value": 1.507,
+      "confidence": 0.647,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.507125,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.401,
+          "3.0": 0.232625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19710856785656627,
+        "walk": 0.06179673174271607,
+        "home_run": 0.028032540734303515,
+        "single": 0.1570609264537732,
+        "double": 0.04824255419334982,
+        "triple": 0.005264191811464694,
+        "out_on_bip": 0.5024944872078265
+      }
+    },
+    {
+      "player_id": 690984,
+      "player_name": "Petey Halpin",
+      "category": "home_runs",
+      "game_date": "2026-10-15",
+      "projected_value": 0.098,
+      "confidence": 0.807,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.0975,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.094125
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.19710856785656627,
+        "walk": 0.06179673174271607,
+        "home_run": 0.028032540734303515,
+        "single": 0.1570609264537732,
+        "double": 0.04824255419334982,
+        "triple": 0.005264191811464694,
+        "out_on_bip": 0.5024944872078265
+      }
+    },
+    {
+      "player_id": 677587,
+      "player_name": "Brayan Rocchio",
+      "category": "hits",
+      "game_date": "2026-10-15",
+      "projected_value": 0.747,
+      "confidence": 0.82,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.747,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 2.0,
+        "p_ge_threshold": {
+          "1.0": 0.555875,
+          "2.0": 0.16275
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17387555799293747,
+        "walk": 0.06936142759677447,
+        "home_run": 0.022539713299971228,
+        "single": 0.1540937310449868,
+        "double": 0.04468222803658332,
+        "triple": 0.005096819463630004,
+        "out_on_bip": 0.5303505225651169
+      }
+    },
+    {
+      "player_id": 677587,
+      "player_name": "Brayan Rocchio",
+      "category": "hrr",
+      "game_date": "2026-10-15",
+      "projected_value": 1.34,
+      "confidence": 0.74,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 1.34025,
+        "median": 1.0,
+        "p10": 0.0,
+        "p90": 4.0,
+        "p_ge_threshold": {
+          "2.0": 0.359625,
+          "3.0": 0.194625
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17387555799293747,
+        "walk": 0.06936142759677447,
+        "home_run": 0.022539713299971228,
+        "single": 0.1540937310449868,
+        "double": 0.04468222803658332,
+        "triple": 0.005096819463630004,
+        "out_on_bip": 0.5303505225651169
+      }
+    },
+    {
+      "player_id": 677587,
+      "player_name": "Brayan Rocchio",
+      "category": "home_runs",
+      "game_date": "2026-10-15",
+      "projected_value": 0.075,
+      "confidence": 0.88,
+      "team": "Cleveland Guardians",
+      "opponent": "Tampa Bay Rays",
+      "opposing_pitcher": "Griffin Jax",
+      "opposing_pitcher_id": 643377,
+      "lineup_status": "confirmed",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "fitted_lineup_slot_pa",
+        "hitter_advanced_statcast",
+        "lineup_confirmed",
+        "opposing_pitcher_hr_observed_profile",
+        "opposing_pitcher_kbb_observed_profile",
+        "opposing_pitcher_observed_profile",
+        "opposing_pitcher_payload_present",
+        "rich_features_payload_present",
+        "rolling_features_unavailable",
+        "opposing_pitcher_hr9_direction_unqualified"
+      ],
+      "simulation": {
+        "n_sims": 8000,
+        "mean": 0.075,
+        "median": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "p_ge_threshold": {
+          "1.0": 0.07225
+        }
+      },
+      "outcome_probs": {
+        "strikeout": 0.17387555799293747,
+        "walk": 0.06936142759677447,
+        "home_run": 0.022539713299971228,
+        "single": 0.1540937310449868,
+        "double": 0.04468222803658332,
+        "triple": 0.005096819463630004,
+        "out_on_bip": 0.5303505225651169
+      }
+    }
+  ],
+  "pitcher_projections": [
+    {
+      "player_id": 643377,
+      "player_name": "Griffin Jax",
+      "category": "strikeouts",
+      "game_date": "2026-10-15",
+      "projected_value": 3.53,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 3.5322965931167962,
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 6.0,
+        "p_ge_threshold": {
+          "5.0": 0.28066678362060304,
+          "6.0": 0.14668441620462114,
+          "7.0": 0.0678068395444219
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 668909,
+      "player_name": "Gavin Williams",
+      "category": "strikeouts",
+      "game_date": "2026-10-15",
+      "projected_value": 7.15,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849818,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 7.154271638548962,
+        "median": 7.0,
+        "p10": 4.0,
+        "p90": 11.0,
+        "p_ge_threshold": {
+          "5.0": 0.8406225551979836,
+          "6.0": 0.7185592324437785,
+          "7.0": 0.5730135377625358
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 607192,
+      "player_name": "Tyler Glasnow",
+      "category": "strikeouts",
+      "game_date": "2026-10-15",
+      "projected_value": 6.94,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849810,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 6.939746065223952,
+        "median": 7.0,
+        "p10": 4.0,
+        "p90": 10.0,
+        "p_ge_threshold": {
+          "5.0": 0.8214403468275808,
+          "6.0": 0.691530153639826,
+          "7.0": 0.5412728616386249
+        }
+      },
+      "outcome_probs": null
+    }
+  ],
+  "value_plays": [],
+  "market_status": "RESEARCH_ONLY",
+  "market_policy_sha256": "08bc0c9d56eb21c7fb438eccd8d89539e98da111f72cdf6735af9cbeb02f154c",
+  "market_policy_reason": "policy verdict is 'RESEARCH_ONLY', not BETTING_AUTHORIZED",
+  "prediction_provenance": {
+    "schema_version": "daily-prediction-provenance-v1",
+    "captured_at_utc": "2026-10-15T16:46:35.202813+00:00",
+    "model_version": "8c7eed9bb0c3",
+    "effective_config_sha256": "3a62fc507956752086919b757ae683e60f9df8fb2143f83292ac61f07830a60c",
+    "config_source_path": "/home/runner/work/baseball-predictor/baseball-predictor/config/config.kbb.json",
+    "code": {
+      "status": "available",
+      "head": "b09626736250667613b69f0cc45d080526d85bb8",
+      "tracked_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked": [],
+      "snapshot_sha256": "2a68a3cb1d198b8055452ed334125ea90108074b50cd9f196a6a70e625cb39d7"
+    },
+    "run_options": {
+      "game_date": "2026-10-15",
+      "hitter_categories": [
+        "hits",
+        "hrr",
+        "home_runs"
+      ],
+      "include_pitchers": true,
+      "corrections_active": false,
+      "edges_requested": false,
+      "use_projected_lineups": false
+    }
+  }
+}
