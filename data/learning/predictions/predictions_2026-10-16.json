@@ -1,0 +1,96 @@
+{
+  "game_date": "2026-10-16",
+  "hitter_projections": [],
+  "pitcher_projections": [
+    {
+      "player_id": 607259,
+      "player_name": "Nick Martinez",
+      "category": "strikeouts",
+      "game_date": "2026-10-16",
+      "projected_value": 4.36,
+      "confidence": 0.72,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849817,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 4.35891085024118,
+        "median": 4.0,
+        "p10": 2.0,
+        "p90": 7.0,
+        "p_ge_threshold": {
+          "5.0": 0.44092364971600717,
+          "6.0": 0.27317549228417715,
+          "7.0": 0.15130894836124886
+        }
+      },
+      "outcome_probs": null
+    },
+    {
+      "player_id": 542888,
+      "player_name": "Shawn Armstrong",
+      "category": "strikeouts",
+      "game_date": "2026-10-16",
+      "projected_value": 2.5,
+      "confidence": 0.62,
+      "team": "",
+      "opponent": "",
+      "opposing_pitcher": "",
+      "opposing_pitcher_id": null,
+      "lineup_status": "unknown",
+      "mlb_game_pk": 849817,
+      "input_health_flags": [
+        "not_assessed_for_pitcher"
+      ],
+      "simulation": {
+        "n_sims": 0,
+        "mean": 2.5041087582420025,
+        "median": 2.0,
+        "p10": 1.0,
+        "p90": 5.0,
+        "p_ge_threshold": {
+          "5.0": 0.10937159513793548,
+          "6.0": 0.04229607113705813,
+          "7.0": 0.01430200328468001
+        }
+      },
+      "outcome_probs": null
+    }
+  ],
+  "value_plays": [],
+  "market_status": "RESEARCH_ONLY",
+  "market_policy_sha256": "08bc0c9d56eb21c7fb438eccd8d89539e98da111f72cdf6735af9cbeb02f154c",
+  "market_policy_reason": "policy verdict is 'RESEARCH_ONLY', not BETTING_AUTHORIZED",
+  "prediction_provenance": {
+    "schema_version": "daily-prediction-provenance-v1",
+    "captured_at_utc": "2026-10-16T16:28:33.500079+00:00",
+    "model_version": "8c7eed9bb0c3",
+    "effective_config_sha256": "3a62fc507956752086919b757ae683e60f9df8fb2143f83292ac61f07830a60c",
+    "config_source_path": "/home/runner/work/baseball-predictor/baseball-predictor/config/config.kbb.json",
+    "code": {
+      "status": "available",
+      "head": "c6865e63b0ba5b47d30df6746733dab402b97f75",
+      "tracked_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked": [],
+      "snapshot_sha256": "ba1001c4986a794447680efc147dcde161323259b187ad3b78e3a9adc7efe135"
+    },
+    "run_options": {
+      "game_date": "2026-10-16",
+      "hitter_categories": [
+        "hits",
+        "hrr",
+        "home_runs"
+      ],
+      "include_pitchers": true,
+      "corrections_active": false,
+      "edges_requested": false,
+      "use_projected_lineups": false
+    }
+  }
+}
