@@ -10763,3 +10763,5 @@ mlb_game_pk,player_id,player_name,game_date,category,predicted_value,actual_valu
 849810,607192,Tyler Glasnow,2026-10-15,strikeouts,6.94,6.0,0.72,8c7eed9bb0c3,,,,,,,,,6,4.33,2,0
 849816,607259,Nick Martinez,2026-10-17,strikeouts,4.36,3.0,0.72,8c7eed9bb0c3,,,,,,,,,3,5.33,2,0
 849816,542888,Shawn Armstrong,2026-10-17,strikeouts,2.5,1.0,0.62,8c7eed9bb0c3,,,,,,,,,1,1.0,0,0
+849817,656876,Drew Rasmussen,2026-10-18,strikeouts,5.67,6.0,0.72,8c7eed9bb0c3,,,,,,,,,6,7.0,1,0
+849817,800048,Parker Messick,2026-10-18,strikeouts,5.87,3.0,0.72,8c7eed9bb0c3,,,,,,,,,3,2.0,2,0
