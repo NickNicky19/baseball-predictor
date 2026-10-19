@@ -1,128 +1,17 @@
-# Validation report — 2026-10-12
+# Validation report — 2026-10-19
 
 Lookback: 14 days. Corrections OFF (read-only).
 
 ## Per-category validation (from pairs)
 ```
-2026-10-12 22:32:52 | INFO     | matplotlib.font_manager | Failed to extract font properties from /usr/share/fonts/truetype/noto/NotoColorEmoji.ttf: Non-scalable fonts are not supported
-2026-10-12 22:32:52 | INFO     | matplotlib.font_manager | generated new fontManager
-2026-10-12 22:32:53 | INFO     | src.learning.retrain_runner | Filtered to 237 pairs within last 14 days (from 10701)
+2026-10-19 20:40:17 | INFO     | matplotlib.font_manager | Failed to extract font properties from /usr/share/fonts/truetype/noto/NotoColorEmoji.ttf: Non-scalable fonts are not supported
+2026-10-19 20:40:17 | INFO     | matplotlib.font_manager | generated new fontManager
+2026-10-19 20:40:17 | INFO     | src.learning.retrain_runner | Filtered to 185 pairs within last 14 days (from 10766)
 {
-  "dates_evaluated": 7,
-  "total_matched_pairs": 237,
-  "mean_weighted_mae": 1.4981,
+  "dates_evaluated": 9,
+  "total_matched_pairs": 185,
+  "mean_weighted_mae": 1.6826,
   "results": [
-    {
-      "game_date": "2026-10-01",
-      "matched_pairs": 2,
-      "weighted_mae": 2.16,
-      "value_plays": 0,
-      "corrections_applied": false,
-      "metrics_by_category": {
-        "strikeouts": {
-          "category": "strikeouts",
-          "n_samples": 2,
-          "mae": 2.1599999999999997,
-          "rmse": 3.019552947043651,
-          "mean_error": 2.11,
-          "median_error": 2.11,
-          "mean_abs_pct_error": 2.1475
-        }
-      },
-      "error": ""
-    },
-    {
-      "game_date": "2026-10-03",
-      "matched_pairs": 61,
-      "weighted_mae": 0.9306,
-      "value_plays": 0,
-      "corrections_applied": false,
-      "metrics_by_category": {
-        "hits": {
-          "category": "hits",
-          "n_samples": 18,
-          "mae": 0.8154444444444445,
-          "rmse": 0.8680664337096172,
-          "mean_error": 0.47977777777777786,
-          "median_error": 0.7925,
-          "mean_abs_pct_error": 2.6841388888888886
-        },
-        "home_runs": {
-          "category": "home_runs",
-          "n_samples": 18,
-          "mae": 0.17661111111111108,
-          "rmse": 0.24277481564427372,
-          "mean_error": 0.08216666666666668,
-          "median_error": 0.127,
-          "mean_abs_pct_error": 0.5647777777777778
-        },
-        "hrr": {
-          "category": "hrr",
-          "n_samples": 18,
-          "mae": 1.559388888888889,
-          "rmse": 1.7185777550055743,
-          "mean_error": 0.9743888888888887,
-          "median_error": 1.555,
-          "mean_abs_pct_error": 4.999887037037038
-        },
-        "strikeouts": {
-          "category": "strikeouts",
-          "n_samples": 7,
-          "mae": 1.5485714285714285,
-          "rmse": 2.1423018328090797,
-          "mean_error": 0.040000000000000036,
-          "median_error": -0.1299999999999999,
-          "mean_abs_pct_error": 0.5979625850340137
-        }
-      },
-      "error": ""
-    },
-    {
-      "game_date": "2026-10-04",
-      "matched_pairs": 54,
-      "weighted_mae": 0.7028,
-      "value_plays": 0,
-      "corrections_applied": false,
-      "metrics_by_category": {
-        "hits": {
-          "category": "hits",
-          "n_samples": 17,
-          "mae": 0.6048823529411765,
-          "rmse": 0.732479070168762,
-          "mean_error": 0.3766470588235294,
-          "median_error": 0.636,
-          "mean_abs_pct_error": 2.030852941176471
-        },
-        "home_runs": {
-          "category": "home_runs",
-          "n_samples": 17,
-          "mae": 0.15970588235294117,
-          "rmse": 0.17141470181988475,
-          "mean_error": 0.15970588235294117,
-          "median_error": 0.143,
-          "mean_abs_pct_error": 0.6388235294117647
-        },
-        "hrr": {
-          "category": "hrr",
-          "n_samples": 17,
-          "mae": 1.2755882352941177,
-          "rmse": 1.404632524688135,
-          "mean_error": 0.5146470588235293,
-          "median_error": 0.8859999999999999,
-          "mean_abs_pct_error": 2.8471176470588238
-        },
-        "strikeouts": {
-          "category": "strikeouts",
-          "n_samples": 3,
-          "mae": 1.0899999999999999,
-          "rmse": 1.2272598203586176,
-          "mean_error": 0.5633333333333331,
-          "median_error": 0.5999999999999996,
-          "mean_abs_pct_error": 0.24055555555555552
-        }
-      },
-      "error": ""
-    },
     {
       "game_date": "2026-10-06",
       "matched_pairs": 28,
@@ -252,30 +141,152 @@ Lookback: 14 days. Corrections OFF (read-only).
         }
       },
       "error": ""
+    },
+    {
+      "game_date": "2026-10-13",
+      "matched_pairs": 2,
+      "weighted_mae": 1.92,
+      "value_plays": 0,
+      "corrections_applied": false,
+      "metrics_by_category": {
+        "strikeouts": {
+          "category": "strikeouts",
+          "n_samples": 2,
+          "mae": 1.92,
+          "rmse": 2.1421717951648978,
+          "mean_error": 0.9500000000000002,
+          "median_error": 0.9500000000000002,
+          "mean_abs_pct_error": 0.5591666666666666
+        }
+      },
+      "error": ""
+    },
+    {
+      "game_date": "2026-10-14",
+      "matched_pairs": 2,
+      "weighted_mae": 2.815,
+      "value_plays": 0,
+      "corrections_applied": false,
+      "metrics_by_category": {
+        "strikeouts": {
+          "category": "strikeouts",
+          "n_samples": 2,
+          "mae": 2.8150000000000004,
+          "rmse": 2.875143474680873,
+          "mean_error": -0.585,
+          "median_error": -0.585,
+          "mean_abs_pct_error": 0.5605555555555557
+        }
+      },
+      "error": ""
+    },
+    {
+      "game_date": "2026-10-15",
+      "matched_pairs": 57,
+      "weighted_mae": 0.6854,
+      "value_plays": 0,
+      "corrections_applied": false,
+      "metrics_by_category": {
+        "hits": {
+          "category": "hits",
+          "n_samples": 18,
+          "mae": 0.6076111111111111,
+          "rmse": 0.7246507587950365,
+          "mean_error": 0.3846111111111112,
+          "median_error": 0.6805,
+          "mean_abs_pct_error": 2.0638055555555557
+        },
+        "home_runs": {
+          "category": "home_runs",
+          "n_samples": 18,
+          "mae": 0.16550000000000004,
+          "rmse": 0.24677756516074686,
+          "mean_error": 0.06527777777777778,
+          "median_error": 0.121,
+          "mean_abs_pct_error": 0.5116666666666667
+        },
+        "hrr": {
+          "category": "hrr",
+          "n_samples": 18,
+          "mae": 1.1572777777777778,
+          "rmse": 1.3814496210704015,
+          "mean_error": 0.6396111111111111,
+          "median_error": 0.78,
+          "mean_abs_pct_error": 3.2858564814814817
+        },
+        "strikeouts": {
+          "category": "strikeouts",
+          "n_samples": 3,
+          "mae": 1.4400000000000002,
+          "rmse": 1.4885115608105521,
+          "mean_error": 0.20666666666666686,
+          "median_error": 0.9400000000000004,
+          "mean_abs_pct_error": 0.3757407407407407
+        }
+      },
+      "error": ""
+    },
+    {
+      "game_date": "2026-10-17",
+      "matched_pairs": 2,
+      "weighted_mae": 1.43,
+      "value_plays": 0,
+      "corrections_applied": false,
+      "metrics_by_category": {
+        "strikeouts": {
+          "category": "strikeouts",
+          "n_samples": 2,
+          "mae": 1.4300000000000002,
+          "rmse": 1.4317122615944868,
+          "mean_error": 1.4300000000000002,
+          "median_error": 1.4300000000000002,
+          "mean_abs_pct_error": 0.9766666666666667
+        }
+      },
+      "error": ""
+    },
+    {
+      "game_date": "2026-10-18",
+      "matched_pairs": 2,
+      "weighted_mae": 1.6,
+      "value_plays": 0,
+      "corrections_applied": false,
+      "metrics_by_category": {
+        "strikeouts": {
+          "category": "strikeouts",
+          "n_samples": 2,
+          "mae": 1.6,
+          "rmse": 2.042767730311011,
+          "mean_error": 1.27,
+          "median_error": 1.27,
+          "mean_abs_pct_error": 0.5058333333333334
+        }
+      },
+      "error": ""
     }
   ],
   "retrain_report": null
 }
 
-Validated 7 dates, 237 pairs, mean MAE=1.4981
+Validated 9 dates, 185 pairs, mean MAE=1.6826
 Report saved to data/learning/validation_report.json
 ```
 
 ## Retrain dry-run (what corrections WOULD be — not applied)
 ```
-2026-10-12 22:32:54 | INFO     | src.learning.retrain_runner | Filtered to 237 pairs within last 14 days (from 10701)
-2026-10-12 22:32:54 | INFO     | src.learning.outcome_retrainer | Ingested 237 prediction-outcome pairs
-2026-10-12 22:32:54 | INFO     | src.learning.retrain_runner | Retrain input: 237 pairs ingested (required=25, lookback=14 days, file=prediction_outcomes.csv)
-2026-10-12 22:32:54 | INFO     | src.learning.retrain_runner | Dry run: would save state to /home/runner/work/baseball-predictor/baseball-predictor/data/learning/bias_corrections.json (samples=237, confidence=0.86, MAE=0.846)
+2026-10-19 20:40:18 | INFO     | src.learning.retrain_runner | Filtered to 185 pairs within last 14 days (from 10766)
+2026-10-19 20:40:18 | INFO     | src.learning.outcome_retrainer | Ingested 185 prediction-outcome pairs
+2026-10-19 20:40:18 | INFO     | src.learning.retrain_runner | Retrain input: 185 pairs ingested (required=25, lookback=14 days, file=prediction_outcomes.csv)
+2026-10-19 20:40:18 | INFO     | src.learning.retrain_runner | Dry run: would save state to /home/runner/work/baseball-predictor/baseball-predictor/data/learning/bias_corrections.json (samples=185, confidence=0.86, MAE=0.844)
 {
-  "sample_size": 237,
+  "sample_size": 185,
   "confidence": 0.859,
-  "weighted_mae": 0.846029535864979,
+  "weighted_mae": 0.8436054054054054,
   "state_path": "",
-  "notes": "[dry-run] Fitted on 237 pairs. Weighted MAE=0.846. Confidence=0.86.",
+  "notes": "[dry-run] Fitted on 185 pairs. Weighted MAE=0.844. Confidence=0.86.",
   "skipped": false,
   "skip_reason": ""
 }
 
-Retrain complete: 237 pairs, confidence=0.86, MAE=0.846
+Retrain complete: 185 pairs, confidence=0.86, MAE=0.844
 ```
